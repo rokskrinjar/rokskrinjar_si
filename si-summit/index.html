@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The SI Summit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: a documentary long-read. Photo-led opening, then seven acts; each chapter pairs one big statement and a short film with one diagram. Ink bands for story, ivory "paper" bands for the documents. */
+:root{
+ color-scheme:dark;
+ --ink:#0b0d11;--ink-2:#13161c;--ink-3:#1c2028;--rule:rgba(241,236,226,.13);
+ --ivory:#f1ece2;--ivory-2:#cfc8ba;--mute:#959aa4;
+ --gilt:#c9a55e;--gilt-2:#e4c98f;--slate:#93a9c9;--verm:#d9714f;
+ --paper:#f2ede3;--paper-ink:#17191e;--paper-mute:#6b6658;--paper-rule:rgba(23,25,30,.14);--gilt-deep:#8a6a2b;
+ --display:'Fraunces',Georgia,'Times New Roman',serif;
+ --text:'Public Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+ --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Consolas,monospace;
+ --measure:64ch;--gutter:clamp(16px,4vw,56px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--ivory);font:400 1.0625rem/1.65 var(--text);text-rendering:optimizeLegibility}
+img,video{max-width:100%;display:block}
+a{color:var(--gilt-2);text-underline-offset:3px;text-decoration-thickness:1px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gilt-2);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);font-weight:300;letter-spacing:-.015em;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:var(--gutter)}
+.mono{font-family:var(--mono)}
+.kicker{font:500 .78rem/1.3 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+.kicker b{color:var(--gilt);font-weight:500}
+em.g{font-style:italic;color:var(--gilt-2)}
+
+/* ---------- top bar + chapter rail ---------- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(11,13,17,.86);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid var(--rule)}
+.bar .wrap{display:flex;align-items:center;gap:20px;height:56px}
+.bar .brand{font:500 .78rem var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--ivory);text-decoration:none;white-space:nowrap}
+.bar .brand b{color:var(--gilt);font-weight:500}
+.bar nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1;justify-content:flex-end}
+.bar nav::-webkit-scrollbar{display:none}
+.bar nav a{font:500 .74rem var(--mono);letter-spacing:.08em;color:var(--mute);text-decoration:none;padding:6px 10px;border-radius:999px;white-space:nowrap}
+.bar nav a:hover{color:var(--ivory)}
+.bar nav a.on{color:var(--ink);background:var(--gilt-2)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--gilt);width:0}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
+.hero .ph{position:absolute;inset:0}
+.hero .ph img{width:100%;height:118%;object-fit:cover;object-position:50% 40%;filter:grayscale(1) sepia(.28) contrast(1.08) brightness(.62);transform:translateY(var(--py,0px))}
+.hero .ph::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,17,.35) 0%,rgba(11,13,17,.55) 45%,var(--ink) 100%)}
+.hero .wrap{position:relative;padding-block:clamp(96px,16vw,190px) clamp(48px,7vw,84px)}
+.hero h1{font-size:clamp(2.6rem,7.4vw,6.4rem);line-height:.98;max-width:13ch;margin-top:22px}
+.hero .dek{max-width:58ch;font-size:clamp(1.05rem,1.6vw,1.28rem);color:var(--ivory-2);margin-top:28px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:36px;font:500 .8rem var(--mono);letter-spacing:.1em;color:var(--mute);text-transform:uppercase}
+.hero .meta span b{color:var(--ivory);font-weight:500}
+.hero .credit{position:absolute;right:var(--gutter);bottom:18px;font:500 .66rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(241,236,226,.5)}
+
+/* ---------- three announcements strip ---------- */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--rule)}
+.three a{display:block;padding:28px 28px 30px 0;text-decoration:none;color:inherit;border-right:1px solid var(--rule)}
+.three a+a{padding-left:28px}
+.three a:last-child{border-right:0}
+.three .n{font:300 3rem/1 var(--display);color:var(--gilt)}
+.three h3{font-size:1.45rem;margin-top:14px}
+.three p{color:var(--mute);margin-top:8px;font-size:.95rem}
+.three a:hover h3{color:var(--gilt-2)}
+
+/* ---------- legend ---------- */
+.legend{padding-block:44px;border-bottom:1px solid var(--rule)}
+.legend .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:28px;align-items:start}
+.legend p{color:var(--ivory-2);max-width:44ch}
+.chips{display:flex;flex-wrap:wrap;gap:10px 12px}
+.chip{display:inline-flex;align-items:center;gap:9px;height:32px;padding:0 14px 0 12px;border:1px solid currentColor;border-radius:999px;font:500 .72rem var(--mono);letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+.chip::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor}
+.chip.fact{color:var(--gilt-2)}.chip.said{color:var(--ivory)}.chip.analysis{color:var(--slate)}.chip.critic{color:var(--verm)}
+.legend dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 28px;margin:0}
+.legend dt{margin-bottom:6px}.legend dd{margin:0;color:var(--mute);font-size:.92rem}
+
+/* ---------- acts and chapters ---------- */
+.act{padding-block:clamp(56px,8vw,110px) 0}
+.act-head{display:flex;align-items:baseline;gap:20px;border-top:1px solid var(--rule);padding-top:18px}
+.act-head .roman{font:400 .8rem var(--mono);letter-spacing:.22em;color:var(--gilt)}
+.act-head h2{font:500 .8rem var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+.chapter{padding-block:clamp(44px,6vw,80px);scroll-margin-top:70px}
+.chapter + .chapter{border-top:1px solid var(--rule)}
+.statement{font-size:clamp(2rem,4.6vw,3.9rem);line-height:1.05;max-width:20ch}
+.ch-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);margin-top:clamp(28px,4vw,48px);align-items:start}
+.prose{max-width:var(--measure);display:grid;gap:18px}
+.prose p{color:var(--ivory-2)}
+.prose p strong{color:var(--ivory);font-weight:600}
+.claim{display:grid;gap:10px;padding:18px 0 0;border-top:1px solid var(--rule);justify-items:start}
+.claim p{color:var(--ivory-2)}
+.src{font:400 .74rem/1.5 var(--mono);letter-spacing:.04em;color:var(--mute)}
+.src a{color:var(--mute)}
+blockquote{margin:0;padding:0 0 0 22px;border-left:2px solid var(--gilt)}
+blockquote p{font:300 italic clamp(1.25rem,2.2vw,1.6rem)/1.3 var(--display);color:var(--ivory)}
+blockquote cite{display:block;margin-top:10px;font:500 .74rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-style:normal}
+blockquote.critic{border-color:var(--verm)}
+
+/* ---------- film player card ---------- */
+.film{margin:0;position:relative;border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--ink-2)}
+.film .frame{position:relative;aspect-ratio:16/9;max-width:100%;background:#000}
+.film video,.film .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.film .poster{background:var(--ink-3) center/cover no-repeat;display:grid;place-items:center}
+.film .poster .ph{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:20px;background:radial-gradient(120% 90% at 50% 40%,var(--ink-3),var(--ink))}
+.film .poster .ph b{font:300 clamp(1.3rem,2.6vw,2rem)/1.15 var(--display);max-width:18ch;margin:0 auto;color:var(--ivory)}
+.film .play{position:absolute;left:18px;bottom:18px;display:inline-flex;align-items:center;gap:12px;height:48px;padding:0 20px 0 8px;border-radius:999px;border:0;background:var(--ivory);color:var(--ink);font:600 .92rem var(--text);cursor:pointer}
+.film .play i{width:34px;height:34px;border-radius:50%;background:var(--ink);display:grid;place-items:center}
+.film .play i::before{content:'';border-left:11px solid var(--ivory);border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.film .play:hover{background:var(--gilt-2)}
+.film figcaption{display:flex;justify-content:space-between;gap:14px;padding:14px 18px;border-top:1px solid var(--rule);font:500 .74rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.film figcaption b{color:var(--ivory);font-weight:500}
+.film.pending .play{display:none}
+.film.pending figcaption span:last-child{color:var(--gilt)}
+
+.fsbtn{position:absolute;top:12px;right:12px;z-index:4;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px 0 10px;border-radius:999px;border:1px solid rgba(241,236,226,.25);background:rgba(11,13,17,.62);color:var(--ivory);font:600 .8rem var(--text);cursor:pointer;opacity:0;transition:opacity .25s}
+.fsbtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.frame:hover .fsbtn,.fsbtn:focus-visible,.frame.is-fs .fsbtn{opacity:1}
+@media (hover:none){.fsbtn{opacity:1}}
+.fsbtn:hover{background:var(--ivory);color:var(--ink)}
+.fsname{display:none}
+.frame.is-fs{width:100vw;height:100vh;aspect-ratio:auto;background:#000}
+.frame.is-fs video{object-fit:contain}
+.frame.is-fs .fsname{display:block;position:absolute;top:18px;left:22px;z-index:4;font:500 .8rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(241,236,226,.7);opacity:0;transition:opacity .25s}
+.frame.is-fs:hover .fsname{opacity:1}
+.frame.is-fs .fsbtn span{display:none}
+.frame.is-fs .upnext{padding:clamp(32px,8vw,120px)}
+.frame.is-fs .upnext .t{font-size:clamp(2rem,4.5vw,4rem)}
+.upnext{position:absolute;inset:0;display:grid;align-content:center;justify-items:start;gap:10px;padding:clamp(18px,4vw,40px);background:linear-gradient(90deg,rgba(11,13,17,.94),rgba(11,13,17,.72));color:var(--ivory);z-index:3}
+.upnext .t{font:300 clamp(1.4rem,3vw,2.4rem)/1.1 var(--display);max-width:20ch;text-wrap:balance}
+.upnext .soon{color:var(--mute);font-size:.92rem}
+.upnext .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.upnext button,.upnext a{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 18px;border-radius:999px;font:600 .9rem var(--text);cursor:pointer;text-decoration:none}
+.upnext .go,.upnext .read{background:var(--ivory);color:var(--ink);border:0;padding-left:8px}
+.upnext .read{padding-left:18px}
+.upnext .go svg{width:34px;height:34px;transform:rotate(-90deg)}
+.upnext .go .track{fill:var(--ink);stroke:rgba(11,13,17,.25);stroke-width:3}
+.upnext .go .ring{fill:none;stroke:var(--gilt);stroke-width:3;stroke-dasharray:1;stroke-dashoffset:1}
+.upnext .stay{background:transparent;color:var(--ivory);border:1px solid var(--rule)}
+.upnext .go:hover,.upnext .read:hover{background:var(--gilt-2)}
+.playall{display:inline-flex;align-items:center;gap:12px;height:52px;padding:0 22px 0 8px;margin-top:30px;border-radius:999px;border:0;background:var(--ivory);color:var(--ink);font:600 1rem var(--text);cursor:pointer}
+.playall i{width:38px;height:38px;border-radius:50%;background:var(--ink);display:grid;place-items:center}
+.playall i::before{content:'';border-left:12px solid var(--ivory);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px}
+.playall:hover{background:var(--gilt-2)}
+
+/* ---------- paper band (documents) ---------- */
+.paper{background:var(--paper);color:var(--paper-ink)}
+.paper .kicker{color:var(--paper-mute)}
+.paper .kicker b{color:var(--gilt-deep)}
+.paper .prose p,.paper .claim p{color:#3a3c42}
+.paper .prose p strong{color:var(--paper-ink)}
+.paper .claim{border-color:var(--paper-rule)}
+.paper .chapter + .chapter{border-color:var(--paper-rule)}
+.paper .act-head{border-color:var(--paper-rule)}
+.paper .act-head h2,.paper .src,.paper .src a{color:var(--paper-mute)}
+.paper .chip.fact{color:var(--gilt-deep)}.paper .chip.said{color:var(--paper-ink)}.paper .chip.analysis{color:#3f5f8f}.paper .chip.critic{color:#b4492b}
+.paper blockquote p{color:var(--paper-ink)}.paper blockquote cite{color:var(--paper-mute)}
+.paper blockquote{border-color:var(--gilt-deep)}.paper blockquote.critic{border-color:#b4492b}
+.paper .film{border-color:var(--paper-rule)}
+
+/* ---------- diagram shells ---------- */
+.fig{margin-top:clamp(32px,5vw,56px)}
+.fig-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* the chain */
+.chain{display:grid;grid-template-columns:repeat(8,minmax(118px,1fr));gap:0;min-width:960px;position:relative}
+.chain .node{padding:18px 14px 16px;border-top:2px solid var(--rule);position:relative}
+.chain .node::before{content:'';position:absolute;left:14px;top:-7px;width:12px;height:12px;border-radius:50%;background:var(--ink);border:2px solid var(--gilt)}
+.chain .node h4{font:500 .74rem var(--mono);letter-spacing:.16em;text-transform:uppercase;margin:10px 0 8px;color:var(--gilt-2)}
+.chain .node p{font-size:.88rem;color:var(--ivory-2);line-height:1.45}
+.chain .flow{position:absolute;left:0;top:-1px;height:2px;width:100%;background:linear-gradient(90deg,var(--gilt),var(--gilt-2));transform-origin:0 50%;transform:scaleX(var(--p,1))}
+
+/* the table */
+.room{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:28px;align-items:start}
+.room svg{width:100%;height:auto;display:block}
+.room .seat{cursor:pointer}
+.room .seat circle{transition:r .2s,fill .2s,opacity .2s}
+.room .seat text{font:500 10.5px var(--mono);letter-spacing:.06em;fill:var(--ivory-2);text-transform:uppercase}
+.room .seat.dim{opacity:.22}
+.room .seat:hover circle,.room .seat.sel circle{r:13}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.filters button{font:500 .72rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ivory-2);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:8px 14px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
+.who{border:1px solid var(--rule);border-radius:14px;padding:22px;min-height:220px;display:grid;gap:10px;align-content:start;background:var(--ink-2)}
+.who .nm{font:400 1.8rem/1.1 var(--display)}
+.who .rl{color:var(--ivory-2)}
+.guest-list{columns:3 220px;column-gap:28px;margin-top:28px;padding:0;list-style:none;font-size:.92rem}
+.guest-list li{break-inside:avoid;padding:7px 0;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;gap:10px}
+.guest-list li span{color:var(--mute)}
+.guest-list li .sig{color:var(--gilt-2);font:500 .66rem var(--mono);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+
+/* accord rings */
+.rings{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.rings svg{width:100%;max-width:520px;height:auto;margin:0 auto;display:block}
+.layers{list-style:none;padding:0;margin:0;display:grid;gap:0;counter-reset:l}
+.layers li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;padding:16px 0;border-top:1px solid var(--paper-rule)}
+.layers li::before{counter-increment:l;content:counter(l);font:300 2.2rem/1 var(--display);color:var(--gilt-deep)}
+.layers h4{margin:0 0 4px;font:600 1rem var(--text)}
+.layers p{color:#4a4c52;font-size:.95rem}
+.binding{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border:1px solid var(--paper-rule);border-radius:14px;overflow:hidden;margin-top:clamp(32px,5vw,56px)}
+.binding > div{padding:24px}
+.binding > div+div{border-left:1px solid var(--paper-rule)}
+.binding .big{font:300 italic clamp(1.6rem,3vw,2.4rem)/1.05 var(--display);margin:12px 0 8px}
+
+/* AI -> SI */
+.rename{display:flex;align-items:center;gap:clamp(12px,3vw,36px);flex-wrap:wrap;font:300 clamp(3rem,10vw,8.5rem)/1 var(--display)}
+.rename .old{color:var(--paper-mute);position:relative}
+.rename .old::after{content:'';position:absolute;left:-4%;right:-4%;top:52%;height:4px;background:#b4492b;transform-origin:0 50%;transform:scaleX(var(--p,1))}
+.rename .arrow{font:400 clamp(1.4rem,3vw,2.4rem) var(--mono);color:var(--paper-mute)}
+.rename .new{font-style:italic;color:var(--gilt-deep)}
+.eo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:clamp(28px,4vw,44px);border-top:1px solid var(--paper-rule)}
+.eo > div{padding:20px 20px 0 0}
+.eo > div+div{padding-left:20px;border-left:1px solid var(--paper-rule)}
+.eo h4{font:500 .74rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--paper-mute);margin:0 0 8px}
+
+/* ladder of terms */
+.ladder{display:grid;gap:0;border-top:1px solid var(--rule)}
+.rung{display:grid;grid-template-columns:110px minmax(0,1fr) 170px;gap:20px;align-items:center;padding:20px 0;border-bottom:1px solid var(--rule)}
+.rung .ab{font:300 2.4rem/1 var(--display)}
+.rung p{color:var(--ivory-2);font-size:.97rem}
+.rung .st{font:500 .7rem var(--mono);letter-spacing:.14em;text-transform:uppercase;text-align:right}
+.rung.today .ab{color:var(--gilt-2)}
+.rung.si{background:linear-gradient(90deg,rgba(201,165,94,.12),transparent 70%)}
+.rung.si .ab{font-style:italic;color:var(--gilt-2)}
+
+/* old vs new */
+.flows{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,3vw,40px)}
+.flow-card{border:1px solid var(--rule);border-radius:14px;padding:24px;background:var(--ink-2)}
+.steps{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px}
+.steps li{display:flex;align-items:center;gap:12px;font-size:.95rem;color:var(--ivory-2)}
+.steps li::before{content:'';flex:none;width:10px;height:10px;border-radius:50%;border:2px solid var(--mute)}
+.flow-card.new .steps li::before{border-color:var(--gilt);background:var(--gilt)}
+.flow-card.old .steps li:not(:last-child)::after{content:''}
+.ask{margin-top:18px;display:flex;align-items:center;gap:10px;height:52px;border-radius:26px;background:var(--ivory);color:var(--ink);padding:0 20px;font-size:.98rem}
+.ask .caret{width:2px;height:22px;background:var(--ink);animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* stack */
+.stack{display:grid;gap:8px}
+.layer{display:grid;grid-template-columns:200px minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:center;padding:16px 20px;border-radius:10px;background:var(--ink-2);border:1px solid var(--rule);transform:translateX(var(--sx,0));transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.layer h4{margin:0;font:500 .78rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gilt-2)}
+.layer p{color:var(--ivory-2);font-size:.92rem}
+.layer .co{font:500 .78rem var(--mono);color:var(--mute);letter-spacing:.04em}
+.layer.sec{border-color:rgba(147,169,201,.45)}
+.layer.sec h4{color:var(--slate)}
+
+/* six dimensions */
+.dims{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--rule)}
+.dims > div{padding:22px 22px 22px 0;border-bottom:1px solid var(--rule)}
+.dims > div:not(:nth-child(3n+1)){padding-left:22px;border-left:1px solid var(--rule)}
+.dims h4{font:400 1.35rem var(--display);margin:0 0 6px}
+.dims p{color:var(--mute);font-size:.92rem}
+
+/* timeline */
+.timeline{position:relative;display:grid;gap:0;margin-top:8px}
+.timeline::before{content:'';position:absolute;left:118px;top:8px;bottom:8px;width:1px;background:var(--rule)}
+.tl{display:grid;grid-template-columns:100px 36px minmax(0,1fr);gap:0;padding:18px 0}
+.tl time{font:500 .78rem/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);padding-top:4px}
+.tl time b{display:block;font:300 1.9rem/1 var(--display);letter-spacing:0;color:var(--ivory);text-transform:none}
+.tl .dot{width:13px;height:13px;border-radius:50%;background:var(--ink);border:2px solid var(--gilt);margin:10px 0 0 13px;position:relative;z-index:1}
+.tl.main .dot{background:var(--gilt);box-shadow:0 0 0 6px rgba(201,165,94,.18)}
+.tl h3{font-size:1.45rem;line-height:1.2}
+.tl .body{display:grid;gap:10px;max-width:var(--measure)}
+.tl .body p{color:var(--ivory-2)}
+.tl .letter{font:500 .74rem var(--mono);letter-spacing:.16em;color:var(--gilt);text-transform:uppercase}
+
+/* reactions */
+.reactions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,3vw,40px)}
+.reactions .col{display:grid;gap:22px;align-content:start}
+
+/* watch list */
+.watch{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--rule)}
+.watch li{padding:22px 22px 22px 0;border-bottom:1px solid var(--rule);display:grid;gap:8px;align-content:start}
+.watch li:nth-child(even){padding-left:22px;border-left:1px solid var(--rule)}
+.watch .when{font:500 .74rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gilt-2)}
+.watch h4{font:400 1.4rem/1.2 var(--display);margin:0}
+.watch p{color:var(--ivory-2);font-size:.95rem}
+
+/* closing */
+.closing{padding-block:clamp(80px,12vw,160px);text-align:left;position:relative;overflow:hidden;border-top:1px solid var(--rule)}
+.closing .ph{position:absolute;inset:0;opacity:.22}
+.closing .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) sepia(.3) brightness(.7)}
+.closing .ph::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,var(--ink),rgba(11,13,17,.55) 40%,var(--ink))}
+.closing .wrap{position:relative}
+.closing p.big{font:300 clamp(2rem,5vw,4.2rem)/1.08 var(--display);max-width:22ch}
+
+/* sources */
+.sources{padding-block:clamp(56px,8vw,96px);border-top:1px solid var(--rule);background:var(--ink-2)}
+.sources .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,44px);margin-top:28px}
+.sources h3{font:500 .78rem var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gilt);margin-bottom:12px}
+.sources ol,.sources ul{margin:0;padding-left:18px;display:grid;gap:8px;font-size:.88rem;color:var(--ivory-2)}
+.sources li a{color:var(--ivory-2)}
+.sources .note{margin-top:36px;max-width:80ch;color:var(--mute);font-size:.88rem;display:grid;gap:10px}
+
+/* reveal: content is always visible; motion is a gentle settle only */
+.rv{transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.js .rv.pre{transform:translateY(18px)}
+
+@media (max-width:900px){
+ .ch-grid,.room,.rings,.flows,.reactions,.legend .wrap{grid-template-columns:minmax(0,1fr)}
+ .three,.dims,.eo,.sources .cols{grid-template-columns:minmax(0,1fr)}
+ .three a,.three a+a{padding:22px 0;border-right:0;border-bottom:1px solid var(--rule)}
+ .dims > div,.dims > div:not(:nth-child(3n+1)){padding:18px 0;border-left:0}
+ .eo > div,.eo > div+div{padding:16px 0;border-left:0;border-bottom:1px solid var(--paper-rule)}
+ .watch{grid-template-columns:minmax(0,1fr)}
+ .watch li,.watch li:nth-child(even){padding:18px 0;border-left:0}
+ .layer{grid-template-columns:minmax(0,1fr);gap:6px}
+ .rung{grid-template-columns:72px minmax(0,1fr);gap:14px}
+ .rung .st{grid-column:2;text-align:left}
+ .binding{grid-template-columns:minmax(0,1fr)}
+ .binding > div+div{border-left:0;border-top:1px solid var(--paper-rule)}
+ .legend dl{grid-template-columns:minmax(0,1fr)}
+ .timeline::before{left:92px}
+ .tl{grid-template-columns:76px 30px minmax(0,1fr)}
+ .tl .dot{margin-left:10px}
+ .bar .brand span{display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv,.layer{transition:none}.js .rv.pre{transform:none}.ask .caret{animation:none}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+ <div class="wrap">
+  <a class="brand" href="#top">The SI Summit <span><b>·</b> 29.09.2026</span></a>
+  <nav aria-label="Chapters" id="chapnav">
+   <a href="#c01">01</a><a href="#c02">02</a><a href="#c03">03</a><a href="#c04">04</a><a href="#c05">05</a><a href="#c06">06</a><a href="#c07">07</a><a href="#c08">08</a><a href="#c09">09</a><a href="#c10">10</a><a href="#c11">11</a><a href="#c12">12</a><a href="#c13">13</a><a href="#c14">14</a><a href="#sources">Sources</a>
+  </nav>
+ </div>
+ <div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+ <div class="ph"><img id="heroimg" src="img/P20260929DT-1796.jpg" alt="The East Room of the White House set for the luncheon on Super Intelligence, September 29, 2026"></div>
+ <div class="wrap">
+  <p class="kicker"><b>Explainer</b> · Washington, D.C. · Tuesday, September 29, 2026</p>
+  <h1>The day the builders of <em class="g">Super Intelligence</em> came to lunch</h1>
+  <p class="dek">President Trump invited the leaders of America's biggest SI companies to the White House: model labs, chipmakers, cloud giants and security firms, side by side. By evening there was a voluntary safety accord, a new official name for the technology, and a new front door to the government. Here is what happened, in fourteen short films.</p>
+  <button class="playall" id="playall" type="button"><i></i>Play all films</button>
+  <div class="meta"><span><b>14</b> films · 45–60 s each</span><span><b>~7 min</b> to read</span><span>Updated <b>Oct 6, 2026</b></span></div>
+ </div>
+ <span class="credit">Official White House Photo by Daniel Torok</span>
+</section>
+
+<div class="wrap">
+ <div class="three">
+  <a href="#c05"><span class="n">1</span><h3>A voluntary accord</h3><p>Six companies signed four layers of safety checks. The President called it "morally binding."</p></a>
+  <a href="#c06"><span class="n">2</span><h3>AI becomes SI</h3><p>Executive Order 14434 tells federal agencies to say "Super Intelligence."</p></a>
+  <a href="#c08"><span class="n">3</span><h3>America.gov</h3><p>A new site where you ask the government questions in plain language.</p></a>
+ </div>
+</div>
+
+<!-- ================= LEGEND ================= -->
+<section class="legend" aria-labelledby="howto">
+ <div class="wrap">
+  <div><p class="kicker" id="howto">How to read this page</p><p style="margin-top:12px">Every statement is labelled, so you can tell what is documented, what someone said, and what is interpretation. We say <strong>SI</strong>, as the federal government now does, for what most people still call AI.</p></div>
+  <dl>
+   <div><dt><span class="chip fact">Fact</span></dt><dd>Documented by a primary source (White House text, official photos) or by two or more news organizations.</dd></div>
+   <div><dt><span class="chip said">They said</span></dt><dd>A participant's own words, quoted as reported. Not checked for accuracy.</dd></div>
+   <div><dt><span class="chip analysis">Analysis</span></dt><dd>Our explanation or interpretation. Reasonable people may read it differently.</dd></div>
+   <div><dt><span class="chip critic">Critics say</span></dt><dd>The strongest fair objections, from named critics.</dd></div>
+  </dl>
+ </div>
+</section>
+
+<!-- ================= ACT I · THE DAY ================= -->
+<section class="act wrap" aria-labelledby="act1">
+ <div class="act-head"><span class="roman">I</span><h2 id="act1">The day</h2></div>
+
+ <article class="chapter" id="c01">
+  <p class="kicker"><b>01</b> · What happened on September 29?</p>
+  <h2 class="statement rv" style="margin-top:14px">One lunch. Three announcements.</h2>
+  <div class="ch-grid">
+   <div class="prose">
+    <p>On Tuesday, September 29, 2026, President Donald Trump hosted a luncheon on "Super Intelligence" in the East Room of the White House, together with House Speaker Mike Johnson. The guests ran the companies that design SI models, make the chips they run on, and operate the data centers that host them.</p>
+    <div class="claim"><span class="chip fact">Fact</span><p>The same day, six of those companies signed the <strong>White House Accord on Super Intelligence</strong>, the President signed <strong>Executive Order 14434</strong> renaming AI as SI across the executive branch, and the administration launched <strong>America.gov</strong>.</p><p class="src">White House gallery, EO 14434 and fact sheets · CBS News · Nextgov</p></div>
+    <div class="claim"><span class="chip analysis">Analysis</span><p>Competitors this fierce rarely put their names on one page. Whatever the accord achieves in practice, the day showed the industry and the government trying to coordinate in public.</p></div>
+   </div>
+   <figure class="film" data-film="01-what-happened" data-title="What happened on September 29?"></figure>
+  </div>
+ </article>
+
+ <article class="chapter" id="c02">
+  <p class="kicker"><b>02</b> · Who was in the room?</p>
+  <h2 class="statement rv" style="margin-top:14px">The whole <em class="g">supply chain</em> at one table.</h2>
+  <div class="ch-grid">
+   <div class="prose">
+    <p>Axios published the RSVP list: <strong>31 guests</strong>. It reads like a map of the industry, from the labs that build frontier models to the companies that make chips and memory, rent out cloud computing, and secure it all. OpenAI's chief executive, Sam Altman, was at his company's annual conference in San Francisco; its president, Greg Brockman, came instead.</p>
+    <div class="claim"><span class="chip fact">Fact</span><p>Six leaders signed the accord alongside the President: Sundar Pichai (Google), Dario Amodei (Anthropic), Mark Zuckerberg (Meta), Greg Brockman (OpenAI), Elon Musk (xAI) and Jensen Huang (Nvidia). Microsoft, Amazon, AMD, Broadcom, Micron, Palantir, Palo Alto Networks and ServiceNow attended but are not among the signers. No source has reported why.</p><p class="src">Axios via Yahoo News · Nextgov · Al Jazeera · Forbes</p></div>
+   </div>
+   <figure class="film" data-film="02-who-was-in-the-room" data-title="Who was in the room?"></figure>
+  </div>
+
+  <div class="fig">
+   <div class="fig-head"><p class="kicker">The guest list as a table · tap a seat</p><p class="src">Illustration. Seats are grouped by role, not the actual seating plan.</p></div>
+   <div class="room">
+    <div>
+     <div class="filters" role="group" aria-label="Filter guests">
+      <button type="button" data-g="all" aria-pressed="true">Everyone</button>
+      <button type="button" data-g="model" aria-pressed="false">Models</button>
+      <button type="button" data-g="chip" aria-pressed="false">Chips & memory</button>
+      <button type="button" data-g="cloud" aria-pressed="false">Cloud & software</button>
+      <button type="button" data-g="sec" aria-pressed="false">Security</button>
+      <button type="button" data-g="cap" aria-pressed="false">Capital</button>
+      <button type="button" data-g="gov" aria-pressed="false">Government</button>
+      <button type="button" data-g="signed" aria-pressed="false">Signed the accord</button>
+     </div>
+     <svg id="tablesvg" viewBox="0 0 900 440" role="img" aria-label="Illustration of a long banquet table with the luncheon guests seated around it"></svg>
+    </div>
+    <div class="who" id="who" aria-live="polite">
+     <span class="chip fact">Fact</span>
+     <div class="nm">31 guests</div>
+     <p class="rl">Industry leaders, investors and senior officials, per the RSVP list published by Axios. Choose a seat to see who it is.</p>
+    </div>
+   </div>
+   <ul class="guest-list" id="guestlist"></ul>
+  </div>
+
+  <div class="fig">
+   <div class="fig-head"><p class="kicker">From model to government: the chain in the room</p><p class="src">Analysis</p></div>
+   <div class="scroll-x"><div class="chain" id="chain">
+    <span class="flow"></span>
+    <div class="node"><h4>Frontier models</h4><p>OpenAI, Anthropic, Google, Meta, xAI</p></div>
+    <div class="node"><h4>Compute</h4><p>Nvidia and AMD accelerators</p></div>
+    <div class="node"><h4>Chips & memory</h4><p>Broadcom, Micron</p></div>
+    <div class="node"><h4>Cloud</h4><p>Microsoft, Amazon, Google</p></div>
+    <div class="node"><h4>Software</h4><p>Palantir, ServiceNow</p></div>
+    <div class="node"><h4>Security</h4><p>Palo Alto Networks, the National Cyber Director</p></div>
+    <div class="node"><h4>Capital</h4><p>Altimeter, Social Capital, Craft Ventures</p></div>
+    <div class="node"><h4>Government</h4><p>White House, Congress, Treasury, Commerce, NASA, intelligence</p></div>
+   </div></div>
+  </div>
+ </article>
+
+ <article class="chapter" id="c03">
+  <p class="kicker"><b>03</b> · Why Nvidia matters</p>
+  <h2 class="statement rv" style="margin-top:14px">Every answer starts as <em class="g">math</em> on a chip.</h2>
+  <div class="ch-grid">
+   <div class="prose">
+    <p>SI systems are trained and run on specialised chips called GPUs, wired together by the thousands. Nvidia is the leading maker of them, which makes it a supplier, partner or rival to almost everyone else at the table. Jensen Huang sat beside the President, according to the seating chart Mr. Trump posted.</p>
+    <div class="claim"><span class="chip fact">As reported</span><p>Semafor reports that Huang helped gather support for the accord among the attendees before the lunch.</p><p class="src">Semafor, Sept 30 · Newsmax via Yahoo (seating chart)</p></div>
+    <blockquote><p>"There's no conflict between innovation, technology and safety."</p><cite>Jensen Huang, Nvidia · CBS News</cite></blockquote>
+    <blockquote><p>"…it's creating a million jobs here in the United States."</p><cite>Jensen Huang, after the lunch · Roll Call Factba.se transcript</cite></blockquote>
+   </div>
+   <figure class="film" data-film="03-why-nvidia-matters" data-title="Why Nvidia matters"></figure>
+  </div>
+ </article>
+</section>
+
+<!-- ================= ACT II · THE AGREEMENT (paper) ================= -->
+<div class="paper">
+<section class="act wrap" aria-labelledby="act2">
+ <div class="act-head"><span class="roman">II</span><h2 id="act2">The agreement</h2></div>
+
+ <article class="chapter" id="c04">
+  <p class="kicker"><b>04</b> · Why competing companies agreed to work together</p>
+  <h2 class="statement rv" style="margin-top:14px">Rivals, one page.</h2>
+  <div class="ch-grid">
+   <div class="prose">
+    <p>These companies compete every day for customers, researchers and chips. Supporters see the accord as a shared floor for safety: if one company gets something badly wrong, trust in the whole industry suffers. It also gives the industry and Washington a common starting point while Congress is still debating national rules.</p>
+    <blockquote><p>"This is a start and an accord that the whole industry could come to."</p><cite>Mark Zuckerberg, Meta · Semafor</cite></blockquote>
+    <div class="claim"><span class="chip critic">Critics say</span><p>A voluntary pledge can head off tougher, binding regulation. House Minority Leader Hakeem Jeffries called the agreement "entirely unenforceable."</p><p class="src">Washington Examiner · Benzinga</p></div>
+   </div>
+   <figure class="film" data-film="04-why-rivals-agreed" data-title="Why competing companies agreed to work together"></figure>
+  </div>
+ </article>
+
+ <article class="chapter" id="c05">
+  <p class="kicker"><b>05</b> · What is the Super Intelligence Accord?</p>
+  <h2 class="statement rv" style="margin-top:14px">About 300 words. <em class="g" style="color:var(--gilt-deep)">Four layers</em> of checks.</h2>
+  <div class="ch-grid">
+   <div class="prose">
+    <p>The <strong>White House Accord on Super Intelligence: Joint Commitment on Frontier Responsibilities</strong> says every company is responsible for developing its own technology safely. For companies training frontier models, the most advanced SI systems, it lists four layers of controls, and the signers agree to meet to develop standards and best practices together.</p>
+    <div class="claim"><span class="chip fact">Fact</span><p>The text adds that "over time, it may make sense to codify these steps into laws or regulations." It sets no penalties and does not require audit results to be published.</p><p class="src">Accord text, American Presidency Project (UCSB) · CBS News · CNBC-TV18</p></div>
+   </div>
+   <figure class="film" data-film="05-what-is-the-accord" data-title="What is the Super Intelligence Accord?"></figure>
+  </div>
+
+  <div class="fig rings">
+   <svg viewBox="0 0 520 520" role="img" aria-label="Four concentric rings of oversight around a frontier model">
+    <g fill="none" stroke-width="2">
+     <circle cx="260" cy="260" r="236" stroke="#8a6a2b" stroke-dasharray="4 7"/>
+     <circle cx="260" cy="260" r="184" stroke="#8a6a2b"/>
+     <circle cx="260" cy="260" r="132" stroke="#8a6a2b" opacity=".75"/>
+     <circle cx="260" cy="260" r="80" stroke="#8a6a2b" opacity=".55"/>
+    </g>
+    <circle cx="260" cy="260" r="44" fill="#17191e"/>
+    <text x="260" y="256" text-anchor="middle" fill="#f2ede3" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5">FRONTIER</text>
+    <text x="260" y="272" text-anchor="middle" fill="#f2ede3" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5">MODEL</text>
+    <g font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.4" fill="#6b6658" text-anchor="middle">
+     <text x="260" y="194">1 · INTERNAL CONTROLS</text>
+     <text x="260" y="142">2 · INTERNAL TEAM</text>
+     <text x="260" y="90">3 · EXTERNAL AUDITOR</text>
+     <text x="260" y="38">4 · BOARD COMMITTEE</text>
+    </g>
+   </svg>
+   <ol class="layers">
+    <li><div><h4>Internal controls</h4><p>Monitor a model's capabilities and alignment during training, covering cyber, biological and chemical threats.</p></div></li>
+    <li><div><h4>An empowered internal team</h4><p>Checks that controls, monitoring and detection work as intended, and fixes issues it finds.</p></div></li>
+    <li><div><h4>An independent auditor or evaluator</h4><p>An outside party assesses whether the safeguards function. The company chooses it.</p></div></li>
+    <li><div><h4>A board committee</h4><p>An independent committee of the board receives the reports and makes sure problems are remediated.</p></div></li>
+   </ol>
+  </div>
+
+  <div class="binding">
+   <div><span class="chip said">They said</span><p class="big">"I think it's morally binding."</p><p class="src">President Trump, asked whether the accord is binding · official stakeout video</p></div>
+   <div><span class="chip fact">Fact</span><p class="big">"Commitments that are voluntary"</p><p class="src">Speaker Mike Johnson: "commitments that are voluntary on behalf of the industry" · ABC News</p></div>
+  </div>
+
+  <div class="fig reactions">
+   <div class="col">
+    <p class="kicker">Supporters</p>
+    <blockquote><p>"A solid basis for moving forward."</p><cite>Sundar Pichai, Google · Al Jazeera</cite></blockquote>
+    <blockquote><p>"These are voluntary principles, but they are a constructive first step."</p><cite>John Miller, Information Technology Industry Council · Bloomberg Government</cite></blockquote>
+    <div class="claim"><span class="chip analysis">Analysis</span><p>The Council on Foreign Relations, while calling the pact toothless, credited its outside-auditor and board-oversight layers as real structure to build on.</p></div>
+   </div>
+   <div class="col">
+    <p class="kicker">Critics</p>
+    <blockquote class="critic"><p>"Self-regulation efforts by big tech have been a proven failure."</p><cite>Lina Khan, former FTC chair · ABC "This Week", Oct 4</cite></blockquote>
+    <blockquote class="critic"><p>"Nothing in the document legally compels any of the signers to change their behavior."</p><cite>Council on Foreign Relations, Oct 1</cite></blockquote>
+    <div class="claim"><span class="chip analysis">Analysis</span><p>Lawyers quoted by Bloomberg Government note one way a voluntary pledge can still bite: the Federal Trade Commission can act against companies whose public promises turn out to be deceptive.</p></div>
+   </div>
+  </div>
+ </article>
+</section>
+
+<!-- ================= ACT III · THE NEW NAME (paper continues) ================= -->
+<section class="act wrap" aria-labelledby="act3">
+ <div class="act-head"><span class="roman">III</span><h2 id="act3">The new name</h2></div>
+
+ <article class="chapter" id="c06">
+  <p class="kicker"><b>06</b> · Why AI became SI</p>
+  <div class="rename rv" style="margin-top:22px" aria-label="AI becomes SI"><span class="old" id="oldai">AI</span><span class="arrow">→</span><span class="new">SI</span></div>
+  <div class="ch-grid">
+   <div class="prose">
+    <p><strong>Executive Order 14434, "Inaugurating the Era of Super Intelligence,"</strong> tells federal agencies to write "Super Intelligence" and "SI" instead of "Artificial Intelligence" and "AI" in their correspondence, websites, reports and policy documents. Earlier regulations and historical documents are not changed.</p>
+    <div class="claim"><span class="chip said">They said</span><p>The White House says the new term "conveys the true capabilities of the technologies being developed today."</p><p class="src">White House fact sheet, Sept 29</p></div>
+    <div class="claim"><span class="chip critic">Critics say</span><p>Senator Mark Warner: the companies are warning that the technology "is advancing faster than our safeguards. The president's response? To rename it and tell the companies developing it to regulate themselves." A YouGov poll that week found 53% preferred "artificial intelligence" and 9% "super intelligence."</p><p class="src">CBS News · CNBC</p></div>
+   </div>
+   <figure class="film" data-film="06-why-ai-became-si" data-title="Why AI became SI"></figure>
+  </div>
+  <div class="eo">
+   <div><h4>Section 2 · What changes</h4><p>Agencies use "Super Intelligence" and "SI" going forward. Old rules and records stay as written.</p></div>
+   <div><h4>Section 3 · What SI means</h4><p>For now, exactly what "artificial intelligence" means in federal law (15 U.S.C. 9401(3)).</p></div>
+   <div><h4>Within 60 days</h4><p>The Assistant to the President for Science and Technology proposes legislative language for a federal definition.</p></div>
+  </div>
+ </article>
+</section>
+</div>
+
+<!-- ================= ACT III continued (ink) ================= -->
+<section class="wrap" aria-label="Does SI mean smarter than humans">
+ <article class="chapter" id="c07">
+  <p class="kicker"><b>07</b> · Does SI mean machines are already smarter than humans?</p>
+  <h2 class="statement rv" style="margin-top:14px">No. <em class="g">The name changed.</em> The machines didn't.</h2>
+  <div class="ch-grid">
+   <div class="prose">
+    <p>Researchers use several older terms, and they mean very different things. The government's new "SI" is a name for today's technology, not a claim that it has become superhuman. Legally, SI means what AI meant the day before.</p>
+    <div class="claim"><span class="chip said">They said</span><p>"Superintelligence is already a word, and it means something different than AI; specifically, AI that is vastly superhuman."</p><p class="src">David Krueger, SI researcher · SF Standard, Oct 1</p></div>
+   </div>
+   <figure class="film" data-film="07-smarter-than-humans" data-title="Does SI mean machines are already smarter than humans?"></figure>
+  </div>
+  <div class="fig">
+   <div class="fig-head"><p class="kicker">Four terms, one ladder</p><p class="src">Analysis · definitions as commonly used by researchers</p></div>
+   <div class="ladder">
+    <div class="rung"><span class="ab">ASI</span><p><strong>Artificial superintelligence.</strong> A system that greatly exceeds the best humans in virtually every domain. Hypothetical: no one has built one.</p><span class="st" style="color:var(--mute)">Does not exist</span></div>
+    <div class="rung"><span class="ab">AGI</span><p><strong>Artificial general intelligence.</strong> Roughly human-level ability across most kinds of thinking. No settled definition; experts disagree on when, or whether, it arrives.</p><span class="st" style="color:var(--mute)">Debated</span></div>
+    <div class="rung today"><span class="ab">AI</span><p><strong>Artificial intelligence.</strong> The broad, traditional term for software that writes, translates, recognizes images and finds patterns. Improving quickly.</p><span class="st" style="color:var(--gilt-2)">Today</span></div>
+    <div class="rung si"><span class="ab">SI</span><p><strong>Super Intelligence, the federal term since Sept 29, 2026.</strong> A new official name for the same technology as the rung above. A formal definition is due within 60 days.</p><span class="st" style="color:var(--gilt-2)">Same as AI, by law</span></div>
+   </div>
+  </div>
+ </article>
+</section>
+
+<!-- ================= ACT IV · THE FRONT DOOR ================= -->
+<section class="act wrap" aria-labelledby="act4">
+ <div class="act-head"><span class="roman">IV</span><h2 id="act4">The front door</h2></div>
+ <article class="chapter" id="c08">
+  <p class="kicker"><b>08</b> · What is America.gov?</p>
+  <h2 class="statement rv" style="margin-top:14px">Ask the government, <em class="g">in plain language.</em></h2>
+  <div class="ch-grid">
+   <div class="prose">
+    <p>America.gov launched on September 29 at a separate "Hello, America" event at the Mellon Auditorium in Washington. It is a chat-style search across roughly 29,000 government websites. Its team says it runs on Google's Gemini and xAI's Grok.</p>
+    <div class="claim"><span class="chip fact">Fact</span><p>The White House says Americans spend about <strong>10 billion hours a year</strong> on federal paperwork. Signing in through Login.gov and completing tasks such as passport renewal are planned for later, with transactions targeted for 2027. IRS tax filing and national-security services are excluded.</p><p class="src">White House fact sheet · Fedscoop · Bloomberg</p></div>
+    <div class="claim"><span class="chip critic">Critics say</span><p>Early testers found it mostly an information service so far; one expert called answering questions "the easiest 5% of the problem." Within hours it began declining political questions.</p><p class="src">Fedscoop · The Next Web, citing AP</p></div>
+   </div>
+   <figure class="film" data-film="08-what-is-america-gov" data-title="What is America.gov?"></figure>
+  </div>
+  <div class="fig flows">
+   <div class="flow-card old"><p class="kicker">Before</p><ol class="steps"><li>Work out which agency handles it</li><li>Find the right website</li><li>Find the right page and form</li><li>Decode the instructions</li><li>Do the task</li></ol></div>
+   <div class="flow-card new"><p class="kicker" style="color:var(--gilt-2)">The America.gov idea</p><ol class="steps"><li>Ask one site, in your own words</li><li>Get an answer from official sources</li><li>Follow the link to the right service, and later finish it there</li></ol><div class="ask" aria-hidden="true">How do I renew my passport?<span class="caret"></span></div></div>
+  </div>
+ </article>
+</section>
+
+<!-- ================= ACT V · THE MACHINE ================= -->
+<section class="act wrap" aria-labelledby="act5">
+ <div class="act-head"><span class="roman">V</span><h2 id="act5">The machine behind it</h2></div>
+ <article class="chapter" id="c09">
+  <p class="kicker"><b>09</b> · The infrastructure behind SI</p>
+  <h2 class="statement rv" style="margin-top:14px">Not a chatbot meeting. <em class="g">An industry</em> meeting.</h2>
+  <div class="ch-grid">
+   <div class="prose">
+    <p>Every SI answer depends on a physical stack: power plants, data centers, chips, memory, networks and cloud platforms, with the models on top and security around all of it. Most layers of that stack had a seat at the lunch.</p>
+    <blockquote><p>"The data centers are making an absolute fortune. But now, the people are going to benefit directly."</p><cite>President Trump · CBS News</cite></blockquote>
+    <div class="claim"><span class="chip said">They said</span><p>Speaker Johnson said the companies "will put power back onto the grid in most cases," pointing to House-passed legislation meant to protect electricity customers.</p><p class="src">Roll Call Factba.se transcript</p></div>
+   </div>
+   <figure class="film" data-film="09-the-infrastructure" data-title="The infrastructure behind SI"></figure>
+  </div>
+  <div class="fig">
+   <div class="fig-head"><p class="kicker">The SI stack, bottom to top</p><p class="src">Analysis · companies listed are examples present at the lunch</p></div>
+   <div class="stack" id="stack">
+    <div class="layer sec"><h4>Security</h4><p>Protecting models, data and data centers from attackers</p><span class="co">Palo Alto Networks · Palantir · National Cyber Director</span></div>
+    <div class="layer"><h4>Frontier models</h4><p>The SI systems people actually use</p><span class="co">OpenAI · Anthropic · Google · Meta · xAI</span></div>
+    <div class="layer"><h4>Cloud</h4><p>Renting computing power to the world</p><span class="co">Microsoft · Amazon · Google</span></div>
+    <div class="layer"><h4>Networking & memory</h4><p>Linking thousands of chips into one machine</p><span class="co">Broadcom · Micron · Nvidia</span></div>
+    <div class="layer"><h4>Compute</h4><p>Accelerator chips that do the math</p><span class="co">Nvidia · AMD</span></div>
+    <div class="layer"><h4>Data centers & power</h4><p>Warehouse-sized buildings that need vast electricity and cooling</p><span class="co">Cloud and model companies · local utilities</span></div>
+   </div>
+  </div>
+ </article>
+
+ <article class="chapter" id="c10">
+  <p class="kicker"><b>10</b> · America and China: why SI became strategic</p>
+  <h2 class="statement rv" style="margin-top:14px">Competition and conversation, <em class="g">at the same time.</em></h2>
+  <div class="ch-grid">
+   <div class="prose">
+    <p>US policy increasingly treats advanced SI as strategic: something that shapes a country's economy, science and security, and depends on what it can physically build. Five days before the lunch, China's President Xi Jinping was at the White House for a state dinner.</p>
+    <div class="claim"><span class="chip fact">Fact</span><p>During Xi's state visit (September 23–25), the two countries agreed to set up a channel for SI-related incidents, with a dedicated dialogue planned for November.</p><p class="src">PBS NewsHour · Washington Post · CBS News</p></div>
+    <div class="claim"><span class="chip said">They said</span><p>On Sunday, September 27, President Trump estimated the US is "about a year, maybe a year and a half up on China." Earlier in 2026, David Sacks put China "three to six months behind" and Google DeepMind's Demis Hassabis said about six months. Estimates like these are hard to verify.</p><p class="src">CBS News · PolitiFact/Poynter, Feb 2026</p></div>
+   </div>
+   <figure class="film" data-film="10-america-and-china" data-title="America and China: why SI became strategic"></figure>
+  </div>
+  <div class="fig dims">
+   <div><h4>Technological leadership</h4><p>Who builds the most capable systems first.</p></div>
+   <div><h4>Economic competitiveness</h4><p>Productivity, new industries, jobs.</p></div>
+   <div><h4>National security</h4><p>Cyber defense, intelligence, military use.</p></div>
+   <div><h4>Scientific leadership</h4><p>Faster research in medicine, materials, energy.</p></div>
+   <div><h4>Semiconductor capacity</h4><p>Where advanced chips are designed and made.</p></div>
+   <div><h4>Energy & data centers</h4><p>Power and buildings to run it all.</p></div>
+  </div>
+ </article>
+</section>
+
+<!-- ================= ACT VI · BEHIND THE SCENES ================= -->
+<section class="act wrap" aria-labelledby="act6">
+ <div class="act-head"><span class="roman">VI</span><h2 id="act6">The meetings behind the meeting</h2></div>
+ <article class="chapter" id="behind" style="padding-bottom:0">
+  <h2 class="statement rv" style="margin-top:14px">Five days, <em class="g">four rooms.</em></h2>
+  <p class="prose" style="margin-top:18px;color:var(--ivory-2)">The accord did not appear out of nowhere. Reporting describes a week of conversations before the lunch. Where only one outlet reported something, we say so.</p>
+  <div class="timeline fig">
+   <div class="tl" id="c12"><time><b>24</b>Thu · Sept</time><span class="dot"></span><div class="body"><span class="letter">B · The idea</span><h3>Zuckerberg talks regulation with Speaker Johnson</h3><p>At the White House state dinner for Xi Jinping, Mark Zuckerberg discussed his concerns about SI regulation with Speaker Mike Johnson. He then asked Jensen Huang to help develop principles the industry could present to the President. Zuckerberg circulated a draft; Huang helped build support among the other companies.</p><p><span class="chip fact">As reported</span></p><p class="src">Semafor, Sept 30, citing three people familiar with the matter; Meta and the White House declined to comment. Also reported by Business Insider.</p><figure class="film" data-film="12-zuckerberg-and-huang" data-title="How Zuckerberg and Huang helped shape the accord" style="margin-top:12px;max-width:640px"></figure></div></div>
+   <div class="tl" id="c11"><time><b>27</b>Sun · Sept</time><span class="dot"></span><div class="body"><span class="letter">A · The dinner</span><h3>President Trump dines with Dario Amodei</h3><p>Late on Sunday, the President had a private dinner with Anthropic's chief executive. The White House did not say what they discussed, or where. Amodei is one of the most outspoken industry voices on SI risk. Earlier in 2026, the Pentagon had labeled Anthropic a "supply chain risk" after a dispute over the company's limits on surveillance and autonomous weapons; two courts have since ruled in opposite directions on that label.</p><p><span class="chip fact">Fact</span></p><p class="src">CBS News, Sept 28 · Axios · TechCrunch · ABC News</p><figure class="film" data-film="11-trump-and-amodei" data-title="The meeting before the meeting: Trump + Amodei" style="margin-top:12px;max-width:640px"></figure></div></div>
+   <div class="tl"><time><b>28</b>Mon · Sept</time><span class="dot"></span><div class="body"><span class="letter">C · The Senate</span><h3>Amodei is seen leaving a meeting with John Thune</h3><p>Semafor reported that Amodei was seen on Monday evening leaving a meeting with the Senate Majority Leader. What they discussed was not reported.</p><p><span class="chip fact">As reported</span></p><p class="src">Semafor, Sept 29 (single source)</p></div></div>
+   <div class="tl main"><time><b>29</b>Tue · Sept</time><span class="dot"></span><div class="body"><span class="letter">D · The day</span><h3>Lunch in the East Room, then the cameras</h3><p>After the luncheon, the President and several executives continued talking and took reporters' questions outside the West Wing, and the President said goodbye to the guests in the West Wing lobby. The official photographs document that part of the day; we treat it as an extension of the summit, not a separate meeting.</p><p><span class="chip fact">Fact</span></p><p class="src">White House photo gallery · Roll Call Factba.se transcript</p></div></div>
+   <div class="tl"><time><b>4</b>Sun · Oct</time><span class="dot"></span><div class="body"><span class="letter">After</span><h3>A "Super Intelligence Force"</h3><p>The President named Director of National Intelligence Jay Clayton, who attended the lunch, to lead a new Super Intelligence Force. Its first report on risks and opportunities is due within 120 days.</p><p><span class="chip fact">Fact</span></p><p class="src">NPR · CBS News · NBC News</p></div></div>
+  </div>
+ </article>
+</section>
+
+<!-- ================= ACT VII · WHAT NEXT ================= -->
+<section class="act wrap" aria-labelledby="act7">
+ <div class="act-head"><span class="roman">VII</span><h2 id="act7">What comes next</h2></div>
+ <article class="chapter" id="c13">
+  <p class="kicker"><b>13</b> · What could happen next?</p>
+  <h2 class="statement rv" style="margin-top:14px">Promises are easy to sign. <em class="g">Watch what follows.</em></h2>
+  <div class="ch-grid">
+   <ul class="watch" style="grid-template-columns:minmax(0,1fr)">
+    <li><span class="when">By late November 2026</span><h4>A legal definition of SI</h4><p>The President's science adviser has 60 days from September 29 to propose one.</p></li>
+    <li><span class="when">November 2026</span><h4>US–China SI dialogue</h4><p>The first talks under the new incident channel are planned for November.</p></li>
+    <li><span class="when">Early 2027</span><h4>The Super Intelligence Force report</h4><p>Due within 120 days of October 4, on the technology's risks and opportunities.</p></li>
+    <li><span class="when">Ongoing</span><h4>Follow-through on the accord</h4><p>Do signers name outside auditors and board committees, and publish anything they find?</p></li>
+    <li><span class="when">Ongoing</span><h4>Congress</h4><p>The accord says its steps may one day belong in law. Several lawmakers want binding rules now.</p></li>
+    <li><span class="when">2027</span><h4>America.gov transactions</h4><p>Forms and applications are targeted for 2027, as agencies connect.</p></li>
+   </ul>
+   <figure class="film" data-film="13-what-happens-next" data-title="What could happen next?"></figure>
+  </div>
+ </article>
+</section>
+
+<section class="closing" id="c14">
+ <div class="ph"><img src="img/P20260929JB-0601.jpg" alt="The President and technology executives speak to the press outside the West Wing after the luncheon" loading="lazy"></div>
+ <div class="wrap">
+  <p class="kicker"><b>14</b> · Why September 29 may matter historically</p>
+  <p class="big" style="margin-top:20px">The people building the most powerful SI systems are beginning to <em class="g">coordinate with government</em> about what comes next.</p>
+  <div class="ch-grid">
+   <div class="prose">
+    <p>Rivals signed the same page. The technology got a new official name, and the government a new front door. The accord is voluntary, and critics say voluntary isn't enough. Supporters call it a start that can grow into something stronger.</p>
+    <div class="claim"><span class="chip analysis">Analysis</span><p>Whether September 29 is remembered as a turning point depends on what happens next: audits that actually run, a definition that clarifies more than it confuses, and cooperation that survives the competition.</p></div>
+   </div>
+   <figure class="film" data-film="14-why-it-may-matter" data-title="Why September 29 may matter historically"></figure>
+  </div>
+ </div>
+</section>
+
+<!-- ================= SOURCES ================= -->
+<section class="sources" id="sources" aria-labelledby="srch">
+ <div class="wrap">
+  <p class="kicker" id="srch">Sources, credits and method</p>
+  <div class="cols">
+   <div><h3>Primary sources</h3><ol>
+    <li><a href="https://www.whitehouse.gov/presidential-actions/2026/09/inaugurating-the-era-of-super-intelligence/" target="_blank" rel="noopener">Executive Order 14434, Inaugurating the Era of Super Intelligence</a></li>
+    <li><a href="https://www.whitehouse.gov/fact-sheets/2026/09/fact-sheet-president-donald-j-trump-inaugurates-the-era-of-super-intelligence/" target="_blank" rel="noopener">Fact sheet: the era of Super Intelligence</a></li>
+    <li><a href="https://www.whitehouse.gov/fact-sheets/2026/09/fact-sheet-president-donald-j-trump-streamlines-access-to-government-services-through-america-gov/" target="_blank" rel="noopener">Fact sheet: America.gov</a></li>
+    <li><a href="https://www.presidency.ucsb.edu/documents/white-house-accord-super-intelligence" target="_blank" rel="noopener">White House Accord on Super Intelligence (American Presidency Project)</a></li>
+    <li><a href="https://www.whitehouse.gov/gallery/president-donald-j-trump-hosts-a-luncheon-on-super-intelligence-september-29-2026/" target="_blank" rel="noopener">Official photo gallery, Sept 29</a></li>
+    <li><a href="https://www.whitehouse.gov/videos/president-trump-participates-in-a-meeting-and-luncheon-on-super-intelligence/" target="_blank" rel="noopener">Official video of the meeting and luncheon</a></li>
+    <li><a href="https://rollcall.com/factbase/trump/transcript/donald-trump-press-gaggle-after-ai-luncheon-the-sticks-september-29-2026/" target="_blank" rel="noopener">Press gaggle transcript (Roll Call Factba.se)</a></li>
+   </ol></div>
+   <div><h3>Reporting</h3><ol>
+    <li><a href="https://www.cbsnews.com/news/trump-ai-constitution-tech-execs-openai-anthropic-voluntary-controls/" target="_blank" rel="noopener">CBS News: "morally binding" voluntary controls</a></li>
+    <li><a href="https://www.cbsnews.com/news/trump-dario-amodei-anthropic-dinner/" target="_blank" rel="noopener">CBS News: Trump's dinner with Dario Amodei</a></li>
+    <li><a href="https://www.semafor.com/article/09/30/2026/how-zuckerberg-shaped-trumps-ai-industry-pledge" target="_blank" rel="noopener">Semafor: how Zuckerberg shaped the pledge</a></li>
+    <li><a href="https://www.semafor.com/article/09/29/2026/no-ai-czar-but-trump-ahead-of-white-houses-ai-ceo-meeting" target="_blank" rel="noopener">Semafor: Amodei and Thune</a></li>
+    <li><a href="https://www.businessinsider.com/inside-zuckerberg-huang-push-for-white-house-ai-pact-2026-9" target="_blank" rel="noopener">Business Insider: the Zuckerberg–Huang push</a></li>
+    <li><a href="https://www.reuters.com/world/us/trump-releases-ai-accord-with-tech-executives-2026-09-29/" target="_blank" rel="noopener">Reuters: Trump releases accord</a></li>
+    <li><a href="https://www.yahoo.com/news/politics/articles/exclusive-full-list-attendees-white-134038132.html" target="_blank" rel="noopener">Axios: full list of attendees</a></li>
+    <li><a href="https://abcnews.com/Politics/top-ai-leaders-meet-trump-white-house-amid/story?id=136832988" target="_blank" rel="noopener">ABC News: leaders sign a "constitution"</a></li>
+    <li><a href="https://www.nextgov.com/artificial-intelligence/2026/09/white-house-unveils-super-intelligence-executive-order-and-industry-accord/416325/" target="_blank" rel="noopener">Nextgov: EO and industry accord</a></li>
+    <li><a href="https://fedscoop.com/trump-launches-ai-site-america-gov/" target="_blank" rel="noopener">Fedscoop: America.gov launch</a></li>
+    <li><a href="https://www.pbs.org/newshour/world/china-and-u-s-agree-to-establish-ai-safety-channel-and-continue-trade-and-military-talks" target="_blank" rel="noopener">PBS: US–China safety channel</a></li>
+    <li><a href="https://www.npr.org/2026/10/04/nx-s1-5990781/jay-clayton-ai-czar-trump" target="_blank" rel="noopener">NPR: Jay Clayton to lead the Super Intelligence Force</a></li>
+   </ol></div>
+   <div><h3>Analysis & reaction</h3><ol>
+    <li><a href="https://www.cfr.org/articles/trumps-ai-safety-pact-is-toothless-but-there-is-a-path-forward" target="_blank" rel="noopener">Council on Foreign Relations, Oct 1</a></li>
+    <li><a href="https://news.bgov.com/bloomberg-government-news/trumps-voluntary-ai-accord-still-carries-risk-for-tech-titans" target="_blank" rel="noopener">Bloomberg Government, Oct 1</a></li>
+    <li><a href="https://abcnews.com/Politics/former-ftc-chair-khan-dismisses-constitution-signed-ai/story?id=136984695" target="_blank" rel="noopener">ABC News: Lina Khan</a></li>
+    <li><a href="https://sfstandard.com/2026/10/01/trump-rebrand-ai-superintelligence/" target="_blank" rel="noopener">SF Standard: the rebrand</a></li>
+    <li><a href="https://www.poynter.org/fact-checking/2026/whos-winning-ai-race-us-vs-china/" target="_blank" rel="noopener">PolitiFact/Poynter: who's ahead</a></li>
+    <li><a href="https://thezvi.substack.com/p/a-morally-binding-white-house-accord" target="_blank" rel="noopener">Zvi Mowshowitz: a "morally binding" accord</a></li>
+   </ol></div>
+  </div>
+  <div class="note">
+   <p><strong>Photography.</strong> Official White House photos by Daniel Torok and Joyce Boghosian, from the official gallery. Works of the US government are in the public domain. Captions do not identify individuals, and neither do we.</p>
+   <p><strong>Films.</strong> Narration is a synthetic voice made with ElevenLabs (Eleven v4). Music and sound effects are generated with ElevenLabs. No news footage is reproduced. Videos used for research are listed in our research notes and are not embedded.</p>
+   <p><strong>Method.</strong> Every factual statement was checked against a primary source where one exists, otherwise against at least one major news organization. Single-source reports are labelled "As reported." Dates are US Eastern. Terminology: we follow the federal government in writing "SI"; quotes keep the speaker's own words.</p>
+  </div>
+ </div>
+</section>
+</main>
+
+<script>
+document.documentElement.classList.add('js');
+/* ---------- films: video when exported, designed placeholder before; "Up next" chains them, also in full screen ---------- */
+(function(){
+ const figs=[...document.querySelectorAll('figure.film')].sort((a,b)=>a.dataset.film.localeCompare(b.dataset.film));
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const fsEl=()=>document.fullscreenElement||document.webkitFullscreenElement||null;
+ const exitFs=()=>{const x=document.exitFullscreen||document.webkitExitFullscreen;if(x&&fsEl()){try{const r=x.call(document);if(r&&r.catch)r.catch(()=>{})}catch(e){}}};
+ const F=figs.map((fig,idx)=>{
+  const slug=fig.dataset.film,n=slug.slice(0,2),title=fig.dataset.title;
+  const base=`films/${slug}/out/`,mp4=`${base}${slug}.en.mp4`,poster=`${base}poster.en.jpg`;
+  fig.innerHTML=`<div class="frame"><div class="poster" style="background-image:url('${poster}')"><div class="ph"><b>${title}</b></div></div><button class="play" type="button" aria-label="Play film ${n}: ${title}"><i></i>Watch</button></div><figcaption><span><b>Film ${n}</b> · ${title}</span><span class="dur"></span></figcaption>`;
+  const ph=fig.querySelector('.poster .ph'),dur=fig.querySelector('.dur'),frame=fig.querySelector('.frame');
+  const probe=new Image();probe.onload=()=>{ph.style.display='none'};probe.src=poster;
+  const v=document.createElement('video');v.preload='metadata';v.src=mp4;
+  const f={fig,idx,slug,n,title,base,mp4,poster,v,frame,ready:false,started:false};f.cur=f;
+  v.addEventListener('loadedmetadata',()=>{if(f.cur!==f)return;f.ready=true;const s=Math.round(v.duration);dur.textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`});
+  v.addEventListener('error',()=>{if(!f.started){fig.classList.add('pending');dur.textContent='Film in production'}},{once:true});
+  v.addEventListener('ended',()=>upNext(f));
+  v.addEventListener('play',()=>{F.forEach(o=>{if(o!==f&&!o.v.paused)o.v.pause()});clearUpNext(f)});
+  v.addEventListener('webkitendfullscreen',()=>restoreHome(f));   // iPhone video-only full screen closed
+  fig.querySelector('.play').addEventListener('click',()=>start(f));
+  return f;
+ });
+ function setFilm(host,film){                       // load a film into a host player
+  const v=host.v;host.cur=film;v.src=film.mp4;v.poster=film.poster;
+  v.querySelectorAll('track').forEach(t=>t.remove());
+  const tr=document.createElement('track');tr.kind='captions';tr.srclang='en';tr.label='English';tr.src=`${film.base}${film.slug}.en.vtt`;v.appendChild(tr);
+  const lab=host.frame.querySelector('.fsname');if(lab)lab.textContent=`Film ${film.n} · ${film.title}`;
+ }
+ function mount(f){
+  if(f.started)return;f.started=true;const v=f.v;v.controls=true;v.playsInline=true;
+  v.setAttribute('controlslist','nofullscreen');v.disablePictureInPicture=true;
+  f.frame.innerHTML='';f.frame.appendChild(v);setFilm(f,f);
+  const fsb=document.createElement('button');fsb.type='button';fsb.className='fsbtn';fsb.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg><span>Full screen</span>';
+  fsb.setAttribute('aria-label','Full screen');fsb.addEventListener('click',()=>toggleFs(f));f.frame.appendChild(fsb);
+  const nm=document.createElement('div');nm.className='fsname';nm.textContent=`Film ${f.n} · ${f.title}`;f.frame.appendChild(nm);
+  f.frame.addEventListener('dblclick',e=>{if(e.target===f.v)toggleFs(f)});
+ }
+ function toggleFs(f){
+  if(fsEl()){exitFs();return}
+  const el=f.frame,req=el.requestFullscreen||el.webkitRequestFullscreen;
+  if(req){try{const r=req.call(el);if(r&&r.catch)r.catch(()=>{})}catch(e){}}
+  else if(f.v.webkitEnterFullscreen)f.v.webkitEnterFullscreen();     // iPhone: video-only full screen; the binge continues in place
+ }
+ function start(f,scroll,at){
+  mount(f);F.forEach(clearUpNext);
+  if(f.cur!==f)setFilm(f,f);
+  if(scroll)f.fig.scrollIntoView({behavior:reduce||document.hidden?'instant':'smooth',block:'center'});
+  const go=()=>{f.v.currentTime=at||0;f.v.play().catch(()=>{})};
+  if(f.v.readyState>=1)go();else f.v.addEventListener('loadedmetadata',go,{once:true});
+ }
+ function nextOf(film){return F.slice(film.idx+1).find(o=>o.ready)||null}
+ function clearUpNext(f){if(f.timer){cancelAnimationFrame(f.timer);f.timer=null}if(f.adv){clearTimeout(f.adv);f.adv=null}const o=f.frame.querySelector('.upnext');if(o)o.remove()}
+ /* advance: inside full screen the next film plays in the same player; otherwise in its own chapter */
+ function advance(host,nx){
+  clearUpNext(host);
+  const fs=fsEl()===host.frame||fsEl()===host.v||host.v.webkitDisplayingFullscreen;
+  if(fs){setFilm(host,nx);host.v.play().catch(()=>{})}
+  else start(nx,true);
+ }
+ function upNext(f){
+  const film=f.cur,nx=nextOf(film),later=F[film.idx+1];
+  // browser-owned video full screen (no overlay can show there): continue straight away
+  if(nx&&(fsEl()===f.v||f.v.webkitDisplayingFullscreen)){advance(f,nx);return}
+  clearUpNext(f);
+  const o=document.createElement('div');o.className='upnext';
+  if(nx){
+   o.innerHTML=`<p class="kicker">Up next · Film ${nx.n}</p><p class="t">${nx.title}</p><div class="btns"><button type="button" class="go"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19" class="track"/><circle cx="22" cy="22" r="19" class="ring" pathLength="1"/></svg><span>Play now</span></button><button type="button" class="stay">Stay here</button></div>`;
+   f.frame.appendChild(o);
+   const ring=o.querySelector('.ring'),T=6000,t0=performance.now();
+   const tick=now=>{const p=Math.min(1,(now-t0)/T);ring.style.strokeDashoffset=String(1-p);if(p<1)f.timer=requestAnimationFrame(tick)};
+   if(!reduce)f.timer=requestAnimationFrame(tick);else ring.style.strokeDashoffset='0';
+   f.adv=setTimeout(()=>{f.adv=null;advance(f,nx)},T);
+   o.querySelector('.go').addEventListener('click',()=>advance(f,nx));
+   o.querySelector('.stay').addEventListener('click',()=>clearUpNext(f));
+   o.querySelector('.go').focus({preventScroll:true});
+  }else if(later){
+   o.innerHTML=`<p class="kicker">Next · Film ${later.n}</p><p class="t">${later.title}</p><p class="soon">This film is still in production.</p><div class="btns"><button type="button" class="read">Read the chapter</button><button type="button" class="stay">Close</button></div>`;
+   f.frame.appendChild(o);
+   o.querySelector('.read').addEventListener('click',()=>{clearUpNext(f);exitFs();setTimeout(()=>later.fig.closest('.chapter,.tl,section').scrollIntoView({behavior:reduce?'instant':'smooth',block:'start'}),150)});
+   o.querySelector('.stay').addEventListener('click',()=>clearUpNext(f));
+  }else{
+   o.innerHTML=`<p class="kicker">That was the last film</p><p class="t">Thanks for watching.</p><div class="btns"><button type="button" class="read">Sources & method</button><button type="button" class="stay">Close</button></div>`;
+   f.frame.appendChild(o);
+   o.querySelector('.read').addEventListener('click',()=>{clearUpNext(f);exitFs();setTimeout(()=>document.getElementById('sources').scrollIntoView({behavior:'instant'}),150)});
+   o.querySelector('.stay').addEventListener('click',()=>clearUpNext(f));
+  }
+ }
+ /* leaving full screen on a later film: hand playback back to that film's own chapter */
+ function restoreHome(host){
+  if(host.cur===host)return;
+  const film=host.cur,t=host.v.currentTime,playing=!host.v.paused&&!host.v.ended,ended=host.v.ended;
+  clearUpNext(host);host.v.pause();setFilm(host,host);
+  if(ended){mount(film);film.fig.scrollIntoView({behavior:'instant',block:'center'});upNext(film);return}
+  start(film,true,t);if(!playing)film.v.addEventListener('playing',()=>film.v.pause(),{once:true});
+ }
+ const onFs=()=>{F.forEach(f=>{f.frame.classList.toggle('is-fs',fsEl()===f.frame);if(!fsEl())restoreHome(f)})};
+ document.addEventListener('fullscreenchange',onFs);document.addEventListener('webkitfullscreenchange',onFs);
+ document.addEventListener('keydown',e=>{if((e.key==='f'||e.key==='F')&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){const p=F.find(o=>o.started&&!o.v.paused)||F.find(o=>o.started);if(p){e.preventDefault();toggleFs(p)}}});
+ const all=document.getElementById('playall');
+ if(all)all.addEventListener('click',()=>{const first=F.find(o=>o.ready)||F[0];start(first,true)});
+})();
+
+/* ---------- the guest table ---------- */
+(function(){
+ const G=[
+  ['Donald Trump','President of the United States','gov',1],['JD Vance','Vice President','gov'],['Mike Johnson','Speaker of the House, co-host','gov'],
+  ['Scott Bessent','Treasury Secretary','gov'],['Howard Lutnick','Commerce Secretary','gov'],['Susie Wiles','White House Chief of Staff','gov'],
+  ['Jared Isaacman','NASA Administrator','gov'],['Michael Kratsios','Science and technology adviser to the President','gov'],['Jay Clayton','Director of National Intelligence','gov'],
+  ['Sean Cairncross','National Cyber Director','sec'],
+  ['Sundar Pichai','CEO, Google','model',1],['Dario Amodei','CEO, Anthropic','model',1],['Mark Zuckerberg','CEO, Meta','model',1],['Greg Brockman','President, OpenAI','model',1],['Elon Musk','xAI, Tesla, SpaceX','model',1],
+  ['Jensen Huang','CEO, Nvidia','chip',1],['Lisa Su','CEO, AMD','chip'],['Hock Tan','CEO, Broadcom','chip'],['Sanjay Mehrotra','CEO, Micron','chip'],
+  ['Satya Nadella','CEO, Microsoft','cloud'],['Jeff Bezos','Founder, Amazon','cloud'],['Bill McDermott','CEO, ServiceNow','cloud'],
+  ['Alex Karp','CEO, Palantir','sec'],['Shyam Sankar','CTO, Palantir','sec'],['Nikesh Arora','CEO, Palo Alto Networks','sec'],['Brandon Daniels','CEO, Exiger','sec'],
+  ['Brad Gerstner','Altimeter Capital','cap'],['Chamath Palihapitiya','Social Capital','cap'],['David Sacks','Craft Ventures; former White House AI czar','cap']
+ ];
+ const COLS={model:'#f1ece2',chip:'#c9a55e',cloud:'#93a9c9',sec:'#b7a3d6',cap:'#8fbfa4',gov:'#d9714f'};
+ const LAB={model:'Frontier models',chip:'Chips & memory',cloud:'Cloud & software',sec:'Security & defense software',cap:'Capital',gov:'Government'};
+ const svg=document.getElementById('tablesvg'),who=document.getElementById('who'),list=document.getElementById('guestlist');
+ const W=900,cx=450,cy=220,tw=700,th=120,n=G.length,top=Math.ceil((n-2)/2),bot=n-2-top;
+ let html=`<rect x="${cx-tw/2}" y="${cy-th/2}" width="${tw}" height="${th}" rx="${th/2}" fill="rgba(201,165,94,.06)" stroke="#c9a55e" stroke-width="1.5"/><rect x="${cx-tw/2+14}" y="${cy-th/2+14}" width="${tw-28}" height="${th-28}" rx="${th/2-14}" fill="none" stroke="rgba(201,165,94,.25)"/>`;
+ const pos=[];pos.push([cx-tw/2-34,cy,'l']);
+ for(let i=0;i<top;i++)pos.push([cx-tw/2+50+(tw-100)*i/(top-1),cy-th/2-34,'t']);
+ pos.push([cx+tw/2+34,cy,'r']);
+ for(let i=bot-1;i>=0;i--)pos.push([cx-tw/2+50+(tw-100)*i/(bot-1),cy+th/2+34,'b']);
+ // order seats: government at the ends/head, others interleaved so rivals sit side by side
+ const order=[0,10,15,11,19,12,16,13,20,14,17,22,18,24,1,2,21,23,3,4,25,26,5,27,6,28,7,9,8];
+ order.forEach((gi,k)=>{const g=G[gi],[x,y,side]=pos[k];const last=g[0].split(' ').slice(-1)[0];
+  const alt=k%2?16:0;const ty=side==='t'?y-18-alt:side==='b'?y+26+alt:y+30;const anchor='middle';
+  html+=`<g class="seat" data-i="${gi}" data-g="${g[2]}" data-s="${g[3]?1:0}" tabindex="0" role="button" aria-label="${g[0]}, ${g[1]}"><circle cx="${x}" cy="${y}" r="10" fill="${g[3]?COLS[g[2]]:'#0b0d11'}" stroke="${COLS[g[2]]}" stroke-width="2"/><text x="${x}" y="${ty}" text-anchor="${anchor}">${last}</text></g>`});
+ svg.innerHTML=html;
+ list.innerHTML=G.map(g=>`<li><span style="color:var(--ivory)">${g[0]}</span><span>${g[1]}${g[3]?' <span class="sig">Signed</span>':''}</span></li>`).join('');
+ const seats=[...svg.querySelectorAll('.seat')];
+ function show(gi){const g=G[gi];seats.forEach(s=>s.classList.toggle('sel',+s.dataset.i===gi));
+  who.innerHTML=`<span class="chip ${g[3]?'fact':'said'}">${g[3]?'Signed the accord':'Attended'}</span><div class="nm">${g[0]}</div><p class="rl">${g[1]}</p><p class="src">${LAB[g[2]]} · Axios RSVP list${g[3]?' · accord signature page':''}</p>`}
+ seats.forEach(s=>{s.addEventListener('click',()=>show(+s.dataset.i));s.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show(+s.dataset.i)}})});
+ document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));
+  const f=b.dataset.g;seats.forEach(s=>s.classList.toggle('dim',!(f==='all'||(f==='signed'?s.dataset.s==='1':s.dataset.g===f))));
+ }));
+})();
+
+/* ---------- scroll: progress, active chapter, hero parallax, gentle settles ---------- */
+(function(){
+ const prog=document.getElementById('progress'),hero=document.getElementById('heroimg'),links=[...document.querySelectorAll('#chapnav a')];
+ const targets=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ let moved=false;
+ function onScroll(e){if(e)moved=true;const h=document.documentElement,y=h.scrollTop;prog.style.width=(100*y/Math.max(1,h.scrollHeight-h.clientHeight))+'%';
+  if(!reduce&&y<900)hero.style.setProperty('--py',(y*.25)+'px');
+  let cur=-1;targets.forEach((t,i)=>{if(t.getBoundingClientRect().top<window.innerHeight*.35)cur=i});
+  links.forEach((a,i)=>a.classList.toggle('on',i===cur));
+  const ch=document.getElementById('chain');if(ch&&moved){const r=ch.getBoundingClientRect();const p=Math.min(1,Math.max(0,(window.innerHeight-r.top)/(window.innerHeight*.6)));ch.style.setProperty('--p',p.toFixed(3))}
+  const st=document.getElementById('stack');if(st&&!reduce&&moved){[...st.children].forEach((l,i)=>{const r=l.getBoundingClientRect();const p=Math.min(1,Math.max(0,(window.innerHeight-r.top)/(window.innerHeight*.35)));l.style.setProperty('--sx',((1-p)*(i%2?-24:24)).toFixed(1)+'px')})}
+  const old=document.getElementById('oldai');if(old&&moved){const r=old.getBoundingClientRect();const p=Math.min(1,Math.max(0,(window.innerHeight*.85-r.top)/(window.innerHeight*.3)));old.style.setProperty('--p',p.toFixed(3))}
+ }
+ addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+ if(!reduce&&'IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}}),{rootMargin:'0px 0px -10% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>{if(el.getBoundingClientRect().top>innerHeight){el.classList.add('pre');io.observe(el)}})}
+})();
+</script>
+</body>
+</html>
