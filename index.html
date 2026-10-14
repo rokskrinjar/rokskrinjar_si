@@ -4,51 +4,205 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Rok Skrinjar</title>
-  <meta name="description" content="Projects and experiments by Rok Skrinjar.">
+  <meta name="description" content="Rok Skrinjar. Restarting…">
   <style>
-    :root { --bg:#fafafa; --fg:#1a1a1a; --muted:#666; --card:#fff; --border:#e5e5e5; --accent:#0b6bcb; }
+    :root { --bg:#fafafa; --fg:#1a1a1a; --muted:#666; --faint:#aaa; --accent:#0b6bcb; }
     @media (prefers-color-scheme: dark) {
-      :root { --bg:#111; --fg:#eee; --muted:#999; --card:#1a1a1a; --border:#2a2a2a; --accent:#5aa9ff; }
+      :root { --bg:#111; --fg:#eee; --muted:#999; --faint:#555; --accent:#5aa9ff; }
     }
     * { box-sizing: border-box; }
+    html, body { height:100%; }
     body { margin:0; background:var(--bg); color:var(--fg); font-family:system-ui,-apple-system,Segoe UI,sans-serif; line-height:1.5; }
-    main { max-width:760px; margin:0 auto; padding:64px 16px; }
-    h1 { margin:0 0 4px; font-size:2rem; }
-    .lead { color:var(--muted); margin:0 0 40px; }
-    .grid { display:grid; gap:12px; }
-    a.card { display:block; padding:16px 18px; background:var(--card); border:1px solid var(--border); border-radius:10px; color:inherit; text-decoration:none; transition:border-color .15s; }
-    a.card:hover { border-color:var(--accent); }
-    .card h2 { margin:0 0 4px; font-size:1.05rem; }
-    .card p { margin:0; color:var(--muted); font-size:.95rem; }
-    .meta { margin-top:8px; font-size:.8rem; color:var(--muted); display:flex; gap:8px; flex-wrap:wrap; }
-    .tag { border:1px solid var(--border); border-radius:999px; padding:0 8px; }
-    footer { margin-top:48px; font-size:.85rem; color:var(--muted); }
+    main { min-height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:48px 16px; text-align:center; }
+    h1 { margin:0 0 56px; font-size:clamp(2.4rem, 9vw, 4.5rem); font-weight:650; letter-spacing:-.03em; line-height:1.05; }
+
+    /* Orbiting dots, in the spirit of a certain OS restart screen */
+    .orbit { position:relative; width:44px; height:44px; margin:0 auto 22px; }
+    .orbit i { position:absolute; inset:0; opacity:0; animation:orbit 5.5s infinite; }
+    .orbit i::after { content:''; position:absolute; top:0; left:50%; width:5px; height:5px; margin-left:-2.5px; border-radius:50%; background:var(--fg); }
+    .orbit i:nth-child(2) { animation-delay:.24s; }
+    .orbit i:nth-child(3) { animation-delay:.48s; }
+    .orbit i:nth-child(4) { animation-delay:.72s; }
+    .orbit i:nth-child(5) { animation-delay:.96s; }
+    @keyframes orbit {
+      0%   { transform:rotate(225deg); opacity:1; animation-timing-function:ease-out; }
+      7%   { transform:rotate(345deg); animation-timing-function:linear; }
+      30%  { transform:rotate(455deg); animation-timing-function:ease-in-out; }
+      39%  { transform:rotate(690deg); animation-timing-function:linear; }
+      70%  { transform:rotate(815deg); opacity:1; animation-timing-function:ease-out; }
+      75%  { transform:rotate(945deg); animation-timing-function:ease-out; }
+      76%  { transform:rotate(945deg); opacity:0; }
+      100% { transform:rotate(945deg); opacity:0; }
+    }
+
+    .state { margin:0; font-size:1.05rem; }
+    .pct { color:var(--muted); font-variant-numeric:tabular-nums; margin-left:.35em; }
+    .log { margin:10px 0 0; min-height:1.5em; max-width:34rem; color:var(--muted); font:.85rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .log::after { content:'▍'; margin-left:1px; color:var(--accent); animation:blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity:0; } }
+    .hint { position:fixed; left:0; right:0; bottom:24px; margin:0; text-align:center; color:var(--faint); font:.75rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; opacity:0; transition:opacity 1.2s; }
+    .hint.on { opacity:1; }
+
+    .sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .orbit i { animation:none; opacity:1; }
+      .orbit i:nth-child(2) { transform:rotate(-18deg); }
+      .orbit i:nth-child(3) { transform:rotate(-36deg); }
+      .orbit i:nth-child(4) { transform:rotate(-54deg); }
+      .orbit i:nth-child(5) { transform:rotate(-72deg); }
+      .log::after { animation:none; }
+    }
   </style>
 </head>
 <body>
   <main>
     <h1>Rok Skrinjar</h1>
-    <p class="lead">Projects and experiments.</p>
-    <div id="list" class="grid"><p class="lead">Loading…</p></div>
-    <footer>&copy; <span id="y"></span> Rok Skrinjar</footer>
+    <div aria-hidden="true">
+      <div class="orbit"><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="state">Restarting…<span class="pct" id="pct"></span></p>
+      <p class="log" id="log"></p>
+    </div>
+    <p class="sr">Restarting…</p>
   </main>
+  <p class="hint" id="hint" aria-hidden="true">press any key to skip</p>
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    fetch('projects.json', { cache: 'no-store' })
-      .then(r => r.json())
-      .then(items => {
-        const el = document.getElementById('list');
-        if (!items.length) { el.innerHTML = '<p class="lead">Nothing here yet — more coming soon.</p>'; return; }
-        items.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-        el.innerHTML = items.map(p => `
-          <a class="card" href="${esc(p.slug)}/">
-            <h2>${esc(p.title)}</h2>
-            <p>${esc(p.description)}</p>
-            <div class="meta">${p.date ? `<span>${esc(p.date)}</span>` : ''}${(p.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
-          </a>`).join('');
-      })
-      .catch(() => { document.getElementById('list').innerHTML = '<p class="lead">Could not load projects.</p>'; });
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pctEl = document.getElementById('pct');
+    const logEl = document.getElementById('log');
+    const hintEl = document.getElementById('hint');
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    const rand = (a, b) => a + Math.random() * (b - a);
+
+    // Each step is one or more log lines; progress moves after the last one.
+    const POOL = [
+      ['Closing 47 open tabs…'],
+      ['Clearing cache…'],
+      ['Uninstalling autopilot…'],
+      ['Freeing up memory…'],
+      ['Defragmenting thoughts…'],
+      ['Recalibrating priorities…'],
+      ['Downloading curiosity…'],
+      ['Searching for new drivers…'],
+      ['Reticulating splines…'],
+      ['Rebuilding from source…'],
+      ['Installing sleep update (v8.0)…'],
+      ['Looking for the manual…', 'No manual found. Improvising.'],
+      ['Compiling next chapter…'],
+      ['Removing unused dependencies…'],
+      ['Watering ideas…'],
+      ['Optimizing for joy…'],
+      ['Upgrading coffee to v2.0…'],
+      ['Untangling headphone cables…'],
+      ['Sharpening pencils…'],
+      ['Loading fresh perspective…'],
+      ['Turning "someday" into "today"…'],
+      ['Checking for updates…', '1 update found: everything.'],
+      ['Polishing the blank page…'],
+      ['Generating good ideas… (and a few bad ones)'],
+      ['Asking the universe for directions…', 'Universe says: just start.'],
+      ['Installing new hobbies…'],
+      ['Merging branch "dreams" into "main"…'],
+      ['Resolving merge conflicts…', 'Kept the good parts.'],
+      ['Warming up the creative engine…'],
+      ['Rearranging the furniture of the mind…'],
+      ['Learning new tricks…'],
+      ['Booting in curious mode…'],
+      ['Plotting something good…'],
+      ['Calibrating the compass…'],
+      ['Counting possibilities…', 'Lost count. Good sign.'],
+      ['Replacing "should" with "could"…'],
+      ['Spinning up side quests…'],
+      ['Loading plot twist…'],
+      ['Assembling furniture without instructions…'],
+      ['Estimating time remaining…', 'Estimate: worth it.'],
+      ['Making room for new things…'],
+      ['Feeding the hamster that powers this site…'],
+      ['Adjusting the attitude…', 'Attitude: excellent.'],
+    ];
+    // Shown while stuck at 99%; first and last are fixed, the rest are picked at random.
+    const HOLD = [
+      "Please don't turn off this human.",
+      'Good things take time.',
+      'Any minute now. Probably.',
+      'The last 1% is the best part.',
+      'Adding finishing touches…',
+      'Double-checking the good stuff…',
+      'Patience.exe is running…',
+      'Counting the decimals…',
+      'Still worth the wait.',
+    ];
+
+    let pct = 0, skipAsked = false, skipping = false;
+    const render = (text = pct + '%') => { pctEl.textContent = text; };
+
+    async function type(text) {
+      if (reduce) { logEl.textContent = text; return; }
+      logEl.textContent = '';
+      for (const ch of text) { logEl.textContent += ch; await sleep(rand(22, 60)); }
+    }
+    async function erase() {
+      if (reduce) return;
+      while (logEl.textContent) { logEl.textContent = logEl.textContent.slice(0, -1); await sleep(10); }
+    }
+    async function progressTo(target, ms) {
+      const steps = Math.abs(target - pct) || 1;
+      while (pct !== target) {
+        pct += Math.sign(target - pct) * Math.min(Math.abs(target - pct), Math.ceil(rand(0, 2)));
+        render();
+        await sleep(rand(.4, 1.6) * ms / steps);
+      }
+    }
+    async function say(lines, target, ms = rand(3500, 6000)) {
+      if (skipAsked) {
+        skipAsked = false; skipping = true;
+        await erase(); await type("Skipping isn't supported. Some restarts take time.");
+        await sleep(2800); skipping = false;
+      }
+      for (const [i, line] of lines.entries()) {
+        await erase(); await type(line);
+        if (i < lines.length - 1) await sleep(1400);
+      }
+      if (target !== undefined) await progressTo(target, ms);
+      await sleep(rand(500, 900));
+    }
+    const shuffle = a => a.map(v => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
+
+    async function run() {
+      render();
+      for (;;) {
+        await say(['Turning it off and on again…'], 6);
+        const picks = shuffle(POOL).slice(0, 8);
+        for (const [i, step] of picks.entries()) await say(step, 6 + Math.round((i + 1) * 84 / picks.length));
+        await say(['Installing: ???'], 97, 7000);
+        await say(['Almost there…'], 99, 6000);
+        await sleep(4000);
+        await say(['Still 99%. This is normal.']);
+        await sleep(4000);
+        // The last percent crawls through decimals
+        const holds = shuffle(HOLD).slice(0, 4);
+        for (const [i, d] of ['99.3', '99.7', '99.9', '99.97'].entries()) {
+          render(d + '%');
+          await say([holds[i]]);
+          await sleep(rand(4500, 6500));
+        }
+        render('99.99%');
+        await say(["Taking longer than expected. That's okay."]);
+        await sleep(6000);
+        pct = 99;
+        await say(['Starting over. Properly, this time.'], 0, 1500);
+        await sleep(1500);
+      }
+    }
+
+    const ask = e => {
+      if (e.type === 'keydown' && (e.ctrlKey || e.metaKey || e.altKey || e.key === 'Tab')) return;
+      if (!skipping) skipAsked = true;
+    };
+    addEventListener('keydown', ask);
+    addEventListener('pointerdown', ask);
+    setTimeout(() => hintEl.classList.add('on'), 7000);
+    run();
   </script>
 </body>
 </html>
