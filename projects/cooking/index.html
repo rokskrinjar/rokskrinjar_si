@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="sl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moja kuharska knjiga · Rok Skrinjar</title>
+  <meta name="description" content="Osebna zbirka preverjenih receptov in kuharskih spoznanj.">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js" integrity="sha384-+pxiN6T7yvpryuJmE1gM9PX7yQit15auDb+ZwwvJOd/4be2Cie5/IuVXgQb/S9du" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg:#fbf8f3; --fg:#2a2420; --muted:#6f655c; --card:#fff; --border:#ebe3d8;
+      --accent:#b4441c; --accent-soft:#f7e9df; --ok:#3d7537; --ok-soft:#e7f1e3;
+      --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#161311; --fg:#f1ebe4; --muted:#a89d92; --card:#1f1b18; --border:#352d27;
+              --accent:#f08a5d; --accent-soft:#3a2419; --ok:#8cc483; --ok-soft:#1f2c1c; }
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--fg); font-family:system-ui,-apple-system,'Segoe UI',sans-serif; line-height:1.6; -webkit-text-size-adjust:100%; }
+    a { color:var(--accent); }
+    main { max-width:960px; margin:0 auto; padding:40px 16px 96px; }
+    .narrow { max-width:720px; margin:0 auto; }
+    .back { display:inline-block; color:var(--muted); font-size:.9rem; text-decoration:none; padding:10px 0; }
+    .back:hover { color:var(--accent); }
+    .eyebrow { margin:24px 0 6px; color:var(--accent); font-size:.75rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
+    h1, h2, h3 { font-family:var(--serif); font-weight:600; letter-spacing:-.01em; line-height:1.15; }
+    h1 { margin:0 0 12px; font-size:clamp(2.1rem, 7vw, 3.3rem); }
+    .lead { margin:0; max-width:36rem; color:var(--muted); font-size:1.1rem; }
+    .muted { color:var(--muted); }
+
+    .sections { display:flex; gap:8px; flex-wrap:wrap; margin:28px 0 0; }
+    .sections a { display:inline-flex; align-items:center; min-height:44px; padding:0 16px; border:1px solid var(--border); border-radius:999px; background:var(--card); color:var(--fg); text-decoration:none; font-size:.95rem; }
+    .sections a:hover { border-color:var(--accent); }
+    section { margin-top:56px; scroll-margin-top:16px; }
+    .section-head { display:flex; align-items:baseline; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border); padding-bottom:8px; margin-bottom:20px; }
+    .section-head h2 { margin:0; font-size:1.6rem; }
+
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 20px; }
+    .chip { min-height:40px; padding:0 14px; border:1px solid var(--border); border-radius:999px; background:transparent; color:var(--fg); font:inherit; font-size:.9rem; cursor:pointer; }
+    .chip[aria-pressed="true"] { background:var(--fg); border-color:var(--fg); color:var(--bg); }
+
+    .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap:16px; }
+    .card { display:flex; flex-direction:column; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; color:inherit; text-decoration:none; transition:border-color .15s, transform .15s; }
+    .card:hover { border-color:var(--accent); transform:translateY(-2px); }
+    .card img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; background:var(--accent-soft); }
+    .card-body { display:flex; flex-direction:column; gap:8px; padding:18px 18px 20px; flex:1; }
+    .card h3 { margin:0; font-size:1.3rem; }
+    .meta { display:flex; flex-wrap:wrap; gap:4px 12px; color:var(--muted); font-size:.85rem; }
+    .verdict { margin:0; font-family:var(--serif); font-style:italic; font-size:1.05rem; }
+    .badges { display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:6px; }
+    .badge { display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:2px 10px; font-size:.78rem; font-weight:600; background:var(--accent-soft); color:var(--accent); }
+    .badge.ok { background:var(--ok-soft); color:var(--ok); }
+    .badge.tag { background:transparent; border:1px solid var(--border); color:var(--muted); font-weight:400; }
+    .stars { color:var(--accent); letter-spacing:.1em; }
+
+    .topics { list-style:none; margin:0; padding:0; border-top:1px solid var(--border); }
+    .topics a { display:block; padding:16px 4px; border-bottom:1px solid var(--border); color:inherit; text-decoration:none; }
+    .topics a:hover h3 { color:var(--accent); }
+    .topics h3 { margin:0 0 4px; font-size:1.2rem; }
+    .topics p { margin:0; color:var(--muted); font-size:.95rem; }
+
+    /* Detail views */
+    .detail-meta { display:flex; flex-wrap:wrap; gap:6px 18px; margin:8px 0 0; color:var(--muted); font-size:.95rem; }
+    .detail-meta span { display:inline-flex; gap:6px; }
+    .detail-meta b { color:var(--fg); font-weight:600; }
+    .verdict-big { margin:28px 0 0; padding:20px 22px; border-radius:14px; background:var(--accent-soft); }
+    .verdict-big .badges { margin:0 0 8px; padding:0; }
+    .verdict-big blockquote { margin:0; font-family:var(--serif); font-style:italic; font-size:1.5rem; line-height:1.3; }
+    .photos { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap:10px; margin:24px 0 0; }
+    .photos img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:10px; display:block; }
+    .tools { display:flex; flex-wrap:wrap; gap:8px; margin:24px 0 0; }
+    .tool { display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 16px; border:1px solid var(--border); border-radius:999px; background:var(--card); color:var(--fg); font:inherit; font-size:.9rem; cursor:pointer; }
+    .tool[aria-pressed="true"] { border-color:var(--ok); color:var(--ok); }
+
+    .prose { margin-top:8px; font-size:1.05rem; }
+    .prose h2 { margin:40px 0 12px; font-size:1.55rem; }
+    .prose h3 { margin:28px 0 8px; font-size:1.2rem; }
+    .prose ul, .prose ol { padding-left:1.3em; }
+    .prose li { margin:6px 0; }
+    .prose blockquote { margin:16px 0; padding:4px 0 4px 16px; border-left:3px solid var(--accent); color:var(--muted); }
+    .prose strong { font-weight:650; }
+    /* Ingredients and steps become tap-to-tick checklists while cooking */
+    .prose .check { list-style:none; padding:0; }
+    .prose .check li { margin:0; border-bottom:1px solid var(--border); }
+    .prose .check label { display:flex; gap:14px; align-items:flex-start; padding:12px 2px; cursor:pointer; }
+    .prose .check input { flex:0 0 auto; width:22px; height:22px; margin:2px 0 0; accent-color:var(--ok); }
+    .prose .check .n { flex:0 0 auto; min-width:1.4em; font-family:var(--serif); font-weight:600; color:var(--accent); }
+    .prose .check input:checked ~ span { color:var(--muted); text-decoration:line-through; text-decoration-color:var(--border); }
+    .related { margin-top:48px; padding-top:20px; border-top:1px solid var(--border); }
+    .related h2 { margin:0 0 8px; font-size:1.25rem; }
+    .related ul { margin:0; padding-left:1.2em; }
+    .related li { margin:6px 0; }
+
+    .state { padding:40px 0; color:var(--muted); }
+    footer { margin-top:72px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:.85rem; }
+    @media (prefers-reduced-motion: reduce) { .card { transition:none; } .card:hover { transform:none; } }
+  </style>
+</head>
+<body>
+  <main id="app">
+    <p class="state">Nalagam kuharsko knjigo…</p>
+    <noscript><p class="state">Kuharska knjiga za prikaz potrebuje JavaScript.</p></noscript>
+  </main>
+  <script>
+    // Recipes and knowledge live as Markdown files in the repo (the single source of truth):
+    //   projects/cooking/recipes/<slug>.md, projects/cooking/knowledge/<slug>.md
+    // Adding a file is enough; the list comes from the GitHub API. Format: projects/cooking/README.md
+    const REPO = 'rokskrinjar/rokskrinjar_si', BRANCH = 'main', BASE = 'projects/cooking';
+    const LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname); // local preview server
+    const app = document.getElementById('app');
+    const SLUG = /^[a-z0-9][a-z0-9-]*$/;
+    const STATUS = {
+      'preizkuseno': { label: 'Preizkušeno', ok: true },
+      'predlog': { label: 'Predlog · še ni preizkušeno', ok: false },
+      'v-razvoju': { label: 'V razvoju', ok: false },
+    };
+
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const md = s => DOMPurify.sanitize(marked.parse(s || ''));
+    const fmtDate = d => {
+      const t = new Date(String(d) + 'T12:00:00');
+      return isNaN(t) ? esc(d) : t.toLocaleDateString('sl-SI', { day: 'numeric', month: 'long', year: 'numeric' });
+    };
+    const list = v => Array.isArray(v) ? v : (v == null || v === '' ? [] : [v]);
+
+    function parse(text, slug) {
+      const m = text.match(/^﻿?---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+      let meta = {};
+      if (m) { try { meta = jsyaml.load(m[1], { schema: jsyaml.CORE_SCHEMA }) || {}; } catch (e) { meta = {}; } }
+      return { ...meta, slug, title: meta.title || slug, date: meta.date ? String(meta.date) : '', body: m ? m[2] : text };
+    }
+
+    async function listDir(dir) {
+      const key = 'cookbook:' + dir;
+      try { const c = JSON.parse(sessionStorage.getItem(key)); if (c && Date.now() - c.t < 5 * 60e3) return c.v; } catch (e) {}
+      const url = LOCAL ? `/__ls/${BASE}/${dir}` : `https://api.github.com/repos/${REPO}/contents/${BASE}/${dir}?ref=${BRANCH}`;
+      const r = await fetch(url);
+      if (r.status === 404) return [];
+      if (!r.ok) throw new Error('list ' + r.status);
+      const v = (await r.json())
+        .filter(f => f.type === 'file' && /\.md$/i.test(f.name) && !/^[_.]/.test(f.name))
+        .map(f => f.name.replace(/\.md$/i, ''))
+        .filter(s => SLUG.test(s));
+      try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), v })); } catch (e) {}
+      return v;
+    }
+
+    async function load(dir, slug) {
+      if (!SLUG.test(slug)) return null;
+      let r = await fetch(`${dir}/${slug}.md`, { cache: 'no-cache' }).catch(() => null);
+      // Just merged and GitHub Pages hasn't redeployed yet: read it straight from the repo.
+      if ((!r || !r.ok) && !LOCAL) r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/${BASE}/${dir}/${slug}.md`).catch(() => null);
+      if (!r || !r.ok) return null;
+      return parse(await r.text(), slug);
+    }
+    const loadAll = async (dir, slugs) => (await Promise.all(slugs.map(s => load(dir, s)))).filter(Boolean);
+
+    const photoSrc = p => {
+      const src = typeof p === 'string' ? p : p && p.src;
+      return src && /^(https:\/\/|[\w-][\w\-./]*$)/.test(src) && !src.includes('..') ? src : null;
+    };
+    const photoAlt = (p, title) => (p && typeof p === 'object' && p.alt) || title;
+    const statusBadge = s => {
+      const st = STATUS[s];
+      return st ? `<span class="badge${st.ok ? ' ok' : ''}">${st.ok ? '✓ ' : ''}${esc(st.label)}</span>` : '';
+    };
+    const stars = n => {
+      n = Number(n);
+      if (!(n >= 1 && n <= 5)) return '';
+      n = Math.round(n);
+      return `<span class="stars" aria-label="Ocena ${n} od 5">${'★'.repeat(n)}${'☆'.repeat(5 - n)}</span>`;
+    };
+    const excerpt = body => {
+      const div = document.createElement('div');
+      div.innerHTML = md(body);
+      let t = '';
+      for (const el of div.querySelectorAll('p, li')) { t += (t ? ' ' : '') + el.textContent.trim(); if (t.length >= 120) break; }
+      t = t || div.textContent.trim();
+      return t.length > 160 ? t.slice(0, 157).trimEnd() + '…' : t;
+    };
+    const footer = `<footer>Osebna zbirka preverjenih receptov in kuharskih spoznanj · <a href="/projects/">Rok Skrinjar</a></footer>`;
+
+    async function renderHome() {
+      const [rSlugs, kSlugs] = await Promise.all([listDir('recipes'), listDir('knowledge')]);
+      const [recipes, topics] = await Promise.all([loadAll('recipes', rSlugs), loadAll('knowledge', kSlugs)]);
+      recipes.sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title, 'sl'));
+      topics.sort((a, b) => a.title.localeCompare(b.title, 'sl'));
+      const cats = [...new Set(recipes.map(r => r.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'sl'));
+
+      const card = r => {
+        const photo = list(r.photos).map(photoSrc).find(Boolean);
+        return `<a class="card" href="?r=${esc(r.slug)}" data-cat="${esc(r.category || '')}">
+          ${photo ? `<img src="${esc(photo)}" alt="" loading="lazy">` : ''}
+          <div class="card-body">
+            <div class="meta">${r.category ? `<span>${esc(r.category)}</span>` : ''}${r.date ? `<span>${fmtDate(r.date)}</span>` : ''}</div>
+            <h3>${esc(r.title)}</h3>
+            ${r.verdict ? `<p class="verdict">»${esc(r.verdict)}«</p>` : ''}
+            <div class="badges">${statusBadge(r.status)}${stars(r.rating)}</div>
+          </div>
+        </a>`;
+      };
+
+      app.innerHTML = `
+        <a class="back" href="/projects/">← Projekti</a>
+        <p class="eyebrow">Kuharska knjiga</p>
+        <h1>Moja kuharska knjiga</h1>
+        <p class="lead">Osebna zbirka preverjenih receptov in kuharskih spoznanj: kaj se je obneslo, različice in mali kuharski triki.</p>
+        <nav class="sections" aria-label="Razdelki">
+          <a href="#recepti">Recepti · ${recipes.length}</a>
+          <a href="#znanje">Kuharsko znanje · ${topics.length}</a>
+        </nav>
+        <section id="recepti">
+          <div class="section-head"><h2>Recepti</h2></div>
+          ${cats.length ? `<div class="chips" role="group" aria-label="Kategorije">
+            <button type="button" class="chip" data-cat="" aria-pressed="true">Vse</button>
+            ${cats.map(c => `<button type="button" class="chip" data-cat="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join('')}
+          </div>` : ''}
+          ${recipes.length ? `<div class="grid" id="recipes">${recipes.map(card).join('')}</div>` : '<p class="muted">Še ni receptov.</p>'}
+        </section>
+        <section id="znanje">
+          <div class="section-head"><h2>Kuharsko znanje</h2><span class="muted">Tehnike, razlage in triki</span></div>
+          ${topics.length ? `<ul class="topics">${topics.map(k => `<li><a href="?k=${esc(k.slug)}"><h3>${esc(k.title)}</h3><p>${esc(excerpt(k.body))}</p></a></li>`).join('')}</ul>` : '<p class="muted">Še ni zapisov.</p>'}
+        </section>
+        ${footer}`;
+
+      app.querySelectorAll('.chip').forEach(btn => btn.addEventListener('click', () => {
+        const cat = btn.dataset.cat;
+        app.querySelectorAll('.chip').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+        app.querySelectorAll('#recipes .card').forEach(c => { c.hidden = cat !== '' && c.dataset.cat !== cat; });
+      }));
+      if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
+    }
+
+    // Turn the lists under "Sestavine" and "Priprava" into tap-to-tick checklists.
+    function checklists(root) {
+      root.querySelectorAll('h2').forEach(h => {
+        if (!/^(sestavine|priprava)$/i.test(h.textContent.trim())) return;
+        const listEl = h.nextElementSibling;
+        if (!listEl || !/^(UL|OL)$/.test(listEl.tagName)) return;
+        const numbered = listEl.tagName === 'OL';
+        listEl.classList.add('check');
+        [...listEl.children].forEach((li, i) => {
+          const label = document.createElement('label');
+          const box = document.createElement('input');
+          box.type = 'checkbox';
+          const text = document.createElement('span');
+          text.append(...li.childNodes);
+          label.append(box);
+          if (numbered) { const n = document.createElement('span'); n.className = 'n'; n.textContent = (i + 1) + '.'; label.append(n); }
+          label.append(text);
+          li.append(label);
+        });
+      });
+    }
+
+    function wakeLockButton() {
+      if (!('wakeLock' in navigator)) return;
+      const btn = document.getElementById('wake');
+      btn.hidden = false;
+      let lock = null, want = false;
+      const acquire = async () => { try { lock = await navigator.wakeLock.request('screen'); lock.addEventListener('release', () => { lock = null; }); } catch (e) { want = false; } btn.setAttribute('aria-pressed', String(want && !!lock)); };
+      btn.addEventListener('click', async () => {
+        want = !want;
+        if (want) await acquire(); else { await lock?.release(); btn.setAttribute('aria-pressed', 'false'); }
+      });
+      document.addEventListener('visibilitychange', () => { if (want && !lock && document.visibilityState === 'visible') acquire(); });
+    }
+
+    function notFound(what) {
+      app.innerHTML = `<div class="narrow"><a class="back" href="./">← Kuharska knjiga</a><h1>Ni najdeno</h1><p class="lead">${esc(what)} ne obstaja ali je bil preimenovan.</p></div>`;
+    }
+
+    async function renderRecipe(slug) {
+      const r = await load('recipes', slug);
+      if (!r) return notFound('Recept');
+      document.title = `${r.title} · Moja kuharska knjiga`;
+      const topics = await loadAll('knowledge', list(r.knowledge).filter(s => SLUG.test(s)));
+      const photos = list(r.photos).map(p => ({ src: photoSrc(p), alt: photoAlt(p, r.title) })).filter(p => p.src);
+      app.innerHTML = `<article class="narrow">
+        <a class="back" href="./">← Kuharska knjiga</a>
+        ${r.category ? `<p class="eyebrow">${esc(r.category)}</p>` : '<p class="eyebrow">Recept</p>'}
+        <h1>${esc(r.title)}</h1>
+        <div class="detail-meta">
+          ${r.date ? `<span>${fmtDate(r.date)}</span>` : ''}
+          ${r.time ? `<span><b>Čas</b> ${esc(r.time)}</span>` : ''}
+          ${r.servings ? `<span><b>Količina</b> ${esc(r.servings)}</span>` : ''}
+        </div>
+        ${(r.status || r.verdict || r.rating) ? `<div class="verdict-big">
+          <div class="badges">${statusBadge(r.status)}${stars(r.rating)}</div>
+          ${r.verdict ? `<blockquote>»${esc(r.verdict)}«</blockquote>` : ''}
+        </div>` : ''}
+        ${photos.length ? `<div class="photos">${photos.map(p => `<img src="${esc(p.src)}" alt="${esc(p.alt)}" loading="lazy">`).join('')}</div>` : ''}
+        <div class="tools"><button type="button" class="tool" id="wake" aria-pressed="false" hidden>Zaslon naj ostane prižgan</button></div>
+        <div class="prose" id="body">${md(r.body)}</div>
+        ${list(r.tags).length ? `<div class="badges">${list(r.tags).map(t => `<span class="badge tag">${esc(t)}</span>`).join('')}</div>` : ''}
+        ${topics.length ? `<div class="related"><h2>Povezano kuharsko znanje</h2><ul>${topics.map(k => `<li><a href="?k=${esc(k.slug)}">${esc(k.title)}</a></li>`).join('')}</ul></div>` : ''}
+        ${footer}
+      </article>`;
+      checklists(document.getElementById('body'));
+      wakeLockButton();
+    }
+
+    async function renderTopic(slug) {
+      const k = await load('knowledge', slug);
+      if (!k) return notFound('Zapis');
+      document.title = `${k.title} · Moja kuharska knjiga`;
+      const recipes = await loadAll('recipes', list(k.recipes).filter(s => SLUG.test(s)));
+      app.innerHTML = `<article class="narrow">
+        <a class="back" href="./#znanje">← Kuharsko znanje</a>
+        <p class="eyebrow">Kuharsko znanje</p>
+        <h1>${esc(k.title)}</h1>
+        ${k.date ? `<div class="detail-meta"><span>${fmtDate(k.date)}</span></div>` : ''}
+        <div class="prose">${md(k.body)}</div>
+        ${list(k.tags).length ? `<div class="badges">${list(k.tags).map(t => `<span class="badge tag">${esc(t)}</span>`).join('')}</div>` : ''}
+        ${recipes.length ? `<div class="related"><h2>Uporabljeno v receptih</h2><ul>${recipes.map(r => `<li><a href="?r=${esc(r.slug)}">${esc(r.title)}</a></li>`).join('')}</ul></div>` : ''}
+        ${footer}
+      </article>`;
+    }
+
+    const q = new URLSearchParams(location.search);
+    (q.get('r') ? renderRecipe(q.get('r')) : q.get('k') ? renderTopic(q.get('k')) : renderHome())
+      .catch(() => {
+        app.innerHTML = `<a class="back" href="/projects/">← Projekti</a><h1>Moja kuharska knjiga</h1>
+          <p class="lead">Vsebine trenutno ni mogoče naložiti. Poskusi znova čez minuto.</p>
+          <p><a href="https://github.com/${REPO}/tree/${BRANCH}/${BASE}">Recepti na GitHubu</a></p>`;
+      });
+  </script>
+</body>
+</html>
