@@ -40,6 +40,8 @@
     .log { margin:10px 0 0; min-height:1.5em; max-width:34rem; color:var(--muted); font:.85rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
     .log::after { content:'▍'; margin-left:1px; color:var(--accent); animation:blink 1s steps(1) infinite; }
     .log.err, .log.err::after { color:var(--err); }
+    .yn button { font:inherit; color:inherit; background:none; border:0; padding:.2em .35em; margin:0 -.1em; cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
+    .yn button:hover { color:var(--fg); }
     @keyframes blink { 50% { opacity:0; } }
     .hint { position:fixed; left:0; right:0; bottom:24px; margin:0; text-align:center; color:var(--faint); font:.75rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; opacity:0; transition:opacity 1.2s; }
     .hint.on { opacity:1; }
@@ -61,7 +63,7 @@
     <h1>Rok Skrinjar</h1>
     <div aria-hidden="true">
       <div class="orbit"><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="state">Restarting…<span class="pct" id="pct"></span></p>
+      <p class="state"><span id="state">Restarting…</span><span class="pct" id="pct"></span></p>
       <p class="log" id="log"></p>
     </div>
     <p class="sr">Restarting…</p>
@@ -70,6 +72,7 @@
   <script>
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const pctEl = document.getElementById('pct');
+    const stateEl = document.getElementById('state');
     const logEl = document.getElementById('log');
     const hintEl = document.getElementById('hint');
     const wait = ms => new Promise(r => setTimeout(r, ms));
@@ -194,19 +197,73 @@
       }
     }
 
-    // Reply right away: pause the sequence, show the reply, then restore the line it was on.
+    // Waits for Y or N (key or tap). Resolves 'y', 'n', 'other' (any other key) or 'timeout'.
+    function answer(timeoutMs) {
+      return new Promise(resolve => {
+        const box = document.createElement('span');
+        box.className = 'yn';
+        box.innerHTML = ' [<button type="button" tabindex="-1" data-a="y">Y</button>/<button type="button" tabindex="-1" data-a="n">N</button>]';
+        logEl.append(box);
+        const done = a => {
+          removeEventListener('keydown', onKey);
+          clearTimeout(timer);
+          box.textContent = ' [Y/N] ' + (a === 'y' || a === 'n' ? a.toUpperCase() : '');
+          resolve(a);
+        };
+        const onKey = e => {
+          if (e.ctrlKey || e.metaKey || e.altKey || e.key === 'Tab' || e.repeat) return;
+          const k = e.key.toLowerCase();
+          done(k === 'y' || k === 'n' ? k : 'other');
+        };
+        box.addEventListener('click', e => { const a = e.target.dataset && e.target.dataset.a; if (a) done(a); });
+        addEventListener('keydown', onKey);
+        const timer = setTimeout(() => done('timeout'), timeoutMs);
+      });
+    }
+    async function question(text) {
+      for (;;) {
+        await erase(wait);
+        await type(text, wait);
+        const a = await answer(15000);
+        if (a !== 'other') return a;
+        await wait(500); await erase(wait);
+        await type("That's not a Y or an N. Creative, though.", wait);
+        await wait(2000);
+      }
+    }
+
+    // Any key or tap pauses the restart and offers a way back to the old version (the projects page).
     const ask = async e => {
       if (e.type === 'keydown' && (e.ctrlKey || e.metaKey || e.altKey || e.key === 'Tab')) return;
       if (gate) return;
       let release;
       gate = new Promise(r => { release = r; });
       const saved = logEl.textContent;
-      await erase(wait);
       logEl.classList.add('err');
-      await type("Skipping isn't supported. Some restarts take time.", wait);
-      await wait(2800);
-      await erase(wait);
+      let a = await question('Restart interrupted. Go back to the old version?');
+      let reply = a === 'timeout' ? 'No answer. Taking that as a no.' : 'Good choice. Resuming restart…';
+      if (a === 'y') {
+        await wait(600);
+        a = await question('Are you sure? The old version is no longer supported.');
+        if (a === 'y') {
+          await wait(600); await erase(wait);
+          stateEl.textContent = 'Rolling back…';
+          await type('Rolling back to the old version…', wait);
+          let p = parseFloat(pctEl.textContent) || 0;
+          while (p < 100) { p = Math.min(100, Math.floor(p) + 7); pctEl.textContent = p + '%'; await wait(30); }
+          await wait(500); await erase(wait);
+          await type('Done. That was suspiciously fast.', wait);
+          await wait(1800);
+          location.href = '/projects/';
+          return;
+        }
+        reply = a === 'timeout' ? 'No answer. Taking that as a no.' : 'Wise. Resuming restart…';
+      }
+      await wait(700); await erase(wait);
       logEl.classList.remove('err');
+      await type(reply, wait);
+      await wait(1800);
+      await erase(wait);
       await type(saved, wait);
       gate = null;
       release();
@@ -214,6 +271,8 @@
     addEventListener('keydown', ask);
     addEventListener('pointerdown', ask);
     setTimeout(() => hintEl.classList.add('on'), 7000);
+    // Coming back with the Back button: start the restart fresh instead of a frozen 'rolled back' screen.
+    addEventListener('pageshow', e => { if (e.persisted) location.reload(); });
     run();
   </script>
 </body>
