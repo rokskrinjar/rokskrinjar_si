@@ -113,7 +113,7 @@ footer.f{border-top:2px solid var(--tx);padding-block:22px 50px;display:flex;jus
   const CHAT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>';
   const T0 = TRADE ? TR[TRADE] : null;
   const feat = `<div class="feat"><div><span class="mono">01 · Prices</span><b>Instant estimate</b><small>Trade-specific calculator with a price range and breakdown</small></div><div><span class="mono">02 · Book</span><b>Quote request</b><small>Job type, photos, preferred day and time slot</small></div><div><span class="mono">03 · Trust</span><b>Reviews & credentials</b><small>Rating summary, real-sounding reviews, guarantees</small></div><div><span class="mono">04 · Area</span><b>Area checker</b><small>“Do you cover my town?” with a coverage map</small></div><div><span class="mono">05 · Work</span><b>Gallery</b><small>Filterable photos with a lightbox</small></div><div><span class="mono">06 · Mobile</span><b>Call bar</b><small>Call, WhatsApp and estimate buttons on phones</small></div></div>`;
-  const navTop = `<nav class="top"><a href="${base}../index.html">← 100 pages</a><span>${TRADE ? `<a href="../index.html">All 25 trades</a>` : ''}<a href="${base}../erp/index.html">ERP experts</a><a href="${base}../aiconsult/index.html">AI consultants</a></span></nav>`;
+  const navTop = `<nav class="top"><a href="/100-pages/">← 100 pages</a><span>${TRADE ? `<a href="../index.html">All 25 trades</a>` : ''}<a href="/erp-leads/">ERP experts</a></span></nav>`;
   const stripImgs = id => ALL.filter(x => x.t === id).slice(0, 3).map(x => `<img src="${base}thumbs/${id}/${String(x.n).padStart(2, '0')}.jpg" alt="" loading="lazy">`).join('');
   let html = `<div class="tape"></div><div class="wrap">${navTop}`;
   if (!TRADE) {
@@ -127,7 +127,7 @@ footer.f{border-top:2px solid var(--tx);padding-block:22px 50px;display:flex;jus
   }
   html += `<div class="ctrl" id="ctrl"></div><div class="cnt" id="cnt"></div><main class="grid" id="grid"></main><div class="more" id="more"></div>
   <section class="gen"><div><h2>What do you like?</h2><p>Click the speech bubble on any site to say what works and what doesn’t. I distil the comments into your design guidelines and apply them to the next pages.</p><p class="sync" id="sync" style="margin-top:12px"><i></i><span>Checking storage …</span></p></div><div id="genbox"></div></section>
-  <footer class="f"><span>All businesses, people, reviews and prices are fictional. Photos: Pexels. Forms on the sites are demos and send nothing.</span><a href="${base}../index.html">Back to 100 pages →</a></footer></div>`;
+  <footer class="f"><span>All businesses, people, reviews and prices are fictional. Photos: Pexels. Forms on the sites are demos and send nothing.</span><a href="/100-pages/">Back to 100 pages →</a></footer></div>`;
   body.innerHTML = html;
 
   /* ---- filters & grid ---- */
