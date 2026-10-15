@@ -23,6 +23,7 @@
               --accent:#f08a5d; --accent-soft:#3a2419; --ok:#8cc483; --ok-soft:#1f2c1c; }
     }
     * { box-sizing:border-box; }
+    [hidden] { display:none !important; } /* .card and .tool set display, which would override [hidden] */
     body { margin:0; background:var(--bg); color:var(--fg); font-family:system-ui,-apple-system,'Segoe UI',sans-serif; line-height:1.6; -webkit-text-size-adjust:100%; }
     a { color:var(--accent); }
     main { max-width:960px; margin:0 auto; padding:40px 16px 96px; }
