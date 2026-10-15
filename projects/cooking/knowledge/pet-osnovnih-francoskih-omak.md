@@ -1,14 +1,20 @@
 ---
-title: Pet osnovnih francoskih omak
+title: Pet matičnih omak francoske kuhinje
 date: 2026-10-14
-tags: [omake, tehnike]
-recipes: [piscancji-medaljoni-veloute]
+tags: [omake, tehnike, matične omake]
+recipes: [bechamel, veloute, espagnole, hollandaise, sauce-tomate, piscancji-medaljoni-veloute]
 ---
 
-To so tradicionalne **matične omake**, iz katerih izhajajo druge različice:
+To so tradicionalne francoske **matične omake** (*les sauces mères*), ki jih je sistematiziral Auguste Escoffier. Iz njih nastajajo številne izpeljanke: iz bešamela na primer omaka Mornay s sirom, iz espagnole demi-glace.
 
-1. **Béchamel (bešamel):** mleko + maslo + moka; lazanje in gratinirane jedi.
-2. **Velouté:** svetla jušna osnova, zgostena s svetlim prežganjem iz masla in moke; odlična s piščancem.
-3. **Espagnole:** temna omaka na osnovi rjave mesne osnove in temnega prežganja.
-4. **Hollandaise (holandska):** emulzija rumenjakov, masla in kisline; šparglji in jajca Benedict.
-5. **Sauce tomate (paradižnikova):** osnova iz paradižnika in aromatičnih sestavin.
+| Omaka | Osnova | Značilnost |
+|---|---|---|
+| [Béchamel](?r=bechamel) | Mleko + belo prežganje | Kremna, mlečna |
+| [Velouté](?r=veloute) | Svetla jušna osnova + belo prežganje | Nežna, žametna |
+| [Espagnole](?r=espagnole) | Temna mesna osnova + rjavo prežganje | Močna, bogata |
+| [Hollandaise](?r=hollandaise) | Rumenjaki + maslo | Maslena emulzija |
+| [Sauce tomate](?r=sauce-tomate) | Paradižnik | Aromatična, rahlo kisla |
+
+Prve tri zgosti **prežganje** iz masla in moke: belo oziroma svetlo pri bešamelu in velouté, rjavo pri espagnole. Hollandaise je emulzija brez moke, sauce tomate pa v sodobni različici prav tako ne uporablja moke.
+
+Velouté sem že pripravil kot [Piščančje medaljone v kremni velouté omaki z rižem](?r=piscancji-medaljoni-veloute) (14. oktober 2026).

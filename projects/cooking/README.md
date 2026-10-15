@@ -24,14 +24,17 @@ projects/cooking/
 ```markdown
 ---
 title: Polno ime recepta
+description: Kratek opis v enem ali dveh stavkih.   # neobvezno
 date: 2026-10-14            # datum prve priprave (ali zapisa predloga), LLLL-MM-DD
+order:                      # neobvezno, vrstni red znotraj istega datuma (1, 2, 3 …)
 category: Glavne jedi       # ena kategorija; filtri na strani nastanejo iz teh vrednosti
 tags: [piščanec, omake]     # neobvezno
-status: preizkuseno         # preizkuseno | predlog | v-razvoju
+status: preizkuseno         # preizkuseno | predlog (na strani »Še ni preizkušeno«) | v-razvoju
 rating:                     # neobvezno, število 1–5; prazno, če ocene ni
 verdict: Bilo je božansko.  # neobvezno, moja ocena z besedami, dobesedno
 time: Približno 30 minut    # neobvezno, prosto besedilo
 servings: Za 2 osebi        # neobvezno, prosto besedilo
+difficulty: Lahka           # neobvezno: Lahka | Srednja | Zahtevna
 photos: []                  # neobvezno, npr. [photos/ime-1.jpg]
 knowledge: []               # neobvezno, imena datotek iz knowledge/ brez .md
 ---
@@ -44,9 +47,21 @@ knowledge: []               # neobvezno, imena datotek iz knowledge/ brez .md
 
 1. …
 
+## Uporaba
+
+S čim jo postrežem.
+
 ## Kaj je pomembno
 
 - …
+
+## Kuharski triki
+
+- …
+
+## Če gre kaj narobe
+
+- **Pregosta:** …
 
 ## Različice
 
@@ -58,8 +73,9 @@ knowledge: []               # neobvezno, imena datotek iz knowledge/ brez .md
 ```
 
 - Naslova `## Sestavine` in `## Priprava` naj ostaneta točno tako, saj se na strani spremenita v seznam za odkljukanje med kuhanjem.
-- `## Kaj je pomembno`, `## Različice` in `## Dnevnik priprave` so neobvezni; dodaš lahko tudi druge razdelke.
-- Kategorije za zdaj: `Glavne jedi`. Novo dodaj le, kadar res potrebuješ, in jo vedno zapiši enako.
+- Vsi ostali razdelki so neobvezni; dodaš lahko tudi druge. Neizveden recept nima `## Dnevnik priprave`, dokler ga ne skuham.
+- Povezava na drug recept v besedilu: `[Ime recepta](?r=ime-datoteke)`. Tabele v Markdownu so podprte.
+- Kategorije za zdaj: `Glavne jedi`, `Osnovne omake`. Novo dodaj le, kadar res potrebuješ, in jo vedno zapiši enako.
 
 ## Kuharsko znanje: `knowledge/<ime>.md`
 

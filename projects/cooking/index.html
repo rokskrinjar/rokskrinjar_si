@@ -53,6 +53,7 @@
     .card-body { display:flex; flex-direction:column; gap:8px; padding:18px 18px 20px; flex:1; }
     .card h3 { margin:0; font-size:1.3rem; }
     .meta { display:flex; flex-wrap:wrap; gap:4px 12px; color:var(--muted); font-size:.85rem; }
+    .desc { margin:0; color:var(--muted); font-size:.95rem; }
     .verdict { margin:0; font-family:var(--serif); font-style:italic; font-size:1.05rem; }
     .badges { display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:6px; }
     .badge { display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:2px 10px; font-size:.78rem; font-weight:600; background:var(--accent-soft); color:var(--accent); }
@@ -86,6 +87,13 @@
     .prose li { margin:6px 0; }
     .prose blockquote { margin:16px 0; padding:4px 0 4px 16px; border-left:3px solid var(--accent); color:var(--muted); }
     .prose strong { font-weight:650; }
+    .prose h1 + .lead, .narrow h1 + .lead { margin-bottom:12px; }
+    .table-wrap { overflow-x:auto; margin:20px 0; border:1px solid var(--border); border-radius:12px; background:var(--card); }
+    .prose table { width:100%; border-collapse:collapse; font-size:.95rem; }
+    .prose th, .prose td { padding:10px 14px; text-align:left; vertical-align:top; border-bottom:1px solid var(--border); }
+    .prose th { font-weight:600; color:var(--muted); font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; }
+    .prose tr:last-child td { border-bottom:0; }
+    .prose td:first-child { font-weight:600; white-space:nowrap; }
     /* Ingredients and steps become tap-to-tick checklists while cooking */
     .prose .check { list-style:none; padding:0; }
     .prose .check li { margin:0; border-bottom:1px solid var(--border); }
@@ -118,7 +126,7 @@
     const SLUG = /^[a-z0-9][a-z0-9-]*$/;
     const STATUS = {
       'preizkuseno': { label: 'Preizkušeno', ok: true },
-      'predlog': { label: 'Predlog · še ni preizkušeno', ok: false },
+      'predlog': { label: 'Še ni preizkušeno', ok: false },
       'v-razvoju': { label: 'V razvoju', ok: false },
     };
 
@@ -190,7 +198,8 @@
     async function renderHome() {
       const [rSlugs, kSlugs] = await Promise.all([listDir('recipes'), listDir('knowledge')]);
       const [recipes, topics] = await Promise.all([loadAll('recipes', rSlugs), loadAll('knowledge', kSlugs)]);
-      recipes.sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title, 'sl'));
+      const ord = r => Number.isFinite(Number(r.order)) && r.order !== null && r.order !== '' ? Number(r.order) : 999;
+      recipes.sort((a, b) => b.date.localeCompare(a.date) || ord(a) - ord(b) || a.title.localeCompare(b.title, 'sl'));
       topics.sort((a, b) => a.title.localeCompare(b.title, 'sl'));
       const cats = [...new Set(recipes.map(r => r.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'sl'));
 
@@ -202,6 +211,8 @@
             <div class="meta">${r.category ? `<span>${esc(r.category)}</span>` : ''}${r.date ? `<span>${fmtDate(r.date)}</span>` : ''}</div>
             <h3>${esc(r.title)}</h3>
             ${r.verdict ? `<p class="verdict">»${esc(r.verdict)}«</p>` : ''}
+            ${r.description ? `<p class="desc">${esc(r.description)}</p>` : ''}
+            ${(r.time || r.difficulty) ? `<div class="meta">${r.time ? `<span>${esc(r.time)}</span>` : ''}${r.difficulty ? `<span>Zahtevnost: ${esc(r.difficulty)}</span>` : ''}</div>` : ''}
             <div class="badges">${statusBadge(r.status)}${stars(r.rating)}</div>
           </div>
         </a>`;
@@ -239,6 +250,15 @@
     }
 
     // Turn the lists under "Sestavine" and "Priprava" into tap-to-tick checklists.
+    function wrapTables(root) {
+      root.querySelectorAll('table').forEach(t => {
+        const box = document.createElement('div');
+        box.className = 'table-wrap';
+        t.replaceWith(box);
+        box.append(t);
+      });
+    }
+
     function checklists(root) {
       root.querySelectorAll('h2').forEach(h => {
         if (!/^(sestavine|priprava)$/i.test(h.textContent.trim())) return;
@@ -287,10 +307,12 @@
         <a class="back" href="./">← Kuharska knjiga</a>
         ${r.category ? `<p class="eyebrow">${esc(r.category)}</p>` : '<p class="eyebrow">Recept</p>'}
         <h1>${esc(r.title)}</h1>
+        ${r.description ? `<p class="lead">${esc(r.description)}</p>` : ''}
         <div class="detail-meta">
           ${r.date ? `<span>${fmtDate(r.date)}</span>` : ''}
           ${r.time ? `<span><b>Čas</b> ${esc(r.time)}</span>` : ''}
           ${r.servings ? `<span><b>Količina</b> ${esc(r.servings)}</span>` : ''}
+          ${r.difficulty ? `<span><b>Zahtevnost</b> ${esc(r.difficulty)}</span>` : ''}
         </div>
         ${(r.status || r.verdict || r.rating) ? `<div class="verdict-big">
           <div class="badges">${statusBadge(r.status)}${stars(r.rating)}</div>
@@ -304,6 +326,7 @@
         ${footer}
       </article>`;
       checklists(document.getElementById('body'));
+      wrapTables(document.getElementById('body'));
       wakeLockButton();
     }
 
@@ -317,11 +340,12 @@
         <p class="eyebrow">Kuharsko znanje</p>
         <h1>${esc(k.title)}</h1>
         ${k.date ? `<div class="detail-meta"><span>${fmtDate(k.date)}</span></div>` : ''}
-        <div class="prose">${md(k.body)}</div>
+        <div class="prose" id="body">${md(k.body)}</div>
         ${list(k.tags).length ? `<div class="badges">${list(k.tags).map(t => `<span class="badge tag">${esc(t)}</span>`).join('')}</div>` : ''}
         ${recipes.length ? `<div class="related"><h2>Uporabljeno v receptih</h2><ul>${recipes.map(r => `<li><a href="?r=${esc(r.slug)}">${esc(r.title)}</a></li>`).join('')}</ul></div>` : ''}
         ${footer}
       </article>`;
+      wrapTables(document.getElementById('body'));
     }
 
     const q = new URLSearchParams(location.search);
