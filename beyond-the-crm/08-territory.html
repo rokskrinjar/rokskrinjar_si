@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Territory — Coverage & capacity</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#eef1f6;--ink:#111827;--ink2:#465065;--ink3:#7b8497;--grid:#e6e9ef;--s1:#1d4ed8;--s2:#c2410c;--s3:#0e9f6e;--s4:#a21caf;--s5:#ca8a04;--q1:#dbe5fb;--q2:#b3c8f5;--q3:#7fa1ec;--q4:#4a77df;--q5:#1d4ed8;--q6:#163a9e;--pos:#1d4ed8;--neg:#c93a39;--good:#0f7a52;--warn:#a86b00;--bad:#c93a39;--cur:"€"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Figtree',sans-serif}
+header{display:flex;align-items:center;gap:20px;padding:14px 28px;background:var(--surface);border-bottom:1px solid var(--grid);flex-wrap:wrap}
+.lg{font-weight:800;font-size:18px;display:flex;align-items:center;gap:8px}.lg i{width:22px;height:22px;display:grid;grid-template-columns:1fr 1fr;gap:2px}.lg i b{background:var(--s1);border-radius:2px}.lg i b:nth-child(2){background:var(--q3)}.lg i b:nth-child(3){background:var(--q2)}.lg i b:nth-child(4){background:var(--q5)}
+.tabs{display:flex;gap:4px;margin-left:12px;flex-wrap:wrap}.tabs button{border:0;background:transparent;padding:8px 12px;border-radius:8px;font:600 13.5px 'Figtree';color:var(--ink2);cursor:pointer}.tabs button.on{background:#e8eefc;color:var(--s1)}
+header .sp{flex:1}.srcs{font-size:12px;color:var(--ink3)}
+.wrap{padding:18px 28px 70px;max-width:1440px;margin:0 auto}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+select{border:1px solid #d6dbe4;border-radius:9px;padding:7px 10px;font:600 13px 'Figtree';background:#fff}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--surface);border-radius:14px;padding:14px 16px;border:1px solid var(--grid)}.kpi .l{font-size:12.5px;color:var(--ink3);font-weight:600}.kpi .v{font-size:26px;font-weight:800;letter-spacing:-.02em}.kpi .d{font-size:12px;font-weight:700}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.25fr 1fr}
+.card{background:var(--surface);border:1px solid var(--grid);border-radius:16px;padding:18px 20px;min-width:0}.card h3{margin:0;font-size:15px;font-weight:800}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.tmap{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;max-width:560px}
+.tile{aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:13px;cursor:pointer;transition:transform .12s}.tile small{font-weight:600;font-size:10.5px;opacity:.85}.tile:hover{transform:scale(1.08)}.tile.sel{outline:3px solid var(--ink);outline-offset:1px}
+.mleg{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink3);margin-top:12px}.mleg i{display:flex;height:10px;width:160px;border-radius:5px;overflow:hidden}.mleg i b{flex:1}
+.det b{font-size:22px}.det .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--grid)}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}.srcs{display:none}}@media(max-width:640px){.wrap,header{padding-left:16px;padding-right:16px}.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div class="lg"><i><b></b><b></b><b></b><b></b></i>Territory</div><nav class="tabs"><button data-sheet="map">Coverage map</button><button data-sheet="cap">Capacity</button><button data-sheet="bal">Balance</button><button data-sheet="white">Whitespace</button><button data-sheet="hire">Hiring plan</button></nav><span class="sp"></span><span class="srcs">Salesforce Accounts & Users · ZoomInfo firmographics · Workday headcount · Gong activity</span></header>
+<div class="wrap">
+ <div class="filters"><select data-f="geo"><option value="emea">EMEA</option><option value="dach">DACH only</option><option value="nordics">Nordics only</option></select><select data-f="seg"><option value="all">All segments</option><option value="ent">Enterprise (1,000+)</option><option value="mm">Mid-market (200–999)</option></select><select data-f="metric"><option value="white">Colour by: whitespace</option><option value="pen">Colour by: penetration</option><option value="cov">Colour by: accounts per rep</option></select></div>
+ <section data-panel="map"><div class="kpis" id="k1"></div>
+  <div class="g g21"><div class="card"><h3>EMEA territories</h3><p class="sub" id="msub"></p><div class="tmap" id="tmap"></div><div class="mleg" id="mleg"></div></div><div class="card det" id="det"></div></div></section>
+ <section data-panel="cap" hidden><div class="kpis" id="k2"></div>
+  <div class="card"><h3>Reps needed vs. reps we have</h3><p class="sub">Needed = (target accounts × touches per account) ÷ rep capacity · per territory</p><div id="c_cap"></div></div></section>
+ <section data-panel="bal" hidden>
+  <div class="card"><h3>Is the work spread fairly?</h3><p class="sub">Each dot is a rep. Total addressable ACV in their book vs. number of accounts.</p><div id="c_bal"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Rep books</h3><p class="sub">Click a column to sort</p><div id="t_book"></div></div></section>
+ <section data-panel="white" hidden>
+  <div class="card"><h3>Whitespace by industry and territory</h3><p class="sub">Addressable ACV in accounts with no opportunity in the last 24 months</p><div id="c_ws"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Biggest untouched accounts</h3><p class="sub">ZoomInfo fit A, no Salesforce activity in 12 months</p><div id="t_ut"></div></div></section>
+ <section data-panel="hire" hidden><div class="kpis" id="k5"></div>
+  <div class="g g2"><div class="card"><h3>Headcount plan vs. required capacity</h3><p class="sub">Ramped-rep equivalents, by month</p><div id="c_hp"></div></div><div class="card"><h3>Where the next hires should go</h3><p class="sub">Capacity gap ranked by whitespace</p><div id="c_next"></div></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const T=[['IS',1,0,'nordics'],['NO',3,0,'nordics'],['SE',4,0,'nordics'],['FI',5,0,'nordics'],['IE',0,1,'uki'],['UK',1,1,'uki'],['DK',3,1,'nordics'],['EE',5,1,'baltics'],['NL',2,2,'benelux'],['DE',3,2,'dach'],['PL',4,2,'cee'],['LT',5,2,'baltics'],['BE',2,3,'benelux'],['LU',3,3,'benelux'],['CZ',4,3,'cee'],['SK',5,3,'cee'],['FR',1,4,'fr'],['CH',2,4,'dach'],['AT',3,4,'dach'],['HU',4,4,'cee'],['RO',5,4,'cee'],['PT',0,5,'iberia'],['ES',1,5,'iberia'],['IT',3,5,'it'],['SI',4,5,'cee'],['HR',5,5,'cee'],['GR',5,6,'it'],['AE',7,6,'mea'],['IL',6,6,'mea'],['ZA',7,7,'mea']];
+const NAME={IS:'Iceland',NO:'Norway',SE:'Sweden',FI:'Finland',IE:'Ireland',UK:'United Kingdom',DK:'Denmark',EE:'Estonia',NL:'Netherlands',DE:'Germany',PL:'Poland',LT:'Lithuania',BE:'Belgium',LU:'Luxembourg',CZ:'Czechia',SK:'Slovakia',FR:'France',CH:'Switzerland',AT:'Austria',HU:'Hungary',RO:'Romania',PT:'Portugal',ES:'Spain',IT:'Italy',SI:'Slovenia',HR:'Croatia',GR:'Greece',AE:'UAE',IL:'Israel',ZA:'South Africa'};
+const SIZE={DE:9,UK:9,FR:8,NL:5,IT:6,ES:5,SE:4,CH:4,PL:4,BE:3,DK:3,NO:3,AT:3,FI:2,IE:3,PT:2,CZ:2,AE:3,IL:2,ZA:2,RO:1.5,HU:1.2,GR:1.2,SK:.8,HR:.6,SI:.5,LT:.5,EE:.6,LU:.8,IS:.3};
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const f={all:1,ent:.4,mm:.6}[F.seg];
+ const tiles=T.filter(t=>F.geo==='emea'||(F.geo==='dach'?t[3]==='dach':t[3]==='nordics')).map(([c,x,y,reg])=>{const tam=SIZE[c]*14e6*f*(.85+r()*.3);const pen=.04+r()*.22;const reps=Math.max(0,Math.round(SIZE[c]*.9*f*(.6+r()*.8)));const acc=Math.round(SIZE[c]*140*f);return{c,x,y,reg,tam,pen,white:tam*(1-pen),reps,acc,apr:reps?acc/reps:acc}});
+ return memo[k]={r,f,tiles}}
+const S={geo:'emea',seg:'all',metric:'white'};let SEL='DE';
+const MET={white:['Whitespace ACV',t=>t.white,K.money],pen:['Penetration',t=>t.pen,v=>K.pct(v,0)],cov:['Accounts per rep',t=>Math.min(t.apr,400),v=>Math.round(v)]};
+const views={
+map(F){const D=data(F);const[mn,fn,fm]=MET[F.metric];const vals=D.tiles.map(fn);const lo=Math.min(...vals),hi=Math.max(...vals);if(!D.tiles.find(t=>t.c===SEL))SEL=D.tiles[0].c;
+ K.kpis($('k1'),[{label:'Total addressable ACV',value:K.money(K.sum(D.tiles.map(t=>t.tam)))},{label:'Whitespace',value:K.money(K.sum(D.tiles.map(t=>t.white)))},{label:'Penetration',value:K.pct(1-K.sum(D.tiles.map(t=>t.white))/K.sum(D.tiles.map(t=>t.tam)))},{label:'Target accounts',value:K.int(K.sum(D.tiles.map(t=>t.acc)))},{label:'Countries with no rep',value:K.int(D.tiles.filter(t=>!t.reps).length)}]);
+ $('msub').textContent='Colour = '+mn.toLowerCase()+'. Click a country for details.';const maxX=Math.max(...D.tiles.map(t=>t.x)),maxY=Math.max(...D.tiles.map(t=>t.y));const tm=$('tmap');tm.style.gridTemplateColumns=`repeat(${maxX+1},1fr)`;tm.textContent='';
+ for(let y=0;y<=maxY;y++)for(let x=0;x<=maxX;x++){const t=D.tiles.find(z=>z.x===x&&z.y===y);const d=document.createElement('div');if(!t){tm.appendChild(d);continue}const kk=Math.round((fn(t)-lo)/(hi-lo||1)*5);d.className='tile'+(t.c===SEL?' sel':'');d.style.background=K.css('--q'+(kk+1));d.style.color=kk>=3?'#fff':K.css('--ink');d.innerHTML=`${t.c}<small>${fm(fn(t))}</small>`;d.tabIndex=0;
+  d.onpointermove=e=>K.tipShow(e,NAME[t.c],[[null,fm(fn(t)),mn],[null,K.money(t.tam),'addressable'],[null,String(t.reps),'reps']]);d.onpointerleave=K.tipHide;d.onclick=()=>{SEL=t.c;views.map(F)};tm.appendChild(d)}
+ $('mleg').innerHTML=`<span>${fm(lo)}</span><i>${[1,2,3,4,5,6].map(q=>`<b style="background:var(--q${q})"></b>`).join('')}</i><span>${fm(hi)}</span>`;
+ const t=D.tiles.find(z=>z.c===SEL);$('det').innerHTML=`<h3>${NAME[t.c]}</h3><p class="sub">Territory ${t.reg.toUpperCase()} · ${t.reps} reps · ${K.int(t.acc)} target accounts</p><div class="row"><span>Addressable ACV</span><b>${K.money(t.tam)}</b></div><div class="row"><span>Whitespace</span><b>${K.money(t.white)}</b></div><div class="row"><span>Penetration</span><b>${K.pct(t.pen,0)}</b></div><div class="row"><span>Accounts per rep</span><b>${t.reps?Math.round(t.apr):'no rep'}</b></div><div id="c_ind" style="margin-top:12px"></div>`;
+ K.bars($('c_ind'),{labels:['Financial services','Manufacturing','Healthcare','Retail','Software'],series:[{name:'Whitespace',data:[.28,.24,.18,.16,.14].map(x=>x*t.white)}],fmt:K.money,horizontal:true,h:200})},
+cap(F){const D=data(F);const rows=[...D.tiles].sort((a,b)=>b.tam-a.tam).slice(0,12);const need=rows.map(t=>Math.max(.5,t.acc/120));const have=rows.map(t=>t.reps);
+ K.kpis($('k2'),[{label:'Quota-carrying reps',value:K.int(K.sum(D.tiles.map(t=>t.reps)))},{label:'Reps needed',value:K.int(K.sum(D.tiles.map(t=>Math.max(.5,t.acc/120))))},{label:'Capacity gap',value:K.int(K.sum(D.tiles.map(t=>Math.max(.5,t.acc/120)))-K.sum(D.tiles.map(t=>t.reps)))+' reps'},{label:'Accounts per rep (median)',value:'118'},{label:'Over-covered countries',value:K.int(D.tiles.filter(t=>t.reps>t.acc/90).length)}]);
+ K.bars($('c_cap'),{labels:rows.map(t=>NAME[t.c]),series:[{name:'Reps today',data:have},{name:'Reps needed',data:need}],fmt:v=>v.toFixed(v<10&&v%1?1:0),h:300})},
+bal(F){const D=data(F);const r=K.rng(K.seed(F,'b'));const N=['Ana R.','Ben O.','Chloé M.','Dev P.','Elin B.','Felix W.','Grace K.','Hugo S.','Iris N.','Jonas L.','Kaja M.','Luca F.','Mia T.','Nils A.'];
+ const reps=N.map((n,i)=>({n,acc:Math.round(60+r()*160),tam:(18+r()*70)*1e6*D.f,ter:K.pick(r,['DACH','UK&I','France','Nordics','Benelux','Iberia']),att:.55+r()*.7,g:r()<.3?1:0}));
+ K.scatter($('c_bal'),{points:reps.map(x=>({x:x.acc,y:x.tam,label:x.n,g:x.g,tag:x.acc>190||x.tam>75e6*D.f,extra:[['Territory',x.ter],['Attainment',K.pct(x.att,0)]]})),groups:['Ramped','Ramping'],xfmt:v=>Math.round(v),yfmt:K.money,xLabel:'Accounts in book',yLabel:'Addressable ACV',h:320,quad:{x:140,y:50e6*D.f,labels:[['Overloaded',1,1]]}});
+ K.table($('t_book'),{cols:[{k:'n',label:'Rep'},{k:'ter',label:'Territory'},{k:'acc',label:'Accounts',align:'r',bar:true},{k:'tam',label:'Addressable',align:'r',fmt:K.money},{k:'att',label:'Attainment',align:'r',fmt:v=>K.pct(v,0)}],rows:reps,sort:'acc'})},
+white(F){const D=data(F);const r=K.rng(K.seed(F,'w'));const IND=['Financial services','Manufacturing','Healthcare','Retail','Software','Logistics'];const top=[...D.tiles].sort((a,b)=>b.white-a.white).slice(0,9);
+ K.heat($('c_ws'),{rows:IND,cols:top.map(t=>t.c),data:IND.map((_,i)=>top.map(t=>t.white*[.28,.22,.17,.14,.12,.07][i]*(.7+r()*.6))),fmt:v=>K.money(v,0),cell:30});
+ K.table($('t_ut'),{cols:[{k:'a',label:'Account'},{k:'c',label:'Country'},{k:'ind',label:'Industry'},{k:'emp',label:'Employees',align:'r',fmt:K.int},{k:'pot',label:'Potential ACV',align:'r',fmt:K.money,bar:true},{k:'last',label:'Last touch'}],rows:['Brightline Insurance','Norra Pensions','Cobalt Payments','Arden Mutual','Vesta Logistics','Helix Pharma','Kronberg Bau','Saltmarsh Energy'].map((a,i)=>({a,c:NAME[top[i%top.length].c],ind:IND[i%6],emp:Math.round(1200+r()*14000),pot:(120e3+r()*480e3)*D.f,last:K.pick(r,['never','19 months ago','2 years ago','never'])})),sort:'pot'})},
+hire(F){const D=data(F);const r=K.rng(K.seed(F,'h'));const L=['Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep'];const have=K.sum(D.tiles.map(t=>t.reps));const need=K.sum(D.tiles.map(t=>Math.max(.5,t.acc/120)));
+ K.kpis($('k5'),[{label:'Approved hires',value:'14'},{label:'Ramped by next Sep',value:'9'},{label:'Gap after plan',value:K.int(Math.max(0,need-have-9))+' reps'},{label:'Cost of open gap',value:K.money(Math.max(0,need-have-9)*1.1e6)+' ACV'},{label:'Time to ramp',value:'6.5 mo'}]);
+ K.line($('c_hp'),{labels:L,series:[{name:'Required capacity',data:L.map((_,i)=>need*(1+i*.012))},{name:'Ramped capacity (plan)',data:L.map((_,i)=>have+Math.min(9,Math.max(0,(i-3)*1.3)))}],fmt:v=>v.toFixed(0),h:270,yMin:have*.8});
+ const g=[...D.tiles].map(t=>({c:t.c,gap:Math.max(0,t.acc/120-t.reps),w:t.white})).filter(x=>x.gap>0).sort((a,b)=>b.w-a.w).slice(0,7);K.bars($('c_next'),{labels:g.map(x=>NAME[x.c]),series:[{name:'Capacity gap (reps)',data:g.map(x=>x.gap)}],fmt:v=>v.toFixed(1),horizontal:true,h:270})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swell Season — Surf Shack</title>
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fff1dc;--sun:#ffb347;--coral:#ff6f59;--teal:#1a8a8a;--deep:#0d4d5c;--brown:#5a3322;--sand:#f4d9a8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--brown);font-family:Rubik,sans-serif}
+a{color:inherit;text-decoration:none}button,input{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 4vw;background:var(--brown);color:var(--cream)}
+.logo{font-family:Shrikhand;font-size:30px;color:var(--sun)}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:8px 16px;border-radius:30px;font-weight:700}
+nav a.on{background:var(--sun);color:var(--brown)}
+.stripes{height:18px;background:linear-gradient(var(--sun) 0 33%,var(--coral) 33% 66%,var(--teal) 66%)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1240px;margin:0 auto;padding:30px 4vw 70px}
+h1,h2{font-family:Shrikhand;font-weight:400;line-height:1}
+h2{font-size:clamp(2.4rem,5vw,4rem);color:var(--coral)}
+.sub{max-width:60ch;line-height:1.6;margin:10px 0 24px;font-size:17px}
+/* forecast */
+.spots{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.spots button{border:3px solid var(--brown);background:none;border-radius:30px;padding:7px 16px;font-weight:700}
+.spots button.on{background:var(--brown);color:var(--cream)}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.day{background:#fff;border-radius:18px;padding:14px 10px;text-align:center;border:3px solid transparent;transition:.2s}
+.day.on{border-color:var(--coral)}
+.day h4{font-weight:900;font-size:15px}
+.day .ht{font-family:Shrikhand;font-size:30px;color:var(--teal)}
+.day .stars{color:var(--sun);letter-spacing:2px;font-size:16px}
+.day .wind{display:inline-block;font-size:22px}
+.day small{display:block;font-size:12px;opacity:.7}
+.chart{background:#fff;border-radius:18px;padding:16px;margin-top:16px;overflow-x:auto}
+.chart svg{width:100%;min-width:700px;height:auto;display:block}
+.verdict{margin-top:16px;background:var(--teal);color:var(--cream);border-radius:18px;padding:18px 22px;font-size:18px;line-height:1.5}
+.verdict b{font-family:Shrikhand;font-weight:400;font-size:24px;color:var(--sun)}
+/* cam */
+.cam{border-radius:24px;overflow:hidden;border:6px solid var(--brown);position:relative}
+.cam canvas{display:block;width:100%;height:auto}
+.cam .tag{position:absolute;left:14px;top:12px;background:var(--brown);color:var(--cream);padding:4px 12px;border-radius:20px;font-weight:700;font-size:13px}
+.ctl{display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.ctl input{flex:1;min-width:200px;accent-color:var(--coral)}
+/* board finder */
+.bf{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.q{margin-bottom:20px}
+.q label{display:flex;justify-content:space-between;font-weight:900;margin-bottom:6px}
+.q input[type=range]{width:100%;accent-color:var(--coral)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;border:3px solid var(--brown);background:#fff;border-radius:14px;padding:10px 6px;font-weight:700;font-size:14px}
+.seg button.on{background:var(--coral);color:#fff;border-color:var(--coral)}
+.board{text-align:center}
+.board svg{width:min(100%,300px);height:auto}
+.spec{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.spec div{background:#fff;border-radius:14px;padding:10px}
+.spec b{font-family:Shrikhand;font-weight:400;font-size:26px;color:var(--teal);display:block}
+.spec small{font-size:12px;font-weight:700;opacity:.7}
+/* school */
+.rules{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.rule{background:#fff;border-radius:22px;padding:20px;position:relative;overflow:hidden}
+.rule .n{font-family:Shrikhand;font-size:60px;color:var(--sand);position:absolute;right:14px;top:-4px}
+.rule h3{font-family:Shrikhand;font-weight:400;font-size:24px;color:var(--teal);position:relative}
+.rule p{line-height:1.55;margin-top:6px;position:relative}
+.lessons{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:30px}
+.lesson{background:var(--sun);border-radius:22px;padding:20px;border:3px solid var(--brown)}
+.lesson h3{font-family:Shrikhand;font-weight:400;font-size:26px}
+.btn{background:var(--brown);color:var(--cream);border:0;border-radius:30px;padding:10px 18px;font-weight:700;margin-top:10px}
+@media(max-width:900px){.days{grid-template-columns:repeat(4,1fr)}.bf{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">Swell Season</div>
+ <nav><a href="#forecast">Forecast</a><a href="#cam">Surf Cam</a><a href="#boards">Board Finder</a><a href="#school">Surf School</a><a href="index.html">↩ Index</a></nav>
+</header>
+<div class="stripes"></div>
+
+<section data-view="forecast"><div class="wrap">
+ <h2>What's it doing?</h2>
+ <p class="sub">A 7-day swell forecast for three breaks on the point. Offshore wind plus a long period means it's time to call in sick.</p>
+ <div class="spots" id="spots"></div>
+ <div class="days" id="days"></div>
+ <div class="chart"><svg id="fch" viewBox="0 0 900 260"></svg></div>
+ <div class="verdict" id="verdict"></div>
+</div></section>
+
+<section data-view="cam" hidden><div class="wrap">
+ <h2>Surf cam</h2>
+ <p class="sub">Live from the roof of the shack. Drag the slider to change the swell size and watch the line-up.</p>
+ <div class="cam"><canvas id="cc" width="1200" height="560"></canvas><div class="tag" id="camTag">● LIVE · THE POINT</div></div>
+ <div class="ctl"><b>Swell</b><input type="range" id="sw" min="1" max="10" value="5"><b id="swT">4–5 ft</b></div>
+</div></section>
+
+<section data-view="boards" hidden><div class="wrap">
+ <h2>Find your stick</h2>
+ <p class="sub">Answer a few questions and our shaper, Uncle Kai, will draw you a board. Volume (litres) is how much float it has.</p>
+ <div class="bf">
+  <div>
+   <div class="q"><label>Your weight <span id="wv">75 kg</span></label><input type="range" id="wt" min="40" max="120" value="75"></div>
+   <div class="q"><label>Skill</label><div class="seg" id="sk"><button data-v="0">First timer</button><button data-v="1" class="on">Getting there</button><button data-v="2">Ripping</button><button data-v="3">Pro-ish</button></div></div>
+   <div class="q"><label>Usual waves</label><div class="seg" id="wv2"><button data-v="0">Knee-high</button><button data-v="1" class="on">Chest-high</button><button data-v="2">Overhead</button><button data-v="3">Big days</button></div></div>
+   <div class="q"><label>Style</label><div class="seg" id="st"><button data-v="0" class="on">Cruise & glide</button><button data-v="1">Turns & tricks</button></div></div>
+  </div>
+  <div class="board"><svg id="bsvg" viewBox="0 0 300 700"></svg><h3 id="bname" style="font-family:Shrikhand;font-weight:400;font-size:30px;color:var(--coral)"></h3><div class="spec" id="spec"></div></div>
+ </div>
+</div></section>
+
+<section data-view="school" hidden><div class="wrap">
+ <h2>Surf school</h2>
+ <p class="sub">The line-up has rules. Learn them and everyone has a better day, including you.</p>
+ <div class="rules" id="rules"></div>
+ <div class="lessons" id="lessons"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'forecast';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='cam')camStart()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* forecast */
+const SPOTS=[['The Point','right-hand point break',250],['Shipwrecks','punchy beach break',220],['Kiddie Cove','sheltered beginner bay',180]];
+let spot=0,dSel=0;
+function rnd(s){return()=>((s=(s*9301+49297)%233280)/233280)}
+function fdata(){const r=rnd(spot*77+new Date().getDate());const days=[];let h=2+r()*3;for(let i=0;i<7;i++){h=Math.max(.5,Math.min(9,h+(r()-.45)*2.4));const per=Math.round(7+r()*9),wd=Math.round(r()*360),wsp=Math.round(3+r()*22);const off=Math.abs(((wd-SPOTS[spot][2])+540)%360-180)<60;const hh=h*(spot===2?.45:spot===1?1:1.15);
+ let score=Math.min(5,Math.max(0,Math.round(hh/1.5+(per-8)/3+(off?1.5:-1)-(wsp>15?1.5:0))));days.push({h:hh,per,wd,wsp,off,score,hours:[...Array(24)].map((_,t)=>hh*(.85+.15*Math.sin((t+i*3)/4)))})}return days}
+let D=fdata();
+function forecast(){document.getElementById('spots').innerHTML=SPOTS.map((s,i)=>`<button class="${i===spot?'on':''}" data-s="${i}">${s[0]}</button>`).join('');
+ const dn=['Today','Tomorrow',...[2,3,4,5,6].map(k=>new Date(Date.now()+k*864e5).toLocaleDateString('en',{weekday:'short'}))];
+ document.getElementById('days').innerHTML=D.map((d,i)=>`<button class="day ${i===dSel?'on':''}" data-d="${i}"><h4>${dn[i]}</h4><div class="ht">${Math.round(d.h)}–${Math.round(d.h+1.5)}'</div><div class="stars">${'★'.repeat(d.score)}${'☆'.repeat(5-d.score)}</div><span class="wind" style="transform:rotate(${d.wd+180}deg)">➤</span><small>${d.wsp} kn ${d.off?'offshore':'onshore'}</small><small>${d.per}s period</small></button>`).join('');
+ const d=D[dSel];const X=t=>40+t/23*840,Y=v=>220-v/10*190;let s='';for(let v=0;v<=10;v+=2)s+=`<line x1="40" x2="880" y1="${Y(v)}" y2="${Y(v)}" stroke="#5a332214"/><text x="32" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="#5a3322">${v}ft</text>`;
+ s+=`<path d="M${X(0)} ${Y(0)} ${d.hours.map((v,t)=>`L${X(t)} ${Y(v)}`).join(' ')} L${X(23)} ${Y(0)}Z" fill="#1a8a8a33"/><path d="${d.hours.map((v,t)=>(t?'L':'M')+X(t)+' '+Y(v)).join(' ')}" stroke="#1a8a8a" stroke-width="3" fill="none"/>`;
+ const tide=t=>1.2+Math.cos((t-(dSel*.8+3))/12.4*2*Math.PI)*1.1;s+=`<path d="${[...Array(24)].map((_,t)=>(t?'L':'M')+X(t)+' '+Y(tide(t)*2)).join(' ')}" stroke="#ff6f59" stroke-width="2" stroke-dasharray="6 5" fill="none"/>`;
+ for(let t=0;t<24;t+=3)s+=`<text x="${X(t)}" y="244" text-anchor="middle" font-size="11" fill="#5a3322">${t}:00</text><text x="${X(t)}" y="${Y(d.hours[t])-10}" text-anchor="middle" font-size="16" transform="rotate(${d.wd+180+t*4} ${X(t)} ${Y(d.hours[t])-15})">➤</text>`;
+ s+=`<text x="50" y="22" font-size="12" font-weight="700" fill="#1a8a8a">SWELL (ft)</text><text x="160" y="22" font-size="12" font-weight="700" fill="#ff6f59">- - TIDE</text>`;
+ document.getElementById('fch').innerHTML=s;
+ const best=[...Array(24).keys()].filter(t=>t>=6&&t<=19).sort((a,b)=>(tide(a)>0.8&&tide(a)<2?1:0)-(tide(b)>0.8&&tide(b)<2?1:0)||0)[0];
+ document.getElementById('verdict').innerHTML=`<b>${['Flat. Go get a burrito.','Small and messy. Longboard only.','Fun-sized. Worth a paddle.','Pretty good! Get out there.','Firing! 🔥','EPIC. Cancel everything.'][d.score]}</b><br>${SPOTS[spot][0]} (${SPOTS[spot][1]}): ${d.h.toFixed(1)} ft at ${d.per} seconds, wind ${d.wsp} knots ${d.off?'offshore, nice and groomed':'onshore, a bit bumpy'}. Best window is around mid-tide.`}
+document.getElementById('spots').onclick=e=>{const s=e.target.dataset.s;if(s==null)return;spot=+s;D=fdata();forecast()};
+document.getElementById('days').onclick=e=>{const b=e.target.closest('.day');if(b){dSel=+b.dataset.d;forecast()}};forecast();
+
+/* cam */
+const cc=document.getElementById('cc'),cx=cc.getContext('2d');let camRun=false,T=0;const surfers=[...Array(5)].map((_,i)=>({x:200+i*180,state:'wait',t:Math.random()*200,dir:1,c:['#ff6f59','#ffb347','#1a8a8a','#fff','#5a3322'][i]}));
+function camStart(){if(!camRun){camRun=true;cam()}}
+function cam(){const W=1200,H=560,sw=+document.getElementById('sw').value;T+=1;
+ const g=cx.createLinearGradient(0,0,0,260);g.addColorStop(0,'#ff9a5a');g.addColorStop(.6,'#ffd29a');g.addColorStop(1,'#fff1dc');cx.fillStyle=g;cx.fillRect(0,0,W,H);
+ cx.fillStyle='#ffb347';cx.beginPath();cx.arc(900,210,70,0,7);cx.fill();cx.fillStyle='#fff1dc55';for(let i=0;i<6;i++)cx.fillRect(820,190+i*14,160,4);
+ cx.fillStyle='#b86a4a';cx.beginPath();cx.moveTo(0,240);cx.lineTo(160,170);cx.lineTo(300,230);cx.lineTo(420,240);cx.lineTo(0,260);cx.fill();
+ cx.fillStyle='#1a8a8a';cx.fillRect(0,250,W,H-250);
+ const amp=sw*6,sets=3;for(let k=0;k<sets;k++){const y=270+((T*.6*(1+sw*.05)+k*110)%330);const a=amp*(y-250)/300;const breakX=((T*3+k*400)%(W+400))-200;
+  cx.fillStyle=`rgba(13,77,92,${.5+k*.1})`;cx.beginPath();cx.moveTo(0,y+20);for(let x=0;x<=W;x+=10){cx.lineTo(x,y-Math.max(0,Math.sin((x-breakX)/180))*a-Math.sin(x/60+T/20)*3)}cx.lineTo(W,y+40);cx.lineTo(0,y+40);cx.fill();
+  if(a>12){cx.fillStyle='#ffffffdd';for(let x=Math.max(0,breakX-220);x<Math.min(W,breakX+40);x+=8){const yy=y-Math.max(0,Math.sin((x-breakX)/180))*a;cx.beginPath();cx.arc(x,yy+2,3+Math.random()*4,0,7);cx.fill()}}
+  cx.strokeStyle='#ffffff66';cx.lineWidth=2;cx.beginPath();for(let x=0;x<=W;x+=10)cx.lineTo(x,y+18+Math.sin(x/40+T/10)*2);cx.stroke()}
+ // sand
+ cx.fillStyle='#f4d9a8';cx.beginPath();cx.moveTo(0,H);cx.lineTo(0,520);cx.quadraticCurveTo(600,480,1200,530);cx.lineTo(W,H);cx.fill();cx.fillStyle='#ffffffaa';cx.beginPath();cx.moveTo(0,520);cx.quadraticCurveTo(600,480+Math.sin(T/30)*6,1200,530);cx.lineTo(1200,536);cx.quadraticCurveTo(600,488+Math.sin(T/30)*6,0,526);cx.fill();
+ surfers.forEach((s,i)=>{s.t--;if(s.state==='wait'&&s.t<0&&sw>2){s.state='ride';s.t=160+sw*10;s.y=330;s.x=100+Math.random()*300}if(s.state==='ride'){s.x+=3+sw*.3;s.y=330+Math.sin(s.t/20)*20;if(s.t<0||s.x>W-60){s.state=Math.random()<.3?'wipe':'wait';s.t=60+Math.random()*200}}if(s.state==='wipe'){s.t--;if(s.t<0){s.state='wait';s.t=100}}
+  const x=s.state==='wait'?200+i*170+Math.sin(T/40+i)*6:s.x,y=s.state==='wait'?310+i%2*16+Math.sin(T/25+i)*3:s.y;
+  cx.save();cx.translate(x,y);cx.fillStyle=s.c;cx.beginPath();cx.ellipse(0,6,22,4,s.state==='ride'?-.15:0,0,7);cx.fill();if(s.state==='ride'){cx.fillStyle='#3a2212';cx.fillRect(-3,-22,6,24);cx.beginPath();cx.arc(0,-26,5,0,7);cx.fill();cx.strokeStyle='#3a2212';cx.lineWidth=3;cx.beginPath();cx.moveTo(-14,-14);cx.lineTo(14,-16);cx.stroke()}else if(s.state==='wait'){cx.fillStyle='#3a2212';cx.fillRect(-3,-10,6,12);cx.beginPath();cx.arc(0,-14,5,0,7);cx.fill()}else{cx.fillStyle='#fff';cx.beginPath();cx.arc(0,0,14,0,7);cx.fill()}cx.restore()});
+ document.getElementById('swT').textContent=`${Math.max(1,sw-1)}–${sw} ft`;document.getElementById('camTag').textContent=`● LIVE · THE POINT · ${new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})}`;
+ if(!document.querySelector('[data-view=cam]').hidden)requestAnimationFrame(cam);else camRun=false}
+
+/* board finder */
+const bs={sk:1,wv2:1,st:0};
+function board(){const w=+document.getElementById('wt').value;document.getElementById('wv').textContent=w+' kg';
+ const mult=[1,.7,.45,.36][bs.sk]+[0.05,0,-.03,-.05][bs.wv2]+(bs.st?-.03:.05);const vol=Math.round(w*mult);let len=bs.sk===0?8.6+Math.max(0,w-60)/40:bs.sk===1?6.8+vol/60:5.6+vol/80+(bs.wv2===3?1.8:0);if(bs.st===0&&bs.sk>0)len+=1.2;len=Math.max(5.2,Math.min(10,len));
+ const ft=Math.floor(len),inch=Math.round((len-ft)*12);const width=Math.max(18,Math.min(23.5,17.5+vol/18));
+ const type=len>=8.5?'Longboard':len>=7?(bs.wv2===3?'Step-up gun':'Mid-length / Egg'):width>21?'Fish':bs.wv2===3?'Gun':'Shortboard';
+ const L=640*len/10,Wd=width*9,top=(700-L)/2,nose=type==='Longboard'?.35:type==='Fish'?.55:type.includes('Gun')?.12:.2,tail=type==='Fish'?'swallow':type==='Longboard'?'square':'squash';
+ const cx2=150;let p=`M${cx2} ${top} C${cx2+Wd*nose} ${top+10} ${cx2+Wd/2} ${top+L*.3} ${cx2+Wd/2} ${top+L*.55} C${cx2+Wd/2} ${top+L*.8} ${cx2+Wd*.3} ${top+L*.97} ${cx2+Wd*.22} ${top+L}`;
+ p+=tail==='swallow'?` L${cx2+6} ${top+L*.94} L${cx2} ${top+L*.96} L${cx2-6} ${top+L*.94} L${cx2-Wd*.22} ${top+L}`:` L${cx2-Wd*.22} ${top+L}`;
+ p+=` C${cx2-Wd*.3} ${top+L*.97} ${cx2-Wd/2} ${top+L*.8} ${cx2-Wd/2} ${top+L*.55} C${cx2-Wd/2} ${top+L*.3} ${cx2-Wd*nose} ${top+10} ${cx2} ${top}Z`;
+ const col=['#ff6f59','#1a8a8a','#ffb347'][bs.sk%3];
+ document.getElementById('bsvg').innerHTML=`<defs><clipPath id="bc"><path d="${p}"/></clipPath></defs><path d="${p}" fill="#fff" stroke="#5a3322" stroke-width="4"/><g clip-path="url(#bc)"><rect x="0" y="${top+L*.45}" width="300" height="${L*.12}" fill="${col}"/><rect x="0" y="${top+L*.6}" width="300" height="${L*.04}" fill="#ffb347"/><path d="M150 ${top} V${top+L}" stroke="#5a332255" stroke-width="2"/></g><text x="150" y="${top+L*.3}" text-anchor="middle" font-family="Shrikhand" font-size="18" fill="#5a3322" transform="rotate(-90 150 ${top+L*.3})">Uncle Kai</text>${[0,1,2].map(i=>`<path d="M${150+(i-1)*Wd*.25} ${top+L*.9} l${(i-1)*2} 26 l6 -26Z" fill="#5a3322" opacity="${type==='Longboard'&&i!==1?0:.8}"/>`).join('')}`;
+ document.getElementById('bname').textContent=type;
+ document.getElementById('spec').innerHTML=`<div><b>${ft}'${inch}"</b><small>Length</small></div><div><b>${width.toFixed(1)}"</b><small>Width</small></div><div><b>${vol} L</b><small>Volume</small></div>`}
+['sk','wv2','st'].forEach(id=>document.getElementById(id).onclick=e=>{const v=e.target.dataset.v;if(v==null)return;bs[id]=+v;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));board()});
+document.getElementById('wt').oninput=board;board();
+
+/* school */
+const RULES=[['Right of way','The surfer closest to the peak (where the wave breaks) has priority. Everyone else pulls back.'],['Don\'t drop in','Never take off on a wave someone is already riding. It\'s the number-one sin in the water.'],['Don\'t snake','Paddling around someone to steal the inside position is sneaky and everyone sees it.'],['Hold your board','Never ditch your board when a wave comes. It becomes a 3-kilo missile.'],['Paddle wide','Paddle out through the channel, not through the line-up where people are riding.'],['Respect the locals','Smile, wait your turn and don\'t bring ten friends. Aloha is earned.']];
+document.getElementById('rules').innerHTML=RULES.map((r,i)=>`<div class="rule"><span class="n">${i+1}</span><h3>${r[0]}</h3><p>${r[1]}</p></div>`).join('');
+const LS=[['Groms (8–14)','Sat & Sun, 9am','$45'],['First Wave','Daily, 10am','$70'],['Private coaching','Book any tide','$120']];
+document.getElementById('lessons').innerHTML=LS.map(l=>`<div class="lesson"><h3>${l[0]}</h3><p>${l[1]} · <b>${l[2]}</b></p><p style="font-size:14px;margin-top:4px">Board, wetsuit & wax included.</p><button class="btn" onclick="this.textContent='🤙 See you in the water'">Book it</button></div>`).join('');
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HYPEFORM — The Drop</title>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,400..900&family=Red+Hat+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f2ef;--ink:#0d0d0d;--orange:#ff5a1f;--concrete:#c9c9c4;--dim:#0d0d0d88}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Red Hat Mono',monospace;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;cursor:pointer;color:inherit}
+.disp{font-family:Anybody;font-weight:900;font-stretch:150%;text-transform:uppercase;line-height:.85;letter-spacing:-.02em}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 3vw;border-bottom:2px solid var(--ink);gap:10px;flex-wrap:wrap}
+.logo{font-family:Anybody;font-weight:900;font-stretch:150%;font-size:24px;letter-spacing:-.02em}
+.logo span{color:var(--orange)}
+nav{display:flex;gap:0;flex-wrap:wrap;border:2px solid var(--ink)}
+nav a{padding:8px 14px;font-size:12px;font-weight:600;text-transform:uppercase;border-right:2px solid var(--ink)}
+nav a:last-child{border-right:0}
+nav a.on{background:var(--ink);color:var(--bg)}
+.tape{background:var(--orange);color:var(--ink);white-space:nowrap;overflow:hidden;font-weight:600;font-size:13px;padding:6px 0;border-bottom:2px solid var(--ink)}
+.tape div{display:inline-block;animation:tape 30s linear infinite}
+@keyframes tape{to{transform:translateX(-50%)}}
+[data-view][hidden]{display:none}
+.wrap{max-width:1400px;margin:0 auto;padding:26px 3vw 60px}
+/* drop */
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:30px;align-items:center}
+.hero h1{font-size:clamp(3.6rem,11vw,10rem)}
+.hero h1 em{font-style:normal;color:var(--orange);-webkit-text-stroke:0}
+.shoe{position:relative}
+.shoe svg{width:100%;height:auto;filter:drop-shadow(0 30px 20px #0003)}
+.shoe .spin{animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-12px) rotate(-2deg)}}
+.cd{display:flex;gap:10px;margin:20px 0}
+.cd div{border:2px solid var(--ink);padding:10px 14px;text-align:center;min-width:86px;background:#fff}
+.cd b{font-family:Anybody;font-weight:900;font-stretch:120%;font-size:44px;display:block;line-height:1}
+.cd small{font-size:11px;font-weight:600}
+.sizes{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:14px 0}
+.sizes button{border:2px solid var(--ink);background:#fff;padding:10px 0;font-weight:600}
+.sizes button.on{background:var(--ink);color:var(--bg)}
+.sizes button.x{background:var(--concrete);text-decoration:line-through;color:#0006;cursor:not-allowed}
+.cw{display:flex;gap:6px;margin-top:10px}
+.cw button{width:44px;height:44px;border:2px solid var(--ink);padding:0}
+.cw button.on{outline:3px solid var(--orange);outline-offset:2px}
+.big{display:block;width:100%;background:var(--orange);border:2px solid var(--ink);padding:18px;font-family:Anybody;font-weight:900;font-stretch:130%;font-size:22px;text-transform:uppercase;box-shadow:6px 6px 0 var(--ink)}
+.big:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
+.result{margin-top:14px;border:2px dashed var(--ink);padding:14px;min-height:60px;font-size:14px;line-height:1.5}
+.slot{font-family:Anybody;font-weight:900;font-size:40px;letter-spacing:.1em}
+/* custom */
+.cust{display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:start}
+.canvasBox{background:#fff;border:2px solid var(--ink);padding:10px;position:relative}
+.canvasBox svg{width:100%;height:auto}
+.canvasBox .tag{position:absolute;right:10px;top:10px;background:var(--ink);color:var(--bg);font-size:11px;padding:4px 8px}
+.part{cursor:pointer}
+.part:hover{filter:brightness(1.1)}
+.parts{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:12px}
+.parts button{border:2px solid var(--ink);background:#fff;padding:8px 0;font-size:12px;font-weight:600;text-transform:uppercase}
+.parts button.on{background:var(--ink);color:var(--bg)}
+.pal{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.pal button{aspect-ratio:1;border:2px solid var(--ink)}
+.pal button.on{outline:3px solid var(--orange);outline-offset:1px}
+.field{width:100%;border:2px solid var(--ink);padding:10px;font-family:Anybody;font-weight:900;font-stretch:130%;font-size:22px;text-transform:uppercase;margin:12px 0;background:#fff}
+/* market */
+.mk{display:grid;grid-template-columns:1.4fr 1fr;gap:24px}
+.chart{background:#fff;border:2px solid var(--ink)}
+.chart svg{width:100%;height:auto;display:block}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.sgrid div{border:2px solid var(--ink);background:#fff;padding:10px;text-align:center}
+.sgrid b{display:block;font-family:Anybody;font-weight:800;font-size:20px}
+.sgrid small{font-size:11px}
+.up{color:#138a3a}.dn{color:#d12a1a}
+.trade{font-size:13px;display:grid;gap:4px;margin-top:14px;max-height:220px;overflow:hidden}
+.trade div{display:flex;justify-content:space-between;border-bottom:1px dashed #0003;padding:4px 0;animation:in .4s}
+@keyframes in{from{background:#ff5a1f55}}
+/* archive */
+.arch{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0;border-left:2px solid var(--ink);border-top:2px solid var(--ink)}
+.ar{border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:16px;background:#fff;position:relative}
+.ar svg{width:100%;height:auto}
+.ar h3{font-family:Anybody;font-weight:900;font-stretch:130%;font-size:22px;text-transform:uppercase;line-height:1}
+.ar .st{position:absolute;right:12px;top:12px;font-size:11px;font-weight:600;background:var(--orange);padding:2px 8px;border:2px solid var(--ink)}
+@media(max-width:900px){.hero,.cust,.mk{grid-template-columns:1fr}.sizes{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="logo">HYPE<span>/</span>FORM</div><nav><a href="#drop">The Drop</a><a href="#custom">Customise</a><a href="#market">Resale</a><a href="#archive">Archive</a><a href="index.html">Index</a></nav></header>
+<div class="tape"><div id="tape"></div></div>
+
+<section data-view="drop"><div class="wrap">
+ <div class="hero">
+  <div><div style="font-weight:600;font-size:13px">DROP 047 · LIMITED TO 1,200 PAIRS · RAFFLE ONLY</div><h1 class="disp">Form <em>Zero</em><br>Hi.</h1>
+   <div class="cd" id="cd"></div>
+   <div style="font-weight:600;font-size:13px">SELECT COLOURWAY</div><div class="cw" id="cw"></div>
+   <div style="font-weight:600;font-size:13px;margin-top:14px">SELECT SIZE (UK)</div><div class="sizes" id="sizes"></div>
+   <button class="big" id="enter">Enter the raffle →</button>
+   <div class="result" id="res">One entry per person. Winners are drawn at random when the timer hits zero. Or right now, because we're impatient.</div>
+  </div>
+  <div class="shoe"><svg id="heroShoe" class="spin" viewBox="0 0 800 460"></svg></div>
+ </div>
+</div></section>
+
+<section data-view="custom" hidden><div class="wrap">
+ <h1 class="disp" style="font-size:clamp(3rem,8vw,6.6rem)">Make it <span style="color:var(--orange)">yours.</span></h1>
+ <div class="cust" style="margin-top:20px">
+  <div class="canvasBox"><svg id="custShoe" viewBox="0 0 800 460"></svg><span class="tag" id="ctag">1 OF 1</span></div>
+  <div><div style="font-weight:600;font-size:13px;margin-bottom:6px">PART (or click the shoe)</div><div class="parts" id="parts"></div><div style="font-weight:600;font-size:13px;margin-bottom:6px">COLOUR</div><div class="pal" id="pal"></div>
+   <input class="field" id="nick" value="MIDNIGHT RUN" maxlength="16"><button class="big" id="rand">Randomise ⟳</button>
+   <div class="result" id="price"></div></div>
+ </div>
+</div></section>
+
+<section data-view="market" hidden><div class="wrap">
+ <h1 class="disp" style="font-size:clamp(3rem,8vw,6.6rem)">Resale <span style="color:var(--orange)">heat</span></h1>
+ <p style="margin:10px 0 20px;font-size:14px">Live asks for Form Zero Hi "Volt Dusk". Prices are fictional, and we'd rather you wore your shoes than flipped them.</p>
+ <div class="mk"><div class="chart"><svg id="mchart" viewBox="0 0 800 380"></svg></div><div><div class="sgrid" id="sgrid"></div><div class="trade" id="trade"></div></div></div>
+</div></section>
+
+<section data-view="archive" hidden><div class="wrap">
+ <h1 class="disp" style="font-size:clamp(3rem,8vw,6.6rem)">Past <span style="color:var(--orange)">drops</span></h1>
+ <div class="arch" id="arch" style="margin-top:20px"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'drop';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+document.getElementById('tape').innerHTML=('DROP 047 — FORM ZERO HI — RAFFLE CLOSES SOON — 1,200 PAIRS WORLDWIDE — NO BOTS ALLOWED — '.repeat(6)).replace(/—/g,'<b> ✦ </b>');
+
+/* shoe renderer */
+function shoe(c,pat){const{upper,toe,stripe,sole,lace,heel,mid}=c;let p='';
+ if(pat==='camo')p=`<pattern id="pp" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="${upper}"/><path d="M0 20 q20 -20 40 0 t40 0 v20 q-20 10 -40 -4 t-40 4Z" fill="#0002"/><circle cx="60" cy="60" r="14" fill="#fff2"/></pattern>`;
+ if(pat==='check')p=`<pattern id="pp" width="30" height="30" patternUnits="userSpaceOnUse"><rect width="30" height="30" fill="${upper}"/><rect width="15" height="15" fill="#0002"/><rect x="15" y="15" width="15" height="15" fill="#0002"/></pattern>`;
+ const U=pat&&pat!=='solid'?'url(#pp)':upper;
+ return`<defs>${p}</defs><ellipse cx="400" cy="430" rx="330" ry="18" fill="#0000001a"/>
+ <path class="part" data-p="sole" d="M70 370 Q60 400 110 410 L700 410 Q760 408 752 372 L740 350 L80 350Z" fill="${sole}" stroke="#0d0d0d" stroke-width="4"/>
+ <path d="M90 395 L720 395" stroke="#0d0d0d" stroke-width="2" stroke-dasharray="14 10" opacity=".4"/>
+ <path class="part" data-p="mid" d="M76 350 L744 350 L730 322 L96 322Z" fill="${mid}" stroke="#0d0d0d" stroke-width="4"/>
+ <path class="part" data-p="upper" d="M96 322 Q80 250 150 214 L320 150 Q350 140 360 110 L380 50 Q390 30 420 30 L560 36 Q600 40 604 80 L612 200 Q700 230 730 322Z" fill="${U}" stroke="#0d0d0d" stroke-width="4" stroke-linejoin="round"/>
+ <path class="part" data-p="toe" d="M96 322 Q80 250 150 214 L230 186 Q200 260 250 322Z" fill="${toe}" stroke="#0d0d0d" stroke-width="4" stroke-linejoin="round"/>
+ <path class="part" data-p="heel" d="M560 36 Q600 40 604 80 L612 200 Q700 230 730 322 L650 322 Q640 230 590 200 L570 40Z" fill="${heel}" stroke="#0d0d0d" stroke-width="4" stroke-linejoin="round"/>
+ <path class="part" data-p="stripe" d="M250 300 L330 200 L380 240 L460 150 L520 210 L560 170 L570 200 L520 250 L460 190 L385 280 L335 240 L285 300Z" fill="${stripe}" stroke="#0d0d0d" stroke-width="4" stroke-linejoin="round"/>
+ <g class="part" data-p="lace">${[0,1,2,3,4].map(i=>`<path d="M${330+i*28} ${150-i*20+40} l${60-i*4} ${14}" stroke="${lace}" stroke-width="9" stroke-linecap="round"/>`).join('')}${[0,1,2,3,4,5].map(i=>`<circle cx="${324+i*28}" cy="${188-i*20}" r="5" fill="#0d0d0d"/>`).join('')}</g>
+ <rect x="600" y="250" width="70" height="26" fill="#0d0d0d" transform="rotate(12 600 250)"/><text x="606" y="269" font-family="Red Hat Mono" font-size="15" font-weight="600" fill="${stripe}" transform="rotate(12 600 250)">HF/047</text>`}
+const CWS=[['Volt Dusk',{upper:'#2b2b3a',toe:'#1a1a24',stripe:'#ff5a1f',sole:'#f2f2ef',lace:'#ff5a1f',heel:'#ff5a1f',mid:'#e8e8e2'}],['Bone',{upper:'#efe8da',toe:'#d9cfbb',stripe:'#0d0d0d',sole:'#c9b88a',lace:'#efe8da',heel:'#0d0d0d',mid:'#efe8da'}],['Signal',{upper:'#f2f2ef',toe:'#1f5fff',stripe:'#e8233a',sole:'#f2f2ef',lace:'#0d0d0d',heel:'#1f5fff',mid:'#f2f2ef'}],['Moss',{upper:'#5a6a3a',toe:'#3a4a2a',stripe:'#e8d8a8',sole:'#6a4a2a',lace:'#e8d8a8',heel:'#3a4a2a',mid:'#e8d8a8'}]];
+let cwI=0,size=null;
+const SOLD=new Set(['4','12.5','13']);
+function drop(){document.getElementById('heroShoe').innerHTML=shoe(CWS[cwI][1]);document.getElementById('cw').innerHTML=CWS.map((c,i)=>`<button class="${i===cwI?'on':''}" data-c="${i}" title="${c[0]}" style="background:linear-gradient(135deg,${c[1].upper} 50%,${c[1].stripe} 50%)"></button>`).join('');
+ document.getElementById('sizes').innerHTML=['4','5','6','7','7.5','8','8.5','9','9.5','10','11','12.5'].map(s=>`<button class="${s===size?'on':''} ${SOLD.has(s)?'x':''}" data-s="${s}">${s}</button>`).join('')}
+document.getElementById('cw').onclick=e=>{const c=e.target.dataset.c;if(c!=null){cwI=+c;drop()}};
+document.getElementById('sizes').onclick=e=>{const s=e.target.dataset.s;if(s&&!SOLD.has(s)){size=s;drop()}};
+const end=Date.now()+((Date.now()/1000|0)%86400+3600*9)*1000%(86400000)+60000;
+function cd(){let t=Math.max(0,end-Date.now())/1000|0;const d=[Math.floor(t/3600),Math.floor(t%3600/60),t%60];document.getElementById('cd').innerHTML=['HRS','MIN','SEC'].map((l,i)=>`<div><b>${String(d[i]).padStart(2,'0')}</b><small>${l}</small></div>`).join('')+`<div style="background:var(--ink);color:var(--bg)"><b>${(48213+Math.floor((Date.now()/1000)%9000)).toLocaleString()}</b><small>ENTRIES</small></div>`}
+setInterval(cd,1000);cd();
+document.getElementById('enter').onclick=()=>{const r=document.getElementById('res');if(!size){r.innerHTML='<b>Pick a size first.</b> Size 12.5 and up is already gone. Big feet, big demand.';return}
+ const prev=store.get('hf-entry',null);if(prev&&prev.d===new Date().toDateString()){r.innerHTML=`You already entered today (UK ${prev.s}, ${prev.c}). Result: <b>${prev.w?'🎉 YOU WON':'Not this time'}</b>.`;return}
+ r.innerHTML='<div class="slot" id="slot">------</div><div>Drawing from 48,000+ entries…</div>';let n=0;const iv=setInterval(()=>{document.getElementById('slot').textContent=Math.random().toString(36).slice(2,8).toUpperCase();if(++n>22){clearInterval(iv);const win=Math.random()<.18;store.set('hf-entry',{d:new Date().toDateString(),s:size,c:CWS[cwI][0],w:win});r.innerHTML=win?`<div class="slot" style="color:var(--orange)">W I N N E R</div>🎉 Form Zero Hi "${CWS[cwI][0]}", UK ${size}. Check your (imaginary) inbox for a (fictional) payment link.`:`<div class="slot">L</div>Not this time. That is 1,200 pairs shared between 48,000 entries. There's always the next drop… or the resale market, if you're feeling reckless.`}},70)};
+drop();
+
+/* customiser */
+const PARTS=['upper','toe','stripe','heel','mid','sole','lace'],PAL=['#0d0d0d','#f2f2ef','#ff5a1f','#e8233a','#1f5fff','#2b2b3a','#5a6a3a','#e8d8a8','#c9b88a','#ffd21f','#7a3aff','#ff8ac8','#3ad0c0','#8a8a8a','#6a4a2a','#b8f24a'];
+let CC=store.get('hf-custom',{upper:'#2b2b3a',toe:'#0d0d0d',stripe:'#b8f24a',sole:'#f2f2ef',lace:'#f2f2ef',heel:'#7a3aff',mid:'#e8e8e2',pat:'solid'}),part='upper';
+function cust(){document.getElementById('custShoe').innerHTML=shoe(CC,CC.pat)+`<text x="400" y="455" text-anchor="middle" font-family="Anybody" font-weight="900" font-size="18" fill="#0d0d0d88">${(document.getElementById('nick').value||'').replace(/[<>&]/g,'').toUpperCase()}</text>`;
+ document.querySelectorAll('#custShoe .part').forEach(p=>{if(p.dataset.p===part){p.setAttribute('stroke','#ff5a1f');p.setAttribute('stroke-width','7')}});
+ document.getElementById('parts').innerHTML=[...PARTS,'pattern'].map(p=>`<button class="${p===part?'on':''}" data-p="${p}">${p}</button>`).join('')+'<button data-pat="1" style="grid-column:span 1">'+(CC.pat||'solid')+'</button>';
+ document.getElementById('pal').innerHTML=PAL.map(c=>`<button class="${CC[part]===c?'on':''}" data-c="${c}" style="background:${c}"></button>`).join('');
+ const uniq=new Set(PARTS.map(p=>CC[p])).size;document.getElementById('price').innerHTML=`<b>£${150+uniq*5+(CC.pat!=='solid'?20:0)}</b> · ${uniq} colours · made to order in 3 weeks<br>Serial HF-C-${Math.abs([...JSON.stringify(CC)].reduce((a,c)=>a*33+c.charCodeAt(0),5))%99999}`;
+ document.getElementById('ctag').textContent='1 OF 1 · '+(document.getElementById('nick').value||'UNTITLED').toUpperCase();store.set('hf-custom',CC)}
+document.getElementById('parts').onclick=e=>{if(e.target.dataset.pat){const ps=['solid','camo','check'];CC.pat=ps[(ps.indexOf(CC.pat||'solid')+1)%3];cust();return}const p=e.target.dataset.p;if(p&&p!=='pattern'){part=p;cust()}};
+document.getElementById('custShoe').onclick=e=>{const p=e.target.closest('.part');if(p){part=p.dataset.p;cust()}};
+document.getElementById('pal').onclick=e=>{const c=e.target.dataset.c;if(c){CC[part]=c;cust()}};
+document.getElementById('nick').oninput=cust;
+document.getElementById('rand').onclick=()=>{PARTS.forEach(p=>CC[p]=PAL[Math.random()*PAL.length|0]);CC.pat=['solid','solid','camo','check'][Math.random()*4|0];cust()};cust();
+
+/* market */
+let prices=[];(function(){let p=180;for(let i=0;i<90;i++){p=Math.max(160,p+(Math.random()-.42)*14+(i>60?3:0));prices.push(p)}})();
+function market(){const mn=Math.min(...prices)-10,mx=Math.max(...prices)+10;const X=i=>40+i/(prices.length-1)*740,Y=v=>340-(v-mn)/(mx-mn)*300;let s='';for(let v=Math.ceil(mn/20)*20;v<mx;v+=20)s+=`<line x1="40" x2="780" y1="${Y(v)}" y2="${Y(v)}" stroke="#0d0d0d12"/><text x="34" y="${Y(v)+4}" text-anchor="end" font-family="Red Hat Mono" font-size="11">£${v}</text>`;
+ s+=`<line x1="40" x2="780" y1="${Y(180)}" y2="${Y(180)}" stroke="#ff5a1f" stroke-dasharray="6 4"/><text x="780" y="${Y(180)-6}" text-anchor="end" font-family="Red Hat Mono" font-size="11" fill="#ff5a1f">RETAIL £180</text>`;
+ s+=`<path d="M${X(0)} 340 ${prices.map((p,i)=>`L${X(i)} ${Y(p)}`).join(' ')} L${X(prices.length-1)} 340Z" fill="#0d0d0d10"/><path d="${prices.map((p,i)=>(i?'L':'M')+X(i)+' '+Y(p)).join(' ')}" stroke="#0d0d0d" stroke-width="3" fill="none"/><circle cx="${X(prices.length-1)}" cy="${Y(prices.at(-1))}" r="6" fill="#ff5a1f" stroke="#0d0d0d" stroke-width="2"/>`;
+ const last=prices.at(-1),ch=(last-prices.at(-8))/prices.at(-8)*100;s+=`<text x="50" y="30" font-family="Anybody" font-weight="900" font-size="34">£${last.toFixed(0)}</text><text x="200" y="30" font-family="Red Hat Mono" font-size="14" font-weight="600" fill="${ch>=0?'#138a3a':'#d12a1a'}">${ch>=0?'▲':'▼'} ${Math.abs(ch).toFixed(1)}% 7D</text>`;
+ document.getElementById('mchart').innerHTML=s;
+ document.getElementById('sgrid').innerHTML=['5','6','7','8','8.5','9','10','11','12.5','13','14','15'].map((sz,i)=>{const p=last*(1+(Math.abs(9-parseFloat(sz))/10)*(parseFloat(sz)>11?1.4:.6))+((i*37)%20);const d=((i*13)%11)-5;return`<div><small>UK ${sz}</small><b>£${p.toFixed(0)}</b><small class="${d>=0?'up':'dn'}">${d>=0?'▲':'▼'}${Math.abs(d)}%</small></div>`}).join('')}
+function trade(){if(document.querySelector('[data-view=market]').hidden)return;prices.push(Math.max(160,prices.at(-1)+(Math.random()-.45)*10));prices.shift();market();const t=document.getElementById('trade');const d=document.createElement('div');const sz=['7','8','8.5','9','10','11'][Math.random()*6|0];d.innerHTML=`<span>${new Date().toLocaleTimeString()} · UK ${sz}</span><b>£${prices.at(-1).toFixed(0)}</b>`;t.prepend(d);while(t.children.length>10)t.lastChild.remove()}
+setInterval(trade,1600);market();
+
+/* archive */
+const AR=[['Form Zero Lo','Drop 046','#efe8da','#0d0d0d','SOLD OUT IN 41s'],['Runner 9 "Harbour"','Drop 045','#1f5fff','#f2f2ef','SOLD OUT'],['Court Classic "Clay"','Drop 044','#c9784a','#f2f2ef','RESTOCK MAYBE'],['Trail GTX "Moss"','Drop 043','#5a6a3a','#e8d8a8','SOLD OUT'],['Slide 01 "Wet Paint"','Drop 042','#ff8ac8','#0d0d0d','SOLD OUT IN 8s'],['Form Zero "Origin"','Drop 001','#f2f2ef','#e8233a','GRAIL']];
+document.getElementById('arch').innerHTML=AR.map(a=>`<div class="ar"><span class="st">${a[4]}</span><svg viewBox="0 0 800 460">${shoe({upper:a[2],toe:a[3],stripe:a[3],sole:'#f2f2ef',lace:a[3],heel:a[3],mid:'#e8e8e2'})}</svg><div style="font-size:12px;font-weight:600">${a[1]}</div><h3>${a[0]}</h3></div>`).join('');
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Meridian — Grand Hotel, 1927</title>
+<link href="https://fonts.googleapis.com/css2?family=Limelight&family=Poiret+One&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0b1714; --bg2:#10211d; --gold:#d4af37; --gold2:#f3dc8a; --cream:#f1e7cf; --mute:#9aa89f; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--cream); font-family:'Josefin Sans',sans-serif; font-weight:300; }
+  body::before { content:''; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.07; background:
+    repeating-linear-gradient(60deg,var(--gold) 0 1px,transparent 1px 40px),repeating-linear-gradient(-60deg,var(--gold) 0 1px,transparent 1px 40px); }
+  a { color:inherit; text-decoration:none; }
+  .gold { background:linear-gradient(180deg,var(--gold2),var(--gold) 50%,#9c7a1c); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  header { position:sticky; top:0; z-index:20; background:linear-gradient(var(--bg) 70%,transparent); padding:18px 4vw 26px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; }
+  header .l, header .r { display:flex; gap:2.2rem; font-size:12px; letter-spacing:.35em; text-transform:uppercase; }
+  header .r { justify-content:flex-end; }
+  header a { color:var(--mute); transition:color .3s; position:relative; padding:6px 0; }
+  header a:hover, header a.on { color:var(--gold2); }
+  header a.on::after { content:'◆'; position:absolute; left:50%; bottom:-14px; transform:translateX(-50%); font-size:8px; color:var(--gold); }
+  .crest { font-family:'Limelight',serif; font-size:28px; letter-spacing:.2em; text-align:center; line-height:1; }
+  .crest small { display:block; font-family:'Josefin Sans'; font-size:9px; letter-spacing:.6em; color:var(--gold); margin-top:4px; }
+  main { position:relative; z-index:1; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes rise { from { opacity:0; transform:translateY(24px); } }
+  /* lobby */
+  .lobby { min-height:88vh; display:grid; place-items:center; text-align:center; position:relative; overflow:hidden; }
+  .sunburst { position:absolute; width:150vmax; height:150vmax; left:50%; top:100%; transform:translate(-50%,-50%); background:repeating-conic-gradient(from 0deg,#d4af3722 0 3deg,transparent 3deg 9deg); animation:spin 120s linear infinite; mask:radial-gradient(circle,#000 20%,transparent 60%); -webkit-mask:radial-gradient(circle,#000 20%,transparent 60%); }
+  @keyframes spin { to { transform:translate(-50%,-50%) rotate(360deg); } }
+  .arch { position:relative; padding:5rem 4rem 4rem; border:2px solid var(--gold); border-radius:240px 240px 0 0; max-width:640px; }
+  .arch::before { content:''; position:absolute; inset:10px; border:1px solid #d4af3766; border-radius:230px 230px 0 0; }
+  .arch .est { font-size:11px; letter-spacing:.6em; color:var(--gold); }
+  .arch h1 { font-family:'Limelight',serif; font-weight:400; font-size:clamp(2.8rem,7vw,5.4rem); line-height:.95; margin:1.4rem 0; letter-spacing:.04em; white-space:nowrap; }
+  .arch p { font-family:'Poiret One'; font-size:1.5rem; line-height:1.5; color:var(--cream); }
+  .fan { display:flex; justify-content:center; gap:4px; margin:2rem auto 0; height:60px; align-items:flex-end; }
+  .fan i { width:3px; background:var(--gold); transform-origin:bottom; animation:fanIn 1.2s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes fanIn { from { transform:scaleY(0); } }
+  .cta { display:inline-block; margin-top:2.4rem; padding:1rem 2.6rem; border:1px solid var(--gold); font-size:12px; letter-spacing:.4em; text-transform:uppercase; color:var(--gold2); position:relative; overflow:hidden; cursor:pointer; background:none; font-family:inherit; }
+  .cta::before { content:''; position:absolute; inset:0; background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform .5s cubic-bezier(.7,0,.2,1); z-index:-1; }
+  .cta:hover { color:var(--bg); }
+  .cta:hover::before { transform:none; }
+  .facts { display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid #d4af3755; border-bottom:1px solid #d4af3755; margin:0 4vw 10vh; }
+  .facts div { padding:2.4rem 1rem; text-align:center; border-right:1px solid #d4af3733; }
+  .facts div:last-child { border:0; }
+  .facts b { display:block; font-family:'Limelight'; font-weight:400; font-size:2.6rem; }
+  .facts span { font-size:11px; letter-spacing:.35em; color:var(--mute); text-transform:uppercase; }
+  .page { padding:6vh 6vw 12vh; max-width:1300px; margin:0 auto; }
+  .ttl { text-align:center; margin-bottom:6vh; }
+  .ttl small { font-size:11px; letter-spacing:.6em; color:var(--gold); }
+  .ttl h2 { font-family:'Limelight'; font-weight:400; font-size:clamp(2.6rem,6vw,4.6rem); letter-spacing:.06em; margin-top:.6rem; }
+  .ttl .rule { width:180px; height:14px; margin:1.2rem auto 0; background:linear-gradient(var(--gold),var(--gold)) center/100% 1px no-repeat; position:relative; }
+  .ttl .rule::after { content:'◆'; position:absolute; left:50%; top:50%; transform:translate(-50%,-52%); color:var(--gold); background:var(--bg); padding:0 10px; font-size:12px; }
+  /* suites */
+  .suite { display:grid; grid-template-columns:1fr 1fr; gap:5vw; align-items:center; }
+  .frame { aspect-ratio:3/4; border:2px solid var(--gold); padding:14px; position:relative; clip-path:polygon(0 8%,8% 0,92% 0,100% 8%,100% 92%,92% 100%,8% 100%,0 92%); }
+  .frame .art { width:100%; height:100%; transition:opacity .5s; }
+  .suite h3 { font-family:'Poiret One'; font-size:3rem; font-weight:400; color:var(--gold2); line-height:1; }
+  .suite .price { font-family:'Limelight'; font-size:1.6rem; margin:1rem 0 1.6rem; }
+  .suite .price small { font-family:'Josefin Sans'; font-size:.8rem; color:var(--mute); letter-spacing:.2em; }
+  .suite p { line-height:1.9; color:#d4ccb6; }
+  .amen { display:flex; flex-wrap:wrap; gap:.6rem; margin:1.6rem 0; }
+  .amen span { font-size:11px; letter-spacing:.2em; border:1px solid #d4af3766; padding:.45rem .8rem; text-transform:uppercase; }
+  .carNav { display:flex; gap:1rem; align-items:center; margin-top:1.4rem; }
+  .carNav button { width:48px; height:48px; transform:rotate(45deg); border:1px solid var(--gold); background:none; color:var(--gold2); cursor:pointer; transition:background .3s; }
+  .carNav button span { display:block; transform:rotate(-45deg); }
+  .carNav button:hover { background:#d4af3722; }
+  .carNav em { font-family:'Limelight'; font-style:normal; margin-left:1rem; letter-spacing:.2em; }
+  .avail { margin-top:8vh; }
+  .avail h4 { font-size:11px; letter-spacing:.5em; color:var(--gold); text-transform:uppercase; margin-bottom:1rem; }
+  .matrix { display:grid; grid-template-columns:140px repeat(14,1fr); gap:3px; font-size:11px; }
+  .matrix div { padding:.5rem .2rem; text-align:center; }
+  .matrix .h { color:var(--mute); letter-spacing:.1em; }
+  .matrix .n { text-align:left; letter-spacing:.1em; font-family:'Poiret One'; font-size:14px; }
+  .matrix .c { background:#d4af3718; cursor:pointer; transition:background .2s; }
+  .matrix .c.no { background:repeating-linear-gradient(45deg,#ffffff08 0 4px,transparent 4px 8px); cursor:not-allowed; }
+  .matrix .c.pick { background:var(--gold); color:var(--bg); }
+  .matrix .c:hover:not(.no) { background:#d4af3766; }
+  .hold { margin-top:1.4rem; font-family:'Poiret One'; font-size:1.3rem; color:var(--gold2); min-height:2rem; }
+  /* bar */
+  .bar { display:grid; grid-template-columns:1fr 1.1fr; gap:5vw; align-items:start; }
+  .glassWrap { position:sticky; top:120px; text-align:center; }
+  .glassWrap svg { width:min(340px,80%); }
+  .recipe { margin-top:1rem; font-family:'Poiret One'; font-size:2rem; color:var(--gold2); min-height:2.6rem; }
+  .recipe + p { color:var(--mute); font-size:.9rem; letter-spacing:.1em; }
+  .grp { margin-bottom:2.4rem; }
+  .grp h4 { font-size:11px; letter-spacing:.5em; color:var(--gold); text-transform:uppercase; margin-bottom:1rem; border-bottom:1px solid #d4af3744; padding-bottom:.6rem; }
+  .opts { display:flex; flex-wrap:wrap; gap:.6rem; }
+  .opts button { font-family:'Josefin Sans'; font-size:13px; letter-spacing:.12em; padding:.7rem 1.1rem; background:none; border:1px solid #d4af3755; color:var(--cream); cursor:pointer; display:flex; gap:.6rem; align-items:center; transition:all .25s; }
+  .opts button i { width:10px; height:10px; border-radius:50%; }
+  .opts button.on { border-color:var(--gold); background:#d4af3722; color:var(--gold2); }
+  .shake { animation:shake .12s 8; }
+  @keyframes shake { 50% { transform:translate(4px,-3px) rotate(4deg); } }
+  /* ballroom */
+  .events { display:grid; gap:1px; background:#d4af3733; border:1px solid #d4af3733; }
+  .ev { display:grid; grid-template-columns:110px 1fr auto; gap:2rem; align-items:center; padding:1.8rem 2rem; background:var(--bg); transition:background .3s; }
+  .ev:hover { background:var(--bg2); }
+  .ev .d { font-family:'Limelight'; font-size:2.4rem; line-height:1; text-align:center; }
+  .ev .d small { display:block; font-family:'Josefin Sans'; font-size:11px; letter-spacing:.3em; color:var(--gold); }
+  .ev h3 { font-family:'Poiret One'; font-size:1.8rem; font-weight:400; }
+  .ev p { color:var(--mute); font-size:.9rem; margin-top:.3rem; }
+  .ev button { font-family:inherit; font-size:11px; letter-spacing:.3em; text-transform:uppercase; padding:.8rem 1.3rem; border:1px solid var(--gold); background:none; color:var(--gold2); cursor:pointer; min-width:140px; }
+  .ev button.on { background:var(--gold); color:var(--bg); }
+  .dancecard { margin-top:8vh; display:grid; grid-template-columns:320px 1fr; gap:4vw; align-items:start; }
+  .card { background:var(--cream); color:#2a2418; padding:2rem; border-radius:6px; position:relative; box-shadow:0 20px 40px #0008; transform:rotate(-2deg); }
+  .card::before { content:''; position:absolute; top:-10px; left:50%; width:2px; height:40px; background:#b3242f; transform:translateX(-50%); }
+  .card h4 { font-family:'Limelight'; font-weight:400; font-size:1.6rem; text-align:center; border-bottom:1px solid #2a241844; padding-bottom:.6rem; margin-bottom:.6rem; }
+  .card li { list-style:none; display:flex; justify-content:space-between; gap:1rem; padding:.45rem 0; border-bottom:1px dotted #2a241855; font-family:'Poiret One'; font-weight:600; font-size:1.05rem; }
+  .card li em { font-style:italic; color:#7a2b1f; }
+  .partners { display:flex; flex-wrap:wrap; gap:.6rem; }
+  .partners button { font-family:'Poiret One'; font-size:1.1rem; padding:.6rem 1rem; border:1px solid #d4af3766; background:none; color:var(--cream); cursor:pointer; }
+  .partners button:hover { background:#d4af3722; }
+  /* concierge */
+  .chat { max-width:760px; margin:0 auto; border:1px solid #d4af3766; }
+  .log { height:52vh; overflow-y:auto; padding:2rem; display:flex; flex-direction:column; gap:1rem; }
+  .msg { max-width:78%; padding:1rem 1.3rem; line-height:1.6; animation:rise .4s both; }
+  .msg.them { background:var(--bg2); border-left:2px solid var(--gold); font-family:'Poiret One'; font-size:1.15rem; font-weight:600; }
+  .msg.me { align-self:flex-end; background:#d4af3722; }
+  .typing { color:var(--gold); letter-spacing:.3em; }
+  .ask { display:flex; border-top:1px solid #d4af3766; }
+  .ask input { flex:1; background:none; border:0; padding:1.2rem 1.4rem; font:inherit; font-size:1rem; color:var(--cream); outline:none; }
+  .ask button { background:var(--gold); color:var(--bg); border:0; padding:0 1.8rem; font:inherit; font-weight:600; letter-spacing:.3em; cursor:pointer; }
+  .chips { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin-top:1.2rem; }
+  .chips button { font:inherit; font-size:12px; letter-spacing:.1em; padding:.5rem .9rem; background:none; border:1px solid #d4af3744; color:var(--mute); cursor:pointer; border-radius:40px; }
+  .chips button:hover { color:var(--gold2); border-color:var(--gold); }
+  footer { position:relative; z-index:1; text-align:center; padding:4rem 0 3rem; font-size:11px; letter-spacing:.5em; color:var(--mute); }
+  footer a { color:var(--gold); }
+  @media (max-width:900px){ header { grid-template-columns:1fr; gap:1rem; } header .l, header .r { justify-content:center; flex-wrap:wrap; gap:1rem; } .suite,.bar,.dancecard { grid-template-columns:1fr; } .facts { grid-template-columns:1fr 1fr; } .matrix { grid-template-columns:90px repeat(14,1fr); font-size:9px; } .ev { grid-template-columns:70px 1fr; } .ev button { grid-column:1/-1; } .glassWrap { position:static; } }
+</style>
+</head>
+<body>
+<header>
+  <nav class="l"><a href="#lobby">Lobby</a><a href="#suites">Suites</a><a href="#bar">The Bar</a></nav>
+  <div class="crest"><span class="gold">THE MERIDIAN</span><small>GRAND HOTEL · MCMXXVII</small></div>
+  <nav class="r"><a href="#ballroom">Ballroom</a><a href="#concierge">Concierge</a><a href="index.html">Index ↩</a></nav>
+</header>
+<main>
+<section data-view="lobby">
+  <div class="lobby">
+    <div class="sunburst"></div>
+    <div class="arch">
+      <div class="est">EST. 1927 · FIFTH AVENUE</div>
+      <h1 class="gold">The<br>Meridian</h1>
+      <p>Where the jazz age never quite ended, and the elevator operator still knows your name.</p>
+      <div class="fan" id="fan"></div>
+      <a class="cta" href="#suites">Reserve a Suite</a>
+    </div>
+  </div>
+  <div class="facts"><div><b class="gold">42</b><span>Storeys</span></div><div><b class="gold">317</b><span>Rooms & Suites</span></div><div><b class="gold">1</b><span>Legendary Bar</span></div><div><b class="gold">∞</b><span>Champagne</span></div></div>
+</section>
+
+<section data-view="suites" class="page" hidden>
+  <div class="ttl"><small>ACCOMMODATION</small><h2 class="gold">The Suites</h2><div class="rule"></div></div>
+  <div class="suite">
+    <div class="frame"><svg class="art" id="suiteArt" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice"></svg></div>
+    <div>
+      <h3 id="sName"></h3><div class="price" id="sPrice"></div><p id="sDesc"></p><div class="amen" id="sAmen"></div>
+      <div class="carNav"><button id="sPrev"><span>←</span></button><button id="sNext"><span>→</span></button><em id="sIdx"></em></div>
+    </div>
+  </div>
+  <div class="avail"><h4>Availability — the next fourteen nights · click to hold</h4><div class="matrix" id="matrix"></div><div class="hold" id="hold"></div></div>
+</section>
+
+<section data-view="bar" class="page" hidden>
+  <div class="ttl"><small>THE GILDED BAR · 17TH FLOOR</small><h2 class="gold">Mix a Cocktail</h2><div class="rule"></div></div>
+  <div class="bar">
+    <div class="glassWrap"><svg viewBox="0 0 200 260" id="glass"></svg><div class="recipe" id="cName">Choose your spirit</div><p id="cNote">Our bartender, Mr. Albert, is standing by.</p><button class="cta" id="shakeBtn" style="margin-top:1.4rem">Shake it</button></div>
+    <div id="builder"></div>
+  </div>
+</section>
+
+<section data-view="ballroom" class="page" hidden>
+  <div class="ttl"><small>THE CRYSTAL BALLROOM</small><h2 class="gold">Evenings</h2><div class="rule"></div></div>
+  <div class="events" id="events"></div>
+  <div class="dancecard">
+    <div class="card"><h4>Dance Card</h4><ul id="dc"></ul></div>
+    <div><h3 style="font-family:'Poiret One';font-size:2rem;font-weight:400;color:var(--gold2)">Fill your card</h3><p style="color:var(--mute);margin:.8rem 0 1.4rem;line-height:1.8">Tap a partner to pencil them in for the next open dance. Tap a name on the card to erase it.</p><div class="partners" id="partners"></div></div>
+  </div>
+</section>
+
+<section data-view="concierge" class="page" hidden>
+  <div class="ttl"><small>AT YOUR SERVICE, DAY OR NIGHT</small><h2 class="gold">Concierge</h2><div class="rule"></div></div>
+  <div class="chat"><div class="log" id="log"></div><form class="ask" id="ask"><input id="q" placeholder="Ask about breakfast, taxis, the speakeasy…" autocomplete="off"><button>RING ◆</button></form></div>
+  <div class="chips" id="chips"></div>
+</section>
+</main>
+<footer>THE MERIDIAN · 1927 FIFTH AVENUE · <a href="index.html">RETURN TO INDEX</a></footer>
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'lobby';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('header a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='lobby')fan()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+function fan(){const f=document.getElementById('fan');f.innerHTML='';for(let i=0;i<25;i++){const b=document.createElement('i');const d=Math.abs(i-12);b.style.height=(100-d*6)+'%';b.style.animationDelay=(d*.05)+'s';f.appendChild(b)}}
+
+/* suites */
+const suites=[['The Chrysler','$640','Corner suite on the 38th floor with a wraparound terrace and a view of the spire that gave it its name. Black lacquer, silver leaf, a bath carved from a single slab of Carrara.',['Terrace','Butler','Grand piano','Skyline view'],['#1c3a33','#d4af37']],
+['The Gatsby','$520','Green light across the water — well, across Fifth Avenue. A velvet salon, a gramophone with forty records, and a wardrobe of borrowed tuxedos.',['Salon','Gramophone','Wardrobe','Park view'],['#0f2c3a','#e8c36a']],
+['The Zelda','$480','Pale rose and brass, a bed like a seashell and a dressing room with forty-two lightbulbs. Mornings arrive with fresh peonies.',['Dressing room','Balcony','Peonies','Clawfoot tub'],['#3a1c26','#f3dc8a']],
+['The Penthouse','$1,900','The entire 42nd floor. Private elevator, rooftop garden, a bar stocked for a party of sixty. Fireworks on request.',['Private lift','Roof garden','Bar','Fireworks'],['#101010','#d4af37']]];
+let si=0;
+function suiteArt(c1,c2,k){return `<defs><linearGradient id="sg${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="#050a09"/></linearGradient></defs><rect width="300" height="400" fill="url(#sg${k})"/>
+ ${Array.from({length:18},(_,i)=>`<line x1="150" y1="400" x2="${-60+i*25}" y2="0" stroke="${c2}" stroke-opacity=".15"/>`).join('')}
+ <path d="M${110-k*6} 400 L${110-k*6} ${150+k*10} L150 ${90+k*8} L${190+k*6} ${150+k*10} L${190+k*6} 400Z" fill="#050a09" stroke="${c2}" stroke-width="1.5"/>
+ ${Array.from({length:10},(_,i)=>`<rect x="${122-k*4}" y="${170+i*22+k*10}" width="${56+k*8}" height="10" fill="${c2}" opacity="${Math.random()>.4?.8:.15}"/>`).join('')}
+ <path d="M150 ${90+k*8} L150 ${30+k*10}" stroke="${c2}" stroke-width="2"/><circle cx="150" cy="${30+k*10}" r="3" fill="${c2}"/>
+ <circle cx="${60+k*50}" cy="70" r="22" fill="${c2}" opacity=".85"/>`}
+function showSuite(i){si=(i+suites.length)%suites.length;const [n,p,d,a,[c1,c2]]=suites[si];sName.textContent=n;sPrice.innerHTML=`${p} <small>PER NIGHT</small>`;sDesc.textContent=d;sAmen.innerHTML=a.map(x=>`<span>${x}</span>`).join('');sIdx.textContent=`${String(si+1).padStart(2,'0')} / ${String(suites.length).padStart(2,'0')}`;document.getElementById('suiteArt').innerHTML=suiteArt(c1,c2,si)}
+sPrev.onclick=()=>showSuite(si-1);sNext.onclick=()=>showSuite(si+1);showSuite(0);
+const mx=document.getElementById('matrix');const days=[...Array(14)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()+i);return d});let picks=new Map();
+mx.innerHTML='<div></div>'+days.map(d=>`<div class="h">${d.toLocaleDateString('en',{weekday:'narrow'})}<br>${d.getDate()}</div>`).join('');
+suites.forEach(([n],r)=>{mx.insertAdjacentHTML('beforeend',`<div class="n">${n.replace('The ','')}</div>`);days.forEach((d,c)=>{const cell=document.createElement('div');cell.className='c'+(((r+1)*(c+3)*7)%5===0?' no':'');cell.innerHTML='&nbsp;';cell.onclick=()=>{if(cell.classList.contains('no'))return;cell.classList.toggle('pick');const k=r+'-'+c;cell.classList.contains('pick')?picks.set(k,[r,d]):picks.delete(k);holdMsg()};mx.appendChild(cell)})});
+function holdMsg(){const h=document.getElementById('hold');if(!picks.size){h.textContent='';return}let tot=0;const by={};picks.forEach(([r])=>{tot+=parseInt(suites[r][1].replace(/\D/g,''));by[suites[r][0]]=(by[suites[r][0]]||0)+1});h.textContent=`Holding ${Object.entries(by).map(([n,c])=>`${c} night${c>1?'s':''} in ${n}`).join(', ')} — $${tot.toLocaleString()}. The bellhop is polishing the brass.`}
+
+/* bar */
+const B={Spirit:[['Gin','#e8f1f2'],['Rye','#c77b2c'],['Rum','#a8581c'],['Champagne','#f7e7a4']],Modifier:[['Vermouth','#8a1c2b'],['Lemon','#fff27a'],['Absinthe','#6fcf6f'],['Crème de violette','#8e6bd8']],Sweet:[['Honey','#e9a93a'],['Grenadine','#d6283d'],['Simple syrup','#fff8e0'],['None','transparent']],Garnish:[['Olive','#6b8e23'],['Cherry','#b3242f'],['Twist','#ffd23a'],['Mint','#2e8b57']]};
+const sel={Spirit:null,Modifier:null,Sweet:null,Garnish:null};const bl=document.getElementById('builder');
+Object.entries(B).forEach(([k,list])=>{const g=document.createElement('div');g.className='grp';g.innerHTML=`<h4>${k}</h4><div class="opts"></div>`;list.forEach(([n,c])=>{const b=document.createElement('button');b.innerHTML=`<i style="background:${c};border:1px solid #fff3"></i>${n}`;b.onclick=()=>{sel[k]=[n,c];g.querySelectorAll('button').forEach(o=>o.classList.toggle('on',o===b));drawGlass()};g.querySelector('.opts').appendChild(b)});bl.appendChild(g)});
+function drawGlass(){const layers=['Spirit','Modifier','Sweet'].map(k=>sel[k]).filter(x=>x&&x[1]!=='transparent');const n=layers.length;let fill='';
+ layers.forEach(([,c],i)=>{const top=150-(i+1)*(90/Math.max(n,1))*.95,y0=150-i*(90/Math.max(n,1))*.95;fill+=`<rect x="0" y="${top}" width="200" height="${y0-top+1}" fill="${c}" opacity=".85"><animate attributeName="y" from="150" to="${top}" dur=".6s" fill="freeze"/></rect>`});
+ const gar=sel.Garnish?({Olive:`<line x1="140" y1="30" x2="100" y2="120" stroke="#d4af37" stroke-width="2"/><circle cx="112" cy="95" r="9" fill="${sel.Garnish[1]}"/>`,Cherry:`<path d="M140 40 Q130 60 132 72" stroke="#3a5a1a" stroke-width="2" fill="none"/><circle cx="132" cy="78" r="8" fill="${sel.Garnish[1]}"/>`,Twist:`<path d="M150 50 q-10 10 0 20 q10 10 0 20" stroke="${sel.Garnish[1]}" stroke-width="5" fill="none"/>`,Mint:`<path d="M120 58 q10 -24 26 -10 q-8 16 -26 10z" fill="${sel.Garnish[1]}"/>`}[sel.Garnish[0]]):'';
+ document.getElementById('glass').innerHTML=`<defs><clipPath id="bowl"><path d="M30 60 L170 60 L100 150 Z"/></clipPath></defs><g clip-path="url(#bowl)">${fill}</g><path d="M30 60 L170 60 L100 150 Z" fill="#ffffff08" stroke="#f3dc8a" stroke-width="2"/><line x1="100" y1="150" x2="100" y2="230" stroke="#f3dc8a" stroke-width="2"/><ellipse cx="100" cy="234" rx="46" ry="7" fill="none" stroke="#f3dc8a" stroke-width="2"/>${gar}`;
+ const name=cocktailName();document.getElementById('cName').textContent=name[0];document.getElementById('cNote').textContent=name[1]}
+function cocktailName(){if(!sel.Spirit)return['Choose your spirit','Our bartender, Mr. Albert, is standing by.'];const s=sel.Spirit[0],m=sel.Modifier?.[0];
+ const known={'Gin|Vermouth':'The Martini','Rye|Vermouth':'The Manhattan','Gin|Lemon':'The Bee\'s Knees','Champagne|Lemon':'The French 75','Gin|Crème de violette':'The Aviation','Rum|Lemon':'The Daiquiri','Champagne|Absinthe':'Death in the Afternoon','Rye|Absinthe':'The Sazerac'};
+ const k=known[s+'|'+m];if(k)return[k,'A classic. Mr. Albert nods approvingly.'];const adj=['Gilded','Midnight','Velvet','Silver','Prohibition','Crystal'],nou=['Flapper','Foxtrot','Speakeasy','Skyline','Charleston','Rhapsody'];const h=(s+m+(sel.Sweet?.[0]||'')).length;return['The '+adj[h%6]+' '+nou[(h*7)%6],'An original. Mr. Albert raises an eyebrow, then a glass.']}
+drawGlass();
+document.getElementById('shakeBtn').onclick=()=>{const g=document.getElementById('glass');g.classList.remove('shake');void g.offsetWidth;g.classList.add('shake');drawGlass()};
+
+/* ballroom */
+const evs=[['FRI','14','The Charleston Ball','Hartley\'s Syncopators · black tie · 9 pm till dawn'],['SAT','15','Masquerade in Silver','Masks provided at the door · champagne tower at midnight'],['THU','20','Tango Under the Chandelier','Orquesta del Sur · lessons at 8 pm'],['SAT','22','The Gatsby Gala','Fireworks from the roof · the band plays till the fountain runs dry']];
+document.getElementById('events').innerHTML=evs.map(([w,d,n,t],i)=>`<div class="ev"><div class="d gold">${d}<small>${w}</small></div><div><h3>${n}</h3><p>${t}</p></div><button data-rsvp="${i}">RSVP</button></div>`).join('');
+document.querySelectorAll('[data-rsvp]').forEach(b=>b.onclick=()=>{b.classList.toggle('on');b.textContent=b.classList.contains('on')?'✓ Attending':'RSVP'});
+const dances=['Foxtrot','Waltz','Charleston','Tango','Quickstep','Lindy Hop','Last Waltz'],card=Array(7).fill(null);const people=['Mr. Fitzgerald','Miss Baker','Count Orlov','Lady Ashworth','Dr. Lindqvist','Mlle. Colette','Captain Reyes'];
+function renderCard(){document.getElementById('dc').innerHTML=dances.map((d,i)=>`<li data-i="${i}">${d}<em>${card[i]||'— — —'}</em></li>`).join('');document.querySelectorAll('#dc li').forEach(li=>li.onclick=()=>{card[li.dataset.i]=null;renderCard()})}
+document.getElementById('partners').innerHTML=people.map(p=>`<button>${p}</button>`).join('');document.querySelectorAll('#partners button').forEach(b=>b.onclick=()=>{const i=card.indexOf(null);if(i>=0){card[i]=b.textContent;renderCard()}});renderCard();
+
+/* concierge */
+const A=[[/breakfast|eat|food|dinner|lunch/,'Breakfast is served in the Palm Court from seven until eleven. The eggs Benedict have been unchanged since 1931, and we should like to keep it that way.'],[/taxi|car|drive|airport/,'A Packard will be waiting under the canopy in ten minutes. The driver, Mr. Kowalski, knows every shortcut and most of the police.'],[/speakeasy|secret|drink|bar/,'I\'m sure I don\'t know what you mean. However — if one were to press the fourth brass button in the elevator twice, one might find oneself somewhere rather pleasant.'],[/spa|bath|massage/,'The Turkish baths on B2 are open until midnight. Towels are warmed, gossip is complimentary.'],[/check.?out|leave/,'Check-out is at noon, though for our favourite guests the clocks here have a habit of running slow.'],[/room|suite|bed/,'Every suite is turned down at eight with a chocolate and a weather forecast written by hand.'],[/hello|hi|good/,'Good evening. How may the Meridian be of service?'],[/thank/,'The pleasure is entirely ours. Ring whenever you like.']];
+const log=document.getElementById('log');function say(t,who){const m=document.createElement('div');m.className='msg '+who;m.textContent=t;log.appendChild(m);log.scrollTop=1e9;return m}
+say('Good evening, and welcome to the Meridian. I am Mr. Pemberton, your concierge. Whatever you require — however improbable — simply ask.','them');
+function ask(q){if(!q.trim())return;say(q,'me');const t=say('◆ ◆ ◆','them');t.classList.add('typing');setTimeout(()=>{t.classList.remove('typing');const hit=A.find(([r])=>r.test(q.toLowerCase()));t.textContent=hit?hit[1]:'An excellent question. I shall send a boy to find out at once — in the meantime, may I suggest a Martini?'},900)}
+document.getElementById('ask').onsubmit=e=>{e.preventDefault();ask(q.value);q.value=''};
+['Where is breakfast?','Call me a taxi','Is there a speakeasy?','When is check-out?'].forEach(c=>{const b=document.createElement('button');b.textContent=c;b.onclick=()=>ask(c);document.getElementById('chips').appendChild(b)});
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

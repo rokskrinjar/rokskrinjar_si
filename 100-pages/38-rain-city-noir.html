@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAIN CITY — The Case of the Blue Carnation</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Courier+Prime:ital@0;1&family=Bodoni+Moda:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0b0d10; --glass:#1a1f26; --neon:#ff3b5c; --amber:#e8b04a; --paper:#e6ddc8; --ink:#1a1714; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:#d8d4cc; font-family:'Courier Prime',monospace; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+  canvas#rain { position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+  .grain { position:fixed; inset:0; z-index:90; pointer-events:none; opacity:.12; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation:gr .3s steps(2) infinite; }
+  @keyframes gr { 50% { transform:translate(-3px,2px); } }
+  header { position:relative; z-index:10; display:flex; justify-content:space-between; align-items:center; padding:18px 4vw; }
+  .logo { font-family:'Oswald'; font-weight:700; font-size:26px; letter-spacing:.3em; color:var(--neon); text-shadow:0 0 12px var(--neon),0 0 30px #ff3b5c88; animation:flick 6s infinite; }
+  @keyframes flick { 0%,100% { opacity:1; } 92% { opacity:1; } 93% { opacity:.3; } 94% { opacity:1; } 96% { opacity:.4; } 97% { opacity:1; } }
+  nav { display:flex; gap:22px; font-family:'Oswald'; font-size:13px; letter-spacing:.25em; text-transform:uppercase; flex-wrap:wrap; }
+  nav a { opacity:.55; } nav a.on, nav a:hover { opacity:1; color:var(--amber); }
+  main { position:relative; z-index:5; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:fade 1.2s both; }
+  @keyframes fade { from { opacity:0; } }
+  /* office / intro */
+  .office { min-height:calc(100vh - 70px); display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:4vw; padding:0 6vw; }
+  .office h1 { font-family:'Oswald'; font-weight:700; font-size:clamp(3rem,8vw,7rem); line-height:.9; text-transform:uppercase; color:#eee; }
+  .office h1 em { font-family:'Bodoni Moda'; font-style:italic; font-weight:400; text-transform:none; color:var(--amber); }
+  .monologue { font-size:1.15rem; line-height:1.9; margin-top:1.4rem; max-width:32rem; min-height:9em; }
+  .monologue::after { content:'▌'; animation:bl 1s steps(1) infinite; color:var(--amber); }
+  @keyframes bl { 50% { opacity:0; } }
+  .window { position:relative; aspect-ratio:3/4; max-height:78vh; justify-self:center; width:100%; max-width:460px; background:linear-gradient(180deg,#1b2a3a,#0b0d10); border:14px solid #2a2118; box-shadow:0 0 0 2px #000, 0 40px 80px #000; overflow:hidden; }
+  .window::before { content:''; position:absolute; left:50%; top:0; bottom:0; width:12px; margin-left:-6px; background:#2a2118; z-index:3; }
+  .window::after { content:''; position:absolute; top:50%; left:0; right:0; height:12px; margin-top:-6px; background:#2a2118; z-index:3; }
+  .window canvas { position:absolute; inset:0; width:100%; height:100%; }
+  .blinds { position:absolute; inset:0; z-index:2; background:repeating-linear-gradient(0deg,#0b0d10cc 0 14px,transparent 14px 26px); transition:transform 1s; transform-origin:top; }
+  .window:hover .blinds { transform:scaleY(.25); }
+  .btn { display:inline-block; margin-top:2rem; font-family:'Oswald'; letter-spacing:.3em; text-transform:uppercase; padding:14px 24px; border:1px solid var(--amber); color:var(--amber); background:transparent; cursor:pointer; font-size:14px; }
+  .btn:hover { background:var(--amber); color:var(--bg); }
+  /* board */
+  .board { position:relative; margin:10px 3vw 40px; height:calc(100vh - 110px); min-height:620px; background:#3a2a1c; background-image:radial-gradient(#0002 1px,transparent 1px); background-size:6px 6px; border:14px solid #20160e; box-shadow:inset 0 0 80px #000a; overflow:hidden; }
+  .board svg.strings { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:2; }
+  .ev { position:absolute; width:190px; background:var(--paper); color:var(--ink); padding:12px 12px 14px; box-shadow:4px 8px 16px #000a; cursor:grab; z-index:3; font-size:13px; line-height:1.4; user-select:none; touch-action:none; transition:box-shadow .2s; }
+  .ev:active { cursor:grabbing; box-shadow:10px 20px 30px #000c; }
+  .ev.photo { background:#f2efe6; padding:10px 10px 30px; }
+  .ev.photo .pic { height:120px; background:#222; margin-bottom:8px; filter:grayscale(1) contrast(1.2); overflow:hidden; }
+  .ev.photo .pic svg { width:100%; height:100%; }
+  .ev b { font-family:'Oswald'; font-weight:500; letter-spacing:.06em; display:block; margin-bottom:4px; font-size:14px; }
+  .ev::before { content:''; position:absolute; left:50%; top:-8px; width:16px; height:16px; margin-left:-8px; border-radius:50%; background:radial-gradient(circle at 35% 35%,#ff7a7a,#a8121e); box-shadow:0 3px 4px #0008; }
+  .ev.sel { outline:3px solid var(--neon); }
+  .ev.clue { background:#f7e7a0; }
+  .boardHint { position:absolute; left:16px; bottom:12px; z-index:4; background:#000a; padding:8px 12px; font-size:12px; color:#ccc; }
+  /* interrogation */
+  .interro { max-width:980px; margin:0 auto; padding:2vh 5vw 8vh; display:grid; grid-template-columns:260px 1fr; gap:4vw; }
+  .suspects { display:grid; gap:10px; }
+  .sus { display:flex; gap:12px; align-items:center; padding:10px; border:1px solid #ffffff22; cursor:pointer; transition:all .2s; background:#0006; }
+  .sus:hover, .sus.on { border-color:var(--amber); }
+  .sus svg { width:56px; height:56px; flex-shrink:0; }
+  .sus b { font-family:'Oswald'; letter-spacing:.08em; display:block; }
+  .sus small { opacity:.6; }
+  .room { border:1px solid #ffffff22; background:linear-gradient(#000a,#000d); padding:26px; min-height:460px; display:flex; flex-direction:column; position:relative; overflow:hidden; }
+  .room::before { content:''; position:absolute; left:50%; top:-40px; width:320px; height:320px; margin-left:-160px; background:radial-gradient(circle,#e8b04a26,transparent 70%); pointer-events:none; }
+  .dialog { flex:1; overflow:auto; font-size:15px; line-height:1.8; }
+  .dialog p { margin-bottom:12px; }
+  .dialog .you { color:var(--amber); }
+  .dialog .them { color:#e6e1d6; }
+  .dialog .note { color:var(--neon); font-style:italic; }
+  .qs { display:grid; gap:8px; margin-top:12px; }
+  .qs button { text-align:left; font-family:'Courier Prime'; font-size:14px; padding:10px 12px; border:1px solid #ffffff33; background:transparent; color:#ddd; cursor:pointer; }
+  .qs button:hover { border-color:var(--amber); color:var(--amber); }
+  .qs button:disabled { opacity:.3; cursor:default; }
+  /* accuse */
+  .accuse { max-width:900px; margin:0 auto; padding:4vh 5vw 8vh; text-align:center; }
+  .accuse h2 { font-family:'Oswald'; font-weight:700; font-size:clamp(2.4rem,6vw,4.4rem); text-transform:uppercase; }
+  .lineup { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:2.4rem 0; background:repeating-linear-gradient(0deg,#1a1f26 0 38px,#252b34 38px 40px); padding:24px 16px; border:1px solid #333; }
+  .lineup .sus { flex-direction:column; text-align:center; background:transparent; }
+  .lineup .sus svg { width:110px; height:110px; }
+  .verdict { font-size:1.2rem; line-height:1.9; min-height:5em; }
+  .verdict b { color:var(--neon); font-family:'Oswald'; letter-spacing:.1em; font-weight:500; }
+  .notebook { position:fixed; right:18px; bottom:18px; z-index:20; width:250px; background:var(--paper); color:var(--ink); padding:14px 16px; font-size:13px; box-shadow:0 10px 30px #000; transform:rotate(1.5deg); }
+  .notebook b { font-family:'Oswald'; letter-spacing:.1em; }
+  .notebook li { margin-left:16px; margin-top:4px; }
+  @media (max-width:900px){ .office,.interro { grid-template-columns:1fr; } .lineup { grid-template-columns:1fr 1fr; } .notebook { display:none; } .ev { width:150px; font-size:12px; } }
+</style>
+</head>
+<body>
+<canvas id="rain"></canvas><div class="grain"></div>
+<header><div class="logo">RAIN CITY</div><nav><a href="#office">The Office</a><a href="#board">Evidence board</a><a href="#interview">Interviews</a><a href="#accuse">Accuse</a><a href="index.html">Walk away</a></nav></header>
+<main>
+<section data-view="office"><div class="office"><div><div style="font-family:Oswald;letter-spacing:.4em;font-size:12px;color:var(--neon)">CASE FILE 47 · NOVEMBER 1947</div><h1>The Case of the <em>Blue Carnation</em></h1><p class="monologue" id="mono"></p><a class="btn" href="#board">Open the file →</a></div>
+  <div class="window"><canvas id="win"></canvas><div class="blinds"></div></div></div></section>
+
+<section data-view="board" hidden><div class="board" id="board"><svg class="strings" id="strings"></svg><div class="boardHint">Drag the evidence. Click two items to tie them with red string. Double-click a string to cut it.</div></div></section>
+
+<section data-view="interview" hidden><div class="interro"><div class="suspects" id="suspects"></div><div class="room"><div class="dialog" id="dialog"><p class="note">Pick a suspect. The rain keeps time on the window.</p></div><div class="qs" id="qs"></div></div></div></section>
+
+<section data-view="accuse" hidden><div class="accuse"><div style="font-family:Oswald;letter-spacing:.4em;font-size:12px;color:var(--neon)">THE LINE-UP</div><h2>Who took the carnation?</h2><p style="opacity:.8">You get one shot. Make it count.</p><div class="lineup" id="lineup"></div><div class="verdict" id="verdict"></div></div></section>
+</main>
+<div class="notebook" id="notebook"><b>MY NOTEBOOK</b><ul id="notes"><li>Nothing yet. Start digging.</li></ul></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'office';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='board')drawStrings()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* rain on screen + window */
+const rc=document.getElementById('rain'),rg=rc.getContext('2d');let drops=[];function rs(){rc.width=innerWidth;rc.height=innerHeight;drops=Array.from({length:220},()=>({x:Math.random()*rc.width,y:Math.random()*rc.height,v:8+Math.random()*10}))}rs();addEventListener('resize',rs);
+const wc=document.getElementById('win'),wg=wc.getContext('2d');let glass=[];wc.width=460;wc.height=610;for(let i=0;i<70;i++)glass.push({x:Math.random()*460,y:Math.random()*610,r:2+Math.random()*6,v:0});
+let flash=0;
+function loop(){rg.clearRect(0,0,rc.width,rc.height);rg.strokeStyle='#9fb4d044';rg.lineWidth=1;rg.beginPath();drops.forEach(d=>{rg.moveTo(d.x,d.y);rg.lineTo(d.x-2,d.y-d.v*1.6);d.y+=d.v;d.x-=1;if(d.y>rc.height){d.y=-20;d.x=Math.random()*rc.width*1.1}});rg.stroke();
+ if(!V[0].hidden){const g=wg;const gr=g.createLinearGradient(0,0,0,610);gr.addColorStop(0,'#1b2a3a');gr.addColorStop(1,'#07090c');g.fillStyle=gr;g.fillRect(0,0,460,610);
+  for(let i=0;i<14;i++){const x=i*36,h=160+((i*97)%260);g.fillStyle='#05070a';g.fillRect(x,610-h,30,h);for(let w=0;w<h/22;w++)if((i*7+w*3)%5===0){g.fillStyle=(i+w)%4?'#e8b04a':'#8fb0d0';g.globalAlpha=.6;g.fillRect(x+6,610-h+10+w*22,6,8);g.globalAlpha=1}}
+  g.fillStyle='#ff3b5c';g.shadowColor='#ff3b5c';g.shadowBlur=20;g.font='bold 28px Oswald';g.fillText(Math.random()<.97?'HOTEL':'HOT L',300,300);g.shadowBlur=0;
+  if(Math.random()<.003)flash=1;if(flash>0){g.fillStyle=`rgba(220,230,255,${flash*.5})`;g.fillRect(0,0,460,610);flash-=.06}
+  glass.forEach(d=>{if(Math.random()<.01)d.v=1+Math.random()*3;d.y+=d.v;d.v*=.96;if(d.y>620){d.y=-10;d.x=Math.random()*460}const rg2=g.createRadialGradient(d.x-d.r*.3,d.y-d.r*.3,0,d.x,d.y,d.r);rg2.addColorStop(0,'#ffffff55');rg2.addColorStop(1,'#ffffff08');g.fillStyle=rg2;g.beginPath();g.arc(d.x,d.y,d.r,0,7);g.fill()})}
+ requestAnimationFrame(loop)}loop();
+
+/* monologue */
+const MONO='The rain hadn\'t stopped in nine days. Neither had the phone. Then she walked in — Vivian Lark, torch singer at the Blue Room — and said somebody had stolen the Blue Carnation. A brooch worth more than this whole block. I told her my rate. She didn\'t blink. Dames who don\'t blink always mean trouble.';
+let mi=0;(function type(){const m=document.getElementById('mono');if(mi<=MONO.length){m.textContent=MONO.slice(0,mi++);setTimeout(type,MONO[mi-1]==='.'?380:26)}})();
+
+/* notebook */
+const notes=new Set();function note(t){if(notes.has(t))return;notes.add(t);document.getElementById('notes').innerHTML=[...notes].map(n=>`<li>${n}</li>`).join('')}
+
+/* evidence board */
+const EV=[['photo','Vivian Lark','Singer. Client. Owner of the brooch — or so she says.',6,8,'woman'],['photo','Eddie "Two Hats" Moretti','Owns the Blue Room. Owes money to the wrong people.',30,6,'man'],['photo','Dr. Silas Crane','Jeweller. Insured the brooch for triple its value.',56,8,'glasses'],['photo','Rosie Kincaid','Cigarette girl. Sees everything, says little.',80,6,'hat'],
+['note','Cloakroom ticket #47','Found in Crane\'s coat. Dated the night of the theft, 11:52 pm.',8,58,''],['note','Pawn receipt','"One blue stone, glass." Signed E.M. Two days BEFORE the theft.',32,62,''],['note','Insurance policy','Lark\'s brooch insured by Crane — beneficiary: S. Crane & Co.',57,60,''],['note','Lipstick on a matchbook','Shade "Midnight Rose". Only Rosie wears it.',80,58,'']];
+const board=document.getElementById('board');let links=store(),selEv=null;
+function store(){try{return JSON.parse(localStorage.getItem('rc-links'))||[[0,1],[2,6]]}catch(e){return[[0,1],[2,6]]}}
+function saveLinks(){try{localStorage.setItem('rc-links',JSON.stringify(links))}catch(e){}}
+const face=k=>`<svg viewBox="0 0 100 80"><rect width="100" height="80" fill="#2a2a2a"/><circle cx="50" cy="34" r="16" fill="#9a9a9a"/><path d="M22 80 Q50 44 78 80" fill="#6a6a6a"/>${k==='woman'?'<path d="M32 34 Q34 10 50 12 Q68 10 68 36 Q70 50 64 56 Q62 30 50 26 Q38 30 36 56 Q30 50 32 34Z" fill="#1a1a1a"/>':k==='man'?'<rect x="30" y="12" width="40" height="8" fill="#111"/><rect x="36" y="2" width="28" height="12" fill="#111"/>':k==='glasses'?'<circle cx="43" cy="34" r="5" fill="none" stroke="#111" stroke-width="2"/><circle cx="57" cy="34" r="5" fill="none" stroke="#111" stroke-width="2"/>':'<path d="M28 22 Q50 4 72 22 L78 26 L22 26Z" fill="#111"/>'}<rect width="100" height="80" fill="url(#none)"/></svg>`;
+EV.forEach(([t,title,txt,x,y,k],i)=>{const d=document.createElement('div');d.className='ev'+(t==='photo'?' photo':'')+(t==='note'?' clue':'');d.style.left=x+'%';d.style.top=y+'%';d.style.transform=`rotate(${((i*37)%9)-4}deg)`;d.dataset.i=i;d.innerHTML=(t==='photo'?`<div class="pic">${face(k)}</div>`:'')+`<b>${title}</b>${txt}`;board.appendChild(d);
+ let sx,sy,ox,oy,moved=false;d.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY;ox=d.offsetLeft;oy=d.offsetTop;moved=false;d.setPointerCapture(e.pointerId);d.style.zIndex=10;
+  const mv=ev=>{const dx=ev.clientX-sx,dy=ev.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>4)moved=true;d.style.left=ox+dx+'px';d.style.top=oy+dy+'px';drawStrings()};
+  const up=()=>{d.removeEventListener('pointermove',mv);d.removeEventListener('pointerup',up);d.style.zIndex=3;if(!moved){if(selEv==null){selEv=i;d.classList.add('sel')}else{if(selEv!==i&&!links.some(l=>l.includes(selEv)&&l.includes(i))){links.push([selEv,i]);saveLinks();checkLinks()}board.querySelectorAll('.ev').forEach(x=>x.classList.remove('sel'));selEv=null;drawStrings()}}};
+  d.addEventListener('pointermove',mv);d.addEventListener('pointerup',up)})});
+function center(i){const el=board.querySelector(`.ev[data-i="${i}"]`);return[el.offsetLeft+el.offsetWidth/2,el.offsetTop+4]}
+function drawStrings(){const s=document.getElementById('strings');s.innerHTML=links.map(([a,b],k)=>{const [x1,y1]=center(a),[x2,y2]=center(b);const my=Math.max(y1,y2)+40;return `<path d="M${x1} ${y1} Q${(x1+x2)/2} ${my} ${x2} ${y2}" stroke="#c8202e" stroke-width="2.5" fill="none" style="pointer-events:stroke;cursor:pointer" data-k="${k}"/>`}).join('');
+ s.querySelectorAll('path').forEach(p=>p.ondblclick=()=>{links.splice(+p.dataset.k,1);saveLinks();drawStrings()})}
+function checkLinks(){const has=(a,b)=>links.some(l=>l.includes(a)&&l.includes(b));if(has(1,5))note('Eddie pawned a FAKE stone before the theft. Why?');if(has(2,4))note('Crane was at the club at 11:52 — the time of the theft.');if(has(2,6))note('Crane profits if the brooch vanishes. Motive.');if(has(3,7))note('Rosie was in the cloakroom. Witness?')}
+setTimeout(()=>{drawStrings();checkLinks()},100);addEventListener('resize',drawStrings);
+
+/* interviews */
+const SUS=[['Vivian Lark','the client','woman',[['Where were you at midnight?','"On stage. Two hundred people watched me sing \'Stormy Weather\'. Ask any of them."',''],['Who knew about the brooch?','"Eddie. Silas — he insured it. And that cigarette girl, always hovering."',''],['Was the brooch real?','She hesitates. "...Silas checked it himself. Last month. He said it was flawless."','Crane inspected the brooch a month ago.']]],
+['Eddie Moretti','club owner','man',[['You pawned a blue stone. Explain.','"A copy! Vivian wanted a paste replica for rehearsals. I sold the spare. Sue me."','Eddie had a paste copy made — for Vivian.'],['Who had access to the dressing room?','"Me, Vivian, Rosie with the cigarettes. And Crane — he came backstage around quarter to twelve."','Crane was backstage ~11:45.'],['Do you owe money?','"Everybody owes somebody, pal."','']]],
+['Dr. Silas Crane','jeweller','glasses',[['Why were you at the club?','"I enjoy jazz. Is that a crime now?"',''],['The insurance pays you. Convenient.','He adjusts his glasses. "I am the underwriter. If it\'s gone, I LOSE money."','Crane claims he\'d lose money.'],['Your cloakroom ticket says 11:52.','A long pause. "I... fetched my coat early. Headache."','Crane left at 11:52 — right after the theft.']]],
+['Rosie Kincaid','cigarette girl','hat',[['What did you see?','"Doc Crane came out of Miss Lark\'s room with his hand in his pocket. Real fast."','Rosie saw Crane leave the dressing room.'],['Why the lipstick on the matchbook?','"I leave my number for the tippers. That one was for a sailor. He never called."',''],['Is the brooch real?','She laughs. "Honey, Crane swapped it for paste a month ago. Everyone backstage knows. He took the real one to pay his debts — and tonight he came back to take the fake too, so nobody could check it."','Crane swapped the brooch a month ago — and stole the fake to hide it!']]]];
+let susI=null;const asked=new Set();
+document.getElementById('suspects').innerHTML=SUS.map(([n,r,k],i)=>`<div class="sus" data-s="${i}">${face(k)}<div><b>${n}</b><small>${r}</small></div></div>`).join('');
+document.getElementById('suspects').onclick=e=>{const s=e.target.closest('.sus');if(!s)return;susI=+s.dataset.s;document.querySelectorAll('#suspects .sus').forEach(x=>x.classList.toggle('on',x===s));document.getElementById('dialog').innerHTML=`<p class="note">${SUS[susI][0]} sits down under the lamp. Smoke curls toward the ceiling.</p>`;renderQs()};
+function renderQs(){document.getElementById('qs').innerHTML=SUS[susI][3].map(([q],k)=>`<button data-q="${k}" ${asked.has(susI+':'+k)?'disabled':''}>▸ ${q}</button>`).join('')}
+document.getElementById('qs').onclick=e=>{const b=e.target.closest('[data-q]');if(!b)return;const [q,a,n]=SUS[susI][3][b.dataset.q];asked.add(susI+':'+b.dataset.q);const d=document.getElementById('dialog');d.insertAdjacentHTML('beforeend',`<p class="you">YOU: ${q}</p><p class="them">${a}</p>`);if(n){note(n);d.insertAdjacentHTML('beforeend',`<p class="note">✎ noted: ${n}</p>`)}d.scrollTop=1e9;renderQs()};
+
+/* accuse */
+document.getElementById('lineup').innerHTML=SUS.map(([n,r,k],i)=>`<div class="sus" data-a="${i}">${face(k)}<b>${n}</b><small>${r}</small></div>`).join('');
+document.getElementById('lineup').onclick=e=>{const s=e.target.closest('[data-a]');if(!s)return;const i=+s.dataset.a;const v=document.getElementById('verdict');const clues=notes.size;
+ v.innerHTML=i===2?`<b>CASE CLOSED.</b><br>Crane swapped the real Carnation for paste a month ago to pay his gambling debts, then stole the fake so no one could ever inspect it. The cops find the real stone in his safe, wrapped in a betting slip. ${clues>=5?'Your notebook was airtight. Vivian pays double.':'You got lucky, gumshoe. Next time, work the clues.'}`:`<b>WRONG.</b><br>${SUS[i][0]} walks out laughing. By morning, the real thief has skipped town on the 6:15 to Chicago. ${clues<3?'Try interviewing everyone — and use the evidence board.':'Look again at who profits, and who had the chance.'}`};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

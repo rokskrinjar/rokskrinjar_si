@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THERMAL — receipts for the soul</title>
+<link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root { --counter:#e84f2a; --counter2:#c93d1c; --paper:#fbfaf6; --ink:#232323; --bg:#f7d9c4; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--ink); font-family:'Bricolage Grotesque',sans-serif; min-height:100vh; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+  .mono { font-family:'Cutive Mono',monospace; }
+  header { display:flex; justify-content:space-between; align-items:center; padding:20px 4vw; flex-wrap:wrap; gap:1rem; }
+  .logo { font-weight:800; font-size:26px; letter-spacing:-.02em; }
+  .logo span { color:var(--counter); }
+  nav { display:flex; gap:6px; flex-wrap:wrap; }
+  nav a { padding:9px 16px; border-radius:30px; background:#fff8; font-weight:700; font-size:14px; }
+  nav a.on { background:var(--ink); color:var(--paper); }
+  [data-view][hidden] { display:none; }
+  .page { padding:10px 4vw 60px; }
+  /* printer */
+  .station { display:grid; grid-template-columns:1fr 460px; gap:4vw; align-items:start; max-width:1200px; margin:0 auto; }
+  .compose h1 { font-weight:800; font-size:clamp(2.6rem,6vw,5rem); line-height:.9; letter-spacing:-.03em; }
+  .compose h1 i { color:var(--counter); font-style:normal; }
+  .compose p { margin:1rem 0 1.6rem; font-size:1.1rem; line-height:1.5; max-width:34rem; }
+  textarea { width:100%; min-height:180px; font-family:'Cutive Mono'; font-size:1.2rem; padding:18px; border:3px solid var(--ink); border-radius:16px; background:var(--paper); resize:vertical; outline:none; line-height:1.5; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; align-items:center; }
+  .btn { padding:13px 20px; border-radius:40px; border:3px solid var(--ink); background:var(--ink); color:var(--paper); font-family:inherit; font-weight:700; font-size:15px; cursor:pointer; transition:transform .1s; }
+  .btn:active { transform:scale(.96); }
+  .btn.alt { background:transparent; color:var(--ink); }
+  .btn.red { background:var(--counter); border-color:var(--counter); }
+  .opt { display:flex; gap:6px; align-items:center; font-size:14px; font-weight:700; }
+  .opt select { padding:8px; border-radius:10px; border:2px solid var(--ink); font-family:inherit; background:var(--paper); }
+  .printer { position:relative; }
+  .machine { background:linear-gradient(180deg,#3a3a3c,#232325); border-radius:26px 26px 18px 18px; padding:22px 26px 26px; position:relative; z-index:2; box-shadow:0 20px 0 #0002; }
+  .machine .top { display:flex; justify-content:space-between; align-items:center; color:#bbb; font-size:12px; letter-spacing:.2em; }
+  .machine .led { width:10px; height:10px; border-radius:50%; background:#5cff6a; box-shadow:0 0 10px #5cff6a; }
+  .machine .led.busy { background:#ffb02e; box-shadow:0 0 10px #ffb02e; animation:bl .3s infinite; }
+  @keyframes bl { 50% { opacity:.3; } }
+  .slot { height:14px; background:#0d0d0e; border-radius:8px; margin-top:18px; box-shadow:inset 0 3px 6px #000; }
+  .feed { position:relative; margin:-8px auto 0; width:360px; max-width:88%; z-index:1; overflow:hidden; }
+  .receipt { background:var(--paper); padding:22px 22px 30px; font-family:'Cutive Mono',monospace; font-size:15px; line-height:1.45; color:#2a2a2a; box-shadow:0 6px 20px #0002; position:relative; transform-origin:top; }
+  .receipt::after { content:''; position:absolute; left:0; right:0; bottom:-10px; height:12px; background:linear-gradient(-45deg,transparent 6px,var(--paper) 6px) 0 0/12px 12px, linear-gradient(45deg,transparent 6px,var(--paper) 6px) 0 0/12px 12px; }
+  .receipt .c { text-align:center; }
+  .receipt .hr { border-top:1px dashed #555; margin:10px 0; }
+  .receipt .ln { display:flex; justify-content:space-between; gap:8px; }
+  .receipt .big { font-size:24px; font-weight:bold; letter-spacing:.1em; }
+  .receipt .poem { white-space:pre-wrap; text-align:center; margin:10px 0; }
+  .receipt .bar { height:48px; margin:12px auto 4px; width:80%; }
+  .tear { cursor:pointer; }
+  .tear:hover .receipt { transform:rotate(-1deg); }
+  .falling { animation:fall 1s cubic-bezier(.5,0,.8,.4) forwards; }
+  @keyframes fall { to { transform:translateY(120vh) rotate(25deg); opacity:.4; } }
+  .hint { text-align:center; font-size:13px; margin-top:22px; opacity:.7; }
+  /* day */
+  .day { display:grid; grid-template-columns:1.2fr 1fr; gap:4vw; max-width:1200px; margin:0 auto; align-items:start; }
+  .items { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:10px; margin-top:1.4rem; }
+  .item { border:3px solid var(--ink); border-radius:16px; padding:12px; background:var(--paper); cursor:pointer; user-select:none; transition:transform .15s; }
+  .item:hover { transform:translateY(-2px); }
+  .item.on { background:var(--ink); color:var(--paper); }
+  .item b { display:block; font-size:1.6rem; }
+  .item small { font-size:12px; opacity:.7; }
+  .qty { float:right; font-family:'Cutive Mono'; }
+  /* archive */
+  .pile { position:relative; min-height:70vh; max-width:1200px; margin:0 auto; }
+  .pile .tear { position:absolute; width:260px; transition:transform .3s, z-index 0s; }
+  .pile .tear:hover { z-index:50 !important; transform:scale(1.05) rotate(0) !important; }
+  .pile .receipt { font-size:12px; padding:16px; }
+  .empty { text-align:center; padding:10vh 0; font-size:1.3rem; }
+  @media (max-width:900px){ .station,.day { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header><div class="logo">THERMAL<span>.</span></div><nav><a href="#print">Poem printer</a><a href="#day">Receipt of your day</a><a href="#archive">The pile (<span id="pileN">0</span>)</a><a href="index.html">← Index</a></nav></header>
+
+<section data-view="print" class="page">
+  <div class="station">
+    <div class="compose"><h1>Print your<br><i>feelings.</i></h1><p>Type a few lines. The machine will print them on thermal paper, the way all important documents should be. Tear it off by clicking the receipt.</p>
+      <textarea id="poem">the coffee was cold
+but you were warm
+and the bus came late
+exactly on time</textarea>
+      <div class="row"><button class="btn red" id="printB">Print ⎙</button><button class="btn alt" id="haiku">Random haiku</button><label class="opt">Store <select id="store"><option>CORNER DELI #42</option><option>THE UNIVERSE LTD.</option><option>HEARTBREAK HARDWARE</option><option>MOON MARKET</option></select></label></div>
+    </div>
+    <div class="printer"><div class="machine"><div class="top"><span>THERMAL-80 · POS PRINTER</span><span class="led" id="led"></span></div><div class="slot"></div></div><div class="feed" id="feed"></div><p class="hint">click the receipt to tear it off</p></div>
+  </div>
+</section>
+
+<section data-view="day" class="page" hidden>
+  <div class="day">
+    <div class="compose"><h1>Receipt of<br><i>your day.</i></h1><p>Tap everything you did today (tap again to add more). We'll itemise the emotional cost.</p><div class="items" id="items"></div><div class="row" style="margin-top:1.4rem"><button class="btn red" id="dayPrint">Ring it up</button><button class="btn alt" id="dayClear">Void</button></div></div>
+    <div class="printer"><div class="machine"><div class="top"><span>THERMAL-80 · DAY MODE</span><span class="led" id="led2"></span></div><div class="slot"></div></div><div class="feed" id="feed2"></div></div>
+  </div>
+</section>
+
+<section data-view="archive" class="page" hidden><div class="pile" id="pile"></div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'print';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='archive')renderPile()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* sound: dot-matrix buzz */
+let AC;function buzz(d=.05){try{AC=AC||new AudioContext();const b=AC.createBuffer(1,AC.sampleRate*d,AC.sampleRate),c=b.getChannelData(0);for(let i=0;i<c.length;i++)c[i]=(Math.random()*2-1)*.12*Math.sin(i/12);const s=AC.createBufferSource();s.buffer=b;const f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=2400;s.connect(f);f.connect(AC.destination);s.start()}catch(e){}}
+function tearSound(){try{AC=AC||new AudioContext();const b=AC.createBuffer(1,AC.sampleRate*.25,AC.sampleRate),c=b.getChannelData(0);for(let i=0;i<c.length;i++)c[i]=(Math.random()*2-1)*.25*(1-i/c.length);const s=AC.createBufferSource();s.buffer=b;const f=AC.createBiquadFilter();f.type='highpass';f.frequency.value=1500;s.connect(f);f.connect(AC.destination);s.start()}catch(e){}}
+
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function barcode(seed){let x=0,s='';let r=seed;for(let i=0;i<60;i++){r=(r*9301+49297)%233280;const w=1+(r%3);if(i%2===0)s+=`<rect x="${x}" y="0" width="${w}" height="40" fill="#222"/>`;x+=w}return `<svg class="bar" viewBox="0 0 ${x} 40" preserveAspectRatio="none">${s}</svg>`}
+const now=()=>new Date().toLocaleString('en-GB',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+let pile=[];try{pile=JSON.parse(localStorage.getItem('thermal-pile'))||[]}catch(e){}
+const savePile=()=>{try{localStorage.setItem('thermal-pile',JSON.stringify(pile.slice(-30)))}catch(e){}document.getElementById('pileN').textContent=pile.length};savePile();
+
+/* animated print into a feed */
+function print(feedId,ledId,html){const feed=document.getElementById(feedId),led=document.getElementById(ledId);feed.innerHTML='';const wrap=document.createElement('div');wrap.className='tear';const r=document.createElement('div');r.className='receipt';r.innerHTML=html;wrap.appendChild(r);feed.appendChild(wrap);
+ const H=r.offsetHeight+12;feed.style.height='0px';led.classList.add('busy');let h=0;const step=()=>{h=Math.min(H,h+14);feed.style.height=h+'px';if(h%28<14)buzz(.03);if(h<H)setTimeout(step,45);else led.classList.remove('busy')};step();
+ wrap.onclick=()=>{tearSound();pile.push(html);savePile();wrap.classList.add('falling');setTimeout(()=>{feed.innerHTML='';feed.style.height='0px'},900)}}
+
+/* poem mode */
+function poemReceipt(text,store){const lines=text.trim().split('\n').filter(Boolean);const words=text.split(/\s+/).filter(Boolean).length;const n=Math.random()*9000+1000|0;
+ return `<div class="c big">${esc(store)}</div><div class="c">123 FEELINGS AVE · OPEN ALWAYS</div><div class="c">${now()}</div><div class="hr"></div><div class="c">*** POEM ***</div><div class="poem">${esc(text.trim())}</div><div class="hr"></div>
+ <div class="ln"><span>LINES</span><span>${lines.length}</span></div><div class="ln"><span>WORDS @ 0.25</span><span>$${(words*.25).toFixed(2)}</span></div><div class="ln"><span>FEELINGS TAX 8%</span><span>$${(words*.25*.08).toFixed(2)}</span></div><div class="hr"></div>
+ <div class="ln big" style="font-size:18px"><span>TOTAL</span><span>$${(words*.27).toFixed(2)}</span></div><div class="ln"><span>PAID WITH</span><span>A SIGH</span></div><div class="hr"></div><div class="c">NO REFUNDS ON SINCERITY</div><div class="c">THANK YOU. COME AGAIN SOON.</div>${barcode(n)}<div class="c">#${n}</div>`}
+document.getElementById('printB').onclick=()=>{const t=document.getElementById('poem').value||'(nothing, beautifully)';print('feed','led',poemReceipt(t,document.getElementById('store').value))};
+const H5=['old pond at midnight','a single paper lantern','the vending machine','morning bus window','cat on the warm hood','steam from the noodle cart'],H7=['someone laughs two floors below','the receipt curls like a leaf','all the clocks forget the time','rain rehearses on the roof','the kettle clears its old throat','a moth reads the neon sign'],H5b=['and then it is gone','nobody noticed','exactly on time','I keep the change','spring, in a paper cup','the queue moves along'];
+document.getElementById('haiku').onclick=()=>{const p=a=>a[Math.random()*a.length|0];document.getElementById('poem').value=`${p(H5)}\n${p(H7)}\n${p(H5b)}`};
+
+/* day mode */
+const DAY=[['☕','Coffee','+2 energy',3.5],['📧','Answered emails','-1 soul',7],['🧑‍💻','Meeting (could be email)','-3 patience',12],['🚶','Went for a walk','+5 serenity',0],['📱','Doomscrolled','-4 hope',0],['🥗','Ate a vegetable','+1 virtue',6.5],['😂','Laughed out loud','+8 joy',0],['😴','Nap','+3 everything',0],['📞','Called mum','+10 love',0],['🧺','Did laundry','+2 adulthood',4],['🎧','Found a new song','+6 vibes',1.29],['🙃','Said "you too" to a waiter','-2 dignity',0]];
+const dq=DAY.map(()=>0);
+function renderItems(){document.getElementById('items').innerHTML=DAY.map(([e,n,f],i)=>`<div class="item${dq[i]?' on':''}" data-i="${i}"><span class="qty">${dq[i]?'×'+dq[i]:''}</span><b>${e}</b>${n}<br><small>${f}</small></div>`).join('')}
+document.getElementById('items').onclick=e=>{const it=e.target.closest('.item');if(!it)return;dq[it.dataset.i]=(dq[it.dataset.i]+1)%4;renderItems()};
+document.getElementById('items').oncontextmenu=e=>{const it=e.target.closest('.item');if(!it)return;e.preventDefault();dq[it.dataset.i]=0;renderItems()};
+document.getElementById('dayClear').onclick=()=>{dq.fill(0);renderItems()};
+document.getElementById('dayPrint').onclick=()=>{const L=DAY.map((d,i)=>[d,dq[i]]).filter(x=>x[1]);if(!L.length){print('feed2','led2','<div class="c big">VOID</div><div class="hr"></div><div class="c">A DAY OF NOTHING.<br>HONESTLY? RESTFUL.</div>'+barcode(7));return}
+ const money=L.reduce((a,[d,q])=>a+d[3]*q,0);const score=L.reduce((a,[d,q])=>a+parseInt(d[2])*q,0);const n=Math.random()*9000+1000|0;
+ print('feed2','led2',`<div class="c big">TODAY, INC.</div><div class="c">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'}).toUpperCase()}</div><div class="hr"></div>${L.map(([d,q])=>`<div class="ln"><span>${q}× ${esc(d[1].toUpperCase())}</span><span>${d[3]?'$'+(d[3]*q).toFixed(2):'FREE'}</span></div><div style="font-size:12px;opacity:.7;margin:-2px 0 4px 18px">${d[2].toUpperCase()}${q>1?' ×'+q:''}</div>`).join('')}<div class="hr"></div><div class="ln"><span>SUBTOTAL</span><span>$${money.toFixed(2)}</span></div><div class="ln big" style="font-size:18px"><span>NET MOOD</span><span>${score>0?'+':''}${score}</span></div><div class="hr"></div><div class="c">${score>10?'EXCELLENT DAY. FRAME THIS.':score>0?'A DECENT DAY. KEEP IT.':'ROUGH ONE. TOMORROW IS FREE.'}</div>${barcode(n)}<div class="c">#${n}</div>`)};
+renderItems();
+
+/* archive */
+function renderPile(){const p=document.getElementById('pile');if(!pile.length){p.innerHTML='<div class="empty">The pile is empty.<br><span class="mono">Print something, then click it to tear it off.</span></div>';return}
+ p.innerHTML=pile.map((h,i)=>`<div class="tear" style="left:${8+(i*137)%70}%;top:${(i*83)%40}vh;transform:rotate(${((i*47)%30)-15}deg);z-index:${i}"><div class="receipt">${h}</div></div>`).join('')+`<button class="btn alt" id="clearPile" style="position:fixed;bottom:24px;right:24px;z-index:99;background:var(--paper)">Recycle all ♻</button>`;
+ document.getElementById('clearPile').onclick=()=>{pile=[];savePile();renderPile()}}
+
+go(location.hash.slice(1));
+setTimeout(()=>{if(!V[0].hidden)document.getElementById('printB').click()},600);
+</script>
+</body>
+</html>

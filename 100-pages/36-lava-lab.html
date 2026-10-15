@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAVA LAB — groovy lamps since 1963</title>
+<link href="https://fonts.googleapis.com/css2?family=Rampart+One&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --wax:#ff5e3a; --liquid:#3a0ca3; --glow:#ff9e3a; --bg:#140a1f; --txt:#ffe9f3; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--txt); font-family:'Quicksand',sans-serif; min-height:100vh; overflow-x:hidden; transition:background .8s; }
+  a { color:inherit; text-decoration:none; }
+  header { display:flex; justify-content:space-between; align-items:center; padding:18px 4vw; position:relative; z-index:10; flex-wrap:wrap; gap:10px; }
+  .logo { font-family:'Rampart One'; font-size:30px; background:linear-gradient(90deg,#ff5e3a,#ffb43a,#ff3aa8); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  nav { display:flex; gap:6px; flex-wrap:wrap; }
+  nav a { padding:9px 16px; border-radius:40px; font-weight:700; font-size:14px; background:#ffffff10; }
+  nav a.on { background:var(--wax); color:#fff; box-shadow:0 0 20px var(--wax); }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:melt .8s cubic-bezier(.3,1.4,.5,1) both; }
+  @keyframes melt { from { opacity:0; transform:scaleY(.94); } }
+  /* lamp */
+  .lab { display:grid; grid-template-columns:1fr 380px; gap:4vw; padding:2vh 5vw 8vh; align-items:center; }
+  .lampStage { display:grid; place-items:center; position:relative; min-height:78vh; }
+  .halo { position:absolute; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle,var(--glow) 0%,transparent 65%); opacity:.35; filter:blur(20px); transition:opacity .8s; }
+  .lamp { position:relative; width:220px; }
+  .lamp .cap { width:74px; height:70px; margin:0 auto; background:linear-gradient(90deg,#888,#eee 40%,#999); clip-path:polygon(22% 0,78% 0,100% 100%,0 100%); border-radius:4px; }
+  .lamp .glass { position:relative; width:220px; height:400px; margin:-2px auto 0; clip-path:polygon(33% 0,67% 0,100% 55%,88% 100%,12% 100%,0 55%); background:linear-gradient(180deg,var(--liquid),color-mix(in srgb,var(--liquid) 70%,#fff)); overflow:hidden; }
+  .lamp .glass svg { position:absolute; inset:0; width:100%; height:100%; }
+  .lamp .glass::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent 12%,#ffffff40 22%,transparent 30%); pointer-events:none; }
+  .lamp .base { width:200px; height:130px; margin:-2px auto 0; background:linear-gradient(90deg,#777,#f4f4f4 40%,#888); clip-path:polygon(6% 0,94% 0,70% 55%,100% 100%,0 100%,30% 55%); }
+  .lamp.off .glass { filter:brightness(.35) saturate(.4); }
+  .ctrl { background:#ffffff0d; border:1px solid #ffffff1a; border-radius:28px; padding:26px; backdrop-filter:blur(8px); }
+  .ctrl h2 { font-family:'Rampart One'; font-weight:400; font-size:2rem; }
+  .ctrl label { display:block; font-weight:700; margin:16px 0 6px; font-size:14px; letter-spacing:.06em; }
+  .ctrl input[type=range] { width:100%; accent-color:var(--wax); }
+  .sw { display:flex; gap:8px; flex-wrap:wrap; }
+  .sw button { width:34px; height:34px; border-radius:50%; border:3px solid #ffffff33; cursor:pointer; }
+  .sw button.on { border-color:#fff; transform:scale(1.15); }
+  .power { width:100%; margin-top:18px; padding:14px; border-radius:40px; border:0; font-family:inherit; font-weight:700; font-size:16px; cursor:pointer; background:var(--wax); color:#fff; box-shadow:0 0 30px var(--wax); }
+  .power.off { background:#333; box-shadow:none; }
+  .temp { display:flex; justify-content:space-between; font-size:13px; opacity:.8; margin-top:6px; }
+  /* collection */
+  .coll { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:30px; padding:2vh 5vw 8vh; }
+  .item { text-align:center; cursor:pointer; }
+  .mini { transform:scale(.55); transform-origin:top center; height:340px; margin-bottom:-10px; }
+  .item h3 { font-family:'Rampart One'; font-weight:400; font-size:1.4rem; }
+  .item .p { font-weight:700; opacity:.8; }
+  .item button { margin-top:8px; padding:8px 16px; border-radius:30px; border:2px solid var(--txt); background:transparent; color:var(--txt); font-family:inherit; font-weight:700; cursor:pointer; }
+  .item button:hover { background:var(--txt); color:var(--bg); }
+  /* chill */
+  .chill { position:fixed; inset:0; z-index:1; }
+  .chill svg { width:100%; height:100%; }
+  .breathe { position:fixed; inset:0; z-index:5; display:grid; place-items:center; pointer-events:none; }
+  .breathe .ring { width:220px; height:220px; border-radius:50%; border:3px solid #ffffffaa; display:grid; place-items:center; font-weight:700; font-size:1.4rem; letter-spacing:.1em; transition:transform 4s ease-in-out; backdrop-filter:blur(4px); background:#ffffff10; }
+  .chillCtl { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:6; display:flex; gap:8px; }
+  .chillCtl button { padding:10px 18px; border-radius:30px; border:0; background:#ffffff22; color:#fff; font-family:inherit; font-weight:700; cursor:pointer; backdrop-filter:blur(6px); }
+  .toast { position:fixed; bottom:24px; right:24px; z-index:20; padding:12px 20px; border-radius:30px; background:var(--wax); color:#fff; font-weight:700; transform:translateY(100px); transition:transform .4s cubic-bezier(.3,1.5,.5,1); }
+  .toast.show { transform:none; }
+  @media (max-width:900px){ .lab { grid-template-columns:1fr; } .lampStage { min-height:auto; padding:30px 0; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="12" result="b"/><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 28 -12" result="g"/><feComposite in="SourceGraphic" in2="g" operator="atop"/></filter></defs></svg>
+<header><div class="logo">LAVA LAB</div><nav><a href="#lab">The Lab</a><a href="#collection">Collection</a><a href="#chill">Chill mode</a><a href="index.html">← Index</a></nav></header>
+
+<section data-view="lab">
+  <div class="lab">
+    <div class="lampStage"><div class="halo" id="halo"></div><div class="lamp" id="lamp"><div class="cap"></div><div class="glass"><svg viewBox="0 0 220 400" id="lampSvg"><g filter="url(#goo)" id="blobs"></g></svg></div><div class="base"></div></div></div>
+    <div class="ctrl"><h2>Design your lamp</h2>
+      <label>Wax</label><div class="sw" id="waxSw"></div>
+      <label>Liquid</label><div class="sw" id="liqSw"></div>
+      <label>Heat · <span id="heatV"></span></label><input type="range" id="heat" min="10" max="100" value="55">
+      <label>Blobs · <span id="countV"></span></label><input type="range" id="count" min="3" max="14" value="7">
+      <label>Gooeyness</label><input type="range" id="gooey" min="4" max="22" value="12">
+      <div class="temp"><span>🌡 <b id="tempV"></b></span><span id="state"></span></div>
+      <button class="power" id="power">Switch off</button>
+      <button class="power" id="addC" style="background:transparent;border:2px solid var(--txt);box-shadow:none;margin-top:10px">Save to collection ✦</button>
+    </div>
+  </div>
+</section>
+
+<section data-view="collection" hidden><div class="coll" id="coll"></div></section>
+
+<section data-view="chill" hidden>
+  <div class="chill"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice"><rect width="1000" height="1000" id="chillBg" fill="#3a0ca3"/><g filter="url(#gooBig)" id="chillBlobs"></g><defs><filter id="gooBig"><feGaussianBlur in="SourceGraphic" stdDeviation="30" result="b"/><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 30 -12"/></filter></defs></svg></div>
+  <div class="breathe"><div class="ring" id="ring">breathe in</div></div>
+  <div class="chillCtl"><button id="bOn">Breathing guide: on</button><button id="palBtn">Change colours</button><button onclick="go('lab')">Exit</button></div>
+</section>
+<div class="toast" id="toast"></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'lab';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}document.querySelector('header').style.visibility=id==='chill'?'hidden':'';if(id==='collection')renderColl()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const toast=t=>{const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1800)};
+
+const WAX=['#ff5e3a','#ffcf3a','#ff3aa8','#3affc4','#b36bff','#ffffff','#7cff3a'],LIQ=['#3a0ca3','#0b3d2e','#1a1a2e','#7a0b3a','#0b4a6b','#f2c14a','#e6e6f2'];
+let S={wax:0,liq:0,heat:55,count:7,gooey:12,on:true};
+function sw(id,arr,key){document.getElementById(id).innerHTML=arr.map((c,i)=>`<button style="background:${c}" data-i="${i}" class="${S[key]===i?'on':''}"></button>`).join('');document.getElementById(id).onclick=e=>{const i=e.target.dataset.i;if(i==null)return;S[key]=+i;sw(id,arr,key);applyColors()}}
+sw('waxSw',WAX,'wax');sw('liqSw',LIQ,'liq');
+function applyColors(){const r=document.documentElement.style;r.setProperty('--wax',WAX[S.wax]);r.setProperty('--glow',WAX[S.wax]);r.setProperty('--liquid',LIQ[S.liq]);document.body.style.background=`radial-gradient(ellipse at 50% 40%,color-mix(in srgb,${LIQ[S.liq]} 40%,#140a1f),#140a1f 70%)`;blobs.forEach(b=>b.el.setAttribute('fill',WAX[S.wax]));document.getElementById('floorBlob')?.setAttribute('fill',WAX[S.wax])}
+
+/* blob physics: warm at bottom rises, cools at top sinks */
+let blobs=[];const g=document.getElementById('blobs'),NS='http://www.w3.org/2000/svg';
+function makeBlobs(){g.innerHTML='';const fb=document.createElementNS(NS,'ellipse');fb.setAttribute('id','floorBlob');fb.setAttribute('cx',110);fb.setAttribute('cy',410);fb.setAttribute('rx',100);fb.setAttribute('ry',38);fb.setAttribute('fill',WAX[S.wax]);g.appendChild(fb);
+ blobs=[...Array(S.count)].map((_,i)=>{const el=document.createElementNS(NS,'circle');const r=14+Math.random()*22;el.setAttribute('r',r);el.setAttribute('fill',WAX[S.wax]);g.appendChild(el);return{el,x:60+Math.random()*100,y:100+Math.random()*280,r,vy:0,temp:Math.random(),ph:Math.random()*6}})}
+function widthAt(y){const t=y/400;return t<.55?(.34+t/.55*.66)*110:(1-(t-.55)/.45*.12)*110}
+let last=performance.now(),T=20;
+function tick(now){const dt=Math.min(40,now-last)/16;last=now;const heat=S.on?S.heat/100:0;T+=((S.on?20+heat*40:20)-T)*.004*dt;
+ blobs.forEach(b=>{const hot=b.y>330;b.temp+=((hot?1:b.y<80?0:b.temp)-b.temp)*(hot?.012*heat*dt:b.y<80?.01*dt:.001);const buoy=(b.temp-.5)*.05*(.4+heat);b.vy+=(-buoy)*dt;b.vy*=.97;b.y+=b.vy*dt*(.5+heat);
+  if(b.y<b.r+10){b.y=b.r+10;b.vy=Math.abs(b.vy)*.3}if(b.y>392){b.y=392;b.vy=-Math.abs(b.vy)*.2}const w=widthAt(b.y)-b.r*.6;b.x+=Math.sin(now/1500+b.ph)*.15*dt;b.x=Math.max(110-w,Math.min(110+w,b.x));
+  const stretch=1+Math.min(.5,Math.abs(b.vy)*.6);b.el.setAttribute('cx',b.x);b.el.setAttribute('cy',b.y);b.el.setAttribute('r',b.r);b.el.setAttribute('transform',`translate(${b.x} ${b.y}) scale(${1/Math.sqrt(stretch)} ${stretch}) translate(${-b.x} ${-b.y})`)});
+ document.getElementById('tempV').textContent=T.toFixed(0)+'°C';document.getElementById('state').textContent=!S.on?'cooling down…':T<35?'warming up…':'flowing ✦';document.getElementById('halo').style.opacity=S.on?.2+heat*.35:0;
+ if(!V[2].hidden)chillTick(now);requestAnimationFrame(tick)}
+['heat','count','gooey'].forEach(k=>document.getElementById(k).oninput=e=>{S[k]=+e.target.value;document.getElementById('heatV').textContent=S.heat+'%';document.getElementById('countV').textContent=S.count;if(k==='count')makeBlobs();if(k==='gooey')document.querySelector('#goo feGaussianBlur').setAttribute('stdDeviation',S.gooey)});
+document.getElementById('heatV').textContent=S.heat+'%';document.getElementById('countV').textContent=S.count;
+document.getElementById('power').onclick=e=>{S.on=!S.on;e.target.textContent=S.on?'Switch off':'Switch on';e.target.classList.toggle('off',!S.on);document.getElementById('lamp').classList.toggle('off',!S.on)};
+
+/* collection */
+const PRESETS=[['Magma Classic',0,0,65,7,'$89'],['Sunny Swamp',1,1,50,6,'$94'],['Bubblegum Void',2,2,70,9,'$99'],['Mint Nebula',3,3,45,8,'$94'],['Grape Soda',4,4,60,6,'$89'],['Snow Globe',5,4,30,10,'$120']];
+let custom=[];
+function renderColl(){const all=[...PRESETS,...custom];document.getElementById('coll').innerHTML=all.map(([n,w,l,h,c,p],i)=>`<div class="item" data-i="${i}"><div class="mini"><div class="lamp" style="--wax:${WAX[w]};--liquid:${LIQ[l]}"><div class="cap"></div><div class="glass" style="background:linear-gradient(180deg,${LIQ[l]},color-mix(in srgb,${LIQ[l]} 70%,#fff))"><svg viewBox="0 0 220 400"><g filter="url(#goo)">${[...Array(c)].map((_,k)=>`<circle r="${16+(k*7)%18}" fill="${WAX[w]}" cx="${70+(k*37)%80}" cy="${80+(k*53)%300}"><animate attributeName="cy" values="${380-(k*31)%60};${40+(k*29)%60};${380-(k*31)%60}" dur="${(14-h/10)+k}s" repeatCount="indefinite"/></circle>`).join('')}<ellipse cx="110" cy="410" rx="100" ry="38" fill="${WAX[w]}"/></g></svg></div><div class="base"></div></div></div><h3>${n}</h3><div class="p">${p}</div><button>Load in lab</button></div>`).join('')}
+document.getElementById('coll').onclick=e=>{const it=e.target.closest('.item');if(!it)return;const [n,w,l,h,c]=[...PRESETS,...custom][it.dataset.i];Object.assign(S,{wax:w,liq:l,heat:h,count:c});['heat','count'].forEach(k=>document.getElementById(k).value=S[k]);document.getElementById('heatV').textContent=S.heat+'%';document.getElementById('countV').textContent=S.count;sw('waxSw',WAX,'wax');sw('liqSw',LIQ,'liq');makeBlobs();applyColors();go('lab');toast(`Loaded "${n}"`)};
+document.getElementById('addC').onclick=()=>{const adj=['Cosmic','Funky','Molten','Dreamy','Electric','Velvet'],nou=['Drift','Soup','Bloom','Orbit','Groove','Wobble'];custom.push([`${adj[Math.random()*6|0]} ${nou[Math.random()*6|0]}`,S.wax,S.liq,S.heat,S.count,'custom']);toast('Saved to your collection ✦')};
+
+/* chill */
+const cg=document.getElementById('chillBlobs');let cb=[],palI=0;const CP=[['#3a0ca3','#ff5e3a','#ffcf3a'],['#0b3d2e','#7cff3a','#3affc4'],['#1a1a2e','#ff3aa8','#b36bff'],['#7a0b3a','#ffcf3a','#ff5e3a']];
+function makeChill(){cg.innerHTML='';cb=[...Array(12)].map((_,i)=>{const el=document.createElementNS(NS,'circle');el.setAttribute('r',60+Math.random()*90);el.setAttribute('fill',CP[palI][1+(i%2)]);cg.appendChild(el);return{el,x:Math.random()*1000,y:Math.random()*1000,sx:.3+Math.random()*.5,sy:.2+Math.random()*.4,ph:Math.random()*6}});document.getElementById('chillBg').setAttribute('fill',CP[palI][0])}
+function chillTick(now){cb.forEach(b=>{b.el.setAttribute('cx',500+Math.sin(now/4000*b.sx+b.ph)*420);b.el.setAttribute('cy',500+Math.cos(now/5000*b.sy+b.ph*1.3)*420)})}
+makeChill();document.getElementById('palBtn').onclick=()=>{palI=(palI+1)%CP.length;makeChill()};
+let bOn=true,bPhase=0;setInterval(()=>{if(V[2].hidden||!bOn)return;bPhase=(bPhase+1)%3;const r=document.getElementById('ring');r.style.transform=bPhase===0?'scale(1.5)':bPhase===1?'scale(1.5)':'scale(1)';r.textContent=['breathe in','hold','breathe out'][bPhase]},4000);
+document.getElementById('bOn').onclick=e=>{bOn=!bOn;e.target.textContent='Breathing guide: '+(bOn?'on':'off');document.querySelector('.breathe').style.display=bOn?'':'none'};
+
+makeBlobs();applyColors();requestAnimationFrame(tick);go(location.hash.slice(1));
+</script>
+</body>
+</html>

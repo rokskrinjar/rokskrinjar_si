@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=Libre+Franklin:wght@400;500;600;700&display=swap');
+:root{color-scheme:dark;--e-bg:#0d1620;--e-card:#142130;--e-ink:#e9edf1;--e-mu:#9aa8b5;--e-ln:#23344a;--e-acc:#c6a26b;--e-acc2:#e9edf1;--e-acc-ink:#0d1620;--e-soft:#17273a;--e-r:2px;--e-font:'Libre Franklin',system-ui,sans-serif;--e-head:'Bodoni Moda',Georgia,serif;--e-hw:500;--e-hl:-.01em;--e-overlay:linear-gradient(90deg,rgba(13,22,32,.96) 35%,rgba(13,22,32,.55));--e-nav-bg:#0d1620;--e-cta-bg:#c6a26b;--e-cta-ink:#0d1620;--e-cta-btn:#0d1620;--e-cta-btn-ink:#e9edf1}
+.e-hero.banner{padding-block:100px 80px}
+.e-hero.banner .e-name{font-size:clamp(34px,4.6vw,64px);line-height:1.05}
+.e-hero.banner .e-por{border-color:#c6a26b}
+.e-kick{color:#c6a26b;letter-spacing:.14em}
+.e-stats b{color:#c6a26b;font-family:var(--e-head)}
+.e-why.split .n{color:#c6a26b;font-family:var(--e-head)}
+.e-sec.alt{background:#111c29}
+.e-flags>div{background:#142130}
+.e-ok .sum,.e-res{background:#17273a}
+.e-warn{background:#3a2e14;color:#f1d9a8}
+.e-fitcols .no li:before{color:#e8907a}

@@ -1,0 +1,163 @@
+T.trade({
+  id: 'solar',
+  name: 'Solar Installer',
+  plural: 'Solar Installers',
+  noun: 'solar',
+  icon: 'sun',
+  emergency: false,
+
+  nameParts: {
+    pre: ['Brightfield', 'Sunward', 'Daybreak', 'Southside', 'Clearsky', 'Highnoon', 'Lumen', 'Meridian', 'Skylark', 'Greenroof', 'Radiant', 'Equinox',
+      'Solstice', 'Amberlight', 'Openfield', 'Halo', 'Fairweather', 'Northlight', 'Morning Star', 'Wattsford', 'Sunhill', 'Brightwater', 'Longday', 'Kestrel', 'Sunbridge', 'Helios'],
+    post: ['Solar', 'Solar & Battery', 'Solar Energy', 'Renewables', 'Solar Installations', 'Energy', 'Solar & EV', 'Home Energy', 'Solar Solutions'],
+  },
+
+  headlines: [
+    'Solar panels and batteries, installed properly',
+    'Lower bills from your own roof',
+    'Honest solar advice for {town} homes',
+    'Make more of the sunshine you already get',
+    'Solar, storage and EV charging under one roof',
+    'Clear numbers, tidy installs, no pressure',
+    'Your roof could be paying its way',
+    'Local installers, not a national call centre',
+    'Well-designed solar that keeps earning for decades',
+    'Store your daytime sun for the evening',
+    'Solar done right, from survey to switch-on',
+    'Already have panels? We clean, repair and upgrade them',
+  ],
+
+  intros: [
+    'We design and install solar PV, battery storage and EV chargers for homes and small businesses around {town}. Every system is sized for your roof and how you actually use electricity.',
+    'No doorstep selling and no inflated savings figures. We look at your roof, your bills and your daily routine, then tell you honestly whether solar makes sense and what it will return.',
+    'A local team of qualified electricians and roofers who install solar every week. We handle the design, scaffolding, wiring, grid paperwork and commissioning, and we are still here afterwards.',
+    'Panels on the roof, a battery in the garage and a charger for the car. We put together systems that work as one and show you how to get the most from them.',
+    'Already got solar? We service, clean, repair and extend existing systems, add batteries to older installations and sort out faults on systems whose original installer is no longer around.',
+    'We quote using real shading measurements and realistic generation figures for your roof direction and pitch. If the numbers do not stack up, we will tell you.',
+    'Quality panels, good inverters and neat cable runs. It is not complicated, but doing it carefully is what makes a system run reliably for twenty-five years or more.',
+    'From the first survey to switching on, you deal with the same small team. Clear quotes, sensible timescales and proper aftercare when you need it.',
+  ],
+
+  about: [
+    '{owner} trained as an electrician and started fitting solar panels {years} years ago, long before home batteries and EV chargers became common. {name} is still a small, local business that surveys, designs and installs every system itself, and the same people are around to look after it for years afterwards.',
+    'We started {name} because too many people in {town} were being sold oversized systems with unrealistic savings promises. We prefer to under-promise, design carefully around how each household actually uses electricity, and let the first year of bills speak for themselves. That approach has served our customers well.',
+    'Our installers are qualified electricians with roofing experience, so the work on your roof and the wiring inside your house are both done by people who understand them. We never pass jobs to unknown sub-contractors, which means we know exactly how every system we have fitted was put together.',
+    'After {years} years, many of our new customers are neighbours of people we have already fitted systems for. We think that comes down to straight advice, tidy installations and answering the phone when something goes wrong, even if it is years after we fitted it and the warranty paperwork is long forgotten.',
+    '{owner} still visits most homes personally to survey the roof, look at the loft and consumer unit, and talk through the options. You will get a clear explanation of the panels, inverter and battery we recommend, why we chose them, and what you can realistically expect them to save.',
+    'We look after systems long after installation: monitoring checks, cleaning, bird proofing, inverter replacements and battery upgrades. A solar system should run for twenty-five years or more, and it deserves an installer who will still be around and still be interested for all of that time.',
+  ],
+
+  services: [
+    { n: 'Solar PV installation', d: 'Complete rooftop solar systems designed for your roof, shading and usage, including scaffolding, wiring and grid notification.', from: 4800, unit: 'per system' },
+    { n: 'Battery storage', d: 'Home batteries that store daytime generation or cheap overnight electricity, sized to how much power you use in the evening.', from: 2600, unit: 'per unit' },
+    { n: 'Battery retrofit', d: 'Add a battery to your existing solar system, with a compatible inverter or AC-coupled unit if your current one will not suit.', from: 2900, unit: 'per unit' },
+    { n: 'EV charger installation', d: 'Smart home chargers that can prioritise surplus solar, fitted with tidy cabling and the right protection for your supply.', from: 899, unit: 'per unit' },
+    { n: 'Solar panel cleaning', d: 'Gentle cleaning with purified water and soft brushes to remove grime, moss and bird mess that cuts output.', from: 95, unit: 'per job' },
+    { n: 'Bird proofing', d: 'Mesh guards fitted around panel edges to stop pigeons nesting underneath, without drilling into the panels.', from: 380, unit: 'per job' },
+    { n: 'Inverter replacement', d: 'Faulty or ageing inverters replaced with modern, efficient units, often battery-ready for future upgrades.', from: 850, unit: 'per unit' },
+    { n: 'Solar fault finding & repair', d: 'Diagnosis of low generation, error codes, tripping isolators and damaged cabling, with repairs or honest replacement advice.', from: 120, unit: 'per visit' },
+    { n: 'System health check', d: 'Inspection of panels, fixings, cables, isolators and inverter settings, with a written report on performance.', from: 140, unit: 'per visit' },
+    { n: 'Solar extensions', d: 'Add more panels to an existing system or a second roof, designed to work alongside your current set-up.', from: 1800, unit: 'per job' },
+    { n: 'Ground-mounted arrays', d: 'Solar on a steel or timber frame in a field or large garden, ideal where the roof faces the wrong way.', from: 6500, unit: 'per system' },
+    { n: 'Commercial rooftop solar', d: 'Systems for workshops, farms, shops and small offices, designed around daytime business use for strong returns.', from: 9500, unit: 'per system' },
+  ],
+
+  usps: [
+    ['Honest generation figures', 'We calculate output using your actual roof direction, pitch and shading, and show you the assumptions behind every savings figure.'],
+    ['Qualified electricians install', 'Every installation is wired and commissioned by our own qualified electricians, not passed to a stranger with a van.'],
+    ['Sized to your usage', 'We look at your bills and daily routine so you are not paying for a battery or array bigger than you need.'],
+    ['Grid paperwork handled', 'We deal with notifying your network operator and provide the certificates you need for your records and export tariffs.'],
+    ['Tidy roof and cable work', 'Neat cable runs, flashings sealed properly and roof tiles reinstated carefully. You should barely notice where we have been.'],
+    ['Long product warranties', 'We fit panels, inverters and batteries from established manufacturers with long warranties, and register them for you.'],
+    ['No pressure selling', 'No time-limited discounts or high-pressure visits. Take your quote away, compare it and call us when you are ready.'],
+    ['Monitoring set up for you', 'We connect the monitoring app before we leave and show you how to read it, so you can see what your roof is producing.'],
+    ['Local aftercare', 'If something needs attention years later, you call a local team who installed it, not a national helpline.'],
+    ['We fix other installers’ systems', 'We repair, clean and upgrade systems fitted by other companies, including those whose installer has stopped trading.'],
+  ],
+
+  process: [
+    ['Free initial chat', 'Tell us about your home, roof and bills. We can often give a rough idea of system size and cost over the phone.'],
+    ['Roof survey', 'We visit to measure the roof, check shading, the loft structure and your consumer unit, and discuss panels, batteries and chargers.'],
+    ['Design and written quote', 'You receive a system design, realistic generation estimate, payback figures and a fixed price, with no pressure to sign.'],
+    ['Installation day', 'Scaffolding goes up, then most homes are installed in one or two days. We wire, test and commission everything.'],
+    ['Handover and aftercare', 'We set up monitoring, explain how to use the system, supply all paperwork and stay on hand for checks and support.'],
+  ],
+
+  calc: {
+    title: 'Estimate your solar system',
+    intro: 'A guide price for a supplied and fitted solar PV system, including scaffolding, inverter, wiring and commissioning.',
+    base: 1800,
+    inputs: [
+      { k: 'panels', l: 'Number of panels (about 0.43 kW each)', t: 'num', u: 'panels', min: 4, max: 24, v: 10, step: 1, rate: 380 },
+      { k: 'roof', l: 'Where the panels will go', t: 'sel', o: [['Pitched roof, concrete or clay tiles', { m: 1 }], ['Pitched roof, slate', { m: 1.08 }], ['Flat roof, on frames', { m: 1.1 }], ['Ground-mounted frame', { m: 1.18 }]] },
+      { k: 'battery', l: 'Battery storage', t: 'sel', o: [['No battery for now', { m: 1 }], ['Battery, around 5 kWh', { a: 2600 }], ['Battery, around 10 kWh', { a: 4300 }]] },
+      { k: 'ev', l: 'Add a smart EV charger', t: 'chk', e: { a: 899 } },
+      { k: 'birds', l: 'Add bird mesh around the panels', t: 'chk', e: { a: 380 } },
+    ],
+    notes: ['Guide price only; a roof survey confirms the final design and price.', 'Assumes one scaffolded roof face with straightforward access.', 'Older consumer units may need upgrading, which we quote separately.'],
+  },
+
+  faq: [
+    ['How many panels do I need?', 'Most homes suit 8 to 14 panels, roughly 3.5 to 6 kW, depending on roof space and how much electricity you use. We size the system from your bills rather than simply filling the roof.'],
+    ['Will solar work on a north-facing roof?', 'South-facing roofs perform best, but east and west roofs still generate well, spread across morning and evening. Panels on a north roof with a shallow pitch can work but returns are lower. We will be honest after the survey.'],
+    ['Do I need a battery?', 'Without a battery, you use solar power as it is generated and export the rest. A battery stores surplus for the evening, usually increasing how much of your own power you use. It suits people out during the day most.'],
+    ['How long does installation take?', 'Scaffolding usually goes up the day before. Most homes are then installed and commissioned in one or two days. Adding a battery or EV charger may add a few hours.'],
+    ['Do panels work on cloudy days?', 'Yes, but output drops. Panels generate from daylight, not direct sun, so you will still produce some power on overcast days. Most generation happens between spring and early autumn.'],
+    ['How long do panels last?', 'Good-quality panels usually carry performance warranties of 25 years or more and keep working beyond that with gradual efficiency loss. Inverters typically need replacing once during the panels’ lifetime.'],
+    ['Do I need permission to fit solar panels?', 'On most homes solar panels can be fitted without formal permission, but listed buildings, conservation areas and flat roofs can have extra rules. We check during the survey and advise you on anything to confirm locally.'],
+    ['Will my roof take the weight?', 'Most roofs can take panels easily, as they add relatively little weight spread across the rafters. We check the roof structure in the loft during the survey and recommend strengthening if it is ever needed.'],
+    ['Do panels need cleaning?', 'Rain keeps most pitched-roof panels reasonably clean. Shallow roofs, homes near farms or trees, and roofs pigeons love benefit from a clean every year or two to keep output up.'],
+    ['Can I add a battery to my existing system?', 'Usually yes. Depending on your inverter, we add either a compatible battery or an AC-coupled battery with its own inverter. We check your existing set-up first and explain the options.'],
+  ],
+
+  reviews: [
+    { t: 'Ten panels and a 5 kWh battery fitted in a day and a half. They showed us the monitoring app before leaving and our first summer bill dropped more than they had estimated.', job: 'Solar and battery', s: 5 },
+    { t: 'Refreshingly honest. They told us our east-facing roof would still work but that the battery would take longer to pay back than the panels, so we started with panels only.', job: 'Solar PV', s: 5 },
+    { t: 'Our old installer had gone out of business and the inverter kept showing an error. They found a loose connector on the roof, replaced the inverter and we were generating again within a week.', job: 'Inverter replacement', s: 5 },
+    { t: 'Pigeons were nesting under our panels and the noise was driving us mad. Mesh fitted neatly, panels cleaned at the same visit, and no more birds since.', job: 'Bird proofing', s: 5 },
+    { t: 'Tidy installation. The cable run down the outside wall is so neat you hardly notice it, and they put the loft insulation back exactly as it was.', job: 'Solar PV', s: 5 },
+    { t: 'Fitted an EV charger that uses surplus solar first. Took about four hours. Slight delay because the supply needed checking, but they kept us informed.', job: 'EV charger', s: 4 },
+    { t: 'Added a battery to our six-year-old system. Clear explanation of why an AC-coupled battery suited us, and the price matched the quote exactly.', job: 'Battery retrofit', s: 5 },
+    { t: 'Ground-mounted panels in our paddock because the house roof faces north. They trenched the cable to the house and left the field looking almost untouched.', job: 'Ground-mounted array', s: 5 },
+    { t: 'Annual clean and health check. Output went up noticeably afterwards and they sent a short report with photos of the panels before and after.', job: 'Cleaning and check', s: 5 },
+    { t: 'Fourteen panels on our workshop roof. We run machinery during the day, so most of what we generate is used on site. Very professional from survey to switch-on.', job: 'Commercial solar', s: 5 },
+    { t: 'No pushy sales at all. The surveyor spent an hour going through our bills and suggested a smaller system than another company had quoted.', job: 'Solar PV', s: 5 },
+    { t: 'Scaffolding was up a day later than planned due to wind, but the install itself was smooth and the team were polite and tidy.', job: 'Solar and battery', s: 4 },
+    { t: 'Slate roof made me nervous, but they replaced a couple of cracked slates while they were up there and you would not know the panels had been fitted.', job: 'Solar on slate roof', s: 5 },
+    { t: 'They came back three months later to update the battery settings for our new overnight tariff. Small thing, but it shows they care after the sale.', job: 'Battery storage', s: 5 },
+  ],
+
+  certs: ['Certified solar PV installers', 'Qualified electricians on every job', 'Fully insured to £5m', 'Manufacturer-approved battery installers', '10-year workmanship warranty', 'Grid notification handled'],
+
+  gallery: [
+    ['Ten-panel array on a tiled roof', 'Solar PV'],
+    ['All-black panels on a slate roof', 'Solar PV'],
+    ['Wall-mounted battery in a garage', 'Batteries'],
+    ['Smart EV charger by the driveway', 'EV chargers'],
+    ['Ground-mounted array in a paddock', 'Ground mount'],
+    ['Flat-roof panels on low frames', 'Solar PV'],
+    ['Bird mesh fitted around panel edges', 'Bird proofing'],
+    ['Panels cleaned with purified water', 'Cleaning'],
+    ['New inverter and isolators in a loft', 'Inverters'],
+    ['Workshop roof solar for a small business', 'Commercial'],
+    ['Battery added to an older system', 'Battery retrofit'],
+    ['Neat external cable run to the meter', 'Solar PV'],
+  ],
+
+  jobs: ['New solar panels', 'Solar with battery', 'Add a battery', 'EV charger', 'Panel cleaning', 'Bird proofing', 'Fault or repair', 'Health check'],
+
+  urgent: ['Inverter showing an error or fault light', 'Generation suddenly dropped', 'Pigeons nesting under panels', 'Isolator or breaker keeps tripping', 'Installer no longer trading'],
+
+  tips: [
+    ['Check your monitoring monthly', 'Compare this month with the same month last year. A sudden drop often points to a fault, shading or dirt, and spotting it early avoids months of lost generation.'],
+    ['Run big appliances in daylight', 'Use timers on washing machines, dishwashers and immersion heaters so they run late morning or early afternoon, when your panels are producing most. It is the simplest way to use more of your own power.'],
+    ['Do not pressure wash panels', 'High-pressure water and household detergents can damage seals and coatings. Use purified water and a soft brush, or have them cleaned professionally from the ground.'],
+    ['Size batteries to your evenings', 'A battery only helps if you use the stored power. Look at how much electricity you use from late afternoon to bedtime and size the battery close to that.'],
+    ['Keep an eye on trees', 'Shading from growing trees can cut output more than you expect, especially on systems where panels are linked in strings. Trim back branches where you can.'],
+    ['Keep your paperwork together', 'Store installation certificates, warranties and grid notification documents in one place. You will need them for export tariffs, insurance and if you sell the house.'],
+    ['Ask about the inverter', 'Inverters usually need replacing once in a system’s life. A battery-ready inverter costs a little more now but makes adding storage later simpler and cheaper.'],
+    ['Review your tariff', 'Once you have solar, and especially a battery, a time-of-use or export tariff can make a big difference. Check the options every year or so.'],
+  ],
+
+  hours: { normal: 'Mon–Fri 8:00–17:30, Sat 9:00–13:00' },
+});

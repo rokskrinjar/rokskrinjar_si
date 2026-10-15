@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Watchtower — SOC overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#060a12;--p:#0b1220;--ln:#18263b;--ice:#8fd8ff;--ice2:#3aa6e0;--red:#ff3b5c;--amb:#ffb02e;--tx:#cfe3f5;--mu:#5f7590}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:13px/1.45 'Chakra Petch',sans-serif;min-height:100vh;background-image:linear-gradient(rgba(143,216,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(143,216,255,.03) 1px,transparent 1px);background-size:40px 40px}
+.mono{font-family:'Share Tech Mono',monospace}
+header{display:flex;align-items:center;gap:18px;padding:12px 20px;border-bottom:1px solid var(--ln)}
+.lg{font:700 18px 'Chakra Petch';letter-spacing:.2em;color:var(--ice);display:flex;align-items:center;gap:10px}.lg svg{width:22px}
+.thr{display:flex;align-items:center;gap:8px;padding:5px 12px;border:1px solid var(--amb);color:var(--amb);font:600 12px 'Chakra Petch';letter-spacing:.12em}
+header .sp{flex:1}.clk{font:15px 'Share Tech Mono';color:var(--ice)}
+.lay{display:grid;grid-template-columns:1fr 360px;grid-template-rows:auto 1fr;gap:12px;padding:12px}
+.kp{grid-column:1/-1;display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.k{border:1px solid var(--ln);background:var(--p);padding:12px 14px;position:relative;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)}
+.k span{font:600 11px 'Chakra Petch';letter-spacing:.14em;color:var(--mu);text-transform:uppercase}.k b{display:block;font:24px 'Share Tech Mono';color:var(--ice)}.k b.r{color:var(--red)}.k b.a{color:var(--amb)}
+.map{grid-column:1;grid-row:2;border:1px solid var(--ln);background:var(--p);position:relative;min-height:440px;overflow:hidden}
+.map .t{position:absolute;left:14px;top:10px;font:600 12px 'Chakra Petch';letter-spacing:.16em;color:var(--mu);z-index:2}
+.map svg{width:100%;height:100%;display:block}
+.feed{border:1px solid var(--ln);background:var(--p);display:flex;flex-direction:column;min-height:0;grid-column:2;grid-row:2}
+.feed h3{margin:0;padding:10px 14px;border-bottom:1px solid var(--ln);font:600 12px 'Chakra Petch';letter-spacing:.16em;color:var(--mu);display:flex;justify-content:space-between}
+.list{overflow:auto;flex:1;max-height:520px}
+.al{padding:10px 14px;border-bottom:1px solid var(--ln);display:grid;grid-template-columns:54px 1fr;gap:10px;animation:fl .8s}
+@keyframes fl{from{background:rgba(255,59,92,.18)}}
+.sev{font:600 10px 'Chakra Petch';letter-spacing:.1em;text-align:center;padding:3px 0;border:1px solid;align-self:start}.sev.c{color:var(--red);border-color:var(--red)}.sev.h{color:var(--amb);border-color:var(--amb)}.sev.m{color:var(--ice2);border-color:var(--ice2)}
+.al b{display:block;font-weight:600}.al small{color:var(--mu);font:12px 'Share Tech Mono'}
+.bot{grid-column:1/-1;display:grid;grid-template-columns:1.4fr 1fr;gap:12px}
+.box{border:1px solid var(--ln);background:var(--p);padding:14px}.box h3{margin:0 0 10px;font:600 12px 'Chakra Petch';letter-spacing:.16em;color:var(--mu)}
+.mitre{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}.mitre i{aspect-ratio:2.6;font-style:normal}
+.mitre-l{display:flex;justify-content:space-between;font:10px 'Share Tech Mono';color:var(--mu);margin-top:6px}
+.term{font:12.5px/1.7 'Share Tech Mono';color:#9fc4e0;height:150px;overflow:hidden}.term .r{color:var(--red)}.term .g{color:#5fe0a8}
+@media(max-width:1000px){.lay{grid-template-columns:1fr}.feed,.map{grid-row:auto;grid-column:1}.kp{grid-template-columns:repeat(2,1fr)}.bot{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="lg"><svg viewBox="0 0 22 22"><path d="M11 2 L19 6 V12 C19 16 15 19 11 20 C7 19 3 16 3 12 V6 Z" fill="none" stroke="#8fd8ff" stroke-width="2"/><circle cx="11" cy="11" r="3" fill="#ff3b5c"/></svg>WATCHTOWER</div><span class="thr">◆ THREAT LEVEL: ELEVATED</span><span class="sp"></span><span class="mono" style="color:var(--mu)">ANALYST: R.OKAFOR · SHIFT B</span><span class="clk mono" id="clk">14:06:21Z</span></header>
+<div class="lay">
+ <div class="kp"><div class="k"><span>Events / min</span><b id="epm">48,210</b></div><div class="k"><span>Open alerts</span><b class="a">23</b></div><div class="k"><span>Critical</span><b class="r">2</b></div><div class="k"><span>Blocked today</span><b>1.2M</b></div><div class="k"><span>MTTD</span><b>4m 12s</b></div><div class="k"><span>MTTR</span><b>38m</b></div></div>
+ <div class="map"><span class="t">INBOUND ATTACK SURFACE · LIVE</span><svg viewBox="0 0 1000 500" id="mp" preserveAspectRatio="xMidYMid slice"></svg></div>
+ <div class="feed"><h3>ALERT QUEUE <span id="qn" class="mono" style="color:var(--red)">23</span></h3><div class="list" id="al"></div></div>
+ <div class="bot"><div class="box"><h3>MITRE ATT&CK COVERAGE · LAST 7 DAYS</h3><div class="mitre" id="mt"></div><div class="mitre-l"><span>Recon</span><span>Initial access</span><span>Execution</span><span>Persistence</span><span>Lateral</span><span>Exfil</span></div></div>
+  <div class="box"><h3>AUTOMATED RESPONSE LOG</h3><div class="term" id="tm"></div></div></div>
+</div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 50 SaaS</a>
+<script>
+const NS='http://www.w3.org/2000/svg',mp=document.getElementById('mp');
+// dotted world (procedural continents)
+const blobs=[[230,170,110,80],[270,320,60,90],[480,150,70,50],[500,280,70,90],[650,170,140,70],[760,330,60,40],[820,180,50,40]];let dots='';
+for(let x=10;x<1000;x+=14)for(let y=40;y<480;y+=14){const inside=blobs.some(([cx,cy,rx,ry])=>((x-cx)/rx)**2+((y-cy)/ry)**2<1+Math.sin(x*.07+y*.05)*.15);if(inside)dots+=`<circle cx="${x}" cy="${y}" r="2" fill="#1d3550"/>`}
+mp.innerHTML=dots+'<g id="arcs"></g>';
+const HQ=[505,160];mp.insertAdjacentHTML('beforeend',`<circle cx="${HQ[0]}" cy="${HQ[1]}" r="8" fill="none" stroke="#8fd8ff" stroke-width="2"/><circle cx="${HQ[0]}" cy="${HQ[1]}" r="3" fill="#8fd8ff"/><text x="${HQ[0]+14}" y="${HQ[1]+4}" fill="#8fd8ff" font-family="Share Tech Mono" font-size="12">HQ · FRA</text>`);
+const SRCS=[[230,150],[280,330],[690,170],[820,190],[770,330],[640,230],[200,200]];
+function arc(){const s=SRCS[Math.floor(Math.random()*SRCS.length)];const crit=Math.random()<.25;const mx=(s[0]+HQ[0])/2,my=Math.min(s[1],HQ[1])-80-Math.random()*60;const p=document.createElementNS(NS,'path');p.setAttribute('d',`M${s[0]} ${s[1]} Q${mx} ${my} ${HQ[0]} ${HQ[1]}`);p.setAttribute('fill','none');p.setAttribute('stroke',crit?'#ff3b5c':'#3aa6e0');p.setAttribute('stroke-width',crit?2:1.2);
+ const L=p.getTotalLength?0:0;document.getElementById('arcs').appendChild(p);const len=p.getTotalLength();p.style.strokeDasharray=len;p.style.strokeDashoffset=len;p.style.transition='stroke-dashoffset 1.2s ease-in, opacity 1s 1.4s';
+ const c=document.createElementNS(NS,'circle');c.setAttribute('cx',s[0]);c.setAttribute('cy',s[1]);c.setAttribute('r',4);c.setAttribute('fill',crit?'#ff3b5c':'#3aa6e0');document.getElementById('arcs').appendChild(c);
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{p.style.strokeDashoffset=0;setTimeout(()=>{p.style.opacity=0;c.style.transition='opacity 1s';c.style.opacity=0},400)}));setTimeout(()=>{p.remove();c.remove()},3200)}
+setInterval(arc,420);
+const A=[['c','Credential stuffing on SSO','185.220.101.4 · 3,812 attempts','14:05:58'],['h','Impossible travel','j.moreau · Lisbon → Lagos in 9 min','14:04:12'],['c','Ransomware precursor','FIN-LAP-0231 · vssadmin delete','14:01:40'],['h','Suspicious OAuth grant','“PDF Helper” requested Mail.ReadWrite','13:58:02'],['m','Port scan from partner VPN','10.44.2.0/24 → 1,024 ports','13:55:31'],['m','Outdated TLS on edge','api-legacy.halden.io · TLS 1.0','13:49:12'],['h','DNS tunnelling pattern','base32 subdomains → xj9q.top','13:44:50']];
+const al=document.getElementById('al');const add=a=>al.insertAdjacentHTML('afterbegin',`<div class="al"><span class="sev ${a[0]}">${{c:'CRIT',h:'HIGH',m:'MED'}[a[0]]}</span><div><b>${a[1]}</b><small>${a[2]} · ${a[3]}</small></div></div>`);A.slice().reverse().forEach(add);
+let mt='';for(let i=0;i<72;i++){const v=((i*7919)%100)/100;const col=v>.86?'#ff3b5c':v>.6?'#3aa6e0':v>.3?'#1c4a6e':'#122236';mt+=`<i style="background:${col}"></i>`}document.getElementById('mt').innerHTML=mt;
+const TL=[['g','[auto] blocked 185.220.101.4 at WAF (rule SSO-RL-3)'],['','[auto] forced MFA re-auth for j.moreau'],['r','[auto] isolated FIN-LAP-0231 from network'],['','[soar] opened ticket SEC-4412 → R.Okafor'],['g','[auto] revoked OAuth token for app “PDF Helper”'],['','[intel] xj9q.top added to blocklist (VirusTotal 41/90)']];let ti=0;
+const tm=document.getElementById('tm');setInterval(()=>{const t=TL[ti++%TL.length];tm.insertAdjacentHTML('beforeend',`<div class="${t[0]}">${new Date().toISOString().slice(11,19)} ${t[1]}</div>`);while(tm.children.length>8)tm.firstChild.remove()},1300);
+setInterval(()=>{document.getElementById('clk').textContent=new Date().toISOString().slice(11,19)+'Z';document.getElementById('epm').textContent=(47000+Math.floor(Math.random()*3000)).toLocaleString()},1000);
+setInterval(()=>{add(['h','Anomalous download volume','s.ruiz · 2.1 GB from SharePoint',new Date().toISOString().slice(11,19)]);const q=document.getElementById('qn');q.textContent=+q.textContent+1},9000);
+</script>
+</body>
+</html>

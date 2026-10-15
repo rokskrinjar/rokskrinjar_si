@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap');
+:root{--e-bg:#f3f6f5;--e-card:#fff;--e-ink:#0f2027;--e-mu:#5a6c70;--e-ln:#dbe4e2;--e-acc:#0e7c6b;--e-acc-ink:#fff;--e-soft:#e7efed;--e-r:12px;--e-font:'Onest',system-ui,sans-serif;--e-head:'Onest',system-ui,sans-serif;--e-hw:700;--e-hl:-.03em;--e-maxw:1100px;--e-nav-bg:#fff;--e-cta-bg:#0f2027;--e-cta-btn:#4fd1b5;--e-cta-btn-ink:#0f2027}
+body.e-side .e-head{background:#fff}
+.e-hero .e-por{border-radius:999px 999px 12px 12px}
+.e-hero .e-name{font-size:clamp(38px,4.8vw,66px)}
+.e-kick{color:var(--e-acc);letter-spacing:.1em}
+.e-stats{border:0;gap:12px}.e-stats>div{background:#fff;border-radius:12px;border:1px solid var(--e-ln)!important}
+.e-why.grid>div{border-left:4px solid var(--e-acc)}
+.e-cases.list .c{background:#fff}

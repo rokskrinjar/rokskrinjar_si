@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+:root{--e-bg:#fafaf7;--e-card:#fff;--e-ink:#13294b;--e-mu:#5b6576;--e-ln:#dfe1e4;--e-acc:#1d5c3a;--e-acc2:#b08d3c;--e-acc-ink:#fff;--e-soft:#f0f1ee;--e-r:3px;--e-font:'Source Sans 3',system-ui,sans-serif;--e-head:'Libre Caslon Text',Georgia,serif;--e-hw:400;--e-hl:-.01em;--e-cta-bg:#13294b;--e-cta-btn:#b08d3c;--e-cta-btn-ink:#fff}
+.e-head{border-bottom:3px double var(--e-ink)}
+.e-hero .e-name{font-size:clamp(36px,4.6vw,62px);line-height:1.08}
+.e-hero .e-por{border-radius:0;box-shadow:0 0 0 1px var(--e-ink),12px 12px 0 -1px var(--e-soft),12px 12px 0 0 var(--e-ink)}
+.e-kick{color:var(--e-acc2);font-weight:700}
+.e-why.numbered .n{font-family:var(--e-head);font-style:italic;color:var(--e-acc2)}
+.e-why h3{font-size:24px}
+.e-stats{border-top:3px double var(--e-ink);border-bottom:3px double var(--e-ink)}.e-stats b{color:var(--e-ink)}
+.e-btn{border-radius:2px}
+.e-ph.stack .num{font-style:italic;color:var(--e-acc2)}

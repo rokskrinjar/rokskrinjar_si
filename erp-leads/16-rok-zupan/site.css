@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+:root{--e-bg:#ffffff;--e-card:#f5f6fb;--e-ink:#111322;--e-mu:#5b5f75;--e-ln:#e3e5ef;--e-acc:#2346ff;--e-acc2:#111322;--e-acc-ink:#fff;--e-soft:#eef0fb;--e-r:8px;--e-font:'IBM Plex Sans',system-ui,sans-serif;--e-head:'Bricolage Grotesque',system-ui,sans-serif;--e-mono:'IBM Plex Mono',monospace;--e-hw:800;--e-hl:-.03em;--e-cta-bg:#2346ff;--e-cta-btn:#fff;--e-cta-btn-ink:#2346ff}
+.e-hero.center .e-por{border-radius:50%;outline:3px solid #2346ff;outline-offset:6px}
+.e-hero .e-name{font-size:clamp(36px,5.4vw,76px);line-height:.98}
+.e-kick{font-family:var(--e-mono);color:#2346ff}
+.e-stats b{color:#2346ff}
+.e-why.numbered .n{color:#2346ff}
+.e-sec.alt{background:#f5f6fb}

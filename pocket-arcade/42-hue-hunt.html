@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Hue Hunt</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:manipulation;user-select:none}
+body{background:#fafaf7;font-family:Inter,sans-serif;color:#191919;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:44px 14px 14px}
+h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(40px,11vw,64px);line-height:1;letter-spacing:-.01em}h1 i{color:var(--h,#e4572e)}
+.meta{display:flex;gap:22px;font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}.meta b{font-weight:700;font-size:18px;display:block;letter-spacing:0;text-transform:none}
+.tb{width:min(88vw,460px);height:4px;background:#e5e5e0}.tb i{display:block;height:100%;background:#191919;transform-origin:left}
+.grid{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:var(--g);width:min(88vw,62vh,460px);aspect-ratio:1}
+.grid div{border-radius:var(--r);cursor:pointer;transition:transform .1s}.grid div:active{transform:scale(.94)}.grid div.kb{outline:3px solid #191919;outline-offset:2px}
+.grid div.hit{animation:hit .5s}@keyframes hit{40%{transform:scale(1.15)}}
+.grid div.show{outline:4px solid #191919;outline-offset:2px;animation:shw .5s infinite alternate}@keyframes shw{to{transform:scale(.9)}}
+.grid.shake{animation:sh .3s}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#fafaf7ee}.ov.on{display:grid}
+.ov h2{font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;font-size:clamp(46px,13vw,90px);line-height:1}.ov p{margin:12px auto 22px;line-height:1.7;max-width:320px}
+.ov button{font:inherit;font-weight:700;border:0;background:#191919;color:#fafaf7;padding:12px 32px;border-radius:40px;cursor:pointer}
+.back{position:fixed;left:12px;top:12px;color:#191919;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="back" href="index.html">← games</a>
+<h1>Hue <i>Hunt</i></h1>
+<div class="meta"><span>Found<b id="sc">0</b></span><span>Time<b id="tm">60</b></span><span>Best<b id="bs">0</b></span></div>
+<div class="tb"><i id="tb"></i></div>
+<div class="grid" id="grid"></div>
+<div class="ov on" id="ov"><div><h2 id="ot">Hue Hunt</h2><p id="op">One tile is ever so slightly off.<br>Find as many as you can in 60 seconds.<br>Wrong taps cost 3 seconds. Arrows + Space work too.</p><button id="go">Start</button></div></div>
+<script>
+const K='best-hue-hunt';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const gridEl=document.getElementById('grid');let n=2,odd=0,score=0,left=60,best=ls.g(K,0),timer,playing=false,cur=0,base;
+document.getElementById('bs').textContent=best;
+let AC;function tone(f,d=.08,type='sine',v=.05){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function round(){n=Math.min(9,2+Math.floor(score/3));const diff=Math.max(3.2,26-score*.7);const h=Math.random()*360,s=45+Math.random()*40,l=40+Math.random()*30;base=`hsl(${h} ${s}% ${l}%)`;const dl=(Math.random()<.5?1:-1)*diff*(l>60?-1:1);const oc=`hsl(${h} ${s}% ${l+dl}%)`;
+ odd=Math.random()*n*n|0;cur=Math.min(cur,n*n-1);gridEl.style.setProperty('--n',n);gridEl.style.setProperty('--g',Math.max(3,14-n)+'px');gridEl.style.setProperty('--r',Math.max(4,18-n*1.5)+'px');document.documentElement.style.setProperty('--h',base);
+ gridEl.innerHTML='';for(let i=0;i<n*n;i++){const d=document.createElement('div');d.style.background=i===odd?oc:base;d.onclick=()=>pick(i);if(i===cur&&kbMode)d.classList.add('kb');gridEl.appendChild(d)}}
+let kbMode=false;
+function pick(i){if(!playing)return;if(i===odd){score++;tone(500+score*15,.1,'triangle',.06);document.getElementById('sc').textContent=score;const c=gridEl.children[i];c.classList.add('hit');setTimeout(round,120)}
+ else{left=Math.max(0,left-3);tone(140,.15,'square',.04);gridEl.classList.remove('shake');void gridEl.offsetWidth;gridEl.classList.add('shake')}}
+function start(){score=0;left=60;cur=0;playing=true;document.getElementById('sc').textContent=0;document.getElementById('ov').classList.remove('on');round();clearInterval(timer);timer=setInterval(()=>{left-=.1;document.getElementById('tm').textContent=Math.ceil(Math.max(0,left));document.getElementById('tb').style.transform=`scaleX(${Math.max(0,left/60)})`;if(left<=0)end()},100)}
+function end(){playing=false;clearInterval(timer);gridEl.children[odd]&&gridEl.children[odd].classList.add('show');const rec=score>best;if(rec){best=score;ls.s(K,best)}document.getElementById('bs').textContent=best;tone(300,.4,'triangle',.05);
+ setTimeout(()=>{document.getElementById('ot').textContent=rec?'Eagle-eyed!':'Time.';document.getElementById('op').innerHTML=`You found <b>${score}</b> odd tiles.<br>${score>=30?'Colour savant.':score>=20?'Sharp eyes.':score>=12?'Keen.':'Keep looking.'} Best ${best}.`;document.getElementById('go').textContent='Again';document.getElementById('ov').classList.add('on')},1400)}
+addEventListener('keydown',e=>{const k=e.key;if(document.getElementById('ov').classList.contains('on')){if(k===' '||k==='Enter'){e.preventDefault();start()}return}if(!playing)return;
+ let r=cur/n|0,c=cur%n;if(k==='ArrowLeft'||k==='a')c=(c-1+n)%n;else if(k==='ArrowRight'||k==='d')c=(c+1)%n;else if(k==='ArrowUp'||k==='w')r=(r-1+n)%n;else if(k==='ArrowDown'||k==='s')r=(r+1)%n;else if(k===' '||k==='Enter'){e.preventDefault();kbMode=true;pick(cur);return}else return;
+ e.preventDefault();kbMode=true;cur=r*n+c;[...gridEl.children].forEach((d,i)=>d.classList.toggle('kb',i===cur))});
+document.getElementById('go').onclick=start;
+n=3;base='hsl(12 70% 55%)';gridEl.style.setProperty('--n',3);gridEl.style.setProperty('--g','10px');gridEl.style.setProperty('--r','14px');for(let i=0;i<9;i++){const d=document.createElement('div');d.style.background=`hsl(${12+i*30} 65% 60%)`;gridEl.appendChild(d)}
+</script>
+</body>
+</html>

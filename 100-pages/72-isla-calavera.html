@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isla Calavera — A Treasure Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--parch:#ead7ab;--parch2:#d8bd84;--ink:#3a2412;--sea:#6a8a8a;--red:#9a2a1a;--wood:#4a2e18}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--wood);color:var(--ink);font-family:'IM Fell DW Pica',serif;background-image:repeating-linear-gradient(90deg,#0000 0 80px,#0002 80px 83px),radial-gradient(ellipse at 50% 30%,#6a4228,#2e1a0c)}
+a{color:inherit;text-decoration:none}button,input{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 4vw;color:var(--parch)}
+.logo{font-family:'Pirata One';font-size:36px;letter-spacing:.02em}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{font-family:'Pirata One';font-size:20px;padding:6px 14px;color:#ead7abaa}
+nav a.on{color:var(--parch);background:#0003;border-radius:4px}
+[data-view][hidden]{display:none}
+.wrap{max-width:1200px;margin:0 auto;padding:10px 4vw 60px}
+.scroll{background:var(--parch);padding:28px;border-radius:4px;box-shadow:0 30px 60px #000a,inset 0 0 80px #8a5a2a66;position:relative}
+h2{font-family:'Pirata One';font-weight:400;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1}
+.sub{font-style:italic;font-size:19px;margin:6px 0 18px;max-width:62ch;line-height:1.5}
+.mapbox{position:relative}
+.mapbox canvas{display:block;width:100%;height:auto;border:2px solid var(--ink);cursor:crosshair}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.btn{font-family:'Pirata One';font-size:20px;background:var(--ink);color:var(--parch);border:0;padding:8px 18px;border-radius:3px}
+.btn.alt{background:none;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.status{font-size:20px;font-style:italic}
+.shovels{font-size:26px;letter-spacing:4px}
+.clue{background:#f4e6c4;border:1px dashed var(--ink);padding:14px 18px;margin-top:14px;font-size:19px;line-height:1.5;font-style:italic}
+/* log */
+.log{columns:2 340px;column-gap:40px}
+.entry{break-inside:avoid;margin-bottom:24px}
+.entry h3{font-family:'Pirata One';font-weight:400;font-size:26px}
+.entry .d{font-size:14px;letter-spacing:.1em;color:var(--red)}
+.entry p{font-size:19px;line-height:1.6;margin-top:4px}
+.entry p::first-letter{font-family:'Pirata One';font-size:2.4em;float:left;line-height:.9;margin-right:6px;color:var(--red)}
+/* flags */
+.flags{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0;min-height:130px;justify-content:center;align-items:flex-start}
+.flag{text-align:center;animation:wave 2.6s ease-in-out infinite;transform-origin:left center}
+.flag svg{width:80px;height:80px;display:block;filter:drop-shadow(2px 3px 0 #0003)}
+.flag b{font-family:'Pirata One';font-size:18px}
+@keyframes wave{50%{transform:skewY(-3deg) scaleX(.97)}}
+.fin{width:100%;font-family:'Pirata One';font-size:30px;padding:10px 14px;background:#f4e6c4;border:2px solid var(--ink);text-transform:uppercase;letter-spacing:.1em}
+.meaning{font-size:19px;font-style:italic;text-align:center;min-height:1.5em}
+.alpha{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px;margin-top:20px}
+.alpha div{text-align:center;font-size:13px}
+.alpha svg{width:54px;height:54px;display:block;margin:0 auto 2px}
+.alpha b{font-family:'Pirata One';font-size:18px;display:block}
+.wax{position:absolute;right:26px;top:22px;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#c83a2a,#7a1a0a);display:grid;place-items:center;color:#f0c0a0;font-family:'Pirata One';font-size:30px;box-shadow:0 3px 6px #0006;transform:rotate(-12deg)}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">☠ Isla Calavera</div>
+ <nav><a href="#chart">The Chart</a><a href="#dig">Dig for Gold</a><a href="#log">Captain's Log</a><a href="#flags">Signal Flags</a><a href="index.html">Abandon Ship</a></nav>
+</header>
+
+<section data-view="chart"><div class="wrap"><div class="scroll">
+ <div class="wax">C</div>
+ <h2 id="isleName">Isla Calavera</h2>
+ <p class="sub">Drawn from the memory of a one-eyed cartographer who swore it was accurate. Every chart is different. Draw another if you don't trust this one.</p>
+ <div class="mapbox"><canvas id="map" width="1100" height="720"></canvas></div>
+ <div class="row"><button class="btn" id="newMap">Draw a new chart</button><span class="status" id="mapInfo"></span></div>
+</div></div></section>
+
+<section data-view="dig" hidden><div class="wrap"><div class="scroll">
+ <h2>X marks… somewhere</h2>
+ <p class="sub">The old map's X got smudged. Click the land to dig. Each hole tells you if you're getting warmer. You have eight shovels.</p>
+ <div class="row"><span class="shovels" id="shovels"></span><span class="status" id="digStat"></span></div>
+ <div class="clue" id="clue"></div>
+ <div class="mapbox" style="margin-top:14px"><canvas id="digc" width="1100" height="720"></canvas></div>
+ <div class="row"><button class="btn" id="reDig">Bury new treasure</button><span class="status">Doubloons in your chest: <b id="gold">0</b></span></div>
+</div></div></section>
+
+<section data-view="log" hidden><div class="wrap"><div class="scroll">
+ <h2>Log of the <i>Salty Magdalena</i></h2>
+ <p class="sub">Kept, badly, by Captain Josephine "Ironjaw" Kettle, 1716.</p>
+ <div class="log" id="logE"></div>
+</div></div></section>
+
+<section data-view="flags" hidden><div class="wrap"><div class="scroll">
+ <h2>Run up the flags</h2>
+ <p class="sub">Ships speak across the water in coloured flags. Type a message to hoist it. Some single flags have their own urgent meaning.</p>
+ <input class="fin" id="fin" value="AHOY" maxlength="14">
+ <div class="flags" id="flagRow"></div>
+ <div class="meaning" id="meaning"></div>
+ <div class="alpha" id="alpha"></div>
+</div></div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'chart';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- noise island ---------- */
+const W=1100,H=720,G=6;let seed=Date.now()%100000,height=[],landmarks=[];
+function rng(s){return()=>((s=(s*16807)%2147483647)/2147483647)}
+function makeNoise(r){const P=[...Array(256).keys()].sort(()=>r()-.5);const perm=[...P,...P];const val=[...Array(256)].map(r);const f=t=>t*t*(3-2*t);return(x,y)=>{const xi=Math.floor(x)&255,yi=Math.floor(y)&255,xf=x-Math.floor(x),yf=y-Math.floor(y);const v=(i,j)=>val[perm[perm[(xi+i)&255]+((yi+j)&255)]];const a=v(0,0),b=v(1,0),c=v(0,1),d=v(1,1),u=f(xf),w=f(yf);return a+(b-a)*u+(c-a)*w+(a-b-c+d)*u*w}}
+const NAMES=['Isla Calavera','Skull Key','Cutlass Cay','Isle of Last Rum','Gallows Atoll','Kraken\'s Tooth','Dead Parrot Island','Mutiny Reef'];
+function genIsland(){const r=rng(seed);const n=makeNoise(r);const cols=Math.ceil(W/G),rows=Math.ceil(H/G);height=[];
+ const cx=.5+(r()-.5)*.1,cy=.5+(r()-.5)*.1;
+ for(let j=0;j<rows;j++){height[j]=[];for(let i=0;i<cols;i++){const x=i/cols,y=j/rows;let e=0,amp=1,fr=3,tot=0;for(let o=0;o<5;o++){e+=n(x*fr*1.5+seed%97,y*fr+seed%31)*amp;tot+=amp;amp*=.5;fr*=2}e/=tot;const dx=(x-cx)*1.25,dy=(y-cy)*1.6;const d=Math.sqrt(dx*dx+dy*dy);height[j][i]=e-d*1.35+.18}}
+ const land=[];height.forEach((row,j)=>row.forEach((h,i)=>{if(h>.08&&i>6&&j>6&&i<cols-6&&j<rows-6)land.push([i*G,j*G,h])}));
+ const pick=f=>{const c=land.filter(f);return c.length?c[r()*c.length|0]:land[r()*land.length|0]};
+ landmarks=[['Skull Rock',pick(p=>p[2]>.3)],['Palm Grove',pick(p=>p[2]>.1&&p[2]<.2)],['Smugglers\' Cove',pick(p=>p[2]<.1)],['Old Well',pick(p=>p[2]>.15&&p[2]<.28)],['Gallows Hill',pick(p=>p[2]>.25)]];
+ return{r,land}}
+function drawIsland(ctx,opts={}){const cols=height[0].length,rows=height.length;const r=rng(seed+1);
+ ctx.fillStyle='#ead7ab';ctx.fillRect(0,0,W,H);
+ // stains
+ for(let i=0;i<14;i++){const g=ctx.createRadialGradient(r()*W,r()*H,0,r()*W,r()*H,60+r()*140);g.addColorStop(0,'rgba(138,90,42,.12)');g.addColorStop(1,'rgba(138,90,42,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H)}
+ // sea hatch
+ ctx.strokeStyle='rgba(58,36,18,.18)';ctx.lineWidth=1;for(let j=0;j<rows;j+=3)for(let i=0;i<cols;i+=5){if(height[j][i]<-.05){const x=i*G,y=j*G+Math.sin(i*.3)*2;ctx.beginPath();ctx.moveTo(x,y);ctx.quadraticCurveTo(x+6,y-3,x+12,y);ctx.stroke()}}
+ // land fill and contours
+ for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const h=height[j][i];if(h>0){ctx.fillStyle=h>.3?'#c9a870':h>.18?'#d6b87c':'#e2c68c';ctx.fillRect(i*G,j*G,G+.5,G+.5)}}
+ [[0,2.6,'#3a2412'],[.12,1,'rgba(58,36,18,.5)'],[.22,1,'rgba(58,36,18,.5)'],[.32,1,'rgba(58,36,18,.5)'],[-.04,1,'rgba(58,36,18,.35)'],[-.1,.8,'rgba(58,36,18,.2)']].forEach(([th,lw,col])=>{ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.beginPath();for(let j=0;j<rows-1;j++)for(let i=0;i<cols-1;i++){const a=height[j][i]>th,b=height[j][i+1]>th,c=height[j+1][i]>th;if(a!==b){ctx.moveTo(i*G+G,j*G);ctx.lineTo(i*G+G,j*G+G)}if(a!==c){ctx.moveTo(i*G,j*G+G);ctx.lineTo(i*G+G,j*G+G)}}ctx.stroke()});
+ // hills & trees
+ for(let k=0;k<260;k++){const i=r()*cols|0,j=r()*rows|0;const h=height[j]?.[i];if(h==null)continue;const x=i*G,y=j*G;
+  if(h>.28&&k%3===0){ctx.strokeStyle='#3a2412';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(x-10,y+6);ctx.lineTo(x,y-8);ctx.lineTo(x+10,y+6);ctx.stroke();ctx.beginPath();ctx.moveTo(x,y-8);ctx.lineTo(x+3,y+6);ctx.stroke()}
+  else if(h>.05&&h<.22&&k%2){ctx.strokeStyle='#3a2412';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(x,y+8);ctx.quadraticCurveTo(x+1,y,x-1,y-6);ctx.stroke();for(const a of[-1,-.4,.4,1]){ctx.beginPath();ctx.moveTo(x-1,y-6);ctx.quadraticCurveTo(x+a*6,y-10,x+a*9,y-5);ctx.stroke()}}}
+ // landmarks
+ if(!opts.noLandmarks)landmarks.forEach(([n,p],i)=>{if(!p)return;const[x,y]=p;ctx.fillStyle='#9a2a1a';ctx.beginPath();ctx.arc(x,y,5,0,7);ctx.fill();ctx.fillStyle='#3a2412';ctx.font='italic 20px "IM Fell DW Pica"';ctx.fillText(n,x+10,y-8)});
+ // compass
+ const cx=110,cy=H-120;ctx.save();ctx.translate(cx,cy);for(let k=0;k<16;k++){const a=k/16*Math.PI*2,L=k%4===0?70:k%2===0?46:28;ctx.fillStyle=k%2?'#ead7ab':'#3a2412';ctx.strokeStyle='#3a2412';ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(Math.cos(a-.12)*L*.3,Math.sin(a-.12)*L*.3);ctx.lineTo(Math.cos(a)*L,Math.sin(a)*L);ctx.lineTo(Math.cos(a+.12)*L*.3,Math.sin(a+.12)*L*.3);ctx.closePath();ctx.fill();ctx.stroke()}ctx.beginPath();ctx.arc(0,0,74,0,7);ctx.stroke();ctx.font='26px "Pirata One"';ctx.fillStyle='#9a2a1a';ctx.textAlign='center';ctx.fillText('N',0,-80);ctx.restore();
+ // ship & monster
+ if(!opts.noDeco){ctx.save();ctx.translate(W-170,110);ctx.strokeStyle='#3a2412';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-40,0);ctx.quadraticCurveTo(0,24,40,0);ctx.closePath();ctx.stroke();ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,-60);ctx.stroke();ctx.beginPath();ctx.moveTo(2,-56);ctx.quadraticCurveTo(26,-36,2,-16);ctx.stroke();ctx.beginPath();ctx.moveTo(-2,-50);ctx.quadraticCurveTo(-22,-34,-2,-18);ctx.stroke();ctx.restore();
+  ctx.save();ctx.translate(W-120,H-90);ctx.strokeStyle='#3a2412';ctx.lineWidth=2.2;for(let k=0;k<4;k++){ctx.beginPath();ctx.arc(k*26-40,0,12,Math.PI,0);ctx.stroke()}ctx.beginPath();ctx.moveTo(52,0);ctx.quadraticCurveTo(66,-40,46,-50);ctx.quadraticCurveTo(38,-40,48,-34);ctx.stroke();ctx.fillStyle='#3a2412';ctx.beginPath();ctx.arc(50,-44,2,0,7);ctx.fill();ctx.font='italic 16px "IM Fell DW Pica"';ctx.fillText('here be monſters',-60,30);ctx.restore()}
+ // border
+ ctx.strokeStyle='#3a2412';ctx.lineWidth=3;ctx.strokeRect(10,10,W-20,H-20);ctx.lineWidth=1;ctx.strokeRect(18,18,W-36,H-36);
+ ctx.font='44px "Pirata One"';ctx.fillStyle='#3a2412';ctx.textAlign='center';ctx.fillText(NAMES[seed%NAMES.length],W/2,64);ctx.textAlign='left'}
+function newChart(){seed=Math.floor(Math.random()*99999)+1;const{land}=genIsland();drawIsland(document.getElementById('map').getContext('2d'));document.getElementById('isleName').textContent=NAMES[seed%NAMES.length];document.getElementById('mapInfo').textContent=`Chart No. ${seed} · ${Math.round(land.length*G*G/140)} acres of sand, rock and regret`;newDig()}
+document.getElementById('newMap').onclick=newChart;
+
+/* ---------- dig ---------- */
+let treasure=null,holes=[],shovels=8,gold=store.get('ic-gold',0),found=false;
+function newDig(){const{r,land}=genIsland();const lm=landmarks.filter(l=>l[1]);const base=lm[r()*lm.length|0];let t;for(let k=0;k<100;k++){const c=land[r()*land.length|0];const d=Math.hypot(c[0]-base[1][0],c[1]-base[1][1]);if(d>80&&d<240){t=c;break}}treasure=t||land[0];holes=[];shovels=8;found=false;
+ const dx=treasure[0]-base[1][0],dy=treasure[1]-base[1][1];const paces=Math.round(Math.hypot(dx,dy)/6/5)*5;const dir=['east','south-east','south','south-west','west','north-west','north','north-east'][Math.round((Math.atan2(dy,dx)/Math.PI*4+8))%8];
+ document.getElementById('clue').innerHTML=`"From <b>${base[0]}</b>, walk some ${paces} paces ${r()<.5?'roughly':'more or less'} ${dir}… or was it ${['east','south','west','north'][r()*4|0]}? The rum makes it hard to recall." <span style="font-size:14px">(scrawled on the back of a biscuit wrapper)</span>`;drawDig()}
+function drawDig(){const c=document.getElementById('digc'),x=c.getContext('2d');drawIsland(x,{noDeco:true});
+ holes.forEach(([hx,hy,d])=>{const col=d<40?'#9a2a1a':d<100?'#c8642a':d<200?'#b8a040':'#4a6a8a';x.fillStyle='#2a1a0a';x.beginPath();x.ellipse(hx,hy,12,7,0,0,7);x.fill();x.strokeStyle=col;x.lineWidth=3;x.beginPath();x.arc(hx,hy,20,0,7);x.stroke();x.fillStyle=col;x.font='italic 18px "IM Fell DW Pica"';x.fillText(d<40?'scorching!':d<100?'warm':d<200?'lukewarm':'cold',hx+24,hy+6)});
+ if(found||shovels<=0){const[tx,ty]=treasure;x.strokeStyle='#9a2a1a';x.lineWidth=6;x.beginPath();x.moveTo(tx-18,ty-18);x.lineTo(tx+18,ty+18);x.moveTo(tx+18,ty-18);x.lineTo(tx-18,ty+18);x.stroke();if(found){x.fillStyle='#c9a020';for(let k=0;k<14;k++){x.beginPath();x.arc(tx+Math.cos(k)*k*3,ty-20-k*2+Math.sin(k*2)*6,6,0,7);x.fill()}}}
+ document.getElementById('shovels').textContent='⛏'.repeat(shovels)+'·'.repeat(8-shovels);document.getElementById('gold').textContent=gold;
+ document.getElementById('digStat').textContent=found?`Treasure! +${50+shovels*25} doubloons.`:shovels<=0?'Out of shovels. The X was over there, curse it.':''}
+document.getElementById('digc').onclick=e=>{if(found||shovels<=0)return;const c=e.currentTarget,rc=c.getBoundingClientRect();const x=(e.clientX-rc.left)/rc.width*W,y=(e.clientY-rc.top)/rc.height*H;const hi=height[Math.floor(y/G)]?.[Math.floor(x/G)];
+ if(hi==null||hi<=0){document.getElementById('digStat').textContent='That\'s water, matey. Dig on land.';return}
+ const d=Math.hypot(x-treasure[0],y-treasure[1]);shovels--;holes.push([x,y,d]);if(d<28){found=true;gold+=50+shovels*25;store.set('ic-gold',gold);thunk(true)}else thunk(false);drawDig()};
+function thunk(win){try{const a=new AudioContext(),t=a.currentTime;const o=a.createOscillator(),g=a.createGain();o.type='triangle';o.frequency.setValueAtTime(win?523:110,t);if(win)o.frequency.setValueAtTime(659,t+.12),o.frequency.setValueAtTime(784,t+.24),o.frequency.setValueAtTime(1046,t+.36);g.gain.setValueAtTime(.15,t);g.gain.exponentialRampToValueAtTime(.001,t+(win?.9:.2));o.connect(g).connect(a.destination);o.start(t);o.stop(t+1)}catch(e){}}
+document.getElementById('reDig').onclick=newDig;
+
+/* ---------- log ---------- */
+const LOG=[['The 3rd of March','Weighed anchor at Port Royal with 40 souls, 12 barrels of rum and one extremely opinionated parrot called Admiral Biscuit.'],['The 9th of March','Becalmed. The crew are restless. I have started reading aloud to them from a book of sermons, which has made them more restless.'],['The 17th of March','We took a Spanish merchantman without firing a shot. Their captain was very relieved we only wanted the cheese.'],['The 2nd of April','Cartographer Mr. Pike swears he has seen Isla Calavera. He has one eye and it was the bad one. We alter course anyway.'],['The 11th of April','Storm. Lost the foretopmast, two hats and most of our dignity. Admiral Biscuit has learnt a new word and will not stop saying it.'],['The 14th of April','Land ho! The island is exactly as drawn, except for everything. We go ashore at dawn with shovels and questionable optimism.']];
+document.getElementById('logE').innerHTML=LOG.map(l=>`<div class="entry"><div class="d">${l[0].toUpperCase()}, 1716</div><p>${l[1]}</p></div>`).join('');
+
+/* ---------- flags (ICS) ---------- */
+const Y='#e8c020',R='#b8201a',B='#1a3a8a',K='#1a1a1a',Wt='#f4efe4';
+const F={A:[`<rect width="40" height="80" fill="${Wt}"/><path d="M40 0 H80 L60 40 L80 80 H40Z" fill="${B}"/>`,'I have a diver down; keep well clear.'],B:[`<path d="M0 0 H80 L60 40 L80 80 H0Z" fill="${R}"/>`,'I am carrying dangerous goods.'],C:[`<rect width="80" height="80" fill="${B}"/><rect y="16" width="80" height="48" fill="${Wt}"/><rect y="32" width="80" height="16" fill="${R}"/>`,'Yes (affirmative).'],D:[`<rect width="80" height="80" fill="${Y}"/><rect y="20" width="80" height="40" fill="${B}"/>`,'Keep clear of me; I am manoeuvring with difficulty.'],E:[`<rect width="80" height="40" fill="${B}"/><rect y="40" width="80" height="40" fill="${R}"/>`,'I am altering my course to starboard.'],F:[`<rect width="80" height="80" fill="${Wt}"/><path d="M40 0 L80 40 L40 80 L0 40Z" fill="${R}"/>`,'I am disabled; communicate with me.'],G:[[0,1,2,3,4,5].map(i=>`<rect x="${i*13.3}" width="13.4" height="80" fill="${i%2?B:Y}"/>`).join(''),'I require a pilot.'],H:[`<rect width="40" height="80" fill="${Wt}"/><rect x="40" width="40" height="80" fill="${R}"/>`,'I have a pilot on board.'],I:[`<rect width="80" height="80" fill="${Y}"/><circle cx="40" cy="40" r="18" fill="${K}"/>`,'I am altering my course to port.'],J:[`<rect width="80" height="80" fill="${B}"/><rect y="26" width="80" height="28" fill="${Wt}"/>`,'I am on fire; keep clear.'],K:[`<rect width="40" height="80" fill="${Y}"/><rect x="40" width="40" height="80" fill="${B}"/>`,'I wish to communicate with you.'],L:[`<rect width="80" height="80" fill="${K}"/><rect width="40" height="40" fill="${Y}"/><rect x="40" y="40" width="40" height="40" fill="${Y}"/>`,'You should stop your vessel instantly.'],M:[`<rect width="80" height="80" fill="${B}"/><path d="M0 0 L80 80 M80 0 L0 80" stroke="${Wt}" stroke-width="14"/>`,'My vessel is stopped.'],N:[[0,1,2,3].map(i=>[0,1,2,3].map(j=>`<rect x="${i*20}" y="${j*20}" width="20" height="20" fill="${(i+j)%2?Wt:B}"/>`).join('')).join(''),'No (negative).'],O:[`<path d="M0 0 H80 V80Z" fill="${R}"/><path d="M0 0 V80 H80Z" fill="${Y}"/>`,'Man overboard!'],P:[`<rect width="80" height="80" fill="${B}"/><rect x="22" y="22" width="36" height="36" fill="${Wt}"/>`,'All aboard; the vessel is about to sail.'],Q:[`<rect width="80" height="80" fill="${Y}"/>`,'My vessel is healthy; I request free pratique.'],R:[`<rect width="80" height="80" fill="${R}"/><rect x="32" width="16" height="80" fill="${Y}"/><rect y="32" width="80" height="16" fill="${Y}"/>`,'(No single-flag meaning.)'],S:[`<rect width="80" height="80" fill="${Wt}"/><rect x="24" y="24" width="32" height="32" fill="${B}"/>`,'I am operating astern propulsion.'],T:[`<rect width="27" height="80" fill="${R}"/><rect x="27" width="26" height="80" fill="${Wt}"/><rect x="53" width="27" height="80" fill="${B}"/>`,'Keep clear of me.'],U:[`<rect width="80" height="80" fill="${R}"/><rect x="40" width="40" height="40" fill="${Wt}"/><rect y="40" width="40" height="40" fill="${Wt}"/>`,'You are running into danger.'],V:[`<rect width="80" height="80" fill="${Wt}"/><path d="M0 0 L80 80 M80 0 L0 80" stroke="${R}" stroke-width="14"/>`,'I require assistance.'],W:[`<rect width="80" height="80" fill="${B}"/><rect x="14" y="14" width="52" height="52" fill="${Wt}"/><rect x="28" y="28" width="24" height="24" fill="${R}"/>`,'I require medical assistance.'],X:[`<rect width="80" height="80" fill="${Wt}"/><rect x="32" width="16" height="80" fill="${B}"/><rect y="32" width="80" height="16" fill="${B}"/>`,'Stop carrying out your intentions.'],Y:[[...Array(8)].map((_,i)=>`<path d="M${i*20-80} 80 L${i*20} 0 L${i*20+10} 0 L${i*20-70} 80Z" fill="${R}"/>`).join('')+`<rect width="80" height="80" fill="${Y}" style="mix-blend-mode:multiply" opacity=".001"/>`,'I am dragging my anchor.'],Z:[`<path d="M0 0 H80 L40 40Z" fill="${Y}"/><path d="M80 0 V80 L40 40Z" fill="${B}"/><path d="M0 80 H80 L40 40Z" fill="${R}"/><path d="M0 0 V80 L40 40Z" fill="${K}"/>`,'I require a tug.']};
+F.Y[0]=`<rect width="80" height="80" fill="${Y}"/>`+F.Y[0];
+const flag=(c,s=80)=>F[c]?`<svg viewBox="0 0 80 80"><defs><clipPath id="fc${c}${s}"><rect width="80" height="80"/></clipPath></defs><g clip-path="url(#fc${c}${s})">${F[c][0]}</g><rect width="80" height="80" fill="none" stroke="#3a2412" stroke-width="2"/></svg>`:'';
+function hoist(){const t=document.getElementById('fin').value.toUpperCase().replace(/[^A-Z ]/g,'');document.getElementById('flagRow').innerHTML=[...t].map((c,i)=>c===' '?'<div style="width:30px"></div>':`<div class="flag" style="animation-delay:${i*.15}s">${flag(c)}<b>${c}</b></div>`).join('');
+ const letters=t.replace(/ /g,'');document.getElementById('meaning').textContent=letters.length===1&&F[letters]?`Flown alone, "${letters}" means: ${F[letters][1]}`:letters==='NC'?'"NC": I am in distress and require immediate assistance!':letters?`Spelling out "${t.trim()}".`:''}
+document.getElementById('fin').oninput=hoist;
+document.getElementById('alpha').innerHTML=Object.keys(F).map(c=>`<div>${flag(c,54)}<b>${c}</b>${F[c][1].split(';')[0].replace(/\.$/,'')}</div>`).join('');
+hoist();
+
+newChart();
+try{document.fonts.ready.then(()=>{drawIsland(document.getElementById('map').getContext('2d'));drawDig()})}catch(e){}
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

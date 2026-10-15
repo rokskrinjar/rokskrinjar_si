@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Squiggle & Co. — a Memphis design studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Bungee+Shade&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --pink:#ff9ecf; --yel:#ffe04a; --teal:#3cd6c2; --blue:#3f5bff; --red:#ff5a4e; --ink:#1b1b1b; --cream:#fff6e8; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--cream); color:var(--ink); font-family:'DM Sans',sans-serif; overflow-x:hidden; }
+  body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.35; background-image:radial-gradient(var(--ink) 1.2px,transparent 1.4px); background-size:26px 26px; }
+  a { color:inherit; text-decoration:none; }
+  header { position:sticky; top:0; z-index:30; display:flex; justify-content:space-between; align-items:center; padding:14px 4vw; background:var(--cream); border-bottom:3px solid var(--ink); }
+  .logo { font-family:'Bungee'; font-size:22px; display:flex; align-items:center; gap:10px; }
+  .logo svg { width:44px; }
+  nav { display:flex; gap:10px; flex-wrap:wrap; }
+  nav a { font-weight:700; padding:8px 14px; border:3px solid var(--ink); border-radius:30px; background:#fff; box-shadow:3px 3px 0 var(--ink); transition:transform .15s, box-shadow .15s; }
+  nav a:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--ink); }
+  nav a.on { background:var(--yel); }
+  main { position:relative; z-index:1; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:pop .5s cubic-bezier(.2,1.5,.4,1) both; }
+  @keyframes pop { from { opacity:0; transform:scale(.97); } }
+  /* home */
+  .hero { position:relative; min-height:calc(100vh - 72px); display:grid; place-items:center; overflow:hidden; text-align:center; }
+  .hero h1 { font-family:'Bungee Shade'; font-size:clamp(3.4rem,11vw,10rem); line-height:.9; position:relative; z-index:3; color:var(--ink); }
+  .hero h1 span { display:inline-block; }
+  .hero h1 span:nth-child(odd) { color:var(--blue); transform:rotate(-4deg); }
+  .hero p { font-size:1.35rem; max-width:34rem; margin:1.4rem auto 0; position:relative; z-index:3; background:var(--cream); padding:.4rem .8rem; border:3px solid var(--ink); box-shadow:6px 6px 0 var(--pink); }
+  .sh { position:absolute; z-index:1; transition:transform .2s ease-out; }
+  .btn { display:inline-block; margin-top:2rem; font-family:'Bungee'; font-size:18px; padding:14px 26px; border:3px solid var(--ink); background:var(--teal); box-shadow:6px 6px 0 var(--ink); cursor:pointer; position:relative; z-index:3; transition:transform .15s, box-shadow .15s; }
+  .btn:hover { transform:translate(-3px,-3px); box-shadow:9px 9px 0 var(--ink); }
+  .btn:active { transform:translate(4px,4px); box-shadow:2px 2px 0 var(--ink); }
+  .ticker { border-top:3px solid var(--ink); border-bottom:3px solid var(--ink); background:var(--pink); overflow:hidden; white-space:nowrap; font-family:'Bungee'; font-size:1.4rem; padding:12px 0; }
+  .ticker div { display:inline-block; animation:tk 22s linear infinite; }
+  @keyframes tk { to { transform:translateX(-50%); } }
+  .clients { display:grid; grid-template-columns:repeat(4,1fr); }
+  .clients div { padding:40px 20px; text-align:center; font-family:'Bungee'; font-size:1.3rem; border-right:3px solid var(--ink); border-bottom:3px solid var(--ink); background:#fff; }
+  .clients div:nth-child(4n) { border-right:0; }
+  .page { padding:6vh 4vw 12vh; max-width:1400px; margin:0 auto; }
+  .title { font-family:'Bungee'; font-size:clamp(2.6rem,7vw,5.5rem); line-height:.95; margin-bottom:.6rem; }
+  .title em { font-style:normal; color:var(--red); -webkit-text-stroke:2px var(--ink); }
+  .sub { font-size:1.2rem; margin-bottom:2.4rem; max-width:40rem; }
+  /* work */
+  .filters { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:2rem; }
+  .filters button { font-family:'DM Sans'; font-weight:700; font-size:15px; padding:9px 16px; border:3px solid var(--ink); border-radius:30px; background:#fff; cursor:pointer; box-shadow:3px 3px 0 var(--ink); }
+  .filters button.on { background:var(--ink); color:var(--yel); }
+  .work { columns:3 300px; column-gap:22px; }
+  .proj { break-inside:avoid; margin-bottom:22px; border:3px solid var(--ink); background:#fff; box-shadow:8px 8px 0 var(--ink); cursor:pointer; transition:transform .2s, box-shadow .2s; }
+  .proj:hover { transform:translate(-4px,-4px) rotate(-.5deg); box-shadow:12px 12px 0 var(--ink); }
+  .proj svg { width:100%; display:block; border-bottom:3px solid var(--ink); }
+  .proj .c { padding:14px 16px; display:flex; justify-content:space-between; align-items:center; }
+  .proj h3 { font-family:'Bungee'; font-size:1.1rem; }
+  .proj span { font-size:12px; font-weight:700; padding:4px 10px; border:2px solid var(--ink); border-radius:20px; }
+  .modal { position:fixed; inset:0; background:#1b1b1bcc; z-index:60; display:grid; place-items:center; padding:20px; }
+  .modal[hidden] { display:none; }
+  .modal .box { background:var(--cream); border:4px solid var(--ink); box-shadow:14px 14px 0 var(--pink); max-width:900px; width:100%; max-height:90vh; overflow:auto; display:grid; grid-template-columns:1.1fr 1fr; }
+  .modal .box svg { width:100%; height:100%; display:block; border-right:4px solid var(--ink); }
+  .modal .txt { padding:28px; }
+  .modal h2 { font-family:'Bungee'; font-size:2rem; line-height:1; margin-bottom:1rem; }
+  .modal .x { float:right; font-family:'Bungee'; font-size:1.4rem; border:3px solid var(--ink); background:var(--yel); width:44px; height:44px; cursor:pointer; }
+  .modal dl { display:grid; grid-template-columns:auto 1fr; gap:6px 16px; margin-top:1rem; font-size:14px; }
+  .modal dt { font-weight:700; }
+  /* pattern machine */
+  .machine { display:grid; grid-template-columns:320px 1fr; gap:3vw; }
+  .machine .knobs { display:flex; flex-direction:column; gap:16px; }
+  .machine label { font-weight:700; display:block; margin-bottom:6px; }
+  .machine input[type=range] { width:100%; accent-color:var(--blue); }
+  .pals { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .pals button { height:40px; border:3px solid var(--ink); cursor:pointer; box-shadow:3px 3px 0 var(--ink); }
+  .pals button.on { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--ink); outline:3px solid var(--yel); }
+  .canvasWrap { border:4px solid var(--ink); box-shadow:12px 12px 0 var(--ink); background:#fff; }
+  #pat { width:100%; display:block; aspect-ratio:4/3; }
+  /* services */
+  .bill { display:inline-flex; border:3px solid var(--ink); border-radius:40px; overflow:hidden; margin-bottom:2rem; background:#fff; }
+  .bill button { border:0; background:none; padding:10px 20px; font-family:inherit; font-weight:700; cursor:pointer; }
+  .bill button.on { background:var(--ink); color:var(--yel); }
+  .tiers { display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .tier { border:3px solid var(--ink); padding:28px; position:relative; box-shadow:10px 10px 0 var(--ink); transition:transform .2s; }
+  .tier:hover { transform:rotate(-1deg) translateY(-6px); }
+  .tier h3 { font-family:'Bungee'; font-size:1.6rem; }
+  .tier .price { font-family:'Bungee'; font-size:3rem; margin:10px 0; }
+  .tier .price small { font-family:'DM Sans'; font-size:1rem; }
+  .tier ul { list-style:none; margin:14px 0 20px; }
+  .tier li { padding:8px 0; border-bottom:2px dashed var(--ink); }
+  .tier li::before { content:'✦ '; }
+  .tier .badge { position:absolute; top:-18px; right:20px; font-family:'Bungee'; font-size:13px; background:var(--red); color:#fff; padding:6px 12px; border:3px solid var(--ink); transform:rotate(6deg); }
+  /* contact */
+  .contact { display:grid; grid-template-columns:1fr 1fr; gap:4vw; align-items:start; }
+  form.card { border:4px solid var(--ink); background:#fff; padding:28px; box-shadow:12px 12px 0 var(--teal); }
+  form.card label { font-weight:700; display:block; margin:14px 0 6px; }
+  form.card input, form.card textarea, form.card select { width:100%; border:3px solid var(--ink); padding:12px; font-family:inherit; font-size:1rem; background:var(--cream); outline:none; }
+  form.card input:focus, form.card textarea:focus { background:var(--yel); }
+  .err { color:var(--red); font-weight:700; font-size:14px; min-height:1.2em; margin-top:4px; }
+  .budget { display:flex; gap:8px; flex-wrap:wrap; }
+  .budget label { margin:0; }
+  .budget input { display:none; }
+  .budget span { display:inline-block; padding:8px 14px; border:3px solid var(--ink); border-radius:30px; cursor:pointer; font-weight:700; }
+  .budget input:checked + span { background:var(--pink); }
+  .confetti { position:fixed; width:12px; height:12px; z-index:99; pointer-events:none; animation:conf 1.6s cubic-bezier(.2,.6,.4,1) forwards; }
+  @keyframes conf { to { transform:translate(var(--dx),var(--dy)) rotate(var(--r)); opacity:0; } }
+  @media (max-width:900px){ .machine,.contact,.modal .box { grid-template-columns:1fr; } .tiers { grid-template-columns:1fr; } .clients { grid-template-columns:1fr 1fr; } header { flex-wrap:wrap; gap:10px; } }
+</style>
+</head>
+<body>
+<header><div class="logo"><svg viewBox="0 0 60 40"><path d="M4 30 Q12 6 20 30 T36 30 T52 30" stroke="#1b1b1b" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="50" cy="10" r="7" fill="#ff5a4e" stroke="#1b1b1b" stroke-width="3"/></svg>Squiggle&amp;Co.</div>
+<nav><a href="#home">Home</a><a href="#work">Work</a><a href="#machine">Pattern machine</a><a href="#services">Services</a><a href="#contact">Say hi</a><a href="index.html">↩ Index</a></nav></header>
+<main>
+<section data-view="home">
+  <div class="hero" id="hero"><div><h1><span>BOLD</span> <span>IS</span><br><span>A</span> <span>FEELING</span></h1><p>We're a tiny studio making loud brands, silly packaging and websites that refuse to be beige.</p><a class="btn" href="#work">See the work →</a></div></div>
+  <div class="ticker"><div>✦ BRANDING ✦ PACKAGING ✦ WEB ✦ MURALS ✦ SOCKS (ONCE) ✦ MORE SQUIGGLES ✦ NO BEIGE ✦ BRANDING ✦ PACKAGING ✦ WEB ✦ MURALS ✦ SOCKS (ONCE) ✦ MORE SQUIGGLES ✦ NO BEIGE ✦&nbsp;</div></div>
+  <div class="clients"><div style="background:var(--yel)">Fizzy Pop</div><div>Grandma's Gym</div><div style="background:var(--teal)">Nebula Nail Co</div><div>Toast Club</div><div>Pixel Pets</div><div style="background:var(--pink)">Dino Dental</div><div>Wobble Rec.</div><div style="background:var(--blue);color:#fff">Moon Milk</div></div>
+</section>
+
+<section data-view="work" class="page" hidden>
+  <div class="title">Selected <em>work</em></div><p class="sub">Some of our favourite things from the last few years. Click one for the whole story.</p>
+  <div class="filters" id="wf"></div><div class="work" id="work"></div>
+</section>
+
+<section data-view="machine" class="page" hidden>
+  <div class="title">Pattern <em>machine</em></div><p class="sub">Our in-house Memphis generator. Twiddle the knobs, hit shuffle, download the result and put it on a mug.</p>
+  <div class="machine">
+    <div class="knobs">
+      <div><label>Density</label><input type="range" id="pDen" min="10" max="120" value="46"></div>
+      <div><label>Scale</label><input type="range" id="pSc" min="40" max="200" value="100"></div>
+      <div><label>Squiggliness</label><input type="range" id="pSq" min="0" max="100" value="60"></div>
+      <div><label>Palette</label><div class="pals" id="pals"></div></div>
+      <a class="btn" id="shuffle" style="text-align:center">Shuffle ⟳</a>
+      <a class="btn" id="dl" style="background:var(--yel);text-align:center;margin-top:0">Download PNG ↓</a>
+    </div>
+    <div class="canvasWrap"><canvas id="pat" width="1200" height="900"></canvas></div>
+  </div>
+</section>
+
+<section data-view="services" class="page" hidden>
+  <div class="title">Services &amp; <em>prices</em></div><p class="sub">Transparent pricing, opaque colours.</p>
+  <div class="bill"><button class="on" data-b="proj">Per project</button><button data-b="mo">Monthly retainer</button></div>
+  <div class="tiers" id="tiers"></div>
+</section>
+
+<section data-view="contact" class="page" hidden>
+  <div class="contact">
+    <div><div class="title">Say <em>hi!</em></div><p class="sub">Tell us about your thing. We reply within two working days, usually with too many exclamation marks.</p><svg viewBox="0 0 400 300" style="width:100%;max-width:460px"><circle cx="120" cy="150" r="90" fill="#ffe04a" stroke="#1b1b1b" stroke-width="5"/><rect x="200" y="60" width="140" height="140" fill="#3cd6c2" stroke="#1b1b1b" stroke-width="5" transform="rotate(12 270 130)"/><path d="M30 260 Q70 220 110 260 T190 260 T270 260 T350 260" stroke="#ff5a4e" stroke-width="10" fill="none" stroke-linecap="round"/><polygon points="300,230 360,290 240,290" fill="#ff9ecf" stroke="#1b1b1b" stroke-width="5"/></svg></div>
+    <form class="card" id="cf" novalidate>
+      <label>Your name</label><input id="cn" placeholder="Ettore S."><div class="err" id="en"></div>
+      <label>Email</label><input id="ce" placeholder="you@studio.com"><div class="err" id="ee"></div>
+      <label>Budget</label><div class="budget"><label><input type="radio" name="b" value="S"><span>&lt; 5k</span></label><label><input type="radio" name="b" value="M" checked><span>5–20k</span></label><label><input type="radio" name="b" value="L"><span>20k +</span></label><label><input type="radio" name="b" value="?"><span>Snacks?</span></label></div>
+      <label>Tell us everything</label><textarea id="cm" rows="4" placeholder="We need a logo that looks like a party but also a bank."></textarea><div class="err" id="em"></div>
+      <a class="btn" id="send" style="margin-top:1rem">Send it! ✉</a>
+      <p id="sent" style="font-family:Bungee;margin-top:1rem;font-size:1.2rem"></p>
+    </form>
+  </div>
+</section>
+</main>
+<div class="modal" id="modal" hidden><div class="box" id="mbox"></div></div>
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'home';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='machine')drawPat()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const C=['#ff9ecf','#ffe04a','#3cd6c2','#3f5bff','#ff5a4e','#1b1b1b'];
+
+/* hero shapes with mouse parallax */
+const hero=document.getElementById('hero');const SH=[['circle',8,14,120,'#ffe04a',.6],['tri',78,12,130,'#ff9ecf',-.4],['squig',12,72,220,'#3f5bff',.8],['rect',82,64,110,'#3cd6c2',-.7],['dots',60,78,160,'#1b1b1b',.3],['circle',86,40,50,'#ff5a4e',1],['zig',30,8,200,'#ff5a4e',-.5],['half',4,40,90,'#3cd6c2',.5],['tri',48,86,70,'#ffe04a',-.9]];
+const shapeSVG=(t,c,s)=>({circle:`<svg width="${s}" height="${s}" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="${c}" stroke="#1b1b1b" stroke-width="5"/></svg>`,tri:`<svg width="${s}" height="${s}" viewBox="0 0 100 100"><polygon points="50,6 96,92 4,92" fill="${c}" stroke="#1b1b1b" stroke-width="5"/></svg>`,rect:`<svg width="${s}" height="${s}" viewBox="0 0 100 100"><rect x="8" y="8" width="84" height="84" fill="${c}" stroke="#1b1b1b" stroke-width="5"/><path d="M8 30 L92 30 M8 50 L92 50 M8 70 L92 70" stroke="#1b1b1b" stroke-width="3"/></svg>`,squig:`<svg width="${s}" height="${s/3}" viewBox="0 0 300 100"><path d="M10 50 Q40 0 70 50 T130 50 T190 50 T250 50 T290 50" stroke="${c}" stroke-width="16" fill="none" stroke-linecap="round"/></svg>`,dots:`<svg width="${s}" height="${s}" viewBox="0 0 100 100">${[...Array(25)].map((_,i)=>`<circle cx="${10+(i%5)*20}" cy="${10+(i/5|0)*20}" r="4" fill="${c}"/>`).join('')}</svg>`,zig:`<svg width="${s}" height="${s/4}" viewBox="0 0 200 50"><path d="M5 40 L25 10 L45 40 L65 10 L85 40 L105 10 L125 40 L145 10 L165 40 L185 10" stroke="${c}" stroke-width="8" fill="none" stroke-linejoin="round"/></svg>`,half:`<svg width="${s}" height="${s/2}" viewBox="0 0 100 50"><path d="M5 50 A45 45 0 0 1 95 50Z" fill="${c}" stroke="#1b1b1b" stroke-width="5"/></svg>`}[t]);
+SH.forEach(([t,x,y,s,c,d])=>{const el=document.createElement('div');el.className='sh';el.style.left=x+'%';el.style.top=y+'%';el.dataset.d=d;el.innerHTML=shapeSVG(t,c,s);el.style.animation=`pop .6s ${Math.random()*.5}s both`;hero.appendChild(el)});
+addEventListener('mousemove',e=>{if(V[0].hidden)return;const dx=e.clientX/innerWidth-.5,dy=e.clientY/innerHeight-.5;hero.querySelectorAll('.sh').forEach(s=>{const d=+s.dataset.d;s.style.transform=`translate(${dx*d*80}px,${dy*d*80}px) rotate(${dx*d*30}deg)`})});
+
+/* work */
+const W=[['Fizzy Pop','packaging','Soda cans that look like they are already fizzing.','Fizzy Pop, Milan',2024,['#ff9ecf','#ffe04a']],['Grandma\'s Gym','branding','A fitness brand for the over-70s. Tagline: "Lift heavy, gossip heavier."','Grandma\'s Gym, Leeds',2023,['#3cd6c2','#ff5a4e']],['Nebula Nails','web','An online booking site where every button sparkles slightly.','Nebula Nail Co, LA',2024,['#3f5bff','#ff9ecf']],['Toast Club','branding','Identity for a breakfast-only restaurant. Open 7–11am. No exceptions.','Toast Club, Lisbon',2022,['#ffe04a','#1b1b1b']],['Dino Dental','packaging','Toothbrushes for kids, shaped like tiny triceratops.','Dino Dental, Oslo',2023,['#3cd6c2','#ffe04a']],['Wobble Records','web','A record label site where the whole page wobbles to the bpm.','Wobble Rec., Berlin',2024,['#ff5a4e','#3f5bff']],['Moon Milk','packaging','Oat milk for night owls. The carton glows in the dark.','Moon Milk, Tokyo',2022,['#1b1b1b','#ffe04a']],['City Murals','murals','Forty metres of squiggles on a car park in Rotterdam.','Municipality of Rotterdam',2023,['#ff9ecf','#3cd6c2']]];
+let wf='all';document.getElementById('wf').innerHTML=['all','branding','packaging','web','murals'].map(f=>`<button data-f="${f}" class="${f==='all'?'on':''}">${f}</button>`).join('');
+document.getElementById('wf').onclick=e=>{if(!e.target.dataset.f)return;wf=e.target.dataset.f;document.querySelectorAll('#wf button').forEach(b=>b.classList.toggle('on',b===e.target));renderWork()};
+function art(seed,[a,b],h=260){let s=`<svg viewBox="0 0 300 ${h}"><rect width="300" height="${h}" fill="${a}"/>`;let r=seed*7+3;const rnd=()=>((r=(r*9301+49297)%233280)/233280);for(let i=0;i<7;i++){const x=rnd()*300,y=rnd()*h,sz=20+rnd()*60,t=rnd()*4|0,c=[b,'#fff6e8','#1b1b1b',C[i%5]][i%4];
+ s+=t===0?`<circle cx="${x}" cy="${y}" r="${sz/2}" fill="${c}" stroke="#1b1b1b" stroke-width="3"/>`:t===1?`<rect x="${x}" y="${y}" width="${sz}" height="${sz}" fill="${c}" stroke="#1b1b1b" stroke-width="3" transform="rotate(${rnd()*60} ${x} ${y})"/>`:t===2?`<path d="M${x} ${y} q15 -20 30 0 t30 0 t30 0" stroke="${c}" stroke-width="7" fill="none" stroke-linecap="round"/>`:`<polygon points="${x},${y} ${x+sz},${y+sz} ${x-sz/2},${y+sz}" fill="${c}" stroke="#1b1b1b" stroke-width="3"/>`}return s+'</svg>'}
+function renderWork(){document.getElementById('work').innerHTML=W.map((w,i)=>[w,i]).filter(([w])=>wf==='all'||w[1]===wf).map(([w,i])=>`<div class="proj" data-i="${i}">${art(i,w[5],180+(i*53)%160)}<div class="c"><h3>${w[0]}</h3><span style="background:${w[5][0]}">${w[1]}</span></div></div>`).join('')}
+renderWork();
+document.getElementById('work').onclick=e=>{const p=e.target.closest('.proj');if(!p)return;const w=W[p.dataset.i];document.getElementById('mbox').innerHTML=`${art(+p.dataset.i+50,w[5],360)}<div class="txt"><button class="x" id="mx">×</button><h2>${w[0]}</h2><p style="font-size:1.15rem;line-height:1.5">${w[2]}</p><dl><dt>Client</dt><dd>${w[3]}</dd><dt>Year</dt><dd>${w[4]}</dd><dt>Discipline</dt><dd>${w[1]}</dd><dt>Squiggles used</dt><dd>${40+p.dataset.i*17}</dd></dl></div>`;modal.hidden=false;document.getElementById('mx').onclick=()=>modal.hidden=true};
+const modal=document.getElementById('modal');modal.onclick=e=>{if(e.target===modal)modal.hidden=true};addEventListener('keydown',e=>{if(e.key==='Escape')modal.hidden=true});
+
+/* pattern machine */
+const PALS=[['#fff6e8','#ff9ecf','#ffe04a','#3cd6c2','#1b1b1b'],['#1b1b1b','#ff5a4e','#ffe04a','#3f5bff','#fff6e8'],['#3cd6c2','#fff6e8','#ff9ecf','#1b1b1b','#ffe04a'],['#ffe04a','#3f5bff','#ff5a4e','#1b1b1b','#fff'],['#ff9ecf','#1b1b1b','#fff','#3cd6c2','#ffe04a'],['#f4ecd8','#e86a33','#264653','#2a9d8f','#e9c46a']];let pi=0,seedP=1;
+document.getElementById('pals').innerHTML=PALS.map((p,i)=>`<button data-p="${i}" class="${i===pi?'on':''}" style="background:linear-gradient(90deg,${p.map((c,k)=>`${c} ${k*20}% ${(k+1)*20}%`).join(',')})"></button>`).join('');
+document.getElementById('pals').onclick=e=>{const p=e.target.dataset.p;if(p==null)return;pi=+p;document.querySelectorAll('#pals button').forEach(b=>b.classList.toggle('on',b===e.target));drawPat()};
+function drawPat(){const c=document.getElementById('pat'),g=c.getContext('2d');const P=PALS[pi];let r=seedP*999+7;const rnd=()=>((r=(r*9301+49297)%233280)/233280);const sc=pSc.value/100,sq=pSq.value/100;
+ g.fillStyle=P[0];g.fillRect(0,0,1200,900);g.lineCap='round';g.lineJoin='round';
+ for(let i=0;i<+pDen.value;i++){const x=rnd()*1200,y=rnd()*900,s=(20+rnd()*70)*sc,t=rnd();const col=P[1+(rnd()*4|0)];g.save();g.translate(x,y);g.rotate(rnd()*Math.PI*2);g.lineWidth=6*sc;g.strokeStyle=P[4]===col?P[1]:'#1b1b1b';g.fillStyle=col;
+  if(t<sq*.45){g.strokeStyle=col;g.lineWidth=10*sc;g.beginPath();for(let k=0;k<=4;k++){g.quadraticCurveTo(k*s*.5-s*.25,(k%2?-1:1)*s*.4,k*s*.5,0)}g.stroke()}
+  else if(t<.5){g.beginPath();g.arc(0,0,s/2,0,7);g.fill();g.stroke()}
+  else if(t<.65){g.beginPath();g.moveTo(0,-s/2);g.lineTo(s/2,s/2);g.lineTo(-s/2,s/2);g.closePath();g.fill();g.stroke()}
+  else if(t<.78){g.fillRect(-s/2,-s/6,s,s/3);g.strokeRect(-s/2,-s/6,s,s/3)}
+  else if(t<.9){g.fillStyle=P[4]===P[0]?P[1]:P[4];for(let a=0;a<4;a++)for(let b=0;b<4;b++){g.beginPath();g.arc(a*s*.25-s*.4,b*s*.25-s*.4,3*sc,0,7);g.fill()}}
+  else{g.strokeStyle=col;g.lineWidth=7*sc;g.beginPath();for(let k=0;k<6;k++)g.lineTo(k*s*.3-s*.75,(k%2?-1:1)*s*.2);g.stroke()}g.restore()}}
+['pDen','pSc','pSq'].forEach(id=>document.getElementById(id).oninput=drawPat);
+document.getElementById('shuffle').onclick=()=>{seedP=Math.random()*1e4|0;drawPat()};
+document.getElementById('dl').onclick=()=>{const a=document.createElement('a');a.download='squiggle-pattern.png';a.href=document.getElementById('pat').toDataURL('image/png');a.click()};
+
+/* services */
+const TIERS=[['Squiggle','A logo, a palette, a little joy',[2400,600],['Logo + 2 variations','Colour palette','One (1) squiggle, custom'],'#ffe04a'],['Big Squiggle','A full brand, head to toe',[9800,2200],['Everything in Squiggle','Type system & patterns','Packaging or web design','Brand guidelines zine'],'#ff9ecf','Popular'],['Mega Squiggle','World domination, pastel edition',[24000,5200],['Everything in Big Squiggle','Website design & build','Campaign art direction','A mural (we\'ll bring ladders)'],'#3cd6c2']];let bill='proj';
+function renderTiers(){document.getElementById('tiers').innerHTML=TIERS.map(([n,d,p,f,c,b])=>`<div class="tier" style="background:${c}">${b?`<div class="badge">${b}</div>`:''}<h3>${n}</h3><p>${d}</p><div class="price">€${p[bill==='proj'?0:1].toLocaleString()}<small>${bill==='proj'?' / project':' / month'}</small></div><ul>${f.map(x=>`<li>${x}</li>`).join('')}</ul><a class="btn" href="#contact" style="background:#fff;margin-top:0">Pick me</a></div>`).join('')}
+document.querySelectorAll('.bill button').forEach(b=>b.onclick=()=>{bill=b.dataset.b;document.querySelectorAll('.bill button').forEach(o=>o.classList.toggle('on',o===b));renderTiers()});renderTiers();
+
+/* contact */
+function confetti(x,y){for(let i=0;i<60;i++){const c=document.createElement('div');c.className='confetti';Object.assign(c.style,{left:x+'px',top:y+'px',background:C[i%6],borderRadius:i%3?'50%':'0'});c.style.setProperty('--dx',(Math.random()-.5)*600+'px');c.style.setProperty('--dy',(Math.random()-.8)*500+'px');c.style.setProperty('--r',Math.random()*720+'deg');document.body.appendChild(c);setTimeout(()=>c.remove(),1700)}}
+document.getElementById('send').onclick=e=>{let ok=true;const n=cn.value.trim(),em=ce.value.trim(),m=cm.value.trim();
+ en.textContent=n?'':'We need something to call you! Even "Captain" works.';ee.textContent=/^\S+@\S+\.\S+$/.test(em)?'':'That email looks a bit wobbly.';document.getElementById('em').textContent=m.length>=10?'':'A little more, please — at least 10 characters of dreams.';
+ ok=n&&/^\S+@\S+\.\S+$/.test(em)&&m.length>=10;if(!ok){document.getElementById('cf').animate([{transform:'translateX(0)'},{transform:'translateX(-10px)'},{transform:'translateX(10px)'},{transform:'translateX(0)'}],{duration:300});return}
+ const r=e.target.getBoundingClientRect();confetti(r.left+r.width/2,r.top);document.getElementById('sent').textContent=`Thanks ${n.split(' ')[0]}! 🎉 (Demo only — nothing was sent.)`};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

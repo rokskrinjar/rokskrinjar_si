@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Harbor — Support inbox</title>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;500;600;700&family=Red+Hat+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--navy:#0d2238;--n2:#163352;--foam:#3fc1b0;--sand:#f7f3ec;--card:#fff;--ln:#e7e1d6;--tx:#1b2633;--mu:#7a8592;--red:#e0533d;--amb:#e6a23c}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;font:14px/1.45 'Red Hat Text',sans-serif;color:var(--tx);display:grid;grid-template-columns:60px 300px 1fr 300px;height:100vh;background:var(--sand)}
+.rail{background:var(--navy);display:flex;flex-direction:column;align-items:center;padding:14px 0;gap:8px}
+.rail .lg{width:34px;height:34px;border-radius:50%;background:var(--foam);display:grid;place-items:center;font:800 16px 'Red Hat Display';color:var(--navy);margin-bottom:12px}
+.rail a{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:#8fa6bf;text-decoration:none;position:relative}.rail a.on{background:var(--n2);color:#fff}
+.rail a b{position:absolute;top:2px;right:2px;background:var(--red);color:#fff;font-size:9px;border-radius:999px;padding:0 4px}
+.list{border-right:1px solid var(--ln);display:flex;flex-direction:column;min-height:0;background:#fbf9f5}
+.lh{padding:16px;border-bottom:1px solid var(--ln)}.lh h2{font:800 20px 'Red Hat Display';margin:0 0 10px}
+.fl{display:flex;gap:6px}.fl button{border:1px solid var(--ln);background:#fff;border-radius:999px;padding:4px 10px;font:600 12px 'Red Hat Text';cursor:pointer;color:var(--mu)}.fl button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.items{overflow:auto;flex:1}
+.tk{padding:14px 16px;border-bottom:1px solid var(--ln);cursor:pointer;position:relative}
+.tk.on{background:#fff;box-shadow:inset 3px 0 0 var(--foam)}.tk.un .sj{font-weight:700}
+.tk .r1{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mu)}.tk .r1 b{color:var(--tx)}
+.tk .sj{margin:3px 0;font-weight:500}.tk .pv{color:var(--mu);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sla{font:700 11px 'Red Hat Text';padding:2px 6px;border-radius:5px}.sla.r{background:#fde8e4;color:var(--red)}.sla.a{background:#fdf1dc;color:#b7791f}.sla.g{background:#e0f5f1;color:#1d8a7b}
+.conv{display:flex;flex-direction:column;min-width:0;min-height:0;background:var(--card)}
+.ch{padding:14px 22px;border-bottom:1px solid var(--ln);display:flex;align-items:center;gap:10px}
+.ch h1{font:800 18px 'Red Hat Display';margin:0;flex:1}.st{border:1px solid var(--ln);background:#fff;border-radius:8px;padding:6px 10px;font:600 12.5px 'Red Hat Text'}
+.msgs{flex:1;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:16px}
+.m{max-width:72%;}.m .who{font-size:12px;color:var(--mu);margin-bottom:4px}.m .bd{padding:12px 14px;border-radius:14px;background:var(--sand)}
+.m.me{align-self:flex-end}.m.me .bd{background:var(--navy);color:#fff}.m.me .who{text-align:right}
+.m.note .bd{background:#fff8e1;border:1px dashed var(--amb)}
+.sys{align-self:center;font-size:12px;color:var(--mu);background:var(--sand);padding:4px 10px;border-radius:999px}
+.comp{border-top:1px solid var(--ln);padding:12px 16px}
+.mac{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}.mac button{border:1px dashed #c9d5e1;background:#f4f8fb;border-radius:999px;padding:4px 10px;font:600 12px 'Red Hat Text';cursor:pointer;color:var(--n2)}
+.comp textarea{width:100%;border:1px solid var(--ln);border-radius:12px;padding:12px;font:14px 'Red Hat Text';resize:none;height:84px;outline:none}
+.comp .row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}.send{background:var(--foam);color:var(--navy);border:0;border-radius:9px;padding:9px 16px;font:700 14px 'Red Hat Text';cursor:pointer}
+.side{border-left:1px solid var(--ln);padding:18px;overflow:auto;background:#fbf9f5}
+.cust{display:flex;gap:12px;align-items:center}.cust i{width:44px;height:44px;border-radius:12px;background:#d97b5f;color:#fff;font-style:normal;display:grid;place-items:center;font:800 16px 'Red Hat Display'}
+.side h4{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--mu);margin:20px 0 8px}
+.kv{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--ln)}.kv span{color:var(--mu)}
+.timer{background:var(--navy);color:#fff;border-radius:12px;padding:14px;margin-top:16px}.timer b{font:800 28px 'Red Hat Display';font-variant-numeric:tabular-nums}
+.timer .bar{height:5px;background:rgba(255,255,255,.15);border-radius:3px;margin-top:8px}.timer .bar i{display:block;height:100%;background:var(--amb);border-radius:3px}
+.hist div{padding:6px 0;font-size:13px}.hist span{color:var(--mu)}
+@media(max-width:1100px){body{grid-template-columns:60px 260px 1fr}.side{display:none}}@media(max-width:760px){body{grid-template-columns:1fr;height:auto}.rail,.list{display:none}.conv{min-height:100vh}}
+</style>
+</head>
+<body>
+<nav class="rail"><div class="lg">H</div><a class="on" href="#">✉<b>9</b></a><a href="#">☎</a><a href="#">◎</a><a href="#">▦</a><a href="#">⚙</a></nav>
+<section class="list"><div class="lh"><h2>Inbox</h2><div class="fl" id="fl"><button class="on">Mine · 6</button><button>Unassigned · 3</button><button>All</button></div></div><div class="items" id="items"></div></section>
+<section class="conv"><div class="ch"><h1 id="subj"></h1><span class="st">Priority: High ▾</span><span class="st">Assignee: You ▾</span><button class="send" id="solve">Solve ✓</button></div><div class="msgs" id="msgs"></div>
+ <div class="comp"><div class="mac" id="mac"><button>⚡ Refund policy</button><button>⚡ Escalate to billing</button><button>⚡ Ask for screenshot</button><button>✨ Draft reply</button></div><textarea id="ta" placeholder="Reply to Hana… (⌘↵ to send)"></textarea><div class="row"><span style="color:var(--mu);font-size:12.5px">Reply · Internal note</span><button class="send" id="snd">Send</button></div></div></section>
+<aside class="side"><div class="cust"><i>HS</i><div><b>Hana Sato</b><br><span style="color:var(--mu);font-size:13px">Ops lead · Kilnworks</span></div></div>
+ <div class="timer"><span style="font-size:12px;opacity:.7">First response due in</span><br><b id="tmr">00:18:42</b><div class="bar"><i style="width:62%"></i></div></div>
+ <h4>Account</h4><div class="kv"><span>Plan</span><b>Business · annual</b></div><div class="kv"><span>MRR</span><b>€1,840</b></div><div class="kv"><span>Seats</span><b>46</b></div><div class="kv"><span>Health</span><b style="color:var(--amb)">● At risk</b></div><div class="kv"><span>Renewal</span><b>14 Jan 2027</b></div>
+ <h4>Previous tickets</h4><div class="hist"><div>Export to CSV times out <span>· 12 Sep</span></div><div>Add SSO for contractors <span>· 3 Aug</span></div><div>Invoice address change <span>· 18 Jun</span></div></div></aside>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const T=[['Hana Sato','Kilnworks','Charged twice for September','We were billed €1,840 on the 1st and again on the 3rd…','r','18m',1],['Tom Becker','Orbis Retail','Can’t invite users from our domain','Every invite to @orbis.de bounces with an error 422.','a','1h 10m',1],['Aiko Mori','Velo Mobility','API rate limit questions','We’re planning a migration next week and expect ~4k req/min.','g','5h',0],['Lukas Weber','Fjord Energy','Feature request: dark mode export','Our ops team works night shifts and PDFs are blinding.','g','1d',0],['Sara Lind','Halden Bank','SSO login loop on Safari','Users get redirected back to the login page endlessly.','r','32m',0],['Marco Ricci','Ashgrove Health','Thanks for the quick fix!','Just confirming everything works now, great job.','g','2d',0]];
+let cur=0;const M={0:[['Hana Sato','Hi — we were charged €1,840 on 1 Sep and again on 3 Sep. Same invoice number on both. Can you look into it? Our finance team is asking.',''],['sys','Harbor matched this to Stripe charge ch_3Pq…a71 and ch_3Pr…c02','sys'],['Maya (billing)','Confirmed duplicate — the retry webhook fired after a timeout. Safe to refund the second charge.','note']]};
+function list(){document.getElementById('items').innerHTML=T.map((t,i)=>`<div class="tk ${i===cur?'on':''} ${t[6]?'un':''}" data-i="${i}"><div class="r1"><b>${t[0]}</b><span class="sla ${t[4]}">${t[5]}</span></div><div class="sj">${t[2]}</div><div class="pv">${t[1]} — ${t[3]}</div></div>`).join('')}
+function conv(){const t=T[cur];document.getElementById('subj').textContent=t[2];const ms=M[cur]||[[t[0],t[3],'']];
+ document.getElementById('msgs').innerHTML=ms.map(m=>m[2]==='sys'?`<div class="sys">${m[1]}</div>`:`<div class="m ${m[2]}"><div class="who">${m[2]==='note'?'🔒 Internal note · ':''}${m[0]} · ${m[2]==='me'?'now':'09:14'}</div><div class="bd">${m[1]}</div></div>`).join('');document.getElementById('ta').placeholder=`Reply to ${t[0].split(' ')[0]}… (⌘↵ to send)`}
+document.getElementById('items').onclick=e=>{const k=e.target.closest('.tk');if(!k)return;cur=+k.dataset.i;T[cur][6]=0;list();conv()};
+const MAC={'⚡ Refund policy':'Refunds for duplicate charges are processed within 3–5 business days and appear as a credit from “HARBOR*BILLING”.','⚡ Escalate to billing':'I’ve looped in our billing team — they’ll confirm by end of day.','⚡ Ask for screenshot':'Could you share a screenshot of the error, including the URL bar?','✨ Draft reply':'Hi Hana — you’re right, and I’m sorry. A retry on our side charged you twice. I’ve refunded the €1,840 from 3 Sep; you’ll see it in 3–5 business days. I’ve also added a note so finance gets a corrected statement automatically.'};
+document.getElementById('mac').onclick=e=>{const b=e.target.closest('button');if(b)document.getElementById('ta').value=MAC[b.textContent]};
+function send(){const ta=document.getElementById('ta');if(!ta.value.trim())return;(M[cur]=M[cur]||[[T[cur][0],T[cur][3],'']]).push(['You',ta.value,'me']);ta.value='';conv();const m=document.getElementById('msgs');m.scrollTop=m.scrollHeight}
+document.getElementById('snd').onclick=send;document.getElementById('ta').onkeydown=e=>{if(e.key==='Enter'&&(e.metaKey||e.ctrlKey))send()};
+document.getElementById('solve').onclick=()=>{T.splice(cur,1);cur=Math.min(cur,T.length-1);list();conv()};
+let s=18*60+42;setInterval(()=>{s=Math.max(0,s-1);document.getElementById('tmr').textContent='00:'+String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')},1000);
+list();conv();
+</script>
+</body>
+</html>

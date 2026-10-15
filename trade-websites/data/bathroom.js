@@ -1,0 +1,163 @@
+T.trade({
+  id: 'bathroom',
+  name: 'Bathroom Fitter',
+  plural: 'Bathroom Fitters',
+  noun: 'bathroom',
+  icon: 'bath',
+  emergency: false,
+
+  nameParts: {
+    pre: ['Bluestone', 'Clearwater', 'Porcelain', 'Calm Water', 'Slate & Steam', 'Fresh Start', 'Rainfall', 'Limewell', 'Seaglass', 'Marble Arch', 'Wellspring', 'Driftstone',
+      'Brookside', 'Tidemark', 'Pebble', 'Silverbirch', 'Glasshouse', 'Stillwater', 'Harbour', 'Willow', 'Riverstone', 'Copper Tap', 'Linen', 'Watermark', 'Greystone', 'Moorland'],
+    post: ['Bathrooms', 'Bathroom Design', 'Bathroom Fitting', 'Bathrooms & Tiling', 'Bathroom Installations', 'Wet Rooms', 'Bathrooms & Wet Rooms', 'Interiors', 'Bathroom Renovations'],
+  },
+
+  headlines: [
+    'Beautiful bathrooms, fitted start to finish',
+    'One team for your whole bathroom refit',
+    'Wet rooms and walk-in showers done properly',
+    'Bathroom refits in {town} without the stress',
+    'Built watertight, finished beautifully',
+    'Accessible bathrooms that still feel like home',
+    'Your new bathroom, planned and fitted by us',
+    'Quality refits, clear prices, tidy fitters',
+    'From tired and leaking to calm and bright',
+    'Showers that do not leak, tiles that stay put',
+    'Careful bathroom craftsmanship, one room at a time',
+    'Bathroom fitting without the project management headache',
+  ],
+
+  intros: [
+    'We design and fit complete bathrooms, from stripping out the old suite to the final bead of silicone. Plumbing, electrics, tiling and plastering are all handled by one coordinated team.',
+    'A good bathroom refit is mostly about the parts you never see: waterproofing, pipework, ventilation and a solid floor. We get those right first, then make the room look beautiful.',
+    'Full refits, wet rooms, walk-in showers and accessible bathrooms across {town}. Clear written quotes, a realistic timetable and one point of contact from start to finish.',
+    'We fit bathrooms that are easy to clean, comfortable to use and built to last. Whether it is a family bathroom, en suite or downstairs shower room, we treat it like our own.',
+    'Thinking about swapping the bath for a walk-in shower or making a bathroom safer for someone with limited mobility? We will help you plan something practical and still stylish.',
+    'Most of our refits take around two weeks. We protect your home, keep you informed daily, and make sure you have a working toilet for as much of the job as possible.',
+    'You can supply your own suite and tiles or choose through us. Either way, we check everything is complete and undamaged before we start pulling the old room out.',
+    'We are not a showroom with a sales team. We are the people who fit your bathroom, so the person who quotes you knows exactly what the job involves.',
+  ],
+
+  about: [
+    '{owner} started out as a plumber and moved into full bathroom refits after realising most customers wanted one person to take charge of the whole room, not five trades who never speak to each other. {name} has now been fitting bathrooms around {town} for {years} years, from small cloakrooms to large family bathrooms.',
+    'We are a small team of plumbers, tilers and fitters who work together every week, with a trusted electrician and plasterer we have used for years. Because we know each other’s standards and how each stage hands over to the next, jobs run smoothly and the finish is consistent from room to room.',
+    'At {name} we believe the hidden work matters most: tanking showers properly, supporting baths and trays on solid bases, running pipes neatly with access where it is needed, and venting moisture well. None of it shows in the photos, but it is what keeps a bathroom looking good and leak-free years later.',
+    '{owner} still surveys every bathroom personally and stays involved from the first measure until handover. You will always know who to call, what is happening next and when each trade will be in, and if a delivery is late or something unexpected turns up behind the old tiles, you will hear it from us first.',
+    'Over {years} years we have refitted family bathrooms, tiny cloakrooms, loft en suites and fully accessible wet rooms. Many of our customers come back when it is time to do the second bathroom, and a good number of our jobs come from friends who have used the first one.',
+    'We help with design without the hard sell. We will tell you where to spend and where to save, from choosing a quality shower valve that will last to using sensible tiles that are easy to keep clean. Our aim is a bathroom you enjoy using every day, not the most expensive one we can quote for.',
+  ],
+
+  services: [
+    { n: 'Full bathroom refits', d: 'Complete strip-out and refit, including plumbing, electrics, plastering, tiling and fitting your new suite.', from: 6500, unit: 'per bathroom' },
+    { n: 'Wet rooms', d: 'Level-access wet rooms with properly tanked floors and walls, linear or centre drains and slip-resistant tiles.', from: 8500, unit: 'per room' },
+    { n: 'Walk-in showers', d: 'Large walk-in showers with low-profile trays or tiled floors, fixed glass screens and thermostatic valves.', from: 3200, unit: 'per job' },
+    { n: 'Bath to shower conversions', d: 'Replace an old bath with a spacious shower enclosure, often in just a few days with minimal disruption.', from: 2800, unit: 'per job' },
+    { n: 'Accessible bathrooms', d: 'Level showers, grab rails, comfort-height toilets, fold-down seats and wider access for independence and safety.', from: 7500, unit: 'per room' },
+    { n: 'En suites & shower rooms', d: 'Compact bathrooms designed to make the most of small spaces, including loft and bedroom conversions.', from: 5200, unit: 'per room' },
+    { n: 'Cloakrooms & downstairs toilets', d: 'Small toilets and basins fitted neatly, with space-saving suites and tiled splashbacks or walls.', from: 2200, unit: 'per room' },
+    { n: 'Bathroom tiling', d: 'Walls and floors tiled with properly prepared surfaces, level layouts, waterproofing and neat cuts around fittings.', from: 55, unit: 'per m²' },
+    { n: 'Shower replacements', d: 'Electric, mixer and thermostatic showers replaced, upgraded or relocated, with leaks fixed behind tiles where needed.', from: 380, unit: 'per job' },
+    { n: 'Underfloor heating', d: 'Electric or wet underfloor heating under tiled floors, with thermostats for comfortable, efficient warmth.', from: 650, unit: 'per room' },
+    { n: 'Vanity units & storage', d: 'Wall-hung vanities, mirrored cabinets and built-in storage fitted securely with concealed plumbing.', from: 350, unit: 'per unit' },
+    { n: 'Leak repairs & resealing', d: 'Find and fix leaking showers, failed seals and loose tiles before water damages floors and ceilings below.', from: 140, unit: 'per job' },
+  ],
+
+  usps: [
+    ['One team, one point of contact', 'We coordinate plumbing, electrics, tiling and plastering, so you are not chasing different trades or managing the timetable.'],
+    ['Waterproofing done properly', 'Showers and wet areas are tanked with proper membranes before tiling, so water stays where it should.'],
+    ['Clear written quotes', 'Our quotes list every stage, item and exclusion, so you can compare prices fairly and avoid surprise extras.'],
+    ['Realistic timetable', 'You get a day-by-day plan before we start, including when your toilet and water will be off.'],
+    ['Protecting your home', 'Dust sheets, floor protection and covered stairs, with waste removed daily and tools packed away each evening.'],
+    ['Experienced tilers', 'Level floors, straight grout lines and careful cuts around pipes and corners are what make a bathroom look expensive.'],
+    ['Accessible design experience', 'We have fitted many level-access showers and safer bathrooms, designed to look homely rather than clinical.'],
+    ['Supply or fit only', 'Choose your suite and tiles yourself or let us source them. We check deliveries before starting.'],
+    ['Daily updates', 'A quick chat or message at the end of each day so you always know what is happening next.'],
+    ['Workmanship guarantee', 'Our installation work is guaranteed, and we return to check seals and fittings after the room has settled in.'],
+  ],
+
+  process: [
+    ['Initial chat', 'Tell us what you want to change, your budget and any must-haves. Photos and rough measurements help us give an early idea.'],
+    ['Survey and design', 'We measure, check pipework, drainage and walls, then talk through layout, products, tiles and lighting.'],
+    ['Detailed quote and plan', 'You get an itemised quote with exclusions clearly listed, plus a provisional schedule and start date.'],
+    ['Strip-out and fitting', 'We protect your home, strip out, first fix plumbing and electrics, waterproof, tile and fit the new suite.'],
+    ['Handover and aftercare', 'We clean, test everything, show you how to use valves and controls, and return to check everything is settled.'],
+  ],
+
+  calc: {
+    title: 'Estimate your bathroom refit',
+    intro: 'A guide price for a full bathroom refit, including strip-out, plumbing, electrics, tiling to wet areas and fitting your new suite.',
+    base: 2400,
+    inputs: [
+      { k: 'area', l: 'Floor area', t: 'num', u: 'm²', min: 2, max: 15, v: 5, step: 0.5, rate: 900 },
+      { k: 'finish', l: 'Suite and finish level', t: 'sel', o: [['Standard', { m: 1 }], ['Mid-range', { m: 1.25 }], ['Premium', { m: 1.6 }]] },
+      { k: 'layout', l: 'Layout', t: 'sel', o: [['Keep the same layout', { m: 1 }], ['Move toilet, bath or shower', { a: 750 }], ['Convert to a wet room', { a: 2400 }]] },
+      { k: 'tiling', l: 'Tile walls floor to ceiling', t: 'chk', e: { r: 140, per: 'area' } },
+      { k: 'ufh', l: 'Add electric underfloor heating', t: 'chk', e: { r: 110, per: 'area' } },
+    ],
+    notes: ['Includes a standard suite and tiles; premium products are reflected in the finish level.', 'Hidden problems such as rotten floorboards or old pipework are quoted separately if found.', 'Final price confirmed after a home survey.'],
+  },
+
+  faq: [
+    ['How long does a full bathroom refit take?', 'Most standard refits take 10 to 15 working days, depending on size, tiling and layout changes. Wet rooms and rooms needing new walls or floors may take longer. We give a day-by-day plan before starting.'],
+    ['Will I have a working toilet?', 'We plan the job so you are without a toilet for as short a time as possible, usually overnight at most. If it is your only toilet, we discuss temporary options before starting.'],
+    ['Can I supply my own suite and tiles?', 'Yes. Many customers do. We will check everything is complete and undamaged before stripping out your old bathroom, and give advice on quantities and products before you order.'],
+    ['What is the difference between a wet room and a walk-in shower?', 'A wet room has a fully waterproofed floor that falls to a drain, often with no tray at all. A walk-in shower usually uses a low tray and screen. Wet rooms are more accessible but involve more preparation.'],
+    ['Do I need to tank my shower?', 'Yes. Tile grout is not waterproof, and water can seep into walls and floors over time. We apply a tanking membrane behind tiles in wet zones to keep the structure dry.'],
+    ['Can you make my bathroom easier to use as I get older?', 'Yes. We fit level-access showers, grab rails, fold-down seats, comfort-height toilets and slip-resistant floors, designed to look like a modern bathroom rather than a hospital room.'],
+    ['How much does a bathroom refit cost?', 'For an average-sized bathroom, refits typically range from around £6,500 for a straightforward refit with a standard suite to £12,000 or more for premium finishes, wet rooms or major layout changes.'],
+    ['Do you handle the electrics?', 'Yes. We coordinate certified electricians for lighting, extractor fans, shaver points, heated towel rails and underfloor heating, and provide the relevant electrical certificates for your records when the work is complete.'],
+    ['What if you find problems when we strip out?', 'Older bathrooms sometimes hide rotten floorboards, leaking pipes or damaged plaster. We show you what we find, explain the options and agree any extra cost before carrying out the work.'],
+    ['How should I look after my new bathroom?', 'Ventilate well after showers, wipe down glass and tiles, use non-abrasive cleaners and check silicone seals each year. Good ventilation is the best protection against mould and damp.'],
+  ],
+
+  reviews: [
+    { t: 'Complete refit of our family bathroom in twelve working days. They kept the toilet working every night, tidied up properly and the tiling is immaculate. Worth every penny.', job: 'Full bathroom refit', s: 5 },
+    { t: 'Turned our old bath into a walk-in shower for Dad. Low tray, grab rails and a fold-down seat. He can shower independently again and it still looks stylish.', job: 'Accessible shower', s: 5 },
+    { t: 'Our wet room is beautiful. The floor falls perfectly to the drain and there is no water anywhere it should not be. They explained the waterproofing at every stage.', job: 'Wet room', s: 5 },
+    { t: 'We supplied our own suite and tiles. They spotted a damaged basin before starting, which saved a lot of hassle, and the finished en suite is lovely.', job: 'En suite fitting', s: 5 },
+    { t: 'Found rotten floorboards when they stripped out the old bath. Showed us photos, gave a clear price and fixed it without delaying the job much.', job: 'Bathroom refit', s: 5 },
+    { t: 'Fantastic tiling and a really neat finish around the window reveal. The job overran by two days because a delivery was late, but they kept us informed.', job: 'Bathroom tiling', s: 4 },
+    { t: 'Cloakroom under the stairs is tiny but they fitted a corner basin and short-projection toilet. It now feels bright and usable.', job: 'Cloakroom', s: 5 },
+    { t: 'Our shower had been leaking into the kitchen ceiling. They found a failed seal and cracked tray, replaced it and retiled the area. No leaks since.', job: 'Shower leak repair', s: 5 },
+    { t: 'Underfloor heating was the best decision. The quote was clear, the thermostat is easy to use and the floor is warm on cold mornings.', job: 'Underfloor heating', s: 5 },
+    { t: 'Very tidy team. Dust sheets over the stairs, all rubbish gone each day and they even cleaned our landing carpet at the end.', job: 'Full bathroom refit', s: 5 },
+    { t: 'Bath to shower conversion done in four days, exactly as planned. Simple, practical and everything works perfectly. Good communication throughout and they left the room spotless.', job: 'Bath to shower', s: 5 },
+    { t: 'Great result in our loft en suite. Sloped ceilings made it tricky but the layout works brilliantly and the shower pressure is excellent.', job: 'Loft en suite', s: 5 },
+    { t: 'Lovely bathroom and very professional. Only small point was a missing towel rail bracket, which they came back and fitted the next week.', job: 'Bathroom refit', s: 4 },
+    { t: 'Helpful advice on where to spend our budget. We chose a better shower valve and simpler tiles, and the bathroom looks far more expensive than it was.', job: 'Bathroom design and fit', s: 5 },
+  ],
+
+  certs: ['Fully insured to £5m', 'Qualified plumbers and tilers', 'Certified electrical work', '12-month workmanship guarantee', 'Itemised written quotes', 'Free home survey and design advice'],
+
+  gallery: [
+    ['Family bathroom with freestanding bath', 'Full refits'],
+    ['Level-access wet room with linear drain', 'Wet rooms'],
+    ['Walk-in shower with fixed glass screen', 'Showers'],
+    ['Bath replaced with large shower enclosure', 'Bath to shower'],
+    ['Accessible bathroom with grab rails', 'Accessible bathrooms'],
+    ['Compact en suite in a loft room', 'En suites'],
+    ['Under-stairs cloakroom with corner basin', 'Cloakrooms'],
+    ['Floor-to-ceiling porcelain tiling', 'Tiling'],
+    ['Wall-hung vanity with mirrored cabinet', 'Vanity units'],
+    ['Thermostatic shower valve upgrade', 'Showers'],
+    ['Electric underfloor heating mat', 'Underfloor heating'],
+    ['Shower tray replaced after a leak', 'Leak repairs'],
+  ],
+
+  jobs: ['Full bathroom refit', 'Wet room', 'Walk-in shower', 'Bath to shower conversion', 'Accessible bathroom', 'En suite or shower room', 'Cloakroom', 'Tiling or leak repair'],
+
+  urgent: ['Shower leaking through the ceiling', 'Loose or cracked tiles in the shower', 'Mouldy, failing silicone seals', 'Bath difficult or unsafe to step into', 'Old bathroom that is tired and hard to clean'],
+
+  tips: [
+    ['Plan storage early', 'Towels, toiletries and cleaning products need somewhere to go. Decide on vanity units, recesses and cabinets at the design stage so pipework and tiling can be planned around them.'],
+    ['Do not skimp on the shower valve', 'A quality thermostatic valve gives steady temperature and lasts years. It sits behind tiles, so replacing a cheap one later means disruption and possible retiling.'],
+    ['Good ventilation prevents mould', 'Choose an extractor fan with enough capacity for the room and run it during and after showers. Leaving the door slightly open helps moisture escape.'],
+    ['Choose practical tiles', 'Large-format tiles mean fewer grout lines to clean. On floors, choose slip-resistant finishes, especially for wet rooms, walk-in showers and homes with children or older relatives.'],
+    ['Check deliveries straight away', 'If you are supplying your suite or tiles, unpack and inspect everything when it arrives. Finding damage after strip-out can delay the job by days.'],
+    ['Think about future needs', 'Even if you do not need accessibility features now, adding wall reinforcement for future grab rails or choosing a low shower tray is easy during a refit.'],
+    ['Reseal every few years', 'Silicone around baths and showers wears, shrinks and discolours over time. Cutting it out and replacing it every few years, before it fails, stops water getting behind tiles and into the floor.'],
+    ['Allow a contingency', 'Older bathrooms can hide leaks, rotten floorboards or uneven walls behind the tiles. Keeping around 10 per cent of your budget aside avoids stress and delays if something unexpected appears during strip-out.'],
+  ],
+
+  hours: { normal: 'Mon–Fri 8:00–17:30, Sat 9:00–12:00 for surveys' },
+});

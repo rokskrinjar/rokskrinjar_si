@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Commonplace — Engineering handbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#fdfcf9;--side:#f5f2ea;--tx:#22201c;--mu:#7f786b;--ln:#e8e2d5;--acc:#b5532c;--hl:#fff1b8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 'Commissioner',sans-serif;display:grid;grid-template-columns:250px 1fr 270px;min-height:100vh}
+aside.l{background:var(--side);padding:16px 10px;border-right:1px solid var(--ln);font-size:14px}
+.ws{display:flex;align-items:center;gap:8px;padding:4px 8px 16px;font-weight:600}.ws i{width:22px;height:22px;border-radius:6px;background:var(--acc);color:#fff;font-style:normal;display:grid;place-items:center;font-size:12px}
+.tree a{display:flex;gap:6px;align-items:center;padding:5px 8px;border-radius:6px;color:#3e3a33;text-decoration:none}.tree a:hover{background:#ece7dc}.tree a.on{background:#e7e0d1;font-weight:600}
+.tree .c{padding-left:18px}.tree h6{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin:16px 8px 4px}
+main{padding:50px 70px 120px;max-width:860px;width:100%;margin:0 auto;position:relative}
+.crumb{color:var(--mu);font-size:13px;margin-bottom:30px;display:flex;gap:10px;align-items:center}.crumb .av{display:flex}.crumb .av i{width:24px;height:24px;border-radius:50%;margin-left:-6px;border:2px solid var(--bg);display:grid;place-items:center;font-style:normal;font-size:10px;color:#fff;font-weight:600}
+.icon{font-size:52px;line-height:1}
+h1{font:700 44px/1.1 'Source Serif 4',serif;letter-spacing:-.02em;margin:10px 0 6px;outline:none}
+.props{display:grid;grid-template-columns:110px 1fr;gap:6px 10px;font-size:13.5px;color:var(--mu);margin:14px 0 26px}.props b{color:var(--tx);font-weight:500}.tag{background:#efe9dc;border-radius:5px;padding:1px 7px;margin-right:4px;color:#5a5348}
+.ed{font:18px/1.7 'Source Serif 4',serif;outline:none}
+.blk{position:relative;padding:2px 0;margin:4px 0}
+.blk .hd{position:absolute;left:-46px;top:6px;display:flex;gap:2px;opacity:0;transition:.15s}.blk:hover .hd{opacity:1}.hd span{width:20px;height:22px;display:grid;place-items:center;color:#b3ab9b;cursor:grab;border-radius:4px;font-size:13px}.hd span:hover{background:#efe9dc}
+.ed h2{font:600 26px 'Source Serif 4';margin:26px 0 4px}
+.callout{display:flex;gap:12px;background:#f7efe2;border-radius:10px;padding:14px 16px;font-size:16.5px}
+.todo{display:flex;gap:10px;align-items:baseline}.todo input{accent-color:var(--acc);transform:scale(1.2)}.todo.d span{text-decoration:line-through;color:var(--mu)}
+mark{background:var(--hl);border-bottom:2px solid #f2c94c;cursor:pointer}
+.ed code{font:14px 'Commissioner';background:#f1ece2;padding:1px 6px;border-radius:4px;color:var(--acc)}
+.ph{color:#b9b1a2}
+.slash{position:absolute;width:300px;background:#fff;border:1px solid var(--ln);border-radius:12px;box-shadow:0 16px 40px rgba(40,30,10,.15);padding:6px;display:none;z-index:10;font:14px 'Commissioner'}
+.slash.on{display:block}.slash h6{margin:6px 10px;color:var(--mu);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.slash div{display:flex;gap:10px;align-items:center;padding:7px 10px;border-radius:8px;cursor:pointer}.slash div.s,.slash div:hover{background:#f5f0e6}
+.slash i{width:34px;height:34px;border:1px solid var(--ln);border-radius:7px;display:grid;place-items:center;font-style:normal;background:#fff}.slash small{display:block;color:var(--mu)}
+aside.r{border-left:1px solid var(--ln);padding:20px 16px;font-size:13.5px}
+aside.r h4{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin:0 0 12px}
+.cmt{background:#fff;border:1px solid var(--ln);border-radius:10px;padding:12px;margin-bottom:10px}.cmt.on{border-color:#f2c94c;box-shadow:0 0 0 3px rgba(242,201,76,.25)}
+.cmt .h{display:flex;gap:8px;align-items:center;margin-bottom:6px}.cmt .h i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;color:#fff;font-size:10px;font-weight:600}
+.cmt q{display:block;border-left:2px solid #f2c94c;padding-left:8px;color:var(--mu);font-style:italic;margin-bottom:6px;quotes:none}
+@media(max-width:1100px){body{grid-template-columns:220px 1fr}aside.r{display:none}}@media(max-width:760px){body{grid-template-columns:1fr}aside.l{display:none}main{padding:30px 20px 80px}.blk .hd{display:none}}
+</style>
+</head>
+<body>
+<aside class="l"><div class="ws"><i>C</i>Fernway Engineering</div><div class="tree"><a href="#">🔎 Search</a><a href="#">🕘 Recent</a><h6>Handbook</h6><a href="#">📘 Start here</a><a class="on" href="#">🚀 How we ship</a><div class="c"><a href="#">Code review</a><a href="#">Release trains</a><a href="#">Incident playbook</a></div><a href="#">🧭 Architecture</a><a href="#">🧑‍🤝‍🧑 On-call</a><h6>Teams</h6><a href="#">Payments</a><a href="#">Platform</a><a href="#">Growth</a></div></aside>
+<main><div class="crumb">Handbook / How we ship <span style="flex:1"></span><span class="av"><i style="background:#b5532c">AL</i><i style="background:#3d6fb6">JP</i><i style="background:#5b8c5a">MR</i></span> 3 editing</div>
+ <div class="icon">🚀</div><h1 contenteditable="true">How we ship</h1>
+ <div class="props"><span>Owner</span><b>Joon Park</b><span>Tags</span><b><span class="tag">process</span><span class="tag">handbook</span></b><span>Verified</span><b style="color:#2e8b57">✓ by Platform team · 12 Sep</b></div>
+ <div class="ed" id="ed">
+  <div class="blk"><div class="hd"><span>＋</span><span>⋮⋮</span></div><p style="margin:0">We ship small, ship often, and make it boring to roll back. Most changes reach production <mark data-c="1">within a day of being merged</mark>.</p></div>
+  <div class="blk"><div class="hd"><span>＋</span><span>⋮⋮</span></div><div class="callout"><span>💡</span><span>If a change can’t be rolled back in under five minutes, it needs a written plan and a second reviewer.</span></div></div>
+  <div class="blk"><div class="hd"><span>＋</span><span>⋮⋮</span></div><h2>Before you merge</h2></div>
+  <div class="blk todo d"><input type="checkbox" checked><span>Tests pass and coverage didn’t drop</span></div>
+  <div class="blk todo d"><input type="checkbox" checked><span>Feature flag wraps anything user-facing</span></div>
+  <div class="blk todo"><input type="checkbox"><span>Migration is <code>backwards-compatible</code> with the previous release</span></div>
+  <div class="blk"><div class="hd"><span>＋</span><span>⋮⋮</span></div><h2>Release trains</h2></div>
+  <div class="blk"><div class="hd"><span>＋</span><span>⋮⋮</span></div><p style="margin:0">Trains leave at 10:00 and 15:00 CET. Missed one? <mark data-c="2">Catch the next — no hotfix exceptions</mark> unless there’s an active incident.</p></div>
+  <div class="blk" id="new"><div class="hd"><span>＋</span><span>⋮⋮</span></div><p style="margin:0" class="ph" id="np">Type “/” for commands</p></div>
+ </div>
+ <div class="slash" id="sl"><h6>Basic blocks</h6><div class="s" data-b="h"><i>H₂</i><span>Heading<small>Section title</small></span></div><div data-b="t"><i>☑</i><span>To-do list<small>Track tasks with checkboxes</small></span></div><div data-b="c"><i>💡</i><span>Callout<small>Make something stand out</small></span></div><div data-b="d"><i>◷</i><span>Decision log<small>Who decided what, and why</small></span></div></div>
+</main>
+<aside class="r"><h4>Comments · 2 open</h4><div class="cmt" data-c="1"><div class="h"><i style="background:#3d6fb6">JP</i><b>Joon</b><span style="color:var(--mu);margin-left:auto">2h</span></div><q>within a day of being merged</q>Is this still true for the mobile apps? App Store review adds 1–2 days.</div>
+ <div class="cmt" data-c="2"><div class="h"><i style="background:#5b8c5a">MR</i><b>Marta</b><span style="color:var(--mu);margin-left:auto">yesterday</span></div><q>no hotfix exceptions</q>Let’s link the incident playbook here so people know what “active incident” means.</div></aside>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const sl=document.getElementById('sl'),np=document.getElementById('np'),nw=document.getElementById('new');
+function openSlash(){const r=nw.getBoundingClientRect(),m=document.querySelector('main').getBoundingClientRect();sl.style.left=(r.left-m.left)+'px';sl.style.top=(r.bottom-m.top+4)+'px';sl.classList.add('on');np.textContent='/';np.classList.remove('ph')}
+nw.onclick=openSlash;setTimeout(openSlash,800);
+const B={h:'<h2 contenteditable="true">New section</h2>',t:'<div class="todo"><input type="checkbox"><span contenteditable="true">Something to do</span></div>',c:'<div class="callout"><span>💡</span><span contenteditable="true">Something worth noticing</span></div>',d:'<div class="callout" style="background:#eef3ec"><span>◷</span><span contenteditable="true"><b>Decided 1 Oct</b> — mobile releases follow the same trains, App Store review excluded. <i>(Joon, Marta)</i></span></div>'};
+sl.onclick=e=>{const d=e.target.closest('[data-b]');if(!d)return;const el=document.createElement('div');el.className='blk';el.innerHTML='<div class="hd"><span>＋</span><span>⋮⋮</span></div>'+B[d.dataset.b];nw.before(el);sl.classList.remove('on');np.textContent='Type “/” for commands';np.classList.add('ph')};
+document.addEventListener('click',e=>{if(!e.target.closest('#sl')&&!e.target.closest('#new'))sl.classList.remove('on');const m=e.target.closest('[data-c]');if(m)document.querySelectorAll('.cmt').forEach(c=>c.classList.toggle('on',c.dataset.c===m.dataset.c))});
+document.getElementById('ed').addEventListener('change',e=>{if(e.target.type==='checkbox')e.target.closest('.todo').classList.toggle('d',e.target.checked)});
+</script>
+</body>
+</html>

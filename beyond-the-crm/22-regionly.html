@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Regionly — Field & geo performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#f5f3fb;--ink:#1a1530;--ink2:#4e4866;--ink3:#857f9b;--grid:#ebe8f3;--s1:#7c3aed;--s2:#ea580c;--s3:#0891b2;--s4:#db2777;--s5:#65a30d;--q1:#ede5fd;--q2:#d6c4fb;--q3:#b393f6;--q4:#9061f0;--q5:#7c3aed;--q6:#5b21b6;--pos:#7c3aed;--neg:#c93a39;--good:#0f7a52;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Lexend',sans-serif;font-weight:300}
+b,h1,h3{font-weight:600}
+header{padding:18px 30px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.lg{font-weight:600;font-size:20px;display:flex;align-items:center;gap:8px}.lg svg{width:26px}
+header .sp{flex:1}.src{font-size:12px;color:var(--ink3)}
+.tabs{display:flex;gap:6px;padding:0 30px;flex-wrap:wrap}.tabs button{border:0;background:#e7e2f5;color:var(--ink2);border-radius:10px;padding:8px 14px;font:500 13px 'Lexend';cursor:pointer}.tabs button.on{background:var(--s1);color:#fff}
+.wrap{padding:16px 30px 70px;max-width:1440px;margin:0 auto}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.filters select{border:0;background:#fff;border-radius:10px;padding:8px 12px;font:500 13px 'Lexend'}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--surface);border-radius:16px;padding:15px 16px}.kpi .l{font-size:12.5px;color:var(--ink3)}.kpi .v{font-size:26px;font-weight:600;letter-spacing:-.02em}.kpi .d{font-size:12px;font-weight:500}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border-radius:18px;padding:18px 20px;min-width:0}.card h3{margin:0;font-size:15px}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.us{display:grid;grid-template-columns:repeat(11,1fr);gap:4px;max-width:640px}.st{aspect-ratio:1;border-radius:7px;display:grid;place-items:center;font-size:11.5px;font-weight:600;cursor:pointer;transition:transform .1s}.st:hover{transform:scale(1.12)}.st.sel{outline:3px solid var(--ink);outline-offset:1px}
+.mleg{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink3);margin-top:12px}.mleg i{display:flex;height:10px;width:160px;border-radius:5px;overflow:hidden}.mleg i b{flex:1}
+.det .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--grid)}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}.src{display:none}}@media(max-width:640px){.wrap,header,.tabs{padding-left:16px;padding-right:16px}.kpis{grid-template-columns:1fr 1fr}.st{font-size:9px}}
+</style>
+</head>
+<body>
+<header><div class="lg"><svg viewBox="0 0 26 26"><path d="M13 2C8.6 2 5 5.5 5 9.9 5 16 13 24 13 24s8-8 8-14.1C21 5.5 17.4 2 13 2z" fill="#7c3aed"/><circle cx="13" cy="10" r="3.2" fill="#fff"/></svg>Regionly</div><span class="src">Salesforce (Account.BillingState) · HubSpot · Concur travel · Cvent events · Census business counts</span></header>
+<nav class="tabs"><button data-sheet="map">Map</button><button data-sheet="regions">Regions</button><button data-sheet="growth">Growth</button><button data-sheet="field">Field events</button><button data-sheet="travel">Travel ROI</button></nav>
+<div class="wrap"><div class="filters"><select data-f="range"><option value="90d">This quarter</option><option value="12m" selected>Last 12 months</option></select><select data-f="metric"><option value="book">Map: bookings</option><option value="pen">Map: market penetration</option><option value="wr">Map: win rate</option></select><select data-f="seg"><option value="all">All segments</option><option value="ent">Enterprise</option><option value="mm">Mid-market</option></select></div>
+ <section data-panel="map"><div class="kpis" id="k1"></div><div class="g g21"><div class="card"><h3>United States</h3><p class="sub" id="msub"></p><div class="us" id="us"></div><div class="mleg" id="mleg"></div></div><div class="card det" id="det"></div></div></section>
+ <section data-panel="regions" hidden><div class="card"><h3>Regional scorecard</h3><p class="sub">Click a header to sort</p><div id="t_reg"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Bookings vs. target by region</h3><p class="sub">Tick = target</p><div id="c_bul"></div></div></section>
+ <section data-panel="growth" hidden><div class="card"><h3>Bookings by region</h3><p class="sub">Monthly</p><div id="c_gr"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Year-over-year growth</h3><p class="sub">By region</p><div id="c_yoy"></div></div></section>
+ <section data-panel="field" hidden><div class="g g2"><div class="card"><h3>Pipeline from field events, by city</h3><p class="sub">Cvent attendees matched to Salesforce opportunities</p><div id="c_city"></div></div><div class="card"><h3>Cost per opportunity, by city</h3><p class="sub">Venue + travel ÷ opportunities created within 60 days</p><div id="c_cpo"></div></div></div></section>
+ <section data-panel="travel" hidden><div class="kpis" id="k5"></div><div class="card"><h3>Days on the road vs. pipeline created</h3><p class="sub">Each dot is a field rep (Concur trips + Salesforce)</p><div id="c_tv"></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const US='AK00 ME100 WI51 VT91 NH101 WA02 ID12 MT22 ND32 MN42 IL52 MI62 NY82 MA92 OR03 NV13 WY23 SD33 IA43 IN53 OH63 PA73 NJ83 CT93 RI103 CA04 UT14 CO24 NE34 MO44 KY54 WV64 VA74 MD84 DE94 AZ15 NM25 KS35 AR45 TN55 NC65 SC75 DC85 OK36 LA46 MS56 AL66 GA76 HI07 TX37 FL87'.split(' ').map(s=>{const c=s.slice(0,2),rest=s.slice(2);const x=+rest.slice(0,rest.length-1),y=+rest.slice(-1);return[c,x,y]});
+const REG={West:['WA','OR','CA','NV','ID','MT','WY','UT','CO','AZ','NM','AK','HI'],Central:['ND','SD','NE','KS','OK','TX','MN','IA','MO','AR','LA','WI','IL'],East:['MI','IN','OH','KY','TN','MS','AL','GA','FL','SC','NC','VA','WV','MD','DE','DC','PA','NJ','NY','CT','RI','MA','VT','NH','ME']};
+const BIG={CA:9,TX:8,NY:8,FL:5,IL:5,MA:4,WA:4,NJ:3,GA:3,PA:3,VA:3,CO:3,NC:3,OH:2.5,MI:2,MN:2,AZ:2,MD:2,TN:1.6,UT:1.5,OR:1.5,MO:1.4,WI:1.3,IN:1.2,CT:1.2,DC:1.4};
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const m=F.range==='90d'?.27:1;const f={all:1,ent:.55,mm:.45}[F.seg];
+ const st=US.map(([c,x,y])=>{const sz=BIG[c]||.5;return{c,x,y,reg:Object.keys(REG).find(k=>REG[k].includes(c)),book:sz*1.1e6*m*f*(.6+r()*.8),pen:.02+r()*.18*Math.min(1,sz/4+.2),wr:.16+r()*.2,reps:Math.round(sz*.8)}});return memo[k]={r,m,f,st}}
+const S={range:'12m',metric:'book',seg:'all'};let SEL='CA';const MT={book:['Bookings',s=>s.book,K.money],pen:['Penetration',s=>s.pen,v=>K.pct(v,0)],wr:['Win rate',s=>s.wr,v=>K.pct(v,0)]};
+const views={
+map(F){const D=data(F);const[mn,fn,fm]=MT[F.metric];const vals=D.st.map(fn);const lo=Math.min(...vals),hi=Math.max(...vals);$('msub').textContent='Colour = '+mn.toLowerCase()+'. Click a state.';
+ K.kpis($('k1'),[{label:'Bookings',value:K.money(K.sum(D.st.map(s=>s.book))),delta:.19},{label:'States with a customer',value:'47 of 51'},{label:'Top state',value:[...D.st].sort((a,b)=>b.book-a.book)[0].c},{label:'Field reps',value:K.int(K.sum(D.st.map(s=>s.reps)))},{label:'Avg win rate',value:K.pct(K.sum(D.st.map(s=>s.wr))/D.st.length,0)}]);
+ const us=$('us');us.textContent='';for(let y=0;y<8;y++)for(let x=0;x<11;x++){const s=D.st.find(z=>z.x===x&&z.y===y);const d=document.createElement('div');if(!s){us.appendChild(d);continue}const kk=Math.round((fn(s)-lo)/(hi-lo||1)*5);d.className='st'+(s.c===SEL?' sel':'');d.style.background=K.css('--q'+(kk+1));d.style.color=kk>=3?'#fff':K.css('--ink');d.textContent=s.c;d.tabIndex=0;
+  d.onpointermove=e=>K.tipShow(e,s.c,[[null,fm(fn(s)),mn],[null,K.money(s.book),'bookings']]);d.onpointerleave=K.tipHide;d.onclick=()=>{SEL=s.c;views.map(F)};us.appendChild(d)}
+ $('mleg').innerHTML=`<span>${fm(lo)}</span><i>${[1,2,3,4,5,6].map(q=>`<b style="background:var(--q${q})"></b>`).join('')}</i><span>${fm(hi)}</span>`;
+ const s=D.st.find(z=>z.c===SEL);$('det').innerHTML=`<h3>${s.c} · ${s.reg} region</h3><p class="sub">${s.reps} field reps</p><div class="row"><span>Bookings</span><b>${K.money(s.book)}</b></div><div class="row"><span>Win rate</span><b>${K.pct(s.wr,0)}</b></div><div class="row"><span>Market penetration</span><b>${K.pct(s.pen,0)}</b></div><div id="c_ind" style="margin-top:14px"></div>`;
+ K.bars($('c_ind'),{labels:['Financial services','Healthcare','Software','Manufacturing','Retail'],series:[{name:'Bookings',data:[.31,.22,.2,.16,.11].map(v=>v*s.book)}],fmt:K.money,horizontal:true,h:200})},
+regions(F){const D=data(F);const R=Object.keys(REG).map(k=>{const ss=D.st.filter(s=>s.reg===k);const b=K.sum(ss.map(s=>s.book));return{n:k,b,t:b*(.85+D.r()*.3),reps:K.sum(ss.map(s=>s.reps)),wr:K.sum(ss.map(s=>s.wr))/ss.length,top:[...ss].sort((a,b)=>b.book-a.book)[0].c}});
+ K.table($('t_reg'),{cols:[{k:'n',label:'Region'},{k:'b',label:'Bookings',align:'r',fmt:K.money,bar:true},{k:'reps',label:'Reps',align:'r'},{k:'per',label:'Per rep',align:'r',fmt:K.money},{k:'wr',label:'Win rate',align:'r',fmt:v=>K.pct(v,0)},{k:'top',label:'Top state'}],rows:R.map(x=>({...x,per:x.b/x.reps})),sort:'b'});
+ K.bullet($('c_bul'),{rows:R.map(x=>[x.n,x.b,x.t]),fmt:K.money})},
+growth(F){const D=data(F);const L=K.periods(F.range);const n=L.length;const tot=k=>K.sum(D.st.filter(s=>s.reg===k).map(s=>s.book));
+ K.line($('c_gr'),{labels:L,series:Object.keys(REG).map((k,i)=>({name:k,data:K.series(D.r,n,tot(k)/n,{trend:[.3,.15,.22][i],noise:.12})})),fmt:K.money,h:270});
+ K.bars($('c_yoy'),{labels:Object.keys(REG),series:[{name:'YoY growth',data:[.34,.17,.24]}],fmt:v=>'+'+K.pct(v,0),h:220})},
+field(F){const D=data(F);const C=['New York','San Francisco','Chicago','Austin','Boston','Denver','Atlanta','Seattle'];const r=K.rng(K.seed(F,'c'));const p=C.map(()=>(300e3+r()*1.6e6)*D.m*D.f);const cpo=C.map(()=>4000+r()*12000);
+ const ix=C.map((_,i)=>i).sort((a,b)=>p[b]-p[a]);K.bars($('c_city'),{labels:ix.map(i=>C[i]),series:[{name:'Pipeline',data:ix.map(i=>p[i])}],fmt:K.money,horizontal:true,h:290});
+ const iy=C.map((_,i)=>i).sort((a,b)=>cpo[a]-cpo[b]);K.bars($('c_cpo'),{labels:iy.map(i=>C[i]),series:[{name:'Cost per opp',data:iy.map(i=>cpo[i])}],fmt:K.money,horizontal:true,h:290})},
+travel(F){const D=data(F);const r=K.rng(K.seed(F,'t'));const N=['Ana R.','Ben O.','Chloé M.','Dev P.','Elin B.','Felix W.','Grace K.','Hugo S.','Iris N.','Jonas L.','Kaja M.','Luca F.'];
+ const pts=N.map((n,i)=>({x:Math.round((8+r()*50)*D.m),y:(200e3+r()*2.2e6)*D.m,label:n,g:i%3}));
+ K.kpis($('k5'),[{label:'Travel spend',value:K.money(412e3*D.m)},{label:'Trips',value:K.int(386*D.m)},{label:'Pipeline per travel $',value:'14.2×'},{label:'Meetings per trip',value:'3.8'},{label:'Trips with zero meetings',value:'7%'}]);
+ K.scatter($('c_tv'),{points:pts.map(p=>({...p,tag:p.y>1.8e6*D.m})),groups:['West','Central','East'],xfmt:v=>Math.round(v)+'d',yfmt:K.money,xLabel:'Days travelling',yLabel:'Pipeline created',h:320})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

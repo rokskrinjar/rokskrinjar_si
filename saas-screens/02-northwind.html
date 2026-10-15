@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Northwind — Control Tower</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&family=Martian+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#0b1015;--p1:#111820;--p2:#16202a;--ln:#223040;--tx:#d7e1ea;--mu:#7d8fa1;--amb:#ffb020;--tea:#36d1c4;--red:#ff5d5d}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 'Barlow',sans-serif;display:grid;grid-template-columns:64px 1fr;min-height:100vh}
+.rail{background:#070b0f;border-right:1px solid var(--ln);display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 0}
+.rail .lg{width:34px;height:34px;border-radius:8px;background:var(--amb);color:#111;display:grid;place-items:center;font:700 18px 'Barlow Condensed';margin-bottom:14px}
+.rail a{width:40px;height:40px;border-radius:9px;display:grid;place-items:center;color:var(--mu);text-decoration:none;font-size:18px}.rail a.on{background:var(--p2);color:var(--amb)}
+main{display:grid;grid-template-rows:auto auto 1fr auto;gap:12px;padding:14px;min-width:0}
+header{display:flex;align-items:center;gap:16px}
+header h1{font:600 22px 'Barlow Condensed';letter-spacing:.06em;text-transform:uppercase;margin:0}
+.live{display:flex;align-items:center;gap:7px;font:500 11px 'Martian Mono';color:var(--tea)}.live i{width:8px;height:8px;border-radius:50%;background:var(--tea);box-shadow:0 0 0 0 var(--tea);animation:p 1.6s infinite}
+@keyframes p{70%{box-shadow:0 0 0 8px transparent}}
+header .sp{flex:1}.chip{padding:6px 10px;border:1px solid var(--ln);border-radius:6px;font:500 11px 'Martian Mono';color:var(--mu);background:var(--p1)}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.k{background:var(--p1);border:1px solid var(--ln);border-radius:10px;padding:12px 14px}
+.k .l{font:500 10px 'Martian Mono';color:var(--mu);text-transform:uppercase;letter-spacing:.1em}
+.k .v{font:600 32px/1.1 'Barlow Condensed';margin-top:4px;font-variant-numeric:tabular-nums}
+.k .d{font:500 11px 'Martian Mono'}.up{color:var(--tea)}.dn{color:var(--red)}
+.k svg{width:100%;height:26px;margin-top:4px}
+.mid{display:grid;grid-template-columns:1fr 340px;gap:12px;min-height:420px}
+.map{background:var(--p1);border:1px solid var(--ln);border-radius:10px;position:relative;overflow:hidden}
+.map .tl{position:absolute;left:14px;top:12px;font:600 13px 'Barlow Condensed';letter-spacing:.1em;text-transform:uppercase;color:var(--mu);z-index:2}
+.map svg{width:100%;height:100%;display:block}
+.legend{position:absolute;left:14px;bottom:12px;display:flex;gap:14px;font:500 11px 'Martian Mono';color:var(--mu)}.legend i{display:inline-block;width:10px;height:3px;margin-right:6px;vertical-align:middle}
+.feed{background:var(--p1);border:1px solid var(--ln);border-radius:10px;display:flex;flex-direction:column;min-height:0}
+.feed h3{margin:0;padding:12px 14px;border-bottom:1px solid var(--ln);font:600 13px 'Barlow Condensed';letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between}
+.feed h3 b{background:var(--red);color:#fff;border-radius:999px;padding:0 8px;font:600 11px 'Martian Mono'}
+.ev{padding:11px 14px;border-bottom:1px solid var(--ln);display:grid;grid-template-columns:8px 1fr auto;gap:10px;animation:in .5s}
+@keyframes in{from{background:#1c2a36}}
+.ev .dot{width:8px;height:8px;border-radius:2px;margin-top:6px}
+.ev b{font-weight:600}.ev p{margin:2px 0 0;color:var(--mu);font-size:12.5px}.ev time{font:500 10px 'Martian Mono';color:var(--mu)}
+.feed .list{overflow:auto;flex:1}
+.ship{background:var(--p1);border:1px solid var(--ln);border-radius:10px;overflow:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th{font:500 10px 'Martian Mono';text-transform:uppercase;letter-spacing:.1em;color:var(--mu);text-align:left;padding:10px 14px;border-bottom:1px solid var(--ln);white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid var(--ln);white-space:nowrap}
+.tag{font:500 10px 'Martian Mono';padding:3px 7px;border-radius:4px;text-transform:uppercase}
+.t-ok{background:rgba(54,209,196,.12);color:var(--tea)}.t-w{background:rgba(255,176,32,.13);color:var(--amb)}.t-r{background:rgba(255,93,93,.14);color:var(--red)}
+.prog{width:120px;height:4px;background:var(--ln);border-radius:2px}.prog i{display:block;height:100%;border-radius:2px;background:var(--amb)}
+@media(max-width:1000px){body{grid-template-columns:1fr}.rail{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.mid{grid-template-columns:1fr}.map{min-height:340px}}
+</style>
+</head>
+<body>
+<nav class="rail"><div class="lg">N</div><a class="on" href="#">◎</a><a href="#">▤</a><a href="#">⇄</a><a href="#">◷</a><a href="#">⚑</a><a href="#" style="margin-top:auto">⚙</a></nav>
+<main>
+ <header><h1>Control tower · EU lanes</h1><span class="live"><i></i>LIVE</span><span class="sp"></span><span class="chip">Wed 1 Oct · 14:06 CET</span><span class="chip">Region: EU-West ▾</span><span class="chip">⌘K</span></header>
+ <div class="kpis" id="kpis"></div>
+ <div class="mid">
+  <div class="map"><div class="tl">Active lanes · 214 vehicles</div>
+   <svg viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice" id="map">
+    <defs><pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#1d2a37"/></pattern></defs>
+    <rect width="900" height="520" fill="url(#dots)"/>
+    <path d="M80 90 C 160 60, 260 70, 330 110 C 380 140, 430 120, 500 90 C 580 60, 680 80, 760 130 C 820 170, 850 240, 820 300 C 790 360, 700 380, 640 430 C 580 470, 470 480, 400 440 C 330 400, 260 420, 190 400 C 120 380, 70 320, 90 250 C 110 180, 40 140, 80 90 Z" fill="#121c26" stroke="#253545"/>
+    <g id="routes"></g><g id="hubs"></g><g id="trucks"></g>
+   </svg>
+   <div class="legend"><span><i style="background:var(--tea)"></i>On time</span><span><i style="background:var(--amb)"></i>At risk</span><span><i style="background:var(--red)"></i>Delayed</span></div>
+  </div>
+  <div class="feed"><h3>Exceptions <b id="exc">5</b></h3><div class="list" id="feed"></div></div>
+ </div>
+ <div class="ship"><table><thead><tr><th>Shipment</th><th>Lane</th><th>Carrier</th><th>Cargo</th><th>Progress</th><th>ETA</th><th>Status</th></tr></thead><tbody id="ships"></tbody></table></div>
+</main>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 50 SaaS</a>
+<script>
+const NS='http://www.w3.org/2000/svg',$=s=>document.querySelector(s);
+const K=[['On-time rate','96.4%','+1.2 pts','up'],['In transit','214','+18','up'],['Avg dwell','38 min','−6 min','up'],['Exceptions','5','+2','dn'],['CO₂ / km','0.71 kg','−4%','up']];
+$('#kpis').innerHTML=K.map(([l,v,d,c],i)=>{let pts='';for(let x=0;x<=20;x++)pts+=`${x*10},${20-(Math.sin(x*.7+i)*6+x*(c==='up'?.35:-.2)+8)} `;return`<div class="k"><div class="l">${l}</div><div class="v">${v}</div><div class="d ${c}">${d} vs last wk</div><svg viewBox="0 0 200 26" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="${c==='up'?'#36d1c4':'#ff5d5d'}" stroke-width="2"/></svg></div>`}).join('');
+const H={RTM:[230,150],HAM:[420,105],LYO:[300,330],MIL:[470,330],PRG:[560,190],WAW:[700,150],BCN:[200,420],VIE:[620,270],MUC:[500,240]};
+const L=[['RTM','HAM','#36d1c4'],['RTM','LYO','#36d1c4'],['HAM','WAW','#ffb020'],['LYO','BCN','#36d1c4'],['MUC','MIL','#36d1c4'],['PRG','VIE','#36d1c4'],['MUC','PRG','#ff5d5d'],['RTM','MUC','#36d1c4'],['VIE','WAW','#ffb020'],['LYO','MIL','#36d1c4']];
+const paths=L.map(([a,b,c])=>{const[x1,y1]=H[a],[x2,y2]=H[b],mx=(x1+x2)/2+(y2-y1)*.18,my=(y1+y2)/2-(x2-x1)*.18;const p=document.createElementNS(NS,'path');p.setAttribute('d',`M${x1} ${y1}Q${mx} ${my} ${x2} ${y2}`);p.setAttribute('fill','none');p.setAttribute('stroke',c);p.setAttribute('stroke-width','1.6');p.setAttribute('stroke-dasharray','4 6');p.setAttribute('opacity','.7');$('#routes').appendChild(p);return{p,c,len:0}});
+Object.entries(H).forEach(([k,[x,y]])=>{$('#hubs').insertAdjacentHTML('beforeend',`<circle cx="${x}" cy="${y}" r="11" fill="#0b1015" stroke="#3a4d60"/><circle cx="${x}" cy="${y}" r="4" fill="#d7e1ea"/><text x="${x+15}" y="${y+4}" fill="#7d8fa1" font-family="Martian Mono" font-size="11">${k}</text>`)});
+const trucks=[];paths.forEach((r,i)=>{r.len=r.p.getTotalLength();for(let j=0;j<2;j++){const c=document.createElementNS(NS,'circle');c.setAttribute('r','4.5');c.setAttribute('fill',r.c);c.setAttribute('stroke','#0b1015');c.setAttribute('stroke-width','2');$('#trucks').appendChild(c);trucks.push({c,r,o:(i*.13+j*.5)%1,s:.04+((i*7)%5)*.012})}});
+let off=0;(function tick(t){off-=.3;paths.forEach(r=>r.p.setAttribute('stroke-dashoffset',off));trucks.forEach(k=>{const u=((t/1000)*k.s+k.o)%1;const pt=k.r.p.getPointAtLength(u*k.r.len);k.c.setAttribute('cx',pt.x);k.c.setAttribute('cy',pt.y)});requestAnimationFrame(tick)})(0);
+const EV=[['#ff5d5d','NW-40912 delayed at MUC','Border queue at Kiefersfelden, +74 min','2m'],['#ffb020','Reefer temp drift','NW-40877 at 6.1 °C (limit 6 °C)','6m'],['#ffb020','Driver hours near limit','J. Kowalski · 8h 41m of 9h','11m'],['#ff5d5d','Missed slot · HAM DC4','Rebooked to 16:30, customer notified','18m'],['#36d1c4','Lane RTM→LYO recovered','Back within SLA','24m'],['#ffb020','Weather advisory','Brenner pass, snow from 19:00','31m'],['#36d1c4','POD signed · NW-40851','Calder Labs, Milano','36m']];
+const feed=$('#feed');const addEv=(e)=>{feed.insertAdjacentHTML('afterbegin',`<div class="ev"><span class="dot" style="background:${e[0]}"></span><div><b>${e[1]}</b><p>${e[2]}</p></div><time>${e[3]}</time></div>`)};EV.slice().reverse().forEach(addEv);
+const S=[['NW-40912','MUC → PRG','Trans-Alp','Auto parts · 18 t',.62,'15:40','Delayed','t-r'],['NW-40877','RTM → HAM','Nordline','Produce · reefer',.48,'16:10','At risk','t-w'],['NW-40903','LYO → BCN','Sud Express','Retail · 22 pallets',.81,'14:55','On time','t-ok'],['NW-40890','HAM → WAW','Baltic Rd','Electronics',.35,'19:20','At risk','t-w'],['NW-40915','PRG → VIE','Danubia','Pharma · GDP',.27,'17:05','On time','t-ok'],['NW-40921','RTM → MUC','Nordline','FMCG · 26 t',.12,'Tomorrow 07:30','On time','t-ok']];
+$('#ships').innerHTML=S.map(s=>`<tr><td style="font-family:Martian Mono;font-size:12px">${s[0]}</td><td>${s[1]}</td><td>${s[2]}</td><td style="color:#7d8fa1">${s[3]}</td><td><div class="prog"><i style="width:${s[4]*100}%;background:${s[7]==='t-r'?'#ff5d5d':s[7]==='t-w'?'#ffb020':'#36d1c4'}"></i></div></td><td>${s[5]}</td><td><span class="tag ${s[7]}">${s[6]}</span></td></tr>`).join('');
+const NEW=[['#ffb020','Tyre pressure warning','NW-40903 · axle 3 rear left'],['#36d1c4','Slot confirmed · WAW','NW-40890 at 19:40'],['#ff5d5d','Road closure A8','Reroute suggested for 3 vehicles']];let n=0;
+setInterval(()=>{const e=NEW[n%NEW.length];addEv([e[0],e[1],e[2],'now']);n++;if(e[0]==='#ff5d5d')$('#exc').textContent=+$('#exc').textContent+1},5200);
+</script>
+</body>
+</html>

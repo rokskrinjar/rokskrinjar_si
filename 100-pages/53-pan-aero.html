@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pan Aero — The Jet Age, 1962</title>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Jost:wght@300;400;600;800&family=Courier+Prime&display=swap" rel="stylesheet">
+<style>
+:root{--sky:#8ec5e0;--sky2:#cfe7f1;--cream:#fbf3e3;--orange:#e8622c;--navy:#17304f;--mint:#7cc6b0;--gold:#e8b44c}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--navy);font-family:Jost,sans-serif}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 5vw;gap:18px;flex-wrap:wrap;position:relative;z-index:3}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Yeseva One';font-size:30px}
+.logo svg{width:44px;height:44px}
+nav{display:flex;gap:26px;font-weight:600;font-size:14px;letter-spacing:.14em;text-transform:uppercase;flex-wrap:wrap}
+nav a{padding-bottom:4px;border-bottom:3px solid transparent}nav a.on{border-color:var(--orange)}
+[data-view][hidden]{display:none}
+/* hero */
+.hero{position:relative;min-height:88vh;background:linear-gradient(var(--sky) 0%,var(--sky2) 70%,var(--cream) 100%);overflow:hidden;margin-top:-84px;padding:150px 5vw 60px}
+.sun{position:absolute;right:12vw;top:18vh;width:26vmin;height:26vmin;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3vmin #e8b44c55,0 0 0 6vmin #e8b44c22}
+.cloud{position:absolute;background:#fff;border-radius:100px;opacity:.9;animation:drift linear infinite}
+.cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cloud::before{width:50%;height:160%;left:15%;top:-70%}.cloud::after{width:36%;height:120%;left:50%;top:-45%}
+@keyframes drift{from{transform:translateX(110vw)}to{transform:translateX(-40vw)}}
+.jet{position:absolute;left:0;top:34vh;width:min(560px,70vw);animation:fly 14s ease-in-out infinite}
+@keyframes fly{0%{transform:translate(-60vw,40px) rotate(-6deg)}50%{transform:translate(38vw,-30px) rotate(-3deg)}100%{transform:translate(120vw,-90px) rotate(-6deg)}}
+.hero h1{font-family:'Yeseva One';font-weight:400;font-size:clamp(3rem,8.5vw,7.4rem);line-height:.92;position:relative;z-index:2;max-width:11ch;color:var(--navy)}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero p{font-size:1.25rem;max-width:36ch;margin:18px 0 26px;position:relative;z-index:2;font-weight:300;line-height:1.5}
+.cta{display:inline-block;padding:16px 30px;background:var(--orange);color:#fff;border-radius:40px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:13px;border:0;cursor:pointer;box-shadow:0 6px 0 #a83d12;position:relative;z-index:2}
+.cta:active{transform:translateY(4px);box-shadow:0 2px 0 #a83d12}
+.posters{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:26px;padding:60px 5vw}
+.poster{aspect-ratio:3/4;border-radius:4px;position:relative;overflow:hidden;padding:22px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 20px 40px -18px #17304f88;transition:transform .3s;cursor:pointer}
+.poster:hover{transform:translateY(-8px) rotate(-1deg)}
+.poster b{font-family:'Yeseva One';font-weight:400;font-size:2.6rem;line-height:1;position:relative;z-index:2}
+.poster small{font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;position:relative;z-index:2}
+.poster svg{position:absolute;inset:0;width:100%;height:100%}
+/* book */
+.wrap{max-width:1180px;margin:0 auto;padding:40px 5vw 80px}
+h2{font-family:'Yeseva One';font-weight:400;font-size:clamp(2.4rem,5vw,4rem);line-height:1}
+.kick{font-size:12px;letter-spacing:.3em;text-transform:uppercase;font-weight:800;color:var(--orange);margin-bottom:10px}
+.search{display:grid;grid-template-columns:repeat(4,1fr) auto;gap:0;background:#fff;border-radius:14px;box-shadow:0 20px 50px -20px #17304f55;margin:28px 0;overflow:hidden}
+.search label{padding:14px 18px;border-right:1px solid #17304f18;display:flex;flex-direction:column;gap:4px}
+.search label small{font-size:10px;letter-spacing:.25em;text-transform:uppercase;font-weight:800;opacity:.6}
+.search select,.search input{border:0;background:none;font-size:18px;font-weight:600;color:var(--navy);outline:0}
+.search button{border:0;background:var(--navy);color:#fff;padding:0 30px;font-weight:800;letter-spacing:.14em;cursor:pointer}
+.flights{display:grid;gap:12px}
+.fl{display:grid;grid-template-columns:110px 1fr auto auto;gap:22px;align-items:center;background:#fff;border-radius:12px;padding:18px 22px;border:2px solid transparent;cursor:pointer}
+.fl:hover,.fl.on{border-color:var(--orange)}
+.fl .t{font-family:'Yeseva One';font-size:28px}
+.fl .route{display:flex;align-items:center;gap:10px;font-size:14px}
+.fl .route i{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--navy) 0 6px,transparent 6px 12px);position:relative}
+.fl .route i::after{content:"✈";position:absolute;left:50%;top:-11px;font-style:normal}
+.fl .price{font-family:'Yeseva One';font-size:26px;color:var(--orange)}
+.fl .ac{font-size:12px;opacity:.6}
+.cabin{display:grid;grid-template-columns:1fr 340px;gap:40px;margin-top:34px;align-items:start}
+.plane{background:#fff;border-radius:200px 200px 40px 40px;padding:90px 30px 30px;position:relative;box-shadow:0 20px 50px -20px #17304f55;max-width:360px;margin:0 auto}
+.plane::before{content:"COCKPIT";position:absolute;top:40px;left:0;right:0;text-align:center;font-size:10px;letter-spacing:.4em;opacity:.4}
+.rows{display:grid;gap:6px}
+.srow{display:grid;grid-template-columns:repeat(3,1fr) 28px repeat(3,1fr);gap:5px;align-items:center}
+.srow span{text-align:center;font-size:11px;opacity:.5}
+.seat{aspect-ratio:1;border-radius:8px 8px 4px 4px;border:0;background:var(--sky2);cursor:pointer;font-size:10px;color:var(--navy)}
+.seat.first{background:#f3d9a6}
+.seat.x{background:#17304f22;cursor:not-allowed;color:transparent}
+.seat.me{background:var(--orange);color:#fff}
+.seat:not(.x):hover{outline:2px solid var(--navy)}
+.divider{text-align:center;font-size:10px;letter-spacing:.3em;opacity:.5;margin:8px 0}
+.legend{display:flex;gap:14px;font-size:12px;margin:14px 0;flex-wrap:wrap}.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:5px}
+.pax input{width:100%;padding:12px 14px;border:2px solid #17304f22;border-radius:10px;font-size:17px;margin:6px 0 14px;background:#fff}
+/* pass */
+.pass{display:grid;grid-template-columns:1fr 200px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -24px #17304f88;margin-top:30px;max-width:860px}
+.pass .main{padding:0}
+.pass .band{background:var(--navy);color:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;font-weight:800;letter-spacing:.2em;font-size:12px}
+.pass .band b{font-family:'Yeseva One';font-weight:400;font-size:22px;letter-spacing:0}
+.pass .body{padding:22px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.pass .big{grid-column:span 4;display:flex;align-items:center;gap:20px;font-family:'Yeseva One';font-size:56px}
+.pass .big i{flex:1;border-top:3px dotted var(--orange);position:relative}.pass .big i::after{content:"✈";position:absolute;top:-24px;left:45%;font-style:normal;font-size:28px;color:var(--orange)}
+.pass small{display:block;font-size:10px;letter-spacing:.25em;text-transform:uppercase;opacity:.55;font-weight:800}
+.pass .f{font-family:'Courier Prime';font-size:18px;font-weight:700}
+.pass .stub{border-left:3px dashed #17304f33;padding:0;background:var(--sky2);position:relative}
+.pass .stub::before,.pass .stub::after{content:"";position:absolute;left:-14px;width:24px;height:24px;background:var(--cream);border-radius:50%}
+.pass .stub::before{top:-12px}.pass .stub::after{bottom:-12px}
+.pass .stub .in{padding:62px 18px 18px;display:grid;gap:12px}
+.bar{height:46px;background:repeating-linear-gradient(90deg,var(--navy) 0 2px,transparent 2px 4px,var(--navy) 4px 5px,transparent 5px 8px,var(--navy) 8px 11px,transparent 11px 12px)}
+/* routes */
+.mapbox{background:var(--navy);border-radius:18px;margin-top:26px;position:relative;overflow:hidden}
+.mapbox svg{display:block;width:100%;height:auto}
+.city{cursor:pointer}
+.city text{font-family:Jost;font-size:13px;font-weight:600;fill:#fbf3e3;letter-spacing:.08em}
+.route-line{fill:none;stroke:#e8b44c;stroke-width:1.6;stroke-dasharray:4 5;opacity:.55}
+.route-line.hot{stroke:#e8622c;opacity:1;stroke-width:3;stroke-dasharray:none}
+.mapinfo{display:flex;gap:26px;flex-wrap:wrap;margin-top:18px}
+.mapinfo div b{font-family:'Yeseva One';font-size:32px;font-weight:400;display:block}
+/* lounge */
+.menu{background:#fff;max-width:760px;margin:30px auto 0;padding:48px;border:2px solid var(--navy);outline:8px solid #fff;outline-offset:-18px;text-align:center;position:relative}
+.menu h3{font-family:'Yeseva One';font-weight:400;font-size:40px}
+.menu .course{margin:26px 0}
+.menu .course small{font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);font-weight:800}
+.menu .item{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:8px 0;text-align:left;font-size:17px}
+.menu .item i{flex:1;border-bottom:2px dotted #17304f33}
+.menu .item button{border:2px solid var(--navy);background:none;border-radius:20px;padding:2px 12px;font-size:12px;font-weight:800;cursor:pointer}
+.menu .item button.on{background:var(--navy);color:#fff}
+.bell{position:fixed;right:24px;bottom:24px;width:64px;height:64px;border-radius:50%;background:var(--orange);color:#fff;border:0;font-size:28px;cursor:pointer;box-shadow:0 8px 20px #e8622c66;z-index:5}
+.bell.ring{animation:ring .5s 3}
+@keyframes ring{25%{transform:rotate(18deg)}75%{transform:rotate(-18deg)}}
+.note{position:fixed;right:100px;bottom:34px;background:var(--navy);color:#fff;padding:12px 18px;border-radius:14px 14px 0 14px;max-width:280px;font-size:14px;opacity:0;transition:.3s;z-index:5;pointer-events:none}
+.note.on{opacity:1}
+@media(max-width:860px){.search{grid-template-columns:1fr 1fr}.search button{grid-column:span 2;padding:16px}.fl{grid-template-columns:1fr auto}.cabin,.pass{grid-template-columns:1fr}.pass .body{grid-template-columns:1fr 1fr}.pass .big{grid-column:span 2;font-size:38px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="21" fill="#17304f"/><path d="M8 26 Q22 6 36 18" stroke="#e8622c" stroke-width="4" fill="none"/><path d="M8 32 Q22 14 36 24" stroke="#8ec5e0" stroke-width="4" fill="none"/></svg>Pan Aero</div>
+ <nav><a href="#fly">Fly</a><a href="#book">Book</a><a href="#routes">Route Map</a><a href="#lounge">Lounge</a><a href="index.html">Index ↗</a></nav>
+</header>
+
+<section data-view="fly">
+ <div class="hero">
+  <div class="sun"></div>
+  <div class="cloud" style="width:180px;height:44px;top:22vh;animation-duration:60s"></div>
+  <div class="cloud" style="width:120px;height:30px;top:58vh;animation-duration:42s;animation-delay:-20s"></div>
+  <div class="cloud" style="width:240px;height:56px;top:70vh;animation-duration:75s;animation-delay:-40s"></div>
+  <svg class="jet" viewBox="0 0 560 160"><g><path d="M40 86 Q60 66 120 64 L460 60 Q520 60 540 76 Q520 92 460 94 L120 96 Q60 96 40 86Z" fill="#fbf3e3" stroke="#17304f" stroke-width="3"/><path d="M60 80 L520 74" stroke="#e8622c" stroke-width="7"/><path d="M60 88 L520 84" stroke="#8ec5e0" stroke-width="4"/><path d="M230 90 L150 150 L190 150 L300 92Z" fill="#17304f"/><path d="M240 66 L180 10 L210 10 L300 64Z" fill="#17304f"/><path d="M60 70 L20 20 L50 20 L100 66Z" fill="#e8622c"/></g>
+   <g fill="#17304f"><rect x="150" y="70" width="8" height="8" rx="2"/><rect x="170" y="70" width="8" height="8" rx="2"/><rect x="190" y="70" width="8" height="8" rx="2"/><rect x="210" y="70" width="8" height="8" rx="2"/><rect x="310" y="68" width="8" height="8" rx="2"/><rect x="330" y="68" width="8" height="8" rx="2"/><rect x="350" y="68" width="8" height="8" rx="2"/><rect x="370" y="68" width="8" height="8" rx="2"/><rect x="390" y="68" width="8" height="8" rx="2"/><rect x="410" y="68" width="8" height="8" rx="2"/><path d="M495 66 L515 68 L512 76 L495 76Z"/></g>
+   <path d="M20 86 L-400 90" stroke="#fff" stroke-width="6" opacity=".7" stroke-linecap="round"/></svg>
+  <h1>The world is <em>shorter</em> now.</h1>
+  <p>Seven hours, New York to Paris. Champagne at 35,000 feet and a seat that reclines all the way.</p>
+  <button class="cta" onclick="go('book')">Reserve a seat</button>
+ </div>
+ <div class="posters" id="posters"></div>
+</section>
+
+<section data-view="book" hidden>
+ <div class="wrap">
+  <div class="kick">Reservations desk</div>
+  <h2>Where shall we take you?</h2>
+  <form class="search" id="search">
+   <label><small>From</small><select id="from"></select></label>
+   <label><small>To</small><select id="to"></select></label>
+   <label><small>Date</small><input type="date" id="date" value="1962-06-14"></label>
+   <label><small>Cabin</small><select id="cab"><option>Economy</option><option>First Class</option></select></label>
+   <button>Find flights</button>
+  </form>
+  <div class="flights" id="flights"></div>
+  <div id="cabinWrap" hidden>
+   <div class="cabin">
+    <div class="plane"><div class="rows" id="rows"></div></div>
+    <div class="pax">
+     <div class="kick">Step 2 · your seat</div>
+     <h3 style="font-family:'Yeseva One';font-weight:400;font-size:30px" id="seatT">Pick a seat</h3>
+     <div class="legend"><span><i style="background:#f3d9a6"></i>First</span><span><i style="background:#cfe7f1"></i>Economy</span><span><i style="background:#17304f22"></i>Taken</span><span><i style="background:#e8622c"></i>Yours</span></div>
+     <label><small style="font-size:11px;letter-spacing:.2em;font-weight:800">PASSENGER NAME</small><input id="pname" value="MRS. D. HOLLOWAY"></label>
+     <button class="cta" id="issue">Issue boarding pass</button>
+    </div>
+   </div>
+  </div>
+  <div id="passWrap"></div>
+ </div>
+</section>
+
+<section data-view="routes" hidden>
+ <div class="wrap">
+  <div class="kick">The Pan Aero network · summer 1962</div>
+  <h2>Nineteen cities, six continents.</h2>
+  <div class="mapbox"><svg id="map" viewBox="0 0 1000 520"></svg></div>
+  <div class="mapinfo" id="mapinfo"><div><small>Tap two cities to measure a route</small></div></div>
+ </div>
+</section>
+
+<section data-view="lounge" hidden>
+ <div class="wrap">
+  <div class="kick" style="text-align:center">In-flight service</div>
+  <h2 style="text-align:center">The Clipper Lounge</h2>
+  <div class="menu" id="menu"></div>
+ </div>
+</section>
+<button class="bell" id="bell" title="Call the stewardess">🛎︎</button><div class="note" id="note"></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'fly';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+const CITIES={NYC:['New York',40.7,-74],LON:['London',51.5,-.1],PAR:['Paris',48.9,2.3],ROM:['Rome',41.9,12.5],LIS:['Lisbon',38.7,-9.1],CAI:['Cairo',30,31.2],BOM:['Bombay',19,72.8],TYO:['Tokyo',35.7,139.7],HKG:['Hong Kong',22.3,114.2],SYD:['Sydney',-33.9,151.2],HNL:['Honolulu',21.3,-157.8],LAX:['Los Angeles',34,-118.2],MIA:['Miami',25.8,-80.2],RIO:['Rio de Janeiro',-22.9,-43.2],BUE:['Buenos Aires',-34.6,-58.4],MEX:['Mexico City',19.4,-99.1],NBO:['Nairobi',-1.3,36.8],JNB:['Johannesburg',-26.2,28],BKK:['Bangkok',13.8,100.5]};
+const LINKS=[['NYC','LON'],['NYC','PAR'],['NYC','ROM'],['NYC','LIS'],['NYC','MIA'],['NYC','LAX'],['LAX','HNL'],['HNL','TYO'],['HNL','SYD'],['TYO','HKG'],['HKG','BKK'],['BKK','BOM'],['BOM','CAI'],['CAI','ROM'],['CAI','NBO'],['NBO','JNB'],['LON','PAR'],['PAR','ROM'],['LIS','RIO'],['MIA','RIO'],['RIO','BUE'],['MIA','MEX'],['MEX','LAX'],['LON','BOM'],['SYD','HKG'],['JNB','RIO']];
+const hav=(a,b)=>{const R=3959,t=Math.PI/180,[,la1,lo1]=CITIES[a],[,la2,lo2]=CITIES[b];const d=Math.sin((la2-la1)*t/2)**2+Math.cos(la1*t)*Math.cos(la2*t)*Math.sin((lo2-lo1)*t/2)**2;return Math.round(2*R*Math.asin(Math.sqrt(d)))};
+const hrs=mi=>mi/540+.6,fmtH=h=>`${h|0}h ${String(Math.round(h%1*60)).padStart(2,'0')}m`;
+
+/* posters */
+const PO=[['PAR','#e8622c','Paris','<path d="M130 380 L150 120 L170 380Z M140 260 h20 M135 320 h30" stroke="#fbf3e3" stroke-width="5" fill="none"/><circle cx="210" cy="100" r="40" fill="#e8b44c"/>'],['HNL','#7cc6b0','Honolulu','<circle cx="120" cy="140" r="50" fill="#e8b44c"/><path d="M0 330 Q150 280 300 330 V400 H0Z" fill="#17304f"/><path d="M200 330 Q205 200 180 150 M180 150 q-40 -10 -60 20 M180 150 q30 -30 60 -10 M180 150 q-10 -40 -40 -40 M180 150 q40 -10 50 30" stroke="#17304f" stroke-width="6" fill="none"/>'],['TYO','#17304f','Tokyo','<circle cx="150" cy="170" r="70" fill="#e8622c"/><path d="M40 360 L150 220 L260 360Z" fill="#fbf3e3"/><path d="M110 270 L150 220 L190 270 L170 260 L150 280 L130 260Z" fill="#8ec5e0"/>'],['RIO','#e8b44c','Rio','<path d="M0 360 Q60 200 120 300 Q180 140 240 280 Q270 220 300 260 V400 H0Z" fill="#17304f"/><path d="M185 170 v-40 M170 142 h30" stroke="#fbf3e3" stroke-width="5"/>']];
+document.getElementById('posters').innerHTML=PO.map(p=>`<div class="poster" style="background:${p[1]}" onclick="document.getElementById('to').value='${p[0]}';go('book');find()"><svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice">${p[3]}</svg><small>Fly Pan Aero</small><b>${p[2]}</b><small>From New York · ${fmtH(hrs(hav('NYC',p[0])))}</small></div>`).join('');
+
+/* booking */
+const opts=Object.entries(CITIES).map(([k,v])=>`<option value="${k}">${v[0]} (${k})</option>`).join('');
+from.innerHTML=opts;to.innerHTML=opts;from.value='NYC';to.value='PAR';
+let pick=null,seat=null,taken=new Set();
+function rng(s){return()=>((s=(s*9301+49297)%233280)/233280)}
+function find(){const f=from.value,t=to.value;const box=document.getElementById('flights');document.getElementById('cabinWrap').hidden=true;document.getElementById('passWrap').innerHTML='';
+ if(f===t){box.innerHTML='<p style="font-size:18px">You\'re already there. Try somewhere a bit further away.</p>';return}
+ const mi=hav(f,t),h=hrs(mi),r=rng(f.charCodeAt(0)*31+t.charCodeAt(1)*7);const first=cab.value[0]==='F';
+ const list=[7,11,15,21].map((dep,i)=>{const m=Math.round(r()*5)*10;const ac=mi>3000?['Boeing 707-320','Douglas DC-8'][i%2]:['Lockheed Electra','Boeing 720'][i%2];const pr=Math.round((mi*.09+60)*(first?2.4:1)*(.9+r()*.3));return{no:'PA '+(100+(r()*800|0)),dep:`${String(dep).padStart(2,'0')}:${String(m).padStart(2,'0')}`,h,ac,pr,f,t}});
+ box.innerHTML=list.map((x,i)=>`<div class="fl" data-i="${i}"><div><div class="t">${x.dep}</div><div class="ac">${x.no}</div></div><div class="route"><b>${x.f}</b><i></i><b>${x.t}</b><span style="margin-left:10px">${fmtH(x.h)} · ${mi.toLocaleString()} mi</span></div><div class="ac">${x.ac}</div><div class="price">$${x.pr}</div></div>`).join('');
+ box._list=list}
+document.getElementById('search').onsubmit=e=>{e.preventDefault();find()};
+document.getElementById('flights').onclick=e=>{const d=e.target.closest('.fl');if(!d)return;pick=document.getElementById('flights')._list[+d.dataset.i];document.querySelectorAll('.fl').forEach(x=>x.classList.toggle('on',x===d));
+ const r=rng(pick.pr);taken=new Set();for(let i=0;i<60;i++)taken.add((1+(r()*24|0))+'ABCDEF'[r()*6|0]);seat=null;drawSeats();document.getElementById('cabinWrap').hidden=false;document.getElementById('cabinWrap').scrollIntoView({behavior:'smooth'})};
+function drawSeats(){let h='';for(let r=1;r<=24;r++){if(r===5)h+='<div class="divider">— GALLEY · ECONOMY —</div>';const fc=r<=4;h+=`<div class="srow">${'ABC'.split('').map(c=>st(r,c,fc)).join('')}<span>${r}</span>${'DEF'.split('').map(c=>st(r,c,fc)).join('')}</div>`}document.getElementById('rows').innerHTML='<div class="divider">— FIRST CLASS —</div>'+h}
+const st=(r,c,fc)=>{const id=r+c,x=taken.has(id);return`<button class="seat ${fc?'first':''} ${x?'x':''} ${seat===id?'me':''}" data-s="${id}" ${x?'disabled':''}>${c}</button>`};
+document.getElementById('rows').onclick=e=>{const s=e.target.dataset.s;if(!s)return;seat=s;drawSeats();document.getElementById('seatT').textContent='Seat '+s+(parseInt(s)<=4?' · First Class':' · '+('AF'.includes(s.slice(-1))?'Window':'CD'.includes(s.slice(-1))?'Aisle':'Middle'))};
+document.getElementById('issue').onclick=()=>{if(!seat){document.getElementById('seatT').textContent='Pick a seat first ✈';return}
+ const d=new Date(document.getElementById('date').value+'T12:00');const ds=isNaN(d)?'14 JUN 62':d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'2-digit'}).toUpperCase();const [hh,mm]=pick.dep.split(':').map(Number);const b=new Date(0,0,0,hh,mm-40);
+ document.getElementById('passWrap').innerHTML=`<div class="kick" style="margin-top:40px">Step 3 · have a pleasant flight</div><div class="pass"><div class="main"><div class="band"><b>Pan Aero</b>BOARDING PASS · ${parseInt(seat)<=4?'FIRST CLASS':'ECONOMY'}</div><div class="body"><div class="big">${pick.f}<i></i>${pick.t}</div><div><small>Passenger</small><div class="f">${(document.getElementById('pname').value||'PASSENGER').toUpperCase()}</div></div><div><small>Flight</small><div class="f">${pick.no}</div></div><div><small>Date</small><div class="f">${ds}</div></div><div><small>Seat</small><div class="f" style="color:#e8622c;font-size:26px">${seat}</div></div><div><small>Boarding</small><div class="f">${String(b.getHours()).padStart(2,'0')}:${String(b.getMinutes()).padStart(2,'0')}</div></div><div><small>Departs</small><div class="f">${pick.dep}</div></div><div><small>Gate</small><div class="f">${'ABC'[pick.pr%3]}${pick.pr%20+1}</div></div><div><small>Aircraft</small><div class="f" style="font-size:14px">${pick.ac}</div></div></div></div><div class="stub"><div class="in"><div><small>Flight</small><div class="f">${pick.no}</div></div><div><small>Seat</small><div class="f">${seat}</div></div><div><small>To</small><div class="f">${CITIES[pick.t][0].toUpperCase()}</div></div><div class="bar"></div></div></div></div>`;
+ document.getElementById('passWrap').scrollIntoView({behavior:'smooth'})};
+find();
+
+/* route map (equirectangular) */
+const px=([,la,lo])=>[(lo+180)/360*1000,(90-la)/180*520];
+function arc(a,b){const[x1,y1]=px(CITIES[a]),[x2,y2]=px(CITIES[b]);const mx=(x1+x2)/2,my=(y1+y2)/2-Math.hypot(x2-x1,y2-y1)*.22;return`M${x1} ${y1} Q${mx} ${my} ${x2} ${y2}`}
+let sel=[];
+function drawMap(){let s='<defs><pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#8ec5e033"/></pattern></defs><rect width="1000" height="520" fill="url(#dots)"/>';
+ for(let la=-60;la<=60;la+=30){const y=(90-la)/180*520;s+=`<line x1="0" x2="1000" y1="${y}" y2="${y}" stroke="#8ec5e0" stroke-opacity="${la?0.12:.3}"/>`}
+ s+=`<text x="990" y="${260-6}" text-anchor="end" fill="#8ec5e088" font-size="11" font-family="Jost" letter-spacing="3">EQUATOR</text>`;
+ LINKS.forEach(([a,b])=>{const hot=sel.length===2&&((sel[0]===a&&sel[1]===b)||(sel[0]===b&&sel[1]===a));s+=`<path class="route-line ${hot?'hot':''}" d="${arc(a,b)}"/>`});
+ if(sel.length===2&&!LINKS.some(([a,b])=>(a===sel[0]&&b===sel[1])||(a===sel[1]&&b===sel[0])))s+=`<path class="route-line hot" style="stroke-dasharray:10 6" d="${arc(sel[0],sel[1])}"/>`;
+ Object.entries(CITIES).forEach(([k,c])=>{const[x,y]=px(c),on=sel.includes(k);s+=`<g class="city" data-k="${k}"><circle cx="${x}" cy="${y}" r="${on?9:5}" fill="${on?'#e8622c':'#e8b44c'}" stroke="#17304f" stroke-width="2"/><text x="${x+10}" y="${y+4}">${c[0]}</text></g>`});
+ // compass
+ s+='<g transform="translate(70 440)"><circle r="34" fill="none" stroke="#fbf3e355"/><path d="M0 -30 L7 0 L0 30 L-7 0Z" fill="#e8622c"/><path d="M-30 0 L0 7 L30 0 L0 -7Z" fill="#fbf3e388"/><text y="-38" text-anchor="middle" fill="#fbf3e3" font-size="12">N</text></g>';
+ document.getElementById('map').innerHTML=s;
+ const info=document.getElementById('mapinfo');
+ if(sel.length===2){const mi=hav(sel[0],sel[1]),direct=LINKS.some(([a,b])=>(a===sel[0]&&b===sel[1])||(a===sel[1]&&b===sel[0]));info.innerHTML=`<div><b>${CITIES[sel[0]][0]} → ${CITIES[sel[1]][0]}</b><small>${direct?'Nonstop jet service':'Connecting service'}</small></div><div><b>${mi.toLocaleString()} mi</b><small>Great-circle distance</small></div><div><b>${fmtH(hrs(mi)+(direct?0:1.5))}</b><small>Flight time by jet</small></div><div><b>${fmtH(mi/190)}</b><small>By 1939 flying boat</small></div>`}
+ else info.innerHTML=`<div><small style="font-size:14px">${sel.length?'Now tap a destination':'Tap two cities to measure a route'}</small></div>`}
+document.getElementById('map').onclick=e=>{const g=e.target.closest('.city');if(!g)return;const k=g.dataset.k;sel=sel.length>=2?[k]:sel.includes(k)?[]:[...sel,k];drawMap()};
+sel=['NYC','PAR'];drawMap();
+
+/* lounge */
+const MENU=[['Aperitifs',[['Champagne Cocktail','sugar cube, bitters',1.25],['Manhattan, stirred','rye, sweet vermouth',1],['Pineapple Daiquiri','Honolulu route only',1]]],['First course',[['Shrimp cocktail','Louis dressing',0],['Consommé Madrilène','served chilled',0]]],['Entrée',[['Chateaubriand','carved in the aisle',0],['Lobster Thermidor','Maine lobster',0],['Chicken à la Kiev','with wild rice',0]]],['To finish',[['Baked Alaska','flambéed at your seat',0],['Cheese trolley','six countries',0],['Cognac & a cigar','in the upper lounge',2]]]];
+let order=new Set();
+function drawMenu(){document.getElementById('menu').innerHTML=`<div class="kick">Flight PA 114 · New York — Paris</div><h3>Dîner</h3>${MENU.map(([c,items])=>`<div class="course"><small>${c}</small>${items.map(([n,d,p])=>`<div class="item"><span><b>${n}</b> <span style="opacity:.6;font-size:14px">— ${d}</span></span><i></i><span style="font-family:'Courier Prime'">${p?'$'+p.toFixed(2):'incl.'}</span><button class="${order.has(n)?'on':''}" data-n="${n}">${order.has(n)?'✓ ordered':'order'}</button></div>`).join('')}</div>`).join('')}<p style="font-size:13px;opacity:.6;margin-top:20px">Your order: ${order.size?[...order].join(' · '):'nothing yet'}</p>`}
+document.getElementById('menu').onclick=e=>{const n=e.target.dataset.n;if(!n)return;order.has(n)?order.delete(n):order.add(n);drawMenu()};drawMenu();
+const LINES=['Right away, sir or madam. Another pillow?','We\'re crossing Newfoundland. Just four hours to Paris.','The captain wants you to know the Northern Lights are showing on the left side.','Coffee, tea, or an after-dinner mint?','We\'ll dim the lights after dessert. Sleep well.'];let li=0;
+document.getElementById('bell').onclick=()=>{const b=document.getElementById('bell'),n=document.getElementById('note');b.classList.remove('ring');void b.offsetWidth;b.classList.add('ring');n.textContent=LINES[li++%LINES.length];n.classList.add('on');clearTimeout(n._t);n._t=setTimeout(()=>n.classList.remove('on'),3500);
+ try{const a=new AudioContext();[1318,1046].forEach((f,i)=>{const o=a.createOscillator(),g=a.createGain();o.frequency.value=f;o.type='sine';g.gain.setValueAtTime(.2,a.currentTime+i*.35);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+i*.35+1.2);o.connect(g).connect(a.destination);o.start(a.currentTime+i*.35);o.stop(a.currentTime+i*.35+1.3)})}catch(e){}};
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

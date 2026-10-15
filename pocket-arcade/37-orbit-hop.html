@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Orbit Hop</title>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none;background:#1a1440;font-family:Comfortaa,sans-serif;color:#fff}
+canvas{display:block;position:fixed;inset:0}
+.hud{position:fixed;top:14px;left:0;right:0;text-align:center;pointer-events:none}.hud b{font-size:44px;display:block;line-height:1}.hud small{font-size:12px;opacity:.7;letter-spacing:.2em}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#1a1440bb}.ov.on{display:grid}
+.ov h1{font-size:clamp(42px,12vw,80px);font-weight:700;background:linear-gradient(90deg,#ffb4e1,#9ecbff,#b8ffe3);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ov p{margin:14px auto 24px;line-height:1.8;max-width:320px;opacity:.85}
+button{font:inherit;font-weight:700;font-size:17px;border:0;background:#fff;color:#1a1440;padding:12px 32px;border-radius:40px;cursor:pointer;box-shadow:0 0 30px #9ecbff66}
+.back{position:fixed;left:12px;top:12px;color:#ffffffaa;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud"><b id="s">0</b><small id="bs">BEST 0</small></div>
+<div class="ov on" id="ov"><div><h1 id="t">orbit hop</h1><p id="m">Circle each little world.<br>Tap, click or Space to let go —<br>and slingshot to the next one.</p><button id="go">launch</button></div></div>
+<a class="back" href="index.html">← games</a>
+<script>
+const K='best-orbit-hop';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const cv=document.getElementById('c'),x=cv.getContext('2d');let W,H,S;
+function fit(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);S=Math.max(.75,Math.min(1.2,Math.min(W/420,H/760)))}fit();addEventListener('resize',fit);
+const PAL=[['#ffb4e1','#c2418f'],['#9ecbff','#3a5bd9'],['#b8ffe3','#2a9d7a'],['#ffe29e','#d9822b'],['#d8b4ff','#6b3fd1'],['#ffc7a8','#d9534f']];
+let st='menu',planets=[],cur,p,cam=0,camT=0,score=0,best=ls.g(K,0),trail=[],parts=[],stars=[],t=0,gems=[];
+document.getElementById('bs').textContent='BEST '+best;
+for(let i=0;i<120;i++)stars.push([Math.random(),Math.random(),Math.random()]);
+let AC;function tone(f,d=.1,type='sine',v=.06,to){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;if(to)o.frequency.exponentialRampToValueAtTime(to,AC.currentTime+d);g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function mkPlanet(y,i){const r=(16+Math.random()*20)*S;const diff=Math.min(1,i/40);return{x:W*.2+Math.random()*W*.6,y,r,orb:r+34*S,pal:PAL[i%PAL.length],ring:Math.random()<.3,vx:i>6&&Math.random()<.2+diff*.4?(Math.random()<.5?-1:1)*(.4+diff*1.2)*S:0,dir:Math.random()<.5?1:-1,spd:(.035+diff*.03)*(1+Math.random()*.3)}}
+function start(){planets=[];let y=H*.7;for(let i=0;i<8;i++){planets.push(mkPlanet(y,i));y-=(200+Math.random()*80)*S}planets[0].x=W/2;planets[0].vx=0;gems=[];cur=planets[0];p={a:Math.PI/2,free:false,x:0,y:0,vx:0,vy:0};cam=camT=0;score=0;trail=[];parts=[];st='play';document.getElementById('ov').classList.remove('on');document.getElementById('s').textContent=0}
+function release(){if(st!=='play'||p.free)return;const w=cur.spd*cur.dir;const tx=-Math.sin(p.a)*w,ty=Math.cos(p.a)*w;const sp=5.5*S;const L=Math.hypot(tx,ty);p.vx=tx/L*sp+cur.vx;p.vy=ty/L*sp;p.free=true;p.from=cur;tone(520,.12,'triangle',.05,900)}
+function die(){st='dead';tone(200,.6,'sine',.07,50);if(score>best){best=score;ls.s(K,best)}document.getElementById('bs').textContent='BEST '+best;
+ setTimeout(()=>{st='over';document.getElementById('t').textContent=score>=best&&score>0?'new best':'lost in space';document.getElementById('m').innerHTML=`${score} worlds visited<br>best ${best}`;document.getElementById('go').textContent='again';document.getElementById('ov').classList.add('on')},900)}
+function update(){t++;if(st!=='play')return;
+ planets.forEach(q=>{if(q.vx){q.x+=q.vx;if(q.x<q.orb||q.x>W-q.orb)q.vx*=-1}});
+ if(!p.free){p.a+=cur.spd*cur.dir;p.x=cur.x+Math.cos(p.a)*cur.orb;p.y=cur.y+Math.sin(p.a)*cur.orb}
+ else{p.x+=p.vx;p.y+=p.vy;
+  for(const q of planets){if(q===p.from)continue;const d=Math.hypot(p.x-q.x,p.y-q.y);if(d<q.orb+10*S){// capture
+   p.free=false;const prev=cur;cur=q;p.a=Math.atan2(p.y-q.y,p.x-q.x);const cross=(p.x-q.x)*p.vy-(p.y-q.y)*p.vx;q.dir=cross>0?1:-1;
+   if(planets.indexOf(q)>planets.indexOf(prev)){score+=planets.indexOf(q)-planets.indexOf(prev);document.getElementById('s').textContent=score;tone(660+score*10,.15,'sine',.06);for(let i=0;i<18;i++){const a=Math.random()*6.28;parts.push({x:p.x,y:p.y,vx:Math.cos(a)*3,vy:Math.sin(a)*3,l:1,c:q.pal[0]})}}
+   break}}
+  if(p.x<-30||p.x>W+30||p.y-cam>H+40||p.y-cam<-H*.6)die()}
+ gems=gems.filter(g=>{if(Math.hypot(g.x-p.x,g.y-p.y)<18*S){score+=1;document.getElementById('s').textContent=score;tone(1320,.1,'sine',.05);return false}return true});
+ camT=cur.y-H*.62;cam+=(camT-cam)*.06;
+ const top=planets[planets.length-1];if(top.y-cam>-H){const i=planets.length;const np=mkPlanet(top.y-(190+Math.random()*90+Math.min(60,i*2))*S,i);planets.push(np);if(Math.random()<.4)gems.push({x:(top.x+np.x)/2,y:(top.y+np.y)/2})}
+ planets=planets.filter(q=>q.y-cam<H+300||q===cur);
+ trail.push([p.x,p.y]);if(trail.length>26)trail.shift()}
+function draw(){const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#0d0a26');g.addColorStop(1,'#2b1d5c');x.fillStyle=g;x.fillRect(0,0,W,H);
+ stars.forEach(s=>{const yy=((s[1]*H-cam*s[2]*.3)%H+H)%H;x.fillStyle=`rgba(255,255,255,${.3+s[2]*.5})`;x.fillRect(s[0]*W,yy,s[2]*2,s[2]*2)});
+ if(st==='menu'){planets.length||(planets=[mkPlanet(H*.6,0)]);planets[0].x=W/2;cur=planets[0];p=p||{a:0};p.a+=.04;p.x=cur.x+Math.cos(p.a)*cur.orb;p.y=cur.y+Math.sin(p.a)*cur.orb;trail.push([p.x,p.y]);if(trail.length>26)trail.shift()}
+ planets.forEach(q=>{const y=q.y-cam;if(y<-100||y>H+100)return;x.strokeStyle=q===cur?'#ffffff55':'#ffffff1c';x.setLineDash([3,7]);x.lineWidth=1.5;x.beginPath();x.arc(q.x,y,q.orb,0,7);x.stroke();x.setLineDash([]);
+  const gr=x.createRadialGradient(q.x-q.r*.4,y-q.r*.4,q.r*.1,q.x,y,q.r);gr.addColorStop(0,q.pal[0]);gr.addColorStop(1,q.pal[1]);x.fillStyle=gr;x.beginPath();x.arc(q.x,y,q.r,0,7);x.fill();
+  if(q.ring){x.strokeStyle=q.pal[0]+'aa';x.lineWidth=3;x.beginPath();x.ellipse(q.x,y,q.r*1.7,q.r*.45,-.35,0,7);x.stroke()}});
+ gems.forEach(gm=>{const y=gm.y-cam;x.fillStyle='#fff';x.save();x.translate(gm.x,y);x.rotate(t*.05);x.beginPath();for(let i=0;i<8;i++){const rr=i%2?3*S:8*S,a=i*Math.PI/4;x.lineTo(Math.cos(a)*rr,Math.sin(a)*rr)}x.fill();x.restore()});
+ trail.forEach(([tx,ty],i)=>{x.fillStyle=`rgba(255,255,255,${i/trail.length*.5})`;x.beginPath();x.arc(tx,ty-cam,(i/trail.length)*5*S,0,7);x.fill()});
+ if(p&&st!=='dead'&&st!=='over'){x.fillStyle='#fff';x.shadowColor='#9ecbff';x.shadowBlur=16;x.beginPath();x.arc(p.x,p.y-cam,6*S,0,7);x.fill();x.shadowBlur=0}
+ parts.forEach(q=>{q.x+=q.vx;q.y+=q.vy;q.l-=.03;x.globalAlpha=Math.max(0,q.l);x.fillStyle=q.c;x.beginPath();x.arc(q.x,q.y-cam,2.5,0,7);x.fill()});x.globalAlpha=1;parts=parts.filter(q=>q.l>0)}
+function loop(){update();draw();requestAnimationFrame(loop)}requestAnimationFrame(loop);
+function act(){if(st==='play')release();else if(document.getElementById('ov').classList.contains('on'))start()}
+addEventListener('keydown',e=>{if([' ','Enter','ArrowUp','w'].includes(e.key)){e.preventDefault();if(!e.repeat)act()}});
+cv.addEventListener('pointerdown',e=>{e.preventDefault();act()});document.getElementById('go').onclick=e=>{e.stopPropagation();start()};
+</script>
+</body>
+</html>

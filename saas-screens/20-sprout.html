@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprout — Set up your workspace</title>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#eef3e8;--card:#fffdf8;--tx:#24301f;--mu:#6f7a66;--leaf:#4f9a3d;--leaf2:#9ccc65;--clay:#c96f4a;--ln:#dfe6d6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 'Gabarito',sans-serif}
+.top{display:flex;align-items:center;gap:12px;padding:18px 32px}.lg{font-weight:800;font-size:22px;color:var(--leaf)}.top .sp{flex:1}.top span{color:var(--mu);font-size:14px}
+.wrap{max-width:1100px;margin:0 auto;padding:10px 24px 60px;display:grid;grid-template-columns:360px 1fr;gap:28px;align-items:start}
+.pot{background:var(--card);border-radius:28px;padding:26px;text-align:center;position:sticky;top:20px;border:1px solid var(--ln)}
+.pot h2{margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em}.pot p{color:var(--mu);margin:6px 0 0}
+.pot svg{width:100%;max-width:280px;height:300px;display:block;margin:10px auto 0}
+.stem,.lf{transition:all .8s cubic-bezier(.3,1.4,.5,1);transform-box:fill-box}
+.lf{transform:scale(0);transform-origin:bottom left}.lf.r{transform-origin:bottom right}.lf.on{transform:scale(1)}
+.flower{transform:scale(0);transform-origin:center;transform-box:fill-box;transition:transform .9s cubic-bezier(.3,1.6,.5,1)}.flower.on{transform:scale(1)}
+.meter{height:12px;background:var(--ln);border-radius:999px;overflow:hidden;margin-top:12px}.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--leaf2),var(--leaf));border-radius:999px;transition:width .6s}
+.list{display:grid;gap:12px}
+h1{font-size:40px;letter-spacing:-.03em;margin:4px 0 4px;font-weight:800}.sub{color:var(--mu);margin:0 0 18px}
+.task{background:var(--card);border:1px solid var(--ln);border-radius:20px;overflow:hidden;transition:.3s}
+.task .hd{display:flex;align-items:center;gap:14px;padding:18px 20px;cursor:pointer}
+.task .ck{width:30px;height:30px;border-radius:50%;border:2.5px solid #c6d3b8;display:grid;place-items:center;color:#fff;font-weight:800;flex:none;transition:.3s}
+.task.done .ck{background:var(--leaf);border-color:var(--leaf)}.task.done .t{color:var(--mu);text-decoration:line-through}
+.task .t{font-weight:600;font-size:17px;flex:1}.task .min{font-size:13px;color:var(--mu);background:var(--bg);border-radius:999px;padding:3px 10px}
+.task .bd{display:none;padding:0 20px 20px 64px}.task.open .bd{display:block}
+.task .bd p{margin:0 0 14px;color:var(--mu)}
+.go{background:var(--tx);color:#fff;border:0;border-radius:12px;padding:10px 16px;font:700 14px 'Gabarito';cursor:pointer}
+.ghost{background:transparent;border:0;color:var(--mu);font:600 14px 'Gabarito';cursor:pointer;margin-left:6px}
+.inv{display:flex;gap:8px;margin-bottom:12px}.inv input{flex:1;border:1px solid var(--ln);border-radius:12px;padding:10px 12px;font:15px 'Gabarito';background:#fff}
+.ints{display:flex;gap:10px;margin-bottom:14px}.ints span{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-weight:800;color:#fff;cursor:pointer;opacity:.45;transition:.2s}.ints span.on{opacity:1;transform:translateY(-2px)}
+.empty{background:var(--card);border:2px dashed var(--ln);border-radius:20px;padding:26px;text-align:center;color:var(--mu);margin-top:8px}
+.empty b{display:block;color:var(--tx);font-size:18px;margin:8px 0 2px}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}.pot{position:static}}
+</style>
+</head>
+<body>
+<div class="top"><div class="lg">🌱 sprout</div><span class="sp"></span><span>Greenhouse Studio · Owner</span></div>
+<div class="wrap">
+ <aside class="pot"><h2 id="ph">Just planted</h2><p id="pp">Finish setup to help it grow.</p>
+  <svg viewBox="0 0 200 240">
+   <path class="stem" id="stem" d="M100 190 C 100 160, 96 130, 100 60" fill="none" stroke="#4f9a3d" stroke-width="5" stroke-linecap="round" stroke-dasharray="140" stroke-dashoffset="120"/>
+   <path class="lf" id="l1" d="M100 160 C 70 160, 58 140, 60 128 C 80 126, 98 140, 100 160 Z" fill="#9ccc65"/>
+   <path class="lf r" id="l2" d="M100 135 C 130 135, 142 115, 140 103 C 120 101, 102 115, 100 135 Z" fill="#7cb342"/>
+   <path class="lf" id="l3" d="M100 108 C 74 106, 64 88, 66 76 C 86 76, 100 90, 100 108 Z" fill="#9ccc65"/>
+   <path class="lf r" id="l4" d="M100 86 C 124 84, 134 68, 132 56 C 114 56, 100 70, 100 86 Z" fill="#7cb342"/>
+   <g class="flower" id="fl"><circle cx="100" cy="52" r="9" fill="#ffca28"/></g>
+   <path d="M58 190 H142 L132 236 H68 Z" fill="#c96f4a"/><rect x="52" y="182" width="96" height="16" rx="5" fill="#b85f3c"/>
+  </svg>
+  <div class="meter"><i id="mt" style="width:0"></i></div><p style="margin-top:8px;font-size:14px" id="mc">0 of 5 done</p></aside>
+ <main><h1>Welcome to Sprout, Noor 👋</h1><p class="sub">Five small steps to a workspace your team will actually use. Most people finish in about 8 minutes.</p>
+  <div class="list" id="list"></div>
+  <div class="empty"><div style="font-size:34px">🪴</div><b>Your projects will live here</b>Nothing yet — create one in step 3, or start from a template.</div></main>
+</div>
+<canvas class="confetti" id="cf"></canvas>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const fl=document.getElementById('fl');let pet='';for(let i=0;i<8;i++){const a=i/8*Math.PI*2;pet+=`<ellipse cx="${100+Math.cos(a)*15}" cy="${52+Math.sin(a)*15}" rx="8" ry="5" transform="rotate(${a*180/Math.PI} ${100+Math.cos(a)*15} ${52+Math.sin(a)*15})" fill="#f48fb1"/>`}fl.insertAdjacentHTML('afterbegin',pet);
+const T=[['Name your workspace','1 min',`<div class="inv"><input value="Greenhouse Studio"></div>`],['Invite your team','2 min',`<div class="inv"><input placeholder="emails, comma separated" value="ana@greenhouse.studio, tom@greenhouse.studio"></div>`],['Create your first project','2 min',`<div class="inv"><input value="Spring campaign"></div>`],['Connect your tools','2 min',`<div class="ints"><span style="background:#4a154b" class="on">S</span><span style="background:#4285f4">G</span><span style="background:#000">F</span><span style="background:#0052cc">J</span></div>`],['Download the mobile app','1 min',`<p>Scan the QR code on your phone, or we’ll text you a link.</p>`]];
+const done=new Set();let open=0;const stages=['Just planted','Sprouting','Growing','Leafy','Almost there','In bloom! 🌸'];
+function draw(){document.getElementById('list').innerHTML=T.map((t,i)=>`<div class="task ${done.has(i)?'done':''} ${i===open?'open':''}" data-i="${i}"><div class="hd"><span class="ck">${done.has(i)?'✓':''}</span><span class="t">${t[0]}</span><span class="min">${t[1]}</span></div><div class="bd">${t[2]}<button class="go" data-do="${i}">${done.has(i)?'Done ✓':'Mark as done'}</button><button class="ghost" data-skip="${i}">Skip for now</button></div></div>`).join('');
+ const n=done.size;['l1','l2','l3','l4'].forEach((id,k)=>document.getElementById(id).classList.toggle('on',n>k));fl.classList.toggle('on',n>=5);
+ document.getElementById('stem').style.strokeDashoffset=120-n*24;document.getElementById('mt').style.width=n*20+'%';document.getElementById('mc').textContent=`${n} of 5 done`;document.getElementById('ph').textContent=stages[n];document.getElementById('pp').textContent=n>=5?'Your workspace is ready. Go grow something.':'Finish setup to help it grow.'}
+document.getElementById('list').onclick=e=>{const d=e.target.closest('[data-do]'),s=e.target.closest('[data-skip]'),h=e.target.closest('.hd'),it=e.target.closest('.ints span');
+ if(it){it.classList.toggle('on');return}if(d){const i=+d.dataset.do;done.add(i);open=T.findIndex((_,k)=>!done.has(k));draw();if(done.size===5)boom();return}if(s){open=(+s.dataset.skip+1)%5;draw();return}if(h){const i=+h.parentNode.dataset.i;open=open===i?-1:i;draw()}};
+function boom(){const c=document.getElementById('cf'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;const P=Array.from({length:140},()=>({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,c:['#9ccc65','#f48fb1','#ffca28','#4f9a3d','#c96f4a'][Math.floor(Math.random()*5)],r:Math.random()*6+3}));let f=0;(function a(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.4;x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r*.6)});if(++f<120)requestAnimationFrame(a);else x.clearRect(0,0,c.width,c.height)})()}
+done.add(0);open=1;draw();
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quotient — Rep performance & coaching</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#f3f1fa;--ink:#1c1530;--ink2:#4f4766;--ink3:#857e99;--grid:#ece9f4;--s1:#7c3aed;--s2:#ea580c;--s3:#0891b2;--s4:#db2777;--s5:#65a30d;--q1:#ede5fd;--q2:#d6c4fb;--q3:#b393f6;--q4:#9061f0;--q5:#7c3aed;--q6:#5b21b6;--pos:#7c3aed;--neg:#c93a39;--good:#0f7a52;--warn:#a86b00;--bad:#c93a39;--cur:"€"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Manrope',sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 34px 0;flex-wrap:wrap}
+.lg{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}.lg i{width:30px;height:30px;border-radius:9px;background:var(--s1);color:#fff;display:grid;place-items:center;font-style:normal;font-size:17px}
+.src{font-size:12px;color:var(--ink3)}.src b{color:var(--ink2);font-weight:600}
+.hero{padding:16px 34px 0;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+h1{font-size:34px;letter-spacing:-.03em;margin:0;font-weight:800}h1 span{color:var(--s1)}
+.pills{display:flex;gap:6px;background:#fff;padding:5px;border-radius:999px;box-shadow:0 2px 10px rgba(60,30,120,.06)}.pills button{border:0;background:transparent;padding:8px 16px;border-radius:999px;font:700 13px 'Manrope';color:var(--ink2);cursor:pointer}.pills button.on{background:var(--ink);color:#fff}
+.filters{display:flex;gap:10px;padding:16px 34px;flex-wrap:wrap;align-items:center}
+.ch{border:1.5px solid #ddd7ec;background:#fff;border-radius:999px;padding:6px 13px;font:700 12.5px 'Manrope';cursor:pointer;color:var(--ink2)}.ch.on{border-color:var(--s1);color:var(--s1);background:#f4effe}
+main{padding:0 34px 70px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--surface);border-radius:18px;padding:16px 18px;box-shadow:0 2px 10px rgba(60,30,120,.05)}.kpi .l{font-size:12.5px;color:var(--ink3);font-weight:600}.kpi .v{font-size:28px;font-weight:800;letter-spacing:-.03em}.kpi .d{font-size:12px;font-weight:700}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border-radius:20px;padding:20px 22px;box-shadow:0 2px 10px rgba(60,30,120,.05);min-width:0}
+.card h3{margin:0;font-size:15px;font-weight:800}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.podium{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.pod{background:linear-gradient(160deg,#fff,#f6f2ff);border-radius:20px;padding:18px;display:flex;gap:14px;align-items:center;box-shadow:0 2px 10px rgba(60,30,120,.05)}
+.pod .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:18px;flex:none}
+.pod .rk{font-size:30px;font-weight:800;color:var(--ink3);margin-left:auto}.pod b{font-size:16px}.pod small{display:block;color:var(--ink3)}
+.tip{background:#1c1530;color:#fff;border-radius:16px;padding:14px 16px;font-size:13.5px;display:flex;gap:12px}.tip b{color:#d6c4fb}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21,.podium{grid-template-columns:1fr}}@media(max-width:640px){header,.hero,.filters,main{padding-left:16px;padding-right:16px}.kpis{grid-template-columns:1fr 1fr}.pills{overflow-x:auto;max-width:100%}}
+</style>
+</head>
+<body>
+<header><div class="lg"><i>Q</i>Quotient</div><div class="src">Synced from <b>Salesforce</b> · <b>Outreach</b> · <b>Gong</b> · <b>Google Calendar</b> · <b>Workday</b> (start dates)</div></header>
+<div class="hero"><h1 id="ttl">Who’s <span>winning</span>, and why.</h1><div class="pills"><button data-sheet="board">Leaderboard</button><button data-sheet="activity">Activity</button><button data-sheet="ramp">Ramp</button><button data-sheet="coach">Coaching</button><button data-sheet="funnel">Funnel by rep</button></div></div>
+<div class="filters"><button class="ch" data-f="range" data-v="30d">Last 30 days</button><button class="ch on" data-f="range" data-v="90d">This quarter</button><button class="ch" data-f="range" data-v="12m">Last 12 months</button><span style="width:14px"></span><button class="ch on" data-f="team" data-v="all">Everyone</button><button class="ch" data-f="team" data-v="ae">Account executives</button><button class="ch" data-f="team" data-v="new">Hired in 2026</button></div>
+<main>
+ <section data-panel="board"><div class="podium" id="pod"></div><div class="kpis" id="k1"></div>
+  <div class="g g21"><div class="card"><h3>Attainment vs. quota</h3><p class="sub">Closed-won ACV, tick = quota for the period</p><div id="c_bul"></div></div><div class="card"><h3>Where each rep’s bookings came from</h3><p class="sub">New logo vs. expansion vs. renewal uplift</p><div id="c_mix"></div></div></div></section>
+ <section data-panel="activity" hidden><div class="kpis" id="k2"></div>
+  <div class="card"><h3>Selling activity per week</h3><p class="sub">Outreach emails & calls, Gong-recorded meetings, calendar demos — team total</p><div id="c_act"></div></div>
+  <div class="g g2" style="margin-top:14px"><div class="card"><h3>Activity mix by rep</h3><p class="sub">Weekly average · darker = more</p><div id="c_hm"></div></div><div class="card"><h3>Meetings needed per closed deal</h3><p class="sub">Calendar events with buyers on won opportunities</p><div id="c_mpd"></div></div></div></section>
+ <section data-panel="ramp" hidden><div class="tip" style="margin-bottom:14px"><span>✦</span><span>The 2026 hiring class is ramping <b>3 weeks faster</b> than 2025’s. Its first deal came at day 71, versus a historical 92.</span></div>
+  <div class="g g2"><div class="card"><h3>Ramp curves by hiring class</h3><p class="sub">Cumulative attainment of ramped quota, by month since start date</p><div id="c_ramp"></div></div><div class="card"><h3>Days to milestones</h3><p class="sub">Median across reps in each class</p><div id="c_ms"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>New hires this year</h3><p class="sub">Workday start date joined to Salesforce user</p><div id="t_new"></div></div></section>
+ <section data-panel="coach" hidden><div class="kpis" id="k4"></div>
+  <div class="g g2"><div class="card"><h3>Talk ratio vs. win rate</h3><p class="sub">Each dot is a rep. Gong talk ratio on discovery calls.</p><div id="c_tr"></div></div><div class="card"><h3>Call skills, from Gong scorecards</h3><p class="sub">Manager-scored calls, 1–5, last 90 days</p><div id="c_sk"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Suggested coaching this week</h3><p class="sub">Biggest gap vs. team median, with a call to review</p><div id="t_coach"></div></div></section>
+ <section data-panel="funnel" hidden><div class="g g21"><div class="card"><h3>Team funnel</h3><p class="sub">Opportunities by furthest stage reached, period cohort</p><div id="c_fun"></div></div><div class="card"><h3>Win rate by deal size</h3><p class="sub">Team, closed in period</p><div id="c_ws"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Stage conversion by rep</h3><p class="sub">Where each rep’s deals stall. Low cells are coaching moments.</p><div id="c_rf"></div></div></section>
+</main>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const ALL=[['Ana Ruiz',0],['Ben Okafor',0],['Chloé Martin',0],['Dev Patel',0],['Elin Berg',1],['Felix Wu',0],['Grace Kim',1],['Hugo Silva',1],['Iris Novak',1]];const AV=['#7c3aed','#ea580c','#0891b2','#db2777','#65a30d','#9061f0','#c2410c','#0e7490','#be185d'];
+const TITLES={board:'Who’s <span>winning</span>, and why.',activity:'What the team <span>actually did</span>.',ramp:'How fast new reps <span>get going</span>.',coach:'What to <span>coach</span> this week.',funnel:'Where deals <span>stall</span>.'};
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const m=F.range==='12m'?4:F.range==='30d'?.34:1;const reps=ALL.filter(x=>F.team==='all'||(F.team==='new'?x[1]:!x[1])).map(([n,nw],i)=>{const q=1.1e6*m*(nw?.6:1);return{n,nw,i:ALL.findIndex(a=>a[0]===n),q,a:q*(.5+r()*.8),wr:.15+r()*.25,talk:.38+r()*.3,disc:2+r()*3,meet:12+r()*20,calls:40+r()*70,emails:120+r()*260,demos:4+r()*10,nl:.5+r()*.3,exp:.2+r()*.2,mpd:4+r()*6,conv:[.55+r()*.3,.4+r()*.35,.35+r()*.35,.45+r()*.4]}});return memo[k]={reps,m,r,L:K.periods(F.range)}}
+const S={range:'90d',team:'all'};
+const go=s=>{$('ttl').innerHTML=TITLES[s]};
+const views={
+board(F){go('board');const D=data(F);const rs=[...D.reps].sort((a,b)=>b.a/b.q-a.a/a.q);
+ $('pod').innerHTML=rs.slice(0,3).map((x,i)=>`<div class="pod"><span class="av" style="background:${AV[x.i]}">${x.n.split(' ').map(z=>z[0]).join('')}</span><div><b>${x.n}</b><small>${K.pct(x.a/x.q,0)} of quota · ${K.money(x.a)}</small></div><span class="rk">#${i+1}</span></div>`).join('');
+ const tot=K.sum(D.reps.map(x=>x.a)),tq=K.sum(D.reps.map(x=>x.q));K.kpis($('k1'),[{label:'Team bookings',value:K.money(tot),delta:.13},{label:'Team attainment',value:K.pct(tot/tq,0),delta:.05,deltaText:'5 pts'},{label:'Reps at 100%+',value:D.reps.filter(x=>x.a>=x.q).length+' of '+D.reps.length},{label:'Avg win rate',value:K.pct(K.sum(D.reps.map(x=>x.wr))/D.reps.length)},{label:'Avg deal size',value:K.money(tot/(D.reps.length*9*D.m))}]);
+ K.bullet($('c_bul'),{rows:rs.map(x=>[x.n,x.a,x.q]),fmt:K.money});
+ K.bars($('c_mix'),{labels:rs.map(x=>x.n),series:[{name:'New logo',data:rs.map(x=>x.a*x.nl)},{name:'Expansion',data:rs.map(x=>x.a*x.exp)},{name:'Renewal uplift',data:rs.map(x=>x.a*(1-x.nl-x.exp))}],stacked:true,horizontal:true,fmt:K.money,h:320})},
+activity(F){go('activity');const D=data(F);const r=K.rng(K.seed(F,'a'));const n=D.L.length;const sc=D.reps.length/9;
+ const em=K.series(r,n,1900*sc*(F.range==='30d'?.2:1),{noise:.15}),ca=K.series(r,n,620*sc*(F.range==='30d'?.2:1),{noise:.2}),me=K.series(r,n,180*sc*(F.range==='30d'?.2:1),{noise:.2,trend:.1}),de=K.series(r,n,55*sc*(F.range==='30d'?.2:1),{noise:.25,trend:.15});
+ K.kpis($('k2'),[{label:'Emails sent',value:K.num(K.sum(em))},{label:'Calls made',value:K.num(K.sum(ca))},{label:'Buyer meetings',value:K.num(K.sum(me)),delta:.12},{label:'Demos',value:K.num(K.sum(de)),delta:.08},{label:'Meetings that became opps',value:'34%'}]);
+ K.bars($('c_act'),{labels:D.L,series:[{name:'Meetings',data:me},{name:'Demos',data:de},{name:'Calls',data:ca}],stacked:true,fmt:K.num,h:260});
+ const A=['Emails','Calls','Meetings','Demos'];K.heat($('c_hm'),{rows:D.reps.map(x=>x.n),cols:A,data:D.reps.map(x=>[x.emails/12,x.calls/12,x.meet/12,x.demos/12].map(v=>v)),fmt:v=>v.toFixed(v<10?1:0),cell:26});
+ const rs=[...D.reps].sort((a,b)=>a.mpd-b.mpd);K.bars($('c_mpd'),{labels:rs.map(x=>x.n),series:[{name:'Meetings per won deal',data:rs.map(x=>x.mpd)}],fmt:v=>v.toFixed(1),horizontal:true,h:300})},
+ramp(F){go('ramp');const D=data(F);const M=['M1','M2','M3','M4','M5','M6','M7','M8','M9'];
+ K.line($('c_ramp'),{labels:M,series:[{name:'2024 class',data:[.02,.08,.18,.32,.47,.6,.72,.81,.88]},{name:'2025 class',data:[.03,.1,.22,.37,.52,.66,.77,.86,.92]},{name:'2026 class',data:[.05,.16,.31,.5,.66,.79,null,null,null]}],fmt:v=>K.pct(v,0),h:270});
+ K.bars($('c_ms'),{labels:['First meeting','First opp','First deal','Fully ramped'],series:[{name:'2024 class',data:[9,31,96,248]},{name:'2025 class',data:[8,27,92,231]},{name:'2026 class',data:[6,21,71,195]}],fmt:v=>Math.round(v)+'d',h:270});
+ K.table($('t_new'),{cols:[{k:'n',label:'Rep'},{k:'start',label:'Started'},{k:'day',label:'Day',align:'r'},{k:'pipe',label:'Pipeline built',align:'r',fmt:K.money,bar:true},{k:'won',label:'First deal'},{k:'pace',label:'vs. class pace',render:v=>(v>=0?'▲ ':'▼ ')+Math.abs(v)+' days'}],rows:[['Elin Berg','6 Jan',268,1.1e6,'12 Mar',18],['Grace Kim','3 Feb',240,840e3,'2 Apr',9],['Hugo Silva','3 Mar',212,620e3,'21 May',-6],['Iris Novak','5 May',149,290e3,'—',-14]].map(x=>({n:x[0],start:x[1],day:x[2],pipe:x[3],won:x[4],pace:x[5]})),sort:'day'})},
+coach(F){go('coach');const D=data(F);
+ K.kpis($('k4'),[{label:'Calls reviewed',value:K.int(142*D.m)},{label:'Team talk ratio',value:K.pct(K.sum(D.reps.map(x=>x.talk))/D.reps.length,0),sub:'best performers ≈ 46%'},{label:'Questions per discovery',value:(K.sum(D.reps.map(x=>x.disc))/D.reps.length*4).toFixed(1)},{label:'Next steps set',value:'71%'},{label:'Avg scorecard',value:'3.6 / 5'}]);
+ K.scatter($('c_tr'),{points:D.reps.map(x=>({x:x.talk,y:x.wr,label:x.n,g:x.nw?1:0,tag:x.wr===Math.max(...D.reps.map(z=>z.wr))||x.talk===Math.max(...D.reps.map(z=>z.talk))})),groups:['Tenured','Hired in 2026'],xfmt:v=>K.pct(v,0),yfmt:v=>K.pct(v,0),xLabel:'Talk ratio',yLabel:'Win rate',h:290,quad:{x:.5,y:.25,labels:[['Listen more',1,0]]}});
+ const SK=['Discovery','Agenda','Objections','Next steps','Value story'];const r=K.rng(K.seed(F,'sk'));K.heat($('c_sk'),{rows:D.reps.map(x=>x.n),cols:SK,data:D.reps.map(()=>SK.map(()=>2+r()*3)),fmt:v=>v.toFixed(1),cell:26});
+ K.table($('t_coach'),{cols:[{k:'n',label:'Rep'},{k:'skill',label:'Focus'},{k:'gap',label:'Gap vs median',align:'r',fmt:v=>'−'+v.toFixed(1)},{k:'call',label:'Call to review'},{k:'why',label:'Why this call'}],rows:D.reps.slice(0,6).map((x,i)=>({n:x.n,skill:SK[(i*3)%5],gap:.4+((i*7)%10)/10,call:['Halden Bank · discovery','Orbis · pricing','Fjord · demo','Velo · negotiation','Kilnworks · QBR','Pellucid · discovery'][i],why:['Asked 3 questions in 40 min','Discounted before being asked','No agenda, 22 min monologue','No next step agreed','Missed the CFO’s objection','Great call — share with the team'][i]})),sort:'gap'})},
+funnel(F){go('funnel');const D=data(F);const base=Math.round(420*D.m*D.reps.length/9);
+ K.funnel($('c_fun'),{steps:[['Discovery',base],['Qualified',Math.round(base*.62)],['Solution fit',Math.round(base*.41)],['Proposal',Math.round(base*.29)],['Won',Math.round(base*.18)]]});
+ K.bars($('c_ws'),{labels:['< €20K','€20–50K','€50–100K','€100–250K','€250K+'],series:[{name:'Win rate',data:[.34,.29,.24,.19,.15]}],fmt:v=>K.pct(v,0),h:250});
+ K.heat($('c_rf'),{rows:D.reps.map(x=>x.n),cols:['Disc → Qual','Qual → Fit','Fit → Proposal','Proposal → Won'],data:D.reps.map(x=>x.conv),fmt:v=>K.pct(v,0),cell:28})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

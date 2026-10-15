@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tally — Pricing</title>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#0f3d3e;--bg2:#0b3132;--cream:#f3efe6;--coral:#ff6b4a;--mint:#9fe0c8;--tx:#f3efe6;--mu:#9fbab8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 'Familjen Grotesk',sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+nav{display:flex;align-items:center;gap:26px;padding:22px 0}
+.lg{font-weight:700;font-size:22px;display:flex;align-items:center;gap:8px}.lg svg{width:26px}
+nav a{color:var(--mu);text-decoration:none;font-size:15px}nav a.on{color:var(--tx)}nav .sp{flex:1}
+.btn{display:inline-block;padding:11px 18px;border-radius:999px;background:var(--coral);color:#1b0f0b;font-weight:700;text-decoration:none;border:0;cursor:pointer;font:700 15px 'Familjen Grotesk'}
+.btn.g{background:transparent;color:var(--tx);border:1px solid #2e5c5c}
+.head{padding:50px 0 34px;display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+h1{font-size:clamp(46px,6.4vw,92px);line-height:.95;letter-spacing:-.035em;margin:0;font-weight:700;max-width:12ch;text-wrap:balance}
+h1 i{font-style:normal;color:var(--mint)}
+.tog{display:flex;background:var(--bg2);border-radius:999px;padding:5px;border:1px solid #1f4a4b}
+.tog button{border:0;background:transparent;color:var(--mu);padding:9px 16px;border-radius:999px;font:600 14px 'Familjen Grotesk';cursor:pointer}
+.tog button.on{background:var(--cream);color:var(--bg)}
+.tog em{font-style:normal;color:var(--coral);font-size:12px;margin-left:4px}
+.grid{display:grid;grid-template-columns:1.25fr .85fr;gap:36px;padding-bottom:80px;align-items:start}
+.cfg{background:var(--bg2);border:1px solid #1f4a4b;border-radius:24px;padding:30px}
+.cfg h2{margin:0 0 4px;font-size:22px}.cfg>p{margin:0 0 22px;color:var(--mu)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:26px}
+.plan{border:1px solid #2a5859;border-radius:16px;padding:16px;cursor:pointer;transition:.2s}
+.plan.on{background:var(--cream);color:var(--bg);border-color:var(--cream)}
+.plan b{display:block;font-size:18px}.plan span{font:13px 'DM Mono';opacity:.75}
+.slider{margin:6px 0 26px}.slider .t{display:flex;justify-content:space-between;align-items:baseline}
+.slider .t b{font:500 34px 'DM Mono';letter-spacing:-.04em}
+input[type=range]{width:100%;accent-color:var(--coral);margin-top:10px}
+.adds{display:grid;gap:10px}
+.add{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid #2a5859;border-radius:14px;cursor:pointer}
+.add .sw{width:42px;height:24px;border-radius:999px;background:#2a5859;position:relative;flex:none;transition:.2s}.add .sw::after{content:'';position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:var(--cream);transition:.2s}
+.add.on .sw{background:var(--coral)}.add.on .sw::after{left:21px}
+.add div{flex:1}.add small{display:block;color:var(--mu)}.add .p{font:14px 'DM Mono'}
+.rc-wrap{position:sticky;top:20px}
+.receipt{background:var(--cream);color:#1f2a2a;font:14px/1.6 'DM Mono';padding:30px 28px 26px;position:relative;filter:drop-shadow(0 30px 40px rgba(0,0,0,.35));transform:rotate(1.2deg);
+ -webkit-mask:radial-gradient(circle 8px at 50% 100%,transparent 98%,#000) bottom/22px 100% repeat-x;mask:conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top/22px 51% repeat-x,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/22px 51% repeat-x}
+.receipt .c{text-align:center}.receipt h3{font:700 22px 'Familjen Grotesk';margin:0;letter-spacing:.08em}
+.receipt hr{border:0;border-top:1.5px dashed #9aa;margin:14px 0}
+.ln{display:flex;justify-content:space-between;gap:10px;animation:pr .35s}
+@keyframes pr{from{opacity:0;transform:translateY(-6px)}}
+.ln.sub{color:#6c7878}.tot{font-size:22px;font-weight:500}.ln.tot span:last-child{color:#c2401f}
+.bc{height:46px;margin-top:14px;background:repeating-linear-gradient(90deg,#1f2a2a 0 2px,transparent 2px 4px,#1f2a2a 4px 7px,transparent 7px 9px,#1f2a2a 9px 10px,transparent 10px 13px)}
+.faq{display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px;padding:20px 0 80px;border-top:1px solid #1f4a4b}
+details{border-bottom:1px solid #1f4a4b;padding:18px 0}summary{cursor:pointer;font-weight:600;font-size:18px;list-style:none;display:flex;justify-content:space-between}summary::after{content:'+';color:var(--coral)}details[open] summary::after{content:'–'}
+details p{color:var(--mu);margin:10px 0 0}
+@media(max-width:900px){.grid,.faq{grid-template-columns:1fr}.plans{grid-template-columns:1fr}nav a{display:none}.rc-wrap{position:static}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><div class="lg"><svg viewBox="0 0 28 28"><rect x="3" y="3" width="22" height="22" rx="6" fill="#ff6b4a"/><path d="M9 9v10M13 9v10M17 9v10M21 8L7 20" stroke="#0f3d3e" stroke-width="2.4" stroke-linecap="round"/></svg>tally</div><a href="#">Cards</a><a href="#">Expenses</a><a href="#">Approvals</a><a class="on" href="#">Pricing</a><span class="sp"></span><a href="#">Log in</a><a class="btn" href="#">Start free</a></nav>
+<div class="head"><h1>Pay for what you <i>actually</i> use.</h1><div class="tog" id="tog"><button class="on" data-y="0">Monthly</button><button data-y="1">Yearly <em>−20%</em></button></div></div>
+<div class="grid">
+ <div class="cfg"><h2>Build your plan</h2><p>Every plan includes unlimited virtual cards and receipt matching.</p>
+  <div class="plans" id="plans"></div>
+  <div class="slider"><div class="t"><span>Team members</span><b id="seatsV">25</b></div><input type="range" min="3" max="250" value="25" id="seats"><div style="display:flex;justify-content:space-between;color:var(--mu);font:12px 'DM Mono'"><span>3</span><span>volume discount from 100 →</span><span>250</span></div></div>
+  <div class="adds" id="adds"></div>
+ </div>
+ <div class="rc-wrap"><div class="receipt" id="rc"></div><div style="display:flex;gap:10px;margin-top:26px"><a class="btn" href="#" style="flex:1;text-align:center">Start 14-day trial</a><a class="btn g" href="#">Talk to sales</a></div></div>
+</div>
+<div class="faq">
+ <details open><summary>What counts as a team member?</summary><p>Anyone who holds a card or submits expenses. Approvers and accountants are free, forever.</p></details>
+ <details><summary>Can I change plans mid-month?</summary><p>Yes — we prorate to the day, and the difference shows up on your next tally.</p></details>
+ <details><summary>Do you charge FX fees?</summary><p>Business and Scale plans pay interbank rates with no markup up to €250k per month.</p></details>
+ <details><summary>Is there a setup fee?</summary><p>No. Migration from Expensify or Pleo is free and usually done in a day.</p></details>
+</div>
+</div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 50 SaaS</a>
+<script>
+const P=[['Starter',6,'core spend control'],['Business',11,'+ approvals & ERP sync'],['Scale',17,'+ multi-entity & SSO']];
+const A=[['Bill pay','Pay suppliers from Tally',49],['Travel desk','Book & reconcile trips',3,'seat'],['Advanced audit log','12-month retention, export',29],['Priority support','2-hour response, named CSM',99]];
+let plan=1,yearly=0,on=new Set([0]);const $=s=>document.getElementById(s);
+function draw(){$('plans').innerHTML=P.map((p,i)=>`<div class="plan ${i===plan?'on':''}" data-p="${i}"><b>${p[0]}</b><span>€${p[1]}/seat · ${p[2]}</span></div>`).join('');
+ $('adds').innerHTML=A.map((a,i)=>`<div class="add ${on.has(i)?'on':''}" data-a="${i}"><span class="sw"></span><div><b>${a[0]}</b><small>${a[1]}</small></div><span class="p">+€${a[2]}${a[3]?'/seat':'/mo'}</span></div>`).join('');
+ const s=+$('seats').value;$('seatsV').textContent=s;
+ const base=P[plan][1]*s,vol=s>100?-(s-100)*P[plan][1]*.15:0;let lines=[[`${P[plan][0]} × ${s} seats`,base]];if(vol)lines.push(['Volume discount',vol]);
+ on.forEach(i=>lines.push([A[i][0],A[i][3]?A[i][2]*s:A[i][2]]));let sub=lines.reduce((a,l)=>a+l[1],0);const disc=yearly?-sub*.2:0;const tot=sub+disc;
+ const f=v=>(v<0?'−':'')+'€'+Math.abs(v).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+ $('rc').innerHTML=`<div class="c"><h3>TALLY</h3><div>ESTIMATE #${(1000+s*7+plan*13).toString(16).toUpperCase()}</div><div>01 OCT 2026 · 14:22</div></div><hr>${lines.map(l=>`<div class="ln"><span>${l[0]}</span><span>${f(l[1])}</span></div>`).join('')}<hr><div class="ln sub"><span>Subtotal</span><span>${f(sub)}</span></div>${yearly?`<div class="ln sub"><span>Yearly −20%</span><span>${f(disc)}</span></div>`:''}<div class="ln sub"><span>Approvers (∞)</span><span>€0.00</span></div><hr><div class="ln tot"><span>/ month</span><span>${f(tot)}</span></div><div class="ln sub"><span>per seat</span><span>${f(tot/s)}</span></div><hr><div class="c">THANK YOU FOR NOT USING SPREADSHEETS</div><div class="bc"></div>`}
+document.addEventListener('click',e=>{const p=e.target.closest('[data-p]');if(p){plan=+p.dataset.p;draw()}const a=e.target.closest('[data-a]');if(a){const i=+a.dataset.a;on.has(i)?on.delete(i):on.add(i);draw()}const y=e.target.closest('[data-y]');if(y){yearly=+y.dataset.y;document.querySelectorAll('#tog button').forEach(b=>b.classList.toggle('on',b===y));draw()}});
+$('seats').oninput=draw;draw();
+</script>
+</body>
+</html>

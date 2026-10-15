@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Marble Maze</title>
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Lato:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none;background:#3a2616;font-family:Lato,sans-serif;color:#f6e7cf}
+canvas{display:block;position:fixed;inset:0}
+.hud{position:fixed;top:10px;left:0;right:0;display:flex;justify-content:center;gap:18px;font-size:13px;pointer-events:none;letter-spacing:.08em}.hud b{font-size:18px;color:#fff}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#3a2616cc}.ov.on{display:grid}
+.ov h1{font-family:'Rozha One',serif;font-weight:400;font-size:clamp(46px,13vw,86px);color:#e8b04a;text-shadow:0 4px 0 #1f1209;line-height:1}
+.ov p{margin:14px auto 22px;line-height:1.7;max-width:340px}
+button{font:inherit;font-weight:900;border:0;background:#e8b04a;color:#3a2616;padding:12px 32px;border-radius:40px;cursor:pointer;font-size:16px;box-shadow:0 5px 0 #8a5a14}
+.back{position:fixed;left:12px;top:10px;color:#f6e7cfaa;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud"><span>LEVEL <b id="lv">1</b></span><span>TIME <b id="tm">0.0</b></span><span>BEST <b id="bs">0</b></span></div>
+<div class="ov on" id="ov"><div><h1 id="t">Marble Maze</h1><p id="m">Tilt the board to roll the brass marble to the golden cup.<br>Mind the holes.<br>Arrows / WASD tilt · on touch, drag anywhere like a joystick.</p><button id="go">Roll</button></div></div>
+<a class="back" href="index.html">← games</a>
+<script>
+const K='best-marble-maze';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const cv=document.getElementById('c'),x=cv.getContext('2d');let W,H,CS,OX,OY,N=5;
+function fit(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);CS=Math.floor(Math.min((W-30)/N,(H-90)/N));OX=(W-N*CS)/2;OY=45+(H-55-N*CS)/2}fit();addEventListener('resize',fit);
+let walls,holes,ball,goal,level=1,best=ls.g(K,0),st='menu',keys={},joy=null,t0=0,t=0,fallT=0,tilt={x:0,y:0},parts=[];
+document.getElementById('bs').textContent=best;
+let AC;function tone(f,d=.1,type='sine',v=.05,to){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;if(to)o.frequency.exponentialRampToValueAtTime(to,AC.currentTime+d);g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+// walls[c][r] = {e:bool, s:bool} east & south walls; outer boundary implicit
+function gen(){N=Math.min(12,4+level);fit();walls=[...Array(N)].map(()=>[...Array(N)].map(()=>({e:true,s:true})));const seen=[...Array(N)].map(()=>Array(N).fill(false));const stack=[[0,0]];seen[0][0]=true;
+ while(stack.length){const[c,r]=stack[stack.length-1];const nb=[[1,0],[-1,0],[0,1],[0,-1]].map(([dc,dr])=>[c+dc,r+dr]).filter(([a,b])=>a>=0&&b>=0&&a<N&&b<N&&!seen[a][b]);if(!nb.length){stack.pop();continue}const[a,b]=nb[Math.random()*nb.length|0];if(a>c)walls[c][r].e=false;if(a<c)walls[a][b].e=false;if(b>r)walls[c][r].s=false;if(b<r)walls[a][b].s=false;seen[a][b]=true;stack.push([a,b])}
+ // solution path
+ const prev={};const q=[[0,0]];prev['0,0']=null;while(q.length){const[c,r]=q.shift();if(c===N-1&&r===N-1)break;for(const[a,b]of open(c,r)){const k=a+','+b;if(!(k in prev)){prev[k]=c+','+r;q.push([a,b])}}}
+ const path=new Set();let k=(N-1)+','+(N-1);while(k){path.add(k);k=prev[k]}
+ holes=[];const cand=[];for(let c=0;c<N;c++)for(let r=0;r<N;r++)if(!path.has(c+','+r)&&(c+r)>1)cand.push([c,r]);cand.sort(()=>Math.random()-.5);const nh=Math.min(cand.length,Math.floor(level*1.2));for(let i=0;i<nh;i++)holes.push({c:cand[i][0],r:cand[i][1],ox:(Math.random()-.5)*.2,oy:(Math.random()-.5)*.2});
+ goal={c:N-1,r:N-1};ball={x:.5,y:.5,vx:0,vy:0,z:1};t0=performance.now();st='play'}
+function open(c,r){const o=[];if(c<N-1&&!walls[c][r].e)o.push([c+1,r]);if(c>0&&!walls[c-1][r].e)o.push([c-1,r]);if(r<N-1&&!walls[c][r].s)o.push([c,r+1]);if(r>0&&!walls[c][r-1].s)o.push([c,r-1]);return o}
+function start(){level=1;gen();document.getElementById('ov').classList.remove('on');hud()}
+function hud(){document.getElementById('lv').textContent=level;document.getElementById('bs').textContent=best}
+const BRr=.2,WT=.09;// radius and half wall thickness in cell units
+function wallAt(c,r,side){if(side==='e')return c>=N-1||walls[c][r].e;if(side==='w')return c<=0||walls[c-1][r].e;if(side==='s')return r>=N-1||walls[c][r].s;if(side==='n')return r<=0||walls[c][r-1].s}
+function physics(){let ax=tilt.x,ay=tilt.y;ball.vx+=ax*.012;ball.vy+=ay*.012;ball.vx*=.985;ball.vy*=.985;const sp=Math.hypot(ball.vx,ball.vy);if(sp>.12){ball.vx*=.12/sp;ball.vy*=.12/sp}
+ for(let s=0;s<3;s++){ball.x+=ball.vx/3;ball.y+=ball.vy/3;const c=Math.max(0,Math.min(N-1,Math.floor(ball.x))),r=Math.max(0,Math.min(N-1,Math.floor(ball.y)));const fx=ball.x-c,fy=ball.y-r;const lim=BRr+WT;
+  if(fx>1-lim&&wallAt(c,r,'e')){ball.x=c+1-lim;if(ball.vx>0){if(ball.vx>.04)tone(200,.04,'square',.03);ball.vx*=-.35}}
+  if(fx<lim&&wallAt(c,r,'w')){ball.x=c+lim;if(ball.vx<0){if(ball.vx<-.04)tone(200,.04,'square',.03);ball.vx*=-.35}}
+  if(fy>1-lim&&wallAt(c,r,'s')){ball.y=r+1-lim;if(ball.vy>0){if(ball.vy>.04)tone(200,.04,'square',.03);ball.vy*=-.35}}
+  if(fy<lim&&wallAt(c,r,'n')){ball.y=r+lim;if(ball.vy<0){if(ball.vy<-.04)tone(200,.04,'square',.03);ball.vy*=-.35}}
+  // corner posts
+  for(const[pxx,pyy]of[[c,r],[c+1,r],[c,r+1],[c+1,r+1]]){const dx=ball.x-pxx,dy=ball.y-pyy,d=Math.hypot(dx,dy);if(d<lim&&d>0){ball.x=pxx+dx/d*lim;ball.y=pyy+dy/d*lim;const vn=ball.vx*dx/d+ball.vy*dy/d;if(vn<0){ball.vx-=1.35*vn*dx/d;ball.vy-=1.35*vn*dy/d}}}}
+ for(const h of holes){const hx=h.c+.5+h.ox,hy=h.r+.5+h.oy;const d=Math.hypot(ball.x-hx,ball.y-hy);if(d<.2){st='fall';fallT=0;ball.hx=hx;ball.hy=hy;tone(300,.6,'sine',.06,60);return}else if(d<.42){ball.vx+=(hx-ball.x)*.004;ball.vy+=(hy-ball.y)*.004}}
+ const gx=goal.c+.5,gy=goal.r+.5;if(Math.hypot(ball.x-gx,ball.y-gy)<.22){st='win';fallT=0;const tt=(performance.now()-t0)/1000;[523,659,784,1046].forEach((f,i)=>setTimeout(()=>tone(f,.2,'triangle',.05),i*90));
+  if(level>best){best=level;ls.s(K,best)}for(let i=0;i<30;i++){const a=Math.random()*6.28;parts.push({x:OX+gx*CS,y:OY+gy*CS,vx:Math.cos(a)*3,vy:Math.sin(a)*3,l:1})}
+  setTimeout(()=>{level++;gen();hud()},1300)}}
+function update(){t++;let tx=(keys.R?1:0)-(keys.L?1:0),ty=(keys.D?1:0)-(keys.U?1:0);if(joy){const L=Math.hypot(joy.dx,joy.dy);const m=Math.min(1,L/60);if(L>4){tx=joy.dx/L*m;ty=joy.dy/L*m}}tilt.x+=(tx-tilt.x)*.2;tilt.y+=(ty-tilt.y)*.2;
+ if(st==='play'){physics();document.getElementById('tm').textContent=((performance.now()-t0)/1000).toFixed(1)}
+ if(st==='fall'){fallT++;ball.x+=(ball.hx-ball.x)*.2;ball.y+=(ball.hy-ball.y)*.2;ball.z=Math.max(0,1-fallT/25);if(fallT>40){ball={x:.5,y:.5,vx:0,vy:0,z:1};st='play'}}}
+function draw(){x.fillStyle='#3a2616';x.fillRect(0,0,W,H);if(!walls)return;const sk=4;x.save();x.translate(tilt.x*sk,tilt.y*sk);
+ x.fillStyle='#1f1209';x.fillRect(OX-14,OY-14+8,N*CS+28,N*CS+28);
+ const g=x.createLinearGradient(OX,OY,OX+N*CS,OY+N*CS);g.addColorStop(0,'#d9a86a');g.addColorStop(1,'#b98549');x.fillStyle=g;x.fillRect(OX-12,OY-12,N*CS+24,N*CS+24);
+ x.strokeStyle='#a0733c44';x.lineWidth=1;for(let i=0;i<N*CS+24;i+=7){x.beginPath();x.moveTo(OX-12,OY-12+i);x.bezierCurveTo(OX+N*CS*.3,OY-12+i+Math.sin(i)*6,OX+N*CS*.7,OY-12+i-Math.cos(i)*6,OX+N*CS+12,OY-12+i);x.stroke()}
+ const gx=OX+(goal.c+.5)*CS,gy=OY+(goal.r+.5)*CS;const gg=x.createRadialGradient(gx,gy,0,gx,gy,CS*.35);gg.addColorStop(0,'#fff6c8');gg.addColorStop(.5,'#e8b04a');gg.addColorStop(1,'#8a5a14');x.fillStyle=gg;x.beginPath();x.arc(gx,gy,CS*.3,0,7);x.fill();x.fillStyle='#3a2616';x.beginPath();x.arc(gx,gy,CS*.17,0,7);x.fill();
+ holes.forEach(h=>{const hx=OX+(h.c+.5+h.ox)*CS,hy=OY+(h.r+.5+h.oy)*CS;const hg=x.createRadialGradient(hx,hy-CS*.05,0,hx,hy,CS*.24);hg.addColorStop(0,'#000');hg.addColorStop(.8,'#1f1209');hg.addColorStop(1,'#8a5a3a');x.fillStyle=hg;x.beginPath();x.arc(hx,hy,CS*.24,0,7);x.fill()});
+ const wt=CS*WT*2;x.fillStyle='#6b4226';const wall=(x1,y1,x2,y2)=>{x.fillStyle='#00000040';x.fillRect(Math.min(x1,x2)-wt/2+3,Math.min(y1,y2)-wt/2+5,Math.abs(x2-x1)+wt,Math.abs(y2-y1)+wt);x.fillStyle='#7a4c2a';x.fillRect(Math.min(x1,x2)-wt/2,Math.min(y1,y2)-wt/2,Math.abs(x2-x1)+wt,Math.abs(y2-y1)+wt);x.fillStyle='#9a6a3e';x.fillRect(Math.min(x1,x2)-wt/2,Math.min(y1,y2)-wt/2,Math.abs(x2-x1)+wt,wt*.35)};
+ wall(OX,OY,OX+N*CS,OY);wall(OX,OY,OX,OY+N*CS);wall(OX+N*CS,OY,OX+N*CS,OY+N*CS);wall(OX,OY+N*CS,OX+N*CS,OY+N*CS);
+ for(let c=0;c<N;c++)for(let r=0;r<N;r++){if(c<N-1&&walls[c][r].e)wall(OX+(c+1)*CS,OY+r*CS,OX+(c+1)*CS,OY+(r+1)*CS);if(r<N-1&&walls[c][r].s)wall(OX+c*CS,OY+(r+1)*CS,OX+(c+1)*CS,OY+(r+1)*CS)}
+ if(ball&&st!=='menu'){const bx=OX+ball.x*CS,by=OY+ball.y*CS,br=CS*BRr*(.4+.6*ball.z);x.fillStyle='#0005';x.beginPath();x.ellipse(bx+3,by+4,br,br*.85,0,0,7);x.fill();const bg=x.createRadialGradient(bx-br*.4,by-br*.4,br*.1,bx,by,br);bg.addColorStop(0,'#fffbe0');bg.addColorStop(.35,'#e8c16a');bg.addColorStop(1,'#7a5214');x.fillStyle=bg;x.beginPath();x.arc(bx,by,br,0,7);x.fill()}
+ parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.l-=.03;x.globalAlpha=Math.max(0,p.l);x.fillStyle='#fff6c8';x.fillRect(p.x,p.y,3,3)});x.globalAlpha=1;parts=parts.filter(p=>p.l>0);
+ x.restore();if(joy){x.strokeStyle='#f6e7cf55';x.lineWidth=2;x.beginPath();x.arc(joy.ox,joy.oy,60,0,7);x.stroke();const L=Math.min(60,Math.hypot(joy.dx,joy.dy)),a=Math.atan2(joy.dy,joy.dx);x.fillStyle='#f6e7cf44';x.beginPath();x.arc(joy.ox+Math.cos(a)*L,joy.oy+Math.sin(a)*L,20,0,7);x.fill()}}
+function loop(){update();draw();requestAnimationFrame(loop)}requestAnimationFrame(loop);
+const KM={ArrowLeft:'L',a:'L',A:'L',ArrowRight:'R',d:'R',D:'R',ArrowUp:'U',w:'U',W:'U',ArrowDown:'D',s:'D',S:'D'};
+addEventListener('keydown',e=>{if(KM[e.key]){e.preventDefault();keys[KM[e.key]]=true}if((e.key===' '||e.key==='Enter')&&document.getElementById('ov').classList.contains('on')){e.preventDefault();start()}});
+addEventListener('keyup',e=>{if(KM[e.key])keys[KM[e.key]]=false});
+cv.addEventListener('pointerdown',e=>{joy={ox:e.clientX,oy:e.clientY,dx:0,dy:0}});cv.addEventListener('pointermove',e=>{if(joy){joy.dx=e.clientX-joy.ox;joy.dy=e.clientY-joy.oy}});addEventListener('pointerup',()=>joy=null);
+document.getElementById('go').onclick=start;
+</script>
+</body>
+</html>

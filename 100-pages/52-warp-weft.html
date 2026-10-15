@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warp & Weft — Handweaving Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--linen:#ece4d3;--linen2:#e2d7c0;--indigo:#1f2f5c;--madder:#b5402f;--weld:#d9a82b;--ink:#231e18;--line:#231e1822}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--linen);color:var(--ink);font-family:'Bricolage Grotesque',sans-serif;
+ background-image:repeating-linear-gradient(0deg,#0000 0 2px,#0000000a 2px 3px),repeating-linear-gradient(90deg,#0000 0 2px,#ffffff30 2px 3px)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+header{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;padding:22px 4vw;border-bottom:2px solid var(--ink)}
+.logo{font-family:Newsreader;font-size:34px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.logo i{display:inline-grid;grid-template-columns:repeat(4,7px);gap:1px}
+.logo i b{height:7px;background:var(--indigo)}.logo i b:nth-child(3n){background:var(--madder)}.logo i b:nth-child(5n){background:var(--linen2)}
+nav{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
+nav a{padding:8px 14px;font-weight:600;font-size:14px;border-radius:2px}
+nav a.on{background:var(--ink);color:var(--linen)}
+.home{font-size:13px;font-weight:600;border-bottom:1px solid}
+[data-view][hidden]{display:none}
+main{padding:40px 4vw 80px}
+.kick{font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:800;color:var(--madder)}
+h1,h2{font-family:Newsreader;font-weight:400;letter-spacing:-.02em;line-height:1}
+h2{font-size:clamp(2.4rem,5vw,4.2rem);margin:.3em 0 .2em}
+h2 em{color:var(--indigo)}
+.lede{font-family:Newsreader;font-size:1.25rem;line-height:1.55;max-width:58ch;color:#231e18cc;margin-bottom:28px}
+/* draft */
+.studio{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:start}
+.draft{display:grid;grid-template-columns:auto auto;gap:10px;background:#fbf8f1;padding:18px;border:1px solid var(--line);box-shadow:6px 6px 0 var(--ink);width:max-content;max-width:100%;overflow:auto}
+.draft canvas{display:block;cursor:crosshair;image-rendering:pixelated}
+.draft .lbl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:#231e1888;margin-bottom:4px}
+.cloth{position:relative}
+.cloth canvas{width:100%;display:block;border-radius:2px;box-shadow:0 30px 50px -20px #231e1888}
+.cloth .tag{position:absolute;right:-8px;top:24px;background:var(--linen);border:1px solid var(--ink);padding:10px 14px;font-size:12px;transform:rotate(3deg);box-shadow:2px 2px 0 var(--ink)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.tb{padding:9px 14px;border:1.5px solid var(--ink);background:transparent;font-weight:600;font-size:13px}
+.tb:hover,.tb.on{background:var(--ink);color:var(--linen)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1.5px solid var(--ink);margin-top:14px}
+.stats div{padding:12px 0}
+.stats b{font-family:Newsreader;font-size:30px;font-weight:400;display:block}
+.stats small{font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.6}
+/* yarn */
+.ygrid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.cones{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:16px}
+.cone{border:0;background:none;text-align:center;padding:8px;border-radius:8px}
+.cone.on{background:#fff8}
+.cone svg{width:70px;height:92px;display:block;margin:0 auto 6px}
+.cone b{display:block;font-size:13px}.cone small{font-size:11px;opacity:.6}
+.stripe{display:flex;height:44px;border:1.5px solid var(--ink);margin:8px 0 4px}
+.stripe span{flex:1;cursor:pointer;transition:transform .15s}
+.stripe span:hover{transform:scaleY(1.2)}
+.seg{display:flex;gap:10px;align-items:center;margin:14px 0 4px}
+.seg .tb{padding:6px 12px}
+/* patterns */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:26px}
+.pat{border:0;background:none;text-align:left}
+.pat canvas{width:100%;aspect-ratio:1;display:block;border:1.5px solid var(--ink);transition:transform .25s}
+.pat:hover canvas{transform:rotate(-2deg) scale(1.02)}
+.pat h3{font-family:Newsreader;font-weight:400;font-size:24px;margin:10px 0 2px}
+.pat p{font-size:13px;opacity:.7;line-height:1.5}
+/* glossary + shop */
+.gloss{columns:2 320px;column-gap:44px}
+.gloss dl{break-inside:avoid;padding:16px 0;border-top:1px solid var(--line)}
+.gloss dt{font-family:Newsreader;font-size:26px}
+.gloss dt small{font-family:'Bricolage Grotesque';font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--madder);margin-left:8px}
+.gloss dd{line-height:1.6;margin-top:4px;color:#231e18cc}
+.classes{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:40px}
+.cl{border:1.5px solid var(--ink);padding:20px;background:#fbf8f1}
+.cl h3{font-family:Newsreader;font-weight:400;font-size:26px}
+.cl .meta{font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin:6px 0 12px}
+.cl .seats{display:flex;gap:4px;margin:12px 0}
+.cl .seats i{width:18px;height:18px;border:1.5px solid var(--ink)}
+.cl .seats i.t{background:var(--ink)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--ink);color:var(--linen);padding:14px 22px;transition:transform .35s;z-index:9}
+.toast.on{transform:translate(-50%,0)}
+@media (max-width:980px){.studio,.ygrid{grid-template-columns:1fr}header{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo"><i><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></i>Warp & Weft</div>
+ <nav><a href="#draft">The Draft</a><a href="#yarn">Yarn Room</a><a href="#patterns">Pattern Book</a><a href="#learn">Glossary & Classes</a></nav>
+ <a class="home" href="index.html">← all pages</a>
+</header>
+<main>
+<section data-view="draft">
+ <div class="kick">Studio · four-shaft floor loom</div>
+ <h2>Draw a draft, <em>weave the cloth.</em></h2>
+ <p class="lede">Click the grids to change the threading, tie-up and treadling. The drawdown and the cloth preview update as you go. Every rule here is the same one a real loom follows.</p>
+ <div class="studio">
+  <div>
+   <div class="draft" id="draftBox">
+    <div><div class="lbl">Threading · which shaft holds each warp end</div><canvas id="cThr"></canvas></div>
+    <div><div class="lbl">Tie-up</div><canvas id="cTie"></canvas></div>
+    <div><div class="lbl">Drawdown</div><canvas id="cDD"></canvas></div>
+    <div><div class="lbl">Treadling</div><canvas id="cTrd"></canvas></div>
+   </div>
+   <div class="tools">
+    <button class="tb" data-a="straight">Straight threading</button><button class="tb" data-a="point">Point threading</button><button class="tb" data-a="walk">Walk the treadles</button><button class="tb" data-a="random">Surprise me</button><button class="tb" data-a="clear">Clear</button>
+   </div>
+  </div>
+  <div class="cloth">
+   <canvas id="cCloth" width="720" height="720"></canvas>
+   <div class="tag" id="clothTag">Swatch No. 1</div>
+   <div class="stats"><div><b id="sFloat">3</b><small>Longest float</small></div><div><b id="sBal">50%</b><small>Warp-faced</small></div><div><b id="sRep">4×4</b><small>Repeat</small></div></div>
+  </div>
+ </div>
+</section>
+
+<section data-view="yarn" hidden>
+ <div class="kick">Yarn room · naturally dyed</div>
+ <h2>Choose your <em>colours.</em></h2>
+ <p class="lede">Pick a cone, then click a stripe in the warp or weft to change its colour. Every yarn here is dyed by hand with plants, insects and bark.</p>
+ <div class="ygrid">
+  <div><div class="cones" id="cones"></div></div>
+  <div>
+   <div class="seg"><b>Warp stripe</b><button class="tb" data-w="+">+ end</button><button class="tb" data-w="-">− end</button></div>
+   <div class="stripe" id="warpS"></div>
+   <div class="seg"><b>Weft stripe</b><button class="tb" data-f="+">+ pick</button><button class="tb" data-f="-">− pick</button></div>
+   <div class="stripe" id="weftS"></div>
+   <div class="cloth" style="margin-top:22px"><canvas id="cCloth2" width="600" height="360"></canvas></div>
+  </div>
+ </div>
+</section>
+
+<section data-view="patterns" hidden>
+ <div class="kick">Pattern book · 1840–today</div>
+ <h2>Classic <em>structures.</em></h2>
+ <p class="lede">Click a swatch to load its draft onto the loom.</p>
+ <div class="pgrid" id="pgrid"></div>
+</section>
+
+<section data-view="learn" hidden>
+ <div class="kick">Words of the loom</div>
+ <h2>A weaver's <em>glossary.</em></h2>
+ <div class="gloss" id="gloss"></div>
+ <div class="classes" id="classes"></div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'draft';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='yarn')renderYarn()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const toast=t=>{const el=document.getElementById('toast');el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2200)};
+
+const S=4,T=4,E=32,P=32,C=12;
+const YARN=[['Indigo','Indigofera','#1f2f5c'],['Madder','Rubia root','#b5402f'],['Weld','Reseda','#d9a82b'],['Oak gall','with iron','#3a3530'],['Undyed','Linen','#e9e0cc'],['Woad','pale','#6f8fb0'],['Cochineal','insect','#8e2448'],['Walnut','hulls','#6b4a2e'],['Onion','skins','#c7772d'],['Logwood','heartwood','#4a2a55'],['Nettle','leaves','#7c8a4a'],['Chalk','bleached','#f7f3ea']];
+let st={thr:[],tie:[],trd:[],warp:['#1f2f5c','#1f2f5c','#1f2f5c','#e9e0cc'],weft:['#e9e0cc','#e9e0cc','#b5402f','#e9e0cc']};
+function straight(){st.thr=[...Array(E)].map((_,i)=>i%S)}
+function point(){const seq=[0,1,2,3,2,1];st.thr=[...Array(E)].map((_,i)=>seq[i%6])}
+function twillTie(){st.tie=[...Array(S)].map((_,s)=>[...Array(T)].map((_,t)=>(s-t+S)%S<2))}
+function walk(){st.trd=[...Array(P)].map((_,i)=>i%T)}
+straight();twillTie();walk();
+const raised=(e,p)=>st.trd[p]!=null&&st.thr[e]!=null&&st.tie[st.thr[e]][st.trd[p]];
+
+const cv=id=>{const c=document.getElementById(id);return[c,c.getContext('2d')]};
+const [cThr,xThr]=cv('cThr'),[cTie,xTie]=cv('cTie'),[cDD,xDD]=cv('cDD'),[cTrd,xTrd]=cv('cTrd');
+cThr.width=E*C;cThr.height=S*C;cTie.width=T*C;cTie.height=S*C;cDD.width=E*C;cDD.height=P*C;cTrd.width=T*C;cTrd.height=P*C;
+function grid(x,w,h){x.strokeStyle='#231e1830';x.lineWidth=1;for(let i=0;i<=w;i++){x.beginPath();x.moveTo(i*C+.5,0);x.lineTo(i*C+.5,h*C);x.stroke()}for(let j=0;j<=h;j++){x.beginPath();x.moveTo(0,j*C+.5);x.lineTo(w*C,j*C+.5);x.stroke()}}
+function drawDraft(){
+ [xThr,xTie,xDD,xTrd].forEach(x=>{x.fillStyle='#fbf8f1';x.fillRect(0,0,999,999)});
+ // threading: shaft 0 at bottom, ends right-to-left like weaving drafts
+ st.thr.forEach((s,e)=>{if(s==null)return;xThr.fillStyle='#231e18';xThr.fillRect((E-1-e)*C+1,(S-1-s)*C+1,C-1,C-1)});grid(xThr,E,S);
+ st.tie.forEach((row,s)=>row.forEach((v,t)=>{if(v){xTie.fillStyle='#b5402f';xTie.fillRect(t*C+1,(S-1-s)*C+1,C-1,C-1)}}));grid(xTie,T,S);
+ st.trd.forEach((t,p)=>{if(t==null)return;xTrd.fillStyle='#1f2f5c';xTrd.fillRect(t*C+1,p*C+1,C-1,C-1)});grid(xTrd,T,P);
+ for(let e=0;e<E;e++)for(let p=0;p<P;p++){xDD.fillStyle=raised(e,p)?warpC(e):weftC(p);xDD.fillRect((E-1-e)*C,p*C,C,C)}grid(xDD,E,P);
+ drawCloth(document.getElementById('cCloth'),18);stats()}
+const warpC=e=>st.warp[e%st.warp.length],weftC=p=>st.weft[p%st.weft.length];
+function shade(hex,k){const n=parseInt(hex.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;r=Math.max(0,Math.min(255,r*k));g=Math.max(0,Math.min(255,g*k));b=Math.max(0,Math.min(255,b*k));return`rgb(${r|0},${g|0},${b|0})`}
+function drawCloth(c,cs){const x=c.getContext('2d'),W=c.width,H=c.height;x.fillStyle='#231e18';x.fillRect(0,0,W,H);const nx=Math.ceil(W/cs),ny=Math.ceil(H/cs);
+ for(let i=0;i<nx;i++)for(let j=0;j<ny;j++){const e=i%E,p=j%P,up=raised(e,p),col=up?warpC(e):weftC(p),X=i*cs,Y=j*cs;
+  const g=up?x.createLinearGradient(X,0,X+cs,0):x.createLinearGradient(0,Y,0,Y+cs);g.addColorStop(0,shade(col,.62));g.addColorStop(.45,shade(col,1.12));g.addColorStop(1,shade(col,.55));x.fillStyle=g;
+  if(up)x.fillRect(X+1.5,Y,cs-3,cs);else x.fillRect(X,Y+1.5,cs,cs-3);
+  x.fillStyle='#ffffff14';for(let k=0;k<3;k++){if(up)x.fillRect(X+3+k*(cs-6)/3,Y+(k*5)%cs,1,cs*.5);else x.fillRect(X+(k*7)%cs,Y+3+k*(cs-6)/3,cs*.5,1)}}}
+function stats(){let fl=1;for(let e=0;e<E;e++){let run=1;for(let p=1;p<P*2;p++){if(raised(e,p%P)===raised(e,(p-1)%P)){run++;fl=Math.max(fl,Math.min(run,P))}else run=1}}
+ for(let p=0;p<P;p++){let run=1;for(let e=1;e<E*2;e++){if(raised(e%E,p)===raised((e-1)%E,p)){run++;fl=Math.max(fl,Math.min(run,E))}else run=1}}
+ let up=0;for(let e=0;e<E;e++)for(let p=0;p<P;p++)up+=raised(e,p)?1:0;
+ const per=(arr)=>{for(let k=1;k<=arr.length;k++)if(arr.every((v,i)=>v===arr[i%k]))return k;return arr.length};
+ document.getElementById('sFloat').textContent=fl>=E?'∞':fl;document.getElementById('sBal').textContent=Math.round(up/E/P*100)+'%';document.getElementById('sRep').textContent=per(st.thr)+'×'+per(st.trd);
+ document.getElementById('sFloat').style.color=fl>7?'#b5402f':'';}
+const pos=(c,e)=>{const r=c.getBoundingClientRect();return[Math.floor((e.clientX-r.left)/r.width*c.width/C),Math.floor((e.clientY-r.top)/r.height*c.height/C)]};
+cThr.onclick=e=>{const[i,j]=pos(cThr,e);const end=E-1-i,s=S-1-j;st.thr[end]=st.thr[end]===s?null:s;drawDraft()};
+cTie.onclick=e=>{const[t,j]=pos(cTie,e);const s=S-1-j;st.tie[s][t]=!st.tie[s][t];drawDraft()};
+cTrd.onclick=e=>{const[t,p]=pos(cTrd,e);st.trd[p]=st.trd[p]===t?null:t;drawDraft()};
+let swatch=1;
+document.querySelector('.tools').onclick=e=>{const a=e.target.dataset.a;if(!a)return;
+ if(a==='straight')straight();if(a==='point')point();if(a==='walk')walk();
+ if(a==='random'){const seqs=[[0,1,2,3],[0,1,2,3,2,1],[0,1,0,1,2,3,2,3],[0,1,2,3,0,3,2,1],[0,2,1,3]];const sq=seqs[Math.random()*seqs.length|0];st.thr=[...Array(E)].map((_,i)=>sq[i%sq.length]);const tq=seqs[Math.random()*seqs.length|0];st.trd=[...Array(P)].map((_,i)=>tq[i%tq.length]%T);
+  st.tie=[...Array(S)].map(()=>[...Array(T)].map(()=>Math.random()<.5));const pal=[...YARN].sort(()=>Math.random()-.5);st.warp=[pal[0][2],pal[0][2],pal[1][2]];st.weft=[pal[2][2],pal[2][2],pal[2][2],pal[3][2]]}
+ if(a==='clear'){st.thr=Array(E).fill(null);st.trd=Array(P).fill(null);st.tie=[...Array(S)].map(()=>Array(T).fill(false))}
+ document.getElementById('clothTag').textContent='Swatch No. '+(++swatch);drawDraft()};
+
+/* yarn room */
+let cone=0;
+function coneSVG(c){return`<svg viewBox="0 0 70 92"><path d="M20 6h30l14 78H6z" fill="#b89b6a"/><path d="M22 10h26l12 70H10z" fill="${c}"/>${[...Array(12)].map((_,i)=>`<path d="M${12+i*.3} ${16+i*5.3}Q35 ${12+i*5.3} ${58-i*.3} ${16+i*5.3}" stroke="#0002" fill="none"/>`).join('')}<ellipse cx="35" cy="84" rx="29" ry="5" fill="#8a6d44"/></svg>`}
+function renderYarn(){document.getElementById('cones').innerHTML=YARN.map((y,i)=>`<button class="cone ${i===cone?'on':''}" data-i="${i}">${coneSVG(y[2])}<b>${y[0]}</b><small>${y[1]}</small></button>`).join('');
+ document.getElementById('warpS').innerHTML=st.warp.map((c,i)=>`<span data-i="${i}" style="background:${c}"></span>`).join('');
+ document.getElementById('weftS').innerHTML=st.weft.map((c,i)=>`<span data-i="${i}" style="background:${c}"></span>`).join('');
+ drawCloth(document.getElementById('cCloth2'),14)}
+document.getElementById('cones').onclick=e=>{const b=e.target.closest('.cone');if(!b)return;cone=+b.dataset.i;renderYarn()};
+['warpS','weftS'].forEach(id=>document.getElementById(id).onclick=e=>{const i=e.target.dataset.i;if(i==null)return;st[id==='warpS'?'warp':'weft'][i]=YARN[cone][2];renderYarn();drawDraft()});
+document.querySelectorAll('[data-w],[data-f]').forEach(b=>b.onclick=()=>{const k=b.dataset.w?'warp':'weft',op=b.dataset.w||b.dataset.f;if(op==='+'&&st[k].length<16)st[k].push(YARN[cone][2]);if(op==='-'&&st[k].length>1)st[k].pop();renderYarn();drawDraft()});
+
+/* pattern book */
+const PATS=[
+ ['Plain weave','Over one, under one. The oldest and strongest weave there is.',[0,1],[[1,0],[0,1],[1,0],[0,1]],[0,1],['#e9e0cc'],['#1f2f5c']],
+ ['2/2 Twill','Diagonal ribs, as seen on denim and gabardine.',[0,1,2,3],null,[0,1,2,3],['#1f2f5c'],['#e9e0cc']],
+ ['Herringbone','A twill that reverses direction every eight ends.',[0,1,2,3,0,1,2,3,3,2,1,0,3,2,1,0],null,[0,1,2,3],['#3a3530','#3a3530','#e9e0cc'],['#6b4a2e']],
+ ['Broken twill','The diagonal is broken up so the cloth reads as texture.',[0,1,3,2],null,[0,1,3,2],['#8e2448'],['#e9e0cc']],
+ ['Bird\'s eye','Small diamonds set point to point. A classic for towels.',[0,1,2,3,2,1],null,[0,1,2,3,2,1],['#e9e0cc'],['#6f8fb0']],
+ ['Basket weave','Pairs of threads act as one for a soft, checked cloth.',[0,0,1,1],[[1,0],[0,1],[1,0],[0,1]],[0,0,1,1],['#d9a82b','#d9a82b','#6b4a2e','#6b4a2e'],['#d9a82b','#d9a82b','#6b4a2e','#6b4a2e']],
+ ['Rosepath','A Swedish folk pattern with little crosses and stars.',[0,1,2,3,0,3,2,1],null,[0,1,2,3,0,3,2,1],['#231e18'],['#b5402f','#b5402f','#d9a82b','#b5402f']],
+ ['Houndstooth','A 2/2 twill with 4-and-4 colour stripes gives the jagged check.',[0,1,2,3],null,[0,1,2,3],['#231e18','#231e18','#231e18','#231e18','#f7f3ea','#f7f3ea','#f7f3ea','#f7f3ea'],['#231e18','#231e18','#231e18','#231e18','#f7f3ea','#f7f3ea','#f7f3ea','#f7f3ea']]];
+function applyPat(p){st.thr=[...Array(E)].map((_,i)=>p[2][i%p[2].length]);st.trd=[...Array(P)].map((_,i)=>p[4][i%p[4].length]);
+ if(p[3])st.tie=[...Array(S)].map((_,s)=>[...Array(T)].map((_,t)=>!!(p[3][s]&&p[3][s][t])));else twillTie();st.warp=p[5].slice();st.weft=p[6].slice()}
+(function(){const save=JSON.stringify(st);document.getElementById('pgrid').innerHTML=PATS.map((p,i)=>`<button class="pat" data-i="${i}"><canvas width="300" height="300" id="pc${i}"></canvas><h3>${p[0]}</h3><p>${p[1]}</p></button>`).join('');
+ PATS.forEach((p,i)=>{applyPat(p);drawCloth(document.getElementById('pc'+i),12)});st=JSON.parse(save)})();
+document.getElementById('pgrid').onclick=e=>{const b=e.target.closest('.pat');if(!b)return;const p=PATS[+b.dataset.i];applyPat(p);document.getElementById('clothTag').textContent=p[0];drawDraft();go('draft');toast(p[0]+' is on the loom.')};
+
+/* glossary + classes */
+const GL=[['Warp','noun','The threads held under tension on the loom and running the length of the cloth. They are put on first, and it takes hours.'],['Weft','noun','The thread thrown across the warp with a shuttle, one row (pick) at a time.'],['Shaft','noun','A frame of heddles. Lifting a shaft raises every warp end threaded through it.'],['Heddle','noun','A wire or string with an eye in the middle. Each warp end passes through exactly one.'],['Tie-up','noun','Which shafts each treadle lifts. Change the tie-up and the same threading gives a new cloth.'],['Treadle','noun','A foot pedal. Weaving is closer to playing an organ than most people think.'],['Float','noun','A thread passing over several others without being bound. Long floats snag, so keep them short.'],['Sett','noun','How many warp ends per inch. Too close and the cloth is stiff, too open and it is sleazy.'],['Selvedge','noun','The self-finished edge of the cloth. A good one is the weaver\'s signature.'],['Draft','noun','The notation you are editing on this site: threading, tie-up, treadling and drawdown.']];
+document.getElementById('gloss').innerHTML=GL.map(g=>`<dl><dt>${g[0]}<small>${g[1]}</small></dt><dd>${g[2]}</dd></dl>`).join('');
+const CL=[['Warping Weekend','Sat–Sun · 10:00',6,4,'£180'],['Twills & Tie-ups','Thursdays × 6',8,7,'£240'],['Natural Dye Garden','Sun · 11:00',10,3,'£75']];
+function renderCl(){document.getElementById('classes').innerHTML=CL.map((c,i)=>`<div class="cl"><h3>${c[0]}</h3><div class="meta">${c[1]} · ${c[4]}</div><div class="seats">${[...Array(c[2])].map((_,k)=>`<i class="${k<c[3]?'t':''}"></i>`).join('')}</div><button class="tb" data-c="${i}" ${c[3]>=c[2]?'disabled':''}>${c[3]>=c[2]?'Full':'Reserve a loom'}</button></div>`).join('')}
+document.getElementById('classes').onclick=e=>{const i=e.target.dataset.c;if(i==null)return;CL[i][3]++;renderCl();toast('A loom is reserved in your name for '+CL[i][0]+'.')};renderCl();
+
+drawDraft();
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

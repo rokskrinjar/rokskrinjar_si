@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desk 84 — A One-Bit Computer</title>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
+<style>
+:root{--k:#000;--w:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#1a1a1a;color:var(--k);font-family:'Pixelify Sans',monospace;font-size:15px;display:grid;place-items:center;min-height:100vh;padding:20px}
+button,input,textarea{font:inherit;color:inherit}
+.crt{width:min(1100px,100%);aspect-ratio:4/3;max-height:calc(100vh - 40px);background:#ddd9cc;border-radius:26px 26px 40px 40px;padding:34px 34px 70px;box-shadow:inset 0 -10px 0 #b8b4a6,0 30px 60px #000;position:relative}
+.crt::after{content:"DESK 84";position:absolute;left:44px;bottom:26px;font-family:Silkscreen;font-size:14px;color:#8a8678;letter-spacing:.2em}
+.eject{position:absolute;right:240px;bottom:24px;font-family:Silkscreen;font-size:12px;color:#6a6658;text-decoration:none;letter-spacing:.1em}.eject:hover{color:#000}
+.slot{position:absolute;right:60px;bottom:30px;width:160px;height:10px;background:#8a8678;border-radius:3px;box-shadow:inset 0 2px 0 #555}
+.screen{position:relative;width:100%;height:100%;background:var(--w);overflow:hidden;border-radius:6px;box-shadow:0 0 0 6px #111;image-rendering:pixelated;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='2' height='2'/%3E%3Crect x='2' y='2' width='2' height='2'/%3E%3C/svg%3E");background-color:#fff}
+.screen::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(#0000 0 2px,#0000000a 2px 3px)}
+.menubar{position:absolute;top:0;left:0;right:0;height:24px;background:#fff;border-bottom:2px solid #000;display:flex;align-items:center;z-index:900;padding:0 8px;gap:4px}
+.menubar>div{position:relative}
+.menubar>div>span{padding:2px 10px;cursor:default;display:block}
+.menubar>div.open>span{background:#000;color:#fff}
+.menubar .logo{font-family:Silkscreen;font-size:16px}
+.drop{position:absolute;top:22px;left:0;background:#fff;border:2px solid #000;box-shadow:3px 3px 0 #000;min-width:190px;display:none;z-index:950}
+.open .drop{display:block}
+.drop div{padding:3px 16px;cursor:default;white-space:nowrap}
+.drop div:hover{background:#000;color:#fff}
+.drop hr{border:0;border-top:2px dotted #000;margin:3px 0}
+.clock{margin-left:auto;padding:0 8px}
+.icon{position:absolute;width:84px;text-align:center;cursor:default;user-select:none}
+.icon svg{width:40px;height:40px;display:block;margin:0 auto 2px;background:#fff}
+.icon span{background:#fff;padding:0 3px;font-size:13px}
+.icon.sel svg{filter:invert(1)}
+.icon.sel span{background:#000;color:#fff}
+.win{position:absolute;background:#fff;border:2px solid #000;box-shadow:3px 3px 0 #000;min-width:200px;display:flex;flex-direction:column}
+.win .tb{height:22px;border-bottom:2px solid #000;display:flex;align-items:center;justify-content:center;position:relative;cursor:move;background:repeating-linear-gradient(#fff 0 2px,#000 2px 3px) 0 4px/100% 13px no-repeat}
+.win:not(.active) .tb{background:#fff}
+.win .tb b{background:#fff;padding:0 8px;font-weight:400}
+.win .cb{position:absolute;left:8px;top:3px;width:14px;height:14px;border:2px solid #000;background:#fff;cursor:pointer}
+.win .body{flex:1;overflow:auto;position:relative}
+/* paint */
+.paint{display:grid;grid-template-columns:52px 1fr;height:100%}
+.ptools{border-right:2px solid #000;display:grid;grid-template-columns:1fr 1fr;align-content:start}
+.ptools button{height:26px;border:1px solid #000;background:#fff;font-size:12px;padding:0}
+.ptools button.on{background:#000;color:#fff}
+.pats{display:flex;border-top:2px solid #000}
+.pats button{width:24px;height:20px;border:1px solid #000;padding:0}
+.pats button.on{outline:2px solid #000;outline-offset:-5px}
+.pcv{background:#fff;cursor:crosshair;image-rendering:pixelated;touch-action:none}
+/* calc */
+.calc{padding:8px;display:grid;gap:4px}
+.calc .disp{border:2px solid #000;text-align:right;padding:4px 8px;font-size:20px}
+.calc .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.calc button{border:2px solid #000;background:#fff;height:30px;box-shadow:2px 2px 0 #000}
+.calc button:active{background:#000;color:#fff;box-shadow:none;transform:translate(2px,2px)}
+/* puzzle */
+.puz{display:grid;grid-template-columns:repeat(4,44px);gap:0;padding:10px;justify-content:center}
+.puz button{width:44px;height:44px;border:2px solid #000;background:#fff;font-size:18px;margin:-1px 0 0 -1px}
+.puz button.e{background:#000;border-color:#000}
+textarea.write{width:100%;height:100%;border:0;resize:none;padding:10px;font-family:'Pixelify Sans';font-size:15px;outline:0;line-height:1.4}
+.about{padding:14px;line-height:1.5;font-size:14px}
+.about .bar{height:12px;border:2px solid #000;margin:4px 0 8px}
+.about .bar i{display:block;height:100%;background:repeating-linear-gradient(90deg,#000 0 2px,#fff 2px 4px)}
+.boot{position:absolute;inset:0;background:#fff;z-index:999;display:grid;place-items:center;text-align:center;font-size:16px}
+.boot svg{width:80px;height:80px}
+.bomb{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);background:#fff;border:2px solid #000;box-shadow:4px 4px 0 #000;padding:14px 18px;z-index:980;display:none;width:340px}
+.bomb.on{display:block}
+</style>
+</head>
+<body>
+<div class="crt"><div class="slot"></div><a class="eject" href="index.html">⏏ Eject to index</a>
+ <div class="screen" id="screen">
+  <div class="menubar" id="menubar">
+   <div><span class="logo">◈</span><div class="drop"><div data-cmd="about">About Desk 84…</div><hr><div data-cmd="app:calc">Calculator</div><div data-cmd="app:clock">Alarm Clock</div><div data-cmd="app:puzzle">Puzzle</div><div data-cmd="app:notes">Note Pad</div></div></div>
+   <div><span>File</span><div class="drop"><div data-cmd="app:paint">New Painting</div><div data-cmd="app:write">New Document</div><hr><div data-cmd="closeall">Close All</div><div data-cmd="index">Quit to Index</div></div></div>
+   <div><span>Edit</span><div class="drop"><div data-cmd="undo">Undo</div><div data-cmd="clearpaint">Clear Canvas</div></div></div>
+   <div><span>View</span><div class="drop"><div data-cmd="pat:0">Desktop: Grey</div><div data-cmd="pat:1">Desktop: Bricks</div><div data-cmd="pat:2">Desktop: Weave</div><div data-cmd="pat:3">Desktop: White</div></div></div>
+   <div><span>Special</span><div class="drop"><div data-cmd="cleanup">Clean Up</div><div data-cmd="trash">Empty Trash</div><hr><div data-cmd="bomb">Restart…</div></div></div>
+   <div class="clock" id="mclock"></div>
+  </div>
+  <div id="desk"></div>
+  <div class="bomb" id="bomb"><div style="display:flex;gap:12px;align-items:center"><svg width="44" height="44" viewBox="0 0 11 11" shape-rendering="crispEdges"><path d="M4 3h3v1h1v1h1v3h-1v1h-1v1h-3v-1h-1v-1h-1v-3h1v-1h1z" fill="#000"/><path d="M7 2h1v1h1v-1h1v1h-1v1h-1v-1h-1z" fill="#000"/></svg><div>Sorry, a system error occurred.<br>ID = 02<br>(Just kidding. It's pretend.)</div></div><div style="text-align:right;margin-top:10px"><button id="restart" style="border:2px solid #000;background:#fff;padding:2px 16px;border-radius:10px">Restart</button></div></div>
+  <div class="boot" id="boot"><div><svg viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="2" y="1" width="12" height="13" fill="#fff" stroke="#000"/><rect x="4" y="3" width="8" height="6" fill="#fff" stroke="#000"/><rect x="6" y="5" width="1" height="1"/><rect x="9" y="5" width="1" height="1"/><rect x="6" y="7" width="4" height="1"/><rect x="3" y="11" width="3" height="1"/></svg><div style="margin-top:10px">Welcome to Desk 84</div></div></div>
+ </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);const desk=$('#desk'),screen=$('#screen');
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+setTimeout(()=>$('#boot').remove(),1200);
+/* 1-bit icons (16x16 grid strings) */
+const IC={paint:'M3 2h7v1h1v1h1v9h-9zM4 3v9h7v-7h-1v-1h-1v-1zM5 9l3-4 1 1-3 4zM5 10h1v1h-1z',write:'M3 2h10v12h-10zM4 3v10h8v-10zM5 5h6v1h-6zM5 7h6v1h-6zM5 9h4v1h-4z',calc:'M3 1h10v14h-10zM4 2v12h8v-12zM5 3h6v3h-6zM5 8h1v1h-1zM7 8h1v1h-1zM9 8h1v1h-1zM5 10h1v1h-1zM7 10h1v1h-1zM9 10h1v3h-1zM5 12h3v1h-3z',puzzle:'M2 2h12v12h-12zM3 3v4h4v-4zM8 3v4h5v-4zM3 8v5h4v-5zM8 8v5h5v-5zM4 4h2v2h-2zM9 9h3v3h-3z',clock:'M5 1h6v1h2v2h1v8h-1v2h-2v1h-6v-1h-2v-2h-1v-8h1v-2h2zM5 3v1h-1v1h-1v6h1v1h1v1h6v-1h1v-1h1v-6h-1v-1h-1v-1zM7 5h1v3h3v1h-4z',notes:'M3 1h9l2 2v12h-11zM4 2v12h9v-10h-2v-2zM5 6h6v1h-6zM5 8h6v1h-6zM5 10h6v1h-6z',trash:'M4 3h8v1h1v1h-10v-1h1zM6 2h4v1h-4zM4 6h8v8h-8zM6 7h1v6h-1zM9 7h1v6h-1z',disk:'M2 2h11l1 1v11h-12zM4 3v4h7v-4zM9 4h1v2h-1zM4 9v4h8v-4z'};
+const icon=k=>`<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="${IC[k]}" fill="#000" fill-rule="evenodd"/></svg>`;
+const APPS={disk:['Desk HD',null],paint:['Paint',[420,300]],write:['Write',[380,280]],calc:['Calculator',[200,250]],puzzle:['Puzzle',[210,250]],clock:['Alarm Clock',[180,210]],notes:['Note Pad',[260,220]],trash:['Trash',[260,180]]};
+let icons=store.get('d84-icons',{disk:[92,4],paint:[92,12],write:[92,20],calc:[92,28],puzzle:[92,36],clock:[92,44],notes:[92,52],trash:[92,86]});
+function drawIcons(){desk.querySelectorAll('.icon').forEach(e=>e.remove());Object.entries(icons).forEach(([k,[x,y]])=>{const d=document.createElement('div');d.className='icon';d.dataset.k=k;d.style.left=`calc(${x}% - 42px)`;d.style.top=`calc(${y}% + 10px)`;d.innerHTML=icon(k)+`<span>${APPS[k][0]}</span>`;desk.appendChild(d)})}
+drawIcons();
+let dragI=null;desk.addEventListener('pointerdown',e=>{const ic=e.target.closest('.icon');desk.querySelectorAll('.icon').forEach(x=>x.classList.toggle('sel',x===ic));if(ic){dragI={el:ic,sx:e.clientX,sy:e.clientY,moved:false};ic.setPointerCapture(e.pointerId)}});
+desk.addEventListener('pointermove',e=>{if(!dragI)return;const r=screen.getBoundingClientRect();if(Math.hypot(e.clientX-dragI.sx,e.clientY-dragI.sy)>4)dragI.moved=true;if(dragI.moved){dragI.el.style.left=(e.clientX-r.left-42)+'px';dragI.el.style.top=(e.clientY-r.top-24)+'px'}});
+desk.addEventListener('pointerup',e=>{if(dragI&&dragI.moved){const r=screen.getBoundingClientRect();icons[dragI.el.dataset.k]=[(e.clientX-r.left)/r.width*100,(e.clientY-r.top-34)/r.height*100];store.set('d84-icons',icons)}dragI=null});
+desk.addEventListener('dblclick',e=>{const ic=e.target.closest('.icon');if(ic)open(ic.dataset.k)});
+/* windows */
+let z=10,wins={};
+function open(k){if(k==='disk'){open('about');return}if(wins[k]){focus(wins[k]);return}const[title,sz]=k==='about'?['About Desk 84',[300,230]]:APPS[k];const w=document.createElement('div');w.className='win';w.style.width=sz[0]+'px';w.style.height=sz[1]+'px';const n=Object.keys(wins).length;w.style.left=(40+n*26)+'px';w.style.top=(40+n*22)+'px';
+ w.innerHTML=`<div class="tb"><span class="cb"></span><b>${title}</b></div><div class="body"></div>`;desk.appendChild(w);wins[k]=w;w.dataset.k=k;focus(w);BUILD[k](w.querySelector('.body'),w);
+ w.querySelector('.cb').onclick=()=>{w.remove();delete wins[k];if(k==='clock')clearInterval(clockIv)};
+ const tb=w.querySelector('.tb');tb.addEventListener('pointerdown',e=>{if(e.target.classList.contains('cb'))return;focus(w);const r=screen.getBoundingClientRect();const ox=e.clientX-w.offsetLeft,oy=e.clientY-w.offsetTop;tb.setPointerCapture(e.pointerId);const mv=ev=>{w.style.left=Math.max(-sz[0]+60,Math.min(r.width-60,ev.clientX-ox))+'px';w.style.top=Math.max(24,Math.min(r.height-30,ev.clientY-oy))+'px'};tb.addEventListener('pointermove',mv);tb.addEventListener('pointerup',()=>tb.removeEventListener('pointermove',mv),{once:true})});
+ w.addEventListener('pointerdown',()=>focus(w))}
+function focus(w){w.style.zIndex=++z;document.querySelectorAll('.win').forEach(x=>x.classList.toggle('active',x===w))}
+/* menus */
+const mb=$('#menubar');mb.addEventListener('click',e=>{const m=e.target.closest('.menubar>div');const cmd=e.target.dataset.cmd;if(cmd){run(cmd);mb.querySelectorAll('.open').forEach(x=>x.classList.remove('open'));return}if(m&&!m.classList.contains('clock')){const was=m.classList.contains('open');mb.querySelectorAll('.open').forEach(x=>x.classList.remove('open'));if(!was)m.classList.add('open')}});
+document.addEventListener('pointerdown',e=>{if(!e.target.closest('.menubar'))mb.querySelectorAll('.open').forEach(x=>x.classList.remove('open'))});
+const PATS=["url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='2' height='2'/%3E%3Crect x='2' y='2' width='2' height='2'/%3E%3C/svg%3E\")","url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M0 0h8v1h-8zM0 4h8v1h-8zM0 0h1v4h-1zM4 4h1v4h-1z'/%3E%3C/svg%3E\")","url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M0 0h4v1h-4zM4 4h4v1h-4zM4 0h1v4h-1zM0 4h1v4h-1z'/%3E%3C/svg%3E\")","none"];
+function run(cmd){if(cmd.startsWith('app:'))open(cmd.slice(4));if(cmd==='about')open('about');if(cmd==='closeall')Object.keys(wins).forEach(k=>{wins[k].remove();delete wins[k]});if(cmd==='index')location.href='index.html';
+ if(cmd.startsWith('pat:')){screen.style.backgroundImage=PATS[+cmd[4]];store.set('d84-pat',+cmd[4])}if(cmd==='cleanup'){icons={disk:[92,4],paint:[92,12],write:[92,20],calc:[92,28],puzzle:[92,36],clock:[92,44],notes:[92,52],trash:[92,86]};store.set('d84-icons',icons);drawIcons()}
+ if(cmd==='trash'){trashItems=[];if(wins.trash){wins.trash.querySelector('.body').innerHTML='';BUILD.trash(wins.trash.querySelector('.body'))}beep()}if(cmd==='bomb')$('#bomb').classList.add('on');if(cmd==='undo'&&paintUndo)paintUndo();if(cmd==='clearpaint'&&paintClear)paintClear()}
+$('#restart').onclick=()=>{$('#bomb').classList.remove('on');run('closeall');const b=document.createElement('div');b.className='boot';b.innerHTML='<div>Starting up…</div>';screen.appendChild(b);setTimeout(()=>b.remove(),1000)};
+const pat=store.get('d84-pat',0);screen.style.backgroundImage=PATS[pat];
+setInterval(()=>$('#mclock').textContent=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}),1000);$('#mclock').textContent=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+function beep(){try{const a=window._a||(window._a=new AudioContext());const o=a.createOscillator(),g=a.createGain();o.type='square';o.frequency.value=880;g.gain.value=.05;o.connect(g).connect(a.destination);o.start();o.stop(a.currentTime+.12)}catch(e){}}
+
+/* app builders */
+let paintUndo=null,paintClear=null,clockIv=null,trashItems=['Old Letter','Budget 1983','Untitled Painting'];
+const BUILD={
+ about(b){b.innerHTML=`<div class="about"><div style="display:flex;gap:10px;align-items:center">${icon('disk')}<div><b>Desk 84</b><br>System 1.0 · 128K</div></div><div style="margin-top:10px">Memory in use</div><div class="bar"><i style="width:${40+Object.keys(wins).length*8}%"></i></div><div>Built with love, one bit at a time. Double-click an icon to open it. Drag windows by the striped bar.</div></div>`},
+ paint(b){b.innerHTML=`<div class="paint"><div><div class="ptools" id="pt"><button data-t="pencil" class="on">✎</button><button data-t="brush">●</button><button data-t="spray">⁘</button><button data-t="line">╱</button><button data-t="rect">▭</button><button data-t="oval">◯</button><button data-t="fill">▼</button><button data-t="erase">▯</button></div><div class="pats" id="pp" style="flex-wrap:wrap"></div></div><canvas class="pcv" width="360" height="270"></canvas></div>`;
+  const cv=b.querySelector('canvas'),x=cv.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#fff';x.fillRect(0,0,360,270);let tool='pencil',patI=0,down=null,snap=null,undo=[];
+  const P=[[1],[1,0,0,1],[1,0,0,0,0,0,1,0],[0],[1,1,1,0],[1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1]];
+  const mk=(bits)=>{const c=document.createElement('canvas');c.width=c.height=4;const cx=c.getContext('2d');cx.fillStyle='#fff';cx.fillRect(0,0,4,4);cx.fillStyle='#000';for(let i=0;i<16;i++){const v=bits[i%bits.length];if(v)cx.fillRect(i%4,i/4|0,1,1)}return x.createPattern(c,'repeat')};
+  const pats=[mk([1]),mk([1,0,1,0,0,1,0,1,1,0,1,0,0,1,0,1]),mk([1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0]),mk([1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0]),mk([1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0]),mk([0])];
+  b.querySelector('#pp').innerHTML=pats.map((p,i)=>`<button data-p="${i}" class="${i===patI?'on':''}"><canvas width="20" height="16" data-pc="${i}"></canvas></button>`).join('');b.querySelectorAll('[data-pc]').forEach(c=>{const g=c.getContext('2d');g.fillStyle=pats[+c.dataset.pc];g.fillRect(0,0,20,16)});
+  b.querySelector('#pt').onclick=e=>{const t=e.target.dataset.t;if(t){tool=t;b.querySelectorAll('#pt button').forEach(q=>q.classList.toggle('on',q===e.target))}};
+  b.querySelector('#pp').onclick=e=>{const btn=e.target.closest('[data-p]');if(btn){patI=+btn.dataset.p;b.querySelectorAll('#pp button').forEach(q=>q.classList.toggle('on',q===btn))}};
+  const p=e=>{const r=cv.getBoundingClientRect();return[Math.floor((e.clientX-r.left)/r.width*360),Math.floor((e.clientY-r.top)/r.height*270)]};
+  const flood=(sx,sy)=>{const img=x.getImageData(0,0,360,270),d=img.data;const idx=(a,b)=>(b*360+a)*4;const t0=d[idx(sx,sy)];const st=[[sx,sy]];const seen=new Uint8Array(360*270);const m=document.createElement('canvas');m.width=360;m.height=270;const mc=m.getContext('2d');const mi=mc.createImageData(360,270);while(st.length){const[a,c]=st.pop();if(a<0||c<0||a>=360||c>=270)continue;const k=c*360+a;if(seen[k])continue;if(d[idx(a,c)]!==t0)continue;seen[k]=1;mi.data[k*4+3]=255;st.push([a+1,c],[a-1,c],[a,c+1],[a,c-1])}mc.putImageData(mi,0,0);mc.globalCompositeOperation='source-in';mc.fillStyle=pats[patI];mc.fillRect(0,0,360,270);x.drawImage(m,0,0)};
+  cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);undo.push(x.getImageData(0,0,360,270));if(undo.length>20)undo.shift();down=p(e);snap=x.getImageData(0,0,360,270);if(tool==='fill'){flood(...down);down=null}});
+  cv.addEventListener('pointermove',e=>{if(!down)return;const q=p(e);x.fillStyle=tool==='erase'?'#fff':pats[patI];x.strokeStyle='#000';
+   if(tool==='pencil'||tool==='brush'||tool==='erase'){const s=tool==='pencil'?1:tool==='erase'?10:5;const n=Math.max(Math.abs(q[0]-down[0]),Math.abs(q[1]-down[1]),1);for(let i=0;i<=n;i++){const a=Math.round(down[0]+(q[0]-down[0])*i/n),c=Math.round(down[1]+(q[1]-down[1])*i/n);if(tool==='pencil'){x.fillStyle='#000';x.fillRect(a,c,1,1)}else x.fillRect(a-s/2,c-s/2,s,s)}down=q}
+   if(tool==='spray'){for(let i=0;i<12;i++){const a=Math.random()*6.28,r=Math.random()*10;x.fillStyle='#000';x.fillRect(Math.round(q[0]+Math.cos(a)*r),Math.round(q[1]+Math.sin(a)*r),1,1)}}
+   if(tool==='line'||tool==='rect'||tool==='oval'){x.putImageData(snap,0,0);x.lineWidth=2;x.beginPath();if(tool==='line'){x.moveTo(down[0]+.5,down[1]+.5);x.lineTo(q[0]+.5,q[1]+.5);x.stroke()}if(tool==='rect'){x.fillRect(Math.min(down[0],q[0]),Math.min(down[1],q[1]),Math.abs(q[0]-down[0]),Math.abs(q[1]-down[1]));x.strokeRect(Math.min(down[0],q[0])+.5,Math.min(down[1],q[1])+.5,Math.abs(q[0]-down[0]),Math.abs(q[1]-down[1]))}if(tool==='oval'){x.ellipse((down[0]+q[0])/2,(down[1]+q[1])/2,Math.abs(q[0]-down[0])/2+.1,Math.abs(q[1]-down[1])/2+.1,0,0,7);x.fill();x.stroke()}}});
+  cv.addEventListener('pointerup',()=>down=null);
+  paintUndo=()=>{const u=undo.pop();if(u)x.putImageData(u,0,0)};paintClear=()=>{undo.push(x.getImageData(0,0,360,270));x.fillStyle='#fff';x.fillRect(0,0,360,270)};
+  // starter doodle
+  x.fillStyle=pats[1];x.beginPath();x.arc(250,150,60,0,7);x.fill();x.strokeStyle='#000';x.lineWidth=2;x.stroke();x.fillStyle='#000';x.font='16px "Pixelify Sans"';x.fillText('Hello, world.',30,40)},
+ write(b){b.innerHTML=`<textarea class="write" spellcheck="false"></textarea>`;const t=b.querySelector('textarea');t.value=store.get('d84-write','Dear diary,\n\nToday I sat down at the computer. It fits on my desk. It has a mouse! My brother says it will never catch on.\n\nThe screen is black and white but somehow feels like colour.');t.oninput=()=>store.set('d84-write',t.value)},
+ notes(b){b.innerHTML=`<textarea class="write" spellcheck="false" style="background:repeating-linear-gradient(#fff 0 20px,#000 20px 21px);line-height:21px;padding-top:0"></textarea>`;const t=b.querySelector('textarea');t.value=store.get('d84-notes','• buy floppies\n• call Steve\n• back up EVERYTHING');t.oninput=()=>store.set('d84-notes',t.value)},
+ calc(b){b.innerHTML=`<div class="calc"><div class="disp">0</div><div class="keys">${['C','=','/','*','7','8','9','-','4','5','6','+','1','2','3','.','0'].map(k=>`<button data-k="${k}" ${k==='0'?'style="grid-column:span 4"':''}>${k}</button>`).join('')}</div></div>`;let e='';const d=b.querySelector('.disp');b.querySelector('.keys').onclick=ev=>{const k=ev.target.dataset.k;if(!k)return;beep();if(k==='C')e='';else if(k==='='){try{e=String(+Function('return ('+e.replace(/[^0-9+\-*/.]/g,'')+')')().toFixed(8))}catch(er){e='Error'}}else{if(e==='Error')e='';e+=k}d.textContent=e||'0'}},
+ puzzle(b){let tiles=[...Array(15).keys()].map(i=>i+1).concat(0);const solv=t=>{let inv=0;const a=t.filter(Boolean);for(let i=0;i<a.length;i++)for(let j=i+1;j<a.length;j++)if(a[i]>a[j])inv++;const row=3-Math.floor(t.indexOf(0)/4);return(inv+row)%2===1};do{tiles.sort(()=>Math.random()-.5)}while(!solv(tiles));
+  let moves=0;const draw=()=>{b.innerHTML=`<div class="puz">${tiles.map((v,i)=>`<button data-i="${i}" class="${v?'':'e'}">${v||''}</button>`).join('')}</div><div style="text-align:center">${tiles.every((v,i)=>v===(i+1)%16)?'★ Solved in '+moves+' moves! ★':'Moves: '+moves}</div>`};draw();
+  b.onclick=e=>{const i=e.target.dataset.i;if(i==null)return;const z0=tiles.indexOf(0),k=+i;if([1,-1,4,-4].includes(k-z0)&&!(Math.abs(k-z0)===1&&Math.floor(k/4)!==Math.floor(z0/4))){[tiles[k],tiles[z0]]=[tiles[z0],tiles[k]];moves++;draw()}}},
+ clock(b){b.innerHTML=`<svg viewBox="0 0 120 120" style="width:100%;height:100%" shape-rendering="crispEdges"><circle cx="60" cy="60" r="50" fill="#fff" stroke="#000" stroke-width="3"/>${[...Array(12)].map((_,i)=>{const a=i/12*Math.PI*2;return`<rect x="${59+Math.sin(a)*42}" y="${59-Math.cos(a)*42}" width="3" height="3"/>`}).join('')}<line id="hh" x1="60" y1="60" stroke="#000" stroke-width="4"/><line id="mm" x1="60" y1="60" stroke="#000" stroke-width="2"/><line id="ss" x1="60" y1="60" stroke="#000" stroke-width="1"/></svg>`;
+  const tick=()=>{const d=new Date(),s=d.getSeconds(),m=d.getMinutes()+s/60,h=d.getHours()%12+m/60;[['hh',h/12,26],['mm',m/60,38],['ss',s/60,42]].forEach(([id,f,L])=>{const l=b.querySelector('#'+id);if(!l)return;l.setAttribute('x2',60+Math.sin(f*Math.PI*2)*L);l.setAttribute('y2',60-Math.cos(f*Math.PI*2)*L)})};tick();clockIv=setInterval(tick,1000)},
+ trash(b){b.innerHTML=trashItems.length?`<div style="display:flex;gap:16px;padding:14px;flex-wrap:wrap">${trashItems.map(t=>`<div style="text-align:center;width:70px">${icon('write')}<div style="font-size:12px">${t}</div></div>`).join('')}</div>`:'<div class="about">The Trash is empty.</div>'}};
+setTimeout(()=>{open('paint');open('write');wins.write.style.left='460px';wins.write.style.top='200px'},1300);
+</script>
+</body>
+</html>

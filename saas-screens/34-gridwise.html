@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gridwise — Site energy · Calder Labs Basel</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#f5f6f1;--card:#fff;--tx:#14213d;--mu:#6b7489;--ln:#e5e7e0;--sun:#f4b400;--wind:#4fb3bf;--grid:#8b93a7;--bat:#7bc96f;--load:#14213d;--co2:#e76f51}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 'Sora',sans-serif}
+header{display:flex;align-items:center;gap:16px;padding:16px 28px}
+.lg{font-weight:700;font-size:18px;display:flex;align-items:center;gap:8px}.lg svg{width:24px}
+header .sp{flex:1}.seg{display:flex;background:#e9ebe4;border-radius:10px;padding:3px}.seg button{border:0;background:transparent;padding:6px 12px;border-radius:8px;font:500 13px 'Sora';cursor:pointer;color:var(--mu)}.seg button.on{background:#fff;color:var(--tx)}
+.page{padding:0 28px 50px;max-width:1360px;margin:0 auto}
+.hero{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.k{background:var(--card);border:1px solid var(--ln);border-radius:20px;padding:18px}
+.k span{color:var(--mu);font-size:12.5px}.k b{display:block;font-weight:600;font-size:30px;letter-spacing:-.03em;margin:4px 0 2px}.k em{font-style:normal;font-size:12.5px}
+.k.dark{background:var(--tx);color:#fff;border:0}.k.dark span{color:#aab3c8}
+.self{height:8px;border-radius:999px;background:#e9ebe4;margin-top:10px;overflow:hidden;display:flex}.self i{display:block;height:100%}
+.row{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:20px;padding:20px}
+.card h3{margin:0 0 4px;font-size:15px;font-weight:600;display:flex;justify-content:space-between}.card p{margin:0 0 12px;color:var(--mu);font-size:13px}
+.flow svg{width:100%;height:330px}
+.node text{font:500 12px 'Sora';fill:var(--tx)}.node .v{font:600 15px 'Sora'}
+.dash{stroke-dasharray:6 10;animation:fl 1s linear infinite}@keyframes fl{to{stroke-dashoffset:-16}}
+.leg{display:flex;gap:14px;font-size:12.5px;color:var(--mu);flex-wrap:wrap}.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+.day svg{width:100%;height:220px}
+.tip{background:#fff7e0;border-radius:14px;padding:14px;margin-top:14px;display:flex;gap:12px;align-items:flex-start}.tip b{display:block}
+.tip button{margin-left:auto;border:0;background:var(--tx);color:#fff;border-radius:9px;padding:8px 12px;font:600 12.5px 'Sora';cursor:pointer;white-space:nowrap}
+@media(max-width:960px){.hero{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="lg"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#7bc96f"/><path d="M13 4 L7 13 H12 L11 20 L17 10 H12 Z" fill="#14213d"/></svg>Gridwise</div><span style="color:var(--mu)">Calder Labs · Basel campus</span><span class="sp"></span><div class="seg"><button class="on">Live</button><button>Today</button><button>Month</button><button>Year</button></div></header>
+<div class="page">
+ <div class="hero">
+  <div class="k dark"><span>Live demand</span><b id="ld">1.84 MW</b><em style="color:#7bc96f">▼ 6% vs typical Wed</em></div>
+  <div class="k"><span>Self-supplied right now</span><b id="ss">63%</b><div class="self" id="sb"></div></div>
+  <div class="k"><span>Carbon intensity</span><b>142 <small style="font-size:14px;font-weight:400">gCO₂/kWh</small></b><em style="color:var(--co2)">grid at 211 · you’re 33% cleaner</em></div>
+  <div class="k"><span>Battery</span><b id="bt">78%</b><em style="color:var(--mu)">discharging · 210 kW</em></div>
+ </div>
+ <div class="row">
+  <div class="card flow"><h3>Where your power comes from <span style="color:var(--mu);font-weight:400;font-size:12.5px">live · updates every 2 s</span></h3><p>Line width = power. Animated lines show direction of flow.</p><svg viewBox="0 0 700 330" id="fs"></svg>
+   <div class="leg"><span><i style="background:var(--sun)"></i>Solar</span><span><i style="background:var(--wind)"></i>Wind PPA</span><span><i style="background:var(--bat)"></i>Battery</span><span><i style="background:var(--grid)"></i>Grid</span></div></div>
+  <div class="card day"><h3>Today’s mix</h3><p>Stacked supply vs demand (line), 00:00 → now</p><svg viewBox="0 0 400 220" id="ds" preserveAspectRatio="none"></svg>
+   <div class="tip"><span style="font-size:22px">💡</span><div><b>Shift the freezer defrost cycle</b><span style="color:var(--mu);font-size:13px">Moving it from 18:00 to 13:00 uses solar instead of peak grid. Saves ~CHF 2,100 / yr and 4.1 t CO₂.</span></div><button id="ap">Apply</button></div></div>
+ </div>
+</div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const $=s=>document.getElementById(s);
+let S={sun:720,wind:440,bat:210,grid:470};
+const SRC=[['sun','Solar roof','#f4b400',50],['wind','Wind PPA','#4fb3bf',125],['bat','Battery','#7bc96f',200],['grid','Grid','#8b93a7',275]];
+const SINK=[['Labs & cleanrooms',.46,70],['HVAC',.28,165],['Offices',.16,240],['EV chargers',.10,300]];
+function flow(){const tot=Object.values(S).reduce((a,b)=>a+b,0);let h='';
+ SRC.forEach(([k,n,c,y])=>{const w=Math.max(3,S[k]/tot*60);h+=`<path d="M150 ${y} C 260 ${y}, 260 165, 340 165" stroke="${c}" stroke-width="${w}" fill="none" opacity=".35"/><path class="dash" d="M150 ${y} C 260 ${y}, 260 165, 340 165" stroke="${c}" stroke-width="2" fill="none"/>
+  <g class="node"><rect x="10" y="${y-24}" width="140" height="48" rx="12" fill="#fff" stroke="#e5e7e0"/><circle cx="30" cy="${y}" r="7" fill="${c}"/><text x="44" y="${y-4}">${n}</text><text class="v" x="44" y="${y+14}">${S[k]} kW</text></g>`});
+ h+=`<g class="node"><rect x="340" y="110" width="110" height="110" rx="20" fill="#14213d"/><text x="395" y="158" text-anchor="middle" fill="#fff" style="fill:#fff">Campus</text><text class="v" x="395" y="182" text-anchor="middle" style="fill:#fff">${(tot/1000).toFixed(2)} MW</text></g>`;
+ SINK.forEach(([n,p,y])=>{h+=`<path d="M450 165 C 520 165, 520 ${y}, 560 ${y}" stroke="#14213d" stroke-width="${p*60}" fill="none" opacity=".15"/><path class="dash" d="M450 165 C 520 165, 520 ${y}, 560 ${y}" stroke="#14213d" stroke-width="1.6" fill="none" opacity=".6"/><g class="node"><text x="566" y="${y-2}">${n}</text><text class="v" x="566" y="${y+16}">${Math.round(tot*p)} kW</text></g>`});
+ $('fs').innerHTML=h;$('ld').textContent=(tot/1000).toFixed(2)+' MW';const self=Math.round((tot-S.grid)/tot*100);$('ss').textContent=self+'%';
+ $('sb').innerHTML=SRC.map(([k,,c])=>`<i style="width:${S[k]/tot*100}%;background:${c}"></i>`).join('')}
+flow();setInterval(()=>{S.sun=Math.max(400,Math.min(900,S.sun+Math.round((Math.random()-.5)*60)));S.wind=Math.max(200,Math.min(600,S.wind+Math.round((Math.random()-.5)*50)));S.grid=Math.max(250,Math.min(700,S.grid+Math.round((Math.random()-.5)*40)));flow()},2000);
+let d='';const N=44,f=(i,a,b,c)=>Math.max(0,a*Math.exp(-Math.pow((i-b)/c,2)));const stacks=[[],[],[],[]];
+for(let i=0;i<=N;i++){const sun=f(i,90,30,8),wind=40+Math.sin(i/5)*12,bat=i>32?30:i<10?20:0,dem=150+Math.sin(i/7)*20+f(i,40,26,10);const grid=Math.max(0,dem-sun-wind-bat);[sun,wind,bat,grid].forEach((v,k)=>stacks[k].push(v));stacks.dem=(stacks.dem||[]).concat(dem)}
+const X=i=>i/N*400,Y=v=>210-v/220*200;let base=new Array(N+1).fill(0);['#f4b400','#4fb3bf','#7bc96f','#8b93a7'].forEach((c,k)=>{const top=base.map((b,i)=>b+stacks[k][i]);d+=`<path d="M${top.map((v,i)=>X(i)+' '+Y(v)).join(' L')} L${base.map((v,i)=>X(i)+' '+Y(v)).reverse().join(' L')} Z" fill="${c}" opacity=".85"/>`;base=top});
+d+=`<polyline points="${stacks.dem.map((v,i)=>X(i)+','+Y(v)).join(' ')}" fill="none" stroke="#14213d" stroke-width="2" vector-effect="non-scaling-stroke"/>`;$('ds').innerHTML=d;
+$('ap').onclick=e=>{e.target.textContent='Scheduled ✓';e.target.style.background='#7bc96f'};
+</script>
+</body>
+</html>

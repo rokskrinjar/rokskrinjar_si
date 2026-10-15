@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reel — Launch film v3 · review</title>
+<link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600;700;800&family=Wix+Madefor+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#111012;--s:#1a191c;--s2:#242327;--ln:#2e2d32;--tx:#efedf2;--mu:#8d8a95;--lime:#d2f065;--lil:#b9a6ff;--cor:#ff8a6b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 'Wix Madefor Text',sans-serif}
+header{display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid var(--ln)}
+.lg{font:800 20px 'Wix Madefor Display';display:flex;align-items:center;gap:8px}.lg i{width:22px;height:22px;border-radius:50%;border:3px solid var(--lil);position:relative}.lg i::after{content:'';position:absolute;inset:4px;border-radius:50%;background:var(--lil)}
+.ttl{font-weight:600}.ttl span{color:var(--mu);font-weight:400}header .sp{flex:1}
+.ver{display:flex;gap:4px;background:var(--s);border-radius:10px;padding:3px}.ver button{border:0;background:transparent;color:var(--mu);border-radius:8px;padding:6px 10px;font:600 12.5px 'Wix Madefor Text';cursor:pointer}.ver button.on{background:var(--s2);color:var(--tx)}
+.appr{background:var(--lime);color:#111;border:0;border-radius:10px;padding:9px 14px;font:700 13px 'Wix Madefor Text';cursor:pointer}
+.lay{display:grid;grid-template-columns:1fr 360px;gap:0;min-height:calc(100vh - 61px)}
+.stage{padding:20px 24px}
+.vid{aspect-ratio:16/9;border-radius:16px;position:relative;overflow:hidden;background:#000}
+.shot{position:absolute;inset:0;transition:opacity .6s}
+.shot h2{position:absolute;left:8%;bottom:14%;font:800 clamp(28px,4vw,56px)/1 'Wix Madefor Display';margin:0;letter-spacing:-.03em;text-shadow:0 4px 30px rgba(0,0,0,.4)}
+.pin{position:absolute;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:grid;place-items:center;font:700 11px 'Wix Madefor Text';color:#111;cursor:pointer;opacity:0;transition:opacity .3s}.pin span{transform:rotate(45deg)}.pin.on{opacity:1}
+.ctrl{display:flex;align-items:center;gap:14px;margin-top:14px}
+.pl{width:44px;height:44px;border-radius:50%;border:0;background:var(--tx);color:#111;font-size:15px;cursor:pointer}
+.tlw{flex:1}
+.tl{position:relative;height:46px;background:var(--s);border-radius:10px;cursor:pointer;overflow:hidden}
+.ch{position:absolute;top:0;bottom:0;border-right:1px solid var(--bg)}.ch span{position:absolute;left:8px;top:6px;font:600 11px 'Wix Madefor Text';color:var(--mu);white-space:nowrap}
+.heat{position:absolute;left:0;right:0;bottom:0;height:16px;display:flex;align-items:flex-end}.heat i{flex:1;background:var(--lil);opacity:.55}
+.ph{position:absolute;top:0;bottom:0;width:2px;background:var(--lime);z-index:2}
+.mk{position:absolute;top:-6px;width:12px;height:12px;border-radius:50%;transform:translateX(-50%);border:2px solid var(--bg);z-index:3}
+.marks{position:relative;height:10px;margin-top:6px}
+.tc{font:600 13px 'Wix Madefor Text';color:var(--mu);font-variant-numeric:tabular-nums;min-width:96px;text-align:right}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.stats div{background:var(--s);border-radius:12px;padding:12px}.stats span{color:var(--mu);font-size:12px}.stats b{display:block;font:700 20px 'Wix Madefor Display'}
+.side{border-left:1px solid var(--ln);display:flex;flex-direction:column;min-height:0}
+.side h3{margin:0;padding:16px 18px 10px;font:700 15px 'Wix Madefor Display';display:flex;justify-content:space-between}
+.cms{flex:1;overflow:auto;padding:0 12px}
+.cm{padding:12px;border-radius:12px;cursor:pointer;margin-bottom:4px}.cm:hover,.cm.on{background:var(--s)}
+.cm .h{display:flex;gap:8px;align-items:center}.cm .av{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700;color:#111}
+.cm .t{font:600 12px 'Wix Madefor Text';background:var(--s2);border-radius:6px;padding:1px 6px;color:var(--lime)}
+.cm p{margin:6px 0 0 32px}.cm.done p{color:var(--mu);text-decoration:line-through}
+.cm .rs{margin:6px 0 0 32px;font-size:12px;color:var(--mu)}
+.add{border-top:1px solid var(--ln);padding:12px;display:flex;gap:8px}.add input{flex:1;background:var(--s);border:1px solid var(--ln);border-radius:10px;padding:10px;color:var(--tx);font:14px 'Wix Madefor Text';outline:none}.add button{border:0;background:var(--lil);color:#111;border-radius:10px;padding:0 14px;font-weight:700;cursor:pointer}
+@media(max-width:1000px){.lay{grid-template-columns:1fr}.side{border-left:0;border-top:1px solid var(--ln)}.stats{grid-template-columns:1fr 1fr}.ver{display:none}}
+</style>
+</head>
+<body>
+<header><div class="lg"><i></i>reel</div><span class="ttl">Halo launch film <span>· Brand / Q4 campaign</span></span><span class="sp"></span><div class="ver"><button>v1</button><button>v2</button><button class="on">v3</button></div><button class="appr" id="ap">Approve v3</button></header>
+<div class="lay">
+ <div class="stage"><div class="vid" id="vid"></div>
+  <div class="ctrl"><button class="pl" id="pl">▶</button><div class="tlw"><div class="tl" id="tl"><div class="heat" id="heat"></div><div class="ph" id="ph"></div></div><div class="marks" id="marks"></div></div><span class="tc" id="tc">0:00 / 1:24</span></div>
+  <div class="stats"><div><span>Views (internal)</span><b>184</b></div><div><span>Avg. watched</span><b>78%</b></div><div><span>Drop-off peak</span><b>0:52</b></div><div><span>Open notes</span><b id="on">4</b></div></div></div>
+ <aside class="side"><h3>Notes <span style="color:var(--mu);font-weight:500;font-size:13px">click to jump</span></h3><div class="cms" id="cms"></div><div class="add"><input id="ni" placeholder="Leave a note at 0:00…"><button id="nb">Post</button></div></aside>
+</div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 50 SaaS</a>
+<script>
+const D=84;let t=0,play=false;const $=s=>document.getElementById(s);
+const SH=[[0,'Open','linear-gradient(135deg,#7a5a40,#2b2118)','Meetings with depth.'],[18,'The problem','linear-gradient(135deg,#1e3a5f,#0b1220)','Twelve faces. One flat grid.'],[38,'Spatial','radial-gradient(circle at 30% 30%,#ffc48c,#4a3626 70%)','Now lean in.'],[58,'Product','linear-gradient(160deg,#b9a6ff,#3b2e7a)','Panels that stay put.'],[74,'End card','linear-gradient(135deg,#d2f065,#4f6b16)','halo.so']];
+const CM=[[6,'Ama','#ff8a6b','Logo lands a beat too early — wait for the music hit.',0],[23,'Kai','#b9a6ff','Can we see one real face here? Feels abstract.',0],[41,'Ines','#d2f065','Love this transition. Keep exactly as is.',1],[52,'Kai','#b9a6ff','People drop off here — trim 3 seconds?',0],[66,'Rui','#8fd8ff','Typo in the panel: “collaborate” has one L.',0],[79,'Ama','#ff8a6b','End card needs the App Store badge.',0]];
+let sel=-1;
+$('vid').innerHTML=SH.map((s,i)=>`<div class="shot" data-i="${i}" style="background:${s[2]};opacity:${i?0:1}"><h2>${s[3]}</h2></div>`).join('')+CM.map((c,i)=>`<div class="pin" data-c="${i}" style="left:${15+((i*37)%70)}%;top:${15+((i*23)%50)}%;background:${c[2]}"><span>${i+1}</span></div>`).join('');
+$('tl').insertAdjacentHTML('afterbegin',SH.map((s,i)=>{const e=i<SH.length-1?SH[i+1][0]:D;return`<div class="ch" style="left:${s[0]/D*100}%;width:${(e-s[0])/D*100}%"><span>${s[1]}</span></div>`}).join(''));
+$('heat').innerHTML=Array.from({length:60},(_,i)=>{const x=i/60*D;return`<i style="height:${Math.max(15,100-x*.4-(x>50&&x<56?35:0))}%"></i>`}).join('');
+const fmt=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+function marks(){$('marks').innerHTML=CM.map((c,i)=>`<span class="mk" style="left:${c[0]/D*100}%;background:${c[4]?'#555':c[2]}" title="${c[3]}"></span>`).join('');
+ $('cms').innerHTML=CM.map((c,i)=>`<div class="cm ${i===sel?'on':''} ${c[4]?'done':''}" data-i="${i}"><div class="h"><span class="av" style="background:${c[2]}">${c[1][0]}</span><b>${c[1]}</b><span class="t">${fmt(c[0])}</span><span style="margin-left:auto;color:var(--mu);font-size:12px">#${i+1}</span></div><p>${c[3]}</p>${c[4]?'<div class="rs">✓ Resolved in v3</div>':''}</div>`).join('');$('on').textContent=CM.filter(c=>!c[4]).length}
+function set(s){t=Math.max(0,Math.min(D,s));$('ph').style.left=t/D*100+'%';$('tc').textContent=fmt(t)+' / 1:24';let cur=0;SH.forEach((s,i)=>{if(s[0]<=t)cur=i});document.querySelectorAll('.shot').forEach((e,i)=>e.style.opacity=i===cur?1:0);
+ document.querySelectorAll('.pin').forEach((p,i)=>p.classList.toggle('on',Math.abs(CM[i][0]-t)<3));$('ni').placeholder=`Leave a note at ${fmt(t)}…`}
+$('tl').onclick=e=>{const r=$('tl').getBoundingClientRect();set((e.clientX-r.left)/r.width*D)};
+$('cms').onclick=e=>{const c=e.target.closest('.cm');if(c){sel=+c.dataset.i;set(CM[sel][0]);marks()}};
+$('pl').onclick=()=>{play=!play;$('pl').textContent=play?'❚❚':'▶'};setInterval(()=>{if(play){set(t+.1);if(t>=D)play=false}},100);
+$('nb').onclick=()=>{const v=$('ni').value.trim();if(!v)return;CM.push([t,'You','#ffffff',v,0]);CM.sort((a,b)=>a[0]-b[0]);$('ni').value='';marks()};
+$('ap').onclick=e=>{e.target.textContent='✓ Approved';e.target.style.background='#8fd8ff'};
+marks();set(23);sel=1;marks();
+</script>
+</body>
+</html>

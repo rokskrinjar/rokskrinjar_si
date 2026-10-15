@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atlas CRM — Q4 Pipeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#f6f5f2;--card:#fff;--ln:#e6e3dc;--tx:#23211c;--mu:#7d786d;--acc:#1c5d99;--gold:#c8901a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 'Figtree',sans-serif;display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+aside{border-right:1px solid var(--ln);padding:16px 12px;background:#efede8}
+.ws{display:flex;align-items:center;gap:10px;padding:6px 8px 18px;font-weight:700}.ws i{width:26px;height:26px;border-radius:7px;background:var(--tx);color:#fff;display:grid;place-items:center;font-style:normal;font-size:13px}
+.nav a{display:flex;justify-content:space-between;padding:7px 10px;border-radius:7px;color:var(--tx);text-decoration:none;font-weight:500}.nav a.on{background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06)}.nav a span{color:var(--mu);font-size:12px}
+.grp{font-size:11px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;margin:18px 10px 6px}
+main{min-width:0;display:flex;flex-direction:column}
+.bar{display:flex;align-items:center;gap:12px;padding:14px 22px;border-bottom:1px solid var(--ln);background:var(--bg)}
+.bar h1{font-size:18px;margin:0}.bar .sp{flex:1}
+.b{padding:7px 12px;border:1px solid var(--ln);border-radius:8px;background:#fff;font:600 13px 'Figtree';cursor:pointer;color:var(--tx)}.b.p{background:var(--tx);color:#fff;border-color:var(--tx)}
+.sum{display:flex;gap:28px;padding:14px 22px;border-bottom:1px solid var(--ln);flex-wrap:wrap}
+.sum div{font-size:12px;color:var(--mu)}.sum b{display:block;font-size:20px;color:var(--tx);font-variant-numeric:tabular-nums}
+.quota{flex:1;min-width:220px}.qb{height:8px;border-radius:4px;background:var(--ln);margin-top:8px;overflow:hidden;display:flex}.qb i{display:block;height:100%}
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(258px,1fr);gap:14px;padding:18px 22px;overflow-x:auto;flex:1;align-items:start}
+.col{background:#efede8;border-radius:12px;padding:10px;min-height:300px;transition:background .15s}
+.col.over{background:#e3eaf3}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:4px 4px 10px}
+.ch b{display:flex;gap:8px;align-items:center}.ch b i{width:8px;height:8px;border-radius:50%}
+.ch span{font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums}
+.deal{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:12px;margin-bottom:8px;cursor:grab;box-shadow:0 1px 1px rgba(0,0,0,.03);transition:transform .15s,box-shadow .15s}
+.deal:hover{box-shadow:0 6px 14px rgba(0,0,0,.07);transform:translateY(-1px)}.deal.drag{opacity:.4}
+.deal .co{display:flex;align-items:center;gap:8px;font-weight:600}.deal .co i{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;color:#fff;font-style:normal;font-size:11px;font-weight:700}
+.deal .amt{font-size:18px;font-weight:700;margin:8px 0 6px;font-variant-numeric:tabular-nums}
+.deal .meta{display:flex;justify-content:space-between;align-items:center;color:var(--mu);font-size:12px}
+.av{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700;color:#fff}
+.tag{font-size:11px;padding:2px 7px;border-radius:5px;background:#f1efe9;color:var(--mu);font-weight:600}.tag.hot{background:#fdeee0;color:#b4561b}.tag.risk{background:#fbe7e7;color:#b03a3a}
+.prob{height:3px;border-radius:2px;background:var(--ln);margin-top:10px}.prob i{display:block;height:100%;border-radius:2px;background:var(--acc)}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--tx);color:#fff;padding:12px 16px;border-radius:10px;font-weight:600;transform:translateY(80px);opacity:0;transition:.3s}.toast.on{transform:none;opacity:1}
+@media(max-width:860px){body{grid-template-columns:1fr}aside{display:none}}
+</style>
+</head>
+<body>
+<aside><div class="ws"><i>A</i>Atlas · Meridian Co.</div>
+ <div class="nav"><a href="#">Inbox <span>12</span></a><a href="#">My tasks <span>4</span></a><div class="grp">Sales</div><a class="on" href="#">Pipeline</a><a href="#">Accounts <span>318</span></a><a href="#">Contacts</a><a href="#">Sequences</a><a href="#">Forecast</a><div class="grp">Saved views</div><a href="#">Enterprise · EMEA</a><a href="#">Closing this month</a><a href="#">Stalled &gt; 14 days</a></div></aside>
+<main>
+ <div class="bar"><h1>Q4 New business</h1><span class="tag">Board</span><span class="sp"></span><button class="b">Filter</button><button class="b">Group: Stage ▾</button><button class="b p">+ New deal</button></div>
+ <div class="sum"><div>Open pipeline<b id="open">—</b></div><div>Weighted<b id="wt">—</b></div><div>Closed won<b id="won">—</b></div>
+  <div class="quota">Quota attainment · <b style="display:inline;font-size:14px" id="qa"></b> of €1.2M<div class="qb"><i id="qw" style="background:var(--acc)"></i><i id="qp" style="background:repeating-linear-gradient(45deg,#9db8d6 0 4px,#c8d6e6 4px 8px)"></i></div></div></div>
+ <div class="board" id="board"></div>
+</main>
+<div class="toast" id="toast"></div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const ST=[['Qualified','#9aa3ad',.1],['Discovery','#6c8ebf',.25],['Proposal','#1c5d99',.5],['Negotiation','#c8901a',.75],['Closed won','#2f8f5b',1]];
+const OW={JM:'#7a5cc2',SR:'#d4572a',LT:'#2a8a8a',AK:'#3d6fb6'};
+let D=[['Halden Bank','HB','#0f4c81',184000,0,'JM','Oct 30','hot'],['Orbis Retail','OR','#b5562a',42000,0,'SR','Nov 12',''],['Fjord Energy','FE','#2c7a7b',96000,1,'LT','Nov 4',''],['Kilnworks','KW','#8a5a44',23500,1,'AK','Oct 21','risk'],['Velo Mobility','VM','#5b4bb7',151000,2,'JM','Oct 28','hot'],['Ashgrove Health','AH','#3b7a3b',78000,2,'SR','Nov 18',''],['Pellucid AI','PA','#222',212000,3,'AK','Oct 15','hot'],['Stonebridge Law','SL','#6b4f2a',64000,3,'LT','Oct 19','risk'],['Marlow Foods','MF','#a8323e',118000,4,'JM','Sep 29',''],['Tessera Labs','TL','#1e6091',56000,4,'SR','Sep 24','']];
+const eur=v=>'€'+(v>=1e6?(v/1e6).toFixed(2)+'M':Math.round(v/1000)+'k');
+function render(){const b=document.getElementById('board');b.innerHTML='';
+ ST.forEach(([n,c,p],si)=>{const ds=D.filter(d=>d[4]===si);const col=document.createElement('div');col.className='col';col.dataset.s=si;
+  col.innerHTML=`<div class="ch"><b><i style="background:${c}"></i>${n}</b><span>${ds.length} · ${eur(ds.reduce((a,d)=>a+d[3],0))}</span></div>`+ds.map(d=>`<div class="deal" draggable="true" data-n="${d[0]}"><div class="co"><i style="background:${d[2]}">${d[1]}</i>${d[0]}</div><div class="amt">€${d[3].toLocaleString('en-US')}</div><div class="meta"><span>Close ${d[6]} ${d[7]?`<span class="tag ${d[7]}">${d[7]==='hot'?'🔥 Hot':'Stalled'}</span>`:''}</span><span class="av" style="background:${OW[d[5]]}">${d[5]}</span></div><div class="prob"><i style="width:${p*100}%;background:${c}"></i></div></div>`).join('');
+  col.addEventListener('dragover',e=>{e.preventDefault();col.classList.add('over')});col.addEventListener('dragleave',()=>col.classList.remove('over'));
+  col.addEventListener('drop',e=>{e.preventDefault();const n=e.dataTransfer.getData('text');const d=D.find(x=>x[0]===n);if(d&&d[4]!==si){d[4]=si;toast(`${n} → ${ST[si][0]}${si===4?' 🎉':''}`)}render()});b.appendChild(col)});
+ document.querySelectorAll('.deal').forEach(el=>{el.addEventListener('dragstart',e=>{e.dataTransfer.setData('text',el.dataset.n);el.classList.add('drag')});el.addEventListener('dragend',()=>el.classList.remove('drag'))});
+ const open=D.filter(d=>d[4]<4),won=D.filter(d=>d[4]===4).reduce((a,d)=>a+d[3],0),wt=open.reduce((a,d)=>a+d[3]*ST[d[4]][2],0);
+ document.getElementById('open').textContent=eur(open.reduce((a,d)=>a+d[3],0));document.getElementById('wt').textContent=eur(wt);document.getElementById('won').textContent=eur(won);
+ document.getElementById('qa').textContent=Math.round(won/12000)+'%';document.getElementById('qw').style.width=(won/1.2e6*100)+'%';document.getElementById('qp').style.width=(wt/1.2e6*100)+'%'}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2200)}
+render();
+</script>
+</body>
+</html>

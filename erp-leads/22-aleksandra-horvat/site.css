@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Young+Serif&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap');
+:root{--e-bg:#faf8f4;--e-card:#fff;--e-ink:#24211d;--e-mu:#68625a;--e-ln:#e8e2d8;--e-acc:#3a4fa0;--e-acc2:#d9a21b;--e-acc-ink:#fff;--e-soft:#f1ede4;--e-r:14px;--e-font:'Schibsted Grotesk',system-ui,sans-serif;--e-head:'Young Serif',Georgia,serif;--e-hw:400;--e-hl:-.01em;--e-cta-bg:#3a4fa0;--e-cta-btn:#d9a21b;--e-cta-btn-ink:#24211d}
+body.e-side .e-head{background:#f1ede4;border-right:0}
+body.e-side .e-nav a.on{background:#3a4fa0;color:#fff}
+.e-hero.center .e-por{border-radius:50%;box-shadow:0 0 0 8px #faf8f4,0 0 0 10px #d9a21b}
+.e-hero .e-name{font-size:clamp(32px,4.2vw,56px);line-height:1.1}
+.e-kick{color:#3a4fa0}
+.e-stats b{color:#3a4fa0;font-family:var(--e-head);font-weight:400}
+.e-why .n{color:#d9a21b;font-family:var(--e-head)}
+.e-why.grid>div{background:#fff;border-radius:14px}

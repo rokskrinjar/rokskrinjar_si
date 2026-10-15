@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUANT//TERM — fictional markets simulator</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;600&family=Fira+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#000; --panel:#0a0a0a; --amber:#ff9d00; --txt:#e6e6e6; --dim:#777; --up:#26d07c; --dn:#ff4a4a; --blue:#4aa3ff; --line:#222; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--txt); font-family:'Fira Mono',monospace; font-size:13px; min-height:100vh; }
+  a { color:inherit; text-decoration:none; }
+  .top { display:flex; align-items:center; gap:0; background:var(--amber); color:#000; font-weight:700; }
+  .top .brand { padding:6px 14px; background:#000; color:var(--amber); letter-spacing:.1em; }
+  .top nav { display:flex; }
+  .top nav a { padding:6px 14px; border-right:1px solid #0003; }
+  .top nav a.on { background:#000; color:var(--amber); }
+  .top .fn { margin-left:auto; padding:6px 14px; }
+  .cmd { display:flex; align-items:center; gap:8px; padding:6px 10px; background:#111; border-bottom:1px solid var(--line); }
+  .cmd input { flex:1; background:#000; border:1px solid #333; color:var(--amber); font-family:inherit; font-size:13px; padding:6px 8px; outline:none; text-transform:uppercase; }
+  .cmd span { color:var(--dim); }
+  .disclaimer { color:#555; font-size:11px; padding:2px 10px; background:#050505; border-bottom:1px solid var(--line); }
+  .tape { overflow:hidden; white-space:nowrap; border-bottom:1px solid var(--line); background:#050505; }
+  .tape div { display:inline-block; padding:5px 0; animation:tape 60s linear infinite; }
+  @keyframes tape { to { transform:translateX(-50%); } }
+  .tape span { margin-right:26px; }
+  [data-view][hidden] { display:none; }
+  .grid { display:grid; grid-template-columns:repeat(12,1fr); gap:1px; background:var(--line); min-height:calc(100vh - 110px); }
+  .p { background:var(--panel); padding:8px 10px; overflow:hidden; }
+  .p h4 { color:var(--amber); font-weight:500; font-size:12px; letter-spacing:.08em; border-bottom:1px solid var(--line); padding-bottom:4px; margin-bottom:6px; display:flex; justify-content:space-between; }
+  .c4 { grid-column:span 4; } .c5 { grid-column:span 5; } .c7 { grid-column:span 7; } .c8 { grid-column:span 8; } .c3 { grid-column:span 3; } .c6 { grid-column:span 6; } .c12 { grid-column:span 12; }
+  table { width:100%; border-collapse:collapse; }
+  th { color:var(--dim); font-weight:400; text-align:right; padding:3px 6px; font-size:11px; }
+  th:first-child, td:first-child { text-align:left; }
+  td { padding:4px 6px; text-align:right; border-bottom:1px solid #151515; }
+  tr.row { cursor:pointer; }
+  tr.row:hover td { background:#141414; }
+  tr.sel td { background:#1a1200; }
+  .up { color:var(--up); } .dn { color:var(--dn); }
+  .flashU { animation:fu .6s; } .flashD { animation:fd .6s; }
+  @keyframes fu { from { background:#26d07c55; } } @keyframes fd { from { background:#ff4a4a55; } }
+  canvas { width:100%; display:block; }
+  .tf { display:flex; gap:4px; }
+  .tf button, .btn { background:#111; border:1px solid #333; color:var(--txt); font-family:inherit; font-size:11px; padding:3px 8px; cursor:pointer; }
+  .tf button.on { background:var(--amber); color:#000; border-color:var(--amber); }
+  .big { font-size:2rem; font-weight:700; }
+  .kv { display:grid; grid-template-columns:1fr 1fr; gap:4px 12px; font-size:12px; }
+  .kv span:nth-child(odd) { color:var(--dim); }
+  .kv span:nth-child(even) { text-align:right; }
+  .news div { padding:6px 0; border-bottom:1px solid #151515; line-height:1.4; }
+  .news .t { color:var(--dim); margin-right:8px; }
+  .news .hot { color:var(--amber); }
+  .ticket label { display:block; color:var(--dim); font-size:11px; margin:8px 0 3px; }
+  .ticket input, .ticket select { width:100%; background:#000; border:1px solid #333; color:var(--txt); font-family:inherit; padding:6px; font-size:13px; }
+  .side { display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-top:6px; }
+  .side button { padding:10px; border:0; font-family:inherit; font-weight:700; cursor:pointer; font-size:14px; }
+  .buy { background:var(--up); color:#000; } .sell { background:var(--dn); color:#000; }
+  .heat { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
+  .heat div { padding:10px 6px; text-align:center; font-size:12px; cursor:pointer; }
+  .heat b { display:block; font-size:14px; }
+  .log div { padding:3px 0; font-size:12px; border-bottom:1px solid #151515; }
+  @media (max-width:1000px){ .c3,.c4,.c5,.c6,.c7,.c8 { grid-column:span 12; } .top nav a { padding:6px 8px; } }
+</style>
+</head>
+<body>
+<div class="top"><span class="brand">QUANT//TERM</span><nav><a href="#mkt">MKT &lt;GO&gt;</a><a href="#chart">GP &lt;GO&gt;</a><a href="#port">PORT &lt;GO&gt;</a><a href="#news">NEWS &lt;GO&gt;</a></nav><a class="fn" href="index.html">EXIT ⏏</a></div>
+<div class="cmd"><span>&gt;</span><input id="cmd" placeholder="TYPE A TICKER (E.G. ZEPH) OR MKT / GP / PORT / NEWS AND PRESS ENTER"><span id="clock"></span></div>
+<div class="disclaimer">SIMULATION ONLY · ALL COMPANIES, PRICES AND NEWS ARE FICTIONAL AND RANDOMLY GENERATED · NOT FINANCIAL ADVICE · PAPER MONEY</div>
+<div class="tape"><div id="tape"></div></div>
+
+<section data-view="mkt"><div class="grid">
+  <div class="p c7"><h4>WATCHLIST <span id="mktState">MARKET OPEN (SIM)</span></h4><table><thead><tr><th>TICKER</th><th>NAME</th><th>LAST</th><th>CHG</th><th>%CHG</th><th>VOL</th><th>TREND</th></tr></thead><tbody id="watch"></tbody></table></div>
+  <div class="p c5"><h4>SECTOR HEATMAP</h4><div class="heat" id="heat"></div><h4 style="margin-top:10px">INDEX · QT-50 (FICTIONAL)</h4><canvas id="idx" width="600" height="160"></canvas></div>
+  <div class="p c12"><h4>TOP MOVERS</h4><div id="movers" style="display:flex;gap:20px;flex-wrap:wrap"></div></div>
+</div></section>
+
+<section data-view="chart" hidden><div class="grid">
+  <div class="p c8"><h4><span id="cTitle"></span><span class="tf" id="tf"><button data-t="1">1M</button><button data-t="5" class="on">5M</button><button data-t="15">15M</button><button data-t="60">1H</button></span></h4><canvas id="candles" width="1200" height="480"></canvas><canvas id="vol" width="1200" height="90"></canvas>
+    <div style="display:flex;gap:10px;margin-top:6px;color:var(--dim)"><label><input type="checkbox" id="ma20" checked> MA20</label><label><input type="checkbox" id="ma50" checked> MA50</label><label><input type="checkbox" id="bb"> BOLL</label></div></div>
+  <div class="p c4"><h4>QUOTE</h4><div class="big" id="qLast"></div><div id="qChg"></div><div class="kv" style="margin-top:10px" id="qkv"></div><h4 style="margin-top:12px">DESCRIPTION</h4><p id="qDesc" style="line-height:1.5;color:#bbb"></p></div>
+</div></section>
+
+<section data-view="port" hidden><div class="grid">
+  <div class="p c4 ticket"><h4>ORDER TICKET · PAPER</h4><label>TICKER</label><select id="oT"></select><label>QUANTITY</label><input type="number" id="oQ" value="100" min="1"><label>TYPE</label><select id="oType"><option>MARKET</option><option>LIMIT</option></select><label>LIMIT PRICE</label><input type="number" id="oL" step=".01"><div class="side"><button class="buy" id="bBuy">BUY</button><button class="sell" id="bSell">SELL</button></div><p id="oMsg" style="margin-top:8px;color:var(--amber);min-height:1.4em"></p></div>
+  <div class="p c8"><h4>PORTFOLIO <span id="pv"></span></h4><div class="kv" style="grid-template-columns:repeat(4,1fr 1fr);margin-bottom:8px" id="acct"></div><table><thead><tr><th>TICKER</th><th>QTY</th><th>AVG</th><th>LAST</th><th>MKT VAL</th><th>P&amp;L</th><th>%</th></tr></thead><tbody id="pos"></tbody></table><h4 style="margin-top:12px">EQUITY CURVE</h4><canvas id="eq" width="1000" height="150"></canvas><h4 style="margin-top:8px">BLOTTER</h4><div class="log" id="blot"></div></div>
+</div></section>
+
+<section data-view="news" hidden><div class="grid"><div class="p c12 news"><h4>TOP NEWS · FICTIONAL WIRE <span>HEADLINES MOVE SIMULATED PRICES</span></h4><div id="newsList"></div></div></div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'mkt';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('.top nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}render()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* fictional instruments */
+const IN=[['ZEPH','Zephyr Aeronautics','INDU',142.3,'Builds quiet electric airships for regional cargo routes.'],['KELP','Kelpworks Bio','HLTH',38.9,'Farms seaweed-derived pharmaceuticals off the Faroe coast.'],['LUMN','Lumina Glassworks','TECH',221.5,'Photonic chips etched in glass; the lab smells of popcorn.'],['BRCK','Brickhaven REIT','REAL',64.1,'Owns 400 very sensible apartment buildings.'],['OWLS','Nightowl Media','COMM',17.4,'A streaming service exclusively for documentaries about owls.'],['TIDE','Tidewater Power','UTIL',88.2,'Tidal turbines in twelve estuaries; profits follow the moon.'],['CRMB','Crumb & Co Bakeries','CONS',45.6,'A bakery chain with a suspiciously good croissant patent.'],['QBIT','Qubit Foundry','TECH',311.9,'Quantum computers that occasionally work.'],['ORCA','Orca Shipping','INDU',27.3,'Container shipping with a pod of mascot whales.'],['MOSS','Mossgrove Timber','MATL',52.8,'Sustainable forests and an alarming number of lumberjack shirts.'],['VOLT','Voltaire Motors','CONS',178.4,'Electric cars named after philosophers.'],['HIVE','Hive Mutual','FINL',73.0,'An insurance company run entirely by consensus.']];
+const Q={};IN.forEach(([t,n,s,p,d],i)=>{let seed=i+1;const rnd=()=>((seed=(seed*16807)%2147483647)/2147483647);const hist=[];let px=p*(.9+rnd()*.1);for(let k=0;k<300;k++){const o=px;const c=o*(1+(rnd()-.5)*.012);hist.push({o,c,h:Math.max(o,c)*(1+rnd()*.004),l:Math.min(o,c)*(1-rnd()*.004),v:5e4+rnd()*2e5});px=c}Q[t]={t,n,s,d,open:px,last:px,prev:px,hist,vol:0,drift:0,spark:hist.slice(-40).map(h=>h.c)}});
+let selT='ZEPH',tf=5;
+/* market loop */
+function tick(){IN.forEach(([t])=>{const q=Q[t];q.prev=q.last;const vol=q.last*.0018;q.drift*=.97;q.last=Math.max(1,q.last+(Math.random()-.5)*2*vol+q.drift*q.last*.002);q.vol+=Math.round(Math.random()*4000);const bar=q.hist.at(-1);bar.c=q.last;bar.h=Math.max(bar.h,q.last);bar.l=Math.min(bar.l,q.last);bar.v+=Math.random()*3000;q.spark.push(q.last);if(q.spark.length>40)q.spark.shift()});
+ if(Math.random()<.08)IN.forEach(([t])=>{const q=Q[t];q.hist.push({o:q.last,c:q.last,h:q.last,l:q.last,v:0});if(q.hist.length>400)q.hist.shift()});
+ checkLimits();equity.push(accountValue());if(equity.length>300)equity.shift();render()}
+setInterval(tick,700);
+const pct=q=>(q.last/q.open-1)*100,fmt=(n,d=2)=>n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+function spark(arr,up){const mn=Math.min(...arr),mx=Math.max(...arr);return `<svg width="80" height="18" viewBox="0 0 80 18"><polyline points="${arr.map((v,i)=>`${i/(arr.length-1)*80},${17-(v-mn)/(mx-mn||1)*16}`).join(' ')}" fill="none" stroke="${up?'#26d07c':'#ff4a4a'}" stroke-width="1.3"/></svg>`}
+function render(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-GB')+' SIM';
+ document.getElementById('tape').innerHTML=(IN.map(([t])=>{const q=Q[t],p=pct(q);return `<span>${t} <b>${fmt(q.last)}</b> <span class="${p>=0?'up':'dn'}">${p>=0?'▲':'▼'}${fmt(Math.abs(p))}%</span></span>`}).join('')).repeat(2);
+ if(!V[0].hidden){document.getElementById('watch').innerHTML=IN.map(([t])=>{const q=Q[t],c=q.last-q.open,p=pct(q),f=q.last>q.prev?'flashU':q.last<q.prev?'flashD':'';return `<tr class="row${t===selT?' sel':''}" data-t="${t}"><td style="color:var(--amber)">${t}</td><td style="text-align:left;color:#bbb">${q.n}</td><td class="${f}">${fmt(q.last)}</td><td class="${c>=0?'up':'dn'}">${c>=0?'+':''}${fmt(c)}</td><td class="${p>=0?'up':'dn'}">${p>=0?'+':''}${fmt(p)}%</td><td>${(q.vol/1000).toFixed(1)}K</td><td>${spark(q.spark,p>=0)}</td></tr>`}).join('');
+  const sec={};IN.forEach(([t,,s])=>{(sec[s]=sec[s]||[]).push(pct(Q[t]))});document.getElementById('heat').innerHTML=Object.entries(sec).map(([s,a])=>{const v=a.reduce((x,y)=>x+y,0)/a.length;const k=Math.min(1,Math.abs(v)/1.5);return `<div style="background:${v>=0?`rgba(38,208,124,${.15+k*.6})`:`rgba(255,74,74,${.15+k*.6})`}">${s}<b>${v>=0?'+':''}${fmt(v)}%</b></div>`}).join('');
+  const ix=IN.map(([t])=>Q[t].spark);const series=ix[0].map((_,i)=>ix.reduce((a,s)=>a+s[i]/s[0],0)/ix.length*1000);drawLine('idx',series,'#ff9d00');
+  const mv=IN.map(([t])=>[t,pct(Q[t])]).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1])).slice(0,6);document.getElementById('movers').innerHTML=mv.map(([t,p])=>`<div style="padding:8px 14px;border:1px solid #222"><span style="color:var(--amber)">${t}</span> <b class="${p>=0?'up':'dn'}">${p>=0?'+':''}${fmt(p)}%</b></div>`).join('')}
+ if(!V[1].hidden)drawChart();if(!V[2].hidden)renderPort()}
+function drawLine(id,arr,col){const c=document.getElementById(id),g=c.getContext('2d'),W=c.width,H=c.height;g.clearRect(0,0,W,H);const mn=Math.min(...arr),mx=Math.max(...arr);g.strokeStyle='#1a1a1a';for(let i=1;i<4;i++){g.beginPath();g.moveTo(0,i*H/4);g.lineTo(W,i*H/4);g.stroke()}g.strokeStyle=col;g.lineWidth=2;g.beginPath();arr.forEach((v,i)=>{const x=i/(arr.length-1)*W,y=H-8-(v-mn)/(mx-mn||1)*(H-16);i?g.lineTo(x,y):g.moveTo(x,y)});g.stroke();g.fillStyle=col;g.font='14px Fira Mono';g.fillText(fmt(arr.at(-1)),W-90,16)}
+document.getElementById('watch').addEventListener('click',e=>{const r=e.target.closest('tr');if(!r)return;selT=r.dataset.t;go('chart')});
+
+/* candles */
+function agg(h,n){const out=[];for(let i=h.length%n;i<h.length;i+=n){const s=h.slice(i,i+n);out.push({o:s[0].o,c:s.at(-1).c,h:Math.max(...s.map(x=>x.h)),l:Math.min(...s.map(x=>x.l)),v:s.reduce((a,x)=>a+x.v,0)})}return out}
+function drawChart(){const q=Q[selT];const n={1:1,5:2,15:4,60:8}[tf];const bars=agg(q.hist,n).slice(-90);const c=document.getElementById('candles'),g=c.getContext('2d'),W=c.width,H=c.height;g.fillStyle='#0a0a0a';g.fillRect(0,0,W,H);
+ const mn=Math.min(...bars.map(b=>b.l)),mx=Math.max(...bars.map(b=>b.h)),Y=v=>H-20-(v-mn)/(mx-mn||1)*(H-40),bw=(W-70)/bars.length;
+ g.strokeStyle='#161616';g.fillStyle='#555';g.font='12px Fira Mono';for(let i=0;i<=5;i++){const v=mn+(mx-mn)*i/5,y=Y(v);g.beginPath();g.moveTo(0,y);g.lineTo(W-70,y);g.stroke();g.fillText(fmt(v),W-64,y+4)}
+ const closes=bars.map(b=>b.c);const ma=k=>closes.map((_,i)=>i<k-1?null:closes.slice(i-k+1,i+1).reduce((a,b)=>a+b,0)/k);
+ if(document.getElementById('bb').checked){const m=ma(20);g.fillStyle='#4aa3ff14';g.beginPath();const up=[],dn=[];m.forEach((v,i)=>{if(v==null)return;const sd=Math.sqrt(closes.slice(i-19,i+1).reduce((a,c)=>a+(c-v)**2,0)/20);up.push([i,v+2*sd]);dn.push([i,v-2*sd])});up.forEach(([i,v],k)=>k?g.lineTo(i*bw+bw/2,Y(v)):g.moveTo(i*bw+bw/2,Y(v)));dn.reverse().forEach(([i,v])=>g.lineTo(i*bw+bw/2,Y(v)));g.fill()}
+ bars.forEach((b,i)=>{const x=i*bw+bw/2,up=b.c>=b.o;g.strokeStyle=g.fillStyle=up?'#26d07c':'#ff4a4a';g.beginPath();g.moveTo(x,Y(b.h));g.lineTo(x,Y(b.l));g.stroke();g.fillRect(x-bw*.35,Math.min(Y(b.o),Y(b.c)),bw*.7,Math.max(1,Math.abs(Y(b.o)-Y(b.c))))});
+ [[20,'#ff9d00','ma20'],[50,'#4aa3ff','ma50']].forEach(([k,col,id])=>{if(!document.getElementById(id).checked)return;const m=ma(k);g.strokeStyle=col;g.lineWidth=1.5;g.beginPath();let st=false;m.forEach((v,i)=>{if(v==null)return;const x=i*bw+bw/2;st?g.lineTo(x,Y(v)):(g.moveTo(x,Y(v)),st=true)});g.stroke();g.lineWidth=1});
+ const ly=Y(q.last);g.strokeStyle='#ff9d00';g.setLineDash([4,4]);g.beginPath();g.moveTo(0,ly);g.lineTo(W-70,ly);g.stroke();g.setLineDash([]);g.fillStyle='#ff9d00';g.fillRect(W-70,ly-10,70,20);g.fillStyle='#000';g.fillText(fmt(q.last),W-64,ly+4);
+ const v=document.getElementById('vol'),vg=v.getContext('2d');vg.fillStyle='#0a0a0a';vg.fillRect(0,0,W,90);const vm=Math.max(...bars.map(b=>b.v));bars.forEach((b,i)=>{vg.fillStyle=b.c>=b.o?'#26d07c66':'#ff4a4a66';const h=b.v/vm*80;vg.fillRect(i*bw+bw*.15,90-h,bw*.7,h)});
+ const p=pct(q);document.getElementById('cTitle').textContent=`${q.t} · ${q.n.toUpperCase()} · ${tf}M`;document.getElementById('qLast').textContent=fmt(q.last);document.getElementById('qChg').innerHTML=`<span class="${p>=0?'up':'dn'}">${p>=0?'+':''}${fmt(q.last-q.open)} (${p>=0?'+':''}${fmt(p)}%)</span>`;
+ const hi=Math.max(...q.hist.slice(-80).map(h=>h.h)),lo=Math.min(...q.hist.slice(-80).map(h=>h.l));document.getElementById('qkv').innerHTML=`<span>OPEN</span><span>${fmt(q.open)}</span><span>HIGH</span><span>${fmt(hi)}</span><span>LOW</span><span>${fmt(lo)}</span><span>VOLUME</span><span>${(q.vol/1000).toFixed(1)}K</span><span>SECTOR</span><span>${q.s}</span><span>MKT CAP (SIM)</span><span>${fmt(q.last*0.12,1)}B</span>`;document.getElementById('qDesc').textContent=q.d}
+document.getElementById('tf').onclick=e=>{const t=e.target.dataset.t;if(!t)return;tf=+t;document.querySelectorAll('#tf button').forEach(b=>b.classList.toggle('on',b===e.target));drawChart()};['ma20','ma50','bb'].forEach(id=>document.getElementById(id).onchange=drawChart);
+
+/* portfolio */
+let cash=100000,pos={},orders=[],equity=[],blot=[];const START=100000;
+function accountValue(){return cash+Object.entries(pos).reduce((a,[t,p])=>a+p.q*Q[t].last,0)}
+document.getElementById('oT').innerHTML=IN.map(([t,n])=>`<option value="${t}">${t} — ${n}</option>`).join('');
+function exec(side,t,qty,px){const cost=qty*px;if(side==='BUY'){if(cost>cash){msg('INSUFFICIENT PAPER CASH');return false}cash-=cost;const p=pos[t]||{q:0,avg:0};p.avg=(p.avg*p.q+cost)/(p.q+qty);p.q+=qty;pos[t]=p}else{const p=pos[t];if(!p||p.q<qty){msg('NOT ENOUGH SHARES (NO SHORTING IN SIM)');return false}p.q-=qty;cash+=cost;if(!p.q)delete pos[t]}
+ blot.unshift(`${new Date().toLocaleTimeString('en-GB')}  ${side.padEnd(4)} ${String(qty).padStart(5)} ${t} @ ${fmt(px)}`);msg(`FILLED: ${side} ${qty} ${t} @ ${fmt(px)}`);return true}
+function msg(m){document.getElementById('oMsg').textContent=m}
+function order(side){const t=oT.value,q=Math.max(1,+oQ.value|0),type=oType.value,lp=+oL.value;if(type==='MARKET')exec(side,t,q,Q[t].last);else{if(!lp){msg('SET A LIMIT PRICE');return}orders.push({side,t,q,lp});blot.unshift(`${new Date().toLocaleTimeString('en-GB')}  WORKING ${side} ${q} ${t} LMT ${fmt(lp)}`);msg('LIMIT ORDER WORKING')}renderPort()}
+function checkLimits(){orders=orders.filter(o=>{const px=Q[o.t].last;if((o.side==='BUY'&&px<=o.lp)||(o.side==='SELL'&&px>=o.lp)){exec(o.side,o.t,o.q,px);return false}return true})}
+bBuy.onclick=()=>order('BUY');bSell.onclick=()=>order('SELL');oT.onchange=()=>oL.value=Q[oT.value].last.toFixed(2);oT.onchange();
+function renderPort(){const val=accountValue(),pl=val-START;document.getElementById('pv').innerHTML=`<span class="${pl>=0?'up':'dn'}">${pl>=0?'+':''}${fmt(pl)} (${fmt(pl/START*100)}%)</span>`;
+ document.getElementById('acct').innerHTML=`<span>EQUITY</span><span>${fmt(val)}</span><span>CASH</span><span>${fmt(cash)}</span><span>POSITIONS</span><span>${Object.keys(pos).length}</span><span>WORKING</span><span>${orders.length}</span>`;
+ document.getElementById('pos').innerHTML=Object.entries(pos).map(([t,p])=>{const l=Q[t].last,mv=p.q*l,u=mv-p.q*p.avg;return `<tr><td style="color:var(--amber)">${t}</td><td>${p.q}</td><td>${fmt(p.avg)}</td><td>${fmt(l)}</td><td>${fmt(mv)}</td><td class="${u>=0?'up':'dn'}">${u>=0?'+':''}${fmt(u)}</td><td class="${u>=0?'up':'dn'}">${fmt(u/(p.q*p.avg)*100)}%</td></tr>`}).join('')||'<tr><td colspan="7" style="color:var(--dim);text-align:left">NO POSITIONS. USE THE TICKET TO PAPER-TRADE.</td></tr>';
+ if(equity.length>1)drawLine('eq',equity,'#4aa3ff');document.getElementById('blot').innerHTML=blot.slice(0,12).map(b=>`<div>${b}</div>`).join('')}
+
+/* news */
+const NEWS=[['ZEPH',1,'Zephyr airship completes first trans-Alpine cargo run; crew reports "unnervingly quiet"'],['KELP',-1,'Kelpworks trial delayed after seaweed "grew faster than the lab"'],['QBIT',1,'Qubit Foundry computer factors 21 correctly on first try; engineers weep'],['OWLS',1,'Nightowl Media signs exclusive deal with celebrity barn owl'],['CRMB',-1,'Crumb & Co croissant patent challenged by rival bakery "Flake Inc."'],['TIDE',1,'Unusually high spring tides boost Tidewater output'],['VOLT',-1,'Voltaire Motors recalls "Kant" model: doors will only open for moral reasons'],['LUMN',1,'Lumina unveils glass chip "clear enough to read through"'],['ORCA',-1,'Orca Shipping delays: mascot whales insist on scenic route'],['HIVE',1,'Hive Mutual reaches unanimous decision in record 11 days']];
+const newsLog=[];function pushNews(){const [t,dir,h]=NEWS[Math.random()*NEWS.length|0];Q[t].drift+=dir*(.6+Math.random());newsLog.unshift([new Date().toLocaleTimeString('en-GB'),t,h,dir]);if(newsLog.length>30)newsLog.pop();
+ document.getElementById('newsList').innerHTML=newsLog.map(([ts,t,h,d],i)=>`<div><span class="t">${ts}</span><span class="${i===0?'hot':''}">${t}</span> — ${h} <span class="${d>0?'up':'dn'}">${d>0?'▲':'▼'}</span></div>`).join('')}
+pushNews();setInterval(pushNews,9000);
+
+/* command line */
+document.getElementById('cmd').addEventListener('keydown',e=>{if(e.key!=='Enter')return;const v=e.target.value.trim().toUpperCase().replace(/<GO>|\s+GO$/,'').trim();e.target.value='';if(Q[v]){selT=v;go('chart')}else if({MKT:1,GP:1,PORT:1,NEWS:1}[v])go({MKT:'mkt',GP:'chart',PORT:'port',NEWS:'news'}[v]);else if(v==='EXIT')location.href='index.html';else{e.target.placeholder='UNKNOWN: '+v+'. TRY ZEPH, QBIT, MKT, PORT'}});
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

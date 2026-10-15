@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gridiron — Lead list.grid</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#fff;--ln:#e2e5ea;--hd:#f5f6f8;--tx:#1d2330;--mu:#6b7385;--acc:#0f766e;--accbg:#e6f4f2;--ai:#b45309;--aibg:#fff7e8}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--tx);font:13px/1.4 'Atkinson Hyperlegible',sans-serif;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--ln)}
+.lg{width:28px;height:28px;border-radius:6px;background:var(--acc);display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:5px}.lg i{background:rgba(255,255,255,.85);border-radius:1px}
+.nm{font-weight:700;font-size:15px}.nm small{display:block;font-weight:400;color:var(--mu);font-size:12px}
+.top .sp{flex:1}.b{border:1px solid var(--ln);background:#fff;border-radius:7px;padding:6px 11px;font:700 12.5px 'Atkinson Hyperlegible';cursor:pointer}.b.p{background:var(--tx);color:#fff;border-color:var(--tx)}
+.avs{display:flex}.avs i{width:26px;height:26px;border-radius:50%;border:2px solid #fff;margin-left:-6px;display:grid;place-items:center;font:700 10px 'Atkinson Hyperlegible';color:#fff;font-style:normal}
+.tools{display:flex;gap:4px;padding:6px 14px;border-bottom:1px solid var(--ln);background:var(--hd);align-items:center}
+.tools button{border:0;background:transparent;border-radius:5px;padding:5px 8px;cursor:pointer;font:13px 'Atkinson Hyperlegible';color:#3b4252}.tools button:hover{background:#e7e9ee}.tools .sep{width:1px;height:18px;background:var(--ln);margin:0 6px}
+.fx{display:flex;align-items:center;border-bottom:1px solid var(--ln)}
+.fx .ref{width:70px;padding:7px 10px;border-right:1px solid var(--ln);font:500 12.5px 'Roboto Mono';color:var(--mu)}
+.fx .f{padding:0 10px;font:500 12.5px 'Roboto Mono';color:var(--acc)}.fx input{flex:1;border:0;padding:7px 4px;font:12.5px 'Roboto Mono';outline:none}
+.wrap{flex:1;overflow:auto;position:relative}
+table{border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums}
+th,td{border-right:1px solid var(--ln);border-bottom:1px solid var(--ln);height:30px;padding:0 9px;white-space:nowrap;text-align:left}
+thead th{position:sticky;top:0;background:var(--hd);z-index:2;font-weight:700;color:#3b4252;font-size:12px}
+thead .ltr th{font:500 11px 'Roboto Mono';color:var(--mu);text-align:center;height:22px;border-bottom:1px solid var(--ln)}
+td.rn,th.rn{position:sticky;left:0;background:var(--hd);color:var(--mu);font:11px 'Roboto Mono';text-align:center;width:40px;z-index:1}
+thead th.rn{z-index:3}
+td{cursor:cell}td.sel{outline:2px solid var(--acc);outline-offset:-2px;background:var(--accbg)}
+th.ai{background:var(--aibg);color:var(--ai)}td.ai{background:#fffcf5}
+td.ai.load{color:#c9b28a}td.ai.load::after{content:'';display:inline-block;width:10px;height:10px;margin-left:6px;border:2px solid #e5c58a;border-top-color:transparent;border-radius:50%;animation:r .7s linear infinite;vertical-align:-1px}@keyframes r{to{transform:rotate(360deg)}}
+td.num{text-align:right}.tag{padding:2px 8px;border-radius:999px;font-size:11.5px;font-weight:700}
+.t1{background:#e6f4f2;color:#0f766e}.t2{background:#fff3e0;color:#b45309}.t3{background:#f1f2f5;color:#6b7385}
+.score{display:inline-block;width:46px;height:6px;border-radius:3px;background:#eceef2;margin-right:6px;vertical-align:middle}.score i{display:block;height:100%;border-radius:3px;background:var(--acc)}
+.stat{display:flex;gap:18px;padding:6px 14px;border-top:1px solid var(--ln);background:var(--hd);font-size:12px;color:var(--mu)}.stat b{color:var(--tx)}
+.prompt{position:absolute;right:16px;top:16px;width:300px;background:#fff;border:1px solid var(--ln);border-radius:12px;box-shadow:0 14px 40px rgba(20,30,50,.14);padding:14px;z-index:5}
+.prompt h5{margin:0 0 8px;font-size:12px;color:var(--ai);display:flex;gap:6px;align-items:center}.prompt textarea{width:100%;border:1px solid var(--ln);border-radius:8px;padding:8px;font:13px 'Atkinson Hyperlegible';height:70px;resize:none}
+.prompt .row{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:12px;color:var(--mu)}
+.tabs{display:flex;gap:2px;padding:0 10px;background:var(--hd);border-top:1px solid var(--ln)}.tabs span{padding:7px 14px;font-size:12.5px;color:var(--mu)}.tabs span.on{background:#fff;color:var(--tx);font-weight:700;border:1px solid var(--ln);border-top:0}
+@media(max-width:800px){.prompt{display:none}.avs{display:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="lg"><i></i><i></i><i></i><i></i></div><div class="nm">EMEA lead list — Q4<small>Gridiron · edited just now</small></div><span class="sp"></span><div class="avs"><i style="background:#0f766e">PN</i><i style="background:#b45309">TK</i><i style="background:#6d28d9">AL</i></div><button class="b">Share</button><button class="b p" id="run">✨ Fill column</button></div>
+<div class="tools"><button><b>B</b></button><button><i>I</i></button><button>€</button><button>%</button><button>.0</button><span class="sep"></span><button>⇅ Sort</button><button>⏚ Filter</button><button>▦ Group</button><span class="sep"></span><button style="color:var(--ai)">✨ AI column</button><button>Σ Formula</button></div>
+<div class="fx"><span class="ref" id="ref">F3</span><span class="f">fx</span><input id="fxi" value="=AI(&quot;Is {Company} likely to need SOC 2 in the next year? Answer Likely / Maybe / Unlikely&quot;, B3, D3)"></div>
+<div class="wrap" id="wrap"><table id="t"></table>
+ <div class="prompt"><h5>✨ AI column · “SOC 2 need”</h5><textarea>Is {Company} likely to need SOC 2 in the next year, given its industry and size? Answer Likely / Maybe / Unlikely, then one short reason.</textarea><div class="row"><span>Uses: Company, Industry, Employees</span><span>~0.2¢ / row</span></div></div></div>
+<div class="tabs"><span class="on">Leads</span><span>Accounts</span><span>Pivot</span><span>+</span></div>
+<div class="stat"><span>Rows <b>12</b></span><span>Sum ARR <b id="sum"></b></span><span>Avg fit <b>71</b></span><span id="st">AI filled <b>0 / 12</b></span></div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:40px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const R=[['Halden Bank','Banking','Oslo',2400,184000,92],['Orbis Retail','Retail','Hamburg',860,42000,58],['Fjord Energy','Energy','Bergen',1300,96000,77],['Kilnworks','Manufacturing','Stoke',210,23500,44],['Velo Mobility','Mobility','Amsterdam',540,151000,81],['Ashgrove Health','Healthcare','Leeds',3100,78000,88],['Pellucid AI','Software','Lisbon',120,212000,95],['Stonebridge Law','Legal','London',380,64000,73],['Marlow Foods','Food & Bev','Lyon',1900,118000,52],['Tessera Labs','Biotech','Basel',260,56000,69],['Corvid Games','Gaming','Malmö',90,18000,38],['Northbeam','Logistics','Rotterdam',740,87000,66]];
+const AI=[['Likely','t1','Regulated; customers will ask'],['Maybe','t2','Large retailer, some B2B'],['Likely','t1','Critical infrastructure'],['Unlikely','t3','Small, mostly B2C'],['Likely','t1','Selling to enterprise fleets'],['Likely','t1','NHS suppliers need it'],['Likely','t1','Sells AI to banks'],['Likely','t1','Client data, very sensitive'],['Maybe','t2','Depends on retail partners'],['Likely','t1','Clinical data partners'],['Unlikely','t3','Consumer games studio'],['Maybe','t2','Some enterprise shippers']];
+const filled=new Array(R.length).fill(0);
+function draw(){let h=`<thead><tr class="ltr"><th class="rn"></th>${'ABCDEFG'.split('').map(c=>`<th>${c}</th>`).join('')}</tr><tr><th class="rn">1</th><th>Company</th><th>Industry</th><th>HQ</th><th>Employees</th><th>Est. ARR</th><th class="ai">✨ SOC 2 need</th><th>Fit score</th></tr></thead><tbody>`;
+ R.forEach((r,i)=>{const a=AI[i],f=filled[i];h+=`<tr><td class="rn">${i+2}</td><td data-c="A${i+2}"><b>${r[0]}</b></td><td data-c="B${i+2}">${r[1]}</td><td data-c="C${i+2}">${r[2]}</td><td class="num" data-c="D${i+2}">${r[3].toLocaleString()}</td><td class="num" data-c="E${i+2}">€${r[4].toLocaleString()}</td><td class="ai ${f===1?'load':''}" data-c="F${i+2}">${f===2?`<span class="tag ${a[1]}">${a[0]}</span> <span style="color:var(--mu)">${a[2]}</span>`:f===1?'thinking':''}</td><td data-c="G${i+2}"><span class="score"><i style="width:${r[5]}%"></i></span>${r[5]}</td></tr>`});
+ document.getElementById('t').innerHTML=h+'</tbody>';document.getElementById('st').innerHTML=`AI filled <b>${filled.filter(x=>x===2).length} / 12</b>`}
+document.getElementById('sum').textContent='€'+R.reduce((a,r)=>a+r[4],0).toLocaleString();
+document.getElementById('t').onclick=e=>{const td=e.target.closest('td[data-c]');if(!td)return;document.querySelectorAll('td.sel').forEach(x=>x.classList.remove('sel'));td.classList.add('sel');document.getElementById('ref').textContent=td.dataset.c;
+ document.getElementById('fxi').value=td.classList.contains('ai')?`=AI("Is {Company} likely to need SOC 2…", A${td.dataset.c.slice(1)}, B${td.dataset.c.slice(1)}, D${td.dataset.c.slice(1)})`:td.textContent.trim()};
+function run(){filled.fill(0);draw();R.forEach((_,i)=>{setTimeout(()=>{filled[i]=1;draw()},i*260);setTimeout(()=>{filled[i]=2;draw()},i*260+700)})}
+document.getElementById('run').onclick=run;draw();setTimeout(run,600);
+</script>
+</body>
+</html>

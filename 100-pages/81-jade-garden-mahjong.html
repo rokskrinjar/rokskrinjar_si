@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jade Garden — Mahjong Solitaire</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;900&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--felt:#0f3b33;--felt2:#0a2a24;--jade:#3fa58a;--ivory:#f6f0e0;--bone:#e8dcc0;--red:#c0282d;--green:#1e7a4a;--blue:#1a3f8a;--gold:#d4aa50}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(ellipse at 50% 30%,#155245,var(--felt) 50%,var(--felt2));color:var(--ivory);font-family:'Josefin Sans',sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 4vw}
+.logo{font-family:'Cormorant Garamond';font-size:30px;font-style:italic;display:flex;align-items:center;gap:12px}
+.logo b{font-family:'Noto Serif SC';font-style:normal;color:var(--gold);font-size:30px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:8px 16px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;border-radius:30px}
+nav a.on{background:var(--gold);color:var(--felt2)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1200px;margin:0 auto;padding:10px 4vw 60px}
+.bar{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.stat{background:#00000033;border:1px solid #d4aa5044;border-radius:30px;padding:6px 16px;font-size:14px;letter-spacing:.08em}
+.stat b{color:var(--gold)}
+.btn{background:none;border:1px solid var(--gold);color:var(--gold);border-radius:30px;padding:7px 16px;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.btn:hover{background:var(--gold);color:var(--felt2)}
+.boardwrap{position:relative;margin:0 auto;overflow-x:auto;padding-bottom:10px}
+.board{position:relative;margin:0 auto}
+.tile{position:absolute;width:var(--tw);height:var(--th);border:0;padding:0;background:none;transition:transform .15s,opacity .35s}
+.tile .face{position:absolute;inset:0;background:linear-gradient(145deg,#fffdf6,var(--ivory) 60%,var(--bone));border-radius:7px;box-shadow:4px 4px 0 #c9b88a,5px 5px 0 #8a7a50,6px 7px 8px #0006;display:grid;place-items:center;overflow:hidden}
+.tile .face svg{width:86%;height:86%}
+.tile.free:hover{transform:translate(-2px,-2px)}
+.tile.blocked .face{filter:brightness(.82)}
+.tile.sel .face{background:linear-gradient(145deg,#fff8c8,#f5e38a);box-shadow:4px 4px 0 #c9b88a,5px 5px 0 #8a7a50,0 0 0 3px var(--gold),6px 7px 12px #0008}
+.tile.hint .face{animation:hint .6s 3}
+@keyframes hint{50%{background:#9ff0d0}}
+.tile.gone{opacity:0;transform:translateY(-30px) scale(.8);pointer-events:none}
+.msg{text-align:center;font-family:'Cormorant Garamond';font-size:24px;font-style:italic;min-height:1.4em;margin-top:10px;color:var(--bone)}
+.over{position:fixed;inset:0;background:#0a2a24dd;display:none;place-items:center;z-index:9;text-align:center}
+.over.on{display:grid}
+.over h2{font-family:'Cormorant Garamond';font-size:60px;font-style:italic;font-weight:500;color:var(--gold)}
+/* tiles guide */
+h2.t{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(2.2rem,5vw,3.6rem);font-style:italic;text-align:center}
+.sub{text-align:center;max-width:58ch;margin:8px auto 30px;line-height:1.6;color:#f6f0e0bb}
+.suit{margin-bottom:28px}
+.suit h3{font-family:'Cormorant Garamond';font-size:26px;font-weight:500;margin-bottom:10px}
+.suit h3 small{font-family:'Josefin Sans';font-size:12px;letter-spacing:.14em;color:var(--gold);margin-left:10px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.mini{width:58px;height:78px;position:relative}
+.mini .face{position:absolute;inset:0;background:linear-gradient(145deg,#fffdf6,var(--ivory) 60%,var(--bone));border-radius:6px;box-shadow:3px 3px 0 #c9b88a,4px 4px 0 #8a7a50;display:grid;place-items:center}
+.mini svg{width:86%;height:86%}
+.rules{max-width:720px;margin:0 auto;line-height:1.7;font-size:17px}
+.rules li{margin:0 0 12px 20px}
+table{width:100%;max-width:560px;margin:0 auto;border-collapse:collapse}
+td,th{padding:12px;border-bottom:1px solid #d4aa5033;text-align:left}
+th{font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:600}
+</style>
+</head>
+<body>
+<header><div class="logo"><b>麻雀</b>Jade Garden</div><nav><a href="#play">Play</a><a href="#tiles">The Tiles</a><a href="#rules">How to Play</a><a href="#scores">Scores</a><a href="index.html">Index</a></nav></header>
+
+<section data-view="play"><div class="wrap">
+ <div class="bar"><span class="stat">Tiles <b id="sLeft">82</b></span><span class="stat">Moves open <b id="sOpen">0</b></span><span class="stat">Time <b id="sTime">0:00</b></span><button class="btn" id="hintB">Hint</button><button class="btn" id="undoB">Undo</button><button class="btn" id="shufB">Shuffle</button><button class="btn" id="newB">New deal</button></div>
+ <div class="boardwrap"><div class="board" id="board"></div></div>
+ <div class="msg" id="msg">Match pairs of free tiles. A tile is free if nothing is on top of it and its left or right side is open.</div>
+</div></section>
+
+<section data-view="tiles" hidden><div class="wrap">
+ <h2 class="t">The tiles</h2><p class="sub">A full set has 144 tiles in three suits, plus honours and bonus tiles. Any two identical tiles make a pair. So does any flower with another flower, and any season with another season.</p>
+ <div id="guide"></div>
+</div></section>
+
+<section data-view="rules" hidden><div class="wrap">
+ <h2 class="t">How to play</h2><p class="sub">Mahjong solitaire, sometimes called Shanghai, was invented in 1981 as a computer game. The tiles came from a four-player game that is centuries old.</p>
+ <ol class="rules"><li>Tiles are stacked in layers. Your goal is to clear every tile from the board.</li><li>Click two <b>identical</b> tiles to remove them. Both must be <b>free</b>.</li><li>A tile is free when no tile sits on top of it (even partly) <i>and</i> it has no neighbour on at least one side, left or right.</li><li>Every deal here is <b>guaranteed solvable</b>: it was built by removing pairs in reverse. You can still paint yourself into a corner, though.</li><li>Stuck? <i>Hint</i> shows you a legal pair. <i>Shuffle</i> rearranges the remaining faces, but it may break the guarantee.</li></ol>
+</div></section>
+
+<section data-view="scores" hidden><div class="wrap">
+ <h2 class="t">Best times</h2><p class="sub">The fastest clearances, stored in this browser.</p>
+ <table><thead><tr><th>#</th><th>Time</th><th>Hints</th><th>Date</th></tr></thead><tbody id="sc"></tbody></table>
+</div></section>
+
+<div class="over" id="over"><div><h2>Garden cleared</h2><p id="overT" style="font-size:20px;margin:10px 0 20px"></p><button class="btn" onclick="document.getElementById('over').classList.remove('on');deal()">Deal again</button></div></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'play';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='scores')scores()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* faces */
+const CN=['一','二','三','四','五','六','七','八','九'];
+function dots(n){const L={1:[[50,50]],2:[[50,28],[50,72]],3:[[28,24],[50,50],[72,76]],4:[[30,28],[70,28],[30,72],[70,72]],5:[[30,26],[70,26],[50,50],[30,74],[70,74]],6:[[32,22],[68,22],[32,50],[68,50],[32,78],[68,78]],7:[[26,16],[50,26],[74,36],[34,62],[66,62],[34,84],[66,84]],8:[[32,16],[68,16],[32,39],[68,39],[32,62],[68,62],[32,85],[68,85]],9:[[26,20],[50,20],[74,20],[26,50],[50,50],[74,50],[26,80],[50,80],[74,80]]}[n];const r=n===1?20:n<5?12:n<7?10:8.5;return L.map(([x,y],i)=>`<circle cx="${x}" cy="${y*1.3}" r="${r}" fill="none" stroke="${n===1?'#c0282d':i%3===0?'#1a3f8a':i%3===1?'#1e7a4a':'#c0282d'}" stroke-width="${r*.45}"/><circle cx="${x}" cy="${y*1.3}" r="${r*.35}" fill="${n===1?'#1e7a4a':'#c0282d'}"/>`).join('')}
+function bams(n){if(n===1)return`<g transform="translate(50 65)"><ellipse cx="0" cy="10" rx="20" ry="26" fill="#1e7a4a"/><circle cx="0" cy="-22" r="12" fill="#c0282d"/><path d="M-6 -30 l6 -14 l6 14" fill="#1e7a4a"/><path d="M-20 30 l-12 16 M20 30 l12 16 M0 34 v18" stroke="#1a3f8a" stroke-width="4"/></g>`;const cols=n<=3?n:n<=6?3:n===7?3:n===8?4:3,rows=Math.ceil(n/cols);let s='';for(let i=0;i<n;i++){const c=i%cols,r=Math.floor(i/cols);const x=50+(c-(cols-1)/2)*24,y=65+(r-(rows-1)/2)*36;s+=`<rect x="${x-5}" y="${y-15}" width="10" height="30" rx="5" fill="${(n===7&&i===0)||(n===9&&c===1)?'#c0282d':'#1e7a4a'}"/><line x1="${x-5}" y1="${y}" x2="${x+5}" y2="${y}" stroke="#f6f0e0" stroke-width="2"/>`}return s}
+const HON={E:['東','#1a1a1a'],S:['南','#1a1a1a'],W:['西','#1a1a1a'],N:['北','#1a1a1a'],R:['中','#c0282d'],G:['發','#1e7a4a']};
+const FLOW=['梅','蘭','菊','竹'],SEAS=['春','夏','秋','冬'];
+function face(k){const[s,v]=[k[0],k.slice(1)];let b='';
+ if(s==='c')b=`<text x="50" y="58" text-anchor="middle" font-family="Noto Serif SC" font-weight="900" font-size="46" fill="#1a1a1a">${CN[+v-1]}</text><text x="50" y="112" text-anchor="middle" font-family="Noto Serif SC" font-weight="900" font-size="44" fill="#c0282d">萬</text>`;
+ if(s==='d')b=dots(+v);if(s==='b')b=bams(+v);
+ if(s==='h'){if(v==='P')b=`<rect x="18" y="20" width="64" height="90" rx="6" fill="none" stroke="#1a3f8a" stroke-width="5"/><rect x="28" y="30" width="44" height="70" rx="3" fill="none" stroke="#1a3f8a" stroke-width="2"/>`;else b=`<text x="50" y="90" text-anchor="middle" font-family="Noto Serif SC" font-weight="900" font-size="66" fill="${HON[v][1]}">${HON[v][0]}</text>`}
+ if(s==='f')b=`<circle cx="50" cy="50" r="22" fill="#e87aa0"/><circle cx="50" cy="50" r="8" fill="#d4aa50"/><text x="50" y="112" text-anchor="middle" font-family="Noto Serif SC" font-weight="900" font-size="36" fill="#1e7a4a">${FLOW[+v-1]}</text>`;
+ if(s==='s')b=`<path d="M30 60 Q50 10 70 60 Q50 45 30 60Z" fill="#d4aa50"/><text x="50" y="112" text-anchor="middle" font-family="Noto Serif SC" font-weight="900" font-size="36" fill="#1a3f8a">${SEAS[+v-1]}</text>`;
+ return`<svg viewBox="0 0 100 130">${b}</svg>`}
+const KINDS=[...[1,2,3,4,5,6,7,8,9].flatMap(n=>['c'+n,'d'+n,'b'+n]),'hE','hS','hW','hN','hR','hG','hP'];
+const match=(a,b)=>a===b||(a[0]==='f'&&b[0]==='f')||(a[0]==='s'&&b[0]==='s');
+
+/* layout */
+const POS=[];for(let y=0;y<6;y++)for(let x=0;x<10;x++){if((y===0||y===5)&&(x===0||x===9))continue;POS.push([x,y,0])}
+for(let y=1;y<5;y++)for(let x=2;x<8;x++)POS.push([x,y,1]);for(let y=2;y<4;y++)for(let x=3;x<7;x++)POS.push([x,y,2]);POS.push([4,2.5,3],[5,2.5,3]);
+// 56 + 24 + 8 + 2 = 90
+let T=[],sel=null,hist=[],t0=0,timer=null,hints=0;
+const key=(x,y,z)=>x+','+y+','+z;
+function isFree(i,alive){const[x,y,z]=T[i].p;const on=j=>alive[j];let top=false,L=false,R=false;
+ for(let j=0;j<T.length;j++){if(j===i||!on(j))continue;const[a,b,c]=T[j].p;if(c===z+1&&Math.abs(a-x)<1&&Math.abs(b-y)<1)top=true;if(c===z&&Math.abs(b-y)<1){if(a===x-1)L=true;if(a===x+1)R=true}}return!top&&(!L||!R)}
+function deal(){for(let attempt=0;attempt<50;attempt++){T=POS.map(p=>({p,f:null,alive:true}));const alive=T.map(()=>true);const order=[];let ok=true;
+  while(alive.some(Boolean)){const free=T.map((_,i)=>i).filter(i=>alive[i]&&isFree(i,alive));if(free.length<2){ok=false;break}const a=free.splice(Math.random()*free.length|0,1)[0],b=free[Math.random()*free.length|0];alive[a]=alive[b]=false;order.push([a,b])}
+  if(!ok)continue;const pool=[];let fi=0;order.forEach(([a,b],n)=>{let f;if(n%22===5)f='f'+(1+fi%4);else if(n%22===15)f='s'+(1+fi%4);else f=KINDS[Math.random()*KINDS.length|0];if(f[0]==='f'||f[0]==='s'){T[a].f=f;T[b].f=f[0]+(1+(+f[1])%4);fi++}else{T[a].f=f;T[b].f=f}});break}
+ sel=null;hist=[];hints=0;t0=Date.now();clearInterval(timer);timer=setInterval(()=>{const s=Math.floor((Date.now()-t0)/1000);document.getElementById('sTime').textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`},1000);render();msg('A new garden is planted. Good luck.')}
+const TW=64,TH=84;
+function render(){const b=document.getElementById('board');b.style.setProperty('--tw',TW+'px');b.style.setProperty('--th',TH+'px');b.style.width=(10*TW+30)+'px';b.style.height=(6*TH+30)+'px';
+ const alive=T.map(t=>t.alive);const idx=T.map((_,i)=>i).sort((a,c)=>T[a].p[2]-T[c].p[2]||T[a].p[1]-T[c].p[1]||T[c].p[0]-T[a].p[0]);
+ b.innerHTML=idx.map(i=>{const t=T[i];if(!t.alive)return'';const[x,y,z]=t.p;const free=isFree(i,alive);return`<button class="tile ${free?'free':'blocked'} ${sel===i?'sel':''}" data-i="${i}" style="left:${x*TW+20-z*6}px;top:${y*TH+10-z*6}px;z-index:${z*100+Math.round(y*10)+(10-x)}"><div class="face">${face(t.f)}</div></button>`}).join('');
+ const left=T.filter(t=>t.alive).length;document.getElementById('sLeft').textContent=left;const open=pairs().length;document.getElementById('sOpen').textContent=open;
+ if(left===0){clearInterval(timer);const s=Math.floor((Date.now()-t0)/1000);const S=store.get('jg-scores',[]);S.push([s,hints,Date.now()]);S.sort((a,b)=>a[0]-b[0]);store.set('jg-scores',S.slice(0,10));document.getElementById('overT').textContent=`Cleared in ${Math.floor(s/60)}m ${s%60}s with ${hints} hint${hints===1?'':'s'}.`;document.getElementById('over').classList.add('on')}
+ else if(open===0)msg('No moves left. Undo or shuffle.')}
+function pairs(){const alive=T.map(t=>t.alive);const free=T.map((_,i)=>i).filter(i=>alive[i]&&isFree(i,alive));const out=[];for(let a=0;a<free.length;a++)for(let b=a+1;b<free.length;b++)if(match(T[free[a]].f,T[free[b]].f))out.push([free[a],free[b]]);return out}
+const msg=t=>document.getElementById('msg').textContent=t;
+function clack(){try{const a=window._a||(window._a=new AudioContext());const t=a.currentTime;[0,.06].forEach(d=>{const n=a.createBufferSource(),bf=a.createBuffer(1,a.sampleRate*.04,a.sampleRate),dd=bf.getChannelData(0);for(let i=0;i<dd.length;i++)dd[i]=(Math.random()*2-1)*Math.exp(-i/120);n.buffer=bf;const f=a.createBiquadFilter();f.type='bandpass';f.frequency.value=2400;n.connect(f).connect(a.destination);n.start(t+d)})}catch(e){}}
+document.getElementById('board').onclick=e=>{const b=e.target.closest('.tile');if(!b)return;const i=+b.dataset.i;const alive=T.map(t=>t.alive);if(!isFree(i,alive)){msg('That tile is blocked.');return}
+ if(sel===null){sel=i;render();return}if(sel===i){sel=null;render();return}
+ if(match(T[sel].f,T[i].f)){const a=sel;hist.push([a,i]);sel=null;clack();[a,i].forEach(k=>{const el=document.querySelector(`.tile[data-i="${k}"]`);if(el)el.classList.add('gone')});setTimeout(()=>{T[a].alive=T[i].alive=false;render()},250);msg(['Lovely.','Perfect pair.','Onward.','Graceful.','The garden breathes.'][hist.length%5])}
+ else{sel=i;render();msg('Not a match.')}};
+document.getElementById('hintB').onclick=()=>{const p=pairs();if(!p.length){msg('No pairs. Try shuffle.');return}hints++;const[a,b]=p[Math.random()*p.length|0];[a,b].forEach(k=>{const el=document.querySelector(`.tile[data-i="${k}"]`);if(el){el.classList.remove('hint');void el.offsetWidth;el.classList.add('hint')}})};
+document.getElementById('undoB').onclick=()=>{const h=hist.pop();if(!h)return;h.forEach(k=>T[k].alive=true);sel=null;render()};
+document.getElementById('shufB').onclick=()=>{const al=T.filter(t=>t.alive);const fs=al.map(t=>t.f).sort(()=>Math.random()-.5);al.forEach((t,i)=>t.f=fs[i]);sel=null;render();msg('Shuffled. The solvability guarantee is gone.')};
+document.getElementById('newB').onclick=deal;
+deal();
+
+/* guide */
+const SU=[['Characters','萬 · WAN',[1,2,3,4,5,6,7,8,9].map(n=>'c'+n)],['Circles','筒 · TONG',[1,2,3,4,5,6,7,8,9].map(n=>'d'+n)],['Bamboo','索 · SUO',[1,2,3,4,5,6,7,8,9].map(n=>'b'+n)],['Winds','風 · FENG',['hE','hS','hW','hN']],['Dragons','龍 · LONG',['hR','hG','hP']],['Flowers & Seasons','花 · HUA',['f1','f2','f3','f4','s1','s2','s3','s4']]];
+document.getElementById('guide').innerHTML=SU.map(s=>`<div class="suit"><h3>${s[0]}<small>${s[1]}</small></h3><div class="row">${s[2].map(k=>`<div class="mini"><div class="face">${face(k)}</div></div>`).join('')}</div></div>`).join('')+'<p class="sub">Fun fact: the one-bamboo tile is a bird, traditionally a sparrow or peacock, because a single stick looked too plain.</p>';
+
+function scores(){const S=store.get('jg-scores',[]);document.getElementById('sc').innerHTML=S.length?S.map((s,i)=>`<tr><td>${i+1}</td><td>${Math.floor(s[0]/60)}:${String(s[0]%60).padStart(2,'0')}</td><td>${s[1]}</td><td>${new Date(s[2]).toLocaleDateString()}</td></tr>`).join(''):'<tr><td colspan="4" style="text-align:center;font-style:italic">No gardens cleared yet.</td></tr>'}
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

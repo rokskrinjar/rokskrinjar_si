@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;700;900&family=Chivo+Mono:wght@400;500;600&display=swap');
+:root{--e-bg:#f7f7fb;--e-card:#fff;--e-ink:#1d1b33;--e-mu:#5e5c75;--e-ln:#e2e1ee;--e-acc:#6c3cf0;--e-acc2:#12b886;--e-acc-ink:#fff;--e-soft:#efecfd;--e-r:8px;--e-font:'Chivo',system-ui,sans-serif;--e-head:'Chivo',system-ui,sans-serif;--e-mono:'Chivo Mono',monospace;--e-hw:900;--e-hl:-.03em;--e-cta-bg:#1d1b33;--e-cta-btn:#12b886;--e-cta-btn-ink:#1d1b33}
+body{background-image:linear-gradient(#ecebf5 1px,transparent 1px),linear-gradient(90deg,#ecebf5 1px,transparent 1px);background-size:32px 32px}
+.e-hero.editorial .e-name{font-size:clamp(40px,5.6vw,82px);line-height:.98}
+.e-hero .e-por{border-radius:8px;outline:3px solid var(--e-acc2);outline-offset:8px}
+.e-kick{color:var(--e-acc);font-family:var(--e-mono)}
+.e-stats{background:#fff;border:1px solid var(--e-ln);border-radius:8px}.e-stats b{font-family:var(--e-mono);color:var(--e-acc)}
+.e-why .n{font-family:var(--e-mono);color:var(--e-acc2)}
+.e-cases.rows .no{font-family:var(--e-mono);color:var(--e-acc2)}
+.e-sec.alt{background:rgba(239,236,253,.85)}

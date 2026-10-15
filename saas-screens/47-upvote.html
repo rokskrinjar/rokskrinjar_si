@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fernway Roadmap — powered by Upvote</title>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#fdf6ec;--k:#1a1a1a;--lil:#c9b8ff;--mint:#b6f0cf;--peach:#ffc8a8;--sun:#ffe67a;--sky:#b8e1ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--k);font:15px/1.5 'Work Sans',sans-serif}
+.lil{font-family:'Lilita One',sans-serif;letter-spacing:.01em}
+header{display:flex;align-items:center;gap:16px;padding:20px 32px}
+.lg{font:400 26px 'Lilita One';display:flex;align-items:center;gap:8px}.lg i{width:30px;height:30px;border:3px solid var(--k);border-radius:9px;background:var(--sun);display:grid;place-items:center;font-style:normal;font-size:15px;box-shadow:3px 3px 0 var(--k)}
+header .sp{flex:1}
+.b{border:3px solid var(--k);background:#fff;border-radius:12px;padding:9px 16px;font:700 14px 'Work Sans';cursor:pointer;box-shadow:4px 4px 0 var(--k);transition:.1s}.b:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--k)}.b:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--k)}
+.b.p{background:var(--k);color:#fff}
+.hero{padding:10px 32px 26px;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+h1{font:400 clamp(44px,6vw,80px)/.95 'Lilita One';margin:0}h1 span{background:var(--lil);padding:0 .15em;border:3px solid var(--k);border-radius:14px;display:inline-block;transform:rotate(-2deg);box-shadow:5px 5px 0 var(--k)}
+.hero p{max-width:28em;margin:12px 0 0;font-size:17px}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 32px 70px}
+.col{border:3px solid var(--k);border-radius:20px;padding:14px;box-shadow:6px 6px 0 var(--k)}
+.col h2{font:400 24px 'Lilita One';margin:2px 4px 12px;display:flex;justify-content:space-between;align-items:center}.col h2 span{font:700 13px 'Work Sans';background:#fff;border:2px solid var(--k);border-radius:999px;padding:1px 10px}
+.card{background:#fff;border:3px solid var(--k);border-radius:14px;padding:12px;margin-bottom:12px;display:grid;grid-template-columns:54px 1fr;gap:12px;animation:pop .4s both}
+@keyframes pop{from{transform:scale(.9);opacity:0}}
+.vote{border:3px solid var(--k);border-radius:12px;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font:400 20px 'Lilita One';height:58px;transition:.1s}
+.vote small{font-size:14px;line-height:1}.vote.on{background:var(--k);color:#fff}.vote:active{transform:scale(.92)}
+.card h3{margin:0;font-size:16px;line-height:1.25}.card p{margin:4px 0 8px;font-size:13.5px;color:#4a4a4a}
+.tags{display:flex;gap:5px;flex-wrap:wrap}.tags span{font:700 11px 'Work Sans';border:2px solid var(--k);border-radius:999px;padding:0 8px;background:var(--bg)}
+.eta{font:700 12px 'Work Sans';margin-left:auto}
+.modal{position:fixed;inset:0;background:rgba(26,26,26,.5);display:none;place-items:center;z-index:20}.modal.on{display:grid}
+.mbox{background:var(--sun);border:3px solid var(--k);border-radius:22px;padding:24px;width:min(460px,92vw);box-shadow:8px 8px 0 var(--k)}
+.mbox h3{font:400 30px 'Lilita One';margin:0 0 12px}.mbox input,.mbox textarea{width:100%;border:3px solid var(--k);border-radius:12px;padding:10px;font:15px 'Work Sans';margin-bottom:10px;background:#fff}.mbox textarea{height:90px;resize:none}
+.sim{background:#fff;border:2px dashed var(--k);border-radius:12px;padding:8px 10px;font-size:13px;margin-bottom:10px;display:none}.sim.on{display:block}
+@media(max-width:960px){.board{grid-template-columns:1fr}header,.hero,.board{padding-left:16px;padding-right:16px}}
+</style>
+</head>
+<body>
+<header><div class="lg"><i>▲</i>Fernway roadmap</div><span class="sp"></span><span style="font-weight:600">Signed in as Mara</span><button class="b p" id="sug">+ Suggest an idea</button></header>
+<div class="hero"><div><h1>Build it <span>with us.</span></h1><p>Vote on what we build next. We read every idea, and the top of each column gets talked about in our Monday planning.</p></div><div style="font-weight:600">2,184 ideas · 41,920 votes · updated daily</div></div>
+<div class="board" id="board"></div>
+<div class="modal" id="mod"><div class="mbox"><h3>Got an idea?</h3><input id="ti" placeholder="A short title — e.g. “Offline mode for mobile”"><div class="sim" id="sim">👀 Similar: <b>Offline mode on iOS & Android</b> · 812 votes — <u style="cursor:pointer" id="vs">vote for that instead?</u></div><textarea placeholder="What problem would it solve for you?"></textarea><div style="display:flex;gap:10px;justify-content:flex-end"><button class="b" id="cn">Cancel</button><button class="b p" id="pt">Post idea</button></div></div></div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const COLS=[['Under review','var(--sky)'],['Planned','var(--peach)'],['Shipped 🎉','var(--mint)']];
+const I=[[0,'Offline mode on iOS & Android','Keep editing on the train; sync when back online.',812,['mobile']],[0,'Custom fields on pages','Status, owner, due date — filterable.',466,['docs','power-users']],[0,'Two-way Jira sync','Status changes flow both ways.',301,['integrations']],[1,'Page analytics','See who read what and when.',588,['docs'],'Nov'],[1,'Audit log export to SIEM','Splunk & Datadog first.',214,['enterprise'],'Dec'],[1,'Template gallery v2','Community templates, ratings.',377,['templates'],'Nov'],[2,'Dark mode','Finally. Thank you all for asking 1,900 times.',1931,['ui'],'Sep'],[2,'Slash commands for AI','/summarise, /translate, /actions',640,['ai'],'Aug']];
+const voted=new Set([6]);const $=s=>document.getElementById(s);
+function draw(){$('board').innerHTML=COLS.map((c,ci)=>{const its=I.map((x,i)=>[x,i]).filter(([x])=>x[0]===ci).sort((a,b)=>b[0][3]-a[0][3]);return`<div class="col" style="background:${c[1]}"><h2>${c[0]}<span>${its.length}</span></h2>${its.map(([x,i])=>`<div class="card"><div class="vote ${voted.has(i)?'on':''}" data-i="${i}"><small>▲</small>${x[3]}</div><div><h3>${x[1]}</h3><p>${x[2]}</p><div class="tags">${x[4].map(t=>`<span>${t}</span>`).join('')}${x[5]?`<span class="eta">${ci===2?'shipped':'ETA'} ${x[5]}</span>`:''}</div></div></div>`).join('')}</div>`}).join('')}
+$('board').onclick=e=>{const v=e.target.closest('.vote');if(!v)return;const i=+v.dataset.i;if(voted.has(i)){voted.delete(i);I[i][3]--}else{voted.add(i);I[i][3]++}draw()};
+$('sug').onclick=()=>{$('mod').classList.add('on');$('ti').focus()};$('cn').onclick=()=>$('mod').classList.remove('on');
+$('ti').oninput=e=>$('sim').classList.toggle('on',/offline|mobile|sync/i.test(e.target.value));
+$('vs').onclick=()=>{voted.add(0);I[0][3]++;$('mod').classList.remove('on');draw()};
+$('pt').onclick=()=>{const t=$('ti').value.trim();if(!t)return;I.push([0,t,'Just posted by you',1,['new']]);voted.add(I.length-1);$('mod').classList.remove('on');$('ti').value='';draw()};
+draw();
+</script>
+</body>
+</html>

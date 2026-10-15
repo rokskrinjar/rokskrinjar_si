@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Wordmint</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:manipulation;user-select:none}
+body{background:#f3efe4;font-family:'DM Sans',sans-serif;color:#1f2d27;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:40px 8px 10px;gap:8px}
+header{text-align:center}
+h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(30px,8vw,42px);line-height:1;letter-spacing:-.01em}h1 i{color:#2f8f6a}
+.modes{display:flex;gap:6px;justify-content:center;margin-top:8px}.modes button{font:inherit;font-weight:700;font-size:12px;border:1.5px solid #1f2d27;background:none;color:#1f2d27;border-radius:30px;padding:4px 12px;cursor:pointer;letter-spacing:.05em}.modes button.on{background:#1f2d27;color:#f3efe4}
+.stats{font-size:12px;margin-top:6px;opacity:.75;letter-spacing:.05em}
+.board{display:grid;grid-template-rows:repeat(6,var(--t));gap:6px}
+.row{display:grid;grid-template-columns:repeat(5,var(--t));gap:6px}.row.shake{animation:sh .4s}@keyframes sh{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.tile{width:var(--t);height:var(--t);border:2px solid #d6cfbd;display:grid;place-items:center;font-family:'DM Serif Display',serif;font-size:calc(var(--t)*.55);text-transform:uppercase;border-radius:8px;background:#fbf8f0;transition:border-color .1s}
+.tile.f{border-color:#8a8574;animation:pop .1s}@keyframes pop{50%{transform:scale(1.08)}}
+.tile.flip{animation:flip .5s ease forwards}@keyframes flip{0%{transform:rotateX(0)}49%{transform:rotateX(90deg);background:#fbf8f0}51%{transform:rotateX(90deg)}100%{transform:rotateX(0)}}
+.tile.g{background:#2f8f6a!important;border-color:#2f8f6a;color:#fff}.tile.y{background:#e3a72f!important;border-color:#e3a72f;color:#fff}.tile.x{background:#7c8580!important;border-color:#7c8580;color:#fff}
+.tile.win{animation:bounce .5s}@keyframes bounce{40%{transform:translateY(-14px)}}
+.kb{display:flex;flex-direction:column;gap:6px;width:min(100%,500px)}.kr{display:flex;gap:5px;justify-content:center}
+.k{flex:1;height:52px;border:0;border-radius:7px;background:#ddd6c3;font:inherit;font-weight:700;font-size:15px;color:#1f2d27;text-transform:uppercase;cursor:pointer;max-width:44px}.k.w{max-width:68px;flex:1.5;font-size:12px}
+.k.g{background:#2f8f6a;color:#fff}.k.y{background:#e3a72f;color:#fff}.k.x{background:#8f968f;color:#fff;opacity:.7}
+.toast{position:fixed;top:120px;left:50%;transform:translateX(-50%);background:#1f2d27;color:#fff;padding:10px 16px;border-radius:8px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}.toast.on{opacity:1}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#f3efe4ee}.ov.on{display:grid}
+.ov h2{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,10vw,56px)}.ov .word{font-family:'DM Serif Display',serif;font-size:28px;letter-spacing:.2em;color:#2f8f6a;text-transform:uppercase;margin:8px 0}.ov p{margin:6px 0 18px;line-height:1.6}
+.ov button{font:inherit;font-weight:700;border:0;background:#1f2d27;color:#f3efe4;padding:12px 28px;border-radius:30px;cursor:pointer;font-size:15px}
+.back{position:fixed;left:12px;top:12px;color:#1f2d27;text-decoration:none;font-size:13px;font-weight:700;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="back" href="index.html">← games</a>
+<header><h1>Word<i>mint</i></h1><div class="modes"><button data-m="daily">Daily</button><button data-m="endless" class="on">Endless</button></div><div class="stats" id="st"></div></header>
+<div class="board" id="board"></div>
+<div class="kb" id="kb"></div>
+<div class="toast" id="toast"></div>
+<div class="ov" id="ov"><div><h2 id="ot">Minted!</h2><div class="word" id="ow"></div><p id="op"></p><button id="go">Next word</button></div></div>
+<script>
+const K='best-wordmint';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const WORDS='about,above,abuse,acorn,actor,acute,admit,adopt,adore,adult,after,again,agent,agree,ahead,alarm,album,alert,alike,alive,allow,alone,along,alter,amber,among,amuse,angel,anger,angle,angry,ankle,apart,apple,apply,arena,argue,arise,aroma,array,arrow,aside,asset,audio,audit,avoid,award,aware,badge,badly,bagel,baker,basic,basis,baton,beach,beard,began,begin,being,below,bench,berry,birth,bison,black,blame,blaze,blind,bliss,block,blood,bloom,blush,board,boast,bonus,boost,booth,bound,brain,brand,brave,bread,break,breed,brick,bride,brief,bring,brisk,broad,broke,broom,brown,brush,build,built,bunny,buyer,cabal,cabin,cable,camel,candy,canoe,cargo,carry,catch,cause,cedar,chain,chair,charm,chart,chase,cheap,check,chest,chief,child,chirp,chose,cider,cinch,civic,civil,claim,clamp,class,clean,clear,click,cliff,cloak,clock,close,cloud,clove,coach,coast,comet,coral,could,count,court,cover,craft,crane,crash,crave,cream,crime,crisp,cross,crowd,crown,crumb,crust,curve,cycle,daily,daisy,dance,dealt,death,debut,delay,depth,dizzy,doing,doubt,dough,dozen,draft,drama,drawn,dream,dress,drift,drill,drink,drive,drove,dwarf,dying,eager,eagle,early,earth,eight,elbow,elite,ember,empty,enemy,enjoy,enter,entry,equal,error,event,every,exact,exist,extra,fable,fairy,faith,false,fancy,fault,feast,fever,fiber,field,fiery,fifth,fifty,fight,final,first,fixed,flair,flame,flash,fleet,flint,flock,floor,flora,fluid,flute,focus,foggy,force,forge,forth,forty,forum,found,frail,frame,frank,fraud,fresh,front,frost,fruit,fully,funny,gauge,gecko,ghost,giant,giddy,given,glass,gleam,glide,globe,glory,glove,going,grace,grade,grand,grant,grape,grass,gravy,great,green,gross,group,grove,grown,guard,guess,guest,guide,gusto,happy,haste,hazel,heart,heavy,hence,heron,hippo,honey,horse,hotel,hound,house,human,ideal,igloo,image,index,inner,input,issue,ivory,jelly,jewel,joint,joker,jolly,judge,juice,karma,kayak,knack,knelt,known,koala,label,lanky,lapel,large,laser,latch,later,laugh,layer,learn,lease,least,leave,legal,lemon,lemur,level,lever,light,lilac,limit,llama,local,lodge,lofty,logic,loose,lower,lucky,lunar,lunch,lying,lyric,magic,major,maker,mango,maple,march,marsh,match,maybe,mayor,meant,media,melon,merry,metal,might,mimic,minor,minus,mirth,mixed,model,money,month,moose,moral,mossy,motor,motto,mount,mouse,mouth,movie,music,nacho,never,newly,night,ninja,noble,noise,north,noted,novel,nudge,nurse,nylon,oaken,oasis,occur,ocean,offer,often,olive,onion,opera,orbit,order,other,otter,ought,paint,panda,panel,paper,party,pasta,pause,peace,pearl,pecan,penny,perch,petal,phase,phone,photo,piano,piece,pilot,pitch,pixel,place,plain,plane,plant,plate,plaza,plume,plush,point,polar,poppy,pouch,pound,power,press,price,pride,prime,print,prior,prism,prize,proof,proud,prove,quail,queen,quest,quick,quiet,quilt,quite,quota,radar,radio,raise,rally,ranch,range,rapid,ratio,raven,razor,reach,ready,refer,relic,remix,rhyme,ridge,right,risky,rival,river,rivet,robot,rodeo,roost,rough,round,route,royal,rumba,rural,salad,salsa,sandy,satin,scale,scarf,scene,scope,score,scout,sense,serve,seven,shade,shall,shape,share,shark,sharp,sheep,sheet,shelf,shell,shift,shiny,shirt,shock,shoot,shore,short,shown,sight,silky,since,siren,sixth,sixty,skate,skier,skill,slate,sleep,slide,sloth,slush,small,smart,smile,smoke,snack,snail,snowy,solid,solve,sorry,sound,south,space,spare,spark,speak,speed,spend,spent,spice,spire,split,spoke,spoon,sport,spray,squid,staff,stage,stake,stamp,stand,stark,start,state,steam,steel,steep,stern,stick,still,sting,stock,stone,stood,store,storm,story,stove,straw,strip,stuck,study,stuff,style,sugar,suite,sunny,super,sushi,swamp,sweet,swirl,swoop,syrup,table,taken,tango,tapir,taste,teach,teeth,tempo,thank,theft,their,theme,there,these,thick,thing,think,third,thorn,those,three,threw,throw,tidal,tiger,tight,tired,title,toast,today,topaz,topic,torch,total,touch,tough,tower,toxic,track,trade,trail,train,treat,trend,trial,trick,tried,truck,truly,trust,truth,tulip,tweed,twice,twirl,ultra,umbra,under,union,unity,until,unzip,upper,upset,urban,usage,usual,valid,value,vapor,vault,video,vigor,viper,virus,visit,visor,vital,vivid,voice,wagon,waltz,waste,watch,water,waver,whale,wheat,wheel,where,which,while,whisk,white,whole,whose,wince,witty,woman,world,worry,worse,worst,worth,would,wound,woven,write,wrong,wrote,yacht,yield,yodel,young,youth,zebra,zesty,zonal'.split(',');const SET=new Set(WORDS);
+const board=document.getElementById('board'),kbEl=document.getElementById('kb');let mode='endless',answer,row,col,grid,done,streak=ls.g('wordmint-streak',0),best=ls.g(K,0),keyState={},busy=false;
+let AC;function tone(f,d=.08,type='sine',v=.05){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function size(){const t=Math.floor(Math.min((innerWidth-40)/5.4,(innerHeight-400)/6.6,64));board.style.setProperty('--t',Math.max(34,t)+'px')}addEventListener('resize',size);
+function build(){board.innerHTML='';grid=[];for(let r=0;r<6;r++){const rw=document.createElement('div');rw.className='row';const cells=[];for(let c=0;c<5;c++){const t=document.createElement('div');t.className='tile';rw.appendChild(t);cells.push(t)}board.appendChild(rw);grid.push({el:rw,cells})}
+ kbEl.innerHTML='';['qwertyuiop','asdfghjkl','⏎zxcvbnm⌫'].forEach(line=>{const r=document.createElement('div');r.className='kr';[...line].forEach(ch=>{const b=document.createElement('button');b.className='k'+(ch==='⏎'||ch==='⌫'?' w':'');b.textContent=ch==='⏎'?'enter':ch;b.dataset.k=ch==='⏎'?'Enter':ch==='⌫'?'Backspace':ch;b.onclick=()=>key(b.dataset.k);r.appendChild(b)});kbEl.appendChild(r)});size()}
+function daySeed(){const d=new Date();return d.getFullYear()*372+d.getMonth()*31+d.getDate()}
+function pick(){if(mode==='daily'){let h=daySeed()*2654435761>>>0;return WORDS[h%WORDS.length]}return WORDS[Math.random()*WORDS.length|0]}
+function newGame(){answer=pick();row=0;col=0;done=false;keyState={};build();document.getElementById('ov').classList.remove('on');
+ if(mode==='daily'){const sv=ls.g('wordmint-daily',null);if(sv&&sv.seed===daySeed()){sv.guesses.forEach(g=>{g.split('').forEach(ch=>key(ch,true));submit(true)})}}stats()}
+function stats(){document.getElementById('st').textContent=mode==='endless'?`streak ${streak} · best ${best}`:`daily puzzle · ${new Date().toLocaleDateString()}`}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),1300)}
+function key(k,silent){if(done||busy)return;if(k==='Enter')return submit();if(k==='Backspace'){if(col>0){col--;const c=grid[row].cells[col];c.textContent='';c.classList.remove('f')}return}
+ if(/^[a-z]$/i.test(k)&&col<5){const c=grid[row].cells[col];c.textContent=k.toLowerCase();c.classList.add('f');col++;if(!silent)tone(500+col*40,.03,'triangle',.03)}}
+function score(g,a){const res=Array(5).fill('x'),cnt={};for(let i=0;i<5;i++){if(g[i]===a[i])res[i]='g';else cnt[a[i]]=(cnt[a[i]]||0)+1}for(let i=0;i<5;i++){if(res[i]!=='g'&&cnt[g[i]]){res[i]='y';cnt[g[i]]--}}return res}
+function submit(instant){const g=grid[row].cells.map(c=>c.textContent).join('');
+ if(g.length<5){shake();toast('Not enough letters');return}
+ if(!SET.has(g)&&!/[aeiouy]/.test(g)){shake();toast('Not a word');return}
+ const res=score(g,answer);const cells=grid[row].cells;busy=!instant;
+ cells.forEach((c,i)=>{const apply=()=>{c.classList.add(res[i]);const kb=kbEl.querySelector(`[data-k="${g[i]}"]`);const rank={x:1,y:2,g:3};if(!keyState[g[i]]||rank[res[i]]>rank[keyState[g[i]]]){keyState[g[i]]=res[i];kb.classList.remove('g','y','x');kb.classList.add(res[i])}};
+  if(instant)apply();else setTimeout(()=>{c.classList.add('flip');tone(res[i]==='g'?660:res[i]==='y'?520:300,.12);setTimeout(apply,250)},i*260)});
+ const finish=()=>{busy=false;if(mode==='daily'&&!instant){const sv=ls.g('wordmint-daily',null);const gs=sv&&sv.seed===daySeed()?sv.guesses:[];gs.push(g);ls.s('wordmint-daily',{seed:daySeed(),guesses:gs})}
+  if(g===answer){done=true;cells.forEach((c,i)=>setTimeout(()=>c.classList.add('win'),i*90));if(!instant){if(mode==='endless'){streak++;ls.s('wordmint-streak',streak);if(streak>best){best=streak;ls.s(K,best)}}[523,659,784,1046].forEach((f,k)=>setTimeout(()=>tone(f,.2,'triangle'),k*100))}setTimeout(()=>end(true),instant?100:1300)}
+  else{row++;col=0;if(row===6){done=true;if(!instant&&mode==='endless'){streak=0;ls.s('wordmint-streak',0)}setTimeout(()=>end(false),instant?100:600)}}stats()};
+ if(instant)finish();else setTimeout(finish,5*260+260)}
+function shake(){const r=grid[row].el;r.classList.remove('shake');void r.offsetWidth;r.classList.add('shake');tone(150,.15,'square',.03)}
+function end(win){document.getElementById('ot').textContent=win?['Minted!','Splendid!','Crisp!','Nailed it!','Fresh!'][Math.min(row,4)]:'So close';document.getElementById('ow').textContent=answer;
+ document.getElementById('op').innerHTML=win?`Solved in ${row+1} of 6.`+(mode==='endless'?`<br>Streak ${streak} · best ${best}`:''):(mode==='endless'?'Streak reset. Best '+best:'Come back tomorrow for a new daily word.');
+ document.getElementById('go').textContent=mode==='daily'?'Play endless':'Next word';document.getElementById('ov').classList.add('on')}
+addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey)return;if(document.getElementById('ov').classList.contains('on')){if(e.key==='Enter'||e.key===' '){e.preventDefault();document.getElementById('go').click()}return}
+ if(e.key==='Enter'||e.key==='Backspace'||/^[a-z]$/i.test(e.key)){e.preventDefault();key(e.key)}});
+document.querySelector('.modes').onclick=e=>{const b=e.target.closest('button');if(!b)return;mode=b.dataset.m;document.querySelectorAll('.modes button').forEach(x=>x.classList.toggle('on',x===b));newGame()};
+document.getElementById('go').onclick=()=>{if(mode==='daily'){mode='endless';document.querySelectorAll('.modes button').forEach(x=>x.classList.toggle('on',x.dataset.m==='endless'))}newGame()};
+newGame();
+</script>
+</body>
+</html>

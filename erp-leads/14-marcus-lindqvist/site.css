@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;900&family=Red+Hat+Text:wght@400;500;600&family=Red+Hat+Mono:wght@500&display=swap');
+:root{--e-bg:#f3f5f4;--e-card:#fff;--e-ink:#0d2b29;--e-mu:#53675f;--e-ln:#d7dfdb;--e-acc:#0b5a52;--e-acc2:#f2a900;--e-acc-ink:#fff;--e-soft:#e4ebe7;--e-r:4px;--e-font:'Red Hat Text',system-ui,sans-serif;--e-head:'Red Hat Display',system-ui,sans-serif;--e-mono:'Red Hat Mono',monospace;--e-hw:900;--e-hl:-.02em;--e-cta-bg:#0d2b29;--e-cta-btn:#f2a900;--e-cta-btn-ink:#0d2b29}
+body.e-side .e-head{background:#0d2b29;border-right:0}
+body.e-side .e-brand b{color:#fff}body.e-side .e-brand small,body.e-side .e-nav a{color:#9fb8ae}
+body.e-side .e-nav a.on{background:#f2a900;color:#0d2b29}
+.e-head .e-burger{background:#f2a900;color:#0d2b29}
+.e-hero .e-name{font-size:clamp(34px,4.6vw,62px);line-height:1}
+.e-hero.split .e-por{border-radius:4px;box-shadow:14px 14px 0 #f2a900}
+.e-stats b{color:#0b5a52}
+.e-kick{color:#0b5a52;font-family:var(--e-mono);letter-spacing:.04em}
+.e-why.split .n{color:#f2a900}

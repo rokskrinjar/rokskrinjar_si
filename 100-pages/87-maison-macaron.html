@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Macaron — Pâtisserie</title>
+<link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf7f9;--rose:#f3b8c8;--mint:#bfe6d8;--pist:#cfe3a4;--lav:#d6c6ef;--lemon:#f7e7a0;--choc:#6a4234;--ink:#3a2a30;--dim:#3a2a3088;--gold:#c4a15a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Quicksand,sans-serif}
+a{color:inherit;text-decoration:none}button,input,textarea{font:inherit;cursor:pointer;color:inherit}
+header{text-align:center;padding:26px 4vw 0}
+.logo{font-family:'Gilda Display';font-size:clamp(2rem,5vw,3.2rem);letter-spacing:.14em}
+.logo small{display:block;font-family:Quicksand;font-size:11px;letter-spacing:.5em;color:var(--gold);margin-top:4px}
+nav{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:18px 0 0;padding-bottom:16px;border-bottom:1px solid #3a2a3014}
+nav a{padding:8px 18px;border-radius:30px;font-weight:500;font-size:14px}
+nav a.on{background:var(--rose)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1240px;margin:0 auto;padding:30px 4vw 80px}
+h2{font-family:'Gilda Display';font-weight:400;font-size:clamp(2.2rem,5vw,3.6rem);text-align:center}
+.sub{text-align:center;max-width:56ch;margin:8px auto 30px;line-height:1.7;color:var(--dim)}
+/* box */
+.boxg{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:start}
+.flav{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px}
+.fl{background:#fff;border-radius:20px;padding:12px 8px;text-align:center;border:2px solid transparent;transition:.2s}
+.fl:hover{border-color:var(--rose);transform:translateY(-3px)}
+.fl svg{width:70px;height:60px}
+.fl b{display:block;font-weight:700;font-size:13px}
+.fl small{font-size:11px;color:var(--dim)}
+.gift{background:#fff;border-radius:30px;padding:26px;box-shadow:0 30px 50px -30px #3a2a3044}
+.sizes{display:flex;gap:6px;justify-content:center;margin-bottom:16px}
+.sizes button,.rib button{border:1.5px solid var(--ink);background:none;border-radius:30px;padding:6px 16px;font-size:13px}
+.sizes button.on{background:var(--ink);color:#fff}
+.tray{background:linear-gradient(#fff,#f6eef2);border:3px solid var(--rose);border-radius:18px;padding:14px;display:grid;gap:8px;position:relative;margin:0 auto}
+.slot{aspect-ratio:1;border-radius:50%;background:#f3e6ec;box-shadow:inset 0 3px 8px #3a2a3022;display:grid;place-items:center;border:0;padding:0}
+.slot svg{width:92%;height:auto;animation:pop .3s}
+@keyframes pop{from{transform:scale(0) rotate(-20deg)}}
+.ribbon{height:18px;margin:14px -26px 0;position:relative}
+.rib{display:flex;gap:6px;justify-content:center;margin-top:12px}
+.rib button{width:30px;height:30px;padding:0;border:2px solid #fff;box-shadow:0 0 0 1px #3a2a3033}
+.rib button.on{box-shadow:0 0 0 3px var(--ink)}
+.note{width:100%;border:0;border-bottom:1px dashed var(--ink);background:none;font-family:'Gilda Display';font-size:20px;padding:8px 0;margin-top:14px;text-align:center;outline:0}
+.tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px;font-size:14px}
+.tot b{font-family:'Gilda Display';font-size:34px;font-weight:400}
+.btn{background:var(--ink);color:#fff;border:0;border-radius:30px;padding:12px 24px;font-weight:700;font-size:14px}
+.btn.alt{background:none;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+/* cake */
+.cake{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.stand{text-align:center}
+.stand svg{width:min(100%,460px);height:auto}
+.opt h4{font-size:11px;letter-spacing:.3em;color:var(--gold);margin:16px 0 8px}
+.opt .row{display:flex;gap:6px;flex-wrap:wrap}
+.opt button{border:1.5px solid #3a2a3033;background:#fff;border-radius:30px;padding:7px 14px;font-size:13px;display:flex;align-items:center;gap:6px}
+.opt button i{width:14px;height:14px;border-radius:50%;display:inline-block}
+.opt button.on{border-color:var(--ink);background:var(--ink);color:#fff}
+/* recipe */
+.rec{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.ing li{list-style:none;display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dotted #3a2a3033}
+.steps li{list-style:none;display:grid;grid-template-columns:36px 1fr;gap:12px;padding:10px 0;cursor:pointer}
+.steps .n{width:30px;height:30px;border-radius:50%;background:var(--rose);display:grid;place-items:center;font-weight:700}
+.steps li.done .n{background:var(--mint)}
+.steps li.done p{opacity:.45;text-decoration:line-through}
+.bowl{background:#fff;border-radius:30px;padding:20px;text-align:center;margin-top:20px}
+.bowl canvas{width:100%;max-width:360px;height:auto;cursor:grab;touch-action:none}
+.meter{height:14px;border-radius:7px;background:linear-gradient(90deg,#f7e7a0 0 40%,#bfe6d8 40% 70%,#f3b8c8 70%);position:relative;margin:10px 0}
+.meter i{position:absolute;top:-4px;width:6px;height:22px;background:var(--ink);border-radius:3px;transition:left .1s}
+/* boutique */
+.bout{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.front svg{width:100%;height:auto}
+.hours li{list-style:none;display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #3a2a3014}
+.hours li.today{font-weight:700;color:var(--choc)}
+@media(max-width:900px){.boxg,.cake,.rec,.bout{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="logo">MAISON MACARON<small>PÂTISSERIE · PARIS · DEPUIS 1921</small></div>
+<nav><a href="#box">Gift Box</a><a href="#cake">Cake Atelier</a><a href="#recipe">La Recette</a><a href="#boutique">Boutique</a><a href="index.html">Index</a></nav></header>
+
+<section data-view="box"><div class="wrap">
+ <h2>Fill a gift box</h2><p class="sub">Choose a box, then tap flavours to fill it. Tap a macaron in the box to take it out. Every shell is baked this morning.</p>
+ <div class="boxg">
+  <div class="flav" id="flav"></div>
+  <div class="gift"><div class="sizes" id="sizes"><button data-n="6" class="on">Box of 6</button><button data-n="12">Box of 12</button><button data-n="24">Box of 24</button></div><div class="tray" id="tray"></div><div class="ribbon" id="ribbon"></div><div class="rib" id="rib"></div>
+   <input class="note" id="note" placeholder="A little note…" maxlength="40" value="Joyeux anniversaire, Clémence ♡"><div class="tot"><span id="cnt"></span><b id="price">€0</b></div><div style="display:flex;gap:8px;justify-content:center;margin-top:12px"><button class="btn alt" id="surprise">Chef's selection</button><button class="btn" id="wrapBtn">Wrap it</button></div></div>
+ </div>
+</div></section>
+
+<section data-view="cake" hidden><div class="wrap">
+ <h2>The cake atelier</h2><p class="sub">Build a celebration cake layer by layer. We'll bake it in 48 hours.</p>
+ <div class="cake"><div class="stand"><svg id="cakeSvg" viewBox="0 0 460 460"></svg><div id="cakeT" style="font-family:'Gilda Display';font-size:26px"></div><div id="cakeP" style="color:var(--dim)"></div></div><div class="opt" id="copt"></div></div>
+</div></section>
+
+<section data-view="recipe" hidden><div class="wrap">
+ <h2>La recette</h2><p class="sub">Our grandmother's recipe for 30 macarons. The hardest part is <i>macaronage</i>: folding the batter until it flows like lava. Try it in the bowl below.</p>
+ <div class="rec">
+  <div><h3 style="font-family:'Gilda Display';font-weight:400;font-size:26px">Ingrédients</h3><ul class="ing" id="ing"></ul>
+   <div class="bowl"><canvas id="bowl" width="360" height="300"></canvas><div class="meter"><i id="mi" style="left:0"></i></div><div id="mmsg" style="font-weight:700">Stir in circles to fold.</div><button class="btn alt" id="breset" style="margin-top:10px">New batch</button></div></div>
+  <div><h3 style="font-family:'Gilda Display';font-weight:400;font-size:26px">Méthode</h3><ul class="steps" id="steps"></ul></div>
+ </div>
+</div></section>
+
+<section data-view="boutique" hidden><div class="wrap">
+ <h2>Visit the boutique</h2><p class="sub">12 rue des Petits-Fours, Paris 6e. Look for the pistachio awning and the queue on Saturday mornings.</p>
+ <div class="bout"><div class="front"><svg viewBox="0 0 600 440" id="front"></svg></div><div><h3 style="font-family:'Gilda Display';font-weight:400;font-size:26px">Heures d'ouverture</h3><ul class="hours" id="hours"></ul><p style="margin-top:16px;line-height:1.7;color:var(--dim)">Tea salon upstairs. Macarons keep for 3 days in the fridge. Let them come to room temperature for 20 minutes before eating.</p></div></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'box';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+const FL=[['Rose & Litchi','#f3b8c8','#fff0f4'],['Pistache','#cfe3a4','#f4f8e8'],['Vanille','#f6efdc','#fffaf0'],['Chocolat','#6a4234','#3a221a'],['Framboise','#e8607a','#f7d0d8'],['Citron','#f7e7a0','#fff8d8'],['Violette','#d6c6ef','#f4eefc'],['Caramel','#d9a060','#f0d8b0'],['Menthe','#bfe6d8','#eefaf5'],['Café','#8a6a50','#e8d8c8'],['Cassis','#6a2a5a','#d8a8c8'],['Matcha','#8ab06a','#dce8c8']];
+function mac(i,sz=100){const[,c,f]=FL[i];const d=c.replace('#','');const sh=n=>{const v=parseInt(d,16);return`rgb(${Math.min(255,(v>>16)*n)|0},${Math.min(255,(v>>8&255)*n)|0},${Math.min(255,(v&255)*n)|0})`};
+ return`<svg viewBox="0 0 100 86"><ellipse cx="50" cy="78" rx="40" ry="6" fill="#3a2a3018"/><path d="M12 56 Q12 72 50 72 Q88 72 88 56 L88 50 L12 50Z" fill="${sh(.92)}"/><path d="M10 50 q4 4 8 1 q4 4 8 0 q4 4 8 1 q4 4 8 0 q4 4 8 1 q4 4 8 0 q4 4 8 1 q4 4 8 0 q4 4 8 1 q4 4 8 0" stroke="${sh(.8)}" stroke-width="3" fill="none"/><rect x="10" y="42" width="80" height="9" rx="4" fill="${f}"/><path d="M12 42 Q12 16 50 16 Q88 16 88 42Z" fill="${c}"/><path d="M10 42 q4 4 8 1 q4 4 8 0 q4 4 8 1 q4 4 8 0 q4 4 8 1 q4 4 8 0 q4 4 8 1 q4 4 8 0 q4 4 8 1 q4 4 8 0" stroke="${sh(.85)}" stroke-width="3" fill="none"/><ellipse cx="36" cy="26" rx="14" ry="5" fill="#fff" opacity=".35"/></svg>`}
+let size=6,box=store.get('mm-box',[0,1,4]),rib='#e8607a';
+function boxUI(){document.getElementById('flav').innerHTML=FL.map((f,i)=>`<button class="fl" data-i="${i}">${mac(i)}<b>${f[0]}</b><small>€2.60</small></button>`).join('');
+ const cols=size===6?3:size===12?4:6;const t=document.getElementById('tray');t.style.gridTemplateColumns=`repeat(${cols},1fr)`;t.style.maxWidth=cols*84+'px';
+ t.innerHTML=[...Array(size)].map((_,k)=>`<button class="slot" data-k="${k}">${box[k]!=null?mac(box[k]):''}</button>`).join('');
+ document.getElementById('ribbon').innerHTML=`<svg viewBox="0 0 400 18" preserveAspectRatio="none" style="width:100%;height:18px"><rect width="400" height="18" fill="${rib}"/><rect y="7" width="400" height="4" fill="#fff" opacity=".3"/></svg>`;
+ document.getElementById('rib').innerHTML=['#e8607a','#c4a15a','#8ab06a','#6a4234','#d6c6ef'].map(c=>`<button class="${c===rib?'on':''}" data-r="${c}" style="background:${c}"></button>`).join('');
+ const n=box.filter(x=>x!=null).length;document.getElementById('cnt').textContent=`${n} of ${size} · ${n<size?size-n+' to go':'full!'}`;document.getElementById('price').textContent='€'+(n*2.6+(size===24?6:size===12?3.5:2)).toFixed(2);
+ document.querySelectorAll('#sizes button').forEach(b=>b.classList.toggle('on',+b.dataset.n===size));store.set('mm-box',box)}
+document.getElementById('flav').onclick=e=>{const b=e.target.closest('.fl');if(!b)return;const k=[...Array(size).keys()].find(k=>box[k]==null);if(k==null)return;box[k]=+b.dataset.i;boxUI()};
+document.getElementById('tray').onclick=e=>{const s=e.target.closest('.slot');if(!s)return;box[+s.dataset.k]=null;boxUI()};
+document.getElementById('sizes').onclick=e=>{const n=e.target.dataset.n;if(n){size=+n;box=box.slice(0,size);boxUI()}};
+document.getElementById('rib').onclick=e=>{const r=e.target.dataset.r;if(r){rib=r;boxUI()}};
+document.getElementById('surprise').onclick=()=>{box=[...Array(size)].map((_,i)=>i%FL.length);box.sort(()=>Math.random()-.5);boxUI()};
+document.getElementById('wrapBtn').onclick=e=>{e.target.textContent='✓ Wrapped with a bow';setTimeout(()=>e.target.textContent='Wrap it',1600)};boxUI();
+
+/* cake */
+const CO={tiers:[1,2,3],sponge:[['Vanilla genoise','#f6e3b0'],['Chocolate','#6a4234'],['Pistachio','#b8cf88'],['Red velvet','#b8323a']],fill:[['Raspberry','#e8607a'],['Lemon curd','#f2d24a'],['Salted caramel','#c98a4a'],['Chantilly','#fffaf0']],frost:[['Swiss meringue','#fffaf2'],['Rose buttercream','#f3b8c8'],['Mint','#bfe6d8'],['Naked',null]],top:[['Berries','ber'],['Macarons','mac'],['Gold leaf','gold'],['Flowers','flo']]};
+let C={tiers:2,sponge:0,fill:0,frost:1,top:1};
+function cake(){let s=`<ellipse cx="230" cy="420" rx="180" ry="18" fill="#3a2a3018"/><path d="M110 404 h240 l-20 14 h-200z" fill="#e8e0e4"/><rect x="200" y="404" width="60" height="30" fill="#e8e0e4"/><ellipse cx="230" cy="440" rx="80" ry="10" fill="#dcd2d8"/>`;
+ const sp=CO.sponge[C.sponge][1],fl=CO.fill[C.fill][1],fr=CO.frost[C.frost][1];let y=404;const widths=[240,180,124];
+ for(let t=0;t<C.tiers;t++){const w=widths[t],h=t===0?110:90,x=230-w/2;y-=h;
+  if(fr){s+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${fr}"/><path d="${[...Array(Math.floor(w/20))].map((_,k)=>`M${x+10+k*20} ${y} q10 ${14+(k%3)*6} 0 ${22+(k%2)*8}`).join(' ')}" stroke="${fr}" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M${x} ${y+h-6} ${[...Array(Math.floor(w/14))].map((_,k)=>`q7 -8 14 0`).join(' ')}" stroke="#ffffff99" stroke-width="5" fill="none"/>`}
+  else{for(let l=0;l<4;l++){s+=`<rect x="${x}" y="${y+l*h/4}" width="${w}" height="${h/4-(l<3?6:0)}" fill="${sp}"/>${l<3?`<rect x="${x}" y="${y+(l+1)*h/4-6}" width="${w}" height="6" fill="${fl}"/>`:''}`}}
+  s+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="url(#shade)" />`}
+ s=`<defs><linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".12"/><stop offset=".3" stop-color="#fff" stop-opacity=".15"/><stop offset="1" stop-color="#000" stop-opacity=".15"/></linearGradient></defs>`+s;
+ const tw=widths[C.tiers-1],tx=230-tw/2,T=CO.top[C.top][1];
+ if(T==='ber')for(let k=0;k<9;k++)s+=`<circle cx="${tx+14+k*(tw-28)/8}" cy="${y-6-(k%2)*6}" r="${7+(k%3)}" fill="${['#b8123a','#3a2a6a','#e8607a'][k%3]}"/>`;
+ if(T==='mac')for(let k=0;k<4;k++)s+=`<g transform="translate(${tx+6+k*(tw-12)/4} ${y-36}) scale(.36)">${mac([0,1,6,5][k]).replace(/<\/?svg[^>]*>/g,'')}</g>`;
+ if(T==='gold')for(let k=0;k<14;k++)s+=`<path d="M${tx+10+(k*37)%(tw-20)} ${y+8+(k*23)%60} l6 -4 l4 6 l-7 3z" fill="#d4af37"/>`;
+ if(T==='flo')for(let k=0;k<5;k++){const cx=tx+16+k*(tw-32)/4,cy=y-10;s+=[...Array(5)].map((_,p)=>`<ellipse cx="${cx+Math.cos(p*1.26)*7}" cy="${cy+Math.sin(p*1.26)*7}" rx="6" ry="4" transform="rotate(${p*72} ${cx+Math.cos(p*1.26)*7} ${cy+Math.sin(p*1.26)*7})" fill="${['#fff','#f3b8c8','#d6c6ef'][k%3]}"/>`).join('')+`<circle cx="${cx}" cy="${cy}" r="3.5" fill="#f2d24a"/>`}
+ document.getElementById('cakeSvg').innerHTML=s;const serv=[12,30,55][C.tiers-1];document.getElementById('cakeT').textContent=`${CO.sponge[C.sponge][0]} & ${CO.fill[C.fill][0].toLowerCase()}`;document.getElementById('cakeP').textContent=`${C.tiers} tier${C.tiers>1?'s':''} · serves ${serv} · €${serv*6+(C.top===2?40:20)}`;
+ document.getElementById('copt').innerHTML=[['tiers','TIERS'],['sponge','SPONGE'],['fill','FILLING'],['frost','FROSTING'],['top','TOPPING']].map(([k,l])=>`<h4>${l}</h4><div class="row">${CO[k].map((o,i)=>k==='tiers'?`<button class="${C.tiers===o?'on':''}" data-k="tiers" data-v="${o}">${o}</button>`:`<button class="${C[k]===i?'on':''}" data-k="${k}" data-v="${i}">${Array.isArray(o)&&o[1]&&o[1][0]==='#'?`<i style="background:${o[1]}"></i>`:''}${o[0]}</button>`).join('')}</div>`).join('')+'<div style="margin-top:22px"><button class="btn">Commission this cake</button></div>'}
+document.getElementById('copt').onclick=e=>{const{k,v}=e.target.dataset;if(k){C[k]=+v;cake()}if(e.target.textContent==='Commission this cake')e.target.textContent='✓ See you in 48 hours'};cake();
+
+/* recipe */
+document.getElementById('ing').innerHTML=[['Ground almonds','125 g'],['Icing sugar','125 g'],['Egg whites (aged 2 days)','2 × 45 g'],['Caster sugar','125 g'],['Water','35 ml'],['Food colouring','a whisper'],['Ganache, to fill','200 g']].map(i=>`<li><span>${i[0]}</span><b>${i[1]}</b></li>`).join('');
+const ST=['Sift the almonds and icing sugar twice. Discard any lumps: no mercy.','Mix one egg white into the almond paste to make a thick "tant pour tant".','Boil the sugar and water to exactly 118 °C.','Whip the second egg white to soft peaks, then stream in the hot syrup. Whip until glossy and cool.','Macaronage: fold the meringue into the paste until it falls from the spatula in ribbons. Practise below!','Pipe 3.5 cm rounds and bang the tray on the counter to knock out air bubbles.','Rest for 30 minutes until a skin forms and they are no longer sticky to the touch.','Bake at 150 °C for 13 minutes. They should grow little "feet".','Cool, pair up shells of the same size, fill, then mature in the fridge for 24 hours.'];
+let sd=new Set(store.get('mm-steps',[]));function steps(){document.getElementById('steps').innerHTML=ST.map((s,i)=>`<li class="${sd.has(i)?'done':''}" data-i="${i}"><span class="n">${sd.has(i)?'✓':i+1}</span><p>${s}</p></li>`).join('')}
+document.getElementById('steps').onclick=e=>{const l=e.target.closest('li');if(!l)return;const i=+l.dataset.i;sd.has(i)?sd.delete(i):sd.add(i);store.set('mm-steps',[...sd]);steps()};steps();
+const bc=document.getElementById('bowl'),bx=bc.getContext('2d');let folds=0,la=null,ang=0;
+function bowl(){bx.clearRect(0,0,360,300);bx.fillStyle='#e8e0e4';bx.beginPath();bx.ellipse(180,170,160,110,0,0,7);bx.fill();bx.fillStyle='#fff';bx.beginPath();bx.ellipse(180,160,146,96,0,0,7);bx.fill();
+ const f=Math.min(1,folds/60);const stiff=1-f;bx.fillStyle=`rgb(${243-f*10},${184+f*20},${200})`;bx.beginPath();for(let a=0;a<6.3;a+=.2){const r=90+Math.sin(a*6+ang)*stiff*14+Math.sin(a*3)*6;bx.lineTo(180+Math.cos(a)*r*1.1,160+Math.sin(a)*r*.62)}bx.fill();
+ if(folds<60){bx.fillStyle='#fff8';for(let k=0;k<Math.round(stiff*16);k++){bx.beginPath();bx.arc(180+Math.cos(k*2.4)*60*Math.sin(k),160+Math.sin(k*1.7)*40,5+(k%3)*2,0,7);bx.fill()}}
+ bx.save();bx.translate(180+Math.cos(ang)*60,160+Math.sin(ang)*38);bx.rotate(ang+1.2);bx.fillStyle='#c4a15a';bx.fillRect(-6,-80,12,70);bx.fillStyle='#e8e0e4';bx.beginPath();bx.ellipse(0,0,18,26,0,0,7);bx.fill();bx.restore();
+ const p=Math.min(100,folds/90*100);document.getElementById('mi').style.left=`calc(${p}% - 3px)`;document.getElementById('mmsg').textContent=folds<36?'Too stiff: keep folding.':folds<63?'✨ Parfait! It flows like lava. Stop here!':'Over-mixed! The shells will spread flat. Start again.'}
+bc.addEventListener('pointerdown',e=>{bc.setPointerCapture(e.pointerId);la=null});
+bc.addEventListener('pointermove',e=>{if(!e.buttons)return;const r=bc.getBoundingClientRect();const a=Math.atan2((e.clientY-r.top)/r.height*300-160,(e.clientX-r.left)/r.width*360-180);if(la!=null){let d=a-la;if(d>Math.PI)d-=6.28;if(d<-Math.PI)d+=6.28;folds+=Math.abs(d)*2.2;ang=a}la=a;bowl()});
+document.getElementById('breset').onclick=()=>{folds=0;bowl()};bowl();
+
+/* boutique */
+(function(){let s=`<rect width="600" height="440" fill="#f6eef2"/><rect x="60" y="60" width="480" height="380" fill="#fff"/><rect x="60" y="60" width="480" height="60" fill="#3a2a30"/><text x="300" y="100" text-anchor="middle" font-family="Gilda Display" font-size="30" fill="#c4a15a" letter-spacing="6">MAISON MACARON</text>`;
+ s+=`<path d="M40 120 H560 L540 170 H60Z" fill="#cfe3a4"/>${[...Array(13)].map((_,i)=>`<path d="M${40+i*40} 120 h20 l-4 50 h-20z" fill="#fff" opacity=".7"/>`).join('')}<path d="M60 170 ${[...Array(12)].map(()=>'q20 16 40 0').join(' ')}" fill="#cfe3a4"/>`;
+ s+=`<rect x="90" y="200" width="250" height="200" fill="#e8f4f0" stroke="#3a2a30" stroke-width="4"/><rect x="380" y="200" width="130" height="240" fill="#3a2a30"/><rect x="394" y="214" width="102" height="140" fill="#e8f4f0"/><circle cx="486" cy="330" r="5" fill="#c4a15a"/>`;
+ for(let r=0;r<3;r++)for(let c=0;c<6;c++)s+=`<g transform="translate(${104+c*38} ${226+r*56}) scale(.34)">${mac((r*6+c)%12).replace(/<\/?svg[^>]*>/g,'')}</g>`;
+ s+=`<rect x="90" y="360" width="250" height="40" fill="#fff" opacity=".4"/><text x="215" y="386" text-anchor="middle" font-family="Quicksand" font-weight="700" font-size="14" fill="#3a2a30">OUVERT · OPEN</text>`;
+ document.getElementById('front').innerHTML=s})();
+const H=[['Lundi','Fermé'],['Mardi','10:00 – 19:00'],['Mercredi','10:00 – 19:00'],['Jeudi','10:00 – 19:00'],['Vendredi','10:00 – 20:00'],['Samedi','09:00 – 20:00'],['Dimanche','09:00 – 13:00']];const td=(new Date().getDay()+6)%7;
+document.getElementById('hours').innerHTML=H.map((h,i)=>`<li class="${i===td?'today':''}"><span>${h[0]}${i===td?' · aujourd\'hui':''}</span><span>${h[1]}</span></li>`).join('');
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

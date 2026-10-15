@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Moonfall</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Big+Shoulders+Display:wght@800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none;background:#000;font-family:'Space Mono',monospace;color:#eaeaea}
+canvas{display:block;position:fixed;inset:0}
+.hud{position:fixed;top:10px;right:12px;font-size:11px;line-height:1.7;text-align:right;pointer-events:none;letter-spacing:.08em}.hud b{color:#fff}
+.hud .bad{color:#ff5a4f}.hud .ok{color:#7dffa1}
+.ctl{position:fixed;bottom:14px;left:0;right:0;display:flex;justify-content:space-between;padding:0 14px;pointer-events:none}
+.ctl div{display:flex;gap:10px}.ctl button{pointer-events:auto;width:70px;height:70px;border-radius:50%;border:2px solid #ffffff55;background:#ffffff10;color:#fff;font:inherit;font-weight:700;font-size:22px}.ctl button.th{width:96px;height:96px;font-size:13px;letter-spacing:.1em}
+.ctl button.on{background:#ffffff33}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#000c}.ov.on{display:grid}
+.ov h1{font-family:'Big Shoulders Display',sans-serif;font-size:clamp(56px,16vw,120px);letter-spacing:.1em;line-height:.9}
+.ov p{margin:14px auto 24px;line-height:1.8;max-width:360px;font-size:13px;opacity:.8}
+.go{font:inherit;font-weight:700;letter-spacing:.3em;border:1px solid #fff;background:none;color:#fff;padding:12px 30px;cursor:pointer}
+.back{position:fixed;left:12px;top:10px;color:#eaeaeaaa;text-decoration:none;font-size:12px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud" id="hud"></div>
+<div class="ctl" id="ctl"><div><button data-k="L">⟲</button><button data-k="R">⟳</button></div><div><button class="th" data-k="U">THRUST</button></div></div>
+<div class="ov on" id="ov"><div><h1 id="t">MOONFALL</h1><p id="m">Touch down gently on a lit pad.<br>Vertical &lt; 2 · horizontal &lt; 1.2 · keep level.<br>← → rotate · ↑ or Space thrust · on-screen buttons on touch.</p><button class="go" id="go">DESCEND</button></div></div>
+<a class="back" href="index.html">← games</a>
+<script>
+const K='best-moonfall';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const cv=document.getElementById('c'),x=cv.getContext('2d');let W,H,S;
+function fit(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);S=Math.min(W,H)/700}fit();addEventListener('resize',()=>{fit();if(terrain)gen()});
+const touch=matchMedia('(pointer:coarse)').matches;if(!touch)document.getElementById('ctl').style.display='none';
+let st='menu',ship,terrain=[],pads=[],level=1,score=0,best=ls.g(K,0),keys={},parts=[],stars=[],t=0,grav;
+for(let i=0;i<200;i++)stars.push([Math.random(),Math.random(),Math.random()]);
+let AC,thr;function tone(f,d=.1,type='sine',v=.06,to){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;if(to)o.frequency.exponentialRampToValueAtTime(to,AC.currentTime+d);g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function engine(on){try{AC=AC||new AudioContext();if(on&&!thr){const n=AC.createBufferSource(),b=AC.createBuffer(1,AC.sampleRate,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;n.buffer=b;n.loop=true;const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=380;const g=AC.createGain();g.gain.value=.08;n.connect(f).connect(g).connect(AC.destination);n.start();thr=n}else if(!on&&thr){thr.stop();thr=null}}catch(e){}}
+function gen(){terrain=[];pads=[];const n=48,seg=W/n;let y=H*.72;const padSlots=new Set();const np=Math.max(2,4-Math.floor(level/3));while(padSlots.size<np)padSlots.add(3+Math.floor(Math.random()*(n-8)));
+ for(let i=0;i<=n;i++){if(padSlots.has(i)){const w=Math.max(2,4-Math.floor(level/2))+(Math.random()<.4?0:1);const mult=w<=2?5:w===3?3:2;const py=Math.min(H*.9,Math.max(H*.45,y));for(let k=0;k<=w&&i+k<=n;k++)terrain.push([(i+k)*seg,py]);pads.push({x1:i*seg,x2:(i+w)*seg,y:py,m:mult});i+=w;y=py;continue}
+  y+=(Math.random()-.5)*H*.12;y=Math.min(H*.93,Math.max(H*.42,y));terrain.push([i*seg,y])}}
+function groundY(px){for(let i=0;i<terrain.length-1;i++){const[a,b]=[terrain[i],terrain[i+1]];if(px>=a[0]&&px<=b[0]){return a[1]+(b[1]-a[1])*(px-a[0])/(b[0]-a[0]||1)}}return H}
+function reset(){grav=(.012+level*.0015)*S*2;ship={x:W*(.15+Math.random()*.7),y:H*.1,vx:(Math.random()-.5)*1.2*S*2,vy:0,a:0,fuel:Math.max(400,1000-level*70)};gen()}
+function start(){level=1;score=0;reset();st='play';document.getElementById('ov').classList.remove('on')}
+function crash(why){st='dead';ship.dead=true;engine(false);tone(70,1,'sawtooth',.09,30);for(let i=0;i<60;i++){const a=Math.random()*6.28,s=Math.random()*5;parts.push({x:ship.x,y:ship.y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-2,l:1,c:i%2?'#ffb35a':'#fff'})}
+ if(score>best){best=score;ls.s(K,best)}setTimeout(()=>{st='over';document.getElementById('t').textContent='LOST';document.getElementById('m').innerHTML=`${why}<br>Score ${score} · reached level ${level}<br>Best ${best}`;document.getElementById('go').textContent='TRY AGAIN';document.getElementById('ov').classList.add('on')},1400)}
+function landed(p){st='landed';engine(false);const gain=p.m*50+Math.floor(ship.fuel/10);score+=gain;if(score>best){best=score;ls.s(K,best)}[523,659,784].forEach((f,i)=>setTimeout(()=>tone(f,.25,'triangle',.05),i*120));
+ setTimeout(()=>{st='over';document.getElementById('t').textContent='THE EAGLE';document.getElementById('m').innerHTML=`Landed on a ×${p.m} pad · +${gain}<br>Score ${score}`;document.getElementById('go').textContent='NEXT SITE';document.getElementById('ov').classList.add('on');document.getElementById('go').onclick=()=>{level++;reset();st='play';document.getElementById('ov').classList.remove('on');document.getElementById('go').onclick=start}},1300)}
+function update(){t++;if(st!=='play')return;const s=ship;if(keys.L)s.a-=.045;if(keys.R)s.a+=.045;const th=keys.U&&s.fuel>0;engine(th);
+ if(th){const f=.035*S*2;s.vx+=Math.sin(s.a)*f;s.vy-=Math.cos(s.a)*f;s.fuel-=1;if(t%2===0)parts.push({x:s.x-Math.sin(s.a)*12*S*2,y:s.y+Math.cos(s.a)*12*S*2,vx:-Math.sin(s.a+(Math.random()-.5)*.5)*3+s.vx,vy:Math.cos(s.a+(Math.random()-.5)*.5)*3+s.vy,l:.8,c:'#ffb35a'})}
+ s.vy+=grav;s.x+=s.vx;s.y+=s.vy;if(s.x<0)s.x+=W;if(s.x>W)s.x-=W;
+ const foot=s.y+10*S*2;const gy=groundY(s.x);if(foot>=gy){const p=pads.find(p=>s.x>p.x1+4&&s.x<p.x2-4);const vy=s.vy/(S*2)*10,vx=Math.abs(s.vx/(S*2)*10);
+  if(p&&vy<2&&vx<1.2&&Math.abs(Math.atan2(Math.sin(s.a),Math.cos(s.a)))<.22){s.y=gy-10*S*2;landed(p)}else crash(!p?'Missed the pad.':vy>=2?'Came in too fast.':vx>=1.2?'Drifting sideways.':'Not level.')}}
+function draw(){x.fillStyle='#000';x.fillRect(0,0,W,H);stars.forEach(s=>{x.fillStyle=`rgba(255,255,255,${.2+s[2]*.6})`;x.fillRect(s[0]*W,s[1]*H,s[2]>.9?2:1,s[2]>.9?2:1)});
+ const ex=W*.82,ey=H*.16,er=Math.min(W,H)*.06;const eg=x.createRadialGradient(ex-er*.3,ey-er*.3,er*.1,ex,ey,er);eg.addColorStop(0,'#9fd4ff');eg.addColorStop(.6,'#2b6fd6');eg.addColorStop(1,'#0d2a66');x.fillStyle=eg;x.beginPath();x.arc(ex,ey,er,0,7);x.fill();x.fillStyle='#000';x.globalAlpha=.55;x.beginPath();x.arc(ex+er*.45,ey,er,0,7);x.fill();x.globalAlpha=1;
+ if(terrain.length){x.fillStyle='#161616';x.beginPath();x.moveTo(0,H);terrain.forEach(p=>x.lineTo(p[0],p[1]));x.lineTo(W,H);x.fill();x.strokeStyle='#cfcfcf';x.lineWidth=1.5;x.beginPath();terrain.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.stroke();
+  pads.forEach(p=>{x.strokeStyle=t%40<30?'#7dffa1':'#3a7a4a';x.lineWidth=4;x.beginPath();x.moveTo(p.x1,p.y);x.lineTo(p.x2,p.y);x.stroke();x.fillStyle='#7dffa1';x.font='700 12px "Space Mono"';x.textAlign='center';x.fillText('×'+p.m,(p.x1+p.x2)/2,p.y+18)})}
+ if(ship&&!ship.dead){const s=ship;x.save();x.translate(s.x,s.y);x.rotate(s.a);x.scale(S*2,S*2);x.strokeStyle='#fff';x.lineWidth=1.2/(S*2)*1.5;x.fillStyle='#000';
+  x.beginPath();x.moveTo(-6,-8);x.lineTo(6,-8);x.lineTo(8,-2);x.lineTo(-8,-2);x.closePath();x.fill();x.stroke();x.beginPath();x.arc(0,-11,5,Math.PI,0);x.stroke();x.beginPath();x.rect(-7,-2,14,6);x.stroke();
+  x.beginPath();x.moveTo(-6,4);x.lineTo(-10,10);x.moveTo(6,4);x.lineTo(10,10);x.moveTo(-12,10);x.lineTo(-8,10);x.moveTo(8,10);x.lineTo(12,10);x.stroke();
+  if(keys.U&&s.fuel>0&&st==='play'){x.strokeStyle='#ffb35a';x.beginPath();x.moveTo(-3,4);x.lineTo(0,10+Math.random()*8);x.lineTo(3,4);x.stroke()}x.restore()}
+ parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.l-=.02;x.globalAlpha=Math.max(0,p.l);x.fillStyle=p.c;x.fillRect(p.x,p.y,2,2)});x.globalAlpha=1;parts=parts.filter(p=>p.l>0&&p.y<H);
+ if(ship&&st==='play'){const vy=ship.vy/(S*2)*10,vx=ship.vx/(S*2)*10,alt=Math.max(0,groundY(ship.x)-ship.y-10*S*2);const lv=Math.abs(Math.atan2(Math.sin(ship.a),Math.cos(ship.a)))<.22;
+  document.getElementById('hud').innerHTML=`LEVEL <b>${level}</b> · SCORE <b>${score}</b><br>FUEL <b>${Math.max(0,ship.fuel|0)}</b><br>ALT <b>${(alt/5|0)}</b><br>V-SPD <b class="${vy<2?'ok':'bad'}">${vy.toFixed(1)}</b><br>H-SPD <b class="${Math.abs(vx)<1.2?'ok':'bad'}">${vx.toFixed(1)}</b><br>ATTITUDE <b class="${lv?'ok':'bad'}">${lv?'LEVEL':'TILT'}</b><br>BEST ${best}`}}
+function loop(){update();draw();requestAnimationFrame(loop)}requestAnimationFrame(loop);
+const KM={ArrowLeft:'L',a:'L',A:'L',ArrowRight:'R',d:'R',D:'R',ArrowUp:'U',w:'U',W:'U',' ':'U'};
+addEventListener('keydown',e=>{if(KM[e.key]){e.preventDefault();keys[KM[e.key]]=true}if((e.key==='Enter'||e.key===' ')&&document.getElementById('ov').classList.contains('on')){e.preventDefault();keys.U=false;document.getElementById('go').click()}});
+addEventListener('keyup',e=>{if(KM[e.key])keys[KM[e.key]]=false});
+document.querySelectorAll('.ctl button').forEach(b=>{const k=b.dataset.k;b.addEventListener('pointerdown',e=>{e.preventDefault();keys[k]=true;b.classList.add('on')});const up=()=>{keys[k]=false;b.classList.remove('on')};b.addEventListener('pointerup',up);b.addEventListener('pointerleave',up);b.addEventListener('pointercancel',up)});
+document.getElementById('go').onclick=start;
+</script>
+</body>
+</html>

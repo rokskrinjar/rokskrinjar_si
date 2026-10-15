@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Whack Shack</title>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Rubik:wght@500;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:manipulation;user-select:none}
+body{background:repeating-linear-gradient(92deg,#0000 0 18px,#0000000d 18px 20px,#0000 20px 47px,#ffffff08 47px 49px),linear-gradient(#8a5530,#5a321a) #6b3f22;font-family:Rubik,sans-serif;color:#fff3dc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:40px 12px 12px}
+.sign{font-family:'Bowlby One',cursive;font-size:clamp(34px,10vw,58px);color:#ffcf4a;text-shadow:0 4px 0 #b3471d,0 8px 0 #3b1d0c;letter-spacing:.03em;transform:rotate(-2deg)}
+.stats{display:flex;gap:10px}.stats div{background:#3b1d0c;border:3px solid #ffcf4a;border-radius:12px;padding:4px 12px;text-align:center;min-width:78px}.stats small{display:block;font-size:10px;letter-spacing:.15em;color:#ffcf4a}.stats b{font-size:22px;font-variant-numeric:tabular-nums}
+.field{--h:min(26vw,17vh,130px);display:grid;grid-template-columns:repeat(3,var(--h));gap:calc(var(--h)*.22) calc(var(--h)*.18);padding:20px;background:radial-gradient(ellipse at 50% 40%,#7cbf4a,#4f8f2e);border-radius:28px;box-shadow:inset 0 -10px 0 #3b6e22,0 12px 0 #3b1d0c,0 20px 40px #0006;border:6px solid #3b1d0c}
+.hole{width:var(--h);height:var(--h);position:relative;cursor:pointer}
+.hole .pit{position:absolute;left:0;right:0;bottom:4%;height:34%;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#1a0d05 55%,#3b2412 70%);box-shadow:0 0 0 5px #c9a36a,0 0 0 8px #7a5a2a}
+.hole .win{position:absolute;left:0;right:0;bottom:21%;height:110%;overflow:hidden;border-radius:0 0 50% 50%/0 0 20% 20%}
+.mole{position:absolute;left:14%;right:14%;bottom:0;height:78%;transform:translateY(105%);transition:transform .11s ease-out}
+.hole.up .mole{transform:translateY(8%)}
+.mole .b{position:absolute;inset:0;border-radius:48% 48% 20% 20%;background:radial-gradient(circle at 35% 30%,#a8784f,#6e4526 70%);box-shadow:inset 0 -8px 0 #0002}
+.mole .e{position:absolute;top:28%;width:12%;height:14%;background:#111;border-radius:50%;box-shadow:inset 2px 2px 0 #fff8}.mole .e.l{left:28%}.mole .e.r{right:28%}
+.mole .n{position:absolute;top:44%;left:50%;width:22%;height:14%;transform:translateX(-50%);background:#ff8fa3;border-radius:50%}
+.mole .t{position:absolute;top:58%;left:50%;width:14%;height:10%;transform:translateX(-50%);background:#fff;border-radius:0 0 4px 4px;box-shadow:inset 0 -2px #ddd}
+.mole.gold .b{background:radial-gradient(circle at 35% 30%,#fff3a0,#e0a800 70%)}
+.mole.hat::before{content:'';position:absolute;left:4%;right:4%;top:-8%;height:34%;background:linear-gradient(#ffd23a,#e8a200);border-radius:50% 50% 8px 8px;z-index:2;box-shadow:inset 0 -4px 0 #b37d00}
+.mole.bun .b{background:radial-gradient(circle at 35% 30%,#fff,#e9dfd6 70%)}.mole.bun .n{background:#ff5b7f}.mole.bun::before,.mole.bun::after{content:'';position:absolute;top:-38%;width:18%;height:50%;background:#fff;border-radius:50%;box-shadow:inset 0 0 0 5px #fff,inset 0 0 0 30px #ffc2d0}.mole.bun::before{left:22%}.mole.bun::after{right:22%}
+.mole.hit .e{height:3%;top:33%;border-radius:0}
+.key{position:absolute;bottom:-8%;right:-4%;font-size:11px;font-weight:800;color:#3b1d0c;background:#ffcf4a;border-radius:6px;padding:1px 5px;opacity:.85}
+.pow{position:absolute;left:50%;top:10%;transform:translate(-50%,-50%);font-family:'Bowlby One',cursive;font-size:22px;color:#fff;text-shadow:0 3px 0 #b3471d;pointer-events:none;animation:pw .55s forwards;z-index:3;white-space:nowrap}
+@keyframes pw{0%{transform:translate(-50%,-20%) scale(.4)}40%{transform:translate(-50%,-70%) scale(1.2)}100%{transform:translate(-50%,-140%) scale(1);opacity:0}}
+.tb{width:min(90vw,440px);height:12px;background:#3b1d0c;border-radius:10px;overflow:hidden;border:2px solid #ffcf4a}.tb i{display:block;height:100%;background:linear-gradient(90deg,#ff6a3d,#ffcf4a);transform-origin:left}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#2a1408cc}.ov.on{display:grid}
+.ov .sign{font-size:clamp(40px,12vw,70px)}.ov p{margin:14px auto 22px;line-height:1.7;max-width:360px}
+.ov button{font-family:'Bowlby One',cursive;font-size:22px;border:0;background:#ffcf4a;color:#3b1d0c;padding:12px 34px;border-radius:14px;box-shadow:0 6px 0 #b3471d;cursor:pointer}
+.back{position:fixed;left:12px;top:10px;color:#fff3dcaa;text-decoration:none;font-size:14px;z-index:6}
+.legend{display:flex;gap:12px;font-size:12px;opacity:.85;flex-wrap:wrap;justify-content:center}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="back" href="index.html">← games</a>
+<div class="sign">WHACK SHACK</div>
+<div class="stats"><div><small>SCORE</small><b id="sc">0</b></div><div><small>COMBO</small><b id="cb">×1</b></div><div><small>BEST</small><b id="bs">0</b></div></div>
+<div class="tb"><i id="tb"></i></div>
+<div class="field" id="field"></div>
+<div class="legend"><span>🟤 +10</span><span>⛑ 2 hits +30</span><span>🟡 +50</span><span>🐰 don't bonk!</span></div>
+<div class="ov on" id="ov"><div><div class="sign" id="ot">WHACK<br>SHACK</div><p id="op">45 seconds. Bonk the moles, spare the bunnies.<br>Tap the holes, or use the keys:<br><b>7 8 9 / 4 5 6 / 1 2 3</b> or <b>Q W E / A S D / Z X C</b></p><button id="go">BONK!</button></div></div>
+<script>
+const K='best-whack-shack';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const field=document.getElementById('field');const KEYS=[['7','q'],['8','w'],['9','e'],['4','a'],['5','s'],['6','d'],['1','z'],['2','x'],['3','c']];
+const holes=[];for(let i=0;i<9;i++){const h=document.createElement('div');h.className='hole';h.innerHTML=`<div class="pit"></div><div class="win"><div class="mole"><div class="b"></div><div class="e l"></div><div class="e r"></div><div class="n"></div><div class="t"></div></div></div><span class="key">${KEYS[i][0]}</span>`;field.appendChild(h);holes.push({el:h,m:h.querySelector('.mole'),up:false,kind:null,hp:0,timer:null});h.addEventListener('pointerdown',e=>{e.preventDefault();bonk(i)})}
+let score=0,combo=1,best=ls.g(K,0),playing=false,left=45,tick,spawnT,AC;document.getElementById('bs').textContent=best;
+function tone(f,d=.08,type='square',v=.05,to){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;if(to)o.frequency.exponentialRampToValueAtTime(to,AC.currentTime+d);g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function hud(){document.getElementById('sc').textContent=score;document.getElementById('cb').textContent='×'+combo;document.getElementById('tb').style.transform=`scaleX(${left/45})`}
+function pop(i,txt){const p=document.createElement('div');p.className='pow';p.textContent=txt;holes[i].el.appendChild(p);setTimeout(()=>p.remove(),560)}
+function up(i){const h=holes[i];if(h.up)return;const r=Math.random(),prog=1-left/45;const kind=r<.1?'gold':r<.22?'bun':r<.38?'hat':'mole';h.kind=kind;h.hp=kind==='hat'?2:1;h.up=true;
+ h.m.className='mole'+(kind==='mole'?'':' '+kind);h.el.classList.add('up');const stay=(kind==='gold'?520:kind==='bun'?1100:1000)*(1-prog*.45);clearTimeout(h.timer);h.timer=setTimeout(()=>down(i,true),stay)}
+function down(i,missed){const h=holes[i];if(!h.up)return;h.up=false;h.el.classList.remove('up');clearTimeout(h.timer);if(missed&&h.kind!=='bun'&&playing){combo=1;hud()}}
+function bonk(i){if(!playing)return;const h=holes[i];h.el.animate([{transform:'scale(.94)'},{transform:'scale(1)'}],{duration:120});
+ if(!h.up){tone(90,.05,'triangle',.04);return}
+ if(h.kind==='bun'){score=Math.max(0,score-30);combo=1;pop(i,'-30 😿');tone(160,.3,'sawtooth',.06,80);h.m.classList.add('hit');setTimeout(()=>down(i),200);hud();return}
+ h.hp--;if(h.hp>0){h.m.classList.remove('hat');pop(i,'CLANK');tone(1400,.08,'square',.04);clearTimeout(h.timer);h.timer=setTimeout(()=>down(i,true),700);return}
+ const base=h.kind==='gold'?50:h.kind==='hat'?30:10;const gain=base*combo;score+=gain;combo=Math.min(8,combo+1);pop(i,(h.kind==='gold'?'★ ':'')+'+'+gain);tone(h.kind==='gold'?1200:520+combo*60,.1,'square',.05,200);
+ h.m.classList.add('hit');setTimeout(()=>down(i),140);hud()}
+function loop(){if(!playing)return;const prog=1-left/45;const n=holes.filter(h=>h.up).length;if(n<1+Math.floor(prog*3)){const free=holes.map((h,i)=>h.up?-1:i).filter(i=>i>=0);up(free[Math.random()*free.length|0])}spawnT=setTimeout(loop,Math.max(260,720-prog*460)*(.6+Math.random()*.6))}
+function start(){score=0;combo=1;left=45;playing=true;document.getElementById('ov').classList.remove('on');holes.forEach((h,i)=>down(i));hud();clearInterval(tick);tick=setInterval(()=>{left=Math.max(0,left-.1);hud();if(left<=0)end()},100);clearTimeout(spawnT);setTimeout(loop,400)}
+function end(){playing=false;clearInterval(tick);clearTimeout(spawnT);holes.forEach((h,i)=>down(i));const rec=score>best;if(rec){best=score;ls.s(K,best)}document.getElementById('bs').textContent=best;tone(300,.4,'triangle',.06,150);
+ setTimeout(()=>{document.getElementById('ot').innerHTML=rec?'NEW<br>RECORD!':'TIME\'S<br>UP!';document.getElementById('op').innerHTML=`You scored <b>${score}</b> · best ${best}<br>Tap BONK! or press Space to play again.`;document.getElementById('go').textContent='AGAIN!';document.getElementById('ov').classList.add('on')},500)}
+addEventListener('keydown',e=>{const k=e.key.toLowerCase();const i=KEYS.findIndex(p=>p.includes(k));if(i>=0){e.preventDefault();bonk(i);return}if((k===' '||k==='enter')&&!playing){e.preventDefault();start()}});
+document.getElementById('go').onclick=start;hud();
+</script>
+</body>
+</html>

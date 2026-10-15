@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily Concrete</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;700&family=Libre+Caslon+Text:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#ecebe4; color:#111; font-family:'IBM Plex Mono',monospace; font-size:14px; }
+  a { color:inherit; }
+  .bar { display:flex; justify-content:space-between; border-bottom:4px solid #111; padding:10px 16px; font-weight:700; text-transform:uppercase; font-size:12px; gap:1rem; flex-wrap:wrap; }
+  .bar a { background:#111; color:#ecebe4; padding:2px 8px; text-decoration:none; }
+  .bar a:hover { background:#ff3b00; }
+  .mast { font-family:'Archivo Black',sans-serif; font-size:clamp(3rem,13vw,12rem); line-height:.82; letter-spacing:-.05em; text-transform:uppercase; padding:16px; border-bottom:4px solid #111; cursor:pointer; }
+  .mast span { color:#ff3b00; }
+  .sections { display:flex; border-bottom:4px solid #111; overflow-x:auto; }
+  .sections a { flex:1; text-align:center; padding:12px 18px; font-weight:700; text-transform:uppercase; text-decoration:none; border-right:4px solid #111; white-space:nowrap; }
+  .sections a:last-child { border-right:0; }
+  .sections a:hover { background:#d6d4ca; }
+  .sections a.on { background:#111; color:#ecebe4; }
+  .ticker { background:#ff3b00; overflow:hidden; white-space:nowrap; border-bottom:4px solid #111; }
+  .ticker div { display:inline-block; padding:8px 0; animation:tick 50s linear infinite; font-weight:700; text-transform:uppercase; }
+  @keyframes tick { to { transform:translateX(-50%); } }
+  [data-view][hidden] { display:none !important; }
+  .grid { display:grid; grid-template-columns:2fr 1fr 1fr; }
+  .grid > * { border-right:4px solid #111; border-bottom:4px solid #111; padding:16px; }
+  .grid > *:nth-child(3n) { border-right:0; }
+  h2.hed { font-family:'Archivo Black',sans-serif; font-size:clamp(2rem,5vw,4.6rem); line-height:.9; text-transform:uppercase; letter-spacing:-.03em; margin-bottom:16px; }
+  .img { height:300px; background:repeating-linear-gradient(90deg,#111 0 2px,transparent 2px 14px),linear-gradient(#bbb,#777); position:relative; margin-bottom:16px; border:4px solid #111; }
+  .img::after { content:attr(data-cap); position:absolute; bottom:-4px; left:-4px; background:#ff3b00; font-weight:700; padding:4px 8px; font-size:11px; }
+  .img.b { background:repeating-linear-gradient(0deg,#111 0 3px,transparent 3px 22px),repeating-linear-gradient(90deg,#111 0 3px,transparent 3px 40px),#999; }
+  .img.c { background:radial-gradient(circle at 30% 40%,#ecebe4 0 18%,transparent 19%),repeating-conic-gradient(#666 0 10deg,#888 10deg 20deg); }
+  p.body { font-family:'Libre Caslon Text',serif; font-size:1.05rem; line-height:1.55; margin-bottom:12px; }
+  .drop::first-letter { font-family:'Archivo Black'; float:left; font-size:4.8rem; line-height:.8; margin:6px 10px 0 0; }
+  h3 { font-family:'Archivo Black',sans-serif; text-transform:uppercase; font-size:1.5rem; line-height:1; margin-bottom:12px; }
+  .tag { display:inline-block; background:#111; color:#ecebe4; padding:2px 6px; font-size:11px; font-weight:700; margin-bottom:12px; }
+  .more { display:inline-block; margin-top:4px; font-weight:700; text-transform:uppercase; border:3px solid #111; padding:6px 10px; background:none; font:inherit; font-weight:700; cursor:pointer; box-shadow:4px 4px 0 #111; transition:transform .1s, box-shadow .1s; }
+  .more:hover { transform:translate(2px,2px); box-shadow:2px 2px 0 #111; background:#ff3b00; }
+  .big { font-family:'Archivo Black'; font-size:6.5rem; line-height:.8; color:#ff3b00; -webkit-text-stroke:3px #111; }
+  .pad { padding:16px; border-bottom:4px solid #111; }
+  /* opinion */
+  .ops { display:grid; grid-template-columns:repeat(3,1fr); }
+  .op { padding:24px; border-right:4px solid #111; border-bottom:4px solid #111; }
+  .op:nth-child(3n) { border-right:0; }
+  .face { width:84px; height:84px; border:4px solid #111; border-radius:50%; margin-bottom:16px; background:repeating-radial-gradient(#111 0 2px,transparent 2px 6px); }
+  .poll { padding:24px; border-bottom:4px solid #111; display:grid; grid-template-columns:1fr 1.4fr; gap:32px; align-items:center; }
+  .poll button.opt { display:block; width:100%; text-align:left; font:inherit; font-weight:700; border:3px solid #111; background:#ecebe4; padding:10px; margin-bottom:8px; cursor:pointer; position:relative; overflow:hidden; }
+  .poll button.opt i { position:absolute; inset:0; width:0; background:#ff3b00; z-index:0; transition:width .8s cubic-bezier(.2,.8,.2,1); }
+  .poll button.opt span { position:relative; z-index:1; display:flex; justify-content:space-between; }
+  /* classifieds */
+  .ctools { display:flex; gap:0; border-bottom:4px solid #111; flex-wrap:wrap; }
+  .ctools input { flex:1; min-width:200px; font:inherit; font-size:16px; padding:14px 16px; border:0; border-right:4px solid #111; background:#fff; outline:none; }
+  .ctools button { font:inherit; font-weight:700; text-transform:uppercase; padding:14px 16px; border:0; border-right:4px solid #111; background:#ecebe4; cursor:pointer; }
+  .ctools button.on { background:#111; color:#ecebe4; }
+  .classifieds { columns:4 220px; column-rule:2px solid #111; column-gap:32px; padding:16px; min-height:200px; }
+  .classifieds p { break-inside:avoid; margin-bottom:14px; font-size:12.5px; line-height:1.4; }
+  .classifieds p.new { background:#ff3b00; padding:6px; animation:flash .8s 3; }
+  @keyframes flash { 50% { background:#ecebe4; } }
+  .classifieds b { text-transform:uppercase; }
+  form.post { display:grid; grid-template-columns:180px 1fr auto; border-top:4px solid #111; }
+  form.post select, form.post input { font:inherit; padding:14px; border:0; border-right:4px solid #111; background:#fff; }
+  form.post button { font:inherit; font-weight:700; background:#111; color:#ecebe4; border:0; padding:0 22px; cursor:pointer; text-transform:uppercase; }
+  form.post button:hover { background:#ff3b00; color:#111; }
+  /* puzzles */
+  .puz { display:grid; grid-template-columns:auto 1fr; gap:40px; padding:32px 16px; border-bottom:4px solid #111; align-items:start; }
+  .xw { display:grid; grid-template-columns:repeat(5,64px); border:4px solid #111; background:#111; gap:3px; width:max-content; }
+  .xw input { width:64px; height:64px; border:0; text-align:center; font-family:'Archivo Black'; font-size:30px; text-transform:uppercase; background:#fff; outline:none; caret-color:transparent; }
+  .xw input:focus { background:#ffd8c9; }
+  .xw input.row { background:#f6e2d9; }
+  .xw input.ok { background:#b8f0c2; }
+  .xw input.bad { background:#ff3b00; color:#fff; }
+  .xw .cell { position:relative; }
+  .xw .cell sup { position:absolute; top:3px; left:5px; font-size:10px; font-weight:700; pointer-events:none; }
+  .clues li { list-style:none; padding:8px 0; border-bottom:2px solid #111; font-family:'Libre Caslon Text'; font-size:1.05rem; cursor:pointer; }
+  .clues li.on { background:#111; color:#ecebe4; padding-left:8px; }
+  .clues li b { font-family:'IBM Plex Mono'; margin-right:10px; }
+  .xbtns { display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; }
+  #xmsg { font-family:'Archivo Black'; text-transform:uppercase; margin-top:16px; font-size:1.2rem; }
+  /* weather */
+  .wx { display:grid; grid-template-columns:repeat(7,1fr); border-bottom:4px solid #111; }
+  .wx div { padding:20px 10px; border-right:4px solid #111; text-align:center; font-weight:700; }
+  .wx div:last-child { border-right:0; }
+  .wx b { display:block; font-family:'Archivo Black'; font-size:2.4rem; margin:10px 0; }
+  .wx .ico { font-size:2rem; filter:grayscale(1) contrast(2); }
+  /* reader */
+  .reader { position:fixed; inset:0; background:#111d; z-index:50; display:grid; place-items:center; padding:20px; }
+  .reader[hidden] { display:none; }
+  .reader article { background:#ecebe4; border:4px solid #111; box-shadow:12px 12px 0 #ff3b00; max-width:720px; max-height:88vh; overflow:auto; padding:32px; }
+  .reader .x { float:right; }
+  .stamp { position:fixed; right:28px; bottom:28px; width:120px; height:120px; border-radius:50%; background:#ff3b00; display:grid; place-items:center; text-align:center; font-family:'Archivo Black'; font-size:12px; line-height:1.1; text-transform:uppercase; border:4px solid #111; animation:spin 14s linear infinite; box-shadow:6px 6px 0 #111; z-index:5; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  @media (max-width:800px){ .grid,.ops,.poll,.puz { grid-template-columns:1fr; } .grid > *,.op { border-right:0; } .wx { grid-template-columns:repeat(4,1fr); } form.post { grid-template-columns:1fr; } .xw { grid-template-columns:repeat(5,52px); } .xw input { width:52px; height:52px; } .stamp { display:none; } }
+</style>
+</head>
+<body>
+<div class="bar"><a href="index.html">← Index</a><span>Vol. CXII — No. 48</span><span id="today"></span><span>Price: One Brick</span></div>
+<h1 class="mast" data-go="front">The Daily <span>Concrete</span></h1>
+<nav class="sections">
+  <a href="#front">Front Page</a><a href="#opinion">Opinion</a><a href="#classifieds">Classifieds</a><a href="#puzzles">Puzzles</a><a href="#weather">Weather</a>
+</nav>
+<div class="ticker"><div id="tick"></div></div>
+
+<section data-view="front">
+  <div class="grid">
+    <article>
+      <span class="tag">FRONT PAGE</span>
+      <h2 class="hed">Residents Demand More Honesty From Their Buildings</h2>
+      <div class="img" data-cap="FIG. 1 — THE SLAB, AT DAWN"></div>
+      <p class="body drop">In a packed and poorly ventilated town hall, residents of Block 7 made their position unmistakably clear: they are tired of façades. “We want to see the pour lines,” said one attendee, knocking twice on a load-bearing column for emphasis.</p>
+      <button class="more" data-read="0">Continue on A4 →</button>
+    </article>
+    <div>
+      <span class="tag">CITY</span>
+      <h3>Pigeon Named Architect of the Year</h3>
+      <div class="img b" style="height:150px" data-cap="THE LAUREATE"></div>
+      <p class="body">Jury cites “an uncompromising commitment to ledges.”</p>
+      <button class="more" data-read="1">Read →</button>
+    </div>
+    <div>
+      <span class="tag">BY THE NUMBERS</span>
+      <div class="big" id="counter">0</div>
+      <p class="body">Tonnes poured this quarter. Enough to build a scale replica of the moon, if the moon were mostly car parks.</p>
+    </div>
+    <div>
+      <span class="tag">CULTURE</span>
+      <h3>Béton Brut Fashion Week: “No Soft Edges”</h3>
+      <div class="img c" style="height:180px" data-cap="LOOK 14"></div>
+      <p class="body">Models walked a runway of poured aggregate in coats cast from fibre-reinforced grey.</p>
+      <button class="more" data-read="2">Read →</button>
+    </div>
+    <div>
+      <span class="tag">TRANSPORT</span>
+      <h3>Underpass Echo Reaches Record 9 Seconds</h3>
+      <p class="body">Acoustic engineers are baffled. Choirs are booking weeks ahead. A saxophonist has refused to leave.</p>
+      <button class="more" data-read="3">Read →</button>
+    </div>
+    <div>
+      <span class="tag">SPORT</span>
+      <h3>Skaters Win Right to the Plaza</h3>
+      <p class="body">After a ten-year dispute, the council concedes the ledges “were clearly built for grinding.”</p>
+    </div>
+  </div>
+</section>
+
+<section data-view="opinion" hidden>
+  <div class="ops">
+    <div class="op"><div class="face"></div><span class="tag">COLUMN</span><h3>In Defence of the Stairwell</h3><p class="body">The stairwell is the last honest room in the modern city. It smells of wet mineral and old cigarette. It echoes. It does not pretend to be a lobby.</p><p><i>— M. Kastner, Structural Poet</i></p></div>
+    <div class="op"><div class="face" style="background:repeating-linear-gradient(45deg,#111 0 3px,transparent 3px 8px)"></div><span class="tag">LETTER</span><h3>Sir, My Balcony Is Too Honest</h3><p class="body">I can now see every rebar tie in my ceiling, and I am told this is a feature. I would like, for once, to be lied to by a surface.</p><p><i>— Anon., Block 7</i></p></div>
+    <div class="op"><div class="face" style="background:conic-gradient(#111 0 25%,transparent 0 50%,#111 0 75%,transparent 0)"></div><span class="tag">EDITORIAL</span><h3>Grey Is a Colour, Actually</h3><p class="body">There are four hundred greys in this city and we have catalogued every one. Anyone calling our skyline “drab” has simply not stood in it at 5:40 pm in November.</p><p><i>— The Editors</i></p></div>
+  </div>
+  <div class="poll">
+    <div><span class="tag">READER POLL</span><h2 class="hed" style="font-size:2.6rem">Should the fountain be switched on?</h2><p class="body">It has been off since 1971. Nobody is sure where the valve is.</p></div>
+    <div id="poll"></div>
+  </div>
+</section>
+
+<section data-view="classifieds" hidden>
+  <div class="ctools">
+    <input id="q" placeholder="Search the small print…">
+    <button data-cat="all" class="on">All</button><button data-cat="for sale">For sale</button><button data-cat="wanted">Wanted</button><button data-cat="personal">Personal</button><button data-cat="services">Services</button>
+  </div>
+  <div class="classifieds" id="ads"></div>
+  <form class="post" id="post">
+    <select id="pcat"><option>FOR SALE</option><option>WANTED</option><option>PERSONAL</option><option>SERVICES</option></select>
+    <input id="ptext" maxlength="140" placeholder="Place your ad — 140 characters, no soft edges" required>
+    <button>Print it</button>
+  </form>
+</section>
+
+<section data-view="puzzles" hidden>
+  <div class="puz">
+    <div>
+      <div class="xw" id="xw"></div>
+      <div class="xbtns"><button class="more" id="check">Check</button><button class="more" id="reveal">Reveal</button><button class="more" id="clear">Clear</button></div>
+      <div id="xmsg"></div>
+    </div>
+    <div>
+      <span class="tag">THE SLAB — A WORD SQUARE</span>
+      <h3>Every answer reads the same across and down.</h3>
+      <ul class="clues" id="clues"></ul>
+      <p class="body" style="margin-top:16px"><i>Arrow keys to move. Backspace to go back. Time: <b id="timer">0:00</b></i></p>
+    </div>
+  </div>
+</section>
+
+<section data-view="weather" hidden>
+  <div class="pad"><span class="tag">FORECAST</span><h2 class="hed">Grey, With Chances of Grey</h2><p class="body">A persistent layer of overcast will sit above the city like a second ceiling. Particulate levels: artisanal.</p></div>
+  <div class="wx" id="wx"></div>
+  <div class="pad"><h3>Almanac</h3><p class="body">Sunrise 07:14 · Sunset 16:52 · Moon: waning, obscured · Tide: irrelevant · Pollen: none, the plants were paved.</p></div>
+</section>
+
+<div class="reader" id="reader" hidden><article><button class="more x" id="rx">Close ×</button><span class="tag" id="rtag"></span><h2 class="hed" id="rh" style="font-size:2.6rem"></h2><div id="rb"></div></article></div>
+<div class="stamp">Raw<br>Since<br>1952</div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'front';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('.sections a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='front')count()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"],[data-go]');if(a){e.preventDefault();go(a.dataset.go||a.getAttribute('href').slice(1))}});
+document.getElementById('today').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+const heads=['CITY COUNCIL VOTES 9–0 TO MAKE EVERYTHING GREY','LOCAL PIGEON NAMED ARCHITECT OF THE YEAR','REBAR PRICES SURGE ON RUMOURS OF NEW PARKING GARAGE','ARTISAN FORMWORK COLLECTIVE OPENS IN DOCKLANDS','UNDERPASS ECHO BREAKS 9-SECOND BARRIER','FOUNTAIN REMAINS OFF, SOURCES CONFIRM'];
+const tk=heads.map(h=>'■ '+h+' ').join('');document.getElementById('tick').textContent=tk+tk;
+
+function count(){const el=document.getElementById('counter');let n=0;const t=setInterval(()=>{n+=.07;el.textContent=Math.min(4.2,n).toFixed(1)+'M';if(n>=4.2)clearInterval(t)},30)}
+
+const stories=[
+ ['FRONT PAGE','Residents Demand More Honesty From Their Buildings',['In a packed and poorly ventilated town hall, residents of Block 7 made their position unmistakably clear: they are tired of façades.','The motion, which passed on a show of calloused hands, requires all new construction to expose its structure, its services, and — in a late amendment — its feelings.','Developers responded by unveiling a tower whose lifts run on the outside of the building, “so you can watch them break down in real time.” Residents called it “a start.”','Council will reconvene next Thursday in the multi-storey car park, level 3, where the acoustics are “more truthful.”']],
+ ['CITY','Pigeon Named Architect of the Year',['The award, previously given to humans, went this year to a grey feral pigeon known locally as Gerald.','The jury praised Gerald\'s “site-specific interventions,” his “layered approach to ornament,” and his work on the east ledge of the civic centre, which critics have called “a quiet masterpiece of occupation.”','Gerald did not attend the ceremony but was seen nearby, eating a chip.']],
+ ['CULTURE','Béton Brut Fashion Week: “No Soft Edges”',['This season\'s collections embraced board-marked textures, exposed seams and coats so heavy they required structural calculations.','Closing the show, designer Ilse Varga sent out a single model in a cast gown weighing 140 kg. The model did not walk. The runway came to her.']],
+ ['TRANSPORT','Underpass Echo Reaches Record 9 Seconds',['A pedestrian underpass beneath the ring road now sustains a single clap for nine full seconds — a figure acousticians describe as “frankly cathedral.”','The transport authority has installed a sign reading PLEASE DO NOT SING, which has been interpreted by most as an invitation.']]];
+const reader=document.getElementById('reader');
+document.querySelectorAll('[data-read]').forEach(b=>b.onclick=()=>{const s=stories[b.dataset.read];document.getElementById('rtag').textContent=s[0];document.getElementById('rh').textContent=s[1];document.getElementById('rb').innerHTML=s[2].map((p,i)=>`<p class="body${i?'':' drop'}">${p}</p>`).join('');reader.hidden=false});
+document.getElementById('rx').onclick=()=>reader.hidden=true;reader.onclick=e=>{if(e.target===reader)reader.hidden=true};
+
+/* poll */
+const opts=[['Yes — let it flow',312],['No — leave it honest',544],['What fountain?',401]];let voted=false;const pe=document.getElementById('poll');
+function renderPoll(){const tot=opts.reduce((a,o)=>a+o[1],0);pe.innerHTML='';opts.forEach((o,i)=>{const b=document.createElement('button');b.className='opt';b.innerHTML=`<i></i><span><em>${o[0]}</em><em>${voted?Math.round(o[1]/tot*100)+'%':''}</em></span>`;b.onclick=()=>{if(voted)return;voted=true;o[1]++;renderPoll()};pe.appendChild(b);if(voted)requestAnimationFrame(()=>b.querySelector('i').style.width=o[1]/tot*100+'%')});if(voted){const p=document.createElement('p');p.style.marginTop='10px';p.textContent=tot+' votes · thank you for your grey opinion';pe.appendChild(p)}}
+renderPoll();
+
+/* classifieds */
+let ads=[['for sale','One (1) cantilever. Slightly overextended. Emotional baggage included. Collect only.'],['wanted','Plasterer who understands that some walls should stay raw. No skim coats. No questions.'],['personal','Tall, grey, dependable, seeks someone who appreciates a good aggregate. Must love pilotis.'],['services','Board-marked textures applied to any surface. Toast. Cakes. Wedding invitations.'],['for sale','Formwork, lightly used. Smells of pine and ambition.'],['wanted','Lost: Brutalist housing estate, 22 storeys, answers to “The Monolith.” Reward.'],['services','Learn to shout in echoing underpasses. Beginners to advanced. First reverb free.'],['personal','You: yellow hard hat, level 4B. Me: the one who held the lift. Coffee?'],['for sale','Studio in a parking structure. Great light between 14:02 and 14:09.'],['services','Pigeon deterrent consultancy. Referred by Gerald, reluctantly.'],['wanted','Anyone who knows where the fountain valve is. Discretion assured.'],['personal','Retired column seeks new load. Can bear most things.']];
+let cat='all',fresh=-1;const adsEl=document.getElementById('ads'),q=document.getElementById('q');
+function renderAds(){const s=q.value.toLowerCase();const list=ads.map((a,i)=>[...a,i]).filter(a=>(cat==='all'||a[0]===cat)&&a[1].toLowerCase().includes(s));adsEl.innerHTML=list.length?list.map(a=>`<p class="${a[2]===fresh?'new':''}"><b>${a[0]}.</b> ${a[1].replace(/[<>]/g,'')}</p>`).join(''):'<p><b>NOTHING.</b> Not even a brick.</p>'}
+q.oninput=renderAds;document.querySelectorAll('.ctools button').forEach(b=>b.onclick=()=>{cat=b.dataset.cat;document.querySelectorAll('.ctools button').forEach(o=>o.classList.toggle('on',o===b));renderAds()});
+document.getElementById('post').onsubmit=e=>{e.preventDefault();const t=document.getElementById('ptext');ads.unshift([document.getElementById('pcat').value.toLowerCase(),t.value]);fresh=0;ads=ads;t.value='';cat='all';document.querySelectorAll('.ctools button').forEach((o,i)=>o.classList.toggle('on',i===0));q.value='';renderAds();setTimeout(()=>{fresh=-1},3000)};
+renderAds();
+
+/* crossword */
+const SOL=['HEART','EMBER','ABUSE','RESIN','TREND'];const CL=['Core of the city — or of its residents','Last glow in the brazier by the bus stop','What the council receives at every meeting','Sticky binder in modern composites','What brutalism is, again, apparently'];
+const xw=document.getElementById('xw'),cl=document.getElementById('clues');const cells=[];let dir=0,cr=0,cc=0,start=null,timerT;
+for(let r=0;r<5;r++)for(let c=0;c<5;c++){const d=document.createElement('div');d.className='cell';const i=document.createElement('input');i.maxLength=1;i.dataset.r=r;i.dataset.c=c;if(c===0||r===0){const s=document.createElement('sup');s.textContent=r===0?c+1:r+1;d.appendChild(s)}d.appendChild(i);xw.appendChild(d);cells.push(i);
+ let had=false;i.onmousedown=()=>had=document.activeElement===i;i.onfocus=()=>{cr=r;cc=c;hl()};i.onclick=()=>{if(had)dir^=1;hl()};
+ i.oninput=()=>{i.value=i.value.slice(-1).toUpperCase();i.classList.remove('ok','bad');if(!start){start=Date.now();timerT=setInterval(tickT,500)}if(i.value)move(1);solved()};
+ i.onkeydown=e=>{if(e.key==='Backspace'&&!i.value){move(-1);e.preventDefault()}const m={ArrowRight:[0,1],ArrowLeft:[0,-1],ArrowDown:[1,0],ArrowUp:[-1,0]}[e.key];if(m){at(cr+m[0],cc+m[1]);e.preventDefault()}}}
+CL.forEach((t,i)=>{const li=document.createElement('li');li.innerHTML=`<b>${i+1}</b>${t} <i>(5)</i>`;li.onclick=()=>{dir=0;at(i,0)};cl.appendChild(li)});
+function at(r,c){if(r<0||r>4||c<0||c>4)return;cells[r*5+c].focus()}
+function move(s){dir?at(cr+s,cc):at(cr,cc+s)}
+function hl(){cells.forEach(x=>x.classList.toggle('row',dir?+x.dataset.c===cc:+x.dataset.r===cr));[...cl.children].forEach((li,i)=>li.classList.toggle('on',i===(dir?cc:cr)))}
+function tickT(){const s=Math.floor((Date.now()-start)/1000);document.getElementById('timer').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function solved(){if(cells.every((x,i)=>x.value===SOL[i/5|0][i%5])){clearInterval(timerT);cells.forEach(x=>x.classList.add('ok'));document.getElementById('xmsg').textContent='Solved in '+document.getElementById('timer').textContent+'. Structurally sound.'}}
+document.getElementById('check').onclick=()=>cells.forEach((x,i)=>{x.classList.remove('ok','bad');if(x.value)x.classList.add(x.value===SOL[i/5|0][i%5]?'ok':'bad')});
+document.getElementById('reveal').onclick=()=>{cells.forEach((x,i)=>x.value=SOL[i/5|0][i%5]);clearInterval(timerT);document.getElementById('xmsg').textContent='Revealed. The shame is load-bearing.'};
+document.getElementById('clear').onclick=()=>{cells.forEach(x=>{x.value='';x.classList.remove('ok','bad')});document.getElementById('xmsg').textContent='';clearInterval(timerT);start=null;document.getElementById('timer').textContent='0:00'};
+
+/* weather */
+const days=['MON','TUE','WED','THU','FRI','SAT','SUN'],cond=[['☁','FOG'],['🌫','DUST'],['☁','GREY'],['🌧','DRIZZLE'],['☁','SLATE'],['⛅','PEWTER'],['🌧','DAMP']];
+document.getElementById('wx').innerHTML=days.map((d,i)=>`<div>${d}<div class="ico">${cond[i][0]}</div><b>${8+((i*5)%6)}°</b>${cond[i][1]}</div>`).join('');
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

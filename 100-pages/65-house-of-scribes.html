@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Per-Ankh — House of Scribes</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Alegreya+Sans:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
+<style>
+:root{--papyrus:#e9d9a8;--papyrus2:#d9c48a;--lapis:#1d3d8f;--carnelian:#b5412a;--gold:#c99a2e;--turq:#2a9d8f;--ink:#241a0e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papyrus);color:var(--ink);font-family:'Alegreya Sans',sans-serif;
+ background-image:repeating-linear-gradient(90deg,#0000 0 7px,#8a6a2a0d 7px 9px),repeating-linear-gradient(0deg,#0000 0 11px,#8a6a2a0a 11px 12px)}
+a{color:inherit;text-decoration:none}button,input{font:inherit;cursor:pointer;color:inherit}
+.g{font-family:'Noto Sans Egyptian Hieroglyphs',sans-serif;font-weight:400;line-height:1}
+.frieze{height:26px;background:repeating-linear-gradient(90deg,var(--lapis) 0 14px,var(--gold) 14px 18px,var(--carnelian) 18px 32px,var(--gold) 32px 36px,var(--turq) 36px 50px,var(--gold) 50px 54px)}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 5vw;background:var(--ink);color:var(--papyrus)}
+.logo{font-family:Marcellus;font-size:26px;letter-spacing:.1em;display:flex;align-items:center;gap:12px}
+.logo .g{font-size:34px;color:var(--gold)}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{font-family:Marcellus;padding:8px 14px;letter-spacing:.08em;color:#e9d9a8aa;border:1px solid transparent}
+nav a.on{color:var(--gold);border-color:var(--gold)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1200px;margin:0 auto;padding:36px 5vw 80px}
+h2{font-family:Marcellus;font-weight:400;font-size:clamp(2.2rem,5vw,3.8rem);text-align:center;letter-spacing:.04em}
+.lede{text-align:center;max-width:60ch;margin:10px auto 34px;font-size:19px;line-height:1.6}
+/* cartouche */
+.ct{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.ct input{width:100%;padding:14px 18px;font-size:26px;font-family:Marcellus;background:#fff6;border:2px solid var(--ink);letter-spacing:.06em}
+.opts{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}
+.opts button{border:2px solid var(--ink);background:none;padding:6px 14px;font-family:Marcellus}
+.opts button.on{background:var(--ink);color:var(--papyrus)}
+.trans{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.trans div{background:#fff6;border:1px solid #241a0e33;padding:8px 10px;text-align:center;min-width:64px}
+.trans .g{font-size:34px;color:var(--lapis);display:block;margin-bottom:4px}
+.trans small{font-size:12px;opacity:.7}
+.cart{display:grid;place-items:center;min-height:420px}
+.cart svg{max-width:100%;height:auto;max-height:560px}
+/* numerals */
+.num{text-align:center}
+.num input{font-family:Marcellus;font-size:44px;width:min(360px,90%);text-align:center;padding:10px;background:#fff6;border:2px solid var(--ink)}
+.numout{margin:30px auto;display:flex;flex-wrap:wrap-reverse;justify-content:center;gap:4px 18px;max-width:900px;min-height:120px;align-items:flex-end}
+.numout .grp{display:flex;flex-wrap:wrap;max-width:160px;justify-content:center;gap:0 2px}
+.numout .g{font-size:56px;color:var(--carnelian);animation:rise .4s both}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}}
+.nkey{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:30px}
+.nkey div{background:#fff6;border:1px solid #241a0e33;padding:12px 6px;text-align:center}
+.nkey .g{font-size:40px;color:var(--lapis)}
+.nkey b{display:block;font-family:Marcellus;font-size:18px;margin-top:6px}
+.nkey small{font-size:12px;opacity:.7;display:block}
+/* gods */
+.gods{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.god{perspective:900px;height:330px;background:none;border:0;text-align:left}
+.god .in{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d}
+.god.flip .in{transform:rotateY(180deg)}
+.god .f,.god .b{position:absolute;inset:0;backface-visibility:hidden;border:3px solid var(--ink);padding:20px;display:flex;flex-direction:column}
+.god .f{background:var(--c);color:var(--papyrus);justify-content:space-between}
+.god .f .g{font-size:110px;text-align:center;margin-top:20px}
+.god .f b{font-family:Marcellus;font-weight:400;font-size:30px}
+.god .f small{letter-spacing:.2em;font-size:12px;text-transform:uppercase}
+.god .b{background:var(--papyrus);transform:rotateY(180deg);font-size:16px;line-height:1.55;gap:8px}
+.god .b h3{font-family:Marcellus;font-weight:400;font-size:26px}
+/* school */
+.school{max-width:700px;margin:0 auto;text-align:center}
+.tablet{background:var(--ink);color:var(--papyrus);padding:40px;border:6px solid var(--gold);box-shadow:0 20px 40px #241a0e55}
+.tablet .g{font-size:140px;color:var(--gold);display:block}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+.choices button{background:#e9d9a81a;border:1px solid #e9d9a855;padding:14px;font-family:Marcellus;font-size:20px}
+.choices button.ok{background:var(--turq);border-color:var(--turq)}
+.choices button.no{background:var(--carnelian);border-color:var(--carnelian)}
+.score{display:flex;justify-content:center;gap:30px;margin-top:18px;font-family:Marcellus;font-size:20px}
+.rank{margin-top:18px;font-style:italic;font-size:18px}
+@media(max-width:860px){.ct{grid-template-columns:1fr}.nkey{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="frieze"></div>
+<header>
+ <div class="logo"><span class="g">𓉐𓋹</span>PER-ANKH · House of Life</div>
+ <nav><a href="#cartouche">Your Cartouche</a><a href="#numbers">Numbers</a><a href="#gods">The Gods</a><a href="#school">Scribe School</a><a href="index.html">Index</a></nav>
+</header>
+
+<section data-view="cartouche"><div class="wrap">
+ <h2>Your name in a cartouche</h2>
+ <p class="lede">A cartouche is an oval rope that protected royal names. Type your name and the scribes will spell it out with the sound-signs of the hieroglyphic alphabet.</p>
+ <div class="ct">
+  <div>
+   <input id="nm" value="Cleopatra" maxlength="16" aria-label="Name">
+   <div class="opts" id="orient"><button class="on" data-o="v">Vertical</button><button data-o="h">Horizontal</button></div>
+   <div class="opts" id="det"><button class="on" data-d="f">Seated woman 𓁐</button><button data-d="m">Seated man 𓀀</button><button data-d="k">Royal 𓀭</button><button data-d="n">None</button></div>
+   <div class="trans" id="trans"></div>
+  </div>
+  <div class="cart" id="cart"></div>
+ </div>
+</div></section>
+
+<section data-view="numbers" hidden><div class="wrap num">
+ <h2>Counting like an Egyptian</h2>
+ <p class="lede">Egyptians used a decimal system with no zero. Each power of ten has its own sign, repeated as often as needed. They usually wrote the biggest signs first.</p>
+ <input type="number" id="numIn" value="2026" min="1" max="9999999">
+ <div class="numout" id="numOut"></div>
+ <div id="numTxt" style="font-size:18px"></div>
+ <div class="nkey" id="nkey"></div>
+</div></section>
+
+<section data-view="gods" hidden><div class="wrap">
+ <h2>The Ennead &amp; Friends</h2>
+ <p class="lede">Some of the more than 1,500 gods of ancient Egypt. Click a card to turn it over.</p>
+ <div class="gods" id="godG"></div>
+</div></section>
+
+<section data-view="school" hidden><div class="wrap school">
+ <h2>Scribe School</h2>
+ <p class="lede">Apprentice scribes spent years copying signs onto shards of pottery. What sound does this sign make?</p>
+ <div class="tablet" id="tab"></div>
+ <div class="score"><span>Correct <b id="sc">0</b></span><span>Streak <b id="st">0</b></span><span>Best <b id="bs">0</b></span></div>
+ <div class="rank" id="rank"></div>
+</div></section>
+<div class="frieze"></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'cartouche';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const G=cp=>String.fromCodePoint(cp);
+
+// uniliteral signs: [key, codepoint, name, sound]
+const UNI={a:[0x1313F,'Egyptian vulture','a'],b:[0x130C0,'foot','b'],c:[0x133A1,'basket','k'],d:[0x130A7,'hand','d'],e:[0x131CB,'reed leaf','i/e'],f:[0x13191,'horned viper','f'],g:[0x133BC,'jar stand','g'],h:[0x13254,'reed shelter','h'],i:[0x131CB,'reed leaf','i'],j:[0x13193,'cobra','dj'],k:[0x133A1,'basket','k'],l:[0x130ED,'lion','l'],m:[0x13153,'owl','m'],n:[0x13216,'water','n'],o:[0x13171,'quail chick','o/w'],p:[0x132AA,'stool','p'],q:[0x1320E,'hill slope','q'],r:[0x1308B,'mouth','r'],s:[0x132F4,'folded cloth','s'],t:[0x133CF,'bread loaf','t'],u:[0x13171,'quail chick','u/w'],v:[0x13191,'horned viper','v/f'],w:[0x13171,'quail chick','w'],x:[0x133A1,'basket + cloth','ks'],y:[0x131CC,'two reeds','y'],z:[0x13283,'door bolt','z']};
+const DIG={ch:[0x1337F,'tethering rope','ch'],sh:[0x13219,'pool','sh'],kh:[0x1340D,'placenta','kh'],th:[0x1337F,'tethering rope','th']};
+const DET={f:0x13050,m:0x13000,k:0x1302D};
+function spell(name){const s=name.toLowerCase().replace(/[^a-z]/g,'');const out=[];for(let i=0;i<s.length;i++){const two=s.slice(i,i+2);if(DIG[two]){out.push([two,...DIG[two]]);i++;continue}const ch=s[i];if(ch===s[i-1]&&'lstnmr'.includes(ch))continue;if(ch==='x'){out.push(['x',UNI.k[0],'basket','k']);out.push(['',UNI.s[0],'folded cloth','s']);continue}out.push([ch,...UNI[ch]])}return out}
+let orient='v',det='f';
+function cartouche(){const nm=document.getElementById('nm').value||'Name';const sg=spell(nm);const glyphs=[...sg.map(x=>x[1])];if(det!=='n')glyphs.push(DET[det]);
+ document.getElementById('trans').innerHTML=sg.map(x=>`<div><span class="g">${G(x[1])}</span><b>${x[3]}</b><br><small>${x[2]}</small></div>`).join('')+(det!=='n'?`<div><span class="g">${G(DET[det])}</span><b>—</b><br><small>determinative</small></div>`:'');
+ const n=glyphs.length,sz=64,gap=6;let W,H,s='';
+ if(orient==='v'){W=160;H=Math.max(220,n*(sz+gap)+80);s+=`<rect x="10" y="10" width="${W-20}" height="${H-50}" rx="70" fill="#f4e7c0" stroke="#241a0e" stroke-width="7"/><rect x="18" y="18" width="${W-36}" height="${H-66}" rx="62" fill="none" stroke="#241a0e" stroke-width="1.5"/><rect x="20" y="${H-40}" width="${W-40}" height="10" fill="#241a0e"/>`;
+  glyphs.forEach((g,i)=>s+=`<text x="${W/2}" y="${50+i*(sz+gap)+sz*.8}" text-anchor="middle" font-family="Noto Sans Egyptian Hieroglyphs" font-size="${sz}" fill="${i===n-1&&det!=='n'?'#b5412a':'#1d3d8f'}">${G(g)}</text>`)}
+ else{H=170;W=Math.max(260,n*(sz+gap)+100);s+=`<rect x="10" y="10" width="${W-50}" height="${H-20}" rx="70" fill="#f4e7c0" stroke="#241a0e" stroke-width="7"/><rect x="18" y="18" width="${W-66}" height="${H-36}" rx="62" fill="none" stroke="#241a0e" stroke-width="1.5"/><rect x="${W-40}" y="20" width="10" height="${H-40}" fill="#241a0e"/>`;
+  glyphs.forEach((g,i)=>s+=`<text x="${55+i*(sz+gap)+sz/2}" y="${H/2+sz*.35}" text-anchor="middle" font-family="Noto Sans Egyptian Hieroglyphs" font-size="${sz}" fill="${i===n-1&&det!=='n'?'#b5412a':'#1d3d8f'}">${G(g)}</text>`)}
+ document.getElementById('cart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${s}</svg>`}
+document.getElementById('nm').oninput=cartouche;
+document.getElementById('orient').onclick=e=>{const o=e.target.dataset.o;if(!o)return;orient=o;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));cartouche()};
+document.getElementById('det').onclick=e=>{const d=e.target.dataset.d;if(!d)return;det=d;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));cartouche()};
+cartouche();
+
+/* numerals */
+const NUM=[[1e6,0x13068,'Heh, god of infinity','million'],[1e5,0x13190,'tadpole','hundred thousand'],[1e4,0x130AD,'finger','ten thousand'],[1e3,0x131BC,'lotus','thousand'],[100,0x13362,'coil of rope','hundred'],[10,0x13386,'hobble','ten'],[1,0x133FA,'stroke','one']];
+document.getElementById('nkey').innerHTML=NUM.map(n=>`<div><span class="g">${G(n[1])}</span><b>${n[0].toLocaleString()}</b><small>${n[2]}</small></div>`).join('');
+function numerals(){let v=Math.max(1,Math.min(9999999,Math.floor(+document.getElementById('numIn').value||1)));const parts=[];let k=0,h='';
+ NUM.forEach(([val,cp,,nm])=>{const c=Math.floor(v/val);v%=val;if(c){parts.push(`${c} × ${val.toLocaleString()}`);h+=`<div class="grp">${[...Array(c)].map(()=>`<span class="g" style="animation-delay:${(k++)*40}ms">${G(cp)}</span>`).join('')}</div>`}});
+ document.getElementById('numOut').innerHTML=h;document.getElementById('numTxt').textContent=parts.join(' + ')+` = ${k} signs`}
+document.getElementById('numIn').oninput=numerals;numerals();
+
+/* gods */
+const GODS=[['Ra','Sun god',0x131F3,'#c99a2e','He sails across the sky by day and through the underworld at night, fighting the serpent Apophis every evening.'],['Osiris','Lord of the dead',0x13079,'#2a6a3a','Murdered and cut into pieces by his brother Seth, then put back together by Isis. His green skin stands for rebirth.'],['Isis','Great of magic',0x132A8,'#1d3d8f','Wife of Osiris and mother of Horus. Her throne-shaped headdress is the sign for her name.'],['Horus','The falcon',0x13143,'#b5412a','He lost an eye fighting Seth. The restored "Eye of Horus" became a symbol of healing and protection.'],['Anubis','Guardian of tombs',0x130E2,'#241a0e','The jackal who oversaw embalming and weighed the heart of the dead against the feather of Maat.'],['Thoth','God of writing',0x1315D,'#2a9d8f','Ibis-headed patron of scribes. He invented hieroglyphs, according to the scribes. Of course they would say that.'],['Bastet','Protector of home',0x130E0,'#8a5a2a','First a lioness, later a gentle cat. Her city, Bubastis, had a cemetery of mummified cats.'],['Maat','Truth & order',0x13184,'#6a4a8a','She is the feather on the scales. Keeping maat, cosmic balance, was the pharaoh\'s main job.']];
+document.getElementById('godG').innerHTML=GODS.map(g=>`<button class="god" style="--c:${g[3]}"><div class="in"><div class="f"><small>${g[1]}</small><span class="g">${G(g[2])}</span><b>${g[0]}</b></div><div class="b"><h3>${g[0]}</h3><div style="font-style:italic;opacity:.7">${g[1]}</div><p>${g[4]}</p></div></div></button>`).join('');
+document.getElementById('godG').onclick=e=>{const b=e.target.closest('.god');if(b)b.classList.toggle('flip')};
+
+/* school */
+const POOL=Object.entries(UNI).filter(([k])=>!'ciouvx'.includes(k)).map(([k,v])=>[v[0],v[2],v[1]]).concat(Object.values(DIG).slice(0,3).map(v=>[v[0],v[2],v[1]]));
+let sc=0,stk=0,best=store.get('ps-best',0),cur=null;
+function ask(){cur=POOL[Math.random()*POOL.length|0];const opts=new Set([cur[1]]);while(opts.size<4)opts.add(POOL[Math.random()*POOL.length|0][1]);
+ document.getElementById('tab').innerHTML=`<span class="g">${G(cur[0])}</span><div class="choices">${[...opts].sort(()=>Math.random()-.5).map(o=>`<button data-o="${o}">${o}</button>`).join('')}</div>`;
+ document.getElementById('sc').textContent=sc;document.getElementById('st').textContent=stk;document.getElementById('bs').textContent=best;
+ document.getElementById('rank').textContent=['Apprentice with a broken reed','Copyist of shopping lists','Temple scribe','Scribe of the royal granary','Overseer of scribes','Chief Lector-Priest'][Math.min(5,Math.floor(best/4))]}
+document.getElementById('tab').onclick=e=>{const b=e.target.closest('[data-o]');if(!b||b.disabled)return;const ok=b.dataset.o===cur[1];document.querySelectorAll('.choices button').forEach(x=>{x.disabled=true;if(x.dataset.o===cur[1])x.classList.add('ok')});
+ if(ok){sc++;stk++;if(stk>best){best=stk;store.set('ps-best',best)}}else{b.classList.add('no');stk=0}
+ const n=document.createElement('div');n.style.cssText='margin-top:14px;font-style:italic';n.textContent=`${cur[2]} → "${cur[1]}"`;document.getElementById('tab').appendChild(n);setTimeout(ask,ok?900:1800)};
+ask();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

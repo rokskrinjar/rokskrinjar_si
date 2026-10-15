@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Brass Orrery — Hartwell & Sons, Instrument Makers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root { --wood:#2a1a10; --wood2:#3b2416; --brass:#c9a24a; --brass2:#f1d489; --brass3:#8a6a22; --cream:#efe2c4; --green:#23392e; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--wood); color:var(--cream); font-family:'EB Garamond',serif; font-size:18px;
+    background-image:repeating-linear-gradient(92deg,#ffffff05 0 2px,transparent 2px 9px),repeating-linear-gradient(88deg,#00000022 0 1px,transparent 1px 23px),linear-gradient(180deg,var(--wood2),var(--wood)); min-height:100vh; }
+  a { color:inherit; text-decoration:none; }
+  .brass { background:linear-gradient(180deg,var(--brass2),var(--brass) 45%,var(--brass3)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  header { text-align:center; padding:28px 20px 10px; }
+  header .maker { font-family:'Cinzel'; letter-spacing:.4em; font-size:12px; color:var(--brass); }
+  header h1 { font-family:'Cinzel Decorative'; font-weight:700; font-size:clamp(2.2rem,6vw,4.4rem); line-height:1; margin:.4rem 0; }
+  nav { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; padding:14px; }
+  nav a { font-family:'Cinzel'; font-size:13px; letter-spacing:.2em; padding:10px 18px; border:1px solid var(--brass3); border-radius:40px; background:linear-gradient(180deg,#3b2416,#2a1a10); box-shadow:inset 0 1px 0 #ffffff14, 0 3px 6px #0006; transition:all .25s; }
+  nav a:hover { border-color:var(--brass); }
+  nav a.on { background:linear-gradient(180deg,var(--brass2),var(--brass) 50%,var(--brass3)); color:var(--wood); border-color:var(--brass2); }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:fade .8s both; }
+  @keyframes fade { from { opacity:0; } }
+  .wrap { max-width:1300px; margin:0 auto; padding:10px 4vw 80px; }
+  .plaque { border:2px solid var(--brass3); border-radius:10px; padding:22px 24px; background:linear-gradient(160deg,#2f1d12,#1f130b); box-shadow:inset 0 0 0 4px #1a100a, inset 0 0 0 5px #c9a24a55, 0 10px 30px #0008; position:relative; }
+  .plaque::before, .plaque::after { content:''; position:absolute; width:10px; height:10px; border-radius:50%; background:radial-gradient(circle at 35% 35%,var(--brass2),var(--brass3)); top:10px; left:10px; box-shadow:0 1px 2px #000; }
+  .plaque::after { left:auto; right:10px; }
+  .plaque h3 { font-family:'Cinzel'; font-weight:600; font-size:1.4rem; letter-spacing:.08em; color:var(--brass2); margin-bottom:.4rem; }
+  /* orrery */
+  .orr { display:grid; grid-template-columns:1fr 360px; gap:3vw; align-items:start; }
+  .machine { position:relative; aspect-ratio:1; max-width:780px; width:100%; margin:0 auto; }
+  .machine svg { width:100%; height:100%; overflow:visible; }
+  .planet { cursor:pointer; }
+  .planet:hover circle.body { stroke:var(--brass2); stroke-width:3; }
+  .dial { display:flex; gap:10px; align-items:center; margin:14px 0; flex-wrap:wrap; }
+  .dial button { font-family:'Cinzel'; font-size:12px; letter-spacing:.1em; padding:8px 12px; background:#1a100a; color:var(--cream); border:1px solid var(--brass3); border-radius:6px; cursor:pointer; }
+  .dial button.on { background:var(--brass); color:var(--wood); }
+  .date { font-family:'Cinzel'; font-size:1.8rem; color:var(--brass2); letter-spacing:.06em; }
+  .info p { line-height:1.6; margin:.6rem 0; }
+  .info table { width:100%; font-size:16px; border-collapse:collapse; }
+  .info td { padding:5px 0; border-bottom:1px dotted #c9a24a55; }
+  .info td:last-child { text-align:right; font-style:italic; }
+  input[type=range] { width:100%; accent-color:var(--brass); }
+  input[type=date] { font-family:'EB Garamond'; font-size:1rem; background:#1a100a; color:var(--cream); border:1px solid var(--brass3); padding:6px 10px; border-radius:6px; }
+  /* sizes */
+  .sizes { overflow-x:auto; padding:30px 0; }
+  .row { display:flex; align-items:flex-end; gap:40px; padding:0 30px; min-width:max-content; }
+  .row .p { text-align:center; }
+  .row .p .ball { border-radius:50%; margin:0 auto 12px; box-shadow:inset -12px -12px 30px #0008, 0 10px 30px #0006; }
+  .row .p b { font-family:'Cinzel'; display:block; }
+  .row .p small { font-style:italic; opacity:.8; }
+  /* weight */
+  .weight { display:grid; grid-template-columns:360px 1fr; gap:3vw; }
+  .scaleIn { font-family:'Cinzel'; font-size:3rem; width:100%; background:transparent; border:0; border-bottom:2px solid var(--brass); color:var(--brass2); text-align:center; outline:none; }
+  .units { display:flex; gap:8px; justify-content:center; margin-top:10px; }
+  .units button { font-family:'Cinzel'; background:none; border:1px solid var(--brass3); color:var(--cream); padding:6px 14px; border-radius:20px; cursor:pointer; }
+  .units button.on { background:var(--brass); color:var(--wood); }
+  .wgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:16px; }
+  .wcard { text-align:center; padding:18px 12px; border:1px solid #c9a24a44; border-radius:12px; background:#1f130b; position:relative; overflow:hidden; }
+  .wcard .needle { width:120px; height:60px; margin:0 auto 8px; position:relative; border-radius:120px 120px 0 0; border:2px solid var(--brass); border-bottom:0; background:radial-gradient(circle at 50% 100%,#3b2416,#1a100a); }
+  .wcard .needle i { position:absolute; left:50%; bottom:0; width:2px; height:52px; background:#d14b2a; transform-origin:bottom; transition:transform 1s cubic-bezier(.3,1.6,.5,1); }
+  .wcard b { font-family:'Cinzel'; font-size:1.5rem; color:var(--brass2); display:block; }
+  /* voyage */
+  .voy { display:grid; grid-template-columns:1fr 1fr; gap:3vw; }
+  .opts { display:flex; flex-wrap:wrap; gap:8px; margin:.6rem 0 1.4rem; }
+  .opts button { font-family:'EB Garamond'; font-size:1.05rem; padding:8px 14px; border-radius:30px; border:1px solid var(--brass3); background:#1a100a; color:var(--cream); cursor:pointer; }
+  .opts button.on { background:var(--brass); color:var(--wood); border-color:var(--brass2); }
+  .ticket { background:var(--cream); color:#2a1a10; border-radius:10px; padding:26px; position:relative; box-shadow:0 20px 40px #0008; }
+  .ticket::before { content:''; position:absolute; left:-12px; top:50%; width:24px; height:24px; border-radius:50%; background:var(--wood); }
+  .ticket::after { content:''; position:absolute; right:-12px; top:50%; width:24px; height:24px; border-radius:50%; background:var(--wood); }
+  .ticket h3 { font-family:'Cinzel Decorative'; font-size:1.6rem; border-bottom:2px dashed #2a1a1044; padding-bottom:10px; margin-bottom:12px; }
+  .ticket .big { font-family:'Cinzel'; font-size:2.4rem; color:#8a1d10; margin:8px 0; }
+  .ticket dl { display:grid; grid-template-columns:auto 1fr; gap:6px 16px; font-size:16px; }
+  .ticket dt { font-family:'Cinzel'; font-size:12px; letter-spacing:.1em; opacity:.7; align-self:center; }
+  .stamp { position:absolute; right:24px; bottom:20px; border:3px double #8a1d10; color:#8a1d10; font-family:'Cinzel'; padding:6px 10px; transform:rotate(-12deg); font-size:14px; opacity:.8; }
+  footer { text-align:center; font-family:'Cinzel'; letter-spacing:.3em; font-size:11px; color:var(--brass3); padding:20px; }
+  @media (max-width:980px){ .orr,.weight,.voy { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header><div class="maker">HARTWELL &amp; SONS · INSTRUMENT MAKERS · EST. 1851</div><h1 class="brass">The Brass Orrery</h1><div style="font-style:italic">a mechanical model of the heavens, wound by hand</div></header>
+<nav><a href="#orrery">The Orrery</a><a href="#sizes">The Planets</a><a href="#weight">Weigh Thyself</a><a href="#voyage">A Voyage</a><a href="index.html">↩ Leave the Shop</a></nav>
+
+<section data-view="orrery" class="wrap">
+  <div class="orr">
+    <div class="machine"><svg viewBox="-500 -500 1000 1000" id="orr"></svg></div>
+    <div>
+      <div class="plaque"><h3>The Mechanism</h3><div class="date" id="date"></div>
+        <div class="dial"><button data-s="0">Halt</button><button data-s="1">1 day/s</button><button data-s="10" class="on">10 days/s</button><button data-s="60">2 months/s</button><button data-s="365">1 year/s</button></div>
+        <input type="date" id="jump">
+        <p style="font-style:italic;margin-top:.8rem;font-size:15px;opacity:.85">Positions computed from mean longitudes at J2000. Distances are not to scale — the brass would not fit in the shop.</p></div>
+      <div class="plaque info" id="info" style="margin-top:18px"></div>
+    </div>
+  </div>
+</section>
+
+<section data-view="sizes" class="wrap" hidden>
+  <div class="plaque"><h3>The Planets, True to Scale</h3><p style="font-style:italic">The Sun, were it drawn here, would be 1.4 metres across. Scroll sideways to meet them all.</p></div>
+  <div class="sizes"><div class="row" id="sizeRow"></div></div>
+</section>
+
+<section data-view="weight" class="wrap" hidden>
+  <div class="weight">
+    <div class="plaque" style="text-align:center"><h3>Your Earthly Weight</h3><input class="scaleIn" id="w" type="number" value="70" min="1" max="500"><div class="units"><button class="on" data-u="kg">kg</button><button data-u="lb">lb</button><button data-u="st">stone</button></div><p style="font-style:italic;margin-top:1rem;font-size:15px">Your mass does not change between worlds — merely how hard each one pulls on you.</p></div>
+    <div class="wgrid" id="wgrid"></div>
+  </div>
+</section>
+
+<section data-view="voyage" class="wrap" hidden>
+  <div class="voy">
+    <div class="plaque"><h3>Plan a Voyage from Earth</h3><div style="font-family:Cinzel;font-size:13px;letter-spacing:.1em;margin-top:.6rem">DESTINATION</div><div class="opts" id="dest"></div><div style="font-family:Cinzel;font-size:13px;letter-spacing:.1em">CONVEYANCE</div><div class="opts" id="veh"></div></div>
+    <div class="ticket" id="ticket"></div>
+  </div>
+</section>
+<footer>WIND GENTLY · DO NOT TOUCH THE SUN</footer>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'orrery';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* name, period(d), L0(deg), orbit radius(px), body r(px), color, diameter km, g, moons, day length, fact */
+const PL=[['Mercury',87.969,252.25,90,7,'#a89c8f',4879,.38,0,'59 days','A year on Mercury is shorter than its day is long — nearly.'],
+['Venus',224.701,181.98,130,11,'#e8c27a',12104,.91,0,'243 days','Spins backwards. The Sun rises in the west, slowly, once every 117 Earth days.'],
+['Earth',365.256,100.46,175,12,'#4f8fd8',12742,1,1,'24 hours','The only known planet with tea. The Moon rides along on a smaller brass arm.'],
+['Mars',686.98,355.45,220,9,'#c8553a',6779,.38,2,'24h 37m','Home to Olympus Mons, a volcano three times the height of Everest.'],
+['Jupiter',4332.59,34.40,285,26,'#d9a877',139820,2.53,95,'9h 56m','Its Great Red Spot is a storm wider than the Earth, raging for 350 years.'],
+['Saturn',10759.22,49.94,350,22,'#e6cf96',116460,1.07,146,'10h 33m','Would float in a bath, were a bath found large enough. Its rings are mostly ice.'],
+['Uranus',30688.5,313.23,405,15,'#9fd8e0',50724,.89,28,'17h 14m','Rolls around the Sun on its side, like a barrel down a hill.'],
+['Neptune',60182,304.88,450,15,'#4a6fd8',49244,1.14,16,'16h 6m','Winds of 2,000 km/h. Discovered by mathematics before it was seen by telescope.']];
+const J2000=Date.UTC(2000,0,1,12);let simT=Date.now(),speed=10,sel=2;
+const svg=document.getElementById('orr');
+function gear(r,teeth,cls=''){let d='';for(let i=0;i<teeth;i++){const a1=i/teeth*2*Math.PI,a2=(i+.5)/teeth*2*Math.PI;const r2=r+8;d+=`${i?'L':'M'}${Math.cos(a1)*r} ${Math.sin(a1)*r} L${Math.cos(a1)*r2} ${Math.sin(a1)*r2} L${Math.cos(a2)*r2} ${Math.sin(a2)*r2} L${Math.cos(a2)*r} ${Math.sin(a2)*r} `}return `<path d="${d}Z" fill="url(#brassG)" stroke="#6a4f18" stroke-width="1" class="${cls}"/>`}
+function drawOrr(){const days=(simT-J2000)/864e5;let s=`<defs><radialGradient id="brassG" cx=".35" cy=".35"><stop offset="0" stop-color="#f7e2a0"/><stop offset=".5" stop-color="#c9a24a"/><stop offset="1" stop-color="#6a4f18"/></radialGradient><radialGradient id="sunG" cx=".4" cy=".4"><stop offset="0" stop-color="#fff6c8"/><stop offset=".6" stop-color="#f4b73a"/><stop offset="1" stop-color="#b85f10"/></radialGradient><radialGradient id="baseG"><stop offset="0" stop-color="#23392e"/><stop offset="1" stop-color="#101a14"/></radialGradient></defs>
+ <circle r="490" fill="url(#baseG)" stroke="#c9a24a" stroke-width="6"/><circle r="478" fill="none" stroke="#c9a24a66" stroke-width="1"/>`;
+ for(let i=0;i<12;i++){const a=i*30*Math.PI/180;s+=`<text x="${Math.cos(a-Math.PI/2)*466}" y="${Math.sin(a-Math.PI/2)*466+5}" text-anchor="middle" font-family="Cinzel" font-size="14" fill="#c9a24a">${['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'][i]}</text>`}
+ for(let i=0;i<360;i+=5){const a=i*Math.PI/180,r1=i%30?448:440;s+=`<line x1="${Math.cos(a)*r1}" y1="${Math.sin(a)*r1}" x2="${Math.cos(a)*452}" y2="${Math.sin(a)*452}" stroke="#c9a24a" stroke-width="${i%30?1:2}"/>`}
+ PL.forEach(p=>s+=`<circle r="${p[3]}" fill="none" stroke="#c9a24a" stroke-opacity=".22" stroke-dasharray="2 5"/>`);
+ s+=`<g transform="rotate(${days*.8})">${gear(46,24)}</g><g transform="rotate(${-days*1.3})">${gear(26,14)}</g>`;
+ PL.forEach((p,i)=>{const L=(p[2]+360*days/p[1])%360,a=-L*Math.PI/180,x=Math.cos(a)*p[3],y=Math.sin(a)*p[3];
+  s+=`<line x1="0" y1="0" x2="${x}" y2="${y}" stroke="url(#brassG)" stroke-width="${i===sel?5:3.5}" stroke-linecap="round"/><circle cx="${x*.5}" cy="${y*.5}" r="3" fill="#6a4f18"/>`;
+  s+=`<g class="planet" data-i="${i}"><line x1="${x}" y1="${y}" x2="${x}" y2="${y-4}" stroke="#c9a24a" stroke-width="3"/>${p[0]==='Saturn'?`<ellipse cx="${x}" cy="${y}" rx="${p[4]*1.9}" ry="${p[4]*.6}" fill="none" stroke="#e6cf96" stroke-width="3" transform="rotate(-20 ${x} ${y})"/>`:''}<circle class="body" cx="${x}" cy="${y}" r="${p[4]}" fill="${p[5]}" stroke="${i===sel?'#f1d489':'#6a4f18'}" stroke-width="${i===sel?3:1.5}"/><circle cx="${x-p[4]*.35}" cy="${y-p[4]*.35}" r="${p[4]*.35}" fill="#fff" opacity=".25"/>`;
+  if(p[0]==='Earth'){const ma=-(days/27.32*360)*Math.PI/180,mx=x+Math.cos(ma)*24,my=y+Math.sin(ma)*24;s+=`<line x1="${x}" y1="${y}" x2="${mx}" y2="${my}" stroke="#c9a24a" stroke-width="1.5"/><circle cx="${mx}" cy="${my}" r="4" fill="#ddd"/>`}
+  s+=`<text x="${x}" y="${y+p[4]+16}" text-anchor="middle" font-family="Cinzel" font-size="13" fill="#efe2c4" opacity="${i===sel?1:.6}">${p[0]}</text></g>`});
+ s+=`<circle r="34" fill="url(#sunG)" stroke="#6a4f18" stroke-width="2"/><circle r="44" fill="#f4b73a" opacity=".15"/>`;
+ svg.innerHTML=s;document.getElementById('date').textContent=new Date(simT).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}
+function info(i){sel=i;const p=PL[i];document.getElementById('info').innerHTML=`<h3>${p[0]}</h3><p style="font-style:italic">${p[10]}</p><table><tr><td>Diameter</td><td>${p[6].toLocaleString()} km</td></tr><tr><td>Year</td><td>${p[1]<400?Math.round(p[1])+' days':(p[1]/365.25).toFixed(1)+' years'}</td></tr><tr><td>Day</td><td>${p[9]}</td></tr><tr><td>Gravity</td><td>${p[7]} g</td></tr><tr><td>Moons</td><td>${p[8]}</td></tr></table>`}
+svg.addEventListener('click',e=>{const g=e.target.closest('.planet');if(g)info(+g.dataset.i)});info(2);
+let last=performance.now();(function loop(t){const dt=(t-last)/1000;last=t;simT+=dt*speed*864e5;if(!V[0].hidden)drawOrr();requestAnimationFrame(loop)})(last);
+document.querySelectorAll('.dial [data-s]').forEach(b=>b.onclick=()=>{speed=+b.dataset.s;document.querySelectorAll('.dial [data-s]').forEach(o=>o.classList.toggle('on',o===b))});
+const jump=document.getElementById('jump');jump.valueAsDate=new Date();jump.oninput=()=>{if(jump.valueAsDate){simT=+jump.valueAsDate;drawOrr()}};
+
+/* sizes */
+document.getElementById('sizeRow').innerHTML=PL.map(p=>{const d=Math.max(6,p[6]/139820*420);return `<div class="p"><div class="ball" style="width:${d}px;height:${d}px;background:radial-gradient(circle at 35% 35%,#fff8,${p[5]} 40%,#000 130%)"></div><b>${p[0]}</b><small>${p[6].toLocaleString()} km</small></div>`}).join('');
+
+/* weight */
+const G=[['Moon',.166],['Mercury',.38],['Venus',.91],['Earth',1],['Mars',.38],['Jupiter',2.53],['Saturn',1.07],['Uranus',.89],['Neptune',1.14],['Pluto',.063],['The Sun',27.9]];let unit='kg';
+function renderW(){const w=+document.getElementById('w').value||0;document.getElementById('wgrid').innerHTML=G.map(([n,g])=>`<div class="wcard"><div class="needle"><i style="transform:translateX(-50%) rotate(${Math.min(88,-88+Math.min(g,3)/3*176)}deg)"></i></div><b>${(w*g).toFixed(1)} ${unit}</b>${n}<div style="font-size:14px;font-style:italic;opacity:.7">${g>1.5?'oof':g<.2?'boing':g===1?'home':''}</div></div>`).join('')}
+document.getElementById('w').oninput=renderW;document.querySelectorAll('.units button').forEach(b=>b.onclick=()=>{const w=document.getElementById('w');const toKg={kg:1,lb:.4536,st:6.35};const kg=+w.value*toKg[unit];unit=b.dataset.u;w.value=(kg/toKg[unit]).toFixed(1);document.querySelectorAll('.units button').forEach(o=>o.classList.toggle('on',o===b));renderW()});renderW();
+
+/* voyage */
+const D=[['The Moon',384400],['Venus',41e6],['Mars',78e6],['Jupiter',628e6],['Saturn',1275e6],['Neptune',4350e6]],VE=[['On foot',5,'🚶'],['Motor-car',100,'🚗'],['Aeroplane',900,'✈️'],['Rocket',40000,'🚀'],['Solar probe',692000,'☄️'],['A beam of light',1079252849,'✨']];let di=2,vi=3;
+const mk=(el,arr,cur,fn)=>{document.getElementById(el).innerHTML=arr.map((x,i)=>`<button data-i="${i}" class="${i===cur?'on':''}">${x[2]?x[2]+' ':''}${x[0]}</button>`).join('');document.getElementById(el).onclick=e=>{const i=e.target.dataset.i;if(i==null)return;fn(+i);document.querySelectorAll('#'+el+' button').forEach(b=>b.classList.toggle('on',b===e.target));ticket()}};
+mk('dest',D,di,i=>di=i);mk('veh',VE,vi,i=>vi=i);
+function fmt(h){if(h<1)return Math.round(h*3600)+' seconds';if(h<48)return h.toFixed(1)+' hours';const d=h/24;if(d<365*2)return Math.round(d).toLocaleString()+' days';const y=d/365.25;return (y<1000?y.toFixed(1):Math.round(y).toLocaleString())+' years'}
+function ticket(){const [dn,km]=D[di],[vn,kmh,ic]=VE[vi];const h=km/kmh;const snacks=Math.max(1,Math.round(h/4));
+ document.getElementById('ticket').innerHTML=`<h3>Passage to ${dn}</h3><div style="font-family:Cinzel;font-size:12px;letter-spacing:.2em;opacity:.7">ESTIMATED DURATION</div><div class="big">${fmt(h)}</div><dl><dt>DISTANCE</dt><dd>${km.toLocaleString()} km</dd><dt>CONVEYANCE</dt><dd>${ic} ${vn}, ${kmh.toLocaleString()} km/h</dd><dt>DEPARTS</dt><dd>${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</dd><dt>PROVISIONS</dt><dd>${snacks.toLocaleString()} sandwiches, approx.</dd></dl><p style="font-style:italic;margin-top:12px;font-size:15px">${h/24/365>80?'Regrettably, the passenger will not survive the journey. Their great-great-grandchildren may enjoy the view.':h<1?'Blink and you\'ll arrive. Mind the step.':'Pack a good book. Pack several.'}</p><div class="stamp">HARTWELL<br>LINES</div>`}
+ticket();
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

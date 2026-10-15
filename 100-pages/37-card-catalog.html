@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Oakhollow Public Library — Card Catalog</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root { --oak:#6e4524; --oak2:#8a5a30; --oak3:#4a2c15; --brass:#c9a24a; --card:#f5eedb; --ink:#2a2420; --red:#a8322a; --green:#2f4a3a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--green); color:var(--ink); font-family:'Libre Caslon Text',serif; min-height:100vh;
+    background-image:repeating-linear-gradient(45deg,#ffffff06 0 2px,transparent 2px 14px),repeating-linear-gradient(-45deg,#00000010 0 2px,transparent 2px 14px); }
+  a { color:inherit; text-decoration:none; }
+  .type { font-family:'Special Elite',monospace; }
+  header { text-align:center; padding:26px 16px 10px; color:var(--card); }
+  header h1 { font-family:'Libre Caslon Display'; font-weight:400; font-size:clamp(2rem,5vw,3.6rem); letter-spacing:.02em; }
+  header p { font-style:italic; opacity:.8; }
+  nav { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; padding:12px; }
+  nav a { font-family:'Special Elite'; font-size:14px; padding:8px 16px; background:var(--card); border:1px solid #0003; box-shadow:0 3px 0 #0004; transform:rotate(-1deg); }
+  nav a:nth-child(even) { transform:rotate(1.2deg); }
+  nav a.on { background:var(--brass); }
+  [data-view][hidden] { display:none; }
+  .wrap { max-width:1200px; margin:0 auto; padding:14px 4vw 60px; }
+  /* cabinet */
+  .cabinet { background:linear-gradient(90deg,var(--oak3),var(--oak2) 20%,var(--oak) 50%,var(--oak2) 80%,var(--oak3)); padding:22px; border-radius:6px; box-shadow:0 30px 60px #0008, inset 0 2px 0 #ffffff22; position:relative; }
+  .cabinet::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(90deg,#0000 0 30px,#00000010 30px 32px); border-radius:6px; pointer-events:none; }
+  .drawers { display:grid; grid-template-columns:repeat(6,1fr); gap:14px; position:relative; }
+  .drawer { background:linear-gradient(180deg,#9a6a3a,#7a4c26); border:2px solid var(--oak3); border-radius:3px; padding:14px 8px 18px; text-align:center; cursor:pointer; position:relative; box-shadow:inset 0 2px 0 #ffffff22, 0 4px 6px #0005; transition:transform .3s cubic-bezier(.3,1.4,.5,1); }
+  .drawer:hover { transform:translateY(-2px); }
+  .drawer.open { transform:translateY(8px) scale(1.03); box-shadow:0 18px 20px #0008; z-index:2; }
+  .drawer .plate { background:linear-gradient(135deg,#f1d489,#c9a24a 50%,#8a6a22); border-radius:2px; padding:6px 4px; font-family:'Special Elite'; font-size:14px; border:1px solid #6a4f18; margin:0 8px; }
+  .drawer .pull { width:40px; height:12px; margin:10px auto 0; border-radius:0 0 20px 20px; background:linear-gradient(#f1d489,#8a6a22); box-shadow:0 2px 3px #0006; }
+  .search { display:flex; gap:10px; margin:22px 0 10px; }
+  .search input { flex:1; font-family:'Special Elite'; font-size:18px; padding:12px 16px; background:var(--card); border:2px solid var(--oak3); outline:none; }
+  .search button, .btn { font-family:'Special Elite'; font-size:15px; padding:10px 18px; background:var(--brass); border:2px solid var(--oak3); cursor:pointer; box-shadow:0 3px 0 var(--oak3); }
+  .search button:active, .btn:active { transform:translateY(3px); box-shadow:none; }
+  .tray { margin-top:24px; min-height:320px; position:relative; perspective:1200px; }
+  .cards { display:flex; gap:0; overflow-x:auto; padding:30px 20px 40px; scroll-snap-type:x mandatory; }
+  .card { flex:0 0 360px; height:220px; background:var(--card); border-radius:3px; padding:16px 22px; box-shadow:0 10px 20px #0005; margin-right:-240px; transition:transform .4s cubic-bezier(.3,1.3,.5,1), margin .4s; cursor:pointer; position:relative; scroll-snap-align:start;
+    background-image:repeating-linear-gradient(transparent 0 23px,#a8c4e033 23px 24px); background-position:0 44px; }
+  .card:hover { transform:translateY(-24px) rotate(-1deg); margin-right:-160px; z-index:5; }
+  .card .hole { position:absolute; left:50%; bottom:10px; width:14px; height:14px; margin-left:-7px; border-radius:50%; background:var(--oak3); box-shadow:inset 0 2px 3px #000; }
+  .card .call { font-family:'Special Elite'; font-size:13px; color:var(--red); position:absolute; left:16px; top:16px; line-height:1.2; }
+  .card .body { margin-left:70px; font-family:'Special Elite'; font-size:14px; line-height:24px; }
+  .card .t { font-size:16px; }
+  .card .stamp { position:absolute; right:18px; bottom:22px; font-family:'Special Elite'; border:2px solid var(--red); color:var(--red); padding:2px 8px; transform:rotate(-10deg); font-size:12px; opacity:.85; }
+  .empty { color:var(--card); font-style:italic; text-align:center; padding:40px; }
+  /* detail / checkout */
+  .detail { display:grid; grid-template-columns:auto 1fr; gap:40px; align-items:start; background:#0003; padding:28px; border:1px solid #ffffff22; color:var(--card); }
+  .book { width:190px; height:280px; border-radius:3px 8px 8px 3px; position:relative; box-shadow:inset 8px 0 0 #0003, 8px 10px 20px #0008; display:flex; flex-direction:column; justify-content:space-between; padding:22px 16px 18px 24px; color:var(--card); }
+  .book h3 { font-family:'Libre Caslon Display'; font-weight:400; font-size:1.5rem; line-height:1.1; }
+  .book .ornament { border-top:2px solid #f1d48988; border-bottom:2px solid #f1d48988; height:8px; }
+  .slip { background:#f7e7b0; color:var(--ink); padding:18px 20px; margin-top:16px; max-width:360px; font-family:'Special Elite'; font-size:14px; position:relative; box-shadow:0 6px 12px #0006; }
+  .slip table { width:100%; border-collapse:collapse; margin-top:6px; }
+  .slip td { border-bottom:1px solid #2a242055; padding:5px 4px; }
+  .slip td:first-child { width:48%; }
+  .slip .new td { color:var(--red); animation:stampIn .5s cubic-bezier(.3,1.8,.5,1); }
+  @keyframes stampIn { from { transform:scale(2.4); opacity:0; } }
+  /* reading list */
+  .shelf { display:flex; align-items:flex-end; gap:4px; padding:0 20px; min-height:300px; border-bottom:18px solid var(--oak3); background:linear-gradient(#0000 90%,#0002); flex-wrap:wrap; }
+  .spine { width:48px; border-radius:3px 3px 0 0; color:var(--card); writing-mode:vertical-rl; transform:rotate(180deg); padding:12px 0; font-family:'Libre Caslon Display'; font-size:15px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; box-shadow:inset -4px 0 0 #0003, inset 4px 0 0 #fff2; transition:transform .3s; }
+  .spine:hover { transform:rotate(180deg) translateY(12px); }
+  .spine small { font-family:'Special Elite'; font-size:11px; opacity:.8; }
+  .stats { color:var(--card); display:flex; gap:40px; margin-top:24px; font-family:'Special Elite'; flex-wrap:wrap; }
+  .stats b { display:block; font-family:'Libre Caslon Display'; font-size:2.6rem; font-weight:400; }
+  .due { color:#ffd27a; }
+  @media (max-width:800px){ .drawers { grid-template-columns:repeat(3,1fr); } .detail { grid-template-columns:1fr; } .card { flex-basis:300px; } }
+</style>
+</head>
+<body>
+<header><div class="type" style="letter-spacing:.3em;font-size:12px">EST. 1906 · SILENCE IS GOLDEN</div><h1>Oakhollow Public Library</h1><p>The card catalog is open. Please return cards to their proper drawer.</p></header>
+<nav><a href="#catalog">Card catalog</a><a href="#desk">Circulation desk</a><a href="#shelf">My shelf</a><a href="index.html">Exit the library ↩</a></nav>
+
+<section data-view="catalog" class="wrap">
+  <div class="cabinet"><div class="drawers" id="drawers"></div></div>
+  <form class="search" id="sf"><input id="q" placeholder="Search by title, author or subject…" autocomplete="off"><button>Search</button></form>
+  <div class="tray"><div class="cards" id="cards"></div></div>
+</section>
+
+<section data-view="desk" class="wrap" hidden><div id="deskEl"></div></section>
+
+<section data-view="shelf" class="wrap" hidden>
+  <div class="shelf" id="shelfEl"></div>
+  <div class="stats" id="stats"></div>
+</section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'catalog';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='shelf')renderShelf();if(id==='desk'&&cur==null)renderDesk(0)}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* books: title, author, year, subject, dewey, pages, colour, blurb */
+const B=[['A Field Guide to Clouds','Aldous Penwright',1952,'Weather','551.576',212,'#3b5a7a','Cirrus, stratus, and the one shaped like your grandmother.'],['Bees of the Northern Meadows','Ida Fernsby',1938,'Insects','595.79',168,'#b8862a','An affectionate census of every bee in three counties.'],['The Clockmaker\'s Daughter','Eliza Moorcroft',1911,'Fiction','823.912',340,'#6b2a2a','She could hear the time before the clocks struck it.'],['Cooking with Cast Iron','Hattie Brunswick',1947,'Cookery','641.77',256,'#2a2a2a','Four hundred recipes and one very heavy pan.'],['Dreams of the Deep','Captain R. Holloway',1923,'Oceans','551.46',298,'#1d4a5a','Memoirs of a diver who saw things he could not name.'],['Elementary Astronomy','Prof. W. Tyndall',1899,'Astronomy','520',412,'#2a2a5a','For the curious child and the sleepless adult.'],['Ferns and Their Friends','Beatrix Holm',1905,'Botany','587.3',144,'#3a5a2a','The secret life of the forest\'s oldest green.'],['Ghosts of Oakhollow','Unknown',1931,'Local history','133.1',96,'#4a3a4a','Every house on Elm Street, and who still lives there.'],['How Bridges Stand Up','Chester Maddox',1955,'Engineering','624.2',230,'#7a4a1a','Arches, trusses and the tyranny of gravity.'],['Invisible Ink for Beginners','Mrs. L. Quill',1942,'Crafts','652.8',64,'#8a8a6a','(Remainder of this card intentionally left blank.)'],['Jellyfish: A Love Story','Dr. Nia Okoro',1964,'Oceans','593.53',188,'#8a4a7a','On the 500-million-year success of having no brain.'],['Knots Every Sailor Knows','Bosun T. Craig',1918,'Sailing','623.88',120,'#2a4a6a','Bowline, clove hitch, and the one that ended a marriage.'],['Letters to a Young Lighthouse Keeper','Agnes Wray',1936,'Letters','826.912',176,'#a8322a','Keep the lamp lit. Keep your heart lit, too.'],['Mushrooms: Edible & Otherwise','Dr. F. Spore',1949,'Botany','579.6',208,'#6a5a3a','Please read chapter 7 before chapter 8.'],['The Night Train to Vienna','Otto Brandt',1928,'Fiction','833.912',290,'#1a2a3a','A murder, a waltz, and one missing sugar cube.'],['Owls of the World','Mabel Hart',1960,'Birds','598.97',240,'#5a4a3a','Who? Who? All of them, illustrated.'],['Practical Beekeeping','Ida Fernsby',1944,'Insects','638.1',190,'#c9a24a','The sequel nobody expected, least of all the bees.'],['The Quiet Art of Bookbinding','Rupert Vellum',1913,'Crafts','686.3',154,'#6e4524','Thread, glue, patience. Mostly patience.'],['Radio for the Home Tinkerer','E. Marconi Jr.',1934,'Engineering','621.384',222,'#3a3a3a','Build a crystal set and hear the whole world whisper.'],['Stars Over the Prairie','Wren Calloway',1958,'Astronomy','523.8',180,'#1a1a4a','A cowgirl\'s guide to the night sky.'],['Tea: A History in Twelve Cups','Jasper Lin',1966,'Cookery','641.337',260,'#4a6a3a','From Yunnan to the vicarage, one sip at a time.'],['Umbrellas Through the Ages','Cornelius Drip',1921,'History','391.44',98,'#2a3a5a','A surprisingly moving account of staying dry.'],['The Violin Maker','Sofia Amati',1939,'Fiction','853.912',312,'#7a2a1a','Spruce, maple, and forty years of listening.'],['Weather Proverbs & Their Truth','Aldous Penwright',1960,'Weather','551.631',150,'#5a7a9a','Red sky at night: mostly correct.']];
+const DR=[['A–C',0],['D–F',1],['G–I',2],['J–L',3],['M–O',4],['P–R',5],['S–U',6],['V–Z',7],['WEATHER',8],['FICTION',9],['OCEANS',10],['CRAFTS',11]];
+let loans=store.get('ohl-loans',[[2,'2026-09-01'],[13,'2026-09-12']]);let hist=store.get('ohl-hist',[5,11,19,0]);
+const rangeOf=i=>{const L='ABCDEFGHIJKLMNOPQRSTUVWXYZ';const r=[[0,2],[3,5],[6,8],[9,11],[12,14],[15,17],[18,20],[21,25]][i];return b=>{const c=b[0].replace(/^(A|The) /,'')[0].toUpperCase();const k=L.indexOf(c);return k>=r[0]&&k<=r[1]}};
+const FILT=DR.map(([n,i])=>i<8?rangeOf(i):b=>b[3].toUpperCase()===n||(n==='CRAFTS'&&b[3]==='Crafts'));
+document.getElementById('drawers').innerHTML=DR.map(([n],i)=>`<div class="drawer" data-d="${i}"><div class="plate">${n}</div><div class="pull"></div></div>`).join('');
+let openD=null;
+document.getElementById('drawers').onclick=e=>{const d=e.target.closest('.drawer');if(!d)return;const i=+d.dataset.d;openD=openD===i?null:i;document.querySelectorAll('.drawer').forEach(x=>x.classList.toggle('open',+x.dataset.d===openD));document.getElementById('q').value='';renderCards(openD==null?[]:B.filter(FILT[openD]));thunk()};
+function cardHTML(b){const i=B.indexOf(b);const out=loans.find(l=>l[0]===i);return `<div class="card" data-i="${i}"><div class="call">${b[4]}<br>${b[1].split(' ').pop().slice(0,3).toUpperCase()}</div><div class="body"><div class="t">${b[0]}</div><div>${b[1]}.</div><div>Oakhollow Press, ${b[2]}.</div><div>${b[5]} p. ; ill. ; 21 cm.</div><div>1. ${b[3]}. I. Title.</div></div>${out?'<div class="stamp">ON LOAN</div>':''}<div class="hole"></div></div>`}
+function renderCards(list){document.getElementById('cards').innerHTML=list.length?list.map(cardHTML).join(''):'<div class="empty">Pull open a drawer, or search above. The cards are waiting.</div>'}
+document.getElementById('sf').onsubmit=e=>{e.preventDefault();const s=q.value.toLowerCase().trim();openD=null;document.querySelectorAll('.drawer').forEach(x=>x.classList.remove('open'));renderCards(s?B.filter(b=>(b[0]+b[1]+b[3]+b[4]).toLowerCase().includes(s)):[])};
+document.getElementById('cards').onclick=e=>{const c=e.target.closest('.card');if(c){renderDesk(+c.dataset.i);go('desk')}};renderCards([]);
+
+/* sound: wooden thunk & stamp */
+let AC;function thunk(f=90){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.frequency.setValueAtTime(f*2,AC.currentTime);o.frequency.exponentialRampToValueAtTime(f,AC.currentTime+.08);g.gain.setValueAtTime(.4,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+.15);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+.16)}catch(e){}}
+
+/* desk */
+let cur=null;
+function renderDesk(i){cur=i;const b=B[i],out=loans.find(l=>l[0]===i);const due=new Date();due.setDate(due.getDate()+21);
+ const past=[['12 MAR 1961','J. Abernathy'],['04 AUG 1978','M. Chen'],['19 JAN 1994','P. Novak'],['30 OCT 2011','R. Ali']].slice(0,1+i%4);
+ document.getElementById('deskEl').innerHTML=`<div class="detail"><div class="book" style="background:linear-gradient(90deg,${b[6]},color-mix(in srgb,${b[6]} 80%,#fff) 60%,${b[6]})"><div class="ornament"></div><div><h3>${b[0]}</h3><p style="font-style:italic;margin-top:10px;font-size:14px">${b[1]}</p></div><div class="ornament"></div></div>
+ <div><div class="type" style="font-size:13px;letter-spacing:.2em;opacity:.8">CALL NO. ${b[4]} · ${b[3].toUpperCase()}</div><h2 style="font-family:'Libre Caslon Display';font-weight:400;font-size:2.4rem;margin:.4rem 0">${b[0]}</h2><p style="font-style:italic;font-size:1.15rem">"${b[7]}"</p>
+ <p style="margin-top:12px">${b[1]} · ${b[2]} · ${b[5]} pages</p>
+ <div class="slip"><b>DATE DUE</b><table id="slip">${past.map(([d,n])=>`<tr><td>${d}</td><td>${n}</td></tr>`).join('')}${out?`<tr><td>${new Date(new Date(out[1]).getTime()+21*864e5).toDateString().slice(4).toUpperCase()}</td><td>YOU</td></tr>`:''}</table></div>
+ <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">${out?`<button class="btn" id="ret">Return this book</button><button class="btn" id="renew">Renew</button>`:`<button class="btn" id="borrow">Borrow (due ${due.toDateString().slice(4)})</button>`}<button class="btn" id="back" style="background:var(--card)">← Back to catalog</button></div></div></div>`;
+ const bw=document.getElementById('borrow');if(bw)bw.onclick=()=>{loans.push([i,new Date().toISOString().slice(0,10)]);store.set('ohl-loans',loans);thunk(60);setTimeout(()=>{renderDesk(i);document.querySelector('#slip tr:last-child').classList.add('new')},80)};
+ const rt=document.getElementById('ret');if(rt)rt.onclick=()=>{loans=loans.filter(l=>l[0]!==i);if(!hist.includes(i))hist.push(i);store.set('ohl-loans',loans);store.set('ohl-hist',hist);thunk(120);renderDesk(i)};
+ const rn=document.getElementById('renew');if(rn)rn.onclick=()=>{const l=loans.find(l=>l[0]===i);l[1]=new Date().toISOString().slice(0,10);store.set('ohl-loans',loans);thunk(60);renderDesk(i);document.querySelector('#slip tr:last-child').classList.add('new')};
+ document.getElementById('back').onclick=()=>go('catalog')}
+
+/* shelf */
+function renderShelf(){const items=[...loans.map(l=>[l[0],'loan',l[1]]),...hist.filter(h=>!loans.some(l=>l[0]===h)).map(h=>[h,'read'])];
+ document.getElementById('shelfEl').innerHTML=items.map(([i,k,d])=>{const b=B[i];const h=190+(b[5]%120);const due=d?new Date(new Date(d).getTime()+21*864e5):null;return `<div class="spine" data-i="${i}" style="height:${h}px;background:linear-gradient(90deg,${b[6]},color-mix(in srgb,${b[6]} 75%,#fff),${b[6]});${k==='read'?'opacity:.75':''}"><small>${k==='loan'?'★':''}</small>${b[0].length>26?b[0].slice(0,24)+'…':b[0]}<small>${b[4]}</small></div>`}).join('')||'<p class="empty">Your shelf is empty. Borrow something!</p>';
+ const pages=items.reduce((a,[i])=>a+B[i][5],0);const next=loans.map(l=>new Date(new Date(l[1]).getTime()+21*864e5)).sort((a,b)=>a-b)[0];
+ document.getElementById('stats').innerHTML=`<div><b>${loans.length}</b>on loan</div><div><b>${hist.length}</b>books read</div><div><b>${pages.toLocaleString()}</b>pages turned</div><div><b class="due">${next?next.toDateString().slice(4,10):'—'}</b>next due</div>`;
+ document.querySelectorAll('.spine').forEach(s=>s.onclick=()=>{renderDesk(+s.dataset.i);go('desk')})}
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

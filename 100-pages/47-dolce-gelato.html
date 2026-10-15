@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dolce Vita — Gelateria Artigianale</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Albert+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root { --mint:#bfeee0; --pink:#ffc6d9; --cream:#fff7ec; --choc:#5a2e1c; --berry:#e2456d; --pist:#b9d98a; --lemon:#fff08a; --ink:#3a2418; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--cream); color:var(--ink); font-family:'Albert Sans',sans-serif; overflow-x:hidden; }
+  body::before { content:''; position:fixed; inset:0; pointer-events:none; z-index:0; background:repeating-linear-gradient(90deg,#ffc6d955 0 40px,transparent 40px 80px); mask:linear-gradient(#000 0 60px,transparent 60px); -webkit-mask:linear-gradient(#000 0 60px,transparent 60px); }
+  a { color:inherit; text-decoration:none; }
+  .script { font-family:'Pacifico',cursive; }
+  header { position:relative; z-index:5; display:flex; justify-content:space-between; align-items:center; padding:14px 5vw; }
+  .awning { position:absolute; left:0; right:0; top:0; height:74px; background:repeating-linear-gradient(90deg,var(--berry) 0 50px,#fff 50px 100px); clip-path:polygon(0 0,100% 0,100% 70%,97.5% 100%,95% 70%,92.5% 100%,90% 70%,87.5% 100%,85% 70%,82.5% 100%,80% 70%,77.5% 100%,75% 70%,72.5% 100%,70% 70%,67.5% 100%,65% 70%,62.5% 100%,60% 70%,57.5% 100%,55% 70%,52.5% 100%,50% 70%,47.5% 100%,45% 70%,42.5% 100%,40% 70%,37.5% 100%,35% 70%,32.5% 100%,30% 70%,27.5% 100%,25% 70%,22.5% 100%,20% 70%,17.5% 100%,15% 70%,12.5% 100%,10% 70%,7.5% 100%,5% 70%,2.5% 100%,0 70%); z-index:-1; filter:drop-shadow(0 6px 0 #0001); }
+  .logo { font-family:'Pacifico'; font-size:34px; color:#fff; text-shadow:2px 2px 0 var(--ink); background:var(--berry); padding:0 18px 6px; border-radius:0 0 20px 20px; }
+  nav { display:flex; gap:6px; flex-wrap:wrap; background:#fff; padding:5px; border-radius:40px; box-shadow:0 6px 18px #0001; }
+  nav a { padding:8px 16px; border-radius:30px; font-weight:800; font-size:14px; }
+  nav a.on { background:var(--ink); color:#fff; }
+  main { position:relative; z-index:2; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:melt .6s cubic-bezier(.3,1.5,.5,1) both; }
+  @keyframes melt { from { opacity:0; transform:translateY(20px) scale(.98); } }
+  /* builder */
+  .build { display:grid; grid-template-columns:1fr 440px; gap:4vw; padding:4vh 5vw 8vh; align-items:start; }
+  .build h1 { font-family:'Pacifico'; font-weight:400; font-size:clamp(2.6rem,6vw,4.6rem); line-height:1.1; color:var(--berry); }
+  .build .sub { font-size:1.15rem; margin:10px 0 24px; max-width:32rem; line-height:1.6; }
+  .flavs { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:12px; }
+  .flav { background:#fff; border-radius:22px; padding:12px; text-align:center; cursor:pointer; border:3px solid transparent; transition:transform .2s cubic-bezier(.3,1.8,.5,1), border-color .2s; box-shadow:0 6px 14px #3a24180d; }
+  .flav:hover { transform:translateY(-4px) rotate(-2deg); }
+  .flav:active { transform:scale(.94); }
+  .flav .ball { width:64px; height:64px; margin:0 auto 8px; border-radius:50%; box-shadow:inset -8px -10px 0 #0000001a, inset 6px 6px 0 #ffffff66; position:relative; }
+  .flav b { font-size:14px; display:block; }
+  .flav small { font-size:11px; opacity:.6; }
+  .tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+  .tags button { padding:7px 14px; border-radius:30px; border:2px solid var(--ink); background:#fff; font-family:inherit; font-weight:800; font-size:13px; cursor:pointer; }
+  .tags button.on { background:var(--ink); color:#fff; }
+  .coneStage { position:sticky; top:20px; background:linear-gradient(180deg,#fff,var(--mint)); border-radius:40px; padding:24px; text-align:center; box-shadow:0 20px 50px #3a24181a; }
+  .coneStage svg { width:100%; max-height:62vh; overflow:visible; }
+  .cup { display:flex; gap:8px; justify-content:center; margin:8px 0; }
+  .cup button, .top button { padding:8px 14px; border-radius:30px; border:2px solid var(--ink); background:#fff; font-family:inherit; font-weight:800; cursor:pointer; }
+  .cup button.on, .top button.on { background:var(--berry); color:#fff; border-color:var(--berry); }
+  .top { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin:6px 0; }
+  .order { display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-weight:800; font-size:1.3rem; }
+  .btn { padding:14px 22px; border-radius:40px; border:0; background:var(--berry); color:#fff; font-family:inherit; font-weight:800; font-size:15px; cursor:pointer; box-shadow:0 5px 0 #a8264b; transition:transform .1s, box-shadow .1s; }
+  .btn:active { transform:translateY(5px); box-shadow:none; }
+  .btn.ghost { background:#fff; color:var(--ink); box-shadow:0 5px 0 #3a241833; }
+  /* shops */
+  .shops { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; padding:4vh 5vw 8vh; }
+  .shop { background:#fff; border-radius:30px; overflow:hidden; box-shadow:0 10px 30px #3a24181a; }
+  .shop .art { height:170px; position:relative; }
+  .shop .art svg { width:100%; height:100%; }
+  .shop .in { padding:18px 20px; }
+  .shop h3 { font-family:'Pacifico'; font-weight:400; font-size:1.7rem; color:var(--berry); }
+  .open { display:inline-block; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:800; margin:8px 0; }
+  .open.y { background:#c8f5d8; color:#1a6a3a; } .open.n { background:#ffd6d6; color:#8a1a1a; }
+  .hrs { font-size:13px; line-height:1.8; }
+  .hrs b { display:inline-block; width:44px; }
+  .hrs .today { color:var(--berry); font-weight:800; }
+  /* loyalty */
+  .loyal { display:grid; grid-template-columns:1fr 1fr; gap:5vw; padding:4vh 5vw 8vh; align-items:center; }
+  .card { background:var(--pink); border-radius:30px; padding:30px; position:relative; box-shadow:0 20px 40px #e2456d33; transform:rotate(-2deg); }
+  .card h3 { font-family:'Pacifico'; font-weight:400; font-size:2rem; color:var(--berry); }
+  .stamps { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin:20px 0; }
+  .stamp { aspect-ratio:1; border-radius:50%; border:3px dashed #e2456d88; display:grid; place-items:center; font-size:1.6rem; background:#fff8; }
+  .stamp.on { border-style:solid; border-color:var(--berry); background:#fff; animation:thunk .4s cubic-bezier(.3,1.8,.5,1); }
+  @keyframes thunk { from { transform:scale(1.8) rotate(-20deg); opacity:0; } }
+  .receipt { background:#fff; border-radius:16px; padding:18px; font-size:14px; margin-top:14px; }
+  .receipt div { display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dashed #0002; }
+  .drip { position:fixed; top:74px; width:10px; border-radius:0 0 10px 10px; z-index:1; pointer-events:none; animation:drip 5s ease-in infinite; }
+  @keyframes drip { 0% { height:0; } 60% { height:40px; } 100% { height:40px; opacity:0; } }
+  @media (max-width:900px){ .build,.loyal { grid-template-columns:1fr; } .shops { grid-template-columns:1fr; } .coneStage { position:static; } }
+</style>
+</head>
+<body>
+<header><div class="awning"></div><div class="logo">Dolce Vita</div><nav><a href="#build">Build a cone</a><a href="#shops">Gelaterie</a><a href="#card">Stamp card</a><a href="index.html">← Index</a></nav></header>
+<main>
+<section data-view="build">
+  <div class="build">
+    <div><h1>Scoop, stack,<br>smile.</h1><p class="sub">Churned every morning in Bologna with milk from the hills and fruit from the market. Tap flavours to stack up to five scoops.</p>
+      <div class="tags" id="tags"><button data-t="all" class="on">Tutti</button><button data-t="vegan">🌱 Vegan</button><button data-t="nutfree">🥜 Nut-free</button><button data-t="new">✨ New</button></div>
+      <div class="flavs" id="flavs"></div></div>
+    <div class="coneStage"><svg viewBox="0 0 300 460" id="cone"></svg>
+      <div class="cup" id="cup"><button data-c="cone" class="on">Cone</button><button data-c="waffle">Waffle</button><button data-c="cup">Cup</button></div>
+      <div class="top" id="top"><button data-x="sprinkles">Sprinkles</button><button data-x="cherry">Cherry</button><button data-x="choc">Choc sauce</button><button data-x="wafer">Wafer</button></div>
+      <div class="order"><span id="price">€0.00</span><span><button class="btn ghost" id="undo">↶</button> <button class="btn" id="orderBtn">Order!</button></span></div><p id="orderMsg" style="margin-top:10px;font-weight:600;min-height:1.4em"></p></div>
+  </div>
+</section>
+
+<section data-view="shops" hidden><div class="shops" id="shopsEl"></div></section>
+
+<section data-view="card" hidden>
+  <div class="loyal"><div><h2 class="script" style="font-weight:400;font-size:3rem;color:var(--berry)">La tessera</h2><p style="font-size:1.1rem;line-height:1.7;margin:10px 0">Every order earns a stamp. Ten stamps, and your next cone is on us — any size, any toppings, no judgement.</p><div id="hist"></div></div>
+    <div class="card"><h3>Dolce Vita Club</h3><p style="font-weight:600">Member since today</p><div class="stamps" id="stamps"></div><p id="stampMsg" style="font-weight:800"></p></div></div>
+</section>
+</main>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'build';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='card')renderCard()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+/* drips on awning */
+setInterval(()=>{const d=document.createElement('div');d.className='drip';d.style.left=(Math.floor(Math.random()*40)*2.5+1.25)+'%';d.style.background=['#e2456d','#bfeee0','#fff08a','#ffc6d9'][Math.random()*4|0];document.body.appendChild(d);setTimeout(()=>d.remove(),5000)},1200);
+
+const F=[['Pistacchio','#b9d98a',['new'],'Bronte pistachios'],['Fragola','#ff8fab',['vegan','nutfree'],'Market strawberries'],['Stracciatella','#fff4e0',['nutfree'],'with dark chocolate shards'],['Cioccolato','#6b3a24',['nutfree'],'70% Modica cocoa'],['Limone','#fff08a',['vegan','nutfree'],'Amalfi lemons'],['Nocciola','#c8955a',[],'Piedmont hazelnuts'],['Menta','#bfeee0',['nutfree'],'fresh mint & chocolate'],['Mango','#ffb347',['vegan','nutfree','new'],'Alphonso mango'],['Fior di latte','#fffaf2',['nutfree'],'just milk, done right'],['Lampone','#e2456d',['vegan','nutfree'],'wild raspberry'],['Caffè','#a0704a',['nutfree'],'espresso from next door'],['Lavanda','#c9b6ff',['vegan','nutfree','new'],'Provençal lavender']];
+let tag='all',stack=[],cupT='cone',tops=new Set(),wob=0;
+function renderFlavs(){document.getElementById('flavs').innerHTML=F.map((f,i)=>[f,i]).filter(([f])=>tag==='all'||f[2].includes(tag)).map(([f,i])=>`<div class="flav" data-i="${i}"><div class="ball" style="background:${f[1]}">${f[0]==='Stracciatella'?'<svg viewBox="0 0 64 64" style="position:absolute;inset:0"><path d="M18 22l6 3M36 18l4 5M28 38l7 2M44 34l3 6M20 44l5 1" stroke="#3a2418" stroke-width="3"/></svg>':''}</div><b>${f[0]}</b><small>${f[3]}</small></div>`).join('')}
+document.getElementById('tags').onclick=e=>{const t=e.target.dataset.t;if(!t)return;tag=t;document.querySelectorAll('#tags button').forEach(b=>b.classList.toggle('on',b===e.target));renderFlavs()};
+document.getElementById('flavs').onclick=e=>{const f=e.target.closest('.flav');if(!f)return;if(stack.length>=5){msg('Cinque scoops is the legal limit. 🙅');return}stack.push({i:+f.dataset.i,drop:0});wob=1;plop();draw()};
+document.getElementById('cup').onclick=e=>{const c=e.target.dataset.c;if(!c)return;cupT=c;document.querySelectorAll('#cup button').forEach(b=>b.classList.toggle('on',b===e.target));draw()};
+document.getElementById('top').onclick=e=>{const x=e.target.dataset.x;if(!x)return;tops.has(x)?tops.delete(x):tops.add(x);e.target.classList.toggle('on');draw()};
+document.getElementById('undo').onclick=()=>{stack.pop();draw()};
+function msg(t){document.getElementById('orderMsg').textContent=t}
+let AC;function plop(){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.frequency.setValueAtTime(500,AC.currentTime);o.frequency.exponentialRampToValueAtTime(140,AC.currentTime+.12);g.gain.setValueAtTime(.2,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+.15);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+.16)}catch(e){}}
+function price(){return (cupT==='waffle'?1:0)+2.2+Math.max(0,stack.length-1)*1.4+tops.size*.5}
+function draw(t=performance.now()){let s='';const baseY=cupT==='cup'?330:300;
+ if(cupT==='cup')s+=`<path d="M70 320 L230 320 L210 430 L90 430Z" fill="#ffc6d9" stroke="#3a2418" stroke-width="4"/><path d="M76 350 L224 350" stroke="#e2456d" stroke-width="10"/><text x="150" y="400" text-anchor="middle" font-family="Pacifico" font-size="22" fill="#e2456d">dolce</text>`;
+ else{s+=`<path d="M85 300 L150 450 L215 300Z" fill="${cupT==='waffle'?'#c8843a':'#e8b06a'}" stroke="#3a2418" stroke-width="4" stroke-linejoin="round"/>`;for(let k=0;k<6;k++)s+=`<line x1="${95+k*20}" y1="300" x2="${150+(k-2.5)*6}" y2="440" stroke="#3a241855" stroke-width="2"/><line x1="${205-k*20}" y1="300" x2="${150-(k-2.5)*6}" y2="440" stroke="#3a241855" stroke-width="2"/>`;if(cupT==='waffle')s+=`<path d="M78 300 Q150 280 222 300 L222 312 Q150 292 78 312Z" fill="#a8642a" stroke="#3a2418" stroke-width="3"/>`}
+ stack.forEach((sc,k)=>{const f=F[sc.i];sc.drop=Math.min(1,sc.drop+.08);const e=1-Math.pow(1-sc.drop,3);const sway=Math.sin(t/300+k)*wob*k*3;const y=baseY-k*52-(1-e)*200,x=150+sway;
+  s+=`<g transform="translate(${x} ${y})"><path d="M-62 0 Q-66 -48 -30 -60 Q0 -74 30 -60 Q66 -48 62 0 Q48 12 34 4 Q20 16 6 6 Q-8 16 -22 6 Q-38 14 -50 4Z" fill="${f[1]}" stroke="#3a2418" stroke-width="4" stroke-linejoin="round"/><ellipse cx="-22" cy="-42" rx="14" ry="8" fill="#fff" opacity=".45"/>${f[0]==='Stracciatella'||f[0]==='Menta'?[...Array(6)].map((_,j)=>`<rect x="${-40+j*14}" y="${-30+(j%3)*10}" width="7" height="4" fill="#3a2418" transform="rotate(${j*30})"/>`).join(''):''}${f[0]==='Pistacchio'||f[0]==='Nocciola'?[...Array(5)].map((_,j)=>`<ellipse cx="${-30+j*15}" cy="${-20-(j%2)*14}" rx="4" ry="3" fill="#6a8a3a"/>`).join(''):''}</g>`});
+ const top=baseY-(stack.length-1)*52-60;
+ if(stack.length){if(tops.has('choc'))s+=`<path d="M${150-50} ${top+22} Q150 ${top-10} ${150+50} ${top+22} L${150+46} ${top+44} Q${150+40} ${top+30} ${150+34} ${top+52} Q${150+20} ${top+30} ${150+10} ${top+46} Q150 ${top+30} ${150-14} ${top+54} Q${150-26} ${top+30} ${150-40} ${top+48}Z" fill="#4a2414" opacity=".9"/>`;
+  if(tops.has('sprinkles'))for(let k=0;k<18;k++)s+=`<rect x="${110+(k*29)%80}" y="${top+8+(k*17)%30}" width="10" height="4" rx="2" fill="${['#e2456d','#5fd4ff','#fff08a','#b9d98a','#c9b6ff'][k%5]}" transform="rotate(${k*37} ${115+(k*29)%80} ${top+10+(k*17)%30})"/>`;
+  if(tops.has('wafer'))s+=`<rect x="170" y="${top-40}" width="22" height="70" rx="3" fill="#e8b06a" stroke="#3a2418" stroke-width="3" transform="rotate(20 180 ${top})"/>`;
+  if(tops.has('cherry'))s+=`<path d="M150 ${top-4} Q156 ${top-30} 170 ${top-40}" stroke="#3a6a1a" stroke-width="3" fill="none"/><circle cx="150" cy="${top}" r="14" fill="#c8102e" stroke="#3a2418" stroke-width="3"/><circle cx="145" cy="${top-5}" r="4" fill="#fff" opacity=".7"/>`}
+ else s+=`<text x="150" y="200" text-anchor="middle" font-family="Pacifico" font-size="22" fill="#3a241877">pick a flavour ↖</text>`;
+ document.getElementById('cone').innerHTML=s;document.getElementById('price').textContent='€'+price().toFixed(2);wob*=.97}
+(function loop(t){if(!V[0].hidden&&(wob>.01||stack.some(s=>s.drop<1)))draw(t);requestAnimationFrame(loop)})(0);
+renderFlavs();draw();
+document.getElementById('orderBtn').onclick=()=>{if(!stack.length){msg('A cone with no gelato is just… a cone.');return}const o={f:stack.map(s=>F[s.i][0]),c:cupT,t:[...tops],p:price(),d:new Date().toISOString()};const H=store.get('dv-orders',[]);H.unshift(o);store.set('dv-orders',H.slice(0,40));msg(`Grazie! ${o.f.join(' + ')} coming right up. +1 stamp 🍦`);stack=[];tops.clear();document.querySelectorAll('#top button').forEach(b=>b.classList.remove('on'));draw()};
+
+/* shops */
+const SH=[['Bologna Centro','Via dell\'Indipendenza 12',[[11,23],[11,23],[11,23],[11,23],[11,24],[10,24],[10,22]],'#e2456d'],['Firenze Oltrarno','Borgo San Frediano 7',[null,[12,22],[12,22],[12,22],[12,23],[11,23],[11,22]],'#b9d98a'],['Ljubljana Tromostovje','Stritarjeva ulica 3',[[10,22],[10,22],[10,22],[10,22],[10,23],[10,23],[10,21]],'#5fd4ff']];
+const DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+document.getElementById('shopsEl').innerHTML=SH.map(([n,a,h,c],i)=>{const d=(new Date().getDay()+6)%7,hr=new Date().getHours(),t=h[d],open=t&&hr>=t[0]&&hr<t[1];return `<div class="shop"><div class="art"><svg viewBox="0 0 300 170" preserveAspectRatio="xMidYMid slice"><rect width="300" height="170" fill="${['#ffe0ea','#e8f5d8','#e0f4ff'][i]}"/><rect x="60" y="60" width="180" height="110" fill="#fff" stroke="#3a2418" stroke-width="3"/><path d="M50 60 L250 60 L240 40 L60 40Z" fill="${c}"/>${[...Array(8)].map((_,k)=>`<path d="M${60+k*22.5} 60 q11 14 22.5 0" fill="${k%2?'#fff':c}" stroke="#3a2418" stroke-width="1.5"/>`).join('')}<rect x="90" y="90" width="50" height="80" fill="#8fd3ff" stroke="#3a2418" stroke-width="3"/><rect x="160" y="90" width="60" height="40" fill="#8fd3ff" stroke="#3a2418" stroke-width="3"/><text x="150" y="56" text-anchor="middle" font-family="Pacifico" font-size="14" fill="#fff">Dolce Vita</text></svg></div><div class="in"><h3>${n}</h3><div style="font-size:14px">${a}</div><span class="open ${open?'y':'n'}">${open?'● Open now':'● Closed now'}</span><div class="hrs">${h.map((x,k)=>`<div class="${k===d?'today':''}"><b>${DAYS[k]}</b>${x?`${x[0]}:00 – ${x[1]===24?'midnight':x[1]+':00'}`:'closed'}</div>`).join('')}</div></div></div>`}).join('');
+
+/* stamp card */
+function renderCard(){const H=store.get('dv-orders',[]);const n=H.length%10,full=Math.floor(H.length/10);document.getElementById('stamps').innerHTML=[...Array(10)].map((_,i)=>`<div class="stamp ${i<n?'on':''}">${i<n?'🍦':i===9?'🎁':''}</div>`).join('');
+ document.getElementById('stampMsg').textContent=full?`🎉 You've earned ${full} free cone${full>1?'s':''}!`:`${10-n} more to a free cone.`;
+ document.getElementById('hist').innerHTML=H.length?`<div class="receipt">${H.slice(0,6).map(o=>`<div><span>${o.f.join(' + ')} <small>(${o.c}${o.t.length?', '+o.t.join(', '):''})</small></span><b>€${o.p.toFixed(2)}</b></div>`).join('')}</div>`:'<p style="opacity:.6">No orders yet — go build a cone!</p>'}
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

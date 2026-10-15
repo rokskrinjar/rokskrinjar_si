@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexworth Apiary</title>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--honey:#f2a900;--amber:#c97a00;--dark:#2b1d0e;--cream:#fff6df;--comb:#f7d774;--wax:#fbe7a1;--leaf:#5d7a2e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--dark);font-family:Outfit,sans-serif;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 98' fill='none' stroke='%23f2a90018' stroke-width='2'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}
+header{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:18px 5vw}
+.logo{display:flex;gap:12px;align-items:center;font-family:'Young Serif';font-size:28px}
+.logo svg{width:46px;height:46px}
+nav{display:flex;gap:4px;flex-wrap:wrap;background:var(--dark);padding:5px;border-radius:40px}
+nav a{padding:9px 16px;border-radius:30px;color:#fff6dfaa;font-weight:600;font-size:14px}
+nav a.on{background:var(--honey);color:var(--dark)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1280px;margin:0 auto;padding:24px 5vw 80px}
+h2{font-family:'Young Serif';font-weight:400;font-size:clamp(2.4rem,5.5vw,4.6rem);line-height:1}
+h2 em{font-style:normal;color:var(--amber)}
+.lede{max-width:60ch;font-size:18px;line-height:1.6;margin:14px 0 28px;font-weight:300}
+.hivegrid{display:grid;grid-template-columns:1fr 320px;gap:28px;align-items:start}
+.frame{background:#8a5a2b;padding:16px;border-radius:8px;box-shadow:0 30px 50px -24px #2b1d0e99;position:relative}
+.frame::before{content:"";position:absolute;left:-26px;right:-26px;top:-2px;height:18px;background:#6b4420;border-radius:4px}
+.frame svg{display:block;width:100%;height:auto;background:var(--wax);border-radius:2px}
+.cell{cursor:pointer;transition:filter .15s}.cell:hover{filter:brightness(1.2)}
+.frames{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.frames button{width:40px;height:40px;border-radius:50%;border:2px solid var(--dark);background:none;font-weight:800;cursor:pointer}
+.frames button.on{background:var(--dark);color:var(--honey)}
+.info{background:#fff;border-radius:16px;padding:22px;box-shadow:0 10px 30px -16px #2b1d0e55}
+.info h3{font-family:'Young Serif';font-weight:400;font-size:28px}
+.legend{display:grid;gap:8px;margin-top:16px}
+.legend div{display:flex;align-items:center;gap:10px;font-size:14px}
+.legend i{width:20px;height:20px;clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%)}
+.legend b{margin-left:auto;font-weight:800}
+.health{margin-top:16px;padding:12px;border-radius:10px;background:#f2a90022;font-size:14px;line-height:1.5}
+/* dance */
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.panel{background:#fff;border-radius:18px;padding:18px;box-shadow:0 10px 30px -16px #2b1d0e55}
+.panel h3{font-family:'Young Serif';font-weight:400;font-size:24px;margin-bottom:4px}
+.panel p{font-size:14px;opacity:.7;margin-bottom:10px}
+.panel canvas{display:block;width:100%;height:auto;border-radius:12px;cursor:crosshair}
+.readout{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.readout div{background:var(--cream);border-radius:10px;padding:10px 12px}
+.readout b{font-family:'Young Serif';font-size:26px;font-weight:400;display:block}
+.readout small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;opacity:.6}
+.quiz{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.btn{background:var(--dark);color:var(--honey);border:0;border-radius:30px;padding:11px 20px;font-weight:800;cursor:pointer}
+.btn.alt{background:var(--honey);color:var(--dark)}
+/* log */
+.lgrid{display:grid;grid-template-columns:380px 1fr;gap:30px;align-items:start}
+form.panel label{display:block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin:12px 0 6px}
+form.panel select,form.panel input,form.panel textarea{width:100%;padding:10px;border:2px solid #2b1d0e22;border-radius:10px;background:var(--cream)}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:14px}
+.checks label{display:flex!important;gap:6px;align-items:center;text-transform:none!important;letter-spacing:0!important;font-weight:400!important;margin:0!important}
+.temper{display:flex;gap:4px}
+.temper button{flex:1;border:2px solid var(--dark);background:none;border-radius:8px;padding:6px 0;font-size:18px;cursor:pointer}
+.temper button.on{background:var(--honey)}
+.entries{display:grid;gap:12px}
+.entry{background:#fff;border-radius:14px;padding:16px 18px;display:grid;grid-template-columns:70px 1fr auto;gap:16px;align-items:center;border-left:6px solid var(--honey)}
+.entry .d{font-family:'Young Serif';font-size:26px;line-height:1;text-align:center}
+.entry .d small{display:block;font-family:Outfit;font-size:11px;font-weight:800;letter-spacing:.1em}
+.entry .tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.entry .tags span{font-size:11px;background:var(--cream);padding:3px 8px;border-radius:20px;font-weight:600}
+.entry button{background:none;border:0;font-size:18px;opacity:.4;cursor:pointer}
+/* shop */
+.shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px}
+.jar{background:#fff;border-radius:20px;padding:20px;text-align:center;box-shadow:0 10px 30px -16px #2b1d0e55;transition:transform .3s}
+.jar:hover{transform:translateY(-6px)}
+.jar svg{width:130px;height:160px}
+.jar h3{font-family:'Young Serif';font-weight:400;font-size:24px}
+.jar p{font-size:14px;opacity:.7;line-height:1.5;margin:6px 0 12px;min-height:3em}
+.jar .row{display:flex;justify-content:space-between;align-items:center}
+.jar .pr{font-family:'Young Serif';font-size:22px}
+.basket{position:fixed;right:20px;bottom:20px;background:var(--dark);color:var(--honey);border-radius:40px;padding:14px 22px;font-weight:800;z-index:10;box-shadow:0 10px 30px #0005;display:none}
+.basket.on{display:block}
+.grade{display:flex;height:34px;border-radius:30px;overflow:hidden;margin:20px 0 34px}
+.grade span{flex:1;display:grid;place-items:center;font-size:10px;font-weight:800;color:#fff8}
+@media(max-width:900px){.hivegrid,.dgrid,.lgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo"><svg viewBox="0 0 46 46"><path d="M23 2 L42 13 V35 L23 44 L4 35 V13Z" fill="#f2a900" stroke="#2b1d0e" stroke-width="3"/><ellipse cx="23" cy="25" rx="7" ry="10" fill="#2b1d0e"/><path d="M16 22 h14 M16 28 h14" stroke="#f2a900" stroke-width="3"/><ellipse cx="15" cy="18" rx="6" ry="4" fill="#fff" opacity=".8"/><ellipse cx="31" cy="18" rx="6" ry="4" fill="#fff" opacity=".8"/></svg>Hexworth Apiary</div>
+ <nav><a href="#hive">Inside the Hive</a><a href="#dance">Waggle Dance</a><a href="#log">Inspection Log</a><a href="#honey">Honey</a><a href="index.html">↩ Index</a></nav>
+</header>
+
+<section data-view="hive"><div class="wrap">
+ <h2>Forty thousand <em>sisters.</em></h2>
+ <p class="lede">Lift a frame out of Hive No. 3. Each hexagon has a job: a nursery, a pantry or a larder. Click a cell to see what's inside.</p>
+ <div class="hivegrid">
+  <div><div class="frames" id="frames"></div><div class="frame"><svg id="comb" viewBox="0 0 900 520"></svg></div></div>
+  <div class="info" id="info"></div>
+ </div>
+</div></section>
+
+<section data-view="dance" hidden><div class="wrap">
+ <h2>The <em>waggle</em> dance.</h2>
+ <p class="lede">A forager tells her sisters where the flowers are by dancing on the comb. The angle of her waggle run from straight up equals the angle of the food from the sun. The longer she waggles, the further away the food is.</p>
+ <div class="dgrid">
+  <div class="panel"><h3>1 · The meadow</h3><p>Click anywhere to place a patch of flowers. The sun moves through the day.</p><canvas id="field" width="600" height="600"></canvas>
+   <div class="quiz"><label style="font-size:14px;font-weight:600">Time of day <input type="range" id="sunT" min="6" max="20" step=".25" value="11" style="vertical-align:middle;accent-color:#c97a00"></label><b id="sunL">11:00</b></div></div>
+  <div class="panel"><h3>2 · The dance floor</h3><p>Vertical comb in the dark hive. Up means toward the sun.</p><canvas id="dfloor" width="600" height="600"></canvas>
+   <div class="readout"><div><b id="rA">0°</b><small>Waggle angle</small></div><div><b id="rD">0 m</b><small>Distance</small></div><div><b id="rW">0 s</b><small>Waggle time</small></div></div>
+   <div class="quiz"><button class="btn alt" id="quizBtn">Quiz me: read a dance</button><span id="quizT" style="font-size:14px"></span></div></div>
+ </div>
+</div></section>
+
+<section data-view="log" hidden><div class="wrap">
+ <h2>Inspection <em>log.</em></h2>
+ <p class="lede">Every week, April to September. Look for eggs, the queen and any sign of trouble. Entries are saved in your browser.</p>
+ <div class="lgrid">
+  <form class="panel" id="lform">
+   <label>Hive</label><select id="lh"><option>No. 1 · "Marigold"</option><option>No. 2 · "Old Tom"</option><option selected>No. 3 · "The Duchess"</option></select>
+   <label>Date</label><input type="date" id="ld">
+   <label>Observed</label><div class="checks"></div>
+   <label>Temperament</label><div class="temper" id="temper"></div>
+   <label>Frames of brood · <span id="bv">6</span></label><input type="range" id="lb" min="0" max="10" value="6" style="accent-color:#c97a00;padding:0;border:0">
+   <label>Notes</label><textarea id="ln" rows="3" placeholder="Hive smells of ripening honey."></textarea>
+   <button class="btn" style="margin-top:16px;width:100%">Add to log</button>
+  </form>
+  <div class="entries" id="entries"></div>
+ </div>
+</div></section>
+
+<section data-view="honey" hidden><div class="wrap">
+ <h2>This year's <em>harvest.</em></h2>
+ <p class="lede">The colour of honey depends on the flowers the bees visited, from water-white acacia to nearly black buckwheat. Every jar is raw, unfiltered and extracted by hand.</p>
+ <div class="grade" id="grade"></div>
+ <div class="shop" id="shop"></div>
+</div></section>
+<div class="basket" id="basket"></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'hive';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- comb ---------- */
+const TYPES={egg:['Egg','#fff8e6','Day 1–3. Tiny grains standing upright. If you see eggs, the queen was here in the last three days.'],larva:['Larva','#fff1c9','Day 4–9. Pearly white grubs curled in royal jelly and bee bread. Nurse bees visit each one about 1,300 times a day.'],capped:['Capped brood','#c98a3a','Day 10–21. Sealed under a porous wax cap while each larva spins a cocoon and becomes a bee.'],honey:['Capped honey','#f2a900','Nectar evaporated to about 18% water and sealed with fresh white wax. This is winter food.'],nectar:['Nectar','#ffd766','Still unripe and glistening. The bees fan it with their wings to drive off the water.'],pollen:['Pollen','#e0662a','Bee bread: pollen packed down and slightly fermented. It is the colony\'s protein. Every colour comes from a different flower.'],empty:['Empty','#fbe7a1','Cleaned and polished, ready for the queen or for nectar.'],queen:['Queen cell','#b86a2a','A peanut-shaped cell hanging off the comb. The colony is raising a new queen and may be about to swarm.']};
+const R=16,HW=Math.sqrt(3)*R;let frameN=4,cells=[];
+function rnd(s){return()=>((s=(s*9301+49297)%233280)/233280)}
+function genFrame(n){const r=rnd(n*131+7),out=[];const cols=Math.floor(880/HW),rows=Math.floor(500/(R*1.5));const bw=.25+(n>2&&n<8?.18:0)+(n===5?.06:0);
+ for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const x=12+HW/2+i*HW+(j%2?HW/2:0),y=14+R+j*R*1.5;if(x>890)continue;const dx=(x-450)/450,dy=(y-290)/260,d=Math.sqrt(dx*dx/(bw*2.6)+dy*dy/(bw*2.2));
+  let t;if(n===0||n===9)t=r()<.85?'honey':r()<.5?'nectar':'pollen';else if(d<1){const ring=d;t=r()<.07?'empty':ring<.35?(r()<.6?'capped':'larva'):ring<.6?(r()<.5?'larva':'capped'):ring<.8?(r()<.6?'egg':'larva'):r()<.5?'egg':'empty'}else if(d<1.3)t=r()<.7?'pollen':'nectar';else t=y<130||d>1.8?(r()<.8?'honey':'nectar'):r()<.5?'nectar':'empty';
+  out.push({x,y,t,h:r()})}
+ if(n===6){out.filter(c=>c.y>440).slice(3,5).forEach(c=>c.t='queen')}return out}
+const PC=['#e0662a','#f5c518','#9b5ab5','#c43c3c','#8bb34a'];
+function hexP(x,y,r){return[...Array(6)].map((_,k)=>{const a=Math.PI/3*k+Math.PI/6;return`${(x+Math.cos(a)*r).toFixed(1)},${(y+Math.sin(a)*r).toFixed(1)}`}).join(' ')}
+let bees=[],selC=null;
+function drawComb(){cells=genFrame(frameN);let s='';cells.forEach((c,i)=>{const col=c.t==='pollen'?PC[Math.floor(c.h*5)]:TYPES[c.t][1];s+=`<polygon class="cell" data-i="${i}" points="${hexP(c.x,c.y,R-1)}" fill="${col}" stroke="#e2b85a" stroke-width="2"/>`;
+  if(c.t==='egg')s+=`<ellipse cx="${c.x}" cy="${c.y}" rx="1.4" ry="4" fill="#fff" stroke="#e2b85a" stroke-width=".6" pointer-events="none"/>`;
+  if(c.t==='larva')s+=`<path d="M${c.x-6} ${c.y+2} a6 6 0 1 1 12 0" fill="none" stroke="#fffdf4" stroke-width="4" stroke-linecap="round" pointer-events="none"/>`;
+  if(c.t==='honey')s+=`<polygon points="${hexP(c.x,c.y,R-6)}" fill="#ffe28a" opacity=".6" pointer-events="none"/>`;
+  if(c.t==='nectar')s+=`<circle cx="${c.x-3}" cy="${c.y-3}" r="3" fill="#fff" opacity=".8" pointer-events="none"/>`;
+  if(c.t==='queen')s+=`<ellipse cx="${c.x}" cy="${c.y+8}" rx="8" ry="14" fill="#b86a2a" stroke="#8a4a1a" pointer-events="none"/>`});
+ if(selC!=null&&cells[selC])s+=`<polygon points="${hexP(cells[selC].x,cells[selC].y,R+1)}" fill="none" stroke="#2b1d0e" stroke-width="3" pointer-events="none"/>`;
+ s+='<g id="beeL"></g>';document.getElementById('comb').innerHTML=s;
+ bees=[...Array(34)].map((_,i)=>({x:100+Math.random()*700,y:60+Math.random()*400,a:Math.random()*7,v:.4+Math.random()*.8,q:frameN===4&&i===0}));
+ const cnt={};cells.forEach(c=>cnt[c.t]=(cnt[c.t]||0)+1);const tot=cells.length;const c=selC!=null?cells[selC]:null;
+ document.getElementById('info').innerHTML=(c?`<div style="font-size:12px;font-weight:800;letter-spacing:.14em;color:#c97a00">FRAME ${frameN+1} · CELL ${selC}</div><h3>${TYPES[c.t][0]}</h3><p style="line-height:1.6;margin-top:6px">${TYPES[c.t][2]}</p>`:`<h3>Frame ${frameN+1} of 10</h3><p style="line-height:1.6;margin-top:6px">${frameN===0||frameN===9?'An outer frame, all stores. The bees keep honey at the edges to insulate the brood nest.':frameN===6?'Look along the bottom bar. Those are queen cells.':'A brood frame. The nursery is in the middle, with pollen and honey around it.'}</p>`)+
+ `<div class="legend">${Object.entries(TYPES).filter(([k])=>cnt[k]).map(([k,v])=>`<div><i style="background:${v[1]}"></i>${v[0]}<b>${Math.round(cnt[k]/tot*100)}%</b></div>`).join('')}</div><div class="health">${frameN===4?'👑 <b>Queen spotted</b> on this frame. She has the long abdomen and a green dot: she was marked in 2024.':cnt.egg?'✓ Eggs present, so the queen is laying.':'No eggs on this frame.'}${cnt.queen?' ⚠ <b>Queen cells</b>, so the colony may swarm. Consider a split.':''}</div>`}
+document.getElementById('frames').innerHTML=[...Array(10)].map((_,i)=>`<button data-f="${i}">${i+1}</button>`).join('');
+document.getElementById('frames').onclick=e=>{const f=e.target.dataset.f;if(f==null)return;frameN=+f;selC=null;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));drawComb()};
+document.getElementById('comb').onclick=e=>{const p=e.target.closest('.cell');if(!p)return;selC=+p.dataset.i;const keep=bees;drawComb();bees=keep};
+document.querySelector('#frames [data-f="4"]').classList.add('on');drawComb();
+function beeSVG(b){const d=b.a*180/Math.PI;return`<g transform="translate(${b.x.toFixed(1)} ${b.y.toFixed(1)}) rotate(${d.toFixed(0)})"><ellipse rx="${b.q?13:9}" ry="${b.q?4.5:5}" fill="${b.q?'#6b3f10':'#2b1d0e'}"/><path d="M-3 -4.5 v9 M2 -4.5 v9" stroke="#f2a900" stroke-width="2.4"/><ellipse cx="1" cy="-6" rx="5" ry="3" fill="#fff" opacity=".7"/><ellipse cx="1" cy="6" rx="5" ry="3" fill="#fff" opacity=".7"/>${b.q?'<circle cx="4" r="2.5" fill="#3cd070"/>':''}</g>`}
+function beeLoop(){const L=document.getElementById('beeL');if(L&&!document.querySelector('[data-view=hive]').hidden){bees.forEach(b=>{b.a+=(Math.random()-.5)*.4;b.x+=Math.cos(b.a)*b.v*(b.q?.4:1);b.y+=Math.sin(b.a)*b.v*(b.q?.4:1);if(b.x<20||b.x>880)b.a=Math.PI-b.a;if(b.y<20||b.y>500)b.a=-b.a;b.x=Math.max(20,Math.min(880,b.x));b.y=Math.max(20,Math.min(500,b.y))});L.innerHTML=bees.map(beeSVG).join('')}requestAnimationFrame(beeLoop)}beeLoop();
+
+/* ---------- waggle dance ---------- */
+const fc=document.getElementById('field'),fx=fc.getContext('2d'),dc=document.getElementById('dfloor'),dx=dc.getContext('2d');
+let food={x:430,y:160},quiz=null,t0=performance.now();
+const sunAz=h=>(h-12)/6*90;// degrees from south… we use compass: 0 = north up. Sun az: 90 E at 6, 180 S at 12, 270 W at 18
+const sunDeg=h=>90+(h-6)/12*180;
+function fieldDraw(){const W=600,h=+document.getElementById('sunT').value;document.getElementById('sunL').textContent=`${String(Math.floor(h)).padStart(2,'0')}:${String(Math.round(h%1*60)).padStart(2,'0')}`;
+ fx.fillStyle='#b9d27a';fx.fillRect(0,0,W,W);const r=rnd(3);for(let i=0;i<400;i++){fx.fillStyle=['#a6c563','#c9df8e','#9dbd5a'][i%3];fx.fillRect(r()*W,r()*W,3,6)}
+ fx.strokeStyle='#2b1d0e22';[100,200,300].forEach(rr=>{fx.beginPath();fx.arc(300,300,rr,0,7);fx.stroke();fx.fillStyle='#2b1d0e66';fx.font='12px Outfit';fx.fillText(rr*5+' m',300+rr+4,296)});
+ const sd=sunDeg(h)*Math.PI/180;const sx=300+Math.sin(sd)*270,sy=300-Math.cos(sd)*270;fx.fillStyle='#ffcf33';fx.beginPath();fx.arc(sx,sy,20,0,7);fx.fill();fx.strokeStyle='#ffcf3388';fx.setLineDash([6,6]);fx.beginPath();fx.moveTo(300,300);fx.lineTo(sx,sy);fx.stroke();
+ fx.strokeStyle='#c97a00';fx.beginPath();fx.moveTo(300,300);fx.lineTo(food.x,food.y);fx.stroke();fx.setLineDash([]);
+ for(let i=0;i<14;i++){const a=i*2.4,rr=4+i*1.3;fx.fillStyle=['#e05a8a','#fff','#8a5ae0'][i%3];fx.beginPath();fx.arc(food.x+Math.cos(a)*rr,food.y+Math.sin(a)*rr,4,0,7);fx.fill()}
+ fx.fillStyle='#8a5a2b';fx.fillRect(284,286,32,28);fx.fillStyle='#f2a900';fx.fillRect(280,280,40,8);fx.fillStyle='#2b1d0e';fx.fillRect(296,306,8,4);
+ fx.fillStyle='#2b1d0e';fx.font='800 13px Outfit';fx.fillText('N',294,18);fx.fillText('S',296,594)}
+function danceParams(){const h=+document.getElementById('sunT').value;const fd=Math.atan2(food.x-300,-(food.y-300))*180/Math.PI;let ang=((fd-sunDeg(h))%360+540)%360-180;const dist=Math.hypot(food.x-300,food.y-300)*5;return{ang,dist,wag:dist/1000*1+.2}}
+function danceDraw(now){const{ang,dist,wag}=quiz||danceParams();const W=600;dx.fillStyle='#e8c46a';dx.fillRect(0,0,W,W);
+ for(let j=0;j<22;j++)for(let i=0;i<24;i++){const x=i*26+(j%2?13:0),y=j*22.5;dx.strokeStyle='#d6a940';dx.beginPath();for(let k=0;k<6;k++){const a=Math.PI/3*k+Math.PI/6;dx.lineTo(x+Math.cos(a)*14,y+Math.sin(a)*14)}dx.closePath();dx.stroke()}
+ dx.fillStyle='#2b1d0e88';dx.font='800 12px Outfit';dx.fillText('↑ UP = TOWARD THE SUN',16,22);
+ // followers
+ const a=ang*Math.PI/180,L=60+Math.min(160,wag*40);const cyc=(wag+1.6)*1000;const t=((now-t0)%(cyc*2))/cyc;const side=t<1?1:-1;const u=t%1;const wf=wag/(wag+1.6);
+ let px,py,rot;const ux=Math.sin(a),uy=-Math.cos(a);const cx=300,cy=300;
+ if(u<wf){const k=u/wf;px=cx-ux*L/2+ux*L*k;py=cy-uy*L/2+uy*L*k;rot=a;const wig=Math.sin(now/22)*6;px+=uy*wig;py+=-ux*wig}
+ else{const k=(u-wf)/(1-wf);const th=Math.PI*k;const R2=L/2;const nx=-uy*side,ny=ux*side;px=cx+ux*R2*Math.cos(th)+nx*R2*.8*Math.sin(th);py=cy+uy*R2*Math.cos(th)+ny*R2*.8*Math.sin(th);rot=a+Math.PI+side*(Math.PI/2-th)*0}
+ dx.strokeStyle='#2b1d0e33';dx.lineWidth=2;dx.setLineDash([5,6]);dx.beginPath();dx.moveTo(cx-ux*L/2,cy-uy*L/2);dx.lineTo(cx+ux*L/2,cy+uy*L/2);dx.stroke();dx.setLineDash([]);
+ for(let i=0;i<7;i++){const fa=i/7*Math.PI*2;const fx2=cx+Math.cos(fa)*(L/2+50),fy2=cy+Math.sin(fa)*(L/2+50);drawBee(dx,fx2,fy2,Math.atan2(cy-fy2,cx-fx2)-Math.PI/2+Math.PI/2,false)}
+ drawBee(dx,px,py,u<wf?a:Math.atan2(py-cy,px-cx),true);
+ if(!quiz){document.getElementById('rA').textContent=Math.round(ang)+'°';document.getElementById('rD').textContent=Math.round(dist)+' m';document.getElementById('rW').textContent=wag.toFixed(1)+' s'}
+ if(!document.querySelector('[data-view=dance]').hidden)requestAnimationFrame(danceDraw);else dRun=false}
+function drawBee(x,px,py,rot,main){x.save();x.translate(px,py);x.rotate(rot);x.fillStyle=main?'#2b1d0e':'#2b1d0ecc';x.beginPath();x.ellipse(0,0,6,11,0,0,7);x.fill();x.strokeStyle='#f2a900';x.lineWidth=2.5;x.beginPath();x.moveTo(-6,2);x.lineTo(6,2);x.moveTo(-6,-3);x.lineTo(6,-3);x.stroke();x.fillStyle='#ffffffaa';x.beginPath();x.ellipse(-7,-4,5,3,.5,0,7);x.ellipse(7,-4,5,3,-.5,0,7);x.fill();if(main){x.strokeStyle='#c97a00';x.lineWidth=2;x.beginPath();x.arc(0,0,16,0,7);x.stroke()}x.restore()}
+let dRun=false;new MutationObserver(()=>{if(!document.querySelector('[data-view=dance]').hidden&&!dRun){dRun=true;fieldDraw();requestAnimationFrame(danceDraw)}}).observe(document.querySelector('[data-view=dance]'),{attributes:true});
+fc.onclick=e=>{const r=fc.getBoundingClientRect();food={x:(e.clientX-r.left)/r.width*600,y:(e.clientY-r.top)/r.height*600};if(quiz){const p=danceParams();const err=Math.abs(((p.ang-quiz.ang)+540)%360-180),derr=Math.abs(p.dist-quiz.dist);document.getElementById('quizT').innerHTML=err<25&&derr<300?`<b style="color:#5d7a2e">Spot on!</b> ${Math.round(err)}° and ${Math.round(derr)} m off. The hive will be proud.`:`${Math.round(err)}° and ${Math.round(derr)} m off. Answer: ${Math.round(quiz.dist)} m, ${Math.round(quiz.ang)}° from the sun.`;quiz=null}fieldDraw()};
+document.getElementById('sunT').oninput=fieldDraw;
+document.getElementById('quizBtn').onclick=()=>{quiz={ang:Math.round(Math.random()*300-150),dist:300+Math.random()*1100};quiz.wag=quiz.dist/1000+.2;document.getElementById('quizT').textContent='Watch the dance, then click the meadow where you think the flowers are.';['rA','rD','rW'].forEach(i=>document.getElementById(i).textContent='?')};
+
+/* ---------- log ---------- */
+const OBS=['Queen seen','Eggs','Larvae','Capped brood','Queen cells','Varroa mites','Stores low','Added super'];
+document.querySelector('.checks').innerHTML=OBS.map((o,i)=>`<label><input type="checkbox" value="${o}" ${i<3?'checked':''}> ${o}</label>`).join('');
+let temp=2;const TEMP=['😇','🙂','😐','😠','🔥'];
+function tempUI(){document.getElementById('temper').innerHTML=TEMP.map((t,i)=>`<button type="button" data-t="${i}" class="${i===temp?'on':''}">${t}</button>`).join('')}
+document.getElementById('temper').onclick=e=>{const t=e.target.closest('[data-t]');if(t){temp=+t.dataset.t;tempUI()}};tempUI();
+document.getElementById('ld').valueAsDate=new Date();document.getElementById('lb').oninput=e=>document.getElementById('bv').textContent=e.target.value;
+let LOG=store.get('hx-log',[{h:'No. 3 · "The Duchess"',d:'2026-06-02',o:['Queen seen','Eggs','Capped brood','Added super'],t:1,b:7,n:'Lime tree flow is on and she\'s bringing in nectar fast.'},{h:'No. 2 · "Old Tom"',d:'2026-05-26',o:['Eggs','Queen cells'],t:3,b:5,n:'Three charged queen cells. Did an artificial swarm.'},{h:'No. 1 · "Marigold"',d:'2026-05-19',o:['Larvae','Varroa mites','Stores low'],t:0,b:4,n:'Mite drop 12/day. Fed 1:1 syrup.'}]);
+function drawLog(){document.getElementById('entries').innerHTML=LOG.map((l,i)=>{const d=new Date(l.d+'T12:00');return`<div class="entry" style="border-color:${l.o.includes('Varroa mites')||l.o.includes('Queen cells')?'#e0662a':'#f2a900'}"><div class="d">${isNaN(d)?'—':d.getDate()}<small>${isNaN(d)?'':d.toLocaleString('en',{month:'short'}).toUpperCase()}</small></div><div><b>${l.h}</b> ${TEMP[l.t]} · ${l.b} frames brood<div style="font-size:14px;opacity:.75;margin-top:3px">${l.n||''}</div><div class="tags">${l.o.map(o=>`<span>${o}</span>`).join('')}</div></div><button data-del="${i}" title="delete">×</button></div>`}).join('')}
+document.getElementById('lform').onsubmit=e=>{e.preventDefault();LOG.unshift({h:document.getElementById('lh').value,d:document.getElementById('ld').value,o:[...document.querySelectorAll('.checks input:checked')].map(c=>c.value),t:temp,b:+document.getElementById('lb').value,n:document.getElementById('ln').value});store.set('hx-log',LOG);document.getElementById('ln').value='';drawLog()};
+document.getElementById('entries').onclick=e=>{const i=e.target.dataset.del;if(i==null)return;LOG.splice(+i,1);store.set('hx-log',LOG);drawLog()};drawLog();
+
+/* ---------- honey ---------- */
+const GRADE=[['Water white','#fdf6c9'],['Extra white','#f9e79a'],['White','#f5d76e'],['Extra light amber','#eab93a'],['Light amber','#d9951c'],['Amber','#b0650c'],['Dark amber','#6e3506']];
+document.getElementById('grade').innerHTML=GRADE.map(g=>`<span style="background:${g[1]};${g[1]<'#e'?'':'color:#2b1d0e88'}">${g[0]}</span>`).join('');
+const HON=[['Spring Blossom','Apple, hawthorn, dandelion. Sets creamy within weeks.',8.5,'#f5d76e'],['Lime Tree','Minty, bright and a little green. From our lime avenue in July.',9.5,'#f9e79a'],['Wildflower','Clover, bramble and willowherb. The taste of an English summer.',8,'#eab93a'],['Heather','Thick and jelly-like, pressed from the comb. From the moors in August.',14,'#b0650c'],['Buckwheat','Malty and molasses-dark. People either love it or don\'t.',11,'#6e3506'],['Cut Comb','A square of untouched comb, wax and all, straight from the frame.',16,'#f2a900']];
+let bag={};
+document.getElementById('shop').innerHTML=HON.map((h,i)=>`<div class="jar"><svg viewBox="0 0 130 160"><rect x="30" y="8" width="70" height="20" rx="3" fill="#c97a00"/><rect x="30" y="8" width="70" height="6" fill="#e0a030"/><path d="M24 34 Q20 30 30 28 H100 Q110 30 106 34 V140 Q106 154 90 154 H40 Q24 154 24 140Z" fill="${h[3]}" stroke="#2b1d0e" stroke-width="2.5"/><path d="M32 40 V140" stroke="#fff" stroke-width="5" opacity=".35" stroke-linecap="round"/><rect x="34" y="70" width="62" height="46" rx="4" fill="#fff6df" stroke="#2b1d0e" stroke-width="1.5"/><text x="65" y="90" text-anchor="middle" font-family="Young Serif" font-size="10" fill="#2b1d0e">HEXWORTH</text><text x="65" y="106" text-anchor="middle" font-family="Outfit" font-size="8" font-weight="800" fill="#c97a00">${h[0].toUpperCase()}</text>${i===5?'<g fill="none" stroke="#c97a00" stroke-width="1.5">'+[0,1,2].map(k=>`<polygon points="${hexP(48+k*17,132,7)}"/>`).join('')+'</g>':''}</svg><h3>${h[0]}</h3><p>${h[1]}</p><div class="row"><span class="pr">£${h[2].toFixed(2)}</span><button class="btn" data-b="${i}">Add jar</button></div></div>`).join('');
+document.getElementById('shop').onclick=e=>{const i=e.target.dataset.b;if(i==null)return;bag[i]=(bag[i]||0)+1;const n=Object.values(bag).reduce((a,b)=>a+b,0),tot=Object.entries(bag).reduce((s,[k,v])=>s+HON[k][2]*v,0);const b=document.getElementById('basket');b.classList.add('on');b.textContent=`🍯 ${n} jar${n>1?'s':''} · £${tot.toFixed(2)}`;e.target.textContent='✓ Added';setTimeout(()=>e.target.textContent='Add jar',900)};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

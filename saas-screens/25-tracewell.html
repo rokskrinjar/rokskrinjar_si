@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tracewell — Trace 7f3a…c91</title>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;700&family=Fragment+Mono&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#0c0d10;--s:#13151a;--s2:#1a1d24;--ln:#262a33;--tx:#e6e8ee;--mu:#838a99;--c1:#5cc8ff;--c2:#ffb547;--c3:#b48cff;--c4:#4ee1a0;--err:#ff5f6d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:13px/1.45 'Geologica',sans-serif}
+.mono{font-family:'Fragment Mono',monospace}
+header{display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--ln)}
+.lg{font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px}.lg svg{width:22px}
+.bc{color:var(--mu)}.bc b{color:var(--tx);font-family:'Fragment Mono';font-weight:400}header .sp{flex:1}
+.chip{border:1px solid var(--ln);border-radius:7px;padding:5px 10px;color:var(--mu);font-size:12px}.chip.err{border-color:rgba(255,95,109,.4);color:var(--err)}
+.sum{display:grid;grid-template-columns:repeat(5,auto) 1fr;gap:28px;padding:16px 20px;border-bottom:1px solid var(--ln);align-items:end}
+.sum div span{display:block;color:var(--mu);font-size:11.5px}.sum div b{font:20px 'Fragment Mono'}
+.leg{display:flex;gap:14px;justify-content:flex-end;color:var(--mu);font-size:12px}.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.wf{display:grid;grid-template-columns:minmax(260px,32%) 1fr}
+.wf .hd{padding:8px 20px;border-bottom:1px solid var(--ln);color:var(--mu);font-size:11.5px;background:var(--s)}
+.ticks{position:relative;border-bottom:1px solid var(--ln);background:var(--s);height:33px}.ticks span{position:absolute;top:9px;font:11px 'Fragment Mono';color:var(--mu);transform:translateX(-50%)}
+.row{display:contents;cursor:pointer}
+.nm{padding:0 20px;height:30px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #191c22;white-space:nowrap;overflow:hidden}
+.nm .svc{font-size:11px;padding:1px 6px;border-radius:4px;color:#0c0d10;font-weight:600}
+.nm .op{color:var(--tx);overflow:hidden;text-overflow:ellipsis}
+.bar{position:relative;height:30px;border-bottom:1px solid #191c22;background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),#171a20 calc(10% - 1px) 10%)}
+.bar i{position:absolute;top:8px;height:14px;border-radius:3px;min-width:2px}
+.bar em{position:absolute;top:7px;font:11px 'Fragment Mono';color:var(--mu);font-style:normal;white-space:nowrap}
+.row.sel .nm,.row.sel .bar{background-color:#1b2030}
+.row.e .op{color:var(--err)}
+.panel{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ln)}
+.panel>div{padding:18px 20px}.panel>div+div{border-left:1px solid var(--ln)}
+.panel h3{margin:0 0 12px;font-size:14px;display:flex;gap:8px;align-items:center}
+.kv{display:grid;grid-template-columns:150px 1fr;font:12px/2 'Fragment Mono'}.kv span{color:var(--mu)}
+.logs{font:12px/1.9 'Fragment Mono'}.logs div{display:grid;grid-template-columns:90px 50px 1fr;gap:8px}.logs .t{color:var(--mu)}.lv-i{color:var(--c1)}.lv-w{color:var(--c2)}.lv-e{color:var(--err)}
+.flame{display:flex;flex-direction:column;gap:2px;margin-top:6px}.flame div{display:flex;gap:2px}.flame span{height:18px;border-radius:2px;font:10px/18px 'Fragment Mono';padding:0 4px;color:#0c0d10;overflow:hidden;white-space:nowrap}
+@media(max-width:900px){.wf{grid-template-columns:44% 1fr}.panel{grid-template-columns:1fr}.panel>div+div{border-left:0;border-top:1px solid var(--ln)}.sum{grid-template-columns:repeat(2,1fr)}.leg{display:none}}
+</style>
+</head>
+<body>
+<header><div class="lg"><svg viewBox="0 0 22 22"><path d="M2 5h12M5 10h14M3 15h9" stroke="#5cc8ff" stroke-width="2.6" stroke-linecap="round"/></svg>Tracewell</div><span class="bc">checkout-api / traces / <b>7f3a9e…c91</b></span><span class="sp"></span><span class="chip err">● 1 error</span><span class="chip">prod · eu-west-1</span><span class="chip">1 Oct · 14:06:21.442</span></header>
+<div class="sum"><div><span>Duration</span><b>1,284 ms</b></div><div><span>Spans</span><b>14</b></div><div><span>Services</span><b>5</b></div><div><span>Status</span><b style="color:var(--err)">500</b></div><div><span>Critical path</span><b>payments 61%</b></div>
+ <div class="leg"><span><i style="background:var(--c1)"></i>gateway</span><span><i style="background:var(--c3)"></i>checkout</span><span><i style="background:var(--c2)"></i>payments</span><span><i style="background:var(--c4)"></i>inventory</span><span><i style="background:#8fa3c0"></i>postgres</span></div></div>
+<div class="wf" id="wf"><div class="hd">Service · operation</div><div class="ticks" id="ticks"></div></div>
+<div class="panel"><div><h3 id="sh"></h3><div class="kv" id="kv"></div><h3 style="margin-top:18px">CPU profile · payments</h3><div class="flame" id="flame"></div></div><div><h3>Logs in this span</h3><div class="logs" id="logs"></div></div></div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 50 SaaS</a>
+<script>
+const COL={gateway:'var(--c1)',checkout:'var(--c3)',payments:'var(--c2)',inventory:'var(--c4)',postgres:'#8fa3c0'};
+const S=[[0,'gateway','POST /v1/checkout',0,1284],[1,'checkout','CreateOrder',12,1260],[2,'inventory','ReserveItems',30,148],[3,'postgres','SELECT stock FOR UPDATE',44,62],[3,'postgres','UPDATE stock',112,48],[2,'checkout','ApplyPromo',182,40],[2,'payments','AuthorizeCard',230,782],[3,'payments','risk.score',242,96],[3,'payments','stripe.paymentIntents.create',344,610],[4,'payments','retry #1 (timeout)',344,300,1],[4,'payments','retry #2',660,294,1],[2,'checkout','WriteOrder',1018,190,1],[3,'postgres','INSERT orders',1026,170,1],[1,'gateway','render error 500',1250,24,1]];
+const TOT=1300;let sel=8;const wf=document.getElementById('wf');
+document.getElementById('ticks').innerHTML=[0,250,500,750,1000,1250].map(t=>`<span style="left:${t/TOT*100}%">${t}ms</span>`).join('');
+S.forEach((s,i)=>{const[d,svc,op,st,du,er]=s;const row=document.createElement('div');row.className='row'+(er?' e':'')+(i===sel?' sel':'');row.dataset.i=i;
+ row.innerHTML=`<div class="nm" style="padding-left:${20+d*16}px">${d?'<span style="color:#3a404c">└</span>':''}<span class="svc" style="background:${COL[svc]}">${svc}</span><span class="op">${op}</span></div><div class="bar"><i style="left:${st/TOT*100}%;width:${du/TOT*100}%;background:${er?'var(--err)':COL[svc]};opacity:${er?.85:1}"></i><em style="left:calc(${(st+du)/TOT*100}% + 6px)">${du} ms</em></div>`;wf.appendChild(row)});
+function show(){const s=S[sel];document.querySelectorAll('.row').forEach(r=>r.classList.toggle('sel',+r.dataset.i===sel));
+ document.getElementById('sh').innerHTML=`<span class="svc" style="background:${COL[s[1]]};color:#0c0d10;padding:1px 6px;border-radius:4px;font-size:11px">${s[1]}</span>${s[2]}`;
+ document.getElementById('kv').innerHTML=[['duration',s[4]+' ms'],['start offset',s[3]+' ms'],['span.kind','client'],['http.status_code',s[5]?'504':'200'],['peer.service',s[1]==='payments'?'api.stripe.com':s[1]],['deploy.version','checkout@4.12.3'],['user.tier','business']].map(k=>`<span>${k[0]}</span><b style="font-weight:400">${k[1]}</b>`).join('');
+ const L=s[5]?[['14:06:21.786','WARN','upstream timeout after 300ms, retrying (1/2)'],['14:06:22.102','WARN','upstream timeout after 294ms, giving up'],['14:06:22.104','ERROR','PaymentAuthorizationError: card_declined_timeout'],['14:06:22.108','INFO','order 88123 rolled back']]:[['14:06:21.784','INFO','creating payment intent amount=4900 eur'],['14:06:21.791','INFO','idempotency key ord_88123_auth'],['14:06:22.390','INFO','intent pi_3Q… status=requires_capture']];
+ document.getElementById('logs').innerHTML=L.map(l=>`<div><span class="t">${l[0].slice(6)}</span><span class="lv-${l[1][0].toLowerCase()}">${l[1]}</span><span>${l[2]}</span></div>`).join('')}
+wf.onclick=e=>{const r=e.target.closest('.row')||e.target.closest('.nm,.bar')?.parentNode;const el=e.target.closest('.nm,.bar');if(!el)return;const idx=[...wf.querySelectorAll('.nm')].indexOf(el.classList.contains('nm')?el:el.previousElementSibling);if(idx>=0){sel=idx;show()}};
+const FL=[[['main',100,'#ffb547']],[['handleAuthorize',92,'#ffc56e'],['gc',8,'#8fa3c0']],[['stripeClient.post',70,'#ffd28f'],['risk.score',20,'#b48cff']],[['tls.handshake',38,'#ffe0ae'],['json.encode',12,'#ffe0ae'],['await',20,'#5cc8ff'],['model.eval',16,'#cdb2ff']]];
+document.getElementById('flame').innerHTML=FL.map(r=>`<div>${r.map(c=>`<span style="flex:${c[1]};background:${c[2]}">${c[0]}</span>`).join('')}</div>`).join('');
+show();
+</script>
+</body>
+</html>

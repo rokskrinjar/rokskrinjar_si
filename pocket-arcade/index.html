@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pocket Arcade</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#120c24;--ink:#f4efff;--mute:#a79cc8;--line:#2c2350;--card:#1b1436;--acc:#ffcf4a;--acc2:#ff5fa2}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;min-height:100vh;padding:0 16px 60px;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(900px 500px at 15% -10%,#ff5fa233,transparent 60%),radial-gradient(800px 600px at 110% 10%,#3ec6ff26,transparent 60%),radial-gradient(700px 500px at 50% 120%,#ffcf4a1f,transparent 60%);pointer-events:none;z-index:-1}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(#000,transparent 70%);-webkit-mask-image:linear-gradient(#000,transparent 70%);pointer-events:none;z-index:-1}
+.wrap{max-width:1180px;margin:0 auto}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--mute);gap:12px;flex-wrap:wrap}
+nav a{color:var(--mute);text-decoration:none}nav a:hover{color:var(--ink)}
+header{padding:28px 0 26px;display:grid;gap:18px}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.25em;color:var(--acc);text-transform:uppercase}
+h1{font-weight:800;font-size:clamp(52px,11vw,132px);line-height:.86;letter-spacing:-.045em;text-wrap:balance}
+h1 .p{background:linear-gradient(95deg,#ffcf4a,#ff5fa2 45%,#7c6cff 75%,#3ec6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{max-width:60ch;color:var(--mute);font-size:clamp(16px,2.2vw,19px);line-height:1.5}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{border:1px solid var(--line);background:#ffffff06;border-radius:14px;padding:10px 14px;min-width:120px}.stat b{display:block;font-size:26px;font-weight:800;font-variant-numeric:tabular-nums}.stat span{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mute);letter-spacing:.08em}
+.tools{position:sticky;top:0;z-index:20;background:linear-gradient(var(--bg) 75%,transparent);padding:12px 0 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font:inherit;font-weight:500;font-size:14px;border:1px solid var(--line);background:#ffffff08;color:var(--ink);border-radius:40px;padding:7px 14px;cursor:pointer;display:flex;gap:6px;align-items:center}.chip small{font-family:'JetBrains Mono',monospace;color:var(--mute);font-size:11px}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}.chip.on small{color:var(--bg)}
+.search{flex:1;min-width:160px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#ffffff08;border-radius:40px;padding:0 14px}.search input{flex:1;font:inherit;font-size:15px;background:none;border:0;color:var(--ink);padding:9px 0;outline:none;min-width:0}.search kbd{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mute);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+.views{display:flex;border:1px solid var(--line);border-radius:40px;padding:3px;background:#ffffff08}.views button{font:inherit;font-size:13px;font-weight:800;border:0;background:none;color:var(--mute);padding:6px 12px;border-radius:40px;cursor:pointer}.views button.on{background:var(--ink);color:var(--bg)}
+.btn{font:inherit;font-weight:800;font-size:14px;border:0;border-radius:40px;padding:9px 16px;cursor:pointer;background:var(--acc);color:#241a00;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.continue{display:none;margin:4px 0 18px;align-items:center;gap:12px;border:1px dashed #ffcf4a66;border-radius:16px;padding:10px 14px;color:var(--mute);font-size:14px}.continue.on{display:flex}.continue a{color:var(--acc);font-weight:800;text-decoration:none}
+.empty{text-align:center;color:var(--mute);padding:40px}
+
+/* ---------- grid view ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.card{position:relative;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:transform .18s cubic-bezier(.3,1.5,.5,1),border-color .18s,box-shadow .18s;outline:none}
+.card:hover,.card:focus-visible{transform:translateY(-4px) rotate(-.4deg);border-color:#ffffff40;box-shadow:0 16px 40px -12px var(--g1)}
+.card:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.art{aspect-ratio:16/10;background:linear-gradient(135deg,var(--g1),var(--g2));position:relative;display:grid;place-items:center;overflow:hidden}
+.art::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,#ffffff55,transparent 45%),repeating-linear-gradient(0deg,#0000 0 3px,#00000012 3px 4px)}
+.art .em{font-size:52px;filter:drop-shadow(0 6px 10px #0006);transition:transform .25s}.card:hover .em{transform:scale(1.15) rotate(-6deg)}
+.art .no{position:absolute;left:10px;top:8px;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;color:#fffc;text-shadow:0 1px 3px #0008}
+.art .rec{position:absolute;right:8px;top:8px;background:#000a;color:var(--acc);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;border-radius:20px;padding:3px 8px;max-width:70%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{font-weight:800;font-size:19px;letter-spacing:-.01em;line-height:1.1}
+.card p{color:var(--mute);font-size:13.5px;line-height:1.4;flex:1}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mute)}
+.tag{border:1px solid var(--line);border-radius:20px;padding:2px 8px;text-transform:uppercase;letter-spacing:.08em;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mute)}
+.ctl{display:flex;gap:4px}.ctl i{font-style:normal;border:1px solid var(--line);border-radius:5px;padding:1px 5px}
+
+/* ---------- list view ---------- */
+.list{display:flex;flex-direction:column;gap:22px}
+.item{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:center;background:linear-gradient(135deg,color-mix(in srgb,var(--g1) 16%,var(--card)),var(--card) 60%);border:1px solid var(--line);border-radius:26px;padding:18px;scroll-margin-top:90px;transition:border-color .2s,box-shadow .2s}
+.item:nth-child(even){grid-template-columns:minmax(0,1fr) minmax(0,1.35fr)}.item:nth-child(even) .stage{order:2}
+.item.live{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc),0 20px 60px -20px var(--g1)}
+.stage{position:relative;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:inset 0 0 0 1px #ffffff1a,0 14px 30px -12px #000a;cursor:pointer}
+.stage .poster{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:8px;text-align:center;color:#fff;text-shadow:0 2px 10px #0008}
+.stage .poster .em{font-size:72px}.stage .poster small{font-family:'JetBrains Mono',monospace;font-size:12px;opacity:.8;letter-spacing:.1em}
+.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none;opacity:0;transition:opacity .4s;background:transparent}
+.stage iframe.ready{opacity:1}
+.item.live .stage iframe{pointer-events:auto}
+.stage .veil{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:16px;background:linear-gradient(transparent 55%,#0009);transition:opacity .25s}
+.stage:hover .veil .btn{transform:scale(1.05)}
+.item.live .veil{opacity:0;pointer-events:none}
+.stage .live-tag{position:absolute;top:10px;left:10px;display:none;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;background:var(--acc);color:#241a00;border-radius:20px;padding:3px 9px;pointer-events:none}.item.live .live-tag{display:block}
+.info{display:flex;flex-direction:column;gap:12px;padding:4px 6px}
+.info .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mute);letter-spacing:.12em;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.info h2{font-weight:800;font-size:clamp(30px,4.2vw,48px);line-height:.95;letter-spacing:-.03em;text-wrap:balance}
+.info h2 .em{font-size:.8em;margin-right:.15em}
+.info p{color:#d6cdf0;font-size:16.5px;line-height:1.55;max-width:48ch}
+.how{border-left:3px solid var(--g2);padding:4px 0 4px 12px;font-size:14px;color:var(--mute);line-height:1.5}.how b{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--ink);margin-bottom:2px}
+.best{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--acc)}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+@media (max-width:820px){.item,.item:nth-child(even){grid-template-columns:1fr;gap:16px;padding:12px}.item:nth-child(even) .stage{order:0}.stage{aspect-ratio:3/4;max-height:78vh}.info{padding:0 4px 6px}}
+footer{margin-top:50px;color:var(--mute);font-family:'JetBrains Mono',monospace;font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--line);padding-top:18px}
+footer a{color:var(--mute)}
+@media (max-width:520px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card p{display:none}.art .em{font-size:40px}.card h3{font-size:16px}.stat{min-width:0;flex:1}.meta .ctl{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="/100-pages/">← 100 pages</a><span>/games · 50 cartridges</span></nav>
+<header>
+ <div class="kicker">Pocket Arcade · vol. 1</div>
+ <h1>Fifty tiny <span class="p">games.</span></h1>
+ <p class="lede">Every one plays with a keyboard or a thumb, loads instantly, and quietly remembers your best. Scroll the list and play right here — or open any game full screen.</p>
+ <div class="stats"><div class="stat"><b id="stRec">0</b><span>RECORDS SET</span></div><div class="stat"><b>50</b><span>GAMES</span></div><div class="stat"><b>5</b><span>GENRES</span></div></div>
+</header>
+<div class="continue" id="cont">↺ Pick up where you left off: <a id="contA" href="#"></a></div>
+<div class="tools">
+ <div class="views" role="group" aria-label="View"><button data-v="list" class="on">☰ List</button><button data-v="grid">▦ Grid</button></div>
+ <div class="chips" id="chips"></div>
+ <label class="search"><span aria-hidden="true">⌕</span><input id="q" placeholder="Search games…" aria-label="Search games"><kbd>/</kbd></label>
+ <button class="btn" id="rnd" title="Random game (R)">🎲 Surprise me</button>
+</div>
+<main id="main"></main>
+<footer><span>Tip: <b>/</b> search · <b>R</b> random game · <b>G</b> toggle view. Best scores live in this browser only.</span><a href="/100-pages/">Back to the 100 pages →</a></footer>
+</div>
+<script>
+// [file, title, genre, description, emoji, colour 1, colour 2, best-score unit, controls]
+const G=[
+['01-tides-2048','Tides 2048','puzzle','Slide the whole board and matching tiles merge into their sum. Keep merging until you reach 2048 — one careless slide can fill the ocean. An undo button forgives a single mistake.','🌊','#0f5c6e','#f2b880','pts','Arrows / WASD or swipe to slide · Undo button'],
+['02-neon-serpent','Neon Serpent','arcade','Classic snake on a glowing synthwave grid. Every orb makes you longer and faster; green bonus squares appear briefly for big points. Don’t bite your own tail or the walls.','🐍','#2a0b44','#ff2bd6','pts','Arrows / WASD or swipe to steer'],
+['03-paper-pilot','Paper Pilot','arcade','Keep a paper plane aloft between pastel pillars. Each tap gives a little lift, gravity does the rest, and the gaps tighten as your score climbs.','✈️','#8fd0ea','#ffb3c1','pts','Space / ↑ or tap to flap'],
+['04-prism-breaker','Prism Breaker','arcade','Bounce a ball into walls of glowing bricks. Catch falling power-ups for a wider paddle, triple balls or an extra life; each level lays out a new pattern.','🧱','#221a4a','#ff7ad9','pts','← → or drag the paddle · Space / tap to launch'],
+['05-sky-stack','Sky Stack','reflex','A slab slides back and forth over your tower — drop it in time. Whatever overhangs is sliced off, so the tower thins. Chain perfect drops to grow it back.','🏗️','#e0689b','#6fc3df','blocks','Space or tap to drop'],
+['06-dune-dash','Dune Dash','arcade','An endless desert run with a little fox, from sunny day into starry night. Jump cacti, duck the vultures and collect gems as the pace keeps rising.','🦊','#f3b27a','#3a1d5e','pts','Space / ↑ or tap to jump (hold = higher) · ↓ or swipe down to duck'],
+['07-crystal-fall','Crystal Fall','puzzle','Falling-block puzzle with glassy gem pieces. Complete full rows to clear them; hold a piece for later, watch the ghost preview and survive the speeding levels.','💎','#0a0820','#c38bff','pts','← → move · ↑ rotate · Space hard drop · C hold · touch: drag, tap, flick down'],
+['08-void-drifter','Void Drifter','arcade','Pilot a vector ship through a field of drifting rocks. Big asteroids split into smaller ones, and your momentum never stops — clear the wave before they box you in.','☄️','#02030a','#3be8ff','pts','← → rotate · ↑ thrust · Space fire · touch: left thumb steers, right thumb fires'],
+['09-paddle-pop','Paddle Pop','arcade','Pong in risograph print colours against a CPU that sharpens as the match goes on. Hit with the paddle’s edge for steep angles; first to seven wins.','🏓','#ff4f8b','#1f5fff','pts','← → / A D or drag to move your paddle'],
+['10-chroma-gate','Chroma Gate','reflex','Your ball can only pass through gates of its own colour. Time each hop through spinning rings and sliding bars; colour orbs change your colour along the way.','🎨','#17161d','#35e0c2','gates','Space / ↑ or tap to hop'],
+['11-hop-hop','Hop Hop','arcade','Guide a blocky chicken across roads, rivers and railway lines. Ride logs over water, listen for trains, and don’t hang around too long — the eagle is watching.','🐔','#8fd46a','#3fb0f0','hops','Arrows / WASD or swipe · tap to hop forward'],
+['12-star-siege','Star Siege','arcade','Space invaders beneath a synthwave sun. Hide behind shields that crumble, shoot the mystery saucer for bonus points and don’t let the swarm reach the ground.','👾','#3b0d5c','#ff5f8f','pts','← → move · Space fire · touch: drag and hold'],
+['13-mine-garden','Mine Garden','puzzle','Minesweeper in a garden full of sleeping bees. Numbers tell you how many bees hide next to each patch; mark them with tulips and dig up everything else.','🌷','#9fbe84','#e8f0d0','time','Tap to dig · long-press / right-click for a tulip · arrows + Space + F'],
+['14-tarot-pairs','Tarot Pairs','cozy','Memory game with illustrated celestial cards. Find pairs before the candle burns out; matches in a row multiply your score and every reading adds more cards.','🔮','#0e1236','#e8c56b','pts','Tap cards · arrows + Space'],
+['15-echo-bloom','Echo Bloom','brain','The flower plays a melody on its petals — repeat it exactly. Each round adds one more note and the tempo creeps up. How long a song can you hold?','🌸','#3b1840','#ff6f91','round','Tap the petals · arrows or 1–4'],
+['16-whack-shack','Whack Shack','reflex','Moles pop out of nine holes for 45 seconds. Golden moles are worth more, helmeted ones need two hits, and bunnies cost points. Hits in a row multiply your score.','🔨','#6b3f22','#7cbf4a','pts','Tap the holes · numpad 7-9 / 4-6 / 1-3 or Q W E / A S D / Z X C'],
+['17-cloud-hopper','Cloud Hopper','arcade','A bouncy blob jumps from cloud to cloud, ever higher. Grey clouds crumble, pink ones move and rainbow springs launch you up — from dawn all the way into space.','☁️','#9fd8f5','#ff7eb6','pts','← → / A D or hold the left / right side of the screen'],
+['18-blob-feast','Blob Feast','arcade','You are a cell in a petri dish. Eat food and smaller blobs to grow, flee from bigger ones, and climb the size leaderboard. A dash helps you escape — at a cost.','🦠','#04201f','#3fe0b0','mass','Arrows / WASD or hold and drag · Space / double-tap to dash'],
+['19-pulse-runner','Pulse Runner','reflex','One fixed level, endless attempts. A cube runs automatically to a pulsing beat — you only decide when to jump over spikes, onto blocks and off launch pads.','🔺','#12002b','#00f0ff','pct','Space / ↑ or tap to jump · hold to keep bouncing'],
+['20-maze-muncher','Maze Muncher','arcade','A donut in a maze eats all the sprinkles. Four jellies chase it; the big sprinkles turn them blue for a while so you can eat them instead.','🍩','#1c0a2b','#ff7bd5','pts','Arrows / WASD or swipe'],
+['21-crate-cove','Crate Cove','puzzle','Thirteen handcrafted crate-pushing puzzles. A crab can only push crates, never pull them — so think ahead or you will wedge one into a corner. Every level is solvable.','🦀','#1b8fb3','#f3d9a4','coves','Arrows / swipe or tap to walk · Z undo · R reset'],
+['22-lantern-grid','Lantern Grid','cozy','Tapping a lantern flips it and its four neighbours. Light up the whole square in as few taps as possible; nights get larger grids, and a hint is always there.','🏮','#140b2e','#ff9d3a','night','Tap lanterns · arrows + Space · H hint'],
+['23-slide-quest','Slide Quest','puzzle','The classic sliding-tile puzzle with freshly generated art every game. Put the picture back together in 3×3, 4×4 or 5×5 against the clock.','🧩','#1e1b2e','#e4572e','slide','Tap tiles · arrows / swipe toward the gap'],
+['24-wordmint','Wordmint','brain','Guess the hidden five-letter word in six tries. Green is the right letter in the right place, yellow is in the word but misplaced. Daily puzzle or an endless streak.','🔤','#2f8f6a','#e3a72f','streak','Type or use the on-screen keyboard · Enter to guess'],
+['25-rain-type','Rain Type','brain','Words slide down a rainy window. Type each one before it reaches the street; clean words build a combo, and waves bring longer words at a faster pace.','⌨️','#0b1024','#ff6ec7','pts','Type the words · on-screen keyboard on touch'],
+['26-snap-reflex','Snap Reflex','reflex','Measure your reaction time. Wait for red to turn green, then react as fast as you can. Five rounds give an average and an animal rank.','⚡','#d7263d','#1bd96a','ms','Tap or press any key when it turns green'],
+['27-city-shield','City Shield','arcade','Missiles rain on a city at dusk. Set off interceptor blasts in their path; chain explosions for more points, and save ammo for a bonus at the end of each wave.','🛡️','#1d2b5a','#f2a65a','pts','Tap / click the sky · arrows aim + Space (or A S D per battery)'],
+['28-putt-park','Putt Park','cozy','Nine holes of mini golf with bumpers, sand, water and a moving gate. Pull back to set direction and power — and try to finish under par.','⛳','#52b36a','#fbe3c8','strokes','Drag back and release · ← → aim, hold Space for power'],
+['29-bubble-bloom','Bubble Bloom','puzzle','Shoot glossy bubbles into the cluster; three or more of one colour pop. Bank shots off the walls, drop whole hanging bunches, and don’t let the ceiling creep too low.','🫧','#e9d7ff','#ff6fa8','pts','Drag to aim, release to shoot · ← → + Space · X swaps the bubble'],
+['30-gem-cascade','Gem Cascade','puzzle','Match-3 with jewels: swap neighbours into lines of three. Four in a row forge a bolt that clears its whole row and column; reach the target score before your moves run out.','💠','#3a1d52','#ffd98a','pts','Drag or tap-tap to swap · arrows + Space'],
+['31-blade-spin','Blade Spin','reflex','Throw knives into a turning log without hitting the ones already in it. Every stage spins differently, and every fifth one is a boss log.','🔪','#efe4cf','#b8322a','pts','Space / ↑ or tap to throw'],
+['32-drop-four','Drop Four','brain','Connect Four against a computer that searches moves ahead. Line up four discs in a row, column or diagonal — and block its threats. Three difficulty levels.','🔴','#1f7a7a','#e2552b','wins','Tap a column · ← → + Space or keys 1–7'],
+['33-flip-side','Flip Side','brain','Reversi in bold Bauhaus colours. Sandwich the CPU’s discs to flip them to your side; corners are gold. Most discs at the end wins.','⚫','#f2ede4','#2346ff','margin','Tap a highlighted square · arrows + Space'],
+['34-moonfall','Moonfall','arcade','A lunar lander with limited fuel. Rotate, fire the engine and set down gently on a lit pad — slow, level and centred. Smaller pads pay more.','🌙','#000000','#7dffa1','pts','← → rotate · ↑ / Space thrust · on-screen buttons on touch'],
+['35-coastal-cruise','Coastal Cruise','arcade','A drive along the sunny coast. Switch lanes to weave through traffic, collect coins and earn bonuses for near misses while the road keeps speeding up.','🚗','#4d5566','#2a9d8f','pts','← → or tap / swipe left and right'],
+['36-ivory-rush','Ivory Rush','reflex','Piano tiles: tap the black keys in order from the bottom and you play a classical tune. One wrong or missed key and the concert is over.','🎹','#0d0b09','#d9b36a','notes','Tap the black tiles · keys D F J K'],
+['37-orbit-hop','Orbit Hop','reflex','You circle a little planet. Let go at exactly the right moment to slingshot into the orbit of the next one. Planets drift further apart and start to move.','🪐','#1a1440','#9ecbff','worlds','Space or tap to let go'],
+['38-petal-storm','Petal Storm','arcade','A gentle bullet-hell: a flower sprays patterns of petals and you steer a firefly through the gaps. Only its glowing core can be hit; brushing past petals scores points.','🌺','#fbf5ea','#e0567a','pts','Arrows / WASD (Shift = slow) · drag anywhere on touch'],
+['39-honey-hive','Honey Hive','cozy','An idle clicker: tap the hive for honey, hire bees, beekeepers and whole estates that produce it for you. It keeps producing even while you’re away.','🐝','#2b1a0e','#ffc93c','honey','Tap the hive or Space · keys 1–6 buy · U upgrade'],
+['40-sudoku-zen','Sudoku Zen','puzzle','A calm sudoku with a freshly generated puzzle each time, always with exactly one solution. Pencil notes, undo and hints; three difficulties.','🔢','#f1ebdd','#c8412d','time','Tap a cell + number · arrows + 1–9 · N notes · Z undo · H hint'],
+['41-tetra-fit','Tetra Fit','puzzle','Fit the three offered pieces onto a 10×10 board. Filling a row or column clears it, and multiple clears at once score big. The game ends when nothing fits.','🟧','#e9e6e1','#e07a5f','pts','Drag pieces · 1–3 pick, arrows move, Enter place'],
+['42-hue-hunt','Hue Hunt','reflex','One tile in the grid is ever so slightly different. Find as many as you can in 60 seconds — the grid grows and the difference keeps shrinking.','👁️','#fafaf7','#e4572e','found','Tap the odd tile · arrows + Space'],
+['43-zig-zag','Zig Zag','reflex','A ball rolls along a narrow floating path. Change direction at every bend; one late turn and it falls into the void. Gems add points.','〰️','#0f3b4c','#ff5fa2','pts','Tap, Space or any arrow to turn'],
+['44-light-trail','Light Trail','brain','Light cycles on graph paper: every pen leaves an ink line behind it. Box the CPU rivals in and never hit any line yourself — each round adds opponents.','✏️','#f7f5ee','#1d3fa6','rounds','Arrows / WASD, swipe, or tap left / right to turn'],
+['45-coral-drop','Coral Drop','arcade','A peg shooter on a coral reef: drop a pearl that bounces between the pegs. Clear all the orange corals with ten pearls; a moving clam gives free ones.','🐚','#0a4c7a','#ff8a5c','pts','Drag to aim, release to drop · ← → + Space'],
+['46-code-breaker','Code Breaker','brain','Crack a secret code of four coloured marbles in ten tries. A black peg means right colour in the right place, white means right colour elsewhere.','🔐','#5a3a22','#f0c36a','streak','Tap colours · 1–6, Enter to check'],
+['47-tank-duel','Tank Duel','brain','Artillery duel across destructible dunes. Set angle and power, account for the wind and hit the enemy tank before it hits you.','💥','#7a2e4a','#ffb347','wins','← → angle · ↑ ↓ power · Space fire · drag back and release'],
+['48-tri-peaks','Tri Peaks','brain','Solitaire with three peaks of cards. Play a card one higher or lower than the pile; long runs without drawing score more. Clear all three peaks for a new deal.','🃏','#3b2314','#e9c46a','pts','Tap cards / the deck · ← → + Space · D draw'],
+['49-marble-maze','Marble Maze','cozy','Tilt a wooden labyrinth to roll a brass marble to the golden cup. Avoid the holes; mazes grow larger with every level.','⚪','#b98549','#3a2616','level','Arrows / WASD tilt · drag like a joystick'],
+['50-pixel-picross','Pixel Picross','puzzle','Nonograms on a retro green handheld. The numbers tell you how many filled cells lie in a row or column — decode them to reveal the picture.','🟩','#8bac0f','#0f380f','time','Tap to fill · long-press to mark · arrows + Space / X']];
+const CATS=[['all','All'],['arcade','Arcade'],['puzzle','Puzzle'],['reflex','Reflex'],['brain','Brain'],['cozy','Cozy']];
+const ls={g(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const slugOf=f=>f.replace(/^\d+-/,'');
+function mmss(s){s=Math.round(s);return s>=60?`${s/60|0}:${String(s%60).padStart(2,'0')}`:s+'s'}
+function big(n){if(n<1000)return Math.floor(n)+'';const u=['K','M','B','T'];let i=-1;while(n>=1000&&i<3){n/=1000;i++}return n.toFixed(n<10?1:0)+u[i]}
+function fmtBest(unit,v){if(v===null||v===undefined||v===0||(typeof v==='object'&&!Object.keys(v).length))return null;
+ if(typeof v==='object'){if(unit==='slide'){const k=Object.keys(v).sort((a,b)=>b-a)[0];return`${k}×${k} ${v[k].t.toFixed(1)}s`}const ks=Object.keys(v).filter(k=>v[k]);if(!ks.length)return null;const k=ks[ks.length-1];return`${isNaN(k)?k:k+'×'+k} ${mmss(v[k])}`}
+ switch(unit){case'ms':return v+' ms';case'pct':return v+'%';case'time':return mmss(v);case'strokes':return v+' strokes';case'coves':return v+'/13 coves';case'night':return'night '+v;case'honey':return big(v)+' honey';case'round':return'round '+v;case'level':return'level '+v;case'mass':return'mass '+v;default:return big(v)+(unit==='pts'?'':' '+unit)}}
+const bestOf=g=>fmtBest(g[7],ls.g('best-'+slugOf(g[0]),null));
+let cat='all',q='',view=ls.g('arcade-view','list');if(view!=='grid')view='list';
+const main=document.getElementById('main');
+function filtered(){return G.filter(g=>(cat==='all'||g[2]===cat)&&(!q||(g[1]+' '+g[3]+' '+g[2]).toLowerCase().includes(q)))}
+
+// ----- live previews: load when near the viewport, unload when far away -----
+let io=null,liveId=null;
+function loadFrame(it){const f=it.querySelector('iframe');if(f.dataset.on)return;f.dataset.on='1';f.classList.remove('ready');f.onload=()=>{if(f.dataset.on)f.classList.add('ready')};f.src=f.dataset.src}
+function unloadFrame(it){const f=it.querySelector('iframe');if(!f.dataset.on||it.id===liveId)return;delete f.dataset.on;f.classList.remove('ready');f.removeAttribute('src')}
+function observe(){if(io)io.disconnect();if(!('IntersectionObserver'in window)){main.querySelectorAll('.item').forEach(loadFrame);return}
+ io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?loadFrame(e.target):unloadFrame(e.target)),{rootMargin:'300px 0px'});main.querySelectorAll('.item').forEach(it=>io.observe(it))}
+function activate(it){if(liveId&&liveId!==it.id)stop(document.getElementById(liveId));liveId=it.id;loadFrame(it);it.classList.add('live');ls.s('arcade-last',it.dataset.f);const f=it.querySelector('iframe');const focus=()=>{try{f.focus();f.contentWindow.focus()}catch(e){}};focus();setTimeout(focus,300);
+ const b=it.querySelector('[data-act="play"]');b.textContent='■ Stop';b.dataset.act='stop'}
+function stop(it){if(!it)return;it.classList.remove('live');if(liveId===it.id)liveId=null;const f=it.querySelector('iframe');if(f.dataset.on){f.classList.remove('ready');f.src=f.dataset.src}// restart to its title screen
+ const b=it.querySelector('[data-act="stop"]');if(b){b.textContent='▶ Play here';b.dataset.act='play'}}
+
+function render(){liveId=null;const list=filtered();if(io)io.disconnect();
+ if(!list.length){main.className='';main.innerHTML='<div class="empty">No games match that search.</div>';return}
+ if(view==='grid'){main.className='grid';main.innerHTML=list.map(g=>{const b=bestOf(g);return`<a class="card" href="${g[0]}.html" data-f="${g[0]}" style="--g1:${g[5]};--g2:${g[6]}"><div class="art"><span class="no">${g[0].slice(0,2)}</span>${b?`<span class="rec" title="Your best">★ ${b}</span>`:''}<span class="em" aria-hidden="true">${g[4]}</span></div><div class="body"><h3>${g[1]}</h3><p>${g[3].split('. ')[0]}.</p><div class="meta"><span class="tag">${g[2]}</span><span class="ctl" title="Keyboard and touch"><i>⌨</i><i>☝</i></span></div></div></a>`}).join('');return}
+ main.className='list';main.innerHTML=list.map(g=>{const b=bestOf(g);return`<article class="item" id="g-${g[0].slice(0,2)}" data-f="${g[0]}" style="--g1:${g[5]};--g2:${g[6]}">
+  <div class="stage" data-act="stage"><div class="poster"><span class="em">${g[4]}</span><small>LOADING PREVIEW…</small></div><iframe title="${g[1]} – playable preview" data-src="${g[0]}.html" allow="autoplay" tabindex="-1"></iframe><div class="veil"><span class="btn">▶ Play here</span></div><span class="live-tag">● PLAYING — keys go to the game</span></div>
+  <div class="info"><div class="num">${g[0].slice(0,2)} / 50 <span class="tag">${g[2]}</span></div><h2><span class="em" aria-hidden="true">${g[4]}</span>${g[1]}</h2><p>${g[3]}</p><div class="how"><b>HOW TO PLAY</b>${g[8]}</div>${b?`<div class="best">★ Your best: ${b}</div>`:''}
+   <div class="actions"><button class="btn" data-act="play">▶ Play here</button><a class="btn ghost" href="${g[0]}.html">Full screen ↗</a></div></div></article>`}).join('');observe()}
+main.addEventListener('click',e=>{const it=e.target.closest('.item');if(!it)return;const a=e.target.closest('[data-act]');if(!a)return;const act=a.dataset.act;if(act==='stage'||act==='play'){if(!it.classList.contains('live'))activate(it)}else if(act==='stop')stop(it)});
+main.addEventListener('click',e=>{const c=e.target.closest('.card');if(c)ls.s('arcade-last',c.dataset.f)});
+// leaving the live game (click anywhere else on the page) hands the keyboard back to the page
+document.addEventListener('pointerdown',e=>{if(!liveId)return;const it=document.getElementById(liveId);if(it&&!it.contains(e.target))stop(it)});
+
+function chips(){document.getElementById('chips').innerHTML=CATS.map(([k,l])=>`<button class="chip${k===cat?' on':''}" data-c="${k}">${l}<small>${k==='all'?G.length:G.filter(g=>g[2]===k).length}</small></button>`).join('')}
+function setView(v){view=v;ls.s('arcade-view',v);document.querySelectorAll('.views button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));render()}
+document.querySelector('.views').onclick=e=>{const b=e.target.closest('button');if(b)setView(b.dataset.v)};
+document.getElementById('chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;cat=b.dataset.c;chips();render()};
+document.getElementById('q').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();render()});
+function goTo(file,play){const it=main.querySelector(`.item[data-f="${file}"]`);if(!it){location.href=file+'.html';return}it.scrollIntoView({behavior:'smooth',block:'center'});if(play)setTimeout(()=>activate(it),450)}
+function random(){const g=G[Math.random()*G.length|0];ls.s('arcade-last',g[0]);if(view==='list'){if(cat!=='all'||q){cat='all';q='';document.getElementById('q').value='';chips();render()}goTo(g[0],true)}else location.href=g[0]+'.html'}
+document.getElementById('rnd').onclick=random;
+addEventListener('keydown',e=>{if(document.activeElement.tagName==='INPUT'){if(e.key==='Escape')document.activeElement.blur();return}if(e.key==='/'){e.preventDefault();document.getElementById('q').focus()}else if(e.key==='r'||e.key==='R')random();else if(e.key==='g'||e.key==='G')setView(view==='list'?'grid':'list');else if(e.key==='Escape'&&liveId)stop(document.getElementById(liveId))});
+document.getElementById('stRec').textContent=G.filter(bestOf).length+'/50';
+const last=ls.g('arcade-last',null);const lg=G.find(g=>g[0]===last);if(lg){document.getElementById('cont').classList.add('on');const a=document.getElementById('contA');a.href=lg[0]+'.html';a.textContent=lg[4]+' '+lg[1];a.onclick=e=>{if(view==='list'&&main.querySelector(`.item[data-f="${lg[0]}"]`)){e.preventDefault();goTo(lg[0],true)}}}
+chips();setView(view);
+</script>
+</body>
+</html>

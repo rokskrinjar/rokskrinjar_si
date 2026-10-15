@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABYSS — A Descent to 10,994 m</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Karla:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --glow:#5ff5e4; --glow2:#b17cff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Karla',sans-serif; color:#e7fbff; background:#000; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+  nav { position:fixed; top:18px; left:50%; transform:translateX(-50%); z-index:50; display:flex; gap:4px; padding:5px; border-radius:40px; background:#02131c99; border:1px solid #5ff5e433; backdrop-filter:blur(10px); }
+  nav a { padding:9px 16px; border-radius:30px; font-size:13px; letter-spacing:.08em; color:#a8d8df; }
+  nav a.on { background:var(--glow); color:#001018; font-weight:600; }
+  [data-view][hidden] { display:none; }
+  /* dive */
+  .ocean { position:relative; height:1200vh; background:linear-gradient(180deg,#6fd3f7 0,#1a8cc4 70vh,#0b5a8a 160vh,#063a5e 260vh,#03223a 400vh,#021320 560vh,#010a12 760vh,#000307 960vh,#000 1100vh); }
+  .sunrays { position:absolute; top:0; left:0; right:0; height:120vh; background:repeating-linear-gradient(100deg,transparent 0 60px,#ffffff10 60px 90px,transparent 90px 170px); mask:linear-gradient(#000,transparent); -webkit-mask:linear-gradient(#000,transparent); animation:rays 8s ease-in-out infinite alternate; }
+  @keyframes rays { to { transform:translateX(-60px); } }
+  .surface { position:absolute; top:0; width:100%; height:100vh; display:grid; place-items:center; text-align:center; }
+  .surface h1 { font-family:'Syne'; font-weight:800; font-size:clamp(4rem,14vw,12rem); letter-spacing:-.04em; line-height:.85; color:#fff; text-shadow:0 10px 60px #0006; }
+  .surface p { font-size:1.2rem; margin-top:1rem; }
+  .surface .scroll { margin-top:3rem; font-size:12px; letter-spacing:.3em; animation:bob 2s ease-in-out infinite; }
+  @keyframes bob { 50% { transform:translateY(10px); } }
+  .zone { position:absolute; left:8vw; max-width:420px; }
+  .zone small { font-size:12px; letter-spacing:.3em; color:var(--glow); }
+  .zone h2 { font-family:'Syne'; font-weight:800; font-size:clamp(2.4rem,5vw,4rem); line-height:.9; margin:.6rem 0 1rem; }
+  .zone p { line-height:1.7; color:#bfe9f0; }
+  .critter { position:absolute; opacity:0; transition:opacity 1.4s, transform 1.4s; transform:translateY(40px); cursor:pointer; }
+  .critter.seen { opacity:1; transform:none; }
+  .critter svg { filter:drop-shadow(0 0 14px var(--c,#5ff5e4)); }
+  .critter .lbl { position:absolute; left:100%; top:30%; white-space:nowrap; font-size:12px; letter-spacing:.1em; padding:4px 10px; border:1px solid #ffffff33; border-radius:20px; background:#0008; opacity:0; transition:opacity .3s; }
+  .critter:hover .lbl { opacity:1; }
+  .gauge { position:fixed; right:24px; top:50%; transform:translateY(-50%); z-index:40; text-align:right; font-variant-numeric:tabular-nums; }
+  .gauge .d { font-family:'Syne'; font-weight:800; font-size:clamp(2rem,4vw,3.4rem); line-height:1; }
+  .gauge .d small { font-size:.4em; }
+  .gauge .row { font-size:12px; letter-spacing:.12em; color:#a8d8df; margin-top:.4rem; }
+  .gauge .bar { position:absolute; right:-14px; top:-120px; bottom:-120px; width:3px; background:#ffffff22; border-radius:3px; }
+  .gauge .bar i { position:absolute; left:-4px; width:11px; height:11px; border-radius:50%; background:var(--glow); box-shadow:0 0 12px var(--glow); }
+  .torch { position:fixed; inset:0; pointer-events:none; z-index:30; background:radial-gradient(circle 180px at var(--x,50%) var(--y,50%),transparent 0,#000c 70%,#000f 100%); opacity:0; transition:opacity .8s; }
+  .bubble { position:fixed; bottom:-20px; border-radius:50%; border:1px solid #ffffff66; pointer-events:none; z-index:20; animation:rise linear forwards; }
+  @keyframes rise { to { transform:translate(var(--dx),-110vh); } }
+  .bottom { position:absolute; bottom:0; width:100%; height:100vh; display:grid; place-items:center; text-align:center; }
+  .bottom h2 { font-family:'Syne'; font-weight:800; font-size:clamp(3rem,8vw,7rem); color:#fff; }
+  .bottom p { color:#8fb; max-width:520px; margin:1rem auto; line-height:1.7; }
+  .btn { display:inline-block; margin-top:1.4rem; padding:14px 26px; border-radius:40px; background:var(--glow); color:#001018; font-weight:600; letter-spacing:.08em; border:0; cursor:pointer; font-family:inherit; font-size:14px; }
+  .btn.ghost { background:transparent; color:var(--glow); border:1px solid var(--glow); }
+  /* bestiary */
+  .page { min-height:100vh; background:radial-gradient(ellipse at top,#042233,#000 70%); padding:110px 6vw 80px; }
+  .page h2 { font-family:'Syne'; font-weight:800; font-size:clamp(2.6rem,6vw,5rem); line-height:.9; }
+  .page .lead { color:#a8d8df; margin:1rem 0 2.4rem; max-width:560px; line-height:1.7; }
+  .filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:2rem; }
+  .filters button { padding:8px 16px; border-radius:30px; border:1px solid #5ff5e455; background:transparent; color:#a8d8df; font-family:inherit; cursor:pointer; }
+  .filters button.on { background:var(--glow); color:#001018; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; }
+  .card { border:1px solid #5ff5e422; border-radius:22px; padding:22px; background:linear-gradient(160deg,#06202d,#020b10); position:relative; overflow:hidden; transition:transform .4s, border-color .4s; }
+  .card:hover { transform:translateY(-6px); border-color:var(--c); }
+  .card .art { height:150px; display:grid; place-items:center; }
+  .card .art svg { max-height:140px; filter:drop-shadow(0 0 16px var(--c)); }
+  .card h3 { font-family:'Syne'; font-size:1.5rem; margin-top:.8rem; }
+  .card i { font-size:13px; color:#8fc; }
+  .card p { font-size:.95rem; line-height:1.6; color:#bfe9f0; margin:.8rem 0; }
+  .card .meta { display:flex; justify-content:space-between; font-size:12px; letter-spacing:.1em; color:#a8d8df; border-top:1px solid #ffffff14; padding-top:.8rem; }
+  /* sonar */
+  .sonar { display:grid; grid-template-columns:1fr 320px; gap:3vw; align-items:start; }
+  .scope { position:relative; aspect-ratio:1; max-width:640px; width:100%; border-radius:50%; overflow:hidden; border:2px solid #5ff5e466; box-shadow:0 0 60px #5ff5e422, inset 0 0 80px #000; background:#00140f; cursor:crosshair; }
+  .scope canvas { width:100%; height:100%; display:block; }
+  .found { list-style:none; margin-top:1rem; }
+  .found li { padding:10px 0; border-bottom:1px solid #ffffff14; display:flex; justify-content:space-between; color:#5b7d80; }
+  .found li.got { color:#e7fbff; }
+  .found li.got::after { content:'✓'; color:var(--glow); }
+  /* log */
+  .planner { display:grid; grid-template-columns:400px 1fr; gap:4vw; }
+  .planner label { display:block; font-size:12px; letter-spacing:.15em; color:#a8d8df; margin:1.4rem 0 .6rem; text-transform:uppercase; }
+  .planner input[type=range] { width:100%; accent-color:var(--glow); }
+  .planner select { width:100%; padding:12px; border-radius:12px; background:#06202d; color:#e7fbff; border:1px solid #5ff5e444; font-family:inherit; }
+  .readouts { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .ro { border:1px solid #5ff5e433; border-radius:18px; padding:20px; background:#02131c; }
+  .ro small { font-size:11px; letter-spacing:.15em; color:#a8d8df; }
+  .ro b { display:block; font-family:'Syne'; font-size:2.2rem; margin-top:.4rem; }
+  .ro.warn b { color:#ff6b6b; }
+  .hull { grid-column:1/-1; height:110px; position:relative; border:1px solid #5ff5e433; border-radius:18px; overflow:hidden; background:#02131c; }
+  .hull svg { width:100%; height:100%; }
+  @media (max-width:900px){ .sonar,.planner { grid-template-columns:1fr; } .gauge { right:12px; } .zone { left:6vw; right:22vw; } nav a { padding:8px 10px; } }
+</style>
+</head>
+<body>
+<nav><a href="#dive">Dive</a><a href="#bestiary">Bestiary</a><a href="#sonar">Sonar</a><a href="#planner">Planner</a><a href="index.html">↑ Surface</a></nav>
+
+<section data-view="dive">
+  <div class="ocean" id="ocean">
+    <div class="sunrays"></div>
+    <div class="surface"><div><h1>ABYSS</h1><p>A descent to the deepest point on Earth.</p><div class="scroll">↓ SCROLL TO DIVE ↓</div></div></div>
+    <div id="zones"></div>
+    <div class="bottom"><div><h2>10,994 m</h2><p>Challenger Deep. The pressure here is over 1,000 atmospheres — like an elephant standing on your thumbnail. And still, something moves in the dark.</p><button class="btn" id="ascend">Ascend ↑</button> <a class="btn ghost" href="#bestiary">Meet the residents</a></div></div>
+  </div>
+  <div class="gauge" id="gauge"><div class="bar"><i id="gdot"></i></div><div class="d" id="depth">0<small> m</small></div><div class="row" id="zoneName">SUNLIGHT ZONE</div><div class="row" id="press">1.0 atm</div><div class="row" id="temp">22 °C</div></div>
+  <div class="torch" id="torch"></div>
+</section>
+
+<section data-view="bestiary" class="page" hidden>
+  <h2>The Bestiary</h2><p class="lead">Creatures of the deep, catalogued by zone. Most have never seen sunlight. Many make their own.</p>
+  <div class="filters" id="bf"></div><div class="cards" id="cards"></div>
+</section>
+
+<section data-view="sonar" class="page" hidden>
+  <h2>Active Sonar</h2><p class="lead">Click anywhere on the scope to send a ping. Echoes reveal whatever lurks nearby. Find all six contacts.</p>
+  <div class="sonar"><div class="scope"><canvas id="scope" width="640" height="640"></canvas></div><div><div style="font-family:Syne;font-size:1.3rem">Contacts <span id="fc">0</span>/6</div><ul class="found" id="found"></ul><p style="color:#a8d8df;font-size:.9rem;margin-top:1rem">Pings used: <b id="pings">0</b></p><button class="btn ghost" id="resetS">New search area</button></div></div>
+</section>
+
+<section data-view="planner" class="page" hidden>
+  <h2>Dive Planner</h2><p class="lead">Plan a submersible descent. We'll tell you whether your hull survives.</p>
+  <div class="planner">
+    <div><label>Target depth · <span id="tdV"></span></label><input type="range" id="td" min="0" max="10994" value="3800" step="10"><label>Submersible</label><select id="sub"><option value="600">Scuba diver (limit 60 m)|60</option></select><label>Descent rate · <span id="drV"></span></label><input type="range" id="dr" min="10" max="60" value="35"></div>
+    <div class="readouts" id="ro"></div>
+  </div>
+</section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'dive';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}document.getElementById('gauge').style.display=id==='dive'?'':'none';document.getElementById('torch').style.opacity=0}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* ---------- creatures (SVG) ---------- */
+const ART={
+ turtle:c=>`<svg width="160" viewBox="0 0 160 90"><ellipse cx="80" cy="45" rx="46" ry="28" fill="#2c7a5a"/><path d="M50 30 L110 30 L120 45 L110 60 L50 60 L40 45Z" fill="#3fa37a" stroke="#1d5a42" stroke-width="2"/><circle cx="135" cy="40" r="11" fill="#5cb58a"/><circle cx="140" cy="37" r="2" fill="#000"/><path d="M60 22 L40 5 M60 68 L40 85 M100 22 L115 8 M100 68 L115 82" stroke="#5cb58a" stroke-width="10" stroke-linecap="round"/></svg>`,
+ jelly:c=>`<svg width="110" viewBox="0 0 110 160"><path d="M10 60 Q10 5 55 5 Q100 5 100 60 Q80 70 55 62 Q30 70 10 60Z" fill="${c}" opacity=".55"/>${[20,35,50,65,80,95].map((x,i)=>`<path d="M${x} 62 q${i%2?8:-8} 25 0 50 q${i%2?-8:8} 25 0 45" stroke="${c}" stroke-width="2" fill="none" opacity=".7"><animate attributeName="d" dur="${2+i*.3}s" repeatCount="indefinite" values="M${x} 62 q8 25 0 50 q-8 25 0 45;M${x} 62 q-8 25 0 50 q8 25 0 45;M${x} 62 q8 25 0 50 q-8 25 0 45"/></path>`).join('')}</svg>`,
+ whale:c=>`<svg width="320" viewBox="0 0 320 120"><path d="M10 60 Q60 10 180 25 Q260 30 290 55 L318 30 L310 62 L318 95 L288 70 Q250 105 150 100 Q40 100 10 60Z" fill="#35556e"/><path d="M20 70 Q100 95 200 90" stroke="#9fc3d8" stroke-width="3" fill="none" opacity=".5"/><circle cx="50" cy="55" r="3" fill="#000"/><path d="M120 95 L140 118 L160 95" fill="#35556e"/></svg>`,
+ lantern:c=>`<svg width="110" viewBox="0 0 110 50"><path d="M5 25 Q30 5 70 18 L100 8 L96 25 L100 42 L70 32 Q30 45 5 25Z" fill="#1f2d3a"/>${[25,40,55,70].map(x=>`<circle cx="${x}" cy="30" r="2.5" fill="${c}"/>`).join('')}<circle cx="18" cy="22" r="4" fill="#fff"/></svg>`,
+ squid:c=>`<svg width="260" viewBox="0 0 260 110"><path d="M10 55 Q40 20 110 30 L150 55 L110 80 Q40 90 10 55Z" fill="#8a2b2b"/><path d="M5 55 L-5 40 M5 55 L-5 70" stroke="#8a2b2b" stroke-width="8"/>${[0,1,2,3,4,5].map(i=>`<path d="M150 ${45+i*4} Q200 ${20+i*14} 255 ${30+i*12}" stroke="#a33a3a" stroke-width="${5-i*.5}" fill="none"><animate attributeName="d" dur="${3+i*.4}s" repeatCount="indefinite" values="M150 ${45+i*4} Q200 ${20+i*14} 255 ${30+i*12};M150 ${45+i*4} Q200 ${40+i*8} 255 ${20+i*16};M150 ${45+i*4} Q200 ${20+i*14} 255 ${30+i*12}"/></path>`).join('')}<circle cx="100" cy="50" r="12" fill="#ffe" /><circle cx="100" cy="50" r="6" fill="#000"/></svg>`,
+ angler:c=>`<svg width="190" viewBox="0 0 190 130"><path d="M60 40 Q120 10 150 50 Q170 80 130 105 Q80 125 50 95 Q20 70 60 40Z" fill="#1a1414"/><path d="M150 50 L185 30 L180 70 L185 110 L140 90" fill="#1a1414"/><path d="M60 70 L40 65 L62 78 L42 85 L64 88 L48 100 L70 95" fill="none" stroke="#eee" stroke-width="2"/><path d="M85 30 Q70 -10 40 15" stroke="#3a2c2c" stroke-width="3" fill="none"/><circle cx="40" cy="15" r="8" fill="${c}"><animate attributeName="r" values="7;10;7" dur="2s" repeatCount="indefinite"/></circle><circle cx="95" cy="50" r="5" fill="#ccd"/></svg>`,
+ vampire:c=>`<svg width="140" viewBox="0 0 140 140"><path d="M70 10 Q100 20 95 60 L70 70 L45 60 Q40 20 70 10Z" fill="#6a1b2a"/><path d="M45 60 Q10 90 20 125 Q50 100 70 70 Q90 100 120 125 Q130 90 95 60Z" fill="#4a0f1c" opacity=".9"/><circle cx="58" cy="45" r="7" fill="${c}"/><circle cx="82" cy="45" r="7" fill="${c}"/></svg>`,
+ dumbo:c=>`<svg width="140" viewBox="0 0 140 130"><ellipse cx="70" cy="50" rx="36" ry="38" fill="#f0a3b8" opacity=".85"/><ellipse cx="30" cy="30" rx="18" ry="11" fill="#f0a3b8" transform="rotate(-30 30 30)"><animateTransform attributeName="transform" type="rotate" values="-30 30 30;-10 30 30;-30 30 30" dur="1.6s" repeatCount="indefinite"/></ellipse><ellipse cx="110" cy="30" rx="18" ry="11" fill="#f0a3b8" transform="rotate(30 110 30)"><animateTransform attributeName="transform" type="rotate" values="30 110 30;10 110 30;30 110 30" dur="1.6s" repeatCount="indefinite"/></ellipse><path d="M38 75 Q30 120 50 125 M55 85 Q52 125 65 128 M85 85 Q88 125 75 128 M102 75 Q110 120 90 125" stroke="#f0a3b8" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="58" cy="50" r="5" fill="#222"/><circle cx="82" cy="50" r="5" fill="#222"/></svg>`,
+ gulper:c=>`<svg width="260" viewBox="0 0 260 90"><path d="M10 40 Q40 5 80 30 Q140 50 200 45 Q240 42 258 50 Q240 55 200 52 Q140 60 80 55 Q40 80 10 40Z" fill="#11161c"/><path d="M10 40 L60 42" stroke="#333" stroke-width="2"/><circle cx="258" cy="50" r="4" fill="${c}"/><circle cx="48" cy="28" r="2.5" fill="#aaa"/></svg>`,
+ snail:c=>`<svg width="140" viewBox="0 0 140 80"><path d="M10 60 Q40 20 80 25 Q125 30 130 60 Q100 75 60 72 Q30 72 10 60Z" fill="${c}" opacity=".45"/><path d="M20 58 Q60 40 120 58" stroke="${c}" stroke-width="2" fill="none" opacity=".8"/>${[30,50,70,90,110].map(x=>`<circle cx="${x}" cy="50" r="3" fill="#fff" opacity=".4"/>`).join('')}</svg>`,
+ worm:c=>`<svg width="140" viewBox="0 0 140 150">${[20,45,70,95,120].map((x,i)=>`<rect x="${x-6}" y="${40+i%2*15}" width="12" height="${110-i%2*15}" fill="#eee" rx="5"/><path d="M${x-10} ${40+i%2*15} q10 -30 20 0" fill="${c}"/>`).join('')}</svg>`};
+const CR=[['turtle','Green sea turtle','Chelonia mydas',30,'sunlight','#5cb58a','Glides along the reef at a leisurely 3 km/h, and has done so for about 150 million years.'],
+['jelly','Moon jelly','Aurelia aurita',120,'sunlight','#9fe8ff','No brain, no heart, no bones — and yet somehow thriving in every ocean on Earth.'],
+['whale','Sperm whale','Physeter macrocephalus',1000,'twilight','#9fc3d8','Holds its breath for 90 minutes and dives a kilometre down to hunt giant squid.'],
+['lantern','Lanternfish','Myctophidae',600,'twilight','#5ff5e4','Makes up an estimated 65% of all deep-sea fish biomass. Wears its lights on its belly.'],
+['squid','Giant squid','Architeuthis dux',900,'twilight','#ff7a7a','Eyes the size of dinner plates, the largest in the animal kingdom.'],
+['angler','Humpback anglerfish','Melanocetus johnsonii',1800,'midnight','#fff79a','Dangles a glowing lure lit by symbiotic bacteria. Everything that comes close gets eaten.'],
+['vampire','Vampire squid','Vampyroteuthis infernalis',2400,'midnight','#6fb6ff','Neither vampire nor squid. Turns itself inside out when threatened.'],
+['gulper','Gulper eel','Eurypharynx pelecanoides',3000,'abyss','#ff5ec8','A mouth far larger than its body, and a pink glowing tail tip to lure prey.'],
+['dumbo','Dumbo octopus','Grimpoteuthis',4000,'abyss','#f0a3b8','Flaps ear-like fins to hover. The deepest-living octopus known.'],
+['worm','Giant tube worm','Riftia pachyptila',2500,'abyss','#ff4d4d','Lives beside volcanic vents with no mouth or gut — bacteria inside it make food from chemicals.'],
+['snail','Mariana snailfish','Pseudoliparis swirei',8000,'hadal','#e6f7ff','Translucent, soft, and utterly unbothered by pressure that would crush a submarine.']];
+const ZONES=[[0,'sunlight','Sunlight Zone','0 – 200 m','Where 90% of ocean life lives. Light enough for photosynthesis; warm enough for everyone.'],[200,'twilight','Twilight Zone','200 – 1,000 m','Light fades to a deep blue dusk. Animals migrate up every night — the largest migration on Earth.'],[1000,'midnight','Midnight Zone','1,000 – 4,000 m','No sunlight at all. The only light is bioluminescence. Move your cursor — you have a torch.'],[4000,'abyss','The Abyss','4,000 – 6,000 m','Near-freezing, crushing, silent. Marine snow drifts down from above: the ocean\'s only meal.'],[6000,'hadal','Hadal Zone','6,000 – 10,994 m','Named for Hades. Found only in the ocean\'s trenches. We have better maps of Mars.']];
+const MAXD=10994,toY=d=>d/MAXD*83+9;
+const zEl=document.getElementById('zones');
+ZONES.forEach(([d,,n,r,t])=>zEl.insertAdjacentHTML('beforeend',`<div class="zone" style="top:${toY(d)+1.4}%"><small>${r}</small><h2>${n}</h2><p>${t}</p></div>`));
+CR.forEach(([k,n,,d,,c],i)=>zEl.insertAdjacentHTML('beforeend',`<div class="critter" style="top:${toY(d)+.8}%;left:${45+(i*23)%40}%;--c:${c}">${ART[k](c)}<span class="lbl">${n} · ${d.toLocaleString()} m</span></div>`));
+const critters=[...document.querySelectorAll('.critter')];
+function onScroll(){if(V[0].hidden)return;const oc=document.getElementById('ocean'),max=oc.offsetHeight-innerHeight,p=Math.min(1,Math.max(0,scrollY/max));const d=Math.round(Math.min(MAXD,Math.max(0,((scrollY+innerHeight/2)/oc.offsetHeight*100-9)/83*MAXD)));
+ document.getElementById('depth').innerHTML=d.toLocaleString()+'<small> m</small>';document.getElementById('press').textContent=(1+d/10).toFixed(1)+' atm';document.getElementById('temp').textContent=(d<200?22-d/20:d<1000?12-(d-200)/100:Math.max(1,4-(d-1000)/2000)).toFixed(1)+' °C';
+ document.getElementById('zoneName').textContent=[...ZONES].reverse().find(z=>d>=z[0])[2].toUpperCase();document.getElementById('gdot').style.top=p*100+'%';
+ document.getElementById('torch').style.opacity=d>1000&&d<10500?Math.min(.95,(d-1000)/1500):0;
+ critters.forEach(c=>{const r=c.getBoundingClientRect();if(r.top<innerHeight*.85)c.classList.add('seen')})}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('mousemove',e=>{const t=document.getElementById('torch');t.style.setProperty('--x',e.clientX+'px');t.style.setProperty('--y',e.clientY+'px')});
+setInterval(()=>{if(V[0].hidden||document.hidden)return;const b=document.createElement('div');b.className='bubble';const s=4+Math.random()*12;Object.assign(b.style,{width:s+'px',height:s+'px',left:Math.random()*100+'vw',animationDuration:(5+Math.random()*6)+'s'});b.style.setProperty('--dx',(Math.random()*80-40)+'px');document.body.appendChild(b);setTimeout(()=>b.remove(),11000)},400);
+document.getElementById('ascend').onclick=()=>scrollTo({top:0,behavior:'smooth'});
+critters.forEach((c,i)=>c.onclick=()=>{go('bestiary');setTimeout(()=>{const card=document.querySelectorAll('.card')[i];card&&card.scrollIntoView({behavior:'smooth',block:'center'})},50)});
+
+/* ---------- bestiary ---------- */
+let zf='all';const bf=document.getElementById('bf');['all','sunlight','twilight','midnight','abyss','hadal'].forEach(z=>bf.insertAdjacentHTML('beforeend',`<button data-z="${z}" class="${z==='all'?'on':''}">${z}</button>`));
+bf.onclick=e=>{if(!e.target.dataset.z)return;zf=e.target.dataset.z;bf.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===e.target));renderCards()};
+function renderCards(){document.getElementById('cards').innerHTML=CR.filter(c=>zf==='all'||c[4]===zf).map(([k,n,l,d,z,c,t])=>`<div class="card" style="--c:${c}"><div class="art">${ART[k](c)}</div><h3>${n}</h3><i>${l}</i><p>${t}</p><div class="meta"><span>${z.toUpperCase()}</span><span>~${d.toLocaleString()} m</span></div></div>`).join('')}renderCards();
+
+/* ---------- sonar ---------- */
+const sc=document.getElementById('scope'),sg=sc.getContext('2d');let targets,pings=[],found,pingN;
+function newArea(){targets=CR.slice().sort(()=>Math.random()-.5).slice(0,6).map(c=>({c,x:80+Math.random()*480,y:80+Math.random()*480,seen:0}));found=new Set();pingN=0;pings=[];renderFound()}
+function renderFound(){document.getElementById('found').innerHTML=targets.map(t=>`<li class="${found.has(t)?'got':''}">${found.has(t)?t.c[1]:'Unknown contact'}</li>`).join('');document.getElementById('fc').textContent=found.size;document.getElementById('pings').textContent=pingN}
+sc.onclick=e=>{const r=sc.getBoundingClientRect();pings.push({x:(e.clientX-r.left)/r.width*640,y:(e.clientY-r.top)/r.height*640,r:0});pingN++;renderFound()};
+let sweep=0;function sonarLoop(){if(!V[2].hidden){sg.fillStyle='rgba(0,20,15,.18)';sg.fillRect(0,0,640,640);sg.strokeStyle='#5ff5e422';for(let i=1;i<5;i++){sg.beginPath();sg.arc(320,320,i*80,0,7);sg.stroke()}sg.beginPath();sg.moveTo(0,320);sg.lineTo(640,320);sg.moveTo(320,0);sg.lineTo(320,640);sg.stroke();
+ sweep+=.03;sg.save();sg.translate(320,320);sg.rotate(sweep);const gr=sg.createLinearGradient(0,0,320,0);gr.addColorStop(0,'#5ff5e455');gr.addColorStop(1,'#5ff5e400');sg.fillStyle=gr;sg.beginPath();sg.moveTo(0,0);sg.arc(0,0,330,-.25,0);sg.fill();sg.restore();
+ pings.forEach(p=>{p.r+=4;sg.strokeStyle=`rgba(95,245,228,${Math.max(0,1-p.r/220)})`;sg.lineWidth=2;sg.beginPath();sg.arc(p.x,p.y,p.r,0,7);sg.stroke();targets.forEach(t=>{const d=Math.hypot(t.x-p.x,t.y-p.y);if(Math.abs(d-p.r)<5&&d<220){t.seen=1;if(!found.has(t)){found.add(t);renderFound()}}})});pings=pings.filter(p=>p.r<230);
+ targets.forEach(t=>{if(t.seen>0){sg.fillStyle=`rgba(177,124,255,${t.seen})`;sg.beginPath();sg.arc(t.x,t.y,7,0,7);sg.fill();sg.font='13px Karla';sg.fillText(t.c[1],t.x+12,t.y+4);t.seen=Math.max(.35,t.seen-.004)}})}requestAnimationFrame(sonarLoop)}
+newArea();sonarLoop();document.getElementById('resetS').onclick=()=>{sg.fillStyle='#00140f';sg.fillRect(0,0,640,640);newArea()};
+
+/* ---------- planner ---------- */
+const SUBS=[['Scuba diver',60],['Military submarine',600],['Alvin (HOV)',6500],['Shinkai 6500',6500],['Limiting Factor',11000],['Trieste bathyscaphe',11000]];
+const sub=document.getElementById('sub');sub.innerHTML=SUBS.map(([n,d],i)=>`<option value="${i}">${n} — rated to ${d.toLocaleString()} m</option>`).join('');sub.value=2;
+function plan(){const D=+td.value,s=SUBS[sub.value],rate=+dr.value;document.getElementById('tdV').textContent=D.toLocaleString()+' m';document.getElementById('drV').textContent=rate+' m/min';
+ const atm=1+D/10,psi=Math.round(atm*14.7),mins=D/rate,ok=D<=s[1];const zone=[...ZONES].reverse().find(z=>D>=z[0]);
+ document.getElementById('ro').innerHTML=`<div class="ro"><small>PRESSURE</small><b>${atm.toFixed(0)} atm</b><span style="color:#a8d8df;font-size:.85rem">${psi.toLocaleString()} psi on every square inch</span></div><div class="ro"><small>DESCENT TIME</small><b>${mins>60?(mins/60).toFixed(1)+' h':Math.round(mins)+' min'}</b><span style="color:#a8d8df;font-size:.85rem">plus the same again to come back up</span></div><div class="ro"><small>ZONE</small><b style="font-size:1.6rem">${zone[2]}</b></div><div class="ro ${ok?'':'warn'}"><small>HULL STATUS</small><b>${ok?'NOMINAL':'IMPLOSION'}</b><span style="color:#a8d8df;font-size:.85rem">${ok?`${Math.round((1-D/s[1])*100)}% margin remaining`:`Exceeds rating by ${(D-s[1]).toLocaleString()} m`}</span></div>
+ <div class="hull"><svg viewBox="0 0 600 110" preserveAspectRatio="none"><rect width="600" height="110" fill="url(#hg)"/><defs><linearGradient id="hg"><stop offset="0" stop-color="#1a8cc4"/><stop offset="1" stop-color="#000"/></linearGradient></defs><line x1="${s[1]/MAXD*600}" y1="0" x2="${s[1]/MAXD*600}" y2="110" stroke="#ff6b6b" stroke-dasharray="4 4"/><text x="${Math.min(520,s[1]/MAXD*600+6)}" y="20" fill="#ff6b6b" font-size="12" font-family="Karla">rated limit</text><circle cx="${D/MAXD*600}" cy="60" r="10" fill="${ok?'#5ff5e4':'#ff6b6b'}"/><text x="8" y="100" fill="#fff" font-size="12" font-family="Karla">0 m</text><text x="540" y="100" fill="#fff" font-size="12" font-family="Karla">10,994 m</text></svg></div>`}
+['td','sub','dr'].forEach(id=>document.getElementById(id).oninput=plan);plan();
+
+go(location.hash.slice(1));onScroll();
+</script>
+</body>
+</html>

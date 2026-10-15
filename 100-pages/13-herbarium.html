@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herbarium — A Collection of Pressed Plants</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&family=Courier+Prime&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#efeedf; --card:#f7f5ea; --ink:#2f3a22; --mute:#6f7a5c; --rust:#a4502b; --line:#2f3a2233; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville',serif; }
+  body::before { content:''; position:fixed; inset:0; pointer-events:none; opacity:.4; z-index:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .4 0 0 0 0 .25 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  a { color:inherit; }
+  .hand { font-family:'Caveat',cursive; }
+  .type { font-family:'Courier Prime',monospace; }
+  header { position:relative; z-index:2; display:grid; grid-template-columns:1fr auto 1fr; align-items:end; padding:2rem 5vw 1.2rem; border-bottom:1px solid var(--ink); }
+  header .l { font-style:italic; font-size:14px; }
+  header .l a { text-decoration:none; }
+  header .l a:hover { color:var(--rust); }
+  header h1 { font-weight:400; font-size:clamp(2.2rem,5vw,3.8rem); letter-spacing:.02em; text-align:center; line-height:1; }
+  header h1 i { color:var(--rust); }
+  header .r { text-align:right; font-family:'Caveat'; font-size:1.4rem; color:var(--mute); }
+  nav { position:relative; z-index:2; display:flex; justify-content:center; gap:3rem; padding:1rem; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  nav a { text-decoration:none; font-style:italic; font-size:15px; color:var(--mute); padding-bottom:4px; border-bottom:1px solid transparent; transition:all .3s; }
+  nav a.on { color:var(--ink); border-color:var(--rust); }
+  nav a span { font-family:'Courier Prime'; font-style:normal; font-size:11px; margin-right:6px; color:var(--rust); }
+  main { position:relative; z-index:1; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:fade .7s both; }
+  @keyframes fade { from { opacity:0; transform:translateY(10px); } }
+  .page { max-width:1280px; margin:0 auto; padding:3rem 5vw 6rem; }
+  .filters { display:flex; gap:1rem; flex-wrap:wrap; align-items:center; margin-bottom:2.4rem; }
+  .filters input { flex:1; min-width:220px; font-family:'Libre Baskerville'; font-style:italic; font-size:1rem; padding:.7rem 0; border:0; border-bottom:1px solid var(--ink); background:none; outline:none; color:var(--ink); }
+  .chip { font-family:'Courier Prime'; font-size:12px; padding:.45rem .8rem; border:1px solid var(--ink); background:none; cursor:pointer; color:var(--ink); border-radius:30px; }
+  .chip.on { background:var(--ink); color:var(--paper); }
+  .count { font-family:'Caveat'; font-size:1.4rem; color:var(--mute); margin-left:auto; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:2rem; }
+  .spec { background:var(--card); padding:1.2rem 1.2rem .9rem; box-shadow:0 1px 2px #0002,0 10px 24px -12px #2f3a2244; cursor:pointer; position:relative; transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s; }
+  .spec:hover { transform:translateY(-6px) rotate(-.6deg); box-shadow:0 1px 2px #0002,0 24px 40px -16px #2f3a2266; }
+  .spec::before { content:''; position:absolute; top:-8px; left:50%; width:60px; height:18px; background:#e6dcc0cc; transform:translateX(-50%) rotate(-3deg); box-shadow:0 1px 2px #0001; }
+  .spec svg { width:100%; aspect-ratio:3/4; display:block; }
+  .spec .lab { border-top:1px solid var(--line); padding-top:.6rem; margin-top:.4rem; }
+  .spec .lab b { font-style:italic; font-weight:400; font-size:1.05rem; }
+  .spec .lab small { display:block; font-family:'Courier Prime'; font-size:11px; color:var(--mute); margin-top:.2rem; }
+  .spec .no { position:absolute; top:1rem; right:1rem; font-family:'Courier Prime'; font-size:11px; color:var(--rust); }
+  /* plate */
+  .plate { display:grid; grid-template-columns:1.1fr 1fr; gap:4vw; align-items:start; }
+  .plateArt { background:var(--card); padding:2rem; position:relative; box-shadow:0 30px 60px -30px #2f3a2266; }
+  .plateArt svg { width:100%; aspect-ratio:3/4; display:block; }
+  .plateArt .ann { font-family:'Caveat'; font-size:20px; fill:var(--rust); }
+  .plateArt .annl { stroke:var(--rust); stroke-width:.8; stroke-dasharray:3 3; }
+  .back { font-style:italic; background:none; border:0; font-family:inherit; font-size:15px; cursor:pointer; color:var(--mute); margin-bottom:1.4rem; }
+  .back:hover { color:var(--rust); }
+  .plate h2 { font-weight:400; font-style:italic; font-size:clamp(2.2rem,4vw,3.2rem); line-height:1.05; }
+  .plate .common { font-family:'Caveat'; font-size:1.8rem; color:var(--rust); margin:.4rem 0 1.6rem; }
+  .plate p { line-height:1.9; font-size:1rem; margin-bottom:1rem; }
+  .label { margin-top:2rem; border:1px solid var(--ink); padding:1.2rem 1.4rem; font-family:'Courier Prime'; font-size:13px; line-height:1.9; background:#fbfaf2; position:relative; }
+  .label::after { content:'HERB. BOT. MMXXVI'; position:absolute; right:1rem; top:1rem; border:2px solid var(--rust); color:var(--rust); padding:.2rem .5rem; transform:rotate(8deg); font-weight:700; opacity:.7; font-size:11px; }
+  .label b { display:inline-block; width:120px; font-weight:400; color:var(--mute); }
+  .pnav { display:flex; justify-content:space-between; margin-top:2rem; }
+  .pnav button { font-family:inherit; font-style:italic; font-size:15px; background:none; border:1px solid var(--ink); padding:.6rem 1.2rem; cursor:pointer; color:var(--ink); }
+  .pnav button:hover { background:var(--ink); color:var(--paper); }
+  /* press */
+  .press { display:grid; grid-template-columns:340px 1fr; gap:4vw; align-items:start; }
+  .press label { display:block; font-family:'Courier Prime'; font-size:12px; letter-spacing:.1em; text-transform:uppercase; margin:1.4rem 0 .5rem; color:var(--mute); }
+  .press input[type=range] { width:100%; accent-color:var(--rust); }
+  .press input[type=text] { width:100%; font-family:'Libre Baskerville'; font-style:italic; font-size:1.2rem; border:0; border-bottom:1px solid var(--ink); background:none; padding:.3rem 0; color:var(--ink); }
+  .swatches { display:flex; gap:.5rem; flex-wrap:wrap; }
+  .swatches button { width:32px; height:32px; border-radius:50%; border:2px solid var(--paper); outline:1px solid var(--ink); cursor:pointer; }
+  .swatches button.on { outline:3px solid var(--ink); }
+  .types { display:flex; gap:.4rem; flex-wrap:wrap; }
+  .btn { font-family:'Libre Baskerville'; font-style:italic; font-size:1rem; padding:.9rem 1.4rem; background:var(--ink); color:var(--paper); border:0; cursor:pointer; margin-top:2rem; width:100%; }
+  .btn:hover { background:var(--rust); }
+  .pressOut { background:var(--card); padding:2.4rem; box-shadow:0 30px 60px -30px #2f3a2266; position:relative; }
+  .pressOut svg { width:100%; max-height:74vh; display:block; }
+  .pressOut .tape { position:absolute; width:90px; height:22px; background:#e6dcc0cc; }
+  .flash { animation:flash .6s; }
+  @keyframes flash { 0% { filter:brightness(1.6) blur(2px); transform:scale(.97); } }
+  /* journal */
+  .journal { display:grid; grid-template-columns:1fr 360px; gap:4vw; }
+  .entry { padding:1.8rem 0; border-bottom:1px solid var(--line); display:grid; grid-template-columns:110px 1fr; gap:1.4rem; }
+  .entry .d { font-family:'Courier Prime'; font-size:12px; color:var(--rust); line-height:1.6; }
+  .entry h3 { font-weight:400; font-style:italic; font-size:1.4rem; margin-bottom:.4rem; }
+  .entry p { font-family:'Caveat'; font-size:1.45rem; line-height:1.35; color:#3c4a2c; }
+  .entry .w { font-family:'Courier Prime'; font-size:11px; color:var(--mute); margin-top:.6rem; }
+  .newEntry { background:var(--card); padding:1.8rem; box-shadow:0 20px 40px -24px #2f3a2266; position:sticky; top:1.4rem; align-self:start; background-image:repeating-linear-gradient(transparent 0 31px,#2f3a2222 31px 32px); }
+  .newEntry h4 { font-weight:400; font-style:italic; font-size:1.3rem; margin-bottom:1rem; }
+  .newEntry input, .newEntry textarea, .newEntry select { width:100%; font-family:'Caveat'; font-size:1.5rem; border:0; background:transparent; color:var(--ink); outline:none; line-height:32px; resize:none; }
+  .newEntry select { font-family:'Courier Prime'; font-size:13px; }
+  @media (max-width:900px){ header { grid-template-columns:1fr; text-align:center; gap:.4rem; } header .r { text-align:center; } .plate,.press,.journal { grid-template-columns:1fr; } nav { gap:1.2rem; } }
+</style>
+</head>
+<body>
+<header><div class="l"><a href="index.html">← Return to the Index</a></div><h1>Herbarium <i>Botanicum</i></h1><div class="r">collected in the Julian Alps, 1893–1911</div></header>
+<nav><a href="#collection"><span>I.</span>The Collection</a><a href="#press"><span>II.</span>The Flower Press</a><a href="#journal"><span>III.</span>Field Journal</a></nav>
+<main>
+<section data-view="collection" class="page">
+  <div class="filters"><input id="q" placeholder="Search by name, family or habitat…"><div id="chips" style="display:flex;gap:.4rem;flex-wrap:wrap"></div><span class="count" id="count"></span></div>
+  <div class="grid" id="grid"></div>
+</section>
+<section data-view="plate" class="page" hidden>
+  <button class="back" id="back">← back to the collection</button>
+  <div class="plate"><div class="plateArt" id="plateArt"></div><div><div class="type" style="font-size:12px;color:var(--mute);letter-spacing:.2em" id="pFam"></div><h2 id="pName"></h2><div class="common" id="pCommon"></div><div id="pText"></div><div class="label" id="pLabel"></div><div class="pnav"><button id="pPrev">← previous sheet</button><button id="pNext">next sheet →</button></div></div></div>
+</section>
+<section data-view="press" class="page" hidden>
+  <div class="press">
+    <div>
+      <p style="font-style:italic;line-height:1.8">Compose a flower of your own invention, then press it into the collection. The press is gentle; your specimen will keep for a hundred years.</p>
+      <label>Name your specimen</label><input type="text" id="fName" value="Rosa inventa">
+      <label>Form</label><div class="types" id="fTypes"></div>
+      <label>Petals · <span id="fPetV"></span></label><input type="range" id="fPet" min="3" max="16" value="7">
+      <label>Stature</label><input type="range" id="fHt" min="30" max="100" value="70">
+      <label>Leafiness</label><input type="range" id="fLeaf" min="0" max="8" value="4">
+      <label>Wind</label><input type="range" id="fBend" min="-30" max="30" value="6">
+      <label>Pigment</label><div class="swatches" id="fCol"></div>
+      <button class="btn" id="pressBtn">Press & add to the collection</button>
+    </div>
+    <div class="pressOut" id="pressOut"><div class="tape" style="top:-8px;left:30%;transform:rotate(-4deg)"></div><div class="tape" style="bottom:-8px;right:25%;transform:rotate(5deg)"></div><div id="pressSvg"></div></div>
+  </div>
+</section>
+<section data-view="journal" class="page" hidden>
+  <div class="journal">
+    <div id="entries"></div>
+    <form class="newEntry" id="jf"><h4>A new entry</h4><input id="jt" placeholder="Title…" required maxlength="60"><textarea id="jb" rows="5" placeholder="What did you see today?" required maxlength="400"></textarea><select id="jw"><option>☀ fair</option><option>☁ overcast</option><option>🌧 rain</option><option>❄ snow</option><option>🌫 mist</option></select><button class="btn" style="margin-top:1rem">Write it down</button></form>
+  </div>
+</section>
+</main>
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'collection';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id||(id==='plate'&&a.getAttribute('href')==='#collection')));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* ---------- procedural plant ---------- */
+function R(seed){let s=seed*9301+49297;return()=>((s=(s*9301+49297)%233280)/233280)}
+function plant(o,ann=false){const r=R(o.seed);const W=300,H=400,base=[150,380],top=[150+o.bend*1.4,380-o.ht*3.2];const col=o.col,ink='#2f3a22',leafC='#5d6e3a',leafD='#3f4d26';
+ const cp=[150+o.bend*.3+(r()-.5)*30,380-o.ht*1.6];let s=`<path d="M${base[0]} ${base[1]} Q${cp[0]} ${cp[1]} ${top[0]} ${top[1]}" stroke="${leafD}" stroke-width="2.4" fill="none"/>`;
+ const at=t=>[(1-t)*(1-t)*base[0]+2*(1-t)*t*cp[0]+t*t*top[0],(1-t)*(1-t)*base[1]+2*(1-t)*t*cp[1]+t*t*top[1]];
+ // roots
+ for(let i=0;i<6;i++){const a=(r()-.5)*2.2;s+=`<path d="M150 380 q${Math.sin(a)*20} ${12+r()*8} ${Math.sin(a)*38} ${20+r()*14}" stroke="#7a6a4a" stroke-width="1" fill="none"/>`}
+ // leaves
+ for(let i=0;i<o.leaf;i++){const t=.12+i*(.62/Math.max(1,o.leaf));const [x,y]=at(t);const side=i%2?1:-1;const L=(28+r()*22)*(1-t*.4);const ang=side*(40+r()*20);
+  if(o.type==='fern'){for(let k=0;k<7;k++){const kk=k*L/7;s+=`<ellipse cx="${x+side*kk}" cy="${y-kk*.5}" rx="5" ry="2.4" fill="${leafC}" transform="rotate(${-side*30} ${x+side*kk} ${y-kk*.5})"/>`}s+=`<line x1="${x}" y1="${y}" x2="${x+side*L}" y2="${y-L*.5}" stroke="${leafD}" stroke-width=".8"/>`}
+  else s+=`<g transform="translate(${x} ${y}) rotate(${ang})"><path d="M0 0 Q${L*.5} ${-L*.28} ${L} 0 Q${L*.5} ${L*.28} 0 0Z" fill="${leafC}" stroke="${leafD}" stroke-width=".7"/><path d="M0 0 L${L*.9} 0" stroke="${leafD}" stroke-width=".6"/>${[.3,.5,.7].map(f=>`<path d="M${L*f} 0 l${L*.12} ${-L*.1} M${L*f} 0 l${L*.12} ${L*.1}" stroke="${leafD}" stroke-width=".4"/>`).join('')}</g>`}
+ // flower
+ const [fx,fy]=top;let fl='';const n=o.pet;
+ if(o.type==='daisy'){for(let i=0;i<n;i++){const a=i*360/n;fl+=`<ellipse cx="${fx}" cy="${fy-18}" rx="6" ry="18" fill="${col}" stroke="${ink}" stroke-width=".5" opacity=".92" transform="rotate(${a} ${fx} ${fy})"/>`}fl+=`<circle cx="${fx}" cy="${fy}" r="8" fill="#d9a72c" stroke="${ink}" stroke-width=".6"/>`;for(let i=0;i<14;i++)fl+=`<circle cx="${fx+Math.cos(i*2.4)*i*.45}" cy="${fy+Math.sin(i*2.4)*i*.45}" r=".8" fill="${ink}"/>`}
+ else if(o.type==='bell'){for(let i=0;i<Math.min(n,7);i++){const [bx,by]=at(.6+i*.055);const sx=bx+(i%2?1:-1)*14;fl+=`<path d="M${bx} ${by} Q${sx} ${by-6} ${sx} ${by+6}" stroke="${leafD}" fill="none"/><path d="M${sx-7} ${by+6} Q${sx-8} ${by+22} ${sx-10} ${by+26} L${sx+10} ${by+26} Q${sx+8} ${by+22} ${sx+7} ${by+6}Z" fill="${col}" stroke="${ink}" stroke-width=".6"/>`}}
+ else if(o.type==='tulip'){fl+=`<path d="M${fx-18} ${fy-4} Q${fx-22} ${fy-40} ${fx-6} ${fy-46} Q${fx} ${fy-30} ${fx+6} ${fy-46} Q${fx+22} ${fy-40} ${fx+18} ${fy-4} Q${fx} ${fy+10} ${fx-18} ${fy-4}Z" fill="${col}" stroke="${ink}" stroke-width=".7"/><path d="M${fx} ${fy+4} Q${fx-4} ${fy-20} ${fx} ${fy-40}" stroke="${ink}" stroke-width=".4" fill="none"/>`}
+ else if(o.type==='umbel'){for(let i=0;i<n+4;i++){const a=-Math.PI*.1-i*(Math.PI*.8)/(n+3);const ex=fx+Math.cos(a)*34,ey=fy+Math.sin(a)*30;fl+=`<line x1="${fx}" y1="${fy}" x2="${ex}" y2="${ey}" stroke="${leafD}" stroke-width=".6"/>`;for(let k=0;k<5;k++)fl+=`<circle cx="${ex+Math.cos(k*1.3)*4}" cy="${ey+Math.sin(k*1.3)*4-2}" r="2.2" fill="${col}" stroke="${ink}" stroke-width=".3"/>`}}
+ else if(o.type==='fern'){fl+=`<path d="M${fx} ${fy} q14 -6 10 -18 q-4 -8 -10 -2 q-4 6 2 8" stroke="${leafD}" stroke-width="2" fill="none"/>`}
+ s+=fl;
+ if(ann){s+=`<line class="annl" x1="${fx+26}" y1="${fy}" x2="250" y2="${fy-20}"/><text class="ann" x="252" y="${fy-16}">flos</text>`;const [lx,ly]=at(.2);s+=`<line class="annl" x1="${lx+20}" y1="${ly}" x2="255" y2="${ly+10}"/><text class="ann" x="257" y="${ly+14}">folium</text>`;const [cx2,cy2]=at(.45);s+=`<line class="annl" x1="${cx2-4}" y1="${cy2}" x2="40" y2="${cy2}"/><text class="ann" x="6" y="${cy2-6}">caulis</text><line class="annl" x1="140" y1="392" x2="50" y2="394"/><text class="ann" x="10" y="392">radix</text>`}
+ return `<svg viewBox="0 0 ${W} ${H}"><defs><filter id="w${o.seed}"><feTurbulence baseFrequency=".03" numOctaves="2" seed="${o.seed%50}"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter></defs><g filter="url(#w${o.seed})">${s}</g></svg>`}
+
+/* ---------- collection ---------- */
+const SP=[['Leucanthemum vulgare','Ox-eye daisy','Asteraceae','meadow','daisy','#fbf8ef',11,72,5,4,'June','Bohinj valley, 530 m'],['Campanula barbata','Bearded bellflower','Campanulaceae','alpine','bell','#8e8bd6',5,60,3,-6,'July','Vršič pass, 1 610 m'],['Tulipa sylvestris','Wild tulip','Liliaceae','woodland','tulip','#e9c54a',6,55,2,3,'April','Vipava vineyards, 120 m'],['Daucus carota','Wild carrot','Apiaceae','meadow','umbel','#f3f0e6',10,88,4,-4,'August','Soča riverbank, 180 m'],['Dryopteris filix-mas','Male fern','Dryopteridaceae','woodland','fern','#5d6e3a',0,78,7,8,'September','Pokljuka forest, 1 200 m'],['Gentiana clusii','Trumpet gentian','Gentianaceae','alpine','tulip','#2b4fb3',5,30,2,0,'May','Triglav slopes, 2 100 m'],['Centaurea cyanus','Cornflower','Asteraceae','field','daisy','#3b6fd8',9,66,4,-10,'July','Ljubljana marsh, 290 m'],['Papaver rhoeas','Common poppy','Papaveraceae','field','tulip','#d8382a',4,62,2,12,'June','Kras plateau, 400 m'],['Achillea millefolium','Yarrow','Asteraceae','meadow','umbel','#f2d7e0',9,70,6,5,'August','Velika planina, 1 500 m'],['Convallaria majalis','Lily of the valley','Asparagaceae','woodland','bell','#fbf8ef',7,42,2,-8,'May','Rožnik hill, 390 m'],['Leontopodium nivale','Edelweiss','Asteraceae','alpine','daisy','#e8e6dc',8,28,3,2,'August','Kanin ridge, 2 300 m'],['Pulsatilla alpina','Alpine pasqueflower','Ranunculaceae','alpine','tulip','#f6f1e2',6,40,3,-3,'June','Krn lake, 1 400 m']].map((a,i)=>({lat:a[0],com:a[1],fam:a[2],hab:a[3],type:a[4],col:a[5],pet:a[6]||6,ht:a[7],leaf:a[8],bend:a[9],mon:a[10],loc:a[11],seed:i*17+5,no:i+1}));
+let HAB='all';const habs=['all','meadow','alpine','woodland','field','pressed'];
+document.getElementById('chips').innerHTML=habs.map(h=>`<button class="chip${h==='all'?' on':''}" data-h="${h}">${h}</button>`).join('');
+document.getElementById('chips').onclick=e=>{const h=e.target.dataset.h;if(!h)return;HAB=h;document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.h===h));renderGrid()};
+const q=document.getElementById('q');q.oninput=renderGrid;let shown=[];
+function renderGrid(){const s=q.value.toLowerCase();shown=SP.filter(p=>(HAB==='all'||p.hab===HAB)&&(p.lat+p.com+p.fam+p.hab).toLowerCase().includes(s));
+ document.getElementById('count').textContent=shown.length+' sheet'+(shown.length===1?'':'s');
+ document.getElementById('grid').innerHTML=shown.map(p=>`<div class="spec" data-i="${SP.indexOf(p)}"><span class="no">No. ${String(p.no).padStart(3,'0')}</span>${plant(p)}<div class="lab"><b>${p.lat}</b><small>${p.com.toUpperCase()} · ${p.fam}</small></div></div>`).join('')||'<p class="hand" style="font-size:1.6rem">Nothing here… perhaps it is still in bloom somewhere.</p>'}
+document.getElementById('grid').onclick=e=>{const c=e.target.closest('.spec');if(c)openPlate(+c.dataset.i)};renderGrid();
+
+/* ---------- plate ---------- */
+let pi=0;const notes={daisy:'A composite flower — what looks like one bloom is in truth a crowd: a disc of tiny tubular florets ringed by ray florets that play the part of petals.',bell:'The nodding bells protect pollen from rain; bumblebees must hang upside-down to reach the nectar, dusting themselves thoroughly in the process.',tulip:'Its cup opens with warmth and closes at dusk, a behaviour botanists call nyctinasty. The collector noted it "closed its fist" in his vasculum on the walk home.',umbel:'Dozens of small florets are held on rays of equal length from a single point, like the ribs of an umbrella — hence umbel.',fern:'No flowers at all: the fern reproduces by spores, borne in rust-coloured sori on the undersides of its fronds.'};
+function openPlate(i){pi=(i+SP.length)%SP.length;const p=SP[pi];document.getElementById('plateArt').innerHTML=plant(p,true);pFam.textContent=`SHEET ${String(p.no).padStart(3,'0')} · ${p.fam.toUpperCase()}`;pName.textContent=p.lat;pCommon.textContent=p.com;
+ pText.innerHTML=`<p>${notes[p.type]}</p><p>Found in ${p.hab} habitat and gathered in ${p.mon}. ${p.hab==='alpine'?'Specimens from altitude are smaller and more intensely coloured — the thin air is hard on a plant.':'Common in the region, though increasingly rare near the villages.'}</p>`;
+ pLabel.innerHTML=`<div><b>Nomen:</b> ${p.lat}</div><div><b>Familia:</b> ${p.fam}</div><div><b>Locus:</b> ${p.loc}</div><div><b>Mensis:</b> ${p.mon}</div><div><b>Leg.:</b> <span class="hand" style="font-size:1.3rem">A. Kuštrin</span></div>`;go('plate')}
+back.onclick=()=>go('collection');pPrev.onclick=()=>openPlate(pi-1);pNext.onclick=()=>openPlate(pi+1);
+addEventListener('keydown',e=>{if(V[1].hidden)return;if(e.key==='ArrowRight')openPlate(pi+1);if(e.key==='ArrowLeft')openPlate(pi-1)});
+
+/* ---------- press ---------- */
+const types=['daisy','bell','tulip','umbel','fern'],cols=['#d8382a','#e9c54a','#8e8bd6','#2b4fb3','#f2d7e0','#fbf8ef','#c0527a','#e07a2e'];let fT='daisy',fC='#c0527a';
+fTypes.innerHTML=types.map(t=>`<button class="chip${t===fT?' on':''}" data-t="${t}">${t}</button>`).join('');fCol.innerHTML=cols.map(c=>`<button style="background:${c}" data-c="${c}" class="${c===fC?'on':''}"></button>`).join('');
+fTypes.onclick=e=>{if(!e.target.dataset.t)return;fT=e.target.dataset.t;fTypes.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===e.target));drawPress()};
+fCol.onclick=e=>{if(!e.target.dataset.c)return;fC=e.target.dataset.c;fCol.querySelectorAll('button').forEach(c=>c.classList.toggle('on',c===e.target));drawPress()};
+const cur=()=>({type:fT,col:fC,pet:+fPet.value,ht:+fHt.value,leaf:+fLeaf.value,bend:+fBend.value,seed:99});
+function drawPress(){fPetV.textContent=fPet.value;pressSvg.innerHTML=plant(cur(),true)+`<p class="hand" style="text-align:center;font-size:1.8rem;margin-top:.4rem"><i>${fName.value.replace(/</g,'')}</i></p>`}
+['fPet','fHt','fLeaf','fBend','fName'].forEach(id=>document.getElementById(id).oninput=drawPress);drawPress();
+pressBtn.onclick=()=>{const o=cur();const p={...o,seed:1000+SP.length*7,lat:fName.value||'Species nova',com:'Your own invention',fam:'Inventaceae',hab:'pressed',mon:new Date().toLocaleDateString('en',{month:'long'}),loc:'The flower press, this very page',no:SP.length+1};SP.push(p);pressOut.classList.remove('flash');void pressOut.offsetWidth;pressOut.classList.add('flash');HAB='pressed';document.querySelectorAll('.chip[data-h]').forEach(c=>c.classList.toggle('on',c.dataset.h==='pressed'));setTimeout(()=>{renderGrid();go('collection')},700)};
+
+/* ---------- journal ---------- */
+let J=[['14 June 1897','Meadow above Bohinj','The ox-eye daisies are so thick this year that the hillside looks like it has been snowed upon in midsummer. Pressed three; the cows ate the fourth.','☀ fair'],['2 August 1901','Edelweiss at last!','Found on the north face of Kanin after four hours of scrambling. My hands shook so much I nearly dropped the vasculum into the ravine.','🌫 mist'],['19 September 1905','Ferns in the rain','Pokljuka dripping and silent. The male fern unfurls its crosiers like a violinist\'s scroll. Must remember to dry the sheets tonight.','🌧 rain']];
+try{const s=JSON.parse(localStorage.getItem('herb-journal'));if(s)J=s}catch(e){}
+function renderJ(){entries.innerHTML=J.map(([d,t,b,w])=>`<div class="entry"><div class="d">${d}</div><div><h3>${t.replace(/</g,'')}</h3><p>${b.replace(/</g,'')}</p><div class="w">weather: ${w}</div></div></div>`).join('')}renderJ();
+jf.onsubmit=e=>{e.preventDefault();J.unshift([new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),jt.value,jb.value,jw.value]);try{localStorage.setItem('herb-journal',JSON.stringify(J))}catch(e){}jt.value='';jb.value='';renderJ()};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

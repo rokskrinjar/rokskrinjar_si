@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEON NOODLE — ネオン麺</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+<style>
+  :root { --m:#ff2a6d; --c:#05d9e8; --y:#f9f002; --bg:#07060d; --panel:#0f0d1a; --line:#ff2a6d55; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:#e8e6ff; font-family:'Rajdhani',sans-serif; font-size:17px; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+  .mono { font-family:'Share Tech Mono',monospace; }
+  canvas#rain { position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:.55; }
+  .cut { clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px)); }
+  header { position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:2rem; padding:14px 4vw; background:linear-gradient(#07060df0,#07060dc0); border-bottom:1px solid var(--line); backdrop-filter:blur(6px); }
+  .brand { font-family:'Dela Gothic One'; font-size:22px; color:var(--m); text-shadow:0 0 12px var(--m); letter-spacing:.04em; margin-right:auto; }
+  .brand span { color:var(--c); text-shadow:0 0 12px var(--c); }
+  header nav { display:flex; gap:4px; flex-wrap:wrap; }
+  header nav a { font-weight:700; letter-spacing:.14em; font-size:14px; padding:8px 14px; text-transform:uppercase; color:#9a96c0; position:relative; transition:color .2s; }
+  header nav a:hover { color:var(--c); }
+  header nav a.on { color:var(--bg); background:var(--c); box-shadow:0 0 18px var(--c); }
+  .cred { font-family:'Share Tech Mono'; color:var(--y); font-size:14px; }
+  main { position:relative; z-index:1; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:glitchIn .45s steps(6) both; }
+  @keyframes glitchIn { 0% { clip-path:inset(40% 0 50% 0); transform:translateX(-10px); } 30% { clip-path:inset(10% 0 70% 0); transform:translateX(8px); } 60% { clip-path:inset(60% 0 5% 0); } 100% { clip-path:inset(0); transform:none; } }
+  /* home */
+  .hero { min-height:calc(100vh - 62px); display:grid; grid-template-columns:1.1fr 1fr; align-items:center; padding:0 5vw; gap:3vw; position:relative; overflow:hidden; }
+  .hero .jp { font-family:'Dela Gothic One'; font-size:clamp(4rem,11vw,9rem); line-height:.9; color:transparent; -webkit-text-stroke:2px var(--m); position:absolute; right:-2vw; top:8vh; writing-mode:vertical-rl; opacity:.35; }
+  .glitch { font-family:'Dela Gothic One'; font-size:clamp(3.4rem,9vw,8rem); line-height:.88; position:relative; color:#fff; text-shadow:0 0 30px #ff2a6d88; }
+  .glitch::before, .glitch::after { content:attr(data-t); position:absolute; left:0; top:0; width:100%; }
+  .glitch::before { color:var(--c); animation:g1 3s infinite steps(1); clip-path:inset(0 0 60% 0); }
+  .glitch::after { color:var(--m); animation:g2 2.4s infinite steps(1); clip-path:inset(55% 0 0 0); }
+  @keyframes g1 { 0%,90% { transform:none; } 92% { transform:translate(-6px,2px); } 96% { transform:translate(5px,-2px); } }
+  @keyframes g2 { 0%,86% { transform:none; } 88% { transform:translate(6px,1px); } 94% { transform:translate(-4px,-1px); } }
+  .tag { font-family:'Share Tech Mono'; color:var(--c); letter-spacing:.2em; margin-bottom:1.4rem; }
+  .tag::before { content:'▮ '; animation:bl 1s steps(1) infinite; }
+  @keyframes bl { 50% { opacity:0; } }
+  .lede { font-size:1.3rem; line-height:1.5; color:#bdb8e6; max-width:32rem; margin-top:1.6rem; }
+  .cta { display:inline-flex; gap:1rem; align-items:center; margin-top:2.4rem; padding:16px 28px; background:var(--m); color:#fff; font-weight:700; letter-spacing:.2em; font-size:15px; box-shadow:0 0 30px var(--m); cursor:pointer; border:0; font-family:inherit; }
+  .cta:hover { background:var(--y); color:var(--bg); box-shadow:0 0 30px var(--y); }
+  .cta.alt { background:transparent; border:1px solid var(--c); color:var(--c); box-shadow:none; }
+  .sign { position:relative; aspect-ratio:1; max-width:520px; justify-self:center; width:100%; }
+  .sign .bowl { position:absolute; inset:10%; border-radius:50%; border:3px solid var(--c); box-shadow:0 0 30px var(--c),inset 0 0 30px var(--c); animation:flick 5s infinite; }
+  .sign .bowl::after { content:''; position:absolute; left:-12%; right:-12%; top:46%; height:3px; background:var(--m); box-shadow:0 0 20px var(--m); }
+  .sign .steam { position:absolute; width:3px; height:90px; background:linear-gradient(transparent,var(--y),transparent); top:0; filter:blur(1px); box-shadow:0 0 10px var(--y); animation:steam 3s ease-in-out infinite; }
+  .sign .chop { position:absolute; width:4px; height:70%; background:var(--y); box-shadow:0 0 16px var(--y); top:-8%; right:22%; transform:rotate(24deg); }
+  @keyframes steam { 0%,100% { transform:translateY(20px) scaleY(.6); opacity:0; } 50% { transform:translateY(-10px); opacity:1; } }
+  @keyframes flick { 0%,100% { opacity:1; } 3% { opacity:.3; } 4% { opacity:1; } 60% { opacity:1; } 61% { opacity:.4; } 62% { opacity:1; } }
+  .strip { display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .strip div { padding:2rem; border-right:1px solid var(--line); }
+  .strip b { display:block; font-family:'Share Tech Mono'; font-size:2.4rem; color:var(--y); text-shadow:0 0 10px #f9f00288; }
+  .strip span { letter-spacing:.14em; font-size:13px; color:#9a96c0; text-transform:uppercase; }
+  .page { padding:5vh 5vw 10vh; max-width:1400px; margin:0 auto; }
+  .h2 { font-family:'Dela Gothic One'; font-size:clamp(2.2rem,5vw,4rem); line-height:1; margin-bottom:.6rem; }
+  .h2 em { color:var(--m); font-style:normal; text-shadow:0 0 16px var(--m); }
+  .sub { font-family:'Share Tech Mono'; color:#8e8ab8; margin-bottom:3rem; }
+  .panel { background:var(--panel); border:1px solid var(--line); padding:24px; position:relative; }
+  .panel::before { content:attr(data-id); position:absolute; top:-10px; left:16px; background:var(--bg); padding:0 8px; font-family:'Share Tech Mono'; font-size:12px; color:var(--m); }
+  /* builder */
+  .builder { display:grid; grid-template-columns:1fr 440px; gap:3vw; align-items:start; }
+  .step { margin-bottom:2rem; }
+  .step h4 { font-family:'Share Tech Mono'; color:var(--c); letter-spacing:.2em; margin-bottom:.8rem; font-weight:400; }
+  .opts { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; }
+  .opt { background:#16132a; border:1px solid #2c2750; padding:14px; cursor:pointer; text-align:left; font-family:inherit; color:#e8e6ff; transition:all .15s; }
+  .opt b { display:block; font-size:1.05rem; }
+  .opt small { font-family:'Share Tech Mono'; color:var(--y); font-size:12px; }
+  .opt:hover { border-color:var(--c); }
+  .opt.on { border-color:var(--m); box-shadow:0 0 16px #ff2a6d66, inset 0 0 20px #ff2a6d22; }
+  .bowlView { position:sticky; top:90px; }
+  .bowlView svg { width:100%; }
+  .receipt { font-family:'Share Tech Mono'; font-size:14px; margin-top:1rem; line-height:1.8; }
+  .receipt .ln { display:flex; justify-content:space-between; border-bottom:1px dashed #2c2750; }
+  .receipt .tot { font-size:1.5rem; color:var(--y); display:flex; justify-content:space-between; margin-top:.6rem; }
+  .meter { display:grid; grid-template-columns:90px 1fr 40px; gap:8px; align-items:center; font-family:'Share Tech Mono'; font-size:12px; margin-top:6px; }
+  .meter i { display:block; height:6px; background:#2c2750; position:relative; }
+  .meter i::after { content:''; position:absolute; inset:0; width:var(--v); background:var(--c); box-shadow:0 0 8px var(--c); transition:width .4s; }
+  /* drone */
+  .track { display:grid; grid-template-columns:1fr 360px; gap:2vw; }
+  .city { position:relative; aspect-ratio:16/10; background:#0a0916; border:1px solid var(--line); overflow:hidden; }
+  .city svg { width:100%; height:100%; }
+  .status li { list-style:none; display:flex; gap:12px; padding:12px 0; border-bottom:1px solid #2c2750; font-family:'Share Tech Mono'; font-size:14px; color:#6c6896; }
+  .status li.done { color:#e8e6ff; }
+  .status li.done::before { content:'■'; color:var(--c); }
+  .status li:not(.done)::before { content:'□'; }
+  .eta { font-family:'Share Tech Mono'; font-size:3.4rem; color:var(--y); text-shadow:0 0 16px #f9f00288; }
+  /* hack */
+  .hack { display:grid; grid-template-columns:auto 1fr; gap:3vw; align-items:start; }
+  .matrix { display:grid; grid-template-columns:repeat(6,64px); gap:6px; padding:14px; background:#0c0a18; border:1px solid var(--c); box-shadow:0 0 20px #05d9e833; }
+  .matrix button { height:56px; font-family:'Share Tech Mono'; font-size:1.2rem; background:transparent; border:1px solid transparent; color:#c8f7ff; cursor:pointer; transition:all .1s; }
+  .matrix button.act { background:#05d9e814; }
+  .matrix button.act:hover { border-color:var(--y); color:var(--y); }
+  .matrix button.used { color:#3c3860; cursor:default; }
+  .matrix button:disabled:not(.used) { opacity:.35; cursor:default; }
+  .buffer { display:flex; gap:8px; margin:1rem 0 1.6rem; }
+  .buffer span { width:52px; height:44px; border:1px dashed var(--c); display:grid; place-items:center; font-family:'Share Tech Mono'; font-size:1.1rem; color:var(--y); }
+  .seq { display:flex; gap:10px; align-items:center; padding:12px 14px; border:1px solid #2c2750; margin-bottom:10px; font-family:'Share Tech Mono'; }
+  .seq code { padding:4px 8px; border:1px solid #2c2750; }
+  .seq code.hit { border-color:var(--c); color:var(--c); }
+  .seq.ok { border-color:var(--c); background:#05d9e814; }
+  .seq.fail { opacity:.35; text-decoration:line-through; }
+  .seq small { margin-left:auto; color:var(--y); }
+  .timer { height:4px; background:#2c2750; margin-bottom:1rem; }
+  .timer i { display:block; height:100%; background:var(--m); box-shadow:0 0 10px var(--m); }
+  /* market */
+  .stalls { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px; }
+  .stall { padding:22px; background:var(--panel); border:1px solid #2c2750; position:relative; overflow:hidden; transition:transform .2s,border-color .2s; }
+  .stall:hover { transform:translateY(-4px); border-color:var(--c); }
+  .stall .k { font-family:'Dela Gothic One'; font-size:2.6rem; opacity:.18; position:absolute; right:10px; top:0; color:var(--c); }
+  .stall h3 { font-size:1.4rem; font-weight:700; }
+  .stall p { color:#9a96c0; margin:.4rem 0 .8rem; }
+  .stall .open { font-family:'Share Tech Mono'; font-size:13px; }
+  .toast { position:fixed; bottom:24px; right:24px; z-index:99; font-family:'Share Tech Mono'; padding:14px 20px; background:var(--bg); border:1px solid var(--c); color:var(--c); box-shadow:0 0 20px #05d9e855; transform:translateX(130%); transition:transform .3s; }
+  .toast.show { transform:none; }
+  @media (max-width:980px){ .hero,.builder,.track,.hack { grid-template-columns:1fr; } .strip { grid-template-columns:1fr 1fr; } .matrix { grid-template-columns:repeat(6,1fr); } .bowlView { position:static; } header { flex-wrap:wrap; gap:.6rem; } }
+</style>
+</head>
+<body>
+<canvas id="rain"></canvas>
+<header><div class="brand">NEON<span>NOODLE</span></div><nav><a href="#home">Home</a><a href="#build">Build a bowl</a><a href="#track">Drone</a><a href="#hack">Loyalty.exe</a><a href="#market">Night market</a><a href="index.html">↩ Jack out</a></nav><div class="cred">¥€$ <b id="credits">120</b> cr</div></header>
+<main>
+<section data-view="home">
+  <div class="hero">
+    <div class="jp">ネオン麺</div>
+    <div><div class="tag">SECTOR 7 · LEVEL -3 · OPEN 24/7</div><h1 class="glitch" data-t="SLURP THE FUTURE">SLURP THE FUTURE</h1><p class="lede">Hand-pulled noodles, synth-bone broth simmered 72 hours, and toppings no corp can patent. Delivered by drone through acid rain in under 11 minutes — or it's free.</p>
+      <a class="cta" href="#build">BUILD YOUR BOWL →</a> <a class="cta alt" href="#hack">HACK FOR CREDITS</a></div>
+    <div class="sign"><div class="steam" style="left:38%"></div><div class="steam" style="left:50%;animation-delay:.8s"></div><div class="steam" style="left:62%;animation-delay:1.6s"></div><div class="bowl"></div><div class="chop"></div></div>
+  </div>
+  <div class="strip"><div><b id="served">2,048,112</b><span>Bowls served</span></div><div><b>10:48</b><span>Avg drone ETA</span></div><div><b>72H</b><span>Broth simmer</span></div><div><b>0</b><span>Corporate sponsors</span></div></div>
+</section>
+
+<section data-view="build" class="page" hidden>
+  <div class="h2">BUILD A <em>BOWL</em></div><div class="sub">// customise every layer. price & macros update in real time.</div>
+  <div class="builder">
+    <div id="steps"></div>
+    <div class="bowlView panel cut" data-id="PREVIEW.RENDER"><svg viewBox="0 0 400 320" id="bowlSvg"></svg><div class="receipt" id="rcpt"></div><div id="macros"></div><button class="cta" id="order" style="width:100%;justify-content:center">ORDER · DISPATCH DRONE</button></div>
+  </div>
+</section>
+
+<section data-view="track" class="page" hidden>
+  <div class="h2">DRONE <em>TRACKING</em></div><div class="sub" id="trackSub">// no active order. build a bowl first — or watch the demo flight.</div>
+  <div class="track">
+    <div class="city cut"><svg viewBox="0 0 800 500" id="citySvg"></svg></div>
+    <div class="panel" data-id="DRONE#K-77"><div class="mono" style="color:#8e8ab8">ETA</div><div class="eta" id="eta">--:--</div><ul class="status" id="stat"></ul><button class="cta alt" id="demo" style="margin-top:1.4rem">▶ RUN DEMO FLIGHT</button></div>
+  </div>
+</section>
+
+<section data-view="hack" class="page" hidden>
+  <div class="h2">LOYALTY<em>.EXE</em></div><div class="sub">// breach the rewards terminal. pick alternating row → column → row. match sequences to earn credits.</div>
+  <div class="hack">
+    <div><div class="timer"><i id="tbar" style="width:100%"></i></div><div class="matrix" id="matrix"></div></div>
+    <div><div class="mono" style="color:#8e8ab8">BUFFER</div><div class="buffer" id="buffer"></div><div class="mono" style="color:#8e8ab8;margin-bottom:.6rem">SEQUENCES REQUIRED</div><div id="seqs"></div><p class="mono" id="hmsg" style="margin:1rem 0;color:var(--y);min-height:1.4em"></p><button class="cta" id="reboot">REBOOT TERMINAL</button></div>
+  </div>
+</section>
+
+<section data-view="market" class="page" hidden>
+  <div class="h2">NIGHT <em>MARKET</em></div><div class="sub">// other stalls on level -3. tell them the noodle sent you.</div>
+  <div class="stalls" id="stalls"></div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'home';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('header nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='hack'&&!hackOn)newHack()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const toast=t=>{const el=document.getElementById('toast');el.textContent='> '+t;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2400)};
+let credits=120;const setCred=v=>{credits=v;document.getElementById('credits').textContent=credits};
+
+/* rain */
+const rc=document.getElementById('rain'),rg=rc.getContext('2d');let drops=[];function rs(){rc.width=innerWidth;rc.height=innerHeight;drops=Array.from({length:160},()=>({x:Math.random()*rc.width,y:Math.random()*rc.height,v:6+Math.random()*10,c:Math.random()<.2?'#ff2a6d':'#05d9e8'}))}rs();addEventListener('resize',rs);
+(function rl(){rg.clearRect(0,0,rc.width,rc.height);drops.forEach(d=>{rg.strokeStyle=d.c+'66';rg.beginPath();rg.moveTo(d.x,d.y);rg.lineTo(d.x-1,d.y-d.v*2);rg.stroke();d.y+=d.v;if(d.y>rc.height){d.y=-20;d.x=Math.random()*rc.width}});requestAnimationFrame(rl)})();
+setInterval(()=>{const s=document.getElementById('served');s.textContent=(parseInt(s.textContent.replace(/,/g,''))+1).toLocaleString('en')},1800);
+
+/* builder */
+const STEPS={BROTH:[['Tonkotsu 2.0','Synth-pork, 72h',8,'#e8d7b8',[40,20,10]],['Black Garlic','Burnt oil, umami',9,'#3a2a24',[35,25,8]],['Neon Miso','Glows faintly',8,'#ff8a3c',[30,18,12]],['Void Shoyu','Clear, dark, deep',7,'#5a2a1c',[25,12,14]]],
+NOODLE:[['Thin Hakata','Firm bite',3,'#f5e6a8',[0,40,6]],['Thick Wavy','Chewy curls',3,'#f0d27a',[0,48,8]],['Squid Ink','Midnight black',4,'#1c1c24',[0,42,7]],['Glass Noodle','Transparent',4,'#d8f5ff',[0,36,1]]],
+PROTEIN:[['Chashu','Rolled belly',5,'#c8765a',[18,0,22]],['Lab Chicken','Grown ethically',4,'#e8c49a',[26,0,6]],['Tofu Cubes','Silken',3,'#f6f0e0',[12,2,6]],['Nano-Shrimp','Tiny but many',6,'#ff8a7a',[20,0,2]]],
+EXTRAS:[['Ajitama egg','Jammy yolk',2,'egg'],['Nori sheets','Crisp',1,'nori'],['Scallions','Fresh cut',1,'scal'],['Chili bomb','Danger',1,'chili'],['Menma','Bamboo shoots',1,'menma'],['Glow-Kamaboko','Bio-luminescent',2,'kama']]};
+const pick={BROTH:0,NOODLE:0,PROTEIN:0,EXTRAS:new Set([0,2])};
+const stepsEl=document.getElementById('steps');
+Object.entries(STEPS).forEach(([k,list],si)=>{const d=document.createElement('div');d.className='step';d.innerHTML=`<h4>0${si+1} // ${k}${k==='EXTRAS'?' (MULTI)':''}</h4><div class="opts">${list.map((o,i)=>`<button class="opt" data-k="${k}" data-i="${i}"><b>${o[0]}</b><span style="color:#9a96c0;font-size:.9rem">${o[1]}</span><br><small>¥${o[2]}</small></button>`).join('')}</div>`;stepsEl.appendChild(d)});
+stepsEl.onclick=e=>{const b=e.target.closest('.opt');if(!b)return;const k=b.dataset.k,i=+b.dataset.i;if(k==='EXTRAS'){pick.EXTRAS.has(i)?pick.EXTRAS.delete(i):pick.EXTRAS.add(i)}else pick[k]=i;renderBowl()};
+function renderBowl(){document.querySelectorAll('.opt').forEach(b=>{const k=b.dataset.k,i=+b.dataset.i;b.classList.toggle('on',k==='EXTRAS'?pick.EXTRAS.has(i):pick[k]===i)});
+ const br=STEPS.BROTH[pick.BROTH],nd=STEPS.NOODLE[pick.NOODLE],pr=STEPS.PROTEIN[pick.PROTEIN];let top='';
+ for(let i=0;i<9;i++)top+=`<path d="M${110+i*20} ${150+(i%2)*8} q20 ${-12+i%3*8} 40 0 t40 0" stroke="${nd[3]}" stroke-width="5" fill="none" opacity=".95"/>`;
+ top+=[0,1,2].map(i=>pick.PROTEIN===0?`<circle cx="${150+i*40}" cy="${138-i*6}" r="22" fill="${pr[3]}" stroke="#7a3a24" stroke-width="3"/><circle cx="${150+i*40}" cy="${138-i*6}" r="10" fill="none" stroke="#7a3a2488" stroke-width="2"/>`:pick.PROTEIN===2?`<rect x="${140+i*34}" y="${126+i*4}" width="22" height="22" fill="${pr[3]}" stroke="#bba" />`:`<ellipse cx="${150+i*38}" cy="${136-i*4}" rx="24" ry="12" fill="${pr[3]}" stroke="#0004" stroke-width="2"/>`).join('');
+ const ex={egg:`<ellipse cx="270" cy="130" rx="26" ry="18" fill="#fff"/><ellipse cx="270" cy="130" rx="13" ry="10" fill="#ff9d1e"/>`,nori:`<rect x="265" y="70" width="44" height="70" fill="#1d2b1e" transform="rotate(12 285 100)" stroke="#05d9e855"/>`,scal:[...Array(14)].map((_,i)=>`<circle cx="${130+(i*37)%150}" cy="${120+(i*23)%40}" r="5" fill="#7ed957" stroke="#3a8a2a" stroke-width="2"/>`).join(''),chili:`<circle cx="220" cy="118" r="12" fill="#ff2a2a"/><circle cx="220" cy="118" r="18" fill="#ff2a2a33"/>`,menma:[0,1,2,3].map(i=>`<rect x="${110+i*12}" y="${128-i*3}" width="8" height="30" rx="3" fill="#c9a24a" transform="rotate(${-20+i*10} ${114+i*12} ${140})"/>`).join(''),kama:`<circle cx="190" cy="160" r="15" fill="#fff" style="filter:drop-shadow(0 0 8px #ff2a6d)"/><path d="M180 160 q10 -10 20 0 q-10 10 -20 0" stroke="#ff2a6d" stroke-width="3" fill="none"/>`};
+ const exS=[...pick.EXTRAS].map(i=>ex[STEPS.EXTRAS[i][3]]).join('');
+ bowlSvg.innerHTML=`<defs><radialGradient id="soup"><stop offset="0" stop-color="${br[3]}"/><stop offset="1" stop-color="${br[3]}" stop-opacity=".7"/></radialGradient></defs>
+ <ellipse cx="200" cy="140" rx="170" ry="70" fill="url(#soup)" stroke="#05d9e8" stroke-width="4" style="filter:drop-shadow(0 0 10px #05d9e8)"/>${top}${exS}
+ <path d="M30 140 Q40 280 200 290 Q360 280 370 140" fill="#110e20" stroke="#05d9e8" stroke-width="4" style="filter:drop-shadow(0 0 10px #05d9e8)"/><text x="200" y="240" text-anchor="middle" font-family="Dela Gothic One" font-size="34" fill="#ff2a6d" style="filter:drop-shadow(0 0 6px #ff2a6d)">麺</text>
+ ${[0,1,2].map(i=>`<path d="M${160+i*40} 60 q-10 -20 0 -40 q10 -20 0 -40" stroke="#ffffff33" stroke-width="3" fill="none"><animate attributeName="opacity" values="0;.8;0" dur="3s" begin="${i}s" repeatCount="indefinite"/></path>`).join('')}`;
+ const lines=[br,nd,pr].map(x=>[x[0],x[2]]).concat([...pick.EXTRAS].map(i=>[STEPS.EXTRAS[i][0],STEPS.EXTRAS[i][2]]));const tot=lines.reduce((a,l)=>a+l[1],0);
+ rcpt.innerHTML=lines.map(([n,p])=>`<div class="ln"><span>${n}</span><span>¥${p}</span></div>`).join('')+`<div class="tot"><span>TOTAL</span><span>¥${tot}</span></div>`;
+ const m=[br,nd,pr].reduce((a,x)=>a.map((v,i)=>v+(x[4]?.[i]||0)),[0,0,0]);const heat=pick.EXTRAS.has(3)?92:18;
+ macros.innerHTML=[['PROTEIN',m[2]*2,m[2]+'g'],['CARBS',m[1]*1.4,m[1]+'g'],['FAT',m[0]*1.6,m[0]+'g'],['HEAT',heat,heat>50?'☠':'mild']].map(([n,v,l])=>`<div class="meter"><span>${n}</span><i style="--v:${Math.min(100,v)}%"></i><span>${l}</span></div>`).join('');rcpt.dataset.tot=tot}
+renderBowl();
+document.getElementById('order').onclick=()=>{const t=+rcpt.dataset.tot;if(credits<t){toast(`INSUFFICIENT CREDITS (${credits}/${t}). TRY LOYALTY.EXE`);return}setCred(credits-t);toast('ORDER CONFIRMED · DRONE DISPATCHED');startFlight(`${STEPS.BROTH[pick.BROTH][0]} w/ ${STEPS.NOODLE[pick.NOODLE][0]}`);go('track')};
+
+/* drone */
+const city=document.getElementById('citySvg');let bld='';for(let i=0;i<60;i++){const x=(i*137)%780,y=(i*89)%480,w=30+(i*13)%50,h=30+(i*17)%60;bld+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#141128" stroke="#2c2750"/>`;if(i%4===0)bld+=`<rect x="${x+4}" y="${y+4}" width="${w-8}" height="3" fill="${['#ff2a6d','#05d9e8','#f9f002'][i%3]}" opacity=".6"/>`}
+const route=[[80,420],[180,380],[260,300],[380,280],[470,200],[580,170],[690,90]];const rp=`M${route.map(p=>p.join(' ')).join(' L')}`;
+function drawCity(t){const seg=route.length-1,f=Math.min(t,1)*seg,i=Math.min(Math.floor(f),seg-1),k=f-i;const x=route[i][0]+(route[i+1][0]-route[i][0])*k,y=route[i][1]+(route[i+1][1]-route[i][1])*k;
+ city.innerHTML=`<rect width="800" height="500" fill="#0a0916"/>${[...Array(17)].map((_,i)=>`<line x1="${i*50}" y1="0" x2="${i*50}" y2="500" stroke="#ffffff08"/>`).join('')}${bld}<path d="${rp}" stroke="#05d9e855" stroke-width="3" fill="none" stroke-dasharray="8 8"/><circle cx="80" cy="420" r="10" fill="#ff2a6d" style="filter:drop-shadow(0 0 8px #ff2a6d)"/><text x="96" y="440" fill="#ff2a6d" font-family="Share Tech Mono" font-size="14">NEON NOODLE</text><circle cx="690" cy="90" r="10" fill="#f9f002" style="filter:drop-shadow(0 0 8px #f9f002)"/><text x="620" y="70" fill="#f9f002" font-family="Share Tech Mono" font-size="14">YOUR CAPSULE</text>
+ <g transform="translate(${x} ${y})"><circle r="26" fill="#05d9e8" opacity="${.15+.1*Math.sin(Date.now()/150)}"/><path d="M-12 0 L12 0 M0 -12 L0 12" stroke="#05d9e8" stroke-width="3"/>${[[-12,-12],[12,-12],[-12,12],[12,12]].map(([a,b])=>`<circle cx="${a}" cy="${b}" r="6" fill="none" stroke="#05d9e8" stroke-width="2"/>`).join('')}</g>`}
+drawCity(0);const ST=['Order received','Broth ladled','Noodles pulled','Bowl sealed & loaded','Drone airborne','Dodging acid rain','Arrived at capsule'];let flight=null;
+function startFlight(label){if(flight)clearInterval(flight);const T=36;let t0=Date.now();document.getElementById('trackSub').textContent='// order: '+label+' — delivery simulated at 20× speed';
+ flight=setInterval(()=>{const p=(Date.now()-t0)/1000/T;const fl=Math.max(0,(p-.35)/.65);drawCity(fl);const left=Math.max(0,Math.ceil((1-p)*660));document.getElementById('eta').textContent=p>=1?'ARRIVED':`${String(left/60|0).padStart(2,'0')}:${String(left%60).padStart(2,'0')}`;
+  const n=Math.min(ST.length,Math.floor(p*ST.length)+1);document.getElementById('stat').innerHTML=ST.map((s,i)=>`<li class="${i<n?'done':''}">${s}</li>`).join('');if(p>=1){clearInterval(flight);flight=null;toast('DELIVERED. ITADAKIMASU.')}},100)}
+document.getElementById('stat').innerHTML=ST.map(s=>`<li>${s}</li>`).join('');document.getElementById('demo').onclick=()=>startFlight('demo bowl');
+
+/* breach protocol */
+const HEX=['1C','55','BD','E9','7A','FF'];let M,buf,bufMax=6,axis,line,used,seqs,hackOn=false,tT,tLeft;
+function newHack(){hackOn=true;M=[...Array(6)].map(()=>[...Array(6)].map(()=>HEX[Math.random()*HEX.length|0]));buf=[];axis='row';line=0;used=new Set();
+ const path=[];let r=0,c=Math.random()*6|0,ax='row';for(let i=0;i<5;i++){if(ax==='row'){c=(c+1+Math.random()*5|0)%6}else{r=(r+1+Math.random()*5|0)%6}if(i===0){r=0}path.push(M[r][c]);ax=ax==='row'?'col':'row'}
+ seqs=[{s:path.slice(0,2),r:30,st:0},{s:path.slice(1,4),r:60,st:0},{s:[HEX[Math.random()*6|0],HEX[Math.random()*6|0],HEX[Math.random()*6|0]],r:100,st:0}];
+ tLeft=30;clearInterval(tT);tT=setInterval(()=>{tLeft-=.1;document.getElementById('tbar').style.width=tLeft/30*100+'%';if(tLeft<=0){endHack('TIMEOUT')}},100);document.getElementById('hmsg').textContent='';renderHack()}
+function renderHack(){const mx=document.getElementById('matrix');mx.innerHTML='';M.forEach((row,r)=>row.forEach((v,c)=>{const b=document.createElement('button');b.textContent=used.has(r+','+c)?'[ ]':v;const active=axis==='row'?r===line:c===line;if(used.has(r+','+c))b.classList.add('used');else if(active&&hackOn)b.classList.add('act');b.disabled=!active||used.has(r+','+c)||!hackOn;b.onclick=()=>choose(r,c);mx.appendChild(b)}));
+ document.getElementById('buffer').innerHTML=[...Array(bufMax)].map((_,i)=>`<span>${buf[i]||''}</span>`).join('');
+ document.getElementById('seqs').innerHTML=seqs.map(q=>{const m=match(q.s);return `<div class="seq ${q.st===1?'ok':q.st===-1?'fail':''}">${q.s.map((x,i)=>`<code class="${i<m?'hit':''}">${x}</code>`).join('')}<small>+${q.r} CR</small></div>`}).join('')}
+function match(s){for(let k=Math.min(s.length,buf.length);k>0;k--){if(buf.slice(-k).join()===s.slice(0,k).join())return k}return 0}
+function choose(r,c){buf.push(M[r][c]);used.add(r+','+c);if(axis==='row'){axis='col';line=c}else{axis='row';line=r}
+ seqs.forEach(q=>{if(q.st===0&&buf.join(' ').includes(q.s.join(' '))){q.st=1;setCred(credits+q.r);toast(`SEQUENCE UPLOADED · +${q.r} CR`)}});
+ seqs.forEach(q=>{if(q.st===0&&bufMax-buf.length<q.s.length-match(q.s))q.st=-1});
+ if(buf.length>=bufMax||seqs.every(q=>q.st!==0))endHack(seqs.some(q=>q.st===1)?'BREACH SUCCESSFUL':'BREACH FAILED');renderHack()}
+function endHack(m){hackOn=false;clearInterval(tT);seqs.forEach(q=>{if(q.st===0)q.st=-1});document.getElementById('hmsg').textContent='// '+m+' · CREDITS: '+credits;renderHack()}
+document.getElementById('reboot').onclick=newHack;
+
+/* market */
+document.getElementById('stalls').innerHTML=[['義','Chrome Dentist','Titanium molars fitted while you wait. Numbing optional.','02:00 – 06:00'],['酒','Synth Sake Bar','Rice wine distilled from algae. Tastes like rain on neon.','ALWAYS'],['猫','Cat Café 2099','Robotic cats and one real one. Guess which.','18:00 – 04:00'],['傘','Umbrella Repair','Acid-proof canopies patched with graphene.','20:00 – 03:00'],['夢','Dream Rental','Pre-recorded dreams, lightly used. Beach series on sale.','22:00 – 05:00'],['餃','Gyoza Drone Pit','Dumplings fired from a cannon into your mouth.','ALWAYS']].map(([k,n,d,o])=>`<div class="stall cut"><div class="k">${k}</div><h3>${n}</h3><p>${d}</p><div class="open mono">OPEN ${o}</div></div>`).join('');
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

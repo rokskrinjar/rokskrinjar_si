@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circo Magnifico</title>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--red:#c8102e;--cream:#fbf0d9;--gold:#e6a93a;--navy:#1b2a4a;--ink:#2a1a12}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--cream);font-family:Lora,serif}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;color:inherit}
+header{background:repeating-linear-gradient(90deg,var(--red) 0 60px,var(--cream) 60px 120px);position:relative;padding-bottom:30px}
+header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:30px;background:radial-gradient(circle at 30px 0,transparent 29px,var(--navy) 30px) 0 0/60px 30px}
+.hbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 4vw;background:#1b2a4acc}
+.logo{font-family:'Alfa Slab One';font-size:28px;color:var(--gold);letter-spacing:.04em;text-shadow:2px 2px 0 var(--red)}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{font-family:'Alfa Slab One';padding:8px 14px;font-size:14px;letter-spacing:.06em;border-radius:4px}
+nav a.on{background:var(--gold);color:var(--navy)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1200px;margin:0 auto;padding:30px 4vw 70px}
+h2{font-family:'Alfa Slab One';font-weight:400;font-size:clamp(2.4rem,6vw,4.6rem);text-align:center;color:var(--gold);text-shadow:3px 3px 0 var(--red);line-height:1}
+.sub{text-align:center;font-style:italic;font-size:19px;max-width:56ch;margin:12px auto 30px;line-height:1.5}
+/* big top */
+.stage{position:relative;max-width:1000px;margin:0 auto}
+.stage svg{display:block;width:100%;height:auto}
+.curtain{transition:transform 2s cubic-bezier(.6,.05,.3,1);transform-box:fill-box}
+.open .cl{transform:translateX(-92%)}.open .cr{transform:translateX(92%)}
+.marquee{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.bulb{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold);animation:bl 1s infinite}
+@keyframes bl{50%{opacity:.25;box-shadow:none}}
+.cta{display:inline-block;font-family:'Alfa Slab One';background:var(--red);color:var(--cream);border:4px solid var(--gold);padding:14px 28px;font-size:20px;letter-spacing:.06em;box-shadow:0 6px 0 #7a0a1c}
+/* acts */
+.acts{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+.act{background:var(--cream);color:var(--ink);border:6px double var(--red);padding:16px;text-align:center;position:relative}
+.act svg{width:100%;height:200px;display:block}
+.act h3{font-family:'Alfa Slab One';font-weight:400;font-size:24px;color:var(--red)}
+.act p{font-style:italic;font-size:15px;line-height:1.5;margin-top:6px}
+.act .time{position:absolute;right:-10px;top:-10px;background:var(--gold);color:var(--navy);font-family:'Alfa Slab One';border-radius:50%;width:62px;height:62px;display:grid;place-items:center;font-size:14px;transform:rotate(10deg)}
+/* tickets */
+.tgrid{display:grid;grid-template-columns:1fr 340px;gap:30px;align-items:start}
+.ring svg{width:100%;height:auto}
+.seat{cursor:pointer}
+.seat.taken{cursor:not-allowed}
+.tix{background:var(--cream);color:var(--ink);padding:22px;border:4px solid var(--red)}
+.tix h3{font-family:'Alfa Slab One';font-weight:400;font-size:26px;color:var(--red)}
+.tix .line{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #2a1a1255}
+.stub{margin-top:18px;background:var(--gold);color:var(--navy);padding:16px 20px;font-family:'Alfa Slab One';position:relative;clip-path:polygon(0 0,100% 0,100% 40%,96% 50%,100% 60%,100% 100%,0 100%,0 60%,4% 50%,0 40%)}
+.stub small{font-family:Lora;display:block;font-size:12px}
+/* juggle */
+.game{max-width:760px;margin:0 auto;text-align:center}
+.game canvas{width:100%;height:auto;display:block;background:radial-gradient(ellipse at 50% 100%,#3a2a5a,var(--navy));border:6px solid var(--gold);border-radius:12px;cursor:pointer;touch-action:none}
+.score{display:flex;justify-content:center;gap:34px;font-family:'Alfa Slab One';font-size:22px;margin:14px 0;color:var(--gold)}
+@media(max-width:900px){.tgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="hbar"><div class="logo">★ CIRCO MAGNIFICO ★</div>
+ <nav><a href="#top">The Big Top</a><a href="#acts">The Acts</a><a href="#tickets">Tickets</a><a href="#juggle">Try Juggling</a><a href="index.html">Index</a></nav></div></header>
+
+<section data-view="top"><div class="wrap">
+ <h2>The Greatest Little Show</h2>
+ <p class="sub">Eleven nights only! Wonders from five continents under one red-and-white canvas. Click the curtain to open it.</p>
+ <div class="stage" id="stage"><svg viewBox="0 0 1000 620" id="topSvg"></svg></div>
+ <div class="marquee"></div>
+ <div style="text-align:center;margin-top:24px"><button class="cta" onclick="go('tickets')">Buy tickets · from $8</button></div>
+</div></section>
+
+<section data-view="acts" hidden><div class="wrap">
+ <h2>Tonight's Programme</h2>
+ <p class="sub">Every act is performed live, without a net (except the trapeze, which has a net).</p>
+ <div class="acts" id="acts"></div>
+</div></section>
+
+<section data-view="tickets" hidden><div class="wrap">
+ <h2>Choose Your Seats</h2>
+ <p class="sub">Ringside seats come with a free souvenir programme and a small risk of glitter.</p>
+ <div class="tgrid"><div class="ring"><svg id="ringSvg" viewBox="-300 -300 600 600"></svg></div><div class="tix" id="tix"></div></div>
+</div></section>
+
+<section data-view="juggle" hidden><div class="wrap game">
+ <h2>Keep Them Up!</h2>
+ <p class="sub">Click or tap a ball to toss it up again. Don't let any touch the sawdust. A new ball joins every ten catches.</p>
+ <div class="score"><span>Catches <b id="jc">0</b></span><span>Balls <b id="jb">1</b></span><span>Best <b id="jbest">0</b></span></div>
+ <canvas id="jg" width="760" height="520"></canvas>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'top';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+document.querySelector('.marquee').innerHTML=[...Array(24)].map((_,i)=>`<span class="bulb" style="animation-delay:${i%2*.5}s"></span>`).join('');
+/* big top */
+(function(){let s=`<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1630"/><stop offset="1" stop-color="#2a3a6a"/></linearGradient><radialGradient id="spot" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#fff6c8" stop-opacity=".5"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></radialGradient></defs><rect width="1000" height="620" fill="url(#sky)"/>`;
+ for(let i=0;i<60;i++)s+=`<circle cx="${(i*137)%1000}" cy="${(i*71)%240}" r="${i%5?1:2}" fill="#fff" opacity=".7"/>`;
+ // tent
+ const stripes=12;for(let i=0;i<stripes;i++){const x0=120+i*(760/stripes),x1=x0+760/stripes;s+=`<path d="M500 60 L${x0} 300 L${x1} 300Z" fill="${i%2?'#fbf0d9':'#c8102e'}"/>`}
+ s+=`<path d="M500 60 V20" stroke="#e6a93a" stroke-width="4"/><path d="M500 20 l40 12 l-40 12Z" fill="#e6a93a"/>`;
+ for(let i=0;i<stripes;i++){const x=120+i*(760/stripes);s+=`<path d="M${x} 300 Q${x+760/stripes/2} 330 ${x+760/stripes} 300" fill="${i%2?'#c8102e':'#fbf0d9'}"/>`}
+ s+=`<rect x="140" y="300" width="720" height="260" fill="#8a0a1c"/>`;for(let i=0;i<9;i++)s+=`<rect x="${140+i*80}" y="300" width="40" height="260" fill="#a50e24"/>`;
+ s+=`<rect x="300" y="330" width="400" height="230" fill="#1a0a06"/><ellipse cx="500" cy="540" rx="180" ry="24" fill="#c47a3a"/><ellipse cx="500" cy="540" rx="160" ry="18" fill="#e0a060"/><path d="M380 330 L500 540 L620 330Z" fill="url(#spot)"/>`;
+ // performer
+ s+=`<g id="perf"><circle cx="500" cy="440" r="14" fill="#f2c9a0"/><path d="M486 456 h28 l6 50 h-40z" fill="#e6a93a"/><path d="M490 506 l-6 30 M510 506 l6 30" stroke="#1b2a4a" stroke-width="6"/><path d="M486 462 l-30 -30 M514 462 l30 -30" stroke="#f2c9a0" stroke-width="6" stroke-linecap="round"/>${[0,1,2].map(k=>`<circle r="8" fill="${['#c8102e','#e6a93a','#3aa0e6'][k]}"><animateMotion dur="1.2s" begin="-${k*.4}s" repeatCount="indefinite" path="M456 432 Q500 340 544 432 Q500 400 456 432"/></circle>`).join('')}</g>`;
+ s+=`<g class="curtain cl"><path d="M300 330 H505 V560 H300Z" fill="#c8102e"/>${[...Array(8)].map((_,i)=>`<path d="M${310+i*25} 330 V560" stroke="#8a0a1c" stroke-width="6"/>`).join('')}</g><g class="curtain cr"><path d="M495 330 H700 V560 H495Z" fill="#c8102e"/>${[...Array(8)].map((_,i)=>`<path d="M${505+i*25} 330 V560" stroke="#8a0a1c" stroke-width="6"/>`).join('')}</g>`;
+ s+=`<rect x="0" y="560" width="1000" height="60" fill="#3a2a12"/><text x="500" y="600" text-anchor="middle" font-family="Alfa Slab One" font-size="24" fill="#e6a93a" letter-spacing="6">ENTRANCE ★ ENTRATA</text>`;
+ s+=`<g transform="translate(60 380)"><rect width="70" height="180" fill="#fbf0d9" stroke="#c8102e" stroke-width="4"/><text x="35" y="60" text-anchor="middle" font-family="Alfa Slab One" font-size="16" fill="#c8102e">TICK</text><text x="35" y="84" text-anchor="middle" font-family="Alfa Slab One" font-size="16" fill="#c8102e">ETS</text></g><g transform="translate(880 400)"><circle cx="30" cy="30" r="30" fill="#e6a93a"/><text x="30" y="36" text-anchor="middle" font-family="Alfa Slab One" font-size="16" fill="#1b2a4a">POP!</text><rect x="26" y="60" width="8" height="100" fill="#fbf0d9"/></g>`;
+ document.getElementById('topSvg').innerHTML=s;document.getElementById('stage').onclick=()=>{document.getElementById('stage').classList.toggle('open');fanfare()}})();
+function fanfare(){try{const a=new AudioContext();[[523,0],[659,.15],[784,.3],[1046,.45],[784,.7],[1046,.85]].forEach(([f,t])=>{const o=a.createOscillator(),g=a.createGain();o.type='square';o.frequency.value=f;g.gain.setValueAtTime(.05,a.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+t+.25);o.connect(g).connect(a.destination);o.start(a.currentTime+t);o.stop(a.currentTime+t+.3)})}catch(e){}}
+
+/* acts */
+const ACTS=[['The Flying Valentinis','Four generations on the high trapeze. Tonight they attempt the quadruple somersault!','19:10','trap'],['Signora Leonora & Brutus','A lion with the soul of a poet and a lady with the nerve of a general. Brutus jumps through fire.','19:25','lion'],['Pim, Pom & Pumpernickel','Nineteen clowns. One very small car. Physics weeps.','19:45','car'],['The Great Kazimir','Juggles seven flaming torches while balancing on a ball, and reciting Pushkin.','20:05','jug'],['Madame Aurora','Human cannonball! Fired 40 metres across the tent at 90 km/h.','20:30','can'],['Les Chevaux Blancs','Six white Lipizzaners dancing a waltz to a live brass band.','20:50','horse']];
+function actSVG(t){if(t==='trap')return`<line x1="90" y1="0" x2="110" y2="90" stroke="#2a1a12" stroke-width="2"><animateTransform attributeName="transform" type="rotate" values="-25 100 0;25 100 0;-25 100 0" dur="2s" repeatCount="indefinite"/></line><g><animateTransform attributeName="transform" type="rotate" values="-25 150 0;25 150 0;-25 150 0" dur="2s" repeatCount="indefinite"/><line x1="130" y1="0" x2="130" y2="90" stroke="#2a1a12" stroke-width="2"/><line x1="170" y1="0" x2="170" y2="90" stroke="#2a1a12" stroke-width="2"/><rect x="128" y="88" width="44" height="5" fill="#c8102e"/><circle cx="150" cy="140" r="9" fill="#f2c9a0"/><path d="M150 96 L150 132 M138 92 l12 12 l12 -12" stroke="#c8102e" stroke-width="7" stroke-linecap="round"/></g><path d="M20 190 h260" stroke="#2a1a1244" stroke-dasharray="4 4"/>`;
+ if(t==='lion')return`<circle cx="190" cy="80" r="44" fill="none" stroke="#e6a93a" stroke-width="8"/>${[...Array(10)].map((_,i)=>`<path d="M${190+Math.cos(i*.63)*48} ${80+Math.sin(i*.63)*48} l${Math.cos(i*.63)*10} ${Math.sin(i*.63)*10-8}" stroke="#ff6a00" stroke-width="5" stroke-linecap="round"><animate attributeName="stroke" values="#ff6a00;#ffd23c;#ff6a00" dur=".4s" repeatCount="indefinite"/></path>`).join('')}<g><animateTransform attributeName="transform" type="translate" values="-60 20;60 -20;120 20;-60 20" dur="3s" repeatCount="indefinite"/><ellipse cx="120" cy="120" rx="40" ry="18" fill="#d99a3a"/><circle cx="160" cy="106" r="20" fill="#a8641a"/><circle cx="164" cy="106" r="12" fill="#e0a860"/><path d="M80 116 q-20 -10 -24 6" stroke="#d99a3a" stroke-width="5" fill="none"/></g><rect x="20" y="170" width="40" height="20" fill="#c8102e"/>`;
+ if(t==='car')return`<g><animateTransform attributeName="transform" type="translate" values="-20 0;20 0;-20 0" dur="1.6s" repeatCount="indefinite"/><rect x="90" y="110" width="120" height="50" rx="18" fill="#3aa0e6" stroke="#2a1a12" stroke-width="3"/><rect x="110" y="90" width="70" height="30" rx="10" fill="#9ad0f0" stroke="#2a1a12" stroke-width="3"/><circle cx="115" cy="165" r="14" fill="#2a1a12"/><circle cx="185" cy="165" r="14" fill="#2a1a12"/></g>${[0,1,2,3].map(k=>`<g><animateTransform attributeName="transform" type="translate" values="150 110;${60+k*50} 40;${40+k*60} 170" dur="2s" begin="${k*.5}s" repeatCount="indefinite"/><circle r="10" fill="#f2c9a0"/><circle cx="0" cy="2" r="4" fill="#c8102e"/><path d="M-10 -6 q10 -12 20 0" fill="${['#e6a93a','#3aa0e6','#c8102e','#6ac06a'][k]}"/></g>`).join('')}`;
+ if(t==='jug')return`<circle cx="150" cy="170" r="22" fill="#c8102e" stroke="#e6a93a" stroke-width="4"/><path d="M150 148 v-40" stroke="#1b2a4a" stroke-width="12"/><circle cx="150" cy="96" r="12" fill="#f2c9a0"/><path d="M144 120 l-26 -20 M156 120 l26 -20" stroke="#1b2a4a" stroke-width="6" stroke-linecap="round"/>${[...Array(5)].map((_,k)=>`<g><animateMotion dur="1.5s" begin="-${k*.3}s" repeatCount="indefinite" path="M118 100 Q150 -30 182 100 Q150 60 118 100"/><rect x="-2" y="-8" width="4" height="14" fill="#6a4a2a"/><circle cy="-10" r="5" fill="#ff8a00"><animate attributeName="r" values="4;6;4" dur=".3s" repeatCount="indefinite"/></circle></g>`).join('')}`;
+ if(t==='can')return`<g transform="rotate(-30 70 160)"><rect x="30" y="140" width="110" height="40" rx="8" fill="#1b2a4a" stroke="#e6a93a" stroke-width="3"/></g><circle cx="60" cy="178" r="16" fill="#6a4a2a"/><g><animateMotion dur="1.8s" repeatCount="indefinite" path="M130 120 Q200 -20 280 150"/><circle r="10" fill="#f2c9a0"/><path d="M-8 6 l-12 14 M8 6 l12 14" stroke="#c8102e" stroke-width="6"/></g><path d="M250 180 h50 v-10 h-50z" fill="#c8102e"/>`;
+ return[0,1].map(k=>`<g><animateTransform attributeName="transform" type="translate" values="${k*60} 0;${k*60+30} -10;${k*60} 0" dur="1s" begin="${k*.5}s" repeatCount="indefinite"/><ellipse cx="100" cy="120" rx="44" ry="22" fill="#f4f0e8" stroke="#2a1a12" stroke-width="2"/><path d="M136 110 l24 -40 l14 6 l-20 44z" fill="#f4f0e8" stroke="#2a1a12" stroke-width="2"/><path d="M70 136 l-6 40 M90 140 l0 40 M112 140 l4 40 M130 136 l10 38" stroke="#2a1a12" stroke-width="5"/><path d="M160 66 q10 -16 16 0" fill="#c8102e"/></g>`).join('')}
+document.getElementById('acts').innerHTML=ACTS.map(a=>`<div class="act"><span class="time">${a[2]}</span><svg viewBox="0 0 300 200">${actSVG(a[3])}</svg><h3>${a[0]}</h3><p>${a[1]}</p></div>`).join('');
+
+/* tickets */
+const TIERS=[['Ringside',60,120,24],['Stalls',25,150,36],['Gallery',8,185,48]];
+let taken=new Set(),mine=new Set(),showN=0;
+(function(){const r=(n=>()=>(n=(n*9301+49297)%233280)/233280)(42);TIERS.forEach((t,ti)=>{for(let i=0;i<t[3];i++)if(r()<.35)taken.add(ti+'-'+i)});
+ TIERS.forEach((t,ti)=>{for(let i=0;i<t[3];i++)if(r()<.1)taken.add(ti+'-'+i+'-b')})})();
+function ring(){let s='<circle r="290" fill="#8a0a1c"/><circle r="100" fill="#c47a3a"/><circle r="92" fill="#e0a060"/><circle r="92" fill="none" stroke="#fbf0d9" stroke-width="3" stroke-dasharray="8 6"/><text y="6" text-anchor="middle" font-family="Alfa Slab One" font-size="18" fill="#8a0a1c">THE RING</text>';
+ TIERS.forEach(([n,p,R,cnt],ti)=>{for(let row=0;row<2;row++)for(let i=0;i<cnt;i++){const a=i/cnt*Math.PI*2+(row?.5/cnt*Math.PI*2:0);if(Math.abs(Math.sin(a))<.12&&Math.cos(a)>0)continue;const rr=R+row*16,x=Math.cos(a)*rr,y=Math.sin(a)*rr,id=ti+'-'+i+(row?'-b':''),t=taken.has(id),m=mine.has(id);
+  s+=`<circle class="seat ${t?'taken':''}" data-id="${id}" data-t="${ti}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6" fill="${m?'#e6a93a':t?'#4a1a24':['#fbf0d9','#f2c9a0','#d9b27c'][ti]}" stroke="${m?'#fff':'none'}" stroke-width="2"/>`}});
+ s+='<rect x="270" y="-30" width="30" height="60" fill="#1b2a4a"/><text x="285" y="4" text-anchor="middle" font-family="Alfa Slab One" font-size="10" fill="#e6a93a" transform="rotate(90 285 0)">ENTRANCE</text>';
+ document.getElementById('ringSvg').innerHTML=s;const list=[...mine];const tot=list.reduce((s,id)=>s+TIERS[+id[0]][1],0);
+ const shows=['Fri 8 pm','Sat 3 pm','Sat 8 pm','Sun 3 pm'];
+ document.getElementById('tix').innerHTML=`<h3>Your Tickets</h3><div style="display:flex;gap:6px;flex-wrap:wrap;margin:10px 0">${shows.map((sh,i)=>`<button data-show="${i}" style="border:2px solid #c8102e;background:${i===showN?'#c8102e':'none'};color:${i===showN?'#fbf0d9':'#c8102e'};padding:4px 10px;font-family:'Alfa Slab One';font-size:12px">${sh}</button>`).join('')}</div>${TIERS.map(t=>`<div class="line"><span>${t[0]}</span><span>$${t[1]}</span></div>`).join('')}<p style="margin:12px 0 4px;font-style:italic">${list.length?list.length+' seat'+(list.length>1?'s':'')+' selected':'Click seats on the plan'}</p><div style="font-family:'Alfa Slab One';font-size:34px;color:#c8102e">$${tot}</div>${list.length?`<div class="stub">ADMIT ${list.length} ★ ${shows[showN].toUpperCase()}<small>${[...new Set(list.map(id=>TIERS[+id[0]][0]))].join(' & ')} · Gate ${'ABCD'[showN]} · Doors 30 min before</small></div>`:''}`}
+document.getElementById('ringSvg').onclick=e=>{const c=e.target.closest('.seat');if(!c||c.classList.contains('taken'))return;const id=c.dataset.id;mine.has(id)?mine.delete(id):mine.size<8&&mine.add(id);ring()};
+document.getElementById('tix').onclick=e=>{const s=e.target.dataset.show;if(s!=null){showN=+s;ring()}};ring();
+
+/* juggle */
+const jg=document.getElementById('jg'),jx=jg.getContext('2d');let balls=[],catches=0,best=store.get('cm-best',0),over=false,jRun=false;
+const BC=['#c8102e','#e6a93a','#3aa0e6','#6ac06a','#b05ae0','#fbf0d9'];
+function jReset(){balls=[{x:380,y:200,vx:1.5,vy:-6,c:BC[0]}];catches=0;over=false}
+function jLoop(){if(document.querySelector('[data-view=juggle]').hidden){jRun=false;return}const W=760,H=520;jx.clearRect(0,0,W,H);
+ jx.fillStyle='#c47a3a';jx.fillRect(0,470,W,50);jx.fillStyle='#e0a06088';for(let i=0;i<60;i++)jx.fillRect((i*53)%W,475+(i*7)%40,4,2);
+ // juggler
+ jx.fillStyle='#1b2a4a';jx.fillRect(360,380,40,90);jx.fillStyle='#f2c9a0';jx.beginPath();jx.arc(380,360,20,0,7);jx.fill();jx.fillStyle='#c8102e';jx.beginPath();jx.arc(380,366,5,0,7);jx.fill();
+ const worried=balls.some(b=>b.y>380&&b.vy>0);jx.strokeStyle='#2a1a12';jx.lineWidth=2;jx.beginPath();worried?jx.arc(380,374,6,Math.PI*1.1,Math.PI*1.9):jx.arc(380,368,6,.2,Math.PI-.2);jx.stroke();
+ if(!over)balls.forEach(b=>{b.vy+=.16;b.x+=b.vx;b.y+=b.vy;if(b.x<20||b.x>W-20)b.vx*=-1;if(b.y>460){over=true;if(catches>best){best=catches;store.set('cm-best',best)}}});
+ balls.forEach(b=>{jx.fillStyle=b.c;jx.beginPath();jx.arc(b.x,b.y,18,0,7);jx.fill();jx.fillStyle='#fff6';jx.beginPath();jx.arc(b.x-6,b.y-6,6,0,7);jx.fill()});
+ if(over){jx.fillStyle='#1b2a4acc';jx.fillRect(0,0,W,H);jx.fillStyle='#e6a93a';jx.font='48px "Alfa Slab One"';jx.textAlign='center';jx.fillText('OOPS!',W/2,220);jx.font='22px Lora';jx.fillStyle='#fbf0d9';jx.fillText(`${catches} catches. Click to try again.`,W/2,270);jx.textAlign='left'}
+ document.getElementById('jc').textContent=catches;document.getElementById('jb').textContent=balls.length;document.getElementById('jbest').textContent=best;requestAnimationFrame(jLoop)}
+jg.addEventListener('pointerdown',e=>{const r=jg.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*760,y=(e.clientY-r.top)/r.height*520;if(over){jReset();return}
+ balls.forEach(b=>{if(Math.hypot(b.x-x,b.y-y)<34&&b.vy>-2){b.vy=-7-Math.random()*2;b.vx=(380-b.x)/120+(Math.random()-.5)*3;catches++;if(catches%10===0&&balls.length<6)balls.push({x:380,y:340,vx:(Math.random()-.5)*4,vy:-8,c:BC[balls.length]})}})});
+new MutationObserver(()=>{if(!document.querySelector('[data-view=juggle]').hidden&&!jRun){jRun=true;jLoop()}}).observe(document.querySelector('[data-view=juggle]'),{attributes:true});
+jReset();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

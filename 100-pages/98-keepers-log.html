@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Keeper's Log — A Lighthouse</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Sometype+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--night:#0a1424;--sea:#0f2238;--foam:#dfe8ee;--lamp:#ffe7a0;--red:#c8382a;--dim:#dfe8ee88;--paper:#ece4d0;--ink:#1c1a16}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--night);color:var(--foam);font-family:'Sometype Mono',monospace;font-size:15px}
+a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 4vw;border-bottom:1px solid #dfe8ee1a}
+.logo{font-family:'Libre Caslon Display';font-size:30px}
+.logo small{display:block;font-family:'Sometype Mono';font-size:10px;letter-spacing:.3em;color:var(--lamp)}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:7px 14px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+nav a.on{color:var(--night);background:var(--lamp)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1280px;margin:0 auto;padding:24px 4vw 70px}
+h2{font-family:'Libre Caslon Display';font-weight:400;font-size:clamp(2.4rem,5.5vw,4.4rem);line-height:1}
+.sub{color:var(--dim);max-width:62ch;line-height:1.7;margin:10px 0 22px}
+/* light */
+.lt{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.scene{border-radius:10px;overflow:hidden;background:#000}
+.scene canvas{display:block;width:100%;height:auto}
+.panel{border:1px solid #dfe8ee22;padding:16px;background:#ffffff06}
+.panel h3{font-size:12px;letter-spacing:.2em;color:var(--lamp);margin-bottom:10px}
+.chars{display:grid;gap:6px}
+.chars button{display:flex;justify-content:space-between;border:1px solid #dfe8ee22;background:none;padding:8px 10px;text-align:left}
+.chars button.on{border-color:var(--lamp);color:var(--lamp)}
+.chars small{color:var(--dim)}
+.timeline{display:flex;height:22px;margin-top:10px;border:1px solid #dfe8ee33}
+.timeline span{height:100%}
+.readout{font-family:'Libre Caslon Display';font-size:40px;color:var(--lamp);margin:12px 0 4px}
+input[type=range]{width:100%;accent-color:#ffe7a0}
+/* quiz */
+.quiz{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.lamp{width:min(100%,360px);aspect-ratio:1;border-radius:50%;margin:0 auto;background:radial-gradient(circle,#1a2a40,#050a14 70%);display:grid;place-items:center}
+.lamp i{width:40%;aspect-ratio:1;border-radius:50%;background:var(--lamp);box-shadow:0 0 80px 30px #ffe7a0aa;opacity:0;transition:opacity .08s}
+.lamp i.on{opacity:1}
+.opts{display:grid;gap:8px}
+.opts button{border:1px solid #dfe8ee33;background:none;padding:12px;text-align:left}
+.opts button.ok{border-color:#6ad08a;color:#6ad08a}.opts button.no{border-color:var(--red);color:var(--red)}
+/* atlas */
+.atlas{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+.lh{border:1px solid #dfe8ee22;padding:0 0 14px;background:#ffffff05}
+.lh svg{width:100%;height:190px;display:block;background:linear-gradient(#0f2238,#1a3050)}
+.lh h3{font-family:'Libre Caslon Display';font-weight:400;font-size:26px;padding:10px 14px 0}
+.lh .m{color:var(--lamp);font-size:12px;letter-spacing:.1em;padding:2px 14px}
+.lh p{color:var(--dim);font-size:14px;line-height:1.6;padding:6px 14px 0}
+/* log */
+.log{background:var(--paper);color:var(--ink);padding:34px 40px;max-width:980px;margin:0 auto;background-image:repeating-linear-gradient(#0000 0 29px,#1c1a1622 29px 30px);box-shadow:0 30px 60px #000a}
+.log h3{font-family:'Libre Caslon Display';font-weight:400;font-size:34px}
+.log table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}
+.log th{text-align:left;border-bottom:2px solid var(--ink);padding:6px;font-size:11px;letter-spacing:.14em}
+.log td{padding:6px;border-bottom:1px solid #1c1a1622;vertical-align:top}
+.log td.r{font-style:italic;font-family:'Libre Caslon Display';font-size:17px}
+.log form{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+.log input,.log select{border:0;border-bottom:1px solid var(--ink);background:none;padding:6px;color:var(--ink)}
+.log input.w{grid-column:1/-1}
+.btn{border:1px solid var(--lamp);background:none;color:var(--lamp);padding:10px 18px;letter-spacing:.1em;text-transform:uppercase;font-size:12px}
+.log .btn{border-color:var(--ink);color:var(--ink)}
+@media(max-width:900px){.lt,.quiz{grid-template-columns:1fr}.log form{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div class="logo">The Keeper's Log<small>SKERRYMORE POINT LIGHT · EST. 1844</small></div><nav><a href="#light">The Light</a><a href="#identify">Read the Light</a><a href="#atlas">Lighthouse Atlas</a><a href="#log">The Log</a><a href="index.html">Row Ashore</a></nav></header>
+
+<section data-view="light"><div class="wrap">
+ <h2>Every light has a voice</h2>
+ <p class="sub">No two neighbouring lighthouses flash the same way. Each has a <i>characteristic</i>, a rhythm of light and dark that sailors look up on the chart. Choose one and watch the beam.</p>
+ <div class="lt"><div class="scene"><canvas id="lc" width="1100" height="620"></canvas></div>
+  <div class="panel"><h3>CHARACTERISTIC</h3><div class="chars" id="chars"></div><div class="timeline" id="tl"></div><div class="readout" id="ro"></div><div style="color:var(--dim);font-size:13px" id="rd"></div>
+   <h3 style="margin-top:16px">FOG</h3><input type="range" id="fog" min="0" max="100" value="15"><button class="btn" id="horn" style="margin-top:12px;width:100%">Sound the fog horn</button></div></div>
+</div></section>
+
+<section data-view="identify" hidden><div class="wrap">
+ <h2>Which light is that?</h2>
+ <p class="sub">You're on a fishing boat at night. A light is flashing on the horizon. Count the flashes and time the pause, then choose from the chart.</p>
+ <div class="quiz"><div class="lamp"><i id="qlamp"></i></div><div><div class="opts" id="qopts"></div><p id="qres" style="margin-top:14px;min-height:3em;line-height:1.6"></p><div class="readout" id="qscore" style="font-size:24px"></div></div></div>
+</div></section>
+
+<section data-view="atlas" hidden><div class="wrap">
+ <h2>Lights of the world</h2>
+ <p class="sub">From a Roman tower that still works to a lighthouse on a rock that is underwater at high tide.</p>
+ <div class="atlas" id="atlas"></div>
+</div></section>
+
+<section data-view="log" hidden><div class="wrap">
+ <div class="log"><h3>Log of the Light, Skerrymore Point</h3><div style="font-size:12px;letter-spacing:.14em">KEEPERS: A. MACLEAN (PRINCIPAL) · J. ROSS · YOU (RELIEF)</div>
+  <table><thead><tr><th>DATE</th><th>WATCH</th><th>WIND</th><th>SEA / VIS.</th><th>REMARKS</th></tr></thead><tbody id="logB"></tbody></table>
+  <form id="lform"><input id="fd" type="date"><select id="fw"><option>First (20–24)</option><option>Middle (00–04)</option><option>Morning (04–08)</option><option>Day</option></select><select id="fwind"><option>SW 5</option><option>W 7</option><option>NW 4</option><option>N 2</option><option>E 3</option><option>Calm</option></select><select id="fsea"><option>Moderate · good</option><option>Rough · moderate</option><option>Slight · fog</option><option>High · poor</option></select><input class="w" id="fr" placeholder="Remarks: lamp trimmed, glass polished, a seal on the landing stage…" maxlength="120"><button class="btn">Enter in the log</button></form></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'light';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='identify'&&!qcur)newQ()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+// characteristics: [code, name, sequence [on,off,...] seconds, desc]
+const CH=[['Fl(2) W 10s','Group flashing',[.5,1,.5,8],'Two white flashes every 10 seconds'],['Oc W 4s','Occulting',[3,1],'Light for longer than dark: on 3 s, off 1 s'],['Iso W 6s','Isophase',[3,3],'Equal light and dark'],['Q W','Quick flashing',[.25,.75],'60 flashes a minute'],['LFl W 10s','Long flash',[2,8],'One flash of 2 seconds every 10'],['Fl(3) W 15s','Group flashing',[.5,1,.5,1,.5,11.5],'Three flashes every 15 seconds'],['Mo(U) W 15s','Morse code "U"',[.5,.5,.5,.5,1.5,11.5],'Dot dot dash: "you are running into danger"']];
+let cur=0;
+const litAt=(seq,t)=>{const P=seq.reduce((a,b)=>a+b,0);let x=t%P;for(let i=0;i<seq.length;i++){if(x<seq[i])return i%2===0;x-=seq[i]}return false};
+function charsUI(){document.getElementById('chars').innerHTML=CH.map((c,i)=>`<button class="${i===cur?'on':''}" data-i="${i}"><span>${c[0]}</span><small>${c[1]}</small></button>`).join('');const s=CH[cur][2],P=s.reduce((a,b)=>a+b,0);
+ document.getElementById('tl').innerHTML=s.map((d,i)=>`<span style="width:${d/P*100}%;background:${i%2?'#0a1424':'#ffe7a0'}"></span>`).join('');document.getElementById('ro').textContent=CH[cur][0];document.getElementById('rd').textContent=CH[cur][3]+`. Period ${P} s.`}
+document.getElementById('chars').onclick=e=>{const b=e.target.closest('[data-i]');if(b){cur=+b.dataset.i;charsUI()}};charsUI();
+const lc=document.getElementById('lc'),lx=lc.getContext('2d'),LW=1100,LH=620;let t0=performance.now(),ships=[{x:200,y:470,v:.3,s:1},{x:900,y:500,v:-.2,s:.7}];
+function scene(now){const t=(now-t0)/1000;const on=litAt(CH[cur][2],t);const fog=+document.getElementById('fog').value/100;
+ const g=lx.createLinearGradient(0,0,0,LH);g.addColorStop(0,'#050a18');g.addColorStop(.6,'#0f2238');g.addColorStop(1,'#0a1a2c');lx.fillStyle=g;lx.fillRect(0,0,LW,LH);
+ for(let i=0;i<120;i++){lx.fillStyle=`rgba(255,255,255,${(.3+(i%5)/10)*(1-fog)})`;lx.fillRect((i*137)%LW,(i*71)%300,1.4,1.4)}
+ lx.fillStyle='#08121f';lx.fillRect(0,420,LW,200);for(let i=0;i<60;i++){lx.strokeStyle=`rgba(223,232,238,${.08+Math.sin(t+i)*.04})`;lx.beginPath();const y=430+(i*13)%180;lx.moveTo((i*97+t*20)%LW,y);lx.lineTo((i*97+t*20)%LW+30,y);lx.stroke()}
+ // rock + tower
+ lx.fillStyle='#1a1a1a';lx.beginPath();lx.moveTo(700,440);lx.quadraticCurveTo(820,380,960,440);lx.fill();
+ lx.fillStyle='#e8e4dc';lx.beginPath();lx.moveTo(800,410);lx.lineTo(812,190);lx.lineTo(868,190);lx.lineTo(880,410);lx.fill();lx.fillStyle='#c8382a';for(let k=0;k<3;k++){const y=380-k*70;lx.beginPath();lx.moveTo(801-k*.5,y);lx.lineTo(803-k,y-30);lx.lineTo(877+k,y-30);lx.lineTo(879+k*.5,y);lx.fill()}
+ lx.fillStyle='#222';lx.fillRect(806,180,68,12);lx.fillStyle=on?'#ffe7a0':'#3a3a2a';lx.fillRect(816,150,48,32);lx.fillStyle='#222';lx.beginPath();lx.moveTo(810,150);lx.lineTo(840,126);lx.lineTo(870,150);lx.fill();
+ // beam
+ if(on){const ang=(t*.9)%(Math.PI*2);const bx=840,by=166;const dir=Math.cos(ang);const len=900*(1-fog*.7);const grad=lx.createRadialGradient(bx,by,0,bx,by,len);grad.addColorStop(0,`rgba(255,231,160,${.55-fog*.2})`);grad.addColorStop(1,'rgba(255,231,160,0)');lx.fillStyle=grad;lx.beginPath();lx.moveTo(bx,by);const spread=.08+Math.abs(Math.sin(ang))*.1;const side=dir>=0?1:-1;lx.lineTo(bx+side*len,by-len*spread*.5+Math.sin(ang*2)*20);lx.lineTo(bx+side*len,by+len*spread*.5+Math.sin(ang*2)*20);lx.fill();const gl=lx.createRadialGradient(bx,by,0,bx,by,90);gl.addColorStop(0,'#fff8');gl.addColorStop(1,'#fff0');lx.fillStyle=gl;lx.fillRect(bx-90,by-90,180,180)}
+ // ships
+ ships.forEach(s=>{s.x+=s.v;if(s.x>LW+80)s.x=-80;if(s.x<-80)s.x=LW+80;lx.save();lx.translate(s.x,s.y);lx.scale(s.s,s.s);lx.fillStyle='#050a14';lx.beginPath();lx.moveTo(-50,0);lx.lineTo(50,0);lx.lineTo(40,14);lx.lineTo(-40,14);lx.fill();lx.fillRect(-14,-24,28,24);lx.fillStyle='#ffe7a0';lx.fillRect(-8,-16,5,5);lx.fillStyle=s.v>0?'#3ad05a':'#e03a3a';lx.beginPath();lx.arc(s.v>0?40:-40,-4,3,0,7);lx.fill();lx.restore()});
+ if(fog>0){lx.fillStyle=`rgba(180,195,210,${fog*.55})`;lx.fillRect(0,0,LW,LH)}
+ lx.fillStyle='#dfe8ee88';lx.font='13px Sometype Mono';lx.fillText(`${CH[cur][0]}  ·  t = ${t.toFixed(1)} s  ·  ${on?'LIGHT':'dark'}`,18,LH-18);
+ if(!document.querySelector('[data-view=light]').hidden)requestAnimationFrame(scene);else run=false}
+let run=false;const start=()=>{if(!run){run=true;requestAnimationFrame(scene)}};new MutationObserver(()=>{if(!document.querySelector('[data-view=light]').hidden)start()}).observe(document.querySelector('[data-view=light]'),{attributes:true});start();
+document.getElementById('horn').onclick=()=>{try{const a=window._a||(window._a=new AudioContext());[0,3.2].forEach(d=>{const t=a.currentTime+d,o=a.createOscillator(),o2=a.createOscillator(),g=a.createGain(),f=a.createBiquadFilter();o.type='sawtooth';o2.type='sawtooth';o.frequency.value=92;o2.frequency.value=69;f.type='lowpass';f.frequency.value=400;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.2,t+.3);g.gain.setValueAtTime(.2,t+2);g.gain.exponentialRampToValueAtTime(.001,t+2.8);o.connect(f);o2.connect(f);f.connect(g).connect(a.destination);[o,o2].forEach(x=>{x.start(t);x.stop(t+3)})})}catch(e){}};
+
+/* identify quiz */
+const LIGHTS=[['Skerrymore Point',0],['Black Rock Beacon',1],['Hollow Sound',2],['Gannet Skerry',3],['Maiden\'s Tooth',4],['North Carr',5],['Deadman\'s Ledge',6]];
+let qcur=null,qt0=0,qiv=null,qsc=[0,0];
+function newQ(){qcur=LIGHTS[Math.random()*LIGHTS.length|0];const opts=[qcur,...LIGHTS.filter(l=>l!==qcur).sort(()=>Math.random()-.5).slice(0,3)].sort(()=>Math.random()-.5);
+ document.getElementById('qopts').innerHTML=opts.map(o=>`<button data-n="${o[0]}"><b>${o[0]}</b> · <span style="color:var(--dim)">${CH[o[1]][0]}</span></button>`).join('');document.getElementById('qres').textContent='Watch at least one full cycle before you answer.';
+ qt0=performance.now();clearInterval(qiv);qiv=setInterval(()=>{document.getElementById('qlamp').classList.toggle('on',litAt(CH[qcur[1]][2],(performance.now()-qt0)/1000))},40)}
+document.getElementById('qopts').onclick=e=>{const b=e.target.closest('[data-n]');if(!b||b.disabled)return;const ok=b.dataset.n===qcur[0];qsc[0]+=ok?1:0;qsc[1]++;document.querySelectorAll('#qopts button').forEach(x=>{x.disabled=true;if(x.dataset.n===qcur[0])x.classList.add('ok')});if(!ok)b.classList.add('no');document.getElementById('qres').innerHTML=ok?`Correct: <b>${qcur[0]}</b>, ${CH[qcur[1]][3].toLowerCase()}. Keep her to starboard and you'll be home by dawn.`:`That was <b>${qcur[0]}</b>, ${CH[qcur[1]][3].toLowerCase()}. Mistaking one light for another has wrecked many ships.`;document.getElementById('qscore').textContent=`${qsc[0]} / ${qsc[1]} lights read`;setTimeout(newQ,3500)};
+
+/* atlas */
+const AT=[['Tower of Hercules','A Coruña, Spain · 2nd century AD','The oldest working lighthouse in the world, built by the Romans. It still shines 1,900 years later.','tall'],['Bell Rock','Angus, Scotland · 1810','Built on a reef that is covered by the sea at high tide. It is the oldest surviving offshore lighthouse, and Robert Stevenson designed it.','rock'],['Pharos of Alexandria','Egypt · c. 280 BC','One of the Seven Wonders, at about 100 m tall. Earthquakes destroyed it in the 14th century. Its name gave "lighthouse" to many languages: phare, faro.','ancient'],['Eddystone','Devon, England · 4th tower 1882','The first tower was washed away in a storm in 1703, taking its builder with it. The third was so loved that it was moved ashore.','rock'],['Peggy\'s Point','Nova Scotia, Canada · 1915','Possibly the most photographed lighthouse on Earth. For a while it even housed a tiny post office.','short'],['Jeddah Light','Saudi Arabia · 1990','At 133 m, it is the tallest traditional lighthouse tower in the world. It is a concrete spike on the Red Sea.','spike']];
+function lhSVG(k){const w='#e8e4dc',r='#c8382a';if(k==='ancient')return`<rect x="110" y="120" width="80" height="60" fill="#c8b890"/><rect x="125" y="70" width="50" height="50" fill="#c8b890"/><rect x="135" y="40" width="30" height="30" fill="#c8b890"/><circle cx="150" cy="30" r="10" fill="#ffe7a0"/><path d="M0 180 H300 V190 H0Z" fill="#0a1424"/>`;
+ if(k==='spike')return`<path d="M142 180 L148 20 L152 20 L158 180Z" fill="${w}"/><rect x="138" y="30" width="24" height="10" fill="${r}"/><circle cx="150" cy="22" r="6" fill="#ffe7a0"/><path d="M0 180 H300 V190 H0Z" fill="#0a1424"/>`;
+ const h=k==='short'?90:k==='tall'?140:120,top=180-h;return`${k==='rock'?'<path d="M60 190 Q150 150 240 190Z" fill="#1a1a1a"/>':''}<path d="M130 180 L136 ${top} L164 ${top} L170 180Z" fill="${k==='tall'?'#c8b890':w}"/>${k!=='tall'?`<rect x="133" y="${top+h*.3}" width="34" height="${h*.14}" fill="${r}"/><rect x="132" y="${top+h*.65}" width="36" height="${h*.14}" fill="${r}"/>`:''}<rect x="138" y="${top-18}" width="24" height="18" fill="#ffe7a0"/><path d="M134 ${top-18} L150 ${top-32} L166 ${top-18}Z" fill="#222"/><path d="M162 ${top-10} L300 ${top-40} L300 ${top+20}Z" fill="#ffe7a022"/><path d="M0 182 Q75 176 150 182 T300 182 V190 H0Z" fill="#0a1424"/>`}
+document.getElementById('atlas').innerHTML=AT.map(a=>`<div class="lh"><svg viewBox="0 0 300 190">${lhSVG(a[3])}</svg><h3>${a[0]}</h3><div class="m">${a[1]}</div><p>${a[2]}</p></div>`).join('');
+
+/* log */
+let LOG=store.get('kl-log',[['1896-11-02','Middle','SW 8','High · poor','Gale all night. Lamp kept burning. A schooner passed close under the rocks at 02:40 and got clear, thank God.'],['1896-11-03','Morning','W 6','Rough · moderate','Landing stage damaged. Supply boat will not come today. Ate the last of the mutton.'],['1896-11-05','First','NW 3','Moderate · good','Polished the prisms. Saw the aurora to the north, green curtains, most wonderful.'],['1896-11-09','Day','Calm','Slight · fog','Fog signal sounded for 11 hours. Ross has taught the gulls to fear him.']]);
+function logUI(){document.getElementById('logB').innerHTML=LOG.map(l=>`<tr><td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td><td>${l[3]}</td><td class="r">${l[4].replace(/[<>&]/g,'')}</td></tr>`).join('');store.set('kl-log',LOG)}
+document.getElementById('fd').valueAsDate=new Date();
+document.getElementById('lform').onsubmit=e=>{e.preventDefault();const r=document.getElementById('fr').value.trim()||'All well. Light exhibited sunset to sunrise.';LOG.push([document.getElementById('fd').value,document.getElementById('fw').value.split(' ')[0],document.getElementById('fwind').value,document.getElementById('fsea').value,r]);document.getElementById('fr').value='';logUI()};logUI();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

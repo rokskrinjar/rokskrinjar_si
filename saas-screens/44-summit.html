@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Summit — Q4 goals</title>
+<link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--snow:#f7f9fb;--gl:#2f6f9f;--gl2:#bfd9ee;--gran:#3b4450;--mu:#7b8592;--ln:#dfe5eb;--ok:#3c9d6b;--risk:#e0a030;--off:#d65a4a}
+*{box-sizing:border-box}body{margin:0;background:var(--snow);color:var(--gran);font:14px/1.5 'Encode Sans Expanded',sans-serif}
+.topo{position:fixed;inset:0;z-index:-1;opacity:.55}
+header{display:flex;align-items:center;gap:16px;padding:18px 32px}
+.lg{font-weight:800;font-size:18px;letter-spacing:.04em;display:flex;align-items:center;gap:8px}.lg svg{width:26px}
+.q{display:flex;gap:4px;background:#fff;border:1px solid var(--ln);border-radius:10px;padding:3px}.q button{border:0;background:transparent;border-radius:8px;padding:6px 12px;font:600 12.5px 'Encode Sans Expanded';cursor:pointer;color:var(--mu)}.q button.on{background:var(--gran);color:#fff}
+header .sp{flex:1}
+.mission{text-align:center;padding:10px 20px 30px}.mission small{letter-spacing:.2em;text-transform:uppercase;color:var(--mu);font-weight:600;font-size:11px}
+.mission h1{font-weight:800;font-size:clamp(26px,3.6vw,42px);letter-spacing:-.02em;margin:8px auto 0;max-width:24ch;line-height:1.1}
+.tree{display:flex;flex-direction:column;align-items:center;gap:0;padding:0 24px 60px;max-width:1300px;margin:0 auto}
+.node{background:#fff;border:1px solid var(--ln);border-radius:16px;padding:14px 16px;width:300px;cursor:pointer;box-shadow:0 6px 20px rgba(47,111,159,.06);transition:transform .15s,box-shadow .15s;position:relative}
+.node:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(47,111,159,.12)}.node.sel{outline:2px solid var(--gl)}
+.node .t{display:flex;gap:12px;align-items:center}
+.ring{width:48px;height:48px;flex:none;position:relative}.ring svg{transform:rotate(-90deg)}.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:12px;font-weight:700}
+.node h3{margin:0;font-size:14px;line-height:1.3}.node small{color:var(--mu)}
+.conf{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;margin-top:8px}.conf i{width:8px;height:8px;border-radius:50%}
+.lvl{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;position:relative;padding-top:34px}
+.lvl::before{content:'';position:absolute;top:0;left:50%;width:2px;height:18px;background:var(--gl2)}
+.lvl::after{content:'';position:absolute;top:18px;left:calc(150px + 9px);right:calc(150px + 9px);height:2px;background:var(--gl2)}
+.lvl>.col{display:flex;flex-direction:column;align-items:center;position:relative}
+.lvl>.col::before{content:'';position:absolute;top:-16px;left:50%;width:2px;height:16px;background:var(--gl2)}
+.krs{display:flex;flex-direction:column;gap:8px;margin-top:14px;position:relative;padding-left:20px;border-left:2px dashed var(--gl2);margin-left:30px}
+.kr{background:rgba(255,255,255,.85);border:1px solid var(--ln);border-radius:12px;padding:10px 12px;width:260px;font-size:12.5px}
+.kr .bar{height:6px;border-radius:3px;background:#e8eef3;margin-top:6px;overflow:hidden}.kr .bar i{display:block;height:100%;border-radius:3px}
+.kr .row{display:flex;justify-content:space-between;color:var(--mu)}
+.main{display:grid;grid-template-columns:1fr 330px;gap:20px;padding:0 24px 60px;max-width:1500px;margin:0 auto;align-items:start}.main .tree{padding:0 0 40px}
+.chk{position:sticky;top:20px;background:#fff;border:1px solid var(--ln);border-radius:18px;padding:18px;box-shadow:0 20px 50px rgba(30,50,70,.15);z-index:5}
+.chk h4{margin:0 0 4px}.chk p{margin:0 0 10px;color:var(--mu);font-size:12.5px}
+.chk input[type=range]{width:100%;accent-color:var(--gl)}
+.cf{display:flex;gap:6px;margin:10px 0}.cf button{flex:1;border:1px solid var(--ln);background:#fff;border-radius:8px;padding:7px;font:600 12px 'Encode Sans Expanded';cursor:pointer}.cf button.on{color:#fff}
+.chk textarea{width:100%;border:1px solid var(--ln);border-radius:10px;padding:8px;font:13px 'Encode Sans Expanded';height:56px;resize:none}
+.chk .go{width:100%;margin-top:8px;border:0;background:var(--gran);color:#fff;border-radius:10px;padding:10px;font:700 13px 'Encode Sans Expanded';cursor:pointer}
+@media(max-width:1250px){.main{grid-template-columns:1fr}.chk{position:static;max-width:420px;margin:0 auto}}@media(max-width:1000px){.lvl::after{display:none}}
+</style>
+</head>
+<body>
+<svg class="topo" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" id="topo"></svg>
+<header><div class="lg"><svg viewBox="0 0 26 26"><path d="M2 22 L10 8 L14 14 L17 10 L24 22 Z" fill="#3b4450"/><path d="M10 8 L12.4 12 L10.8 11.4 L9.2 12.6 L8 11.4 Z" fill="#fff"/><path d="M17 10 V3 L21 4.5 L17 6" fill="none" stroke="#2f6f9f" stroke-width="1.6"/></svg>SUMMIT</div><div class="q"><button>Q3</button><button class="on">Q4 2026</button><button>2027</button></div><span class="sp"></span><span style="color:var(--mu)">Fernway · 6 teams · 58 key results</span></header>
+<div class="mission"><small>Company goal</small><h1>Become the default workspace for teams of 50–500.</h1></div>
+<div class="main"><div class="tree" id="tree"></div>
+<div class="chk"><h4>Weekly check-in · <span id="ck"></span></h4><p>Drag to update progress, then say how confident you feel.</p><input type="range" id="pr"><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mu)"><span>0%</span><b id="pv" style="color:var(--gran)"></b><span>100%</span></div>
+ <div class="cf" id="cf"><button data-c="ok">On track</button><button data-c="risk">At risk</button><button data-c="off">Off track</button></div><textarea placeholder="What moved this week? (optional)"></textarea><button class="go" id="go">Post check-in</button></div></div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+let t='';for(let k=0;k<16;k++){const r=60+k*42;let d='';for(let a=0;a<=64;a++){const th=a/64*Math.PI*2;const rr=r+Math.sin(th*3+k*.4)*18+Math.cos(th*5)*10;d+=(a?'L':'M')+(820+Math.cos(th)*rr*1.3)+' '+(280+Math.sin(th)*rr)}t+=`<path d="${d}Z" fill="none" stroke="${k%4?'#cfe0ee':'#a9c8e2'}" stroke-width="${k%4?1:1.6}"/>`}document.getElementById('topo').innerHTML=t;
+const C={ok:'#3c9d6b',risk:'#e0a030',off:'#d65a4a'},CL={ok:'On track',risk:'At risk',off:'Off track'};
+const G=[['Win mid-market','Sales · Inês',.62,'ok',[['Close 40 new accounts of 50–500 seats',.65,'ok'],['Raise mid-market win rate 22% → 30%',.5,'risk']]],['Make onboarding effortless','Product · Joon',.44,'risk',[['Time-to-first-doc under 5 min',.7,'ok'],['Week-4 retention 35% → 42%',.28,'risk'],['Ship template gallery v2',.35,'off']]],['Earn enterprise trust','Platform · Marta',.81,'ok',[['SOC 2 Type II report published',1,'ok'],['99.95% uptime',.92,'ok'],['SCIM for 3 identity providers',.5,'ok']]]];
+let sel=[1,1];const $=s=>document.getElementById(s);
+const ring=(p,c)=>`<div class="ring"><svg viewBox="0 0 36 36" width="48" height="48"><circle cx="18" cy="18" r="15" fill="none" stroke="#e8eef3" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="${94.2*(1-p)}"/></svg><b>${Math.round(p*100)}%</b></div>`;
+function draw(){G.forEach(g=>{g[2]=g[4].reduce((a,k)=>a+k[1],0)/g[4].length});
+ $('tree').innerHTML=`<div class="lvl">${G.map((g,i)=>`<div class="col"><div class="node"><div class="t">${ring(g[2],C[g[3]])}<div><h3>${g[0]}</h3><small>${g[1]}</small></div></div><span class="conf"><i style="background:${C[g[3]]}"></i>${CL[g[3]]}</span></div><div class="krs">${g[4].map((k,j)=>`<div class="kr node ${sel[0]===i&&sel[1]===j?'sel':''}" data-g="${i}" data-k="${j}" style="width:260px;padding:10px 12px"><b>${k[0]}</b><div class="bar"><i style="width:${k[1]*100}%;background:${C[k[2]]}"></i></div><div class="row"><span>${Math.round(k[1]*100)}%</span><span style="color:${C[k[2]]};font-weight:600">${CL[k[2]]}</span></div></div>`).join('')}</div></div>`).join('')}</div>`;
+ const k=G[sel[0]][4][sel[1]];$('ck').textContent=k[0].length>34?k[0].slice(0,34)+'…':k[0];$('pr').value=Math.round(k[1]*100);$('pv').textContent=Math.round(k[1]*100)+'%';
+ document.querySelectorAll('#cf button').forEach(b=>{const on=b.dataset.c===k[2];b.classList.toggle('on',on);b.style.background=on?C[b.dataset.c]:'#fff';b.style.borderColor=on?C[b.dataset.c]:''})}
+$('tree').onclick=e=>{const n=e.target.closest('[data-k]');if(n){sel=[+n.dataset.g,+n.dataset.k];draw()}};
+$('pr').oninput=e=>{G[sel[0]][4][sel[1]][1]=e.target.value/100;draw()};$('cf').onclick=e=>{const b=e.target.closest('[data-c]');if(b){G[sel[0]][4][sel[1]][2]=b.dataset.c;draw()}};
+$('go').onclick=e=>{e.target.textContent='✓ Posted to #product-goals';setTimeout(()=>e.target.textContent='Post check-in',1800)};draw();
+</script>
+</body>
+</html>

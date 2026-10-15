@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Keystone — Alder Court</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Azeret+Mono:wght@400&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#eef0ee;--slate:#2f3a40;--sl2:#45535a;--sage:#a8bfa8;--sage2:#d8e4d6;--brass:#b78a3e;--card:#fff;--ln:#d9ddd8;--mu:#6f7a7d;--red:#c4553f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--slate);font:15px/1.5 'Jost',sans-serif}
+.mono{font-family:'Azeret Mono',monospace}
+header{background:var(--slate);color:#fff;display:flex;align-items:center;gap:20px;padding:14px 28px}
+.lg{font-weight:600;letter-spacing:.24em;text-transform:uppercase;font-size:14px;display:flex;align-items:center;gap:10px}.lg i{width:18px;height:22px;border:2px solid var(--brass);border-bottom:0;border-radius:10px 10px 0 0}
+header nav{display:flex;gap:18px;font-size:14px;opacity:.75}header .sp{flex:1}
+.prop{display:flex;align-items:center;gap:10px;background:var(--sl2);padding:6px 12px;border-radius:8px;font-size:14px}
+.page{max-width:1320px;margin:0 auto;padding:26px 28px 60px}
+.hd{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px;flex-wrap:wrap}
+h1{font-weight:300;font-size:46px;letter-spacing:-.02em;margin:0;line-height:1}h1 b{font-weight:600}
+.hd p{margin:6px 0 0;color:var(--mu)}
+.kp{display:flex;gap:30px}.kp div span{display:block;font-size:12px;color:var(--mu);text-transform:uppercase;letter-spacing:.12em}.kp div b{font-weight:500;font-size:28px}
+.lay{display:grid;grid-template-columns:1.35fr 1fr;gap:22px}
+.bld{background:var(--card);border:1px solid var(--ln);border-radius:18px;padding:24px;position:relative}
+.bld h3,.panel h3{margin:0 0 16px;font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:var(--mu);display:flex;justify-content:space-between}
+.floors{display:flex;flex-direction:column;gap:6px}
+.fl{display:grid;grid-template-columns:48px repeat(6,1fr);gap:6px}
+.fl .lv{font:12px 'Azeret Mono';color:var(--mu);display:grid;place-items:center}
+.u{height:62px;border-radius:8px;padding:7px 9px;cursor:pointer;font-size:12px;position:relative;transition:transform .15s,box-shadow .15s;border:1px solid transparent}
+.u:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(47,58,64,.12)}
+.u b{display:block;font:13px 'Azeret Mono'}.u span{opacity:.75}
+.u.o{background:var(--sage2);color:var(--slate)}.u.v{background:#fff;border:1.5px dashed var(--brass);color:var(--brass)}.u.l{background:#fbe6e1;color:var(--red)}.u.m{background:#e6e8ea;color:var(--mu)}
+.u.sel{outline:3px solid var(--slate);outline-offset:1px}
+.roof{height:26px;margin:0 0 6px 54px;background:repeating-linear-gradient(90deg,var(--slate) 0 2px,transparent 2px 14px);border-top:3px solid var(--slate);clip-path:polygon(0 100%,4% 0,96% 0,100% 100%);opacity:.25}
+.ground{height:8px;margin:8px 0 0 54px;background:var(--slate);border-radius:2px}
+.leg{display:flex;gap:16px;margin-top:16px;font-size:13px;color:var(--mu)}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.panel{background:var(--card);border:1px solid var(--ln);border-radius:18px;padding:24px}
+.unit h2{font-weight:500;font-size:30px;margin:0;display:flex;justify-content:space-between;align-items:baseline}.unit h2 span{font-size:13px;padding:4px 10px;border-radius:999px;background:var(--sage2)}
+.unit .plan{margin:16px 0;background:#f6f7f5;border-radius:12px;padding:12px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;margin-top:12px}.kv div span{display:block;font-size:12px;color:var(--mu)}.kv div b{font-weight:500}
+.ten{display:flex;gap:12px;align-items:center;margin-top:18px;padding-top:16px;border-top:1px solid var(--ln)}.ten i{width:40px;height:40px;border-radius:50%;background:var(--brass);color:#fff;display:grid;place-items:center;font-style:normal;font-weight:600}
+.btns{display:flex;gap:8px;margin-top:16px}.btns button{flex:1;border:1px solid var(--ln);background:#fff;border-radius:10px;padding:10px;font:500 14px 'Jost';cursor:pointer}.btns button.p{background:var(--slate);color:#fff;border-color:var(--slate)}
+.rent{margin-top:22px}.rent h3{margin-bottom:10px}
+.rr{display:grid;grid-template-columns:1fr auto auto;gap:14px;padding:9px 0;border-bottom:1px solid var(--ln);font-size:14px}.rr .mono{font-size:13px}.late{color:var(--red)}
+@media(max-width:1000px){.lay{grid-template-columns:1fr}header nav,.prop{display:none}.fl{grid-template-columns:32px repeat(6,1fr)}.u{height:52px;padding:5px}.u span{display:none}}
+</style>
+</head>
+<body>
+<header><div class="lg"><i></i>Keystone</div><nav><span>Portfolio</span><span style="opacity:1">Buildings</span><span>Tenants</span><span>Maintenance</span><span>Ledger</span></nav><span class="sp"></span><div class="prop">🏢 Alder Court, Ghent ▾</div></header>
+<div class="page">
+ <div class="hd"><div><h1>Alder <b>Court</b></h1><p>Visserij 112, 9000 Gent · 36 units · built 1931, renovated 2022</p></div><div class="kp"><div><span>Occupancy</span><b id="occ"></b></div><div><span>Rent roll</span><b>€41,280</b></div><div><span>Arrears</span><b style="color:var(--red)">€2,940</b></div><div><span>Open tickets</span><b>4</b></div></div></div>
+ <div class="lay">
+  <div class="bld"><h3><span>Stacking plan</span><span>click a unit</span></h3><div class="roof"></div><div class="floors" id="floors"></div><div class="ground"></div>
+   <div class="leg"><span><i style="background:var(--sage2)"></i>Occupied</span><span><i style="background:#fff;border:1.5px dashed var(--brass)"></i>Vacant</span><span><i style="background:#fbe6e1"></i>Late rent</span><span><i style="background:#e6e8ea"></i>Maintenance</span></div></div>
+  <div class="panel unit" id="unit"></div>
+ </div>
+</div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const N=['Van Damme','Peeters','Janssens','Maes','Jacobs','Mertens','Willems','Claes','Goossens','Wouters','De Smet','Dubois','Lambert','Dupont','Martens','Hermans','Aerts','Dumont','Smets','Michiels','Lemmens','Verhoeven','Leclercq','Pauwels','Renard','Desmet','Vermeulen','Bogaert','Hendrickx','Cools','Segers','Wuyts'];
+const ST={};const set=(k,v)=>ST[k]=v;set('5C','v');set('3F','v');set('4B','l');set('2D','l');set('1A','m');set('6E','v');
+const U=[];for(let f=6;f>=1;f--){for(let c=0;c<6;c++){const id=f+'ABCDEF'[c];const s=ST[id]||'o';const sz=[48,62,75,62,48,90][c];U.push({id,f,s,sz,rent:Math.round(sz*13.5+f*20),t:s==='v'?null:N[(f*6+c)%N.length]})}}
+let sel='4B';const $=s=>document.getElementById(s);
+function floors(){let h='';for(let f=6;f>=1;f--){h+=`<div class="fl"><span class="lv">L${f}</span>${U.filter(u=>u.f===f).map(u=>`<div class="u ${u.s} ${u.id===sel?'sel':''}" data-id="${u.id}"><b>${u.id}</b><span>${u.s==='v'?'vacant':u.sz+' m²'}</span></div>`).join('')}</div>`}$('floors').innerHTML=h;
+ const occ=U.filter(u=>u.s!=='v').length;$('occ').textContent=Math.round(occ/U.length*100)+'%'}
+function unit(){const u=U.find(x=>x.id===sel);const lbl={o:['Occupied','var(--sage2)'],v:['Vacant','#fff3df'],l:['Rent overdue','#fbe6e1'],m:['Under maintenance','#e6e8ea']}[u.s];
+ $('unit').innerHTML=`<h3><span>Unit</span><span>Floor ${u.f}</span></h3><h2>${u.id}<span style="background:${lbl[1]}">${lbl[0]}</span></h2>
+  <div class="plan"><svg viewBox="0 0 300 120" width="100%"><g fill="none" stroke="#2f3a40" stroke-width="2"><rect x="4" y="4" width="292" height="112"/><line x1="120" y1="4" x2="120" y2="80"/><line x1="200" y1="40" x2="296" y2="40"/><line x1="200" y1="40" x2="200" y2="116"/></g><path d="M120 80 A30 30 0 0 1 150 110" fill="none" stroke="#b78a3e" stroke-width="1.5"/><g font-family="Jost" font-size="11" fill="#6f7a7d"><text x="40" y="60">Living</text><text x="140" y="30">Kitchen</text><text x="225" y="25">Bath</text><text x="225" y="85">Bedroom</text></g></svg></div>
+  <div class="kv"><div><span>Size</span><b>${u.sz} m² · ${u.sz>70?2:1} bed</b></div><div><span>Monthly rent</span><b>€${u.rent.toLocaleString()}</b></div><div><span>Lease</span><b>${u.t?'01/03/2025 → 28/02/2028':'—'}</b></div><div><span>Deposit</span><b>${u.t?'€'+(u.rent*2).toLocaleString()+' held':'—'}</b></div></div>
+  ${u.t?`<div class="ten"><i>${u.t[0]}</i><div><b>${['Lotte','Bram','Elise','Jonas','Noor','Wout'][u.f%6]} ${u.t}</b><br><span style="color:var(--mu);font-size:13px">${u.s==='l'?'<span class="late">Rent 12 days overdue · reminder sent</span>':'Paid on time · 23 months'}</span></div></div>`:`<div class="ten"><i style="background:var(--sage)">?</i><div><b>3 applications</b><br><span style="color:var(--mu);font-size:13px">2 viewings booked this week</span></div></div>`}
+  <div class="btns">${u.s==='v'?'<button class="p">List unit</button><button>Schedule viewing</button>':u.s==='l'?'<button class="p">Send payment link</button><button>Call tenant</button>':'<button class="p">Message tenant</button><button>New ticket</button>'}</div>
+  <div class="rent"><h3><span>Recent ledger</span><span>Floor ${u.f}</span></h3>${U.filter(x=>x.f===u.f&&x.t).slice(0,4).map(x=>`<div class="rr"><span>${x.id} · ${x.t}</span><span class="mono">€${x.rent}</span><span class="${x.s==='l'?'late':''}">${x.s==='l'?'overdue':'paid 1 Oct'}</span></div>`).join('')}</div>`}
+$('floors').onclick=e=>{const u=e.target.closest('.u');if(u){sel=u.dataset.id;floors();unit()}};floors();unit();
+</script>
+</body>
+</html>

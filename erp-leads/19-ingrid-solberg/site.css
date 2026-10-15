@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
+:root{--e-bg:#f6f8f9;--e-card:#fff;--e-ink:#17242e;--e-mu:#53636e;--e-ln:#dbe2e6;--e-acc:#2c5f7c;--e-acc2:#a8473a;--e-acc-ink:#fff;--e-soft:#e8eef1;--e-r:10px;--e-font:'Manrope',system-ui,sans-serif;--e-head:'Spectral',Georgia,serif;--e-hw:600;--e-hl:-.01em;--e-cta-bg:#17242e;--e-cta-btn:#fff;--e-cta-btn-ink:#17242e}
+.e-hero.card .e-bc{border:0;background:linear-gradient(160deg,#fff 60%,#e8eef1);box-shadow:0 30px 60px -30px rgba(23,36,46,.35)}
+.e-hero.card .e-por{border-radius:10px}
+.e-hero .e-name{font-size:clamp(32px,4vw,54px);line-height:1.08}
+.e-kick{color:#a8473a}
+.e-stats b{color:#2c5f7c;font-family:var(--e-head)}
+.e-why.numbered .n{color:#2c5f7c;font-family:var(--e-head)}

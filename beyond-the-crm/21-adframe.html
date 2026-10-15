@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Adframe — Creative analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Narrow:wght@500;600&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{color-scheme:dark;--surface:#121418;--bg:#0b0c0f;--ink:#f1f2f5;--ink2:#adb2bd;--ink3:#737985;--grid:#22252c;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--q1:#11233a;--q2:#163d6b;--q3:#1c5cab;--q4:#3987e5;--q5:#6da7ec;--q6:#9ec5f4;--qhi:#0b1220;--qlo:#dfe6f2;--pos:#3987e5;--neg:#e66767;--good:#3ccf8e;--warn:#e0a63a;--bad:#ff6b6b;--cur:"$";--tipbg:#f1f2f5;--tipfg:#0b0c0f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Archivo',sans-serif}
+header{display:flex;align-items:center;gap:20px;padding:16px 28px;border-bottom:1px solid var(--grid);flex-wrap:wrap}
+.lg{font:900 22px 'Archivo';letter-spacing:-.03em;display:flex;align-items:center;gap:8px}.lg i{width:22px;height:16px;border:3px solid var(--s2);border-radius:3px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}.tabs button{border:0;background:transparent;color:var(--ink3);padding:8px 12px;font:600 13px 'Archivo Narrow';text-transform:uppercase;letter-spacing:.08em;cursor:pointer;border-radius:6px}.tabs button.on{color:var(--ink);background:var(--surface)}
+header .sp{flex:1}.chips span{font:600 11px 'Archivo Narrow';text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-left:10px}
+.wrap{padding:16px 28px 70px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.filters button{border:1px solid var(--grid);background:transparent;color:var(--ink2);border-radius:999px;padding:6px 12px;font:600 12.5px 'Archivo';cursor:pointer}.filters button.on{background:var(--ink);color:var(--bg)}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--surface);border-radius:12px;padding:14px 16px}.kpi .l{font:600 11px 'Archivo Narrow';text-transform:uppercase;letter-spacing:.08em;color:var(--ink3)}.kpi .v{font-size:28px;font-weight:800;letter-spacing:-.03em}.kpi .d{font-size:12px}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border-radius:14px;padding:18px 20px;min-width:0}.card h3{margin:0;font-size:15px;font-weight:700}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.wall{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cr{background:var(--surface);border-radius:14px;overflow:hidden;cursor:pointer;border:2px solid transparent}.cr.on{border-color:var(--s1)}
+.cr .art{aspect-ratio:1.4;position:relative;display:flex;align-items:flex-end;padding:12px;font:800 18px/1.05 'Archivo';letter-spacing:-.02em}
+.cr .plat{position:absolute;top:10px;left:10px;font:600 10.5px 'Archivo Narrow';text-transform:uppercase;letter-spacing:.08em;background:rgba(0,0,0,.45);padding:3px 7px;border-radius:5px;color:#fff}
+.cr .rk{position:absolute;top:10px;right:10px;background:#fff;color:#000;font-weight:800;border-radius:6px;padding:2px 7px;font-size:12px}
+.cr .m{display:grid;grid-template-columns:repeat(3,1fr);padding:10px 12px;gap:6px;font-size:12px;color:var(--ink3)}.cr .m b{display:block;color:var(--ink);font-size:14px}
+.fat{font:600 11px 'Archivo Narrow';text-transform:uppercase;padding:2px 7px;border-radius:5px}.fat.h{background:#2a1b1b;color:#ff9b9b}.fat.ok{background:#14271f;color:#7be0b0}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}.wall{grid-template-columns:1fr 1fr}.chips{display:none}}@media(max-width:640px){.wrap,header{padding-left:16px;padding-right:16px}.kpis{grid-template-columns:1fr 1fr}.wall{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="lg"><i></i>adframe</div><nav class="tabs"><button data-sheet="wall">Creative wall</button><button data-sheet="perf">Performance</button><button data-sheet="fatigue">Fatigue</button><button data-sheet="aud">Audiences</button><button data-sheet="pace">Pacing</button></nav><span class="sp"></span><span class="chips"><span>Meta</span><span>LinkedIn</span><span>Google Ads</span><span>YouTube</span><span>→ HubSpot → Salesforce</span></span></header>
+<div class="wrap"><div class="filters"><button data-f="range" data-v="30d" class="on">30 days</button><button data-f="range" data-v="90d">Quarter</button><span style="width:8px"></span><button data-f="plat" data-v="all" class="on">All platforms</button><button data-f="plat" data-v="li">LinkedIn</button><button data-f="plat" data-v="meta">Meta</button><button data-f="plat" data-v="g">Google / YouTube</button><span style="width:8px"></span><button data-f="rank" data-v="pipe" class="on">Rank by pipeline</button><button data-f="rank" data-v="ctr">Rank by CTR</button></div>
+ <section data-panel="wall"><div class="kpis" id="k1"></div><div class="wall" id="wall"></div></section>
+ <section data-panel="perf" hidden><div class="g g2"><div class="card"><h3>Clicks don’t pay the bills</h3><p class="sub">CTR vs. pipeline per $1,000 spent · each dot is a creative</p><div id="c_sc"></div></div><div class="card"><h3>Pipeline by creative theme</h3><p class="sub">Credited pipeline (W-shaped), selected period</p><div id="c_th"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>All creatives</h3><p class="sub">Ad platform metrics joined to HubSpot contacts and Salesforce opportunities via UTM + click ID</p><div id="t_all"></div></div></section>
+ <section data-panel="fatigue" hidden><div class="card"><h3>CTR by days live</h3><p class="sub">Top 4 creatives by spend · frequency rising, clicks falling</p><div id="c_fat"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Fatigue watchlist</h3><p class="sub">CTR down 30%+ from its first-week peak, or frequency above 6</p><div id="t_fat"></div></div></section>
+ <section data-panel="aud" hidden><div class="g g2"><div class="card"><h3>Cost per opportunity by audience</h3><p class="sub">Lower is better</p><div id="c_cpo"></div></div><div class="card"><h3>Who actually clicks</h3><p class="sub">Clicks by seniority (LinkedIn demographics + Clearbit)</p><div id="c_sen"></div></div></div></section>
+ <section data-panel="pace" hidden><div class="kpis" id="k5"></div><div class="card"><h3>Cumulative spend vs. budget this month</h3><p class="sub">Daily, all platforms</p><div id="c_pc"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Pacing by platform</h3><p class="sub">Month-to-date spend vs. month-to-date budget (tick)</p><div id="c_pp"></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const CR=[['“Close the books in 2 days.”','li','#1c5cab','Proof'],['“Your forecast is lying to you.”','li','#7a3d1d','Provocation'],['Customer video: Calder Labs','g','#199e70','Proof'],['“Stop exporting to spreadsheets.”','meta','#c98500','Pain'],['Product demo — 30 s','g','#3a3f4a','Product'],['“SOC 2 in 30 days”','li','#9085e9','Offer'],['Carousel: 5 board metrics','li','#d55181','Education'],['“Free template: QBR deck”','meta','#2c6e5a','Offer']];
+const PN={li:'LinkedIn',meta:'Meta',g:'Google / YouTube'};let SEL=0;
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const m=F.range==='90d'?3:1;
+ const cr=CR.filter(c=>F.plat==='all'||c[1]===F.plat).map(([t,p,col,th])=>{const sp=(4e3+r()*28e3)*m;const ctr=p==='meta'?.009+r()*.012:p==='g'?.004+r()*.01:.005+r()*.008;const pipe=sp*(th==='Proof'?14:th==='Offer'?9:th==='Provocation'?5:6)*(.6+r()*.8);return{t,p,col,th,sp,ctr,clk:Math.round(sp/(.9+r()*6)),leads:Math.round(sp/(60+r()*160)),pipe,freq:2+r()*6,days:Math.round(8+r()*60)}});
+ return memo[k]={r,m,cr}}
+const S={range:'30d',plat:'all',rank:'pipe'};
+const views={
+wall(F){const D=data(F);const sp=K.sum(D.cr.map(c=>c.sp)),pi=K.sum(D.cr.map(c=>c.pipe));
+ K.kpis($('k1'),[{label:'Spend',value:K.money(sp)},{label:'Clicks',value:K.num(K.sum(D.cr.map(c=>c.clk)))},{label:'Leads',value:K.num(K.sum(D.cr.map(c=>c.leads)))},{label:'Pipeline',value:K.money(pi),delta:.16},{label:'Pipeline per $1',value:K.x(pi/sp)}]);
+ const rk=[...D.cr].sort((a,b)=>F.rank==='ctr'?b.ctr-a.ctr:b.pipe/b.sp-a.pipe/a.sp);
+ $('wall').innerHTML=rk.map((c,i)=>`<div class="cr ${i===SEL?'on':''}" data-i="${i}"><div class="art" style="background:linear-gradient(150deg,${c.col},#0b0c0f 120%)"><span class="plat">${PN[c.p]} · ${c.th}</span><span class="rk">#${i+1}</span>${c.t}</div><div class="m"><span><b>${K.pct(c.ctr,2)}</b>CTR</span><span><b>${K.money(c.sp)}</b>spend</span><span><b>${K.money(c.pipe)}</b>pipeline</span></div></div>`).join('');
+ document.querySelectorAll('.cr').forEach(c=>c.onclick=()=>{SEL=+c.dataset.i;document.querySelectorAll('.cr').forEach(x=>x.classList.toggle('on',x===c))})},
+perf(F){const D=data(F);const P=['li','meta','g'];
+ K.scatter($('c_sc'),{points:D.cr.map(c=>({x:c.ctr,y:c.pipe/c.sp*1000,g:P.indexOf(c.p),label:c.t,tag:c.pipe/c.sp===Math.max(...D.cr.map(z=>z.pipe/z.sp))||c.ctr===Math.max(...D.cr.map(z=>z.ctr)),extra:[['Spend',K.money(c.sp)]]})),groups:['LinkedIn','Meta','Google / YouTube'],xfmt:v=>K.pct(v,1),yfmt:K.money,xLabel:'CTR',yLabel:'Pipeline per $1K',h:300});
+ const TH=['Proof','Offer','Provocation','Pain','Education','Product'];K.bars($('c_th'),{labels:TH,series:[{name:'Pipeline',data:TH.map(t=>K.sum(D.cr.filter(c=>c.th===t).map(c=>c.pipe)))}],fmt:K.money,horizontal:true,h:300});
+ K.table($('t_all'),{cols:[{k:'t',label:'Creative'},{k:'pl',label:'Platform'},{k:'sp',label:'Spend',align:'r',fmt:K.money},{k:'ctr',label:'CTR',align:'r',fmt:v=>K.pct(v,2)},{k:'leads',label:'Leads',align:'r'},{k:'pipe',label:'Pipeline',align:'r',fmt:K.money,bar:true},{k:'cpl',label:'Cost / lead',align:'r',fmt:K.money}],rows:D.cr.map(c=>({...c,pl:PN[c.p],cpl:c.sp/Math.max(1,c.leads)})),sort:'pipe'})},
+fatigue(F){const D=data(F);const top=[...D.cr].sort((a,b)=>b.sp-a.sp).slice(0,4);const DAYS=Array.from({length:10},(_,i)=>'Day '+(i*6+1));const r=K.rng(K.seed(F,'f'));
+ K.line($('c_fat'),{labels:DAYS,series:top.map(c=>({name:c.t.replace(/“|”/g,'').slice(0,26),data:DAYS.map((_,i)=>c.ctr*1.4*Math.exp(-i*(.05+r()*.07)))})),fmt:v=>K.pct(v,2),h:280});
+ K.table($('t_fat'),{cols:[{k:'t',label:'Creative'},{k:'days',label:'Days live',align:'r'},{k:'freq',label:'Frequency',align:'r',fmt:v=>v.toFixed(1)},{k:'drop',label:'CTR vs. peak',align:'r',fmt:v=>'▼ '+K.pct(v,0)},{k:'st',label:'Status',render:v=>{const s=document.createElement('span');s.className='fat '+(v?'h':'ok');s.textContent=v?'▲ Refresh now':'● Healthy';return s}}],rows:D.cr.map(c=>{const drop=Math.min(.7,c.days/120+c.freq/20);return{t:c.t,days:c.days,freq:c.freq,drop,st:drop>.3||c.freq>6}}),sort:'drop'})},
+aud(F){const D=data(F);K.bars($('c_cpo'),{labels:['Finance leaders, 200–2k emp','RevOps, mid-market','Retargeting: pricing page','Lookalike: customers','Competitor followers','Broad: SaaS execs'],series:[{name:'Cost per opp',data:[2400,3100,1200,3900,4600,7800]}],fmt:K.money,horizontal:true,h:280});
+ K.donut($('c_sen'),{items:[{name:'C-level',value:.08},{name:'VP',value:.17},{name:'Director',value:.29},{name:'Manager',value:.31},{name:'Individual contributor',value:.15}],fmt:v=>K.pct(v,0)})},
+pace(F){const D=data(F);const days=Array.from({length:30},(_,i)=>String(i+1));const bud=120e3;const r=K.rng(K.seed(F,'p'));let c=0;const act=days.map((_,i)=>i>=23?null:(c+=bud/30*(.85+r()*.5)));
+ K.kpis($('k5'),[{label:'Month budget',value:K.money(bud)},{label:'Spent so far',value:K.money(act[22])},{label:'Pacing',value:K.pct(act[22]/(bud*23/30),0)},{label:'Projected month-end',value:K.money(act[22]/23*30)},{label:'Days left',value:'7'}]);
+ K.line($('c_pc'),{labels:days,series:[{name:'Budget (linear)',data:days.map((_,i)=>bud*(i+1)/30),dash:true},{name:'Actual spend',data:act}],fmt:K.money,h:270});
+ K.bullet($('c_pp'),{rows:[['LinkedIn',act[22]*.52,bud*.5*23/30],['Meta',act[22]*.21,bud*.25*23/30],['Google Ads',act[22]*.19,bud*.17*23/30],['YouTube',act[22]*.08,bud*.08*23/30]],fmt:K.money,neutral:true})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

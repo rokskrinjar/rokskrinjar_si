@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formicarium — The Ant Colony</title>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=Lexend:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--sand:#e7cf9f;--sand2:#d4b47c;--soil:#6a4a2e;--ink:#241a12;--leaf:#5f8a3a;--red:#b8452e;--dim:#241a1299;--glass:#dfeef0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--sand);color:var(--ink);font-family:Lexend,sans-serif;font-weight:300}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 4vw;background:var(--soil);color:var(--sand)}
+.logo{font-family:'Zilla Slab';font-weight:700;font-size:30px;display:flex;align-items:center;gap:10px}
+.logo svg{width:34px;height:34px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:7px 14px;border-radius:30px;font-weight:400;font-size:14px}
+nav a.on{background:var(--sand);color:var(--soil)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1300px;margin:0 auto;padding:24px 4vw 60px}
+h2{font-family:'Zilla Slab';font-weight:700;font-size:clamp(2.2rem,5vw,3.8rem);line-height:1}
+h2 em{color:var(--red);font-style:normal}
+.sub{max-width:62ch;line-height:1.6;margin:8px 0 20px}
+/* sim */
+.sim{display:grid;grid-template-columns:1fr 280px;gap:18px;align-items:start}
+.arena{border:10px solid #8a6a4a;border-radius:10px;background:#c9ab78;position:relative}
+.arena canvas{display:block;width:100%;height:auto;cursor:crosshair}
+.panel{background:#fff7e6;border-radius:12px;padding:16px;box-shadow:0 10px 20px -12px #0004}
+.panel h3{font-family:'Zilla Slab';font-size:20px;margin-bottom:8px}
+.stat{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed #241a1233}
+.stat b{font-family:'Zilla Slab';font-size:20px}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.tools button{border:2px solid var(--ink);background:none;border-radius:8px;padding:8px 4px;font-size:13px}
+.tools button.on{background:var(--ink);color:var(--sand)}
+.tog{display:flex;justify-content:space-between;align-items:center;font-size:14px;margin:6px 0}
+input[type=range]{width:100%;accent-color:var(--red)}
+/* farm */
+.farm{border:14px solid #3a2a1a;border-radius:6px;background:var(--glass);position:relative}
+.farm canvas{display:block;width:100%;height:auto}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:14px}
+.legend span{display:flex;gap:6px;align-items:center}
+.legend i{width:14px;height:14px;border-radius:3px}
+/* castes */
+.castes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.caste{background:#fff7e6;border-radius:16px;padding:18px;text-align:center}
+.caste svg{width:100%;height:180px}
+.caste h3{font-family:'Zilla Slab';font-size:26px}
+.caste .n{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:600}
+.caste p{font-size:15px;line-height:1.55;margin-top:6px;text-align:left}
+/* species */
+.spc{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.sp{background:var(--soil);color:var(--sand);border-radius:16px;padding:20px;position:relative;overflow:hidden}
+.sp h3{font-family:'Zilla Slab';font-size:26px}
+.sp i{font-style:italic;opacity:.7}
+.sp p{margin-top:8px;line-height:1.55;font-size:15px}
+.sp .big{position:absolute;right:-10px;bottom:-20px;font-family:'Zilla Slab';font-weight:700;font-size:110px;opacity:.1}
+.sp .facts{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.sp .facts span{background:#ffffff18;border-radius:20px;padding:3px 10px;font-size:12px}
+@media(max-width:900px){.sim{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="logo"><svg viewBox="0 0 34 34"><ellipse cx="9" cy="17" rx="5" ry="4" fill="#e7cf9f"/><ellipse cx="17" cy="17" rx="3.5" ry="3" fill="#e7cf9f"/><ellipse cx="26" cy="17" rx="6" ry="4.5" fill="#e7cf9f"/><path d="M14 14 l-4 -6 M17 14 l0 -7 M20 14 l4 -6 M14 20 l-4 6 M17 20 l0 7 M20 20 l4 6 M5 14 l-3 -5 M5 14 l1 -6" stroke="#e7cf9f" stroke-width="1.5"/></svg>Formicarium</div><nav><a href="#sim">Foraging</a><a href="#farm">Ant Farm</a><a href="#castes">Castes</a><a href="#species">Species</a><a href="index.html">Index</a></nav></header>
+
+<section data-view="sim"><div class="wrap">
+ <h2>How ants find <em>food</em></h2>
+ <p class="sub">No ant knows the plan. Each one follows simple rules. It wanders, and when it finds food it carries a crumb home while laying a scent trail. Other ants follow the strongest trail. Click to drop food and watch the highways form.</p>
+ <div class="sim">
+  <div class="arena"><canvas id="sc" width="1000" height="640"></canvas></div>
+  <div class="panel">
+   <h3>Colony</h3>
+   <div class="stat"><span>Workers</span><b id="sAnts">0</b></div><div class="stat"><span>Food stored</span><b id="sFood">0</b></div><div class="stat"><span>Carrying food</span><b id="sCarry">0</b></div><div class="stat"><span>Trips / min</span><b id="sRate">0</b></div>
+   <h3 style="margin-top:14px">Click to place</h3>
+   <div class="tools" id="tools"><button data-t="food" class="on">🍞 Food</button><button data-t="wall">🪨 Rock</button><button data-t="erase">🧽 Erase</button><button data-t="nest">🏠 Move nest</button></div>
+   <div class="tog">Show scent trails <input type="checkbox" id="showP" checked></div>
+   <div style="font-size:13px;margin-top:8px">Evaporation</div><input type="range" id="evap" min="1" max="30" value="8">
+   <div style="font-size:13px">Speed</div><input type="range" id="spd" min="1" max="5" value="2">
+   <div class="tools"><button id="more">+100 ants</button><button id="clearM">Reset</button></div>
+  </div>
+ </div>
+</div></section>
+
+<section data-view="farm" hidden><div class="wrap">
+ <h2>Life <em>underground</em></h2>
+ <p class="sub">A classic glass ant farm. The workers dig galleries and chambers over time: a royal chamber for the queen, nurseries for eggs and larvae, and a pantry. Watch it grow.</p>
+ <div class="farm"><canvas id="fc" width="1100" height="560"></canvas></div>
+ <div class="legend"><span><i style="background:#f4e8c8"></i>Eggs</span><span><i style="background:#fff"></i>Larvae</span><span><i style="background:#e8c890"></i>Pupae</span><span><i style="background:#5f8a3a"></i>Food</span><span><i style="background:#8a2a1a"></i>Queen</span><button style="margin-left:auto;border:2px solid var(--ink);border-radius:30px;padding:4px 14px;background:none" id="dig">⛏ Speed up digging</button></div>
+</div></section>
+
+<section data-view="castes" hidden><div class="wrap">
+ <h2>Who's <em>who</em></h2>
+ <p class="sub">An ant colony works like a single superorganism. Everyone has a role, set by genes, diet and age.</p>
+ <div class="castes" id="castes"></div>
+</div></section>
+
+<section data-view="species" hidden><div class="wrap">
+ <h2>Twenty <em>quadrillion</em> ants</h2>
+ <p class="sub">There are about 20,000,000,000,000,000 ants on Earth, around 2.5 million for every person. Here are a few remarkable species.</p>
+ <div class="spc" id="spc"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'sim';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* ---------- foraging sim ---------- */
+const sc=document.getElementById('sc'),sx=sc.getContext('2d'),W=1000,H=640,G=4,GW=W/G,GH=H/G;
+let home=new Float32Array(GW*GH),food=new Float32Array(GW*GH),wall=new Uint8Array(GW*GH),crumbs=new Uint16Array(GW*GH);
+let nest={x:180,y:320},ants=[],stored=0,tool='food',trips=[];
+function spawn(n){for(let i=0;i<n;i++)ants.push({x:nest.x,y:nest.y,a:Math.random()*6.28,has:false,t:0})}
+function reset(){home.fill(0);food.fill(0);wall.fill(0);crumbs.fill(0);ants=[];stored=0;spawn(260);addFood(760,180,40);addFood(820,470,32);for(let y=240;y<400;y++)for(let x=480;x<500;x++)wall[Math.floor(y/G)*GW+Math.floor(x/G)]=1}
+function addFood(x,y,r){for(let j=-r;j<=r;j+=G)for(let i=-r;i<=r;i+=G){if(i*i+j*j>r*r)continue;const gx=Math.floor((x+i)/G),gy=Math.floor((y+j)/G);if(gx>=0&&gy>=0&&gx<GW&&gy<GH)crumbs[gy*GW+gx]=Math.min(60000,crumbs[gy*GW+gx]+30)}}
+const idx=(x,y)=>{const gx=Math.floor(x/G),gy=Math.floor(y/G);return gx<0||gy<0||gx>=GW||gy>=GH?-1:gy*GW+gx};
+function sense(a,field,ang){const d=14;const i=idx(a.x+Math.cos(a.a+ang)*d,a.y+Math.sin(a.a+ang)*d);return i<0||wall[i]?-1:field[i]}
+function step(){const ev=1-(+document.getElementById('evap').value)/2000;
+ for(const a of ants){a.t++;const field=a.has?home:food;const L=sense(a,field,-.5),C=sense(a,field,0),R=sense(a,field,.5);
+  if(C>=L&&C>=R){}else if(L>R)a.a-=.25;else a.a+=.25;a.a+=(Math.random()-.5)*.35;
+  if(a.has){const dx=nest.x-a.x,dy=nest.y-a.y,d=Math.hypot(dx,dy);if(d<90)a.a+=Math.sign(Math.sin(Math.atan2(dy,dx)-a.a))*.15}
+  let nx=a.x+Math.cos(a.a)*1.6,ny=a.y+Math.sin(a.a)*1.6;const ni=idx(nx,ny);if(ni<0||wall[ni]){a.a+=Math.PI*(.6+Math.random()*.8);continue}a.x=nx;a.y=ny;
+  const i=ni;const strength=Math.max(0,1-a.t/900);if(a.has)food[i]=Math.min(1,food[i]+.12*strength);else home[i]=Math.min(1,home[i]+.08*strength);
+  if(!a.has&&crumbs[i]>0){crumbs[i]--;a.has=true;a.a+=Math.PI;a.t=0}
+  if(a.has&&Math.hypot(a.x-nest.x,a.y-nest.y)<16){a.has=false;stored++;a.a+=Math.PI;a.t=0;trips.push(performance.now())}
+  if(!a.has&&Math.hypot(a.x-nest.x,a.y-nest.y)<16)a.t=0}
+ for(let i=0;i<home.length;i++){home[i]*=ev;food[i]*=ev}}
+const img=sx.createImageData(GW,GH),off=document.createElement('canvas');off.width=GW;off.height=GH;const ox=off.getContext('2d');
+function draw(){const d=img.data,show=document.getElementById('showP').checked;for(let i=0;i<GW*GH;i++){let r=201,g=171,b=120;if(show){r=r*(1-food[i]*.8)+50*food[i]*.8;g=g*(1-food[i]*.3)+140*food[i]*.3;b=b*(1-home[i]*.6)+220*home[i]*.6;r-=home[i]*60}if(crumbs[i]){r=95;g=138;b=58}if(wall[i]){r=110;g=100;b=92}d[i*4]=r;d[i*4+1]=g;d[i*4+2]=b;d[i*4+3]=255}ox.putImageData(img,0,0);sx.imageSmoothingEnabled=false;sx.drawImage(off,0,0,W,H);
+ sx.fillStyle='#3a2a1a';sx.beginPath();sx.arc(nest.x,nest.y,18,0,7);sx.fill();sx.fillStyle='#6a4a2e';sx.beginPath();sx.arc(nest.x,nest.y,10,0,7);sx.fill();
+ for(const a of ants){sx.save();sx.translate(a.x,a.y);sx.rotate(a.a);sx.fillStyle='#241a12';sx.fillRect(-3,-1.2,6,2.4);sx.fillRect(2,-1.5,2.2,3);if(a.has){sx.fillStyle='#8ad04a';sx.fillRect(4,-1.5,2.5,3)}sx.restore()}
+ document.getElementById('sAnts').textContent=ants.length;document.getElementById('sFood').textContent=stored;document.getElementById('sCarry').textContent=ants.filter(a=>a.has).length;const now=performance.now();trips=trips.filter(t=>now-t<60000);document.getElementById('sRate').textContent=trips.length}
+function loop(){if(!document.querySelector('[data-view=sim]').hidden){const n=+document.getElementById('spd').value;for(let k=0;k<n;k++)step();draw()}requestAnimationFrame(loop)}
+let painting=false;const pos=e=>{const r=sc.getBoundingClientRect();return[(e.clientX-r.left)/r.width*W,(e.clientY-r.top)/r.height*H]};
+function act(e){const[x,y]=pos(e);if(tool==='food')addFood(x,y,26);if(tool==='nest'){nest={x,y};return}if(tool==='wall'||tool==='erase')for(let j=-14;j<=14;j+=G)for(let i=-14;i<=14;i+=G){const k=idx(x+i,y+j);if(k>=0){wall[k]=tool==='wall'?1:0;if(tool==='erase')crumbs[k]=0}}}
+sc.addEventListener('pointerdown',e=>{painting=true;sc.setPointerCapture(e.pointerId);act(e)});sc.addEventListener('pointermove',e=>{if(painting&&tool!=='food'&&tool!=='nest')act(e)});sc.addEventListener('pointerup',()=>painting=false);
+document.getElementById('tools').onclick=e=>{const t=e.target.dataset.t;if(!t)return;tool=t;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target))};
+document.getElementById('more').onclick=()=>spawn(100);document.getElementById('clearM').onclick=reset;
+reset();for(let k=0;k<400;k++)step();loop();
+
+/* ---------- ant farm ---------- */
+const fc=document.getElementById('fc'),fx=fc.getContext('2d'),FW=1100,FH=560;let dug=[],digSpeed=1,ft=0,workers=[];
+const PLAN=[[550,60,550,160],[550,160,420,230],[420,230,300,260],[550,160,700,240],[700,240,820,300],[420,230,440,340],[440,340,360,420],[700,240,680,380],[680,380,800,450],[440,340,560,420],[560,420,680,380]];
+const CH=[['royal',360,420,46,'Queen\'s chamber'],['eggs',300,260,38,'Egg nursery'],['larvae',820,300,40,'Larva nursery'],['pupae',800,450,38,'Pupa chamber'],['pantry',560,420,40,'Pantry']];
+let progress=0;
+function farm(){ft++;progress=Math.min(1,progress+.0006*digSpeed);
+ fx.fillStyle='#bfe3ee';fx.fillRect(0,0,FW,60);const g=fx.createLinearGradient(0,60,0,FH);g.addColorStop(0,'#d9b980');g.addColorStop(1,'#a8844e');fx.fillStyle=g;fx.fillRect(0,60,FW,FH-60);
+ fx.fillStyle='#0000000f';for(let i=0;i<500;i++){const x=(i*97)%FW,y=60+(i*53)%(FH-60);fx.fillRect(x,y,2,2)}
+ fx.fillStyle='#5f8a3a';for(let i=0;i<30;i++)fx.fillRect(i*38,52,3,10+(i%3)*4);
+ const tot=PLAN.length;fx.strokeStyle='#5a3e22';fx.lineCap='round';fx.lineWidth=18;
+ PLAN.forEach((s,i)=>{const p=Math.max(0,Math.min(1,progress*tot-i));if(p<=0)return;fx.beginPath();fx.moveTo(s[0],s[1]);fx.lineTo(s[0]+(s[2]-s[0])*p,s[1]+(s[3]-s[1])*p);fx.stroke()});
+ fx.strokeStyle='#3a2816';fx.lineWidth=12;PLAN.forEach((s,i)=>{const p=Math.max(0,Math.min(1,progress*tot-i));if(p<=0)return;fx.beginPath();fx.moveTo(s[0],s[1]);fx.lineTo(s[0]+(s[2]-s[0])*p,s[1]+(s[3]-s[1])*p);fx.stroke()});
+ CH.forEach(([k,x,y,r,l],i)=>{const reach=progress>(i+2)/(CH.length+2);if(!reach)return;fx.fillStyle='#3a2816';fx.beginPath();fx.ellipse(x,y,r*1.4,r*.8,0,0,7);fx.fill();
+  if(k==='royal'){fx.fillStyle='#8a2a1a';fx.beginPath();fx.ellipse(x,y+4,22,10,0,0,7);fx.fill();fx.beginPath();fx.arc(x+24,y+2,7,0,7);fx.fill()}
+  if(k==='eggs')for(let e=0;e<14;e++){fx.fillStyle='#f4e8c8';fx.beginPath();fx.ellipse(x-30+(e%7)*10,y-4+Math.floor(e/7)*10,3,4.5,0,0,7);fx.fill()}
+  if(k==='larvae')for(let e=0;e<8;e++){fx.fillStyle='#fff';fx.beginPath();fx.ellipse(x-30+(e%4)*18,y-6+Math.floor(e/4)*14,6,4,.4,0,7);fx.fill()}
+  if(k==='pupae')for(let e=0;e<7;e++){fx.fillStyle='#e8c890';fx.beginPath();fx.ellipse(x-30+e*10,y+2,4,8,0,0,7);fx.fill()}
+  if(k==='pantry')for(let e=0;e<10;e++){fx.fillStyle=['#5f8a3a','#c8a040','#b8452e'][e%3];fx.fillRect(x-30+(e%5)*12,y-8+Math.floor(e/5)*12,8,8)}
+  fx.fillStyle='#241a12';fx.font='600 14px Lexend';fx.textAlign='center';fx.fillText(l,x,y-r-6)});
+ if(workers.length<26)workers.push({seg:0,t:0,dir:1,sp:.003+Math.random()*.004});
+ workers.forEach(w=>{const maxSeg=Math.floor(progress*PLAN.length-.01);w.t+=w.sp*w.dir*digSpeed;if(w.t>1){w.t=0;w.seg=Math.floor(Math.random()*(maxSeg+1))}if(w.t<0){w.t=1}const s=PLAN[Math.min(w.seg,Math.max(0,maxSeg))];const px=s[0]+(s[2]-s[0])*w.t,py=s[1]+(s[3]-s[1])*w.t;fx.fillStyle='#120c06';fx.beginPath();fx.ellipse(px,py,5,3,Math.atan2(s[3]-s[1],s[2]-s[0]),0,7);fx.fill()});
+ fx.fillStyle='#ffffff18';fx.fillRect(0,0,FW*.08,FH);fx.fillRect(FW*.12,0,FW*.02,FH);
+ fx.fillStyle='#241a12';fx.font='600 16px Lexend';fx.textAlign='left';fx.fillText(`Day ${Math.floor(progress*60)+1} · ${Math.round(progress*100)}% excavated`,16,86);
+ if(!document.querySelector('[data-view=farm]').hidden)requestAnimationFrame(farm);else farmRun=false}
+let farmRun=false;new MutationObserver(()=>{if(!document.querySelector('[data-view=farm]').hidden&&!farmRun){farmRun=true;farm()}}).observe(document.querySelector('[data-view=farm]'),{attributes:true});
+document.getElementById('dig').onclick=()=>{digSpeed=digSpeed>1?1:8;document.getElementById('dig').textContent=digSpeed>1?'🐢 Normal speed':'⛏ Speed up digging'};
+progress=.35;
+
+/* ---------- castes ---------- */
+function antSVG(s,col,wing,big){return`<svg viewBox="0 0 240 180"><g transform="translate(120 90) scale(${s})" fill="${col}"><ellipse cx="-44" cy="0" rx="${big?30:22}" ry="${big?20:15}"/><ellipse cx="-12" cy="0" rx="8" ry="6"/><ellipse cx="14" cy="0" rx="${big?22:16}" ry="12"/><ellipse cx="44" cy="0" rx="${big?20:14}" ry="${big?16:12}"/>${big?'<path d="M56 -6 l14 -4 M56 6 l14 4" stroke="'+col+'" stroke-width="4"/>':''}<path d="M50 -8 q14 -20 26 -14 M50 8 q14 20 26 14" stroke="${col}" stroke-width="2.5" fill="none"/>${[-14,0,14].map(x=>`<path d="M${x+10} -8 l${x/2} -26 l10 -6 M${x+10} 8 l${x/2} 26 l10 6" stroke="${col}" stroke-width="3" fill="none"/>`).join('')}${wing?'<ellipse cx="-4" cy="-30" rx="44" ry="14" fill="#cfe8f0" opacity=".7" stroke="#6a8a9a"/><ellipse cx="-4" cy="30" rx="44" ry="14" fill="#cfe8f0" opacity=".7" stroke="#6a8a9a"/>':''}</g></svg>`}
+const CA=[['Queen','1 per colony',antSVG(1.2,'#6a2a1a',false,true),'She founds the colony after her mating flight, then chews off her own wings. She lays every egg and can live up to 30 years.'],['Worker','thousands to millions',antSVG(.9,'#3a2a1a',false,false),'All workers are sterile females. The young ones nurse the brood inside the nest, and the older ones take on the riskier job of foraging.'],['Soldier','in some species',antSVG(1.1,'#4a2a1a',false,true),'Big heads and huge jaws. Some species have soldiers whose heads plug the nest entrance like a living door.'],['Drone','seasonal',antSVG(.95,'#2a1a1a',true,false),'Winged males who exist only to mate on the nuptial flight. They die soon afterwards.']];
+document.getElementById('castes').innerHTML=CA.map(c=>`<div class="caste">${c[2]}<div class="n">${c[1]}</div><h3>${c[0]}</h3><p>${c[3]}</p></div>`).join('');
+
+/* ---------- species ---------- */
+const SPC=[['Leafcutter ant','Atta cephalotes','They don\'t eat the leaves. They farm a fungus on them. A mature colony can strip a tree overnight.',['8 million workers','farmers for 50M years'],'🍃'],['Army ant','Eciton burchellii','Nomads with no permanent nest. At night they link their bodies into a living shelter called a bivouac.',['raids of 200,000','blind'],'⚔'],['Honeypot ant','Myrmecocystus','Some workers become living food jars, hanging from the ceiling swollen with nectar for the dry season.',['desert dwellers','edible (really)'],'🍯'],['Weaver ant','Oecophylla smaragdina','They build nests by stitching leaves together with silk produced by their own larvae.',['tree tops','used as pest control since 304 AD'],'🧵'],['Bullet ant','Paraponera clavata','Holds the record for the most painful insect sting. The pain is said to last 24 hours.',['3 cm long','Schmidt pain index 4+'],'💥'],['Trap-jaw ant','Odontomachus bauri','Its jaws snap shut at up to 230 km/h, one of the fastest movements in the animal kingdom. It can use them to leap away.',['jaw-jumper','ultra fast'],'⚡']];
+document.getElementById('spc').innerHTML=SPC.map(s=>`<div class="sp"><span class="big">${s[4]}</span><h3>${s[0]}</h3><i>${s[1]}</i><p>${s[2]}</p><div class="facts">${s[3].map(f=>`<span>${f}</span>`).join('')}</div></div>`).join('');
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

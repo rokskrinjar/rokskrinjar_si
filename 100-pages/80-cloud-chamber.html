@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Chamber</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;500;700&family=Crimson+Pro:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--void:#050608;--panel:#0e1116;--line:#ffffff14;--txt:#dfe6ee;--dim:#dfe6ee80;--alpha:#ffb45c;--beta:#6fe3ff;--muon:#c9a7ff;--gamma:#9dff9a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--void);color:var(--txt);font-family:'Crimson Pro',serif;font-size:18px}
+a{color:inherit;text-decoration:none}button,input{font:inherit;cursor:pointer;color:inherit}
+.tech{font-family:'Chakra Petch',sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 4vw;border-bottom:1px solid var(--line)}
+.logo{font-family:'Chakra Petch';font-weight:700;font-size:20px;letter-spacing:.3em}
+.logo i{color:var(--beta);font-style:normal}
+nav{display:flex;gap:4px;flex-wrap:wrap;font-family:'Chakra Petch';font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+nav a{padding:8px 14px;border:1px solid transparent;color:var(--dim)}nav a.on{border-color:var(--beta);color:var(--beta)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1320px;margin:0 auto;padding:24px 4vw 70px}
+h2{font-family:'Chakra Petch';font-weight:300;font-size:clamp(2rem,4.5vw,3.4rem);letter-spacing:.02em}
+.sub{color:var(--dim);max-width:62ch;line-height:1.55;margin:8px 0 22px}
+/* chamber */
+.ch{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.tank{position:relative;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#000}
+.tank canvas{display:block;width:100%;height:auto;cursor:crosshair}
+.tank .hud{position:absolute;left:12px;top:10px;font-family:'Chakra Petch';font-size:11px;letter-spacing:.2em;color:var(--dim)}
+.tank .id{position:absolute;display:none;background:#0e1116ee;border:1px solid var(--line);padding:10px 12px;font-size:15px;max-width:260px;border-radius:4px;pointer-events:none}
+.side{display:grid;gap:14px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px}
+.box h3{font-family:'Chakra Petch';font-weight:500;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+.tog{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-family:'Chakra Petch';font-size:14px}
+.sw{width:42px;height:22px;border-radius:11px;background:#ffffff22;border:0;position:relative}
+.sw::after{content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s}
+.sw.on{background:var(--beta)}.sw.on::after{left:23px}
+.count{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;font-family:'Chakra Petch';font-size:14px;padding:4px 0}
+.count i{width:22px;height:3px;border-radius:2px}
+.count .b{height:6px;background:#ffffff10;border-radius:3px;overflow:hidden}
+.count .b span{display:block;height:100%}
+input[type=range]{width:100%;accent-color:var(--beta)}
+/* zoo */
+.sm{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:980px}
+.p{aspect-ratio:1;border-radius:8px;padding:10px;border:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between;text-align:left;background:var(--panel);transition:transform .2s}
+.p:hover{transform:scale(1.04)}
+.p .sym{font-family:'Chakra Petch';font-size:clamp(1.6rem,3vw,2.4rem);font-weight:500}
+.p small{font-family:'Chakra Petch';font-size:10px;letter-spacing:.06em;color:var(--dim);line-height:1.3}
+.p.q{border-color:#ff7ab655}.p.q .sym{color:#ff7ab6}
+.p.l{border-color:#6fe3ff55}.p.l .sym{color:var(--beta)}
+.p.g{border-color:#ffb45c55}.p.g .sym{color:var(--alpha)}
+.p.h{border-color:#fff34a77}.p.h .sym{color:#fff34a}
+.pinfo{margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px;max-width:980px;min-height:120px}
+.pinfo b{font-family:'Chakra Petch';font-weight:500;font-size:24px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin:0 0 14px;font-family:'Chakra Petch';font-size:12px;letter-spacing:.1em}
+/* diy */
+.diy{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+.diy svg{width:100%;height:auto}
+.steps li{list-style:none;display:grid;grid-template-columns:34px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.steps li .c{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--beta);display:grid;place-items:center;font-family:'Chakra Petch';font-size:12px}
+.steps li.done .c{background:var(--beta);color:#000}
+.steps li.done span{opacity:.5}
+.warn{margin-top:16px;border:1px solid #ffb45c66;color:var(--alpha);padding:12px 14px;border-radius:6px;font-size:16px}
+/* history */
+.tl{position:relative;padding-left:30px}
+.tl::before{content:"";position:absolute;left:8px;top:0;bottom:0;border-left:1px dashed #ffffff33}
+.ev{position:relative;padding:0 0 30px}
+.ev::before{content:"";position:absolute;left:-27px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--beta);box-shadow:0 0 10px var(--beta)}
+.ev .y{font-family:'Chakra Petch';font-size:28px;font-weight:300;color:var(--beta)}
+.ev h3{font-weight:400;font-size:24px}
+.ev p{color:var(--dim);max-width:62ch;line-height:1.55}
+@media(max-width:1000px){.ch,.diy{grid-template-columns:1fr}.sm{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="logo">CLOUD<i>·</i>CHAMBER</div><nav><a href="#chamber">The Chamber</a><a href="#zoo">Particle Zoo</a><a href="#diy">Build One</a><a href="#history">History</a><a href="index.html">Index</a></nav></header>
+
+<section data-view="chamber"><div class="wrap">
+ <h2>Watch the invisible.</h2>
+ <p class="sub">A tank of cold alcohol vapour. When a charged particle passes through, it leaves a trail of droplets, like a jet's contrail but only millimetres wide. Click a track to find out what made it.</p>
+ <div class="ch">
+  <div class="tank"><canvas id="cc" width="1100" height="700"></canvas><div class="hud" id="hud">T = −78 °C · ISOPROPANOL · LIVE</div><div class="id" id="idbox"></div></div>
+  <div class="side">
+   <div class="box"><h3>Sources</h3>
+    <div class="tog">Cosmic rays <button class="sw on" data-s="cosmic"></button></div>
+    <div class="tog">Radon (air) <button class="sw on" data-s="radon"></button></div>
+    <div class="tog">Americium-241 <button class="sw" data-s="am"></button></div>
+    <div class="tog">Strontium-90 <button class="sw" data-s="sr"></button></div></div>
+   <div class="box"><h3>Magnetic field · <span id="bv">0</span> T</h3><input type="range" id="bf" min="0" max="100" value="0"><p style="font-size:14px;color:var(--dim);margin-top:6px">Positive and negative particles curve in opposite directions. Light electrons curl tightly.</p></div>
+   <div class="box"><h3>Tracks counted</h3><div id="counts"></div></div>
+  </div>
+ </div>
+</div></section>
+
+<section data-view="zoo" hidden><div class="wrap">
+ <h2>The Standard Model.</h2>
+ <p class="sub">Everything we know is made of these seventeen particles. Only two of them, the electron and the muon, leave their own tracks in a cloud chamber you could build in your kitchen.</p>
+ <div class="legend"><span style="color:#ff7ab6">■ QUARKS</span><span style="color:#6fe3ff">■ LEPTONS</span><span style="color:#ffb45c">■ GAUGE BOSONS</span><span style="color:#fff34a">■ SCALAR BOSON</span></div>
+ <div class="sm" id="sm"></div>
+ <div class="pinfo" id="pinfo"></div>
+</div></section>
+
+<section data-view="diy" hidden><div class="wrap">
+ <h2>Build a chamber at home.</h2>
+ <p class="sub">About £20 of parts and one afternoon. Tick the steps off as you go.</p>
+ <div class="diy"><svg viewBox="0 0 500 420" id="diag"></svg><ul class="steps" id="steps"></ul></div>
+</div></section>
+
+<section data-view="history" hidden><div class="wrap">
+ <h2>A short history of trails.</h2>
+ <p class="sub">How a Scottish mountaintop, a tank of fog and a lot of patience opened up the subatomic world.</p>
+ <div class="tl" id="tl"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'chamber';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- chamber ---------- */
+const cc=document.getElementById('cc'),cx=cc.getContext('2d'),W=1100,H=700;
+const SRC={cosmic:true,radon:true,am:false,sr:false};
+const TYPE={alpha:['Alpha particle','#ffb45c','Two protons and two neutrons: a helium nucleus. Heavy and slow, it bulldozes a short, thick, straight track about 5 cm long. A sheet of paper stops it.',+2],beta:['Beta particle (electron)','#6fe3ff','A fast electron from a nucleus decaying. It is light, so every atom it passes knocks it about. The track is thin and wandering.',-1],muon:['Muon','#c9a7ff','A heavy cousin of the electron, made when cosmic rays hit the upper atmosphere 15 km up. It lives just 2.2 microseconds and only reaches the ground thanks to relativity. The track is long, thin and dead straight.',-1],gamma:['Compton electron','#9dff9a','Gamma rays leave no track of their own. Occasionally one kicks an electron out of an atom, and that electron draws a short curly squiggle.',-1],pos:['Positron','#ff7ab6','Antimatter! An anti-electron, first seen in a cloud chamber in 1932. It looks like an electron but curls the other way in a magnetic field.',+1]};
+let tracks=[],drops=[],counts={alpha:0,beta:0,muon:0,gamma:0,pos:0},B=0,sel=null,t=0;
+function spawn(){const r=Math.random;let tp,src;
+ const opts=[];if(SRC.cosmic)opts.push(['muon',.03],['pos',.003],['beta',.012]);if(SRC.radon)opts.push(['alpha',.03],['beta',.015]);if(SRC.am)opts.push(['alpha',.12],['gamma',.02]);if(SRC.sr)opts.push(['beta',.12]);opts.push(['gamma',.006]);
+ opts.forEach(([k,p])=>{if(r()<p){tp=k}});if(!tp)return;
+ let x,y,a,len,speed,wig=0,width;
+ if(tp==='muon'||(tp==='pos')){x=r()*W;y=-10;a=Math.PI/2+(r()-.5)*.7;len=900+r()*200;width=1.1;speed=60;wig=.002}
+ else if(tp==='alpha'){if(SRC.am&&r()<.8){x=W/2+(r()-.5)*20;y=H-40;}else{x=r()*W;y=r()*H}a=SRC.am&&y>H-60?-Math.PI/2+(r()-.5)*1.8:r()*Math.PI*2;len=90+r()*50;width=4.5;speed=12;wig=.004}
+ else if(tp==='beta'){if(SRC.sr&&r()<.8){x=80;y=H/2+(r()-.5)*40;a=(r()-.5)*1.6}else{x=r()*W;y=r()*H;a=r()*Math.PI*2}len=250+r()*350;width=1.2;speed=40;wig=.18}
+ else{x=r()*W;y=r()*H;a=r()*Math.PI*2;len=30+r()*60;width=1.4;speed=15;wig=.4}
+ const q=TYPE[tp][3];const pts=[[x,y]];let ang=a;const step=4;const massK=tp==='alpha'?.02:tp==='muon'?.05:1;
+ for(let s=0;s<len/step;s++){ang+=(Math.random()-.5)*wig+B*q*massK*.012*(tp==='beta'||tp==='gamma'||tp==='pos'?(1+s*.004):1);x+=Math.cos(ang)*step;y+=Math.sin(ang)*step;pts.push([x,y]);if(x<-20||x>W+20||y<-20||y>H+20)break}
+ tracks.push({tp,pts,born:t,drawn:0,speed,width,life:0});counts[tp]++}
+function frame(){if(document.querySelector('[data-view=chamber]').hidden){requestAnimationFrame(frame);return}t++;
+ for(let k=0;k<3;k++)spawn();
+ cx.fillStyle='rgba(0,0,0,.22)';cx.fillRect(0,0,W,H);
+ // ambient haze
+ if(t%3===0){cx.fillStyle='rgba(120,140,160,.025)';for(let i=0;i<30;i++)cx.fillRect(Math.random()*W,Math.random()*H,2,2)}
+ tracks.forEach(tr=>{tr.life++;tr.drawn=Math.min(tr.pts.length,tr.drawn+tr.speed/4);const fade=Math.max(0,1-(tr.life-40)/120);if(fade<=0)return;
+  cx.strokeStyle=`rgba(235,240,245,${.55*fade})`;cx.lineWidth=tr.width;cx.lineCap='round';cx.beginPath();for(let i=0;i<tr.drawn;i++){const[x,y]=tr.pts[i];const jx=(Math.random()-.5)*tr.width*.6;i?cx.lineTo(x+jx,y+jx):cx.moveTo(x,y)}cx.stroke();
+  if(tr===sel){cx.strokeStyle=TYPE[tr.tp][1];cx.lineWidth=tr.width+3;cx.globalAlpha=.6;cx.beginPath();tr.pts.slice(0,tr.drawn).forEach(([x,y],i)=>i?cx.lineTo(x,y):cx.moveTo(x,y));cx.stroke();cx.globalAlpha=1}});
+ tracks=tracks.filter(tr=>tr.life<170||tr===sel);
+ if(t%10===0){const mx=Math.max(1,...Object.values(counts));document.getElementById('counts').innerHTML=Object.entries(TYPE).map(([k,v])=>`<div class="count"><i style="background:${v[1]}"></i><span>${v[0].split(' (')[0]}<div class="b"><span style="width:${counts[k]/mx*100}%;background:${v[1]}"></span></div></span><b>${counts[k]}</b></div>`).join('')}
+ requestAnimationFrame(frame)}
+cc.onclick=e=>{const r=cc.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*W,y=(e.clientY-r.top)/r.height*H;let best=null,bd=18;tracks.forEach(tr=>{for(let i=0;i<tr.drawn;i+=2){const d=Math.hypot(tr.pts[i][0]-x,tr.pts[i][1]-y);if(d<bd){bd=d;best=tr}}});sel=best;const box=document.getElementById('idbox');
+ if(best){const T=TYPE[best.tp];box.innerHTML=`<b class="tech" style="color:${T[1]}">${T[0]}</b><br>${T[2]}`;box.style.display='block';box.style.left=Math.min(r.width-280,e.clientX-r.left+12)+'px';box.style.top=Math.min(r.height-160,e.clientY-r.top+12)+'px';setTimeout(()=>{if(sel===best){sel=null;box.style.display='none'}},5000)}else box.style.display='none'};
+document.querySelectorAll('.sw').forEach(b=>b.onclick=()=>{const k=b.dataset.s;SRC[k]=!SRC[k];b.classList.toggle('on',SRC[k])});
+document.getElementById('bf').oninput=e=>{B=e.target.value/100;document.getElementById('bv').textContent=(B*1.5).toFixed(2)};
+cx.fillStyle='#000';cx.fillRect(0,0,W,H);for(let i=0;i<60;i++){spawn();tracks.forEach(tr=>tr.drawn=tr.pts.length)}frame();
+
+/* ---------- zoo ---------- */
+const SM=[['u','up','q','2.2 MeV','+2/3','½','Found inside every proton (two of them) and neutron (one).'],['c','charm','q','1.28 GeV','+2/3','½','Discovered in 1974. The "November Revolution" of particle physics.'],['t','top','q','173 GeV','+2/3','½','As heavy as a gold atom, and it decays before it can form anything.'],['g','gluon','g','0','0','1','Carries the strong force and glues quarks together. There are eight kinds.'],['H','Higgs','h','125 GeV','0','0','Its field gives other particles mass. Finally found at CERN in 2012.'],
+ ['d','down','q','4.7 MeV','−1/3','½','Neutrons have two and protons have one. Its sibling is the up quark.'],['s','strange','q','96 MeV','−1/3','½','Named for the "strangely" long lifetimes of the particles that contain it.'],['b','bottom','q','4.18 GeV','−1/3','½','Also called "beauty". B-factories study it to understand antimatter.'],['γ','photon','g','0','0','1','Light itself. It carries electromagnetism and leaves no cloud-chamber track.'],null,
+ ['e','electron','l','0.511 MeV','−1','½','Leaves the thin, wiggly beta tracks. It was the first particle discovered, in 1897.'],['μ','muon','l','105.7 MeV','−1','½','The long straight tracks. About one passes through your hand every second.'],['τ','tau','l','1.78 GeV','−1','½','The heaviest lepton. It lasts 0.3 trillionths of a second.'],['Z','Z boson','g','91.2 GeV','0','1','Carries the weak force without changing charge. Discovered in 1983.'],null,
+ ['νe','e-neutrino','l','<0.8 eV','0','½','Trillions pass through you every second, almost never touching anything.'],['νμ','μ-neutrino','l','<0.17 MeV','0','½','Neutrinos change flavour as they travel, which won a Nobel Prize in 2015.'],['ντ','τ-neutrino','l','<18 MeV','0','½','First directly detected at Fermilab in 2000.'],['W','W boson','g','80.4 GeV','±1','1','It makes beta decay happen, turning a down quark into an up quark.'],null];
+document.getElementById('sm').innerHTML=SM.map((p,i)=>p?`<button class="p ${p[2]}" data-i="${i}"><small>${p[3]}<br>charge ${p[4]} · spin ${p[5]}</small><span class="sym">${p[0]}</span><small>${p[1]}</small></button>`:'<div></div>').join('');
+function pinfo(i){const p=SM[i];document.getElementById('pinfo').innerHTML=`<b style="color:${{q:'#ff7ab6',l:'#6fe3ff',g:'#ffb45c',h:'#fff34a'}[p[2]]}">${p[0]} · ${p[1]}</b><p style="margin-top:6px;line-height:1.55">${p[6]}</p><p class="tech" style="font-size:13px;color:var(--dim);margin-top:8px">MASS ${p[3]} · CHARGE ${p[4]} · SPIN ${p[5]}</p>`}
+document.getElementById('sm').onclick=e=>{const b=e.target.closest('.p');if(b)pinfo(+b.dataset.i)};pinfo(11);
+
+/* ---------- diy ---------- */
+const ST=['Get a clear plastic or glass tank, like a fish tank or a big food container.','Glue black felt inside the top (the base will be the lid). Black shows the white trails best.','Soak the felt in 99% isopropyl alcohol until it is wet but not dripping.','Put a black metal tray on a slab of dry ice. Handle it with thick gloves only!','Turn the tank upside down onto the tray to seal it. Wait 10 minutes.','Turn off the lights and shine a torch in from the side. The trails will appear near the bottom.'];
+let done=new Set(store.get('cc-diy',[]));
+function diy(){document.getElementById('steps').innerHTML=ST.map((s,i)=>`<li class="${done.has(i)?'done':''}" data-i="${i}"><span class="c">${done.has(i)?'✓':i+1}</span><span>${s}</span></li>`).join('')+`<div class="warn">⚠ Dry ice is −78 °C and burns skin. Isopropyl is flammable. Work with an adult, keep the room ventilated and keep flames away.</div>`;
+ const n=done.size;document.getElementById('diag').innerHTML=`<rect x="60" y="340" width="380" height="50" fill="#cfd8e0" opacity=".25"/><text x="250" y="372" text-anchor="middle" font-family="Chakra Petch" font-size="13" fill="#dfe6ee88">DRY ICE −78 °C</text>
+ <rect x="80" y="320" width="340" height="20" fill="#222" stroke="#555"/><text x="250" y="335" text-anchor="middle" font-family="Chakra Petch" font-size="11" fill="#aaa">BLACK METAL TRAY</text>
+ <rect x="100" y="90" width="300" height="230" fill="#6fe3ff08" stroke="#dfe6ee66" stroke-width="2"/><rect x="100" y="90" width="300" height="20" fill="#333" opacity="${n>1?1:.3}"/><text x="250" y="104" text-anchor="middle" font-family="Chakra Petch" font-size="10" fill="#aaa">FELT + ALCOHOL</text>
+ ${n>2?[...Array(10)].map((_,i)=>`<circle cx="${120+i*28}" cy="${130}" r="1.5" fill="#6fe3ff"><animate attributeName="cy" values="115;300" dur="${2+i%3}s" repeatCount="indefinite"/></circle>`).join(''):''}
+ ${n>=6?'<path d="M140 300 L260 170" stroke="#fff" stroke-width="1.5" opacity=".8"/><path d="M320 300 q-10 -20 6 -30 q14 -10 -2 -24" stroke="#fff" stroke-width="1" fill="none"/><path d="M200 305 l14 -24" stroke="#fff" stroke-width="4" opacity=".8"/>':''}
+ <path d="M20 200 L100 220" stroke="#fff34a" stroke-width="${n>=6?3:0}" opacity=".6"/><text x="20" y="190" font-family="Chakra Petch" font-size="11" fill="#fff34a${n>=6?'':'00'}">TORCH</text>
+ <text x="250" y="60" text-anchor="middle" font-family="Chakra Petch" font-size="16" fill="${n>=6?'#9dff9a':'#dfe6ee88'}">${n>=6?'TRACKS VISIBLE ✓':`STEP ${Math.min(6,n+1)} OF 6`}</text><text x="250" y="80" text-anchor="middle" font-family="Chakra Petch" font-size="11" fill="#dfe6ee66">SUPERSATURATED LAYER FORMS JUST ABOVE THE TRAY</text>`}
+document.getElementById('steps').onclick=e=>{const li=e.target.closest('li');if(!li)return;const i=+li.dataset.i;done.has(i)?done.delete(i):done.add(i);store.set('cc-diy',[...done]);diy()};diy();
+
+/* ---------- history ---------- */
+const HI=[['1894','Fog on Ben Nevis','C.T.R. Wilson watches glories and coronas around his shadow on a Scottish summit and decides to recreate clouds in the lab.'],['1911','The first tracks','Wilson photographs the first alpha and beta tracks. Rutherford calls the cloud chamber "the most original and wonderful instrument in scientific history".'],['1927','A Nobel Prize','Wilson shares the Nobel Prize in Physics for "his method of making the paths of electrically charged particles visible".'],['1932','Antimatter appears','Carl Anderson sees a particle curling the "wrong" way through a lead plate: the positron. Dirac\'s wild prediction turns out to be true.'],['1936','Who ordered that?','Anderson and Neddermeyer find the muon. It fits no theory, and I. I. Rabi famously asks, "Who ordered that?"'],['1952','Bubble chambers','Donald Glaser swaps fog for superheated liquid, reportedly inspired by a glass of beer. It gives far richer tracks.'],['Today','On your kitchen table','A diffusion chamber with dry ice and isopropyl alcohol shows cosmic muons to anyone with a torch.']];
+document.getElementById('tl').innerHTML=HI.map(h=>`<div class="ev"><div class="y">${h[0]}</div><h3>${h[1]}</h3><p>${h[2]}</p></div>`).join('');
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

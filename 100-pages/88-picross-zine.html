@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRID LOCK — A Nonogram Zine</title>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Overpass+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4f2ea;--ink:#161616;--pink:#ff5fa2;--yellow:#fff04d;--blue:#3a6cff;--dim:#16161688}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Overpass Mono',monospace;
+ background-image:radial-gradient(#16161614 1px,transparent 1.2px);background-size:5px 5px}
+a{color:inherit;text-decoration:none}button,input,textarea{font:inherit;cursor:pointer;color:inherit}
+.mk{font-family:'Permanent Marker',cursive}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 4vw;border-bottom:3px solid var(--ink)}
+.logo{font-family:'Permanent Marker';font-size:40px;transform:rotate(-2deg);line-height:1}
+.logo span{background:var(--yellow);padding:0 8px}
+nav{display:flex;gap:10px;flex-wrap:wrap}
+nav a{font-family:'Permanent Marker';font-size:18px;padding:4px 12px;border:2px solid var(--ink);background:#fff;transform:rotate(var(--r,1deg))}
+nav a:nth-child(2n){--r:-1.5deg}
+nav a.on{background:var(--pink);color:#fff}
+[data-view][hidden]{display:none}
+.wrap{max-width:1200px;margin:0 auto;padding:26px 4vw 70px}
+h2{font-family:'Permanent Marker';font-weight:400;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;transform:rotate(-1deg)}
+h2 mark{background:var(--yellow);padding:0 8px}
+.sub{max-width:62ch;line-height:1.6;margin:10px 0 22px}
+/* play */
+.play{display:grid;grid-template-columns:260px 1fr;gap:26px;align-items:start}
+.list{display:grid;gap:8px}
+.pz{display:flex;justify-content:space-between;align-items:center;border:2px solid var(--ink);background:#fff;padding:8px 10px;text-align:left}
+.pz.on{background:var(--yellow)}
+.pz .d{font-size:11px}
+.pz .ok{color:var(--pink);font-weight:700}
+.board{display:inline-block;background:#fff;border:3px solid var(--ink);padding:10px;box-shadow:8px 8px 0 var(--ink);max-width:100%;overflow:auto}
+.nono{border-collapse:collapse;user-select:none}
+.nono td{width:var(--c);height:var(--c);border:1px solid #1616163a;padding:0;text-align:center;font-size:12px;position:relative}
+.nono td.cell{cursor:pointer}
+.nono td.f{background:var(--ink)}
+.nono td.x::after{content:"×";color:var(--pink);font-weight:700;font-size:calc(var(--c)*.7);position:absolute;inset:0;display:grid;place-items:center}
+.nono td.b5r{border-right:2px solid var(--ink)}.nono td.b5b{border-bottom:2px solid var(--ink)}
+.nono td.clue{border:0;font-weight:700;color:var(--ink);white-space:nowrap}
+.nono td.cc{vertical-align:bottom;line-height:1.05;padding-bottom:3px}
+.nono td.rc{text-align:right;padding-right:6px;letter-spacing:.14em}
+.nono td.clue.done{color:#16161640;text-decoration:line-through}
+.nono tr:hover td.cell{background-image:linear-gradient(#fff04d55,#fff04d55)}
+.tools{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap;align-items:center}
+.btn{border:2px solid var(--ink);background:#fff;padding:7px 14px;font-weight:700;box-shadow:3px 3px 0 var(--ink)}
+.btn.on{background:var(--ink);color:#fff}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.status{font-family:'Permanent Marker';font-size:24px;min-height:1.2em}
+.reveal{margin-top:14px;display:none}
+.reveal.on{display:block;animation:pop .5s}
+@keyframes pop{from{transform:scale(.8) rotate(-5deg);opacity:0}}
+.reveal canvas{image-rendering:pixelated;border:3px solid var(--ink);width:160px;height:auto}
+/* editor */
+.ed{display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:start}
+.code{width:100%;min-height:90px;border:2px solid var(--ink);background:#fff;padding:10px;font-size:13px;resize:vertical}
+/* howto */
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+.card{background:#fff;border:2px solid var(--ink);padding:18px;box-shadow:6px 6px 0 var(--ink);transform:rotate(var(--r,0deg))}
+.card:nth-child(1){--r:-1deg}.card:nth-child(2){--r:1.2deg}.card:nth-child(3){--r:-.6deg}.card:nth-child(4){--r:.8deg}
+.card h3{font-family:'Permanent Marker';font-weight:400;font-size:24px;margin-bottom:8px}
+.card p{line-height:1.55;font-size:14px}
+.card svg{width:100%;height:auto;margin-top:10px}
+/* stats */
+.stamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px}
+.stamp{background:#fff;border:2px dashed var(--ink);padding:12px;text-align:center}
+.stamp canvas{width:80px;image-rendering:pixelated;border:2px solid var(--ink)}
+.stamp.locked{opacity:.4}
+@media(max-width:900px){.play,.ed{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="logo">GRID <span>LOCK</span></div><nav><a href="#play">Puzzles</a><a href="#make">Make One</a><a href="#how">How To</a><a href="#stats">Sticker Book</a><a href="index.html">← Index</a></nav></header>
+
+<section data-view="play"><div class="wrap">
+ <h2>Fill the <mark>squares</mark>, find the picture</h2>
+ <p class="sub">The numbers tell you the runs of filled squares in each row and column, in order. Click to fill, right-click (or switch to ✕ mode) to mark a square as empty. Solve it and the hidden picture appears in colour.</p>
+ <div class="play">
+  <div class="list" id="list"></div>
+  <div><div class="tools"><button class="btn on" id="mFill">■ Fill</button><button class="btn" id="mX">✕ Mark</button><button class="btn" id="reset">Clear</button><button class="btn" id="hint">Hint</button><span class="status" id="status"></span></div>
+   <div class="board" id="board"></div>
+   <div class="reveal" id="reveal"><div class="mk" style="font-size:22px">It's a… <span id="rname"></span>!</div><canvas id="rc"></canvas></div></div>
+ </div>
+</div></section>
+
+<section data-view="make" hidden><div class="wrap">
+ <h2>Draw your <mark>own</mark></h2>
+ <p class="sub">Draw a 10 × 10 picture. We'll work out the clues. Copy the code to share it, or paste a friend's code to play theirs.</p>
+ <div class="ed"><div class="board" id="edBoard"></div>
+  <div><div class="tools"><button class="btn" id="edClear">Clear</button><button class="btn" id="edInvert">Invert</button><button class="btn" id="edPlay">▶ Play it</button></div>
+   <div class="mk" style="font-size:18px;margin:10px 0 6px">Share code</div><textarea class="code" id="code" spellcheck="false"></textarea><div class="tools"><button class="btn" id="copy">Copy</button><button class="btn" id="load">Load code</button><span id="cmsg" style="font-size:13px"></span></div>
+   <div id="uniq" style="font-size:14px;line-height:1.5"></div></div></div>
+</div></section>
+
+<section data-view="how" hidden><div class="wrap">
+ <h2>How to <mark>solve</mark></h2><p class="sub">Nonograms were invented in Japan in 1987, by Non Ishida and Tetsuya Nishio independently. A well-made one never needs guessing, only logic.</p>
+ <div class="how" id="howG"></div>
+</div></section>
+
+<section data-view="stats" hidden><div class="wrap">
+ <h2>Sticker <mark>book</mark></h2><p class="sub">Every picture you solve gets stuck in here. Your best times too.</p>
+ <div class="stamps" id="stamps"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'play';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='stats')stamps()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+// puzzles: name, colour map rows (chars), palette
+const PZ=[
+ ['Heart',['.RR.RR.','RRRRRRR','RRRRRRR','.RRRRR.','..RRR..','...R...'],{R:'#ff3b5c'}],
+ ['Mug',['.......','GGGGG..','GWWWGGG','GWWWG.G','GWWWGGG','GWWWG..','.GGG...'],{G:'#3a6cff',W:'#8a5a3a'}],
+ ['Mushroom',['..RRRR..','.RRWRRR.','RWRRRWRR','RRRRRRRR','..SSSS..','..SSSS..','..SSSS..'],{R:'#e8303a',W:'#ffffff',S:'#f0dcb4'}],
+ ['Cat',['K......K','KK....KK','KKKKKKKK','KGKKKKGK','KKKKKKKK','KKKPPKKK','.KKKKKK.','..KKKK..'],{K:'#2a2a2a',G:'#9be07a',P:'#ff8ac8'}],
+ ['Space Invader',['..G.....G..','...G...G...','..GGGGGGG..','.GG.GGG.GG.','GGGGGGGGGGG','G.GGGGGGG.G','G.G.....G.G','...GG.GG...'],{G:'#39d353'}],
+ ['Rocket',['....W....','...WWW...','...WBW...','...WWW...','..WWWWW..','..WWWWW..','.RWWWWWR.','.RR.W.RR.','...OYO...','....O....'],{W:'#e8e8f0',B:'#3a6cff',R:'#e8303a',O:'#ff8a00',Y:'#ffd21f'}],
+ ['Ghost',['...PPPP...','..PPPPPP..','.PPPPPPPP.','.PWWPPWWP.','.PWKPPWKP.','PPPPPPPPPP','PPPPPPPPPP','PPPPPPPPPP','PP.PP.PP.P','P...P..P..'],{P:'#ff9ecf',W:'#ffffff',K:'#1a1a8a'}],
+ ['Duck',['....YYY......','...YYKYY.....','...YYYYOO....','....YYY......','.....YYY.....','.YY.YYYYY....','.YYYYYYYYY...','..YYYYYYYY...','...YYYYYY....','BBBBBBBBBBBBB'],{Y:'#ffd21f',K:'#161616',O:'#ff8a00',B:'#3a9cff'}]];
+const solved=store.get('gl-solved',{});
+let cur=0,sol=[],grid=[],mode='f',t0=0,W=0,H=0,dragVal=null;
+function parse(p){return p[1].map(r=>[...r].map(c=>c!=='.'?1:0))}
+function clues(line){const out=[];let n=0;line.forEach(v=>{if(v)n++;else if(n){out.push(n);n=0}});if(n)out.push(n);return out.length?out:[0]}
+function load(i,custom){cur=i;const p=custom||PZ[i];sol=custom?custom.grid:parse(p);H=sol.length;W=Math.max(...sol.map(r=>r.length));sol=sol.map(r=>[...r,...Array(W-r.length).fill(0)]);grid=sol.map(r=>r.map(()=>0));t0=Date.now();document.getElementById('reveal').classList.remove('on');document.getElementById('status').textContent='';window._custom=custom||null;render();list()}
+function list(){document.getElementById('list').innerHTML=PZ.map((p,i)=>{const w=Math.max(...p[1].map(r=>r.length)),h=p[1].length;return`<button class="pz ${i===cur&&!window._custom?'on':''}" data-i="${i}"><span><b>#${String(i+1).padStart(2,'0')}</b> ${solved[i]?p[0]:'???'}<div class="d">${w}×${h} · ${w*h<50?'easy':w*h<90?'medium':'tricky'}</div></span><span class="ok">${solved[i]?'★ '+fmt(solved[i]):''}</span></button>`}).join('')}
+const fmt=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+function render(){const rc=sol.map(clues),cc=sol[0].map((_,x)=>clues(sol.map(r=>r[x])));const cs=Math.max(20,Math.min(34,Math.floor(560/(W+3))));
+ const maxC=Math.max(...cc.map(c=>c.length));const rowDone=y=>JSON.stringify(clues(grid[y].map(v=>v===1?1:0)))===JSON.stringify(rc[y]),colDone=x=>JSON.stringify(clues(grid.map(r=>r[x]===1?1:0)))===JSON.stringify(cc[x]);
+ let h=`<table class="nono" style="--c:${cs}px"><tr><td class="clue"></td>${cc.map((c,x)=>`<td class="clue cc ${colDone(x)?'done':''}" style="height:${maxC*15+6}px">${c.join('<br>')}</td>`).join('')}</tr>`;
+ grid.forEach((row,y)=>{h+=`<tr><td class="clue rc ${rowDone(y)?'done':''}">${rc[y].join(' ')}</td>${row.map((v,x)=>`<td class="cell ${v===1?'f':v===2?'x':''} ${(x+1)%5===0&&x<W-1?'b5r':''} ${(y+1)%5===0&&y<H-1?'b5b':''}" data-x="${x}" data-y="${y}"></td>`).join('')}</tr>`});
+ document.getElementById('board').innerHTML=h+'</table>';check()}
+function check(){const ok=sol.every((r,y)=>r.every((v,x)=>(grid[y][x]===1)===(v===1)));if(ok){const s=Math.round((Date.now()-t0)/1000);document.getElementById('status').textContent=`Solved in ${fmt(s)}!`;if(!window._custom){if(!solved[cur]||s<solved[cur])solved[cur]=s;store.set('gl-solved',solved);list()}reveal()}}
+function paintCanvas(c,p,g,scale=12){const h=g.length,w=g[0].length;c.width=w*scale;c.height=h*scale;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);g.forEach((r,y)=>r.forEach((v,i)=>{if(!v)return;const ch=p?(p[1][y]||'')[i]:'K';x.fillStyle=p?(p[2][ch]||'#161616'):'#161616';x.fillRect(i*scale,y*scale,scale,scale)}))}
+function reveal(){const r=document.getElementById('reveal');r.classList.add('on');document.getElementById('rname').textContent=window._custom?'your picture':PZ[cur][0];paintCanvas(document.getElementById('rc'),window._custom?null:PZ[cur],sol,14);ding()}
+function ding(){try{const a=window._a||(window._a=new AudioContext());[523,659,784,1046].forEach((f,i)=>{const o=a.createOscillator(),g=a.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.1,a.currentTime+i*.09);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+i*.09+.3);o.connect(g).connect(a.destination);o.start(a.currentTime+i*.09);o.stop(a.currentTime+i*.09+.35)})}catch(e){}}
+const bd=document.getElementById('board');
+bd.addEventListener('contextmenu',e=>e.preventDefault());
+bd.addEventListener('pointerdown',e=>{const c=e.target.closest('.cell');if(!c)return;e.preventDefault();const x=+c.dataset.x,y=+c.dataset.y;const m=e.button===2?'x':mode;const target=m==='f'?1:2;dragVal=grid[y][x]===target?0:target;grid[y][x]=dragVal;render()});
+bd.addEventListener('pointerover',e=>{if(dragVal==null||!e.buttons)return;const c=e.target.closest('.cell');if(!c)return;const x=+c.dataset.x,y=+c.dataset.y;if(grid[y][x]!==dragVal){grid[y][x]=dragVal;render()}});
+addEventListener('pointerup',()=>dragVal=null);
+document.getElementById('list').onclick=e=>{const b=e.target.closest('.pz');if(b)load(+b.dataset.i)};
+document.getElementById('mFill').onclick=()=>{mode='f';document.getElementById('mFill').classList.add('on');document.getElementById('mX').classList.remove('on')};
+document.getElementById('mX').onclick=()=>{mode='x';document.getElementById('mX').classList.add('on');document.getElementById('mFill').classList.remove('on')};
+document.getElementById('reset').onclick=()=>{grid=sol.map(r=>r.map(()=>0));document.getElementById('reveal').classList.remove('on');render()};
+document.getElementById('hint').onclick=()=>{const wrong=[];sol.forEach((r,y)=>r.forEach((v,x)=>{if((grid[y][x]===1)!==(v===1))wrong.push([x,y])}));if(!wrong.length)return;const[x,y]=wrong[Math.random()*wrong.length|0];grid[y][x]=sol[y][x]?1:2;render()};
+load(0);
+
+/* editor */
+let ed=store.get('gl-ed',null)||['..........','..KK..KK..','.KKKKKKKK.','.KKKKKKKK.','..KKKKKK..','...KKKK...','....KK....','..........','.K.K.K.K.K','K.K.K.K.K.'].map(r=>[...r].map(c=>c!=='.'?1:0));
+function enc(g){return'GL1-'+g.map(r=>parseInt(r.join(''),2).toString(36).padStart(2,'0')).join('.')}
+function dec(s){const m=s.trim().match(/^GL1-(.+)$/);if(!m)return null;const rows=m[1].split('.');if(rows.length!==10)return null;return rows.map(r=>parseInt(r,36).toString(2).padStart(10,'0').slice(-10).split('').map(Number))}
+function edUI(){store.set('gl-ed',ed);const rc=ed.map(clues),cc=ed[0].map((_,x)=>clues(ed.map(r=>r[x])));let h=`<table class="nono" style="--c:28px"><tr><td class="clue"></td>${cc.map(c=>`<td class="clue cc" style="height:84px">${c.join('<br>')}</td>`).join('')}</tr>`;ed.forEach((r,y)=>{h+=`<tr><td class="clue rc">${rc[y].join(' ')}</td>${r.map((v,x)=>`<td class="cell ${v?'f':''} ${(x+1)%5===0&&x<9?'b5r':''} ${(y+1)%5===0&&y<9?'b5b':''}" data-x="${x}" data-y="${y}"></td>`).join('')}</tr>`});document.getElementById('edBoard').innerHTML=h+'</table>';document.getElementById('code').value=enc(ed);
+ const filled=ed.flat().filter(Boolean).length;document.getElementById('uniq').innerHTML=`${filled} squares filled. ${filled<12?'A bit sparse. Nonograms with more black squares are easier to pin down.':filled>80?'Very dense! Try inverting it.':'Nice balance.'}`}
+const eb=document.getElementById('edBoard');let edV=null;
+eb.addEventListener('pointerdown',e=>{const c=e.target.closest('.cell');if(!c)return;const x=+c.dataset.x,y=+c.dataset.y;edV=ed[y][x]?0:1;ed[y][x]=edV;edUI()});
+eb.addEventListener('pointerover',e=>{if(edV==null||!e.buttons)return;const c=e.target.closest('.cell');if(!c)return;ed[+c.dataset.y][+c.dataset.x]=edV;edUI()});addEventListener('pointerup',()=>edV=null);
+document.getElementById('edClear').onclick=()=>{ed=ed.map(r=>r.map(()=>0));edUI()};document.getElementById('edInvert').onclick=()=>{ed=ed.map(r=>r.map(v=>v?0:1));edUI()};
+document.getElementById('edPlay').onclick=()=>{load(0,{grid:ed.map(r=>[...r])});go('play');document.querySelectorAll('.pz').forEach(p=>p.classList.remove('on'))};
+document.getElementById('copy').onclick=()=>{const t=document.getElementById('code');try{navigator.clipboard.writeText(t.value).then(()=>document.getElementById('cmsg').textContent='Copied!',()=>{t.select();document.getElementById('cmsg').textContent='Selected. Press Ctrl+C.'})}catch(e){t.select()}};
+document.getElementById('load').onclick=()=>{const g=dec(document.getElementById('code').value);if(!g){document.getElementById('cmsg').textContent='That code looks wrong.';return}ed=g;edUI();document.getElementById('cmsg').textContent='Loaded!'};edUI();
+
+/* how to */
+const HOW=[['1. Read the clues','"3 1" means a run of three filled squares, at least one gap, then a single square, in that order.','<rect x="10" y="20" width="200" height="20" fill="none" stroke="#161616"/>'+[0,1,2,4].map(i=>`<rect x="${10+i*20}" y="20" width="20" height="20" fill="#161616"/>`).join('')+'<text x="220" y="36" font-family="Permanent Marker" font-size="16">3 1</text>'],['2. Big runs overlap','In a 10-wide row, a run of 8 must cover the middle 6 squares, however you slide it.','<rect x="10" y="20" width="200" height="20" fill="none" stroke="#161616"/>'+[2,3,4,5,6,7].map(i=>`<rect x="${10+i*20}" y="20" width="20" height="20" fill="#ff5fa2"/>`).join('')+'<text x="220" y="36" font-family="Permanent Marker" font-size="16">8</text>'],['3. Mark the gaps','Once a row is complete, mark every other square with ✕. Those crosses help the columns.','<rect x="10" y="20" width="200" height="20" fill="none" stroke="#161616"/>'+[0,1,2,3,4,5,6,7,8,9].map(i=>i>=3&&i<=5?`<rect x="${10+i*20}" y="20" width="20" height="20" fill="#161616"/>`:`<text x="${14+i*20}" y="36" font-size="16" fill="#ff5fa2" font-weight="700">×</text>`).join('')],['4. Bounce between','Solve a little in the rows, then the columns, then the rows again. The picture reveals itself.','<g>'+[...Array(25)].map((_,i)=>`<rect x="${60+(i%5)*20}" y="${4+Math.floor(i/5)*12}" width="20" height="12" fill="${[6,7,8,11,13,16,17,18].includes(i)?'#161616':'#fff'}" stroke="#16161644"/>`).join('')+'</g>']];
+document.getElementById('howG').innerHTML=HOW.map(h=>`<div class="card"><h3>${h[0]}</h3><p>${h[1]}</p><svg viewBox="0 0 260 64">${h[2]}</svg></div>`).join('');
+
+/* stickers */
+function stamps(){document.getElementById('stamps').innerHTML=PZ.map((p,i)=>`<div class="stamp ${solved[i]?'':'locked'}"><canvas data-s="${i}"></canvas><div class="mk" style="font-size:18px">${solved[i]?p[0]:'???'}</div><div style="font-size:12px">${solved[i]?'best '+fmt(solved[i]):'unsolved'}</div></div>`).join('');document.querySelectorAll('[data-s]').forEach(c=>{const i=+c.dataset.s;const g=parse(PZ[i]).map(r=>{const w=Math.max(...PZ[i][1].map(q=>q.length));return[...r,...Array(w-r.length).fill(0)]});if(solved[i])paintCanvas(c,PZ[i],g,8);else{paintCanvas(c,null,g.map(r=>r.map(()=>0)),8)}})}
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

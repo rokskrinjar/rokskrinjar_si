@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+:root{--e-bg:#f4efe5;--e-card:#fffdf8;--e-ink:#1d2a22;--e-mu:#5f6a60;--e-ln:#e2d9c6;--e-acc:#1f5135;--e-acc2:#e3a72f;--e-acc-ink:#fff;--e-soft:#ebe4d3;--e-r:14px;--e-font:'Plus Jakarta Sans',system-ui,sans-serif;--e-head:'Plus Jakarta Sans',system-ui,sans-serif;--e-hw:800;--e-hl:-.035em;--e-cta-bg:#1f5135;--e-cta-btn:#e3a72f;--e-cta-btn-ink:#1d2a22}
+.e-hero.portrait-left .e-por{border-radius:200px 200px 14px 14px;border:8px solid #fffdf8;box-shadow:0 20px 40px rgba(31,81,53,.15)}
+.e-hero .e-name{font-size:clamp(36px,4.8vw,64px)}
+.e-kick{color:#a5741b}
+.e-why.grid>div{border-top:6px solid var(--e-acc2)}
+.e-stats{background:#fffdf8;border-radius:14px;border:1px solid var(--e-ln)}
+.e-btn{border-radius:12px}
+.e-mini>div{border-top-color:var(--e-acc2);border-radius:0 0 12px 12px}

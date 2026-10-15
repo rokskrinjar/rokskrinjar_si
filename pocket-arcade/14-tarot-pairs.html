@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Tarot Pairs</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Noto+Sans+Symbols&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:manipulation;user-select:none}
+body{background:radial-gradient(ellipse at 50% 0%,#28306b,#0e1236 55%,#070920);font-family:'Cormorant Garamond',serif;color:#f1dfae;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:40px 12px 12px}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(1px 1px at 20% 30%,#fff8,transparent),radial-gradient(1px 1px at 70% 60%,#fff6,transparent),radial-gradient(1.5px 1.5px at 40% 80%,#fff7,transparent),radial-gradient(1px 1px at 85% 15%,#fff9,transparent);background-size:230px 230px;pointer-events:none}
+h1{font-family:'Cinzel Decorative',serif;font-size:clamp(22px,6vw,34px);letter-spacing:.05em;color:#e8c56b;text-shadow:0 0 18px #e8c56b55}
+.stats{display:flex;gap:16px;font-size:17px;font-variant-numeric:tabular-nums}.stats b{color:#fff}
+.tbar{width:min(92vw,520px);height:6px;border-radius:6px;background:#ffffff18;overflow:hidden}.tbar i{display:block;height:100%;background:linear-gradient(90deg,#e8c56b,#ff9d6b);transform-origin:left}
+.grid{display:grid;gap:var(--g);grid-template-columns:repeat(var(--c),var(--w));perspective:900px}
+.card{width:var(--w);height:calc(var(--w)*1.45);position:relative;cursor:pointer;outline:none}
+.card .in{position:absolute;inset:0;transition:transform .45s cubic-bezier(.3,1.4,.5,1);transform-style:preserve-3d}
+.card.up .in,.card.done .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:calc(var(--w)*.09);backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;place-items:center}
+.back{background:radial-gradient(circle at 50% 50%,#e8c56b 0 8%,transparent 9%),repeating-conic-gradient(from 0deg,#1b2260 0 10deg,#232b78 10deg 20deg),#1b2260;border:2px solid #e8c56b;box-shadow:inset 0 0 0 4px #1b2260,inset 0 0 0 5px #e8c56b88,0 6px 14px #0007}
+.back::after{content:'☾';font-family:'Noto Sans Symbols',serif;color:#e8c56b;font-size:calc(var(--w)*.28);position:absolute;top:8%}
+.front{transform:rotateY(180deg);background:linear-gradient(#fbf1d8,#ecd9a8);border:2px solid #b8913c;color:var(--col);box-shadow:inset 0 0 0 4px #fbf1d8,inset 0 0 0 5px #b8913c,0 6px 14px #0007;align-content:center;gap:2px}
+.front .g{font-family:'Noto Sans Symbols',serif;font-size:calc(var(--w)*.5);line-height:1}
+.front .n{font-family:'Cinzel Decorative',serif;font-size:calc(var(--w)*.1);color:#5b4420;text-align:center}
+.card.done .front{animation:glow 1s ease-out}.card.done{opacity:.55;transition:opacity .6s .6s}
+@keyframes glow{0%{box-shadow:0 0 0 0 #ffe9a0}40%{box-shadow:0 0 30px 8px #ffe9a0}100%{box-shadow:0 0 0 0 #ffe9a0}}
+.card.kb .face{outline:3px solid #fff;outline-offset:3px}
+.card.shake .in{animation:sh .35s}@keyframes sh{25%{transform:rotateY(180deg) translateX(-5px)}75%{transform:rotateY(180deg) translateX(5px)}}
+.combo{position:fixed;left:50%;top:45%;transform:translate(-50%,-50%);font-family:'Cinzel Decorative',serif;font-size:44px;color:#ffe9a0;text-shadow:0 0 20px #e8c56b;pointer-events:none;opacity:0;z-index:4}
+.combo.go{animation:cb .8s}@keyframes cb{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-90%)}}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#070920d9}.ov.on{display:grid}
+.ov h2{font-family:'Cinzel Decorative',serif;font-size:clamp(30px,9vw,54px);color:#e8c56b}.ov p{font-size:20px;margin:12px 0 22px;font-style:italic;line-height:1.4}
+.ov button{font-family:'Cinzel Decorative',serif;font-size:16px;border:1px solid #e8c56b;background:#e8c56b22;color:#f1dfae;padding:12px 28px;border-radius:40px;cursor:pointer}
+.bk{position:fixed;left:12px;top:10px;color:#f1dfaeaa;text-decoration:none;font-size:16px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="bk" href="index.html">← games</a>
+<h1>Tarot Pairs</h1>
+<div class="stats"><span>Reading <b id="lv">I</b></span><span>Score <b id="sc">0</b></span><span>Best <b id="bs">0</b></span></div>
+<div class="tbar"><i id="tb"></i></div>
+<div class="grid" id="grid"></div>
+<div class="combo" id="cb"></div>
+<div class="ov on" id="ov"><div><h2 id="ot">Tarot Pairs</h2><p id="op">Turn two cards. Find their twins before the candle burns out.<br>Chain matches for a bigger fortune.<br><small>Tap cards · or arrows + Space</small></p><button id="go">Begin the reading</button></div></div>
+<script>
+const K='best-tarot-pairs';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const DECK=[['☉','The Sun','#d9822b'],['☽','The Moon','#5a5fb8'],['★','The Star','#c9a227'],['♄','Saturn','#6b5b4a'],['♃','Jupiter','#9b4d2a'],['♀','Venus','#c2417a'],['♂','Mars','#b8322a'],['☿','Mercury','#2c8a7a'],['♆','Neptune','#2a6fb8'],['♅','Uranus','#3aa1a8'],['♇','Pluto','#5b2a6b'],['☄','The Comet','#d06a1a'],['♁','The Earth','#3f7d3a'],['⚶','Vesta','#a0522d']];
+const ROMAN=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV'];
+const grid=document.getElementById('grid');let cards=[],open=[],lock=null,level=0,score=0,combo=0,best=ls.g(K,0),timeLeft,timeMax,tick,focus=0,matched=0,playing=false,cols=4;
+document.getElementById('bs').textContent=best;
+let AC;function tone(f,d=.15,type='sine',v=.06){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function layout(){const n=cards.length;const land=innerWidth>innerHeight*1.1;cols=land?Math.min(8,Math.ceil(Math.sqrt(n*1.6))):n<=12?3:4;if(!land&&n>=20)cols=4;const rows=Math.ceil(n/cols);const g=Math.max(6,Math.min(12,innerWidth*.02));
+ const w=Math.floor(Math.min((innerWidth-28-g*(cols-1))/cols,((innerHeight-150-g*(rows-1))/rows)/1.45,120));grid.style.setProperty('--c',cols);grid.style.setProperty('--w',w+'px');grid.style.setProperty('--g',g+'px')}
+addEventListener('resize',()=>cards.length&&layout());
+function deal(){const pairs=[6,8,10,12,14][Math.min(4,level)];timeMax=timeLeft=Math.max(pairs*3.2,pairs*6+8-level*3);const pick=DECK.slice().sort(()=>Math.random()-.5).slice(0,pairs);const ids=[...pick,...pick].sort(()=>Math.random()-.5);
+ grid.innerHTML='';cards=ids.map((d,i)=>{const el=document.createElement('div');el.className='card';el.style.setProperty('--col',d[2]);el.innerHTML=`<div class="in"><div class="face back"></div><div class="face front"><span class="g">${d[0]}︎</span><span class="n">${d[1]}</span></div></div>`;el.onclick=()=>{focus=i;flip(i)};grid.appendChild(el);return{d,el,up:false,done:false}});
+ open=[];matched=0;focus=0;layout();document.getElementById('lv').textContent=ROMAN[level]||level+1;
+ // brief peek
+ cards.forEach((c,i)=>setTimeout(()=>c.el.classList.add('up'),i*25));setTimeout(()=>{cards.forEach(c=>c.el.classList.remove('up'));playing=true},900+Math.min(1200,pairs*90));
+ clearInterval(tick);tick=setInterval(()=>{if(!playing)return;timeLeft-=.1;document.getElementById('tb').style.transform=`scaleX(${Math.max(0,timeLeft/timeMax)})`;if(timeLeft<=0)end()},100);document.getElementById('tb').style.transform='scaleX(1)'}
+function resolve(){if(!lock)return;clearTimeout(lock.t);lock.f();lock=null}
+function flip(i){if(!playing)return;const c=cards[i];if(c.done||c.up)return;if(lock)resolve();c.up=true;c.el.classList.add('up');tone(420+open.length*120,.08,'triangle',.04);open.push(i);
+ if(open.length===2){const[a,b]=open.map(j=>cards[j]);open=[];
+  if(a.d===b.d){combo++;const gain=100*combo;score+=gain;matched++;setTimeout(()=>{a.done=b.done=true;a.el.classList.add('done');b.el.classList.add('done')},250);[659,784,988].slice(0,Math.min(3,combo)).forEach((f,k)=>setTimeout(()=>tone(f,.2),k*70));
+   if(combo>1)pop('×'+combo);hud();if(matched===cards.length/2){playing=false;const bonus=Math.round(timeLeft)*10;score+=bonus;hud();setTimeout(()=>{pop('+'+bonus+' time');},500);setTimeout(()=>{level++;deal()},1600)}}
+  else{combo=0;tone(180,.2,'sawtooth',.03);const f=()=>{a.up=b.up=false;a.el.classList.remove('up','shake');b.el.classList.remove('up','shake')};setTimeout(()=>{a.el.classList.add('shake');b.el.classList.add('shake')},450);lock={t:setTimeout(()=>{f();lock=null},900),f}}}}
+function pop(t){const e=document.getElementById('cb');e.textContent=t;e.classList.remove('go');void e.offsetWidth;e.classList.add('go')}
+function hud(){document.getElementById('sc').textContent=score;if(score>best){best=score;ls.s(K,best)}document.getElementById('bs').textContent=best}
+function end(){playing=false;clearInterval(tick);cards.forEach(c=>c.el.classList.add('up'));tone(120,.8,'sine',.08);
+ setTimeout(()=>{document.getElementById('ot').textContent=score>=best&&score>0?'A glorious fate':'The candle is out';document.getElementById('op').innerHTML=`You reached reading ${ROMAN[level]||level+1}<br>Fortune: ${score} · Best ${best}`;document.getElementById('go').textContent='Read again';document.getElementById('ov').classList.add('on')},1200)}
+function start(){level=0;score=0;combo=0;hud();document.getElementById('ov').classList.remove('on');deal()}
+function kb(){cards.forEach((c,i)=>c.el.classList.toggle('kb',i===focus))}
+addEventListener('keydown',e=>{const k=e.key;if(document.getElementById('ov').classList.contains('on')){if(k===' '||k==='Enter'){e.preventDefault();start()}return}
+ const n=cards.length;if(k==='ArrowRight'||k==='d')focus=(focus+1)%n;else if(k==='ArrowLeft'||k==='a')focus=(focus-1+n)%n;else if(k==='ArrowDown'||k==='s')focus=Math.min(n-1,focus+cols);else if(k==='ArrowUp'||k==='w')focus=Math.max(0,focus-cols);else if(k===' '||k==='Enter'){e.preventDefault();flip(focus)}else return;e.preventDefault();kb()});
+document.getElementById('go').onclick=start;
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crayon Town</title>
+<link href="https://fonts.googleapis.com/css2?family=Schoolbell&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fffdf6;--red:#e8392e;--blue:#2d6fe0;--yellow:#ffd23a;--green:#3cb44b;--orange:#ff8c1a;--purple:#8e44d8;--brown:#8a5a2b;--pink:#ff7ab8;--ink:#222}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Patrick Hand',cursive;font-size:20px;background-image:repeating-linear-gradient(#0000 0 34px,#9ec5ff55 34px 36px);background-position:0 20px}
+a{color:inherit;text-decoration:none}button,input{font:inherit;cursor:pointer;color:inherit}
+.sb{font-family:Schoolbell,cursive}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 4vw}
+.logo{font-family:Schoolbell;font-size:44px;line-height:1}
+.logo span:nth-child(1){color:var(--red)}.logo span:nth-child(2){color:var(--blue)}.logo span:nth-child(3){color:var(--green)}.logo span:nth-child(4){color:var(--orange)}.logo span:nth-child(5){color:var(--purple)}.logo span:nth-child(6){color:var(--pink)}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav a{font-family:Schoolbell;font-size:22px;padding:4px 16px;border:3px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;background:#fff}
+nav a.on{background:var(--yellow)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1180px;margin:0 auto;padding:14px 4vw 60px}
+h2{font-family:Schoolbell;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;margin-bottom:6px}
+.sub{max-width:60ch;margin-bottom:16px}
+.wob{border:3px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px}
+.btn{font-family:Schoolbell;font-size:22px;background:#fff;padding:6px 18px;border:3px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;box-shadow:3px 3px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn.y{background:var(--yellow)}
+/* story */
+.book{display:grid;grid-template-columns:1.3fr 1fr;gap:26px;align-items:center;background:#fff;padding:20px;min-height:460px}
+.book svg{width:100%;height:auto}
+.book .txt{font-size:28px;line-height:1.4}
+.pager{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+.dots{display:flex;gap:6px}.dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--ink)}.dots i.on{background:var(--orange)}
+/* colouring */
+.colour{display:grid;grid-template-columns:1fr 200px;gap:20px;align-items:start}
+.colour canvas{width:100%;height:auto;background:#fff;cursor:pointer;touch-action:none}
+.box{background:#ffd23a;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cray{height:54px;border:2px solid var(--ink);border-radius:30px 6px 6px 30px;position:relative;box-shadow:inset -10px 0 0 #0002}
+.cray::before{content:"";position:absolute;left:-14px;top:14px;border:12px solid transparent;border-right:14px solid var(--c);border-left:0}
+.cray.on{transform:translateX(-10px);outline:3px dashed var(--ink);outline-offset:3px}
+.pics{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+/* monster */
+.mon{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.mon svg{width:100%;max-width:460px;height:auto;display:block;margin:0 auto}
+.parts h4{font-family:Schoolbell;font-size:24px;margin:10px 0 4px}
+.parts .row{display:flex;gap:6px;flex-wrap:wrap}
+.parts button{min-width:50px;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:4px 10px}
+.parts button.on{background:var(--yellow)}
+.name{font-family:Schoolbell;font-size:40px;text-align:center}
+/* town */
+.town{display:grid;grid-template-columns:170px 1fr;gap:16px}
+.stick{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-content:start}
+.stick button{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:4px}
+.stick svg{width:100%;height:60px}
+.scene{position:relative;background:#fff}
+.scene svg{display:block;width:100%;height:auto;touch-action:none}
+.it{cursor:grab}
+@media(max-width:900px){.book,.colour,.mon,.town{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs><filter id="crayon"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" result="t"/><feColorMatrix in="t" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 -1.4 1" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in" result="c"/><feDisplacementMap in="c" in2="t" scale="3"/></filter></defs></svg>
+<header><div class="logo"><span>C</span><span>r</span><span>a</span><span>y</span><span>o</span><span>n</span> Town</div><nav><a href="#story">Story</a><a href="#colour">Colour In</a><a href="#monster">Monster Maker</a><a href="#town">My Town</a><a href="index.html">Grown-ups ↩</a></nav></header>
+
+<section data-view="story"><div class="wrap">
+ <h2>Pip the Paper Boat</h2><p class="sub">A story in six pages. Click the arrows to turn.</p>
+ <div class="book wob"><svg id="storyArt" viewBox="0 0 600 440"></svg><div class="txt sb" id="storyTxt"></div></div>
+ <div class="pager"><button class="btn" id="prev">← back</button><div class="dots" id="dots"></div><button class="btn y" id="next">next →</button></div>
+</div></section>
+
+<section data-view="colour" hidden><div class="wrap">
+ <h2>Colour me in!</h2><p class="sub">Pick a crayon, then tap inside a shape to fill it. Wiggly lines are fine. That's what crayons are for.</p>
+ <div class="pics" id="pics"></div>
+ <div class="colour"><canvas id="cc" width="800" height="600" class="wob"></canvas><div><div class="box wob" id="crayons"></div><button class="btn" style="margin-top:10px;width:100%" id="undoC">undo</button><button class="btn" style="margin-top:8px;width:100%" id="clearC">start over</button></div></div>
+</div></section>
+
+<section data-view="monster" hidden><div class="wrap">
+ <h2>Make a monster</h2><p class="sub">Mix and match the parts. Every monster is friendly.</p>
+ <div class="mon"><div><svg id="monSvg" viewBox="0 0 400 420"></svg><div class="name" id="mname"></div></div><div class="parts" id="mparts"></div></div>
+</div></section>
+
+<section data-view="town" hidden><div class="wrap">
+ <h2>Build my town</h2><p class="sub">Tap a sticker to add it, then drag it anywhere. Double-tap a sticker to take it away.</p>
+ <div class="town"><div class="stick" id="stick"></div><div class="scene wob"><svg id="townSvg" viewBox="0 0 1000 560"></svg></div></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'story';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const C={red:'#e8392e',blue:'#2d6fe0',yellow:'#ffd23a',green:'#3cb44b',orange:'#ff8c1a',purple:'#8e44d8',brown:'#8a5a2b',pink:'#ff7ab8',black:'#222',sky:'#8ecbff'};
+const cr=(inner)=>`<g filter="url(#crayon)">${inner}</g>`;
+const scrib=(d,col,w=14)=>`<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" opacity=".9" filter="url(#grain)"/>`;
+
+/* story */
+const boat=(x,y,s=1,col=C.orange)=>`<g transform="translate(${x} ${y}) scale(${s})">${cr(`<path d="M-60 0 L60 0 L40 30 L-40 30Z" fill="${col}" stroke="#222" stroke-width="4"/><path d="M-10 0 L-10 -70 L40 -10Z" fill="#fff" stroke="#222" stroke-width="4"/><circle cx="20" cy="12" r="5" fill="#222"/><path d="M12 20 q8 6 16 0" stroke="#222" stroke-width="3" fill="none"/>`)}</g>`;
+const sun=(x,y)=>cr(`<circle cx="${x}" cy="${y}" r="40" fill="${C.yellow}" stroke="${C.orange}" stroke-width="4"/>${[...Array(10)].map((_,i)=>{const a=i*.63;return`<line x1="${x+Math.cos(a)*52}" y1="${y+Math.sin(a)*52}" x2="${x+Math.cos(a)*72}" y2="${y+Math.sin(a)*72}" stroke="${C.orange}" stroke-width="6" stroke-linecap="round"/>`}).join('')}`);
+const waves=(y,col=C.blue)=>cr(`<path d="M0 ${y} ${[...Array(12)].map((_,i)=>`q25 -20 50 0`).join(' ')} V440 H0Z" fill="${col}" opacity=".85"/>`);
+const PAGES=[
+ ['Pip was a paper boat, folded from a page of Mia\'s drawing book. He had a crayon sun on his sail.',()=>waves(330,C.sky)+sun(500,90)+boat(260,300,1.4)],
+ ['One rainy morning, Mia put Pip in the puddle by the gate. "Go and see the world!" she said.',()=>`${[...Array(30)].map((_,i)=>cr(`<line x1="${(i*47)%600}" y1="${(i*31)%260}" x2="${(i*47)%600-8}" y2="${(i*31)%260+24}" stroke="${C.blue}" stroke-width="4" stroke-linecap="round"/>`)).join('')}${cr(`<ellipse cx="300" cy="360" rx="240" ry="50" fill="${C.sky}"/>`)}${cr(`<circle cx="90" cy="250" r="30" fill="${C.pink}"/><rect x="70" y="280" width="40" height="80" fill="${C.red}" stroke="#222" stroke-width="3"/>`)}${boat(320,350,1)}`],
+ ['The puddle ran into the gutter, and the gutter ran into the stream. Whoosh! Pip was sailing!',()=>waves(260)+boat(300,250,1)+cr(`<path d="M0 200 Q200 150 600 210" stroke="${C.green}" stroke-width="18" fill="none"/>`)+`${[...Array(5)].map((_,i)=>cr(`<path d="M${80+i*110} 420 q10 -30 20 0" stroke="#fff" stroke-width="5" fill="none"/>`)).join('')}`],
+ ['A duck swam by. "Where are you going, little boat?" "I don\'t know yet," said Pip. "Isn\'t that exciting?"',()=>waves(280)+boat(200,270,.9)+cr(`<ellipse cx="420" cy="270" rx="60" ry="34" fill="${C.yellow}" stroke="#222" stroke-width="4"/><circle cx="470" cy="228" r="26" fill="${C.yellow}" stroke="#222" stroke-width="4"/><path d="M492 228 l24 6 l-24 6Z" fill="${C.orange}" stroke="#222" stroke-width="3"/><circle cx="476" cy="222" r="4" fill="#222"/>`)],
+ ['The stream went to the river, and the river went all the way to the big blue sea. Pip was very small, and very brave.',()=>waves(230,'#1f4fb0')+sun(90,90)+boat(420,220,.55)+cr(`<path d="M0 230 Q300 200 600 230" stroke="#fff" stroke-width="4" fill="none"/>`)+cr(`<path d="M520 150 q10 -10 20 0 q10 -10 20 0" stroke="#222" stroke-width="3" fill="none"/>`)],
+ ['At sunset, a little girl on the beach found him. She dried him off and drew a moon on his other side. Now Pip has two adventures.',()=>cr(`<rect width="600" height="440" fill="${C.orange}" opacity=".35"/>`)+waves(300,C.purple)+cr(`<rect y="360" width="600" height="80" fill="#f4d98a"/>`)+cr(`<circle cx="300" cy="300" r="60" fill="${C.pink}" opacity=".6"/>`)+boat(200,380,.8)+cr(`<circle cx="420" cy="300" r="24" fill="#f2c9a0" stroke="#222" stroke-width="3"/><path d="M400 324 L440 324 L452 390 L388 390Z" fill="${C.green}" stroke="#222" stroke-width="3"/>`)+cr(`<text x="300" y="120" text-anchor="middle" font-family="Schoolbell" font-size="60" fill="#222">The End</text>`)]];
+let pg=0;function story(){document.getElementById('storyArt').innerHTML=`<rect width="600" height="440" fill="#fff"/>`+PAGES[pg][1]();document.getElementById('storyTxt').textContent=PAGES[pg][0];document.getElementById('dots').innerHTML=PAGES.map((_,i)=>`<i class="${i===pg?'on':''}"></i>`).join('');document.getElementById('prev').style.visibility=pg?'visible':'hidden';document.getElementById('next').textContent=pg<PAGES.length-1?'next →':'read again ↺'}
+document.getElementById('next').onclick=()=>{pg=(pg+1)%PAGES.length;story()};document.getElementById('prev').onclick=()=>{pg=Math.max(0,pg-1);story()};story();
+
+/* colouring */
+const cc=document.getElementById('cc'),cx=cc.getContext('2d');let col=C.red,undo=[],pic=0;
+const LINE=[['Rocket',x=>{x.beginPath();x.moveTo(400,80);x.quadraticCurveTo(480,180,470,420);x.lineTo(330,420);x.quadraticCurveTo(320,180,400,80);x.closePath();x.stroke();x.beginPath();x.arc(400,240,40,0,7);x.stroke();x.beginPath();x.moveTo(330,340);x.lineTo(260,450);x.lineTo(335,420);x.stroke();x.beginPath();x.moveTo(470,340);x.lineTo(540,450);x.lineTo(465,420);x.stroke();x.beginPath();x.moveTo(350,420);x.quadraticCurveTo(400,540,450,420);x.stroke();[[120,120],[650,160],[160,420],[680,460],[600,60]].forEach(([a,b])=>{x.beginPath();for(let i=0;i<10;i++){const r=i%2?10:24,t=i*Math.PI/5-Math.PI/2;x.lineTo(a+Math.cos(t)*r,b+Math.sin(t)*r)}x.closePath();x.stroke()});x.beginPath();x.arc(640,300,60,0,7);x.stroke();x.beginPath();x.ellipse(640,300,100,20,-.3,0,7);x.stroke()}],
+ ['House',x=>{x.strokeRect(220,280,360,250);x.beginPath();x.moveTo(190,290);x.lineTo(400,110);x.lineTo(610,290);x.closePath();x.stroke();x.strokeRect(360,390,80,140);x.strokeRect(250,320,80,70);x.strokeRect(470,320,80,70);x.beginPath();x.moveTo(290,320);x.lineTo(290,390);x.moveTo(250,355);x.lineTo(330,355);x.moveTo(510,320);x.lineTo(510,390);x.moveTo(470,355);x.lineTo(550,355);x.stroke();x.strokeRect(480,150,40,80);x.beginPath();x.arc(120,110,60,0,7);x.stroke();x.beginPath();x.moveTo(0,540);x.quadraticCurveTo(400,500,800,540);x.stroke();x.beginPath();x.arc(700,470,40,0,7);x.stroke();x.beginPath();x.moveTo(700,510);x.lineTo(700,560);x.stroke()}],
+ ['Fish',x=>{x.beginPath();x.ellipse(380,300,200,120,0,0,7);x.stroke();x.beginPath();x.moveTo(570,300);x.lineTo(720,200);x.lineTo(720,400);x.closePath();x.stroke();x.beginPath();x.arc(280,270,26,0,7);x.stroke();x.beginPath();x.arc(280,270,10,0,7);x.stroke();for(let i=0;i<3;i++){x.beginPath();x.arc(400+i*50,300,60,-.9,.9);x.stroke()}x.beginPath();x.moveTo(360,180);x.quadraticCurveTo(420,90,480,190);x.stroke();[[120,120,20],[80,200,14],[150,60,12]].forEach(([a,b,r])=>{x.beginPath();x.arc(a,b,r,0,7);x.stroke()});x.beginPath();x.moveTo(0,540);for(let i=0;i<9;i++)x.quadraticCurveTo(i*100+50,500,i*100+100,540);x.stroke()}]];
+function drawLine(){cx.fillStyle='#fff';cx.fillRect(0,0,800,600);cx.strokeStyle='#222';cx.lineWidth=6;cx.lineJoin='round';cx.lineCap='round';LINE[pic][1](cx);undo=[]}
+function hexRGB(h){const n=parseInt(h.slice(1),16);return[n>>16,n>>8&255,n&255]}
+function fill(sx,sy){const img=cx.getImageData(0,0,800,600),d=img.data;const i0=(sy*800+sx)*4;const t=[d[i0],d[i0+1],d[i0+2]];if(t[0]<90&&t[1]<90&&t[2]<90)return;const nc=hexRGB(col);if(Math.abs(t[0]-nc[0])<8&&Math.abs(t[1]-nc[1])<8&&Math.abs(t[2]-nc[2])<8)return;undo.push(cx.getImageData(0,0,800,600));
+ const same=k=>Math.abs(d[k]-t[0])<40&&Math.abs(d[k+1]-t[1])<40&&Math.abs(d[k+2]-t[2])<40;const st=[sx,sy];const seen=new Uint8Array(800*600);
+ while(st.length){const y=st.pop(),x=st.pop();let xl=x;while(xl>=0&&!seen[y*800+xl]&&same((y*800+xl)*4))xl--;xl++;let up=false,dn=false;for(let xx=xl;xx<800;xx++){const k=y*800+xx;if(seen[k]||!same(k*4))break;seen[k]=1;const g=((xx*7+y*3)%11<2?-18:0)+((xx+y)%5===0?-10:0);d[k*4]=Math.max(0,nc[0]+g);d[k*4+1]=Math.max(0,nc[1]+g);d[k*4+2]=Math.max(0,nc[2]+g);
+  if(y>0){const u=!seen[k-800]&&same((k-800)*4);if(u&&!up){st.push(xx,y-1);up=true}else if(!u)up=false}if(y<599){const w=!seen[k+800]&&same((k+800)*4);if(w&&!dn){st.push(xx,y+1);dn=true}else if(!w)dn=false}}}
+ cx.putImageData(img,0,0)}
+cc.addEventListener('pointerdown',e=>{const r=cc.getBoundingClientRect();fill(Math.floor((e.clientX-r.left)/r.width*800),Math.floor((e.clientY-r.top)/r.height*600))});
+document.getElementById('crayons').innerHTML=Object.entries(C).map(([n,c])=>`<button class="cray ${c===col?'on':''}" data-c="${c}" style="background:${c};--c:${c}" title="${n}"></button>`).join('');
+document.getElementById('crayons').onclick=e=>{const c=e.target.dataset.c;if(c){col=c;document.querySelectorAll('.cray').forEach(b=>b.classList.toggle('on',b===e.target))}};
+document.getElementById('pics').innerHTML=LINE.map((l,i)=>`<button class="btn ${i===pic?'y':''}" data-p="${i}">${l[0]}</button>`).join('');
+document.getElementById('pics').onclick=e=>{const p=e.target.dataset.p;if(p!=null){pic=+p;document.querySelectorAll('#pics .btn').forEach(b=>b.classList.toggle('y',b===e.target));drawLine()}};
+document.getElementById('undoC').onclick=()=>{const u=undo.pop();if(u)cx.putImageData(u,0,0)};document.getElementById('clearC').onclick=drawLine;drawLine();
+
+/* monster */
+const MP={body:['blob','square','tall','round'],eyes:['1','2','3','lots'],mouth:['smile','fangs','O','tongue'],extra:['horns','antenna','ears','none'],colour:Object.keys(C).filter(k=>k!=='black')};
+let M=store.get('ct-mon',{body:'blob',eyes:'3',mouth:'fangs',extra:'horns',colour:'green'});
+function monster(){const c=C[M.colour];let s=`<ellipse cx="200" cy="400" rx="130" ry="14" fill="#0001"/>`;
+ const B={blob:'M80 320 Q60 160 200 140 Q340 160 320 320 Q340 390 280 380 Q240 400 200 380 Q160 400 120 380 Q60 390 80 320Z',square:'M90 150 H310 V380 H90Z',tall:'M130 60 Q200 30 270 60 L280 380 H120Z',round:'M200 110 A150 140 0 1 1 199 110Z'}[M.body];
+ s+=cr(`<path d="M110 360 l-20 30 h40 M290 360 l20 30 h-40" stroke="#222" stroke-width="10" fill="none" stroke-linecap="round"/>`);
+ s+=cr(`<path d="${B}" fill="${c}" stroke="#222" stroke-width="6"/>`);
+ s+=cr(`<path d="M${M.body==='tall'?130:90} 260 q-50 -20 -60 -70 M${M.body==='tall'?270:310} 260 q50 -20 60 -70" stroke="#222" stroke-width="8" fill="none" stroke-linecap="round"/>`);
+ const top=M.body==='tall'?60:M.body==='round'?110:150;
+ if(M.extra==='horns')s+=cr(`<path d="M150 ${top+10} l-20 -50 l40 36Z M250 ${top+10} l20 -50 l-40 36Z" fill="#fff" stroke="#222" stroke-width="4"/>`);
+ if(M.extra==='antenna')s+=cr(`<path d="M200 ${top} q10 -40 -10 -60" stroke="#222" stroke-width="5" fill="none"/><circle cx="190" cy="${top-62}" r="12" fill="${C.yellow}" stroke="#222" stroke-width="4"/>`);
+ if(M.extra==='ears')s+=cr(`<ellipse cx="110" cy="${top+30}" rx="26" ry="40" fill="${c}" stroke="#222" stroke-width="5" transform="rotate(-30 110 ${top+30})"/><ellipse cx="290" cy="${top+30}" rx="26" ry="40" fill="${c}" stroke="#222" stroke-width="5" transform="rotate(30 290 ${top+30})"/>`);
+ const ey={1:[[200,220,34]],2:[[160,220,24],[240,220,24]],3:[[140,225,18],[200,205,24],[260,225,18]],lots:[[150,200,14],[190,190,12],[230,200,16],[260,230,10],[140,240,10],[200,235,14]]}[M.eyes];
+ ey.forEach(([x,y,r])=>s+=cr(`<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" stroke="#222" stroke-width="4"/><circle cx="${x+r*.2}" cy="${y+r*.1}" r="${r*.45}" fill="#222"/>`));
+ const my=M.body==='tall'?300:290;
+ s+=cr({smile:`<path d="M150 ${my} Q200 ${my+50} 250 ${my}" stroke="#222" stroke-width="6" fill="none" stroke-linecap="round"/>`,fangs:`<path d="M140 ${my} Q200 ${my+40} 260 ${my}Z" fill="#222"/><path d="M160 ${my+6} l8 18 l8 -14 M224 ${my+6} l8 14 l8 -18" fill="#fff" stroke="#fff" stroke-width="2"/>`,O:`<ellipse cx="200" cy="${my+10}" rx="28" ry="34" fill="#222"/><ellipse cx="200" cy="${my+26}" rx="16" ry="12" fill="${C.pink}"/>`,tongue:`<path d="M150 ${my} Q200 ${my+40} 250 ${my}" stroke="#222" stroke-width="6" fill="none"/><path d="M190 ${my+18} q10 40 24 0" fill="${C.pink}" stroke="#222" stroke-width="4"/>`}[M.mouth]);
+ document.getElementById('monSvg').innerHTML=s;const syl=['Bl','Gr','Fl','Sn','Wob','Z','Muff','Snor','Glim','Pud'];const h=[...JSON.stringify(M)].reduce((a,c)=>a*31+c.charCodeAt(0),7)>>>0;
+ document.getElementById('mname').textContent=syl[h%10]+['oop','ib','erty','umble','ix','azzle'][(h>>4)%6]+' the '+['Kind','Hungry','Sleepy','Giggly','Brave','Shy'][(h>>8)%6];
+ document.getElementById('mparts').innerHTML=Object.entries(MP).map(([k,a])=>`<h4>${k}</h4><div class="row">${a.map(v=>k==='colour'?`<button class="${M[k]===v?'on':''}" data-k="${k}" data-v="${v}" style="background:${C[v]};min-width:40px;height:40px"></button>`:`<button class="${M[k]===v?'on':''}" data-k="${k}" data-v="${v}">${v}</button>`).join('')}</div>`).join('')+`<div style="margin-top:14px"><button class="btn y" id="mrand">surprise me!</button></div>`;store.set('ct-mon',M)}
+document.getElementById('mparts').onclick=e=>{const{k,v}=e.target.dataset;if(k){M[k]=v;monster()}if(e.target.id==='mrand'){Object.keys(MP).forEach(k=>M[k]=MP[k][Math.random()*MP[k].length|0]);monster()}};monster();
+
+/* town */
+const ST={house:[`<rect x="10" y="30" width="60" height="50" fill="${C.red}" stroke="#222" stroke-width="3"/><path d="M4 34 L40 4 L76 34Z" fill="${C.brown}" stroke="#222" stroke-width="3"/><rect x="32" y="52" width="16" height="28" fill="${C.yellow}" stroke="#222" stroke-width="2"/>`,80,80],tree:[`<rect x="34" y="50" width="12" height="40" fill="${C.brown}" stroke="#222" stroke-width="2"/><circle cx="40" cy="36" r="30" fill="${C.green}" stroke="#222" stroke-width="3"/><circle cx="28" cy="30" r="4" fill="${C.red}"/><circle cx="50" cy="42" r="4" fill="${C.red}"/>`,80,90],car:[`<rect x="6" y="30" width="80" height="26" rx="8" fill="${C.blue}" stroke="#222" stroke-width="3"/><path d="M22 30 L32 12 H62 L72 30" fill="#cfe8ff" stroke="#222" stroke-width="3"/><circle cx="24" cy="58" r="10" fill="#222"/><circle cx="68" cy="58" r="10" fill="#222"/>`,92,70],shop:[`<rect x="6" y="20" width="80" height="60" fill="${C.pink}" stroke="#222" stroke-width="3"/><path d="M4 20 h84 v12 h-84z" fill="${C.yellow}" stroke="#222" stroke-width="3"/><rect x="16" y="42" width="30" height="24" fill="#cfe8ff" stroke="#222" stroke-width="2"/><rect x="56" y="44" width="18" height="36" fill="${C.purple}" stroke="#222" stroke-width="2"/>`,92,82],dog:[`<ellipse cx="40" cy="44" rx="26" ry="14" fill="${C.brown}" stroke="#222" stroke-width="3"/><circle cx="66" cy="30" r="12" fill="${C.brown}" stroke="#222" stroke-width="3"/><path d="M20 56 v12 M56 56 v12 M14 40 q-10 -10 -4 -18" stroke="#222" stroke-width="4"/><circle cx="70" cy="28" r="2" fill="#222"/>`,82,72],flower:[`<path d="M40 40 v44" stroke="${C.green}" stroke-width="5"/>${[...Array(6)].map((_,i)=>`<circle cx="${40+Math.cos(i)*14}" cy="${30+Math.sin(i)*14}" r="10" fill="${C.pink}" stroke="#222" stroke-width="2"/>`).join('')}<circle cx="40" cy="30" r="8" fill="${C.yellow}" stroke="#222" stroke-width="2"/>`,80,86],school:[`<rect x="6" y="30" width="90" height="56" fill="${C.orange}" stroke="#222" stroke-width="3"/><path d="M0 32 L51 4 L102 32Z" fill="${C.red}" stroke="#222" stroke-width="3"/><circle cx="51" cy="22" r="7" fill="#fff" stroke="#222" stroke-width="2"/>${[0,1,2].map(i=>`<rect x="${16+i*28}" y="44" width="14" height="14" fill="#cfe8ff" stroke="#222" stroke-width="2"/>`).join('')}`,102,90],cloud:[`<path d="M14 50 q-12 -24 16 -26 q8 -20 30 -8 q24 -8 26 18 q14 10 0 18Z" fill="#fff" stroke="#222" stroke-width="3"/>`,92,60]};
+let items=store.get('ct-town',[{k:'house',x:120,y:300,s:1.6},{k:'tree',x:300,y:300,s:1.4},{k:'car',x:520,y:430,s:1.2},{k:'cloud',x:700,y:60,s:1.4}]);let drag=null;
+function town(){let s=cr(`<rect width="1000" height="560" fill="${C.sky}" opacity=".5"/><rect y="400" width="1000" height="160" fill="${C.green}" opacity=".7"/><rect y="440" width="1000" height="70" fill="#888"/><path d="M0 475 H1000" stroke="#fff" stroke-width="6" stroke-dasharray="40 30"/>`)+sun(900,90);
+ items.forEach((it,i)=>{const[g,w,h]=ST[it.k];s+=`<g class="it" data-i="${i}" transform="translate(${it.x} ${it.y}) scale(${it.s})">${cr(g)}<rect width="${w}" height="${h}" fill="transparent"/></g>`});document.getElementById('townSvg').innerHTML=s;store.set('ct-town',items)}
+document.getElementById('stick').innerHTML=Object.entries(ST).map(([k,[g,w,h]])=>`<button data-k="${k}"><svg viewBox="0 0 ${w} ${h}">${g}</svg></button>`).join('');
+document.getElementById('stick').onclick=e=>{const b=e.target.closest('[data-k]');if(!b)return;items.push({k:b.dataset.k,x:300+Math.random()*400,y:b.dataset.k==='cloud'?40+Math.random()*80:300+Math.random()*120,s:1.2+Math.random()*.6});town();pop()};
+const tsv=document.getElementById('townSvg');const pt=e=>{const r=tsv.getBoundingClientRect();return[(e.clientX-r.left)/r.width*1000,(e.clientY-r.top)/r.height*560]};
+tsv.addEventListener('pointerdown',e=>{const g=e.target.closest('.it');if(!g)return;const i=+g.dataset.i;const[x,y]=pt(e);drag={i,dx:x-items[i].x,dy:y-items[i].y};tsv.setPointerCapture(e.pointerId);items.push(items.splice(i,1)[0]);drag.i=items.length-1;town()});
+tsv.addEventListener('pointermove',e=>{if(!drag)return;const[x,y]=pt(e);const it=items[drag.i];it.x=x-drag.dx;it.y=y-drag.dy;const g=tsv.querySelector(`.it[data-i="${drag.i}"]`);if(g)g.setAttribute('transform',`translate(${it.x} ${it.y}) scale(${it.s})`)});
+tsv.addEventListener('pointerup',()=>{if(drag){drag=null;town()}});
+tsv.addEventListener('dblclick',e=>{const g=e.target.closest('.it');if(!g)return;items.splice(+g.dataset.i,1);town()});
+function pop(){try{const a=window._a||(window._a=new AudioContext());const o=a.createOscillator(),g=a.createGain();o.frequency.setValueAtTime(400,a.currentTime);o.frequency.exponentialRampToValueAtTime(900,a.currentTime+.1);g.gain.setValueAtTime(.1,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.15);o.connect(g).connect(a.destination);o.start();o.stop(a.currentTime+.16)}catch(e){}}
+town();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Relay Docs — Webhooks</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#fcfcfb;--tx:#1d1f21;--mu:#6e7277;--ln:#ebebe8;--acc:#0b7a75;--accbg:#e6f3f2;--warn:#fff6e5;--code:#16191d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 'Instrument Sans',sans-serif}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:20px;padding:0 24px;height:58px;border-bottom:1px solid var(--ln);background:rgba(252,252,251,.9);backdrop-filter:blur(8px)}
+.lg{font:600 17px 'Instrument Sans';display:flex;gap:8px;align-items:center}.lg i{width:20px;height:20px;border-radius:5px;background:var(--acc);position:relative}.lg i::after{content:'';position:absolute;inset:5px;border:2px solid #fff;border-radius:50%;border-right-color:transparent}
+.lg small{color:var(--mu);font-weight:500}
+.srch{flex:0 1 380px;margin-left:auto;display:flex;align-items:center;gap:8px;border:1px solid var(--ln);border-radius:9px;padding:7px 10px;color:var(--mu);cursor:pointer;background:#fff}.srch kbd{margin-left:auto;font:11px 'JetBrains Mono';border:1px solid var(--ln);border-radius:4px;padding:1px 5px}
+.top a{color:var(--tx);text-decoration:none;font-weight:500}
+.lay{display:grid;grid-template-columns:250px minmax(0,1fr) 220px;max-width:1400px;margin:0 auto}
+.nav{position:sticky;top:58px;height:calc(100vh - 58px);overflow:auto;padding:24px 16px 24px 24px;border-right:1px solid var(--ln);font-size:14px}
+.nav h5{margin:18px 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mu)}
+.nav a{display:block;padding:4px 10px;border-radius:6px;color:#3a3d41;text-decoration:none}.nav a.on{background:var(--accbg);color:var(--acc);font-weight:600}
+.art{padding:36px 56px 80px;max-width:820px}
+.bc{font-size:13px;color:var(--mu)}h1{font:600 42px/1.1 'Literata',serif;letter-spacing:-.02em;margin:8px 0 12px}
+.lead{font:400 19px/1.55 'Literata',serif;color:#3d4146;margin:0 0 26px}
+h2{font:600 26px 'Literata',serif;margin:44px 0 10px;scroll-margin-top:80px}h3{font-size:17px;margin:26px 0 8px}
+p{margin:0 0 14px}code{font:13.5px 'JetBrains Mono';background:#f1f1ee;padding:1px 5px;border-radius:4px}
+.cb{background:var(--code);border-radius:12px;margin:16px 0 22px;overflow:hidden}
+.cb .tb{display:flex;align-items:center;border-bottom:1px solid #2a2f35;padding:0 8px}
+.cb .tb button{background:none;border:0;color:#8b939c;font:500 12.5px 'Instrument Sans';padding:10px;cursor:pointer;border-bottom:2px solid transparent}.cb .tb button.on{color:#fff;border-bottom-color:#4fd1c5}
+.cb .tb .cp{margin-left:auto;font-size:12px}
+.cb pre{margin:0;padding:16px 18px;color:#d6dbe0;font:13px/1.7 'JetBrains Mono';overflow:auto}
+.k{color:#ff9ac1}.s{color:#a5e3a1}.c{color:#69737d}.f{color:#7fd3ff}.n{color:#ffcf7a}
+.call{border-radius:10px;padding:14px 16px;margin:18px 0;display:grid;grid-template-columns:22px 1fr;gap:8px;font-size:14.5px}
+.call.i{background:var(--accbg)}.call.w{background:var(--warn)}
+.params{border:1px solid var(--ln);border-radius:12px;overflow:hidden}
+.param{padding:14px 16px;border-bottom:1px solid var(--ln)}.param:last-child{border:0}
+.param b{font:500 13.5px 'JetBrains Mono'}.param .t{font:12px 'JetBrains Mono';color:var(--mu);margin-left:8px}.param .r{font:600 11px 'Instrument Sans';color:#c2410c;margin-left:8px;text-transform:uppercase}
+.param p{margin:4px 0 0;color:#45494e;font-size:14px}
+.steps{counter-reset:s;list-style:none;padding:0}.steps li{counter-increment:s;position:relative;padding-left:40px;margin-bottom:14px}.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--tx);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:600}
+.fb{display:flex;gap:10px;align-items:center;margin-top:50px;padding-top:20px;border-top:1px solid var(--ln);color:var(--mu)}.fb button{border:1px solid var(--ln);background:#fff;border-radius:8px;padding:6px 12px;cursor:pointer}
+.toc{position:sticky;top:58px;height:calc(100vh - 58px);padding:36px 20px;font-size:13.5px}
+.toc h5{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mu)}
+.toc a{display:block;padding:4px 0 4px 12px;border-left:2px solid var(--ln);color:var(--mu);text-decoration:none}.toc a.on{border-left-color:var(--acc);color:var(--acc);font-weight:600}
+.pal{position:fixed;inset:0;background:rgba(20,22,25,.35);display:none;align-items:flex-start;justify-content:center;padding-top:12vh;z-index:20}.pal.on{display:flex}
+.pbox{width:min(600px,92vw);background:#fff;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.25);overflow:hidden}.pbox input{width:100%;border:0;border-bottom:1px solid var(--ln);padding:16px 18px;font:16px 'Instrument Sans';outline:none}
+.pbox a{display:block;padding:10px 18px;color:var(--tx);text-decoration:none}.pbox a small{color:var(--mu);margin-left:8px}.pbox a:first-of-type{background:var(--accbg)}
+@media(max-width:1100px){.lay{grid-template-columns:220px 1fr}.toc{display:none}}@media(max-width:760px){.lay{grid-template-columns:1fr}.nav{display:none}.art{padding:24px 18px 70px}.top a{display:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="lg"><i></i>Relay <small>Docs</small></div><a href="#">Guides</a><a href="#">API</a><a href="#">SDKs</a><div class="srch" id="srch">⌕ Search docs<kbd>⌘K</kbd></div></div>
+<div class="lay">
+ <nav class="nav"><h5>Get started</h5><a href="#">Quickstart</a><a href="#">Authentication</a><a href="#">Environments</a><h5>Messaging</h5><a href="#">Send a message</a><a href="#">Templates</a><a href="#">Channels</a><h5>Events</h5><a class="on" href="#">Webhooks</a><a href="#">Event types</a><a href="#">Retries</a><a href="#">Signature verification</a><h5>Reference</h5><a href="#">REST API</a><a href="#">Errors</a><a href="#">Rate limits</a></nav>
+ <article class="art">
+  <div class="bc">Events / Webhooks</div><h1>Receive webhooks</h1><p class="lead">Relay sends an HTTP POST to your endpoint whenever something happens — a message is delivered, a user replies, a number opts out. This guide gets you from zero to verified events in about ten minutes.</p>
+  <h2 id="s1">Create an endpoint</h2><ol class="steps"><li>Open <b>Dashboard → Webhooks</b> and click <b>Add endpoint</b>.</li><li>Paste a public HTTPS URL. For local development, use <code>relay listen</code> to tunnel events.</li><li>Choose the event types you need. You can change these later.</li></ol>
+  <div class="call i"><span>ℹ</span><div>Each endpoint gets its own signing secret, starting with <code>whsec_</code>. Keep it out of your repo.</div></div>
+  <h2 id="s2">Handle the event</h2><p>Respond with any <code>2xx</code> within 10 seconds. Do slow work in a background job — Relay treats a timeout as a failure and retries.</p>
+  <div class="cb"><div class="tb"><button class="on" data-l="node">Node</button><button data-l="py">Python</button><button data-l="go">Go</button><button class="cp" id="cp">Copy</button></div><pre id="code"></pre></div>
+  <h2 id="s3">Verify the signature</h2><p>Every request carries a <code>Relay-Signature</code> header. Always verify it before trusting the payload.</p>
+  <div class="params"><div class="param"><b>t</b><span class="t">integer</span><span class="r">required</span><p>Unix timestamp of when the event was signed. Reject anything older than 5 minutes.</p></div><div class="param"><b>v1</b><span class="t">string</span><span class="r">required</span><p>HMAC-SHA256 of <code>{t}.{raw_body}</code> using your endpoint secret, hex-encoded.</p></div></div>
+  <div class="call w"><span>⚠</span><div>Verify against the <b>raw</b> request body. Parsing JSON first changes whitespace and breaks the signature.</div></div>
+  <h2 id="s4">Retries</h2><p>Failed deliveries retry with exponential backoff for 3 days: after 1 min, 5 min, 30 min, 2 h, then every 6 h. After that the endpoint is disabled and we email your team.</p>
+  <h3>Idempotency</h3><p>Retries reuse the same <code>event.id</code>. Store processed IDs and skip duplicates.</p>
+  <div class="fb">Was this page helpful? <button>👍 Yes</button><button>👎 No</button><span style="margin-left:auto;font-size:13px">Edited 3 days ago · <a href="#" style="color:var(--acc)">Edit on GitHub</a></span></div>
+ </article>
+ <aside class="toc"><h5>On this page</h5><a href="#s1" class="on">Create an endpoint</a><a href="#s2">Handle the event</a><a href="#s3">Verify the signature</a><a href="#s4">Retries</a></aside>
+</div>
+<div class="pal" id="pal"><div class="pbox"><input placeholder="Search docs…" value="signature"><a href="#s3">Verify the signature<small>Webhooks</small></a><a href="#">Signature verification<small>Events</small></a><a href="#">Signing secrets & rotation<small>Security</small></a><a href="#">Relay-Signature header<small>API reference</small></a></div></div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const C={node:`<span class="k">import</span> express <span class="k">from</span> <span class="s">"express"</span>;
+<span class="k">import</span> { verify } <span class="k">from</span> <span class="s">"@relay/node"</span>;
+
+app.<span class="f">post</span>(<span class="s">"/webhooks/relay"</span>, express.<span class="f">raw</span>({ type: <span class="s">"*/*"</span> }), (req, res) => {
+  <span class="k">const</span> event = <span class="f">verify</span>(req.body, req.headers[<span class="s">"relay-signature"</span>], process.env.RELAY_WHSEC);
+  <span class="k">if</span> (event.type === <span class="s">"message.delivered"</span>) queue.<span class="f">add</span>(<span class="s">"delivered"</span>, event.data);
+  res.<span class="f">sendStatus</span>(<span class="n">200</span>); <span class="c">// answer fast, work later</span>
+});`,py:`<span class="k">from</span> relay <span class="k">import</span> verify
+
+<span class="k">@</span>app.<span class="f">post</span>(<span class="s">"/webhooks/relay"</span>)
+<span class="k">def</span> <span class="f">relay_webhook</span>():
+    event = <span class="f">verify</span>(request.get_data(), request.headers[<span class="s">"Relay-Signature"</span>], os.environ[<span class="s">"RELAY_WHSEC"</span>])
+    <span class="k">if</span> event.type == <span class="s">"message.delivered"</span>:
+        delivered.<span class="f">delay</span>(event.data)
+    <span class="k">return</span> <span class="s">""</span>, <span class="n">200</span>`,go:`<span class="k">func</span> <span class="f">handle</span>(w http.ResponseWriter, r *http.Request) {
+    body, _ := io.<span class="f">ReadAll</span>(r.Body)
+    ev, err := relay.<span class="f">Verify</span>(body, r.Header.<span class="f">Get</span>(<span class="s">"Relay-Signature"</span>), secret)
+    <span class="k">if</span> err != <span class="k">nil</span> { w.<span class="f">WriteHeader</span>(<span class="n">400</span>); <span class="k">return</span> }
+    jobs <- ev
+    w.<span class="f">WriteHeader</span>(<span class="n">200</span>)
+}`};
+const code=document.getElementById('code');code.innerHTML=C.node;
+document.querySelectorAll('.tb [data-l]').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tb [data-l]').forEach(x=>x.classList.toggle('on',x===b));code.innerHTML=C[b.dataset.l]});
+document.getElementById('cp').onclick=async e=>{try{await navigator.clipboard.writeText(code.innerText)}catch(_){}e.target.textContent='Copied ✓';setTimeout(()=>e.target.textContent='Copy',1500)};
+const pal=document.getElementById('pal');document.getElementById('srch').onclick=()=>pal.classList.add('on');pal.onclick=e=>{if(e.target===pal||e.target.closest('a'))pal.classList.remove('on')};
+addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();pal.classList.toggle('on')}if(e.key==='Escape')pal.classList.remove('on')});
+const secs=[...document.querySelectorAll('.art h2')];addEventListener('scroll',()=>{let cur=secs[0].id;secs.forEach(s=>{if(s.getBoundingClientRect().top<140)cur=s.id});document.querySelectorAll('.toc a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))});
+</script>
+</body>
+</html>

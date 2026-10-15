@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIELD — generative flow studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;600&family=Azeret+Mono:wght@300;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#08080b; color:#e9e9ee; font-family:'Azeret Mono',monospace; font-size:12px; overflow:hidden; height:100vh; }
+  a { color:inherit; text-decoration:none; }
+  canvas#art { position:fixed; inset:0; width:100%; height:100%; }
+  .bar { position:fixed; top:16px; left:16px; right:16px; z-index:10; display:flex; justify-content:space-between; align-items:center; pointer-events:none; }
+  .bar > * { pointer-events:auto; }
+  .brand { font-family:'Unbounded'; font-weight:600; font-size:18px; letter-spacing:.3em; mix-blend-mode:difference; }
+  .tabs { display:flex; gap:2px; background:#0009; backdrop-filter:blur(12px); border:1px solid #ffffff1a; border-radius:30px; padding:4px; }
+  .tabs a { padding:8px 14px; border-radius:26px; letter-spacing:.1em; text-transform:uppercase; color:#aaa; }
+  .tabs a.on { background:#e9e9ee; color:#08080b; }
+  .panel { position:fixed; z-index:10; background:#0b0b10d9; backdrop-filter:blur(16px); border:1px solid #ffffff1a; border-radius:18px; }
+  .panel[hidden] { display:none; }
+  .ctrl { top:76px; left:16px; width:290px; max-height:calc(100vh - 92px); overflow:auto; padding:18px; }
+  .ctrl h4 { font-family:'Unbounded'; font-weight:300; font-size:11px; letter-spacing:.25em; color:#888; margin:14px 0 8px; text-transform:uppercase; }
+  .ctrl h4:first-child { margin-top:0; }
+  .sl { display:grid; grid-template-columns:90px 1fr 40px; gap:8px; align-items:center; margin:6px 0; }
+  .sl output { text-align:right; color:#ccc; }
+  input[type=range] { -webkit-appearance:none; appearance:none; height:2px; background:#ffffff33; outline:none; width:100%; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:12px; height:12px; border-radius:50%; background:#e9e9ee; cursor:pointer; }
+  input[type=range]::-moz-range-thumb { width:12px; height:12px; border-radius:50%; background:#e9e9ee; border:0; }
+  .pals { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+  .pals button { height:28px; border-radius:6px; border:1px solid #ffffff22; cursor:pointer; }
+  .pals button.on { outline:2px solid #e9e9ee; outline-offset:2px; }
+  .modes { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .modes button, .act button { padding:9px; border-radius:10px; border:1px solid #ffffff22; background:transparent; color:#e9e9ee; font-family:inherit; font-size:11px; cursor:pointer; letter-spacing:.06em; }
+  .modes button.on { background:#e9e9ee; color:#08080b; }
+  .act { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:16px; }
+  .act button.pri { background:#e9e9ee; color:#08080b; grid-column:1/-1; font-weight:500; }
+  .seed { display:flex; gap:6px; align-items:center; }
+  .seed input { flex:1; background:transparent; border:1px solid #ffffff22; color:#e9e9ee; padding:7px; border-radius:8px; font-family:inherit; }
+  .hint { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); z-index:10; color:#fff9; letter-spacing:.1em; background:#0008; padding:8px 14px; border-radius:20px; backdrop-filter:blur(8px); }
+  .gallery { inset:76px 16px 16px 16px; padding:22px; overflow:auto; }
+  .gallery h2, .about h2 { font-family:'Unbounded'; font-weight:300; font-size:clamp(1.6rem,4vw,2.8rem); margin-bottom:6px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; margin-top:18px; }
+  .shot { border-radius:12px; overflow:hidden; border:1px solid #ffffff1a; cursor:pointer; position:relative; transition:transform .3s; }
+  .shot:hover { transform:translateY(-4px); }
+  .shot img, .shot canvas { width:100%; display:block; aspect-ratio:16/10; object-fit:cover; }
+  .shot span { position:absolute; left:8px; bottom:8px; background:#000a; padding:4px 8px; border-radius:6px; font-size:10px; }
+  .about { inset:76px auto 16px 16px; width:min(760px,calc(100vw - 32px)); padding:26px; overflow:auto; }
+  .about p { line-height:1.8; font-size:13px; color:#c9c9d2; margin:10px 0; }
+  .about canvas { width:100%; border-radius:12px; border:1px solid #ffffff1a; margin:10px 0; cursor:crosshair; background:#0d0d12; }
+  .about code { background:#ffffff14; padding:2px 6px; border-radius:4px; }
+  .home { padding:8px 14px; border:1px solid #ffffff33; border-radius:30px; background:#0009; backdrop-filter:blur(12px); letter-spacing:.1em; }
+  .toggleUI { position:fixed; right:16px; bottom:16px; z-index:10; }
+  @media (max-width:720px){ .ctrl { width:auto; right:16px; max-height:45vh; top:auto; bottom:60px; } .brand { display:none; } }
+</style>
+</head>
+<body>
+<canvas id="art"></canvas>
+<div class="bar"><div class="brand">FIELD</div><nav class="tabs"><a href="#studio">Studio</a><a href="#gallery">Gallery</a><a href="#about">How it works</a></nav><a class="home" href="index.html">← INDEX</a></div>
+
+<div class="panel ctrl" data-view="studio">
+  <h4>Field</h4>
+  <div class="sl"><span>noise scale</span><input type="range" id="ns" min="1" max="60" value="14"><output id="nsO"></output></div>
+  <div class="sl"><span>curl</span><input type="range" id="cu" min="0" max="8" step=".1" value="2.4"><output id="cuO"></output></div>
+  <div class="sl"><span>evolve</span><input type="range" id="ev" min="0" max="20" value="4"><output id="evO"></output></div>
+  <h4>Particles</h4>
+  <div class="sl"><span>count</span><input type="range" id="pc" min="200" max="6000" step="100" value="2400"><output id="pcO"></output></div>
+  <div class="sl"><span>speed</span><input type="range" id="sp" min=".2" max="5" step=".1" value="1.6"><output id="spO"></output></div>
+  <div class="sl"><span>stroke</span><input type="range" id="sw" min=".2" max="4" step=".1" value=".9"><output id="swO"></output></div>
+  <div class="sl"><span>trail fade</span><input type="range" id="tf" min="0" max="30" value="4"><output id="tfO"></output></div>
+  <h4>Palette</h4><div class="pals" id="pals"></div>
+  <h4>Mode</h4><div class="modes" id="modes"><button data-m="flow" class="on">flow</button><button data-m="attract">attract</button><button data-m="mirror">mirror ×4</button><button data-m="orbit">orbit</button></div>
+  <h4>Seed</h4><div class="seed"><input id="seed" value="4096"><button class="modes" style="border:0;background:none;color:#e9e9ee;cursor:pointer;font-size:16px" id="dice">⚄</button></div>
+  <div class="act"><button class="pri" id="snap">◉ Snapshot to gallery</button><button id="clear">Clear canvas</button><button id="pause">Pause</button><button id="dl">Download PNG</button><button id="hide">Hide UI (H)</button></div>
+</div>
+
+<div class="panel gallery" data-view="gallery" hidden><h2>Gallery</h2><p style="color:#999">Presets and your snapshots. Click any to load it into the studio.</p><div class="grid" id="grid"></div></div>
+
+<div class="panel about" data-view="about" hidden>
+  <h2>How it works</h2>
+  <p>Imagine a wind that blows in a slightly different direction at every point on the canvas. That's a <b>vector field</b>. Here the angle at each point comes from <code>noise(x·scale, y·scale, t)</code> — a smooth random function, so neighbouring points agree with each other.</p>
+  <p>Thousands of particles are dropped into the field. Each frame, every particle looks up the angle where it stands, takes a small step in that direction, and draws a line from where it was to where it is. Instead of clearing the screen, we paint a nearly-transparent veil over it — that's the <b>trail fade</b>.</p>
+  <p>Move your mouse over the diagram below to see the field's arrows and a single particle's path.</p>
+  <canvas id="demo" width="700" height="300"></canvas>
+  <p><b>Curl</b> multiplies the angle so paths twist harder. <b>Evolve</b> slowly moves the noise through time, so the wind changes. <b>Attract</b> mode bends every path toward your cursor; <b>mirror</b> reflects the field into four-fold symmetry.</p>
+</div>
+<div class="hint" id="hint">drag on the canvas to paint new particles · H to hide the interface</div>
+
+<script>
+/* ---------- noise (improved perlin 3D) ---------- */
+let P=new Uint8Array(512);function reseed(s){let r=s*16807%2147483647||1;const p=[...Array(256).keys()];for(let i=255;i>0;i--){r=r*16807%2147483647;const j=r%(i+1);[p[i],p[j]]=[p[j],p[i]]}for(let i=0;i<512;i++)P[i]=p[i&255]}
+const fade=t=>t*t*t*(t*(t*6-15)+10),lerp=(a,b,t)=>a+t*(b-a);
+function grad(h,x,y,z){const u=h<8?x:y,v=h<4?y:h===12||h===14?x:z;return((h&1)?-u:u)+((h&2)?-v:v)}
+function noise(x,y,z){const X=Math.floor(x)&255,Y=Math.floor(y)&255,Z=Math.floor(z)&255;x-=Math.floor(x);y-=Math.floor(y);z-=Math.floor(z);const u=fade(x),v=fade(y),w=fade(z);const A=P[X]+Y,AA=P[A]+Z,AB=P[A+1]+Z,B=P[X+1]+Y,BA=P[B]+Z,BB=P[B+1]+Z;
+ return lerp(lerp(lerp(grad(P[AA]&15,x,y,z),grad(P[BA]&15,x-1,y,z),u),lerp(grad(P[AB]&15,x,y-1,z),grad(P[BB]&15,x-1,y-1,z),u),v),lerp(lerp(grad(P[AA+1]&15,x,y,z-1),grad(P[BA+1]&15,x-1,y,z-1),u),lerp(grad(P[AB+1]&15,x,y-1,z-1),grad(P[BB+1]&15,x-1,y-1,z-1),u),v),w)}
+
+/* ---------- state ---------- */
+const PALS=[['#08080b',['#ff6b6b','#ffd93d','#6bcBef','#b388ff']],['#0b1026',['#7afcff','#feff9c','#ff7eb9','#ffffff']],['#f3efe6',['#1d1d1d','#d7263d','#1b998b','#2e294e']],['#000',['#ffffff']],['#101418',['#f4a261','#e76f51','#2a9d8f','#e9c46a']],['#1a0b1e',['#ff4ecd','#7b2ff7','#00e0ff','#f8f8f8']]];
+let S={ns:14,cu:2.4,ev:4,pc:2400,sp:2,sw:.9,tf:2,pal:0,mode:'flow',seed:4096},parts=[],t=0,running=true,mouse={x:-1e4,y:-1e4,down:false};
+const cv=document.getElementById('art'),g=cv.getContext('2d');let W,H,dpr=Math.min(devicePixelRatio,2);
+function size(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;g.setTransform(dpr,0,0,dpr,0,0);clearArt()}
+function clearArt(){g.fillStyle=PALS[S.pal][0];g.fillRect(0,0,W,H)}
+function spawn(n,x,y){for(let i=0;i<n;i++)parts.push({x:x??Math.random()*W,y:y??Math.random()*H,c:PALS[S.pal][1][Math.random()*PALS[S.pal][1].length|0],life:100+Math.random()*400})}
+function reset(){parts=[];spawn(S.pc);reseed(S.seed)}
+function angle(x,y){let X=x,Y=y;if(S.mode==='mirror'){X=Math.abs(x-W/2);Y=Math.abs(y-H/2)}const n=noise(X/(S.ns*40),Y/(S.ns*40),t*S.ev*.0006);let a=n*Math.PI*2*S.cu;
+ if(S.mode==='attract'||mouse.down){const dx=mouse.x-x,dy=mouse.y-y,d=Math.hypot(dx,dy);if(d<400){const ta=Math.atan2(dy,dx);const k=(1-d/400)*.9;a=a*(1-k)+ta*k}}
+ if(S.mode==='orbit'){const ta=Math.atan2(y-H/2,x-W/2)+Math.PI/2;a=a*.35+ta*.65}
+ if(S.mode==='mirror'){if(x<W/2)a=Math.PI-a;if(y<H/2)a=-a}return a}
+function frame(){if(running){t++;if(S.tf>0){g.fillStyle=PALS[S.pal][0];g.globalAlpha=S.tf/400;g.fillRect(0,0,W,H);g.globalAlpha=1}
+ g.lineWidth=S.sw;g.lineCap='round';g.globalAlpha=.55;for(const p of parts){const a=angle(p.x,p.y),nx=p.x+Math.cos(a)*S.sp,ny=p.y+Math.sin(a)*S.sp;g.strokeStyle=p.c;g.beginPath();g.moveTo(p.x,p.y);g.lineTo(nx,ny);g.stroke();p.x=nx;p.y=ny;p.life--;
+  if(p.life<0||nx<-10||ny<-10||nx>W+10||ny>H+10){p.x=Math.random()*W;p.y=Math.random()*H;p.life=100+Math.random()*400}}g.globalAlpha=1;
+ if(mouse.down&&V[0].hidden===false)spawn(20,mouse.x,mouse.y);if(parts.length>S.pc*1.6)parts.splice(0,parts.length-S.pc*1.6)}requestAnimationFrame(frame)}
+
+/* ---------- UI ---------- */
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'studio';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('.tabs a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='gallery')renderGallery();if(id==='about')demo()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const ids=['ns','cu','ev','pc','sp','sw','tf'];
+function syncUI(){ids.forEach(k=>{document.getElementById(k).value=S[k];document.getElementById(k+'O').textContent=S[k]});document.getElementById('seed').value=S.seed;document.querySelectorAll('#pals button').forEach((b,i)=>b.classList.toggle('on',i===S.pal));document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('on',b.dataset.m===S.mode))}
+ids.forEach(k=>document.getElementById(k).oninput=e=>{S[k]=+e.target.value;document.getElementById(k+'O').textContent=S[k];if(k==='pc'){if(parts.length<S.pc)spawn(S.pc-parts.length);else parts.length=S.pc}});
+document.getElementById('pals').innerHTML=PALS.map(([bg,cs],i)=>`<button style="background:linear-gradient(90deg,${bg} 30%,${cs.map((c,k)=>`${c} ${30+k*70/cs.length}% ${30+(k+1)*70/cs.length}%`).join(',')})" data-p="${i}"></button>`).join('');
+document.getElementById('pals').onclick=e=>{const p=e.target.dataset.p;if(p==null)return;S.pal=+p;parts.forEach(q=>q.c=PALS[S.pal][1][Math.random()*PALS[S.pal][1].length|0]);clearArt();syncUI()};
+document.getElementById('modes').onclick=e=>{const m=e.target.dataset.m;if(!m)return;S.mode=m;clearArt();syncUI()};
+document.getElementById('seed').onchange=e=>{S.seed=parseInt(e.target.value)||1;reseed(S.seed);clearArt()};
+document.getElementById('dice').onclick=()=>{S.seed=Math.random()*1e5|0;reseed(S.seed);clearArt();syncUI()};
+document.getElementById('clear').onclick=clearArt;
+document.getElementById('pause').onclick=e=>{running=!running;e.target.textContent=running?'Pause':'Resume'};
+document.getElementById('dl').onclick=()=>{const a=document.createElement('a');a.download=`field-${S.seed}.png`;a.href=cv.toDataURL('image/png');a.click()};
+function toggleUI(){document.querySelectorAll('.panel,.bar,.hint').forEach(el=>el.style.visibility=el.style.visibility==='hidden'?'':'hidden')}
+document.getElementById('hide').onclick=toggleUI;addEventListener('keydown',e=>{if(e.key.toLowerCase()==='h'&&document.activeElement.tagName!=='INPUT')toggleUI()});
+cv.addEventListener('pointerdown',e=>{mouse.down=true;mouse.x=e.clientX;mouse.y=e.clientY});addEventListener('pointerup',()=>mouse.down=false);cv.addEventListener('pointermove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
+
+/* gallery */
+const PRESETS=[['Silk',{ns:22,cu:1.2,ev:2,pc:3000,sp:1.2,sw:.6,tf:2,pal:1,mode:'flow',seed:77}],['Storm',{ns:6,cu:5,ev:10,pc:4000,sp:2.4,sw:.5,tf:10,pal:0,mode:'flow',seed:913}],['Ink',{ns:30,cu:2,ev:0,pc:1500,sp:1,sw:1.4,tf:0,pal:2,mode:'flow',seed:5}],['Kaleido',{ns:12,cu:3,ev:4,pc:3000,sp:1.6,sw:.8,tf:4,pal:5,mode:'mirror',seed:2024}],['Vortex',{ns:18,cu:1.5,ev:3,pc:3500,sp:2,sw:.7,tf:6,pal:4,mode:'orbit',seed:31}],['Chalk',{ns:40,cu:4,ev:1,pc:1200,sp:1.2,sw:2,tf:1,pal:3,mode:'flow',seed:666}]];
+const snaps=[];
+function thumb(cfg){const c=document.createElement('canvas');c.width=320;c.height=200;const x=c.getContext('2d');const save=P.slice();reseed(cfg.seed);x.fillStyle=PALS[cfg.pal][0];x.fillRect(0,0,320,200);x.globalAlpha=.5;x.lineWidth=Math.max(.4,cfg.sw*.6);
+ for(let i=0;i<500;i++){let px=Math.random()*320,py=Math.random()*200;x.strokeStyle=PALS[cfg.pal][1][i%PALS[cfg.pal][1].length];x.beginPath();x.moveTo(px,py);for(let k=0;k<50;k++){let X=px,Y=py;if(cfg.mode==='mirror'){X=Math.abs(px-160);Y=Math.abs(py-100)}let a=noise(X*2.5/(cfg.ns*40),Y*2.5/(cfg.ns*40),0)*Math.PI*2*cfg.cu;if(cfg.mode==='orbit')a=a*.35+(Math.atan2(py-100,px-160)+Math.PI/2)*.65;if(cfg.mode==='mirror'){if(px<160)a=Math.PI-a;if(py<100)a=-a}px+=Math.cos(a)*1.5;py+=Math.sin(a)*1.5;x.lineTo(px,py)}x.stroke()}P=save;return c}
+function renderGallery(){const gr=document.getElementById('grid');gr.innerHTML='';snaps.forEach(([n,cfg,url])=>{const d=document.createElement('div');d.className='shot';d.innerHTML=`<img src="${url}"><span>${n}</span>`;d.onclick=()=>load(cfg);gr.appendChild(d)});
+ PRESETS.forEach(([n,cfg])=>{const d=document.createElement('div');d.className='shot';d.appendChild(thumb(cfg));d.insertAdjacentHTML('beforeend',`<span>preset · ${n}</span>`);d.onclick=()=>load(cfg);gr.appendChild(d)})}
+function load(cfg){S={...S,...cfg};reset();clearArt();syncUI();go('studio')}
+document.getElementById('snap').onclick=()=>{const c=document.createElement('canvas');c.width=640;c.height=400;c.getContext('2d').drawImage(cv,0,0,640,400);snaps.unshift([`snapshot #${snaps.length+1}`,{...S},c.toDataURL('image/jpeg',.85)]);const b=document.getElementById('snap');b.textContent='✓ Saved — see Gallery';setTimeout(()=>b.textContent='◉ Snapshot to gallery',1500)};
+
+/* about demo */
+let demoT=null;function demo(){const c=document.getElementById('demo'),x=c.getContext('2d');let mx=350,my=150;c.onmousemove=e=>{const r=c.getBoundingClientRect();mx=(e.clientX-r.left)/r.width*700;my=(e.clientY-r.top)/r.height*300};cancelAnimationFrame(demoT);let tt=0;
+ (function d(){tt++;x.fillStyle='#0d0d12';x.fillRect(0,0,700,300);for(let i=10;i<700;i+=25)for(let j=10;j<300;j+=25){const a=noise(i/200,j/200,tt*.003)*Math.PI*2*S.cu;const dd=Math.hypot(i-mx,j-my);x.strokeStyle=`rgba(233,233,238,${dd<120?.9:.25})`;x.beginPath();x.moveTo(i,j);x.lineTo(i+Math.cos(a)*10,j+Math.sin(a)*10);x.stroke();x.fillStyle=x.strokeStyle;x.fillRect(i+Math.cos(a)*10-1,j+Math.sin(a)*10-1,2,2)}
+  let px=mx,py=my;x.strokeStyle='#ffd93d';x.lineWidth=2.5;x.beginPath();x.moveTo(px,py);for(let k=0;k<160;k++){const a=noise(px/200,py/200,tt*.003)*Math.PI*2*S.cu;px+=Math.cos(a)*3;py+=Math.sin(a)*3;x.lineTo(px,py)}x.stroke();x.lineWidth=1;x.fillStyle='#ff6b6b';x.beginPath();x.arc(mx,my,5,0,7);x.fill();if(!V[2].hidden)demoT=requestAnimationFrame(d)})()}
+
+addEventListener('resize',size);reseed(S.seed);size();syncUI();reset();frame();go(location.hash.slice(1));
+setTimeout(()=>document.getElementById('hint').style.opacity=0,6000);document.getElementById('hint').style.transition='opacity 1s';
+</script>
+</body>
+</html>

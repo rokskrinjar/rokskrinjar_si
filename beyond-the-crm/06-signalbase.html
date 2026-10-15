@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Signalbase — Account intent</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{color-scheme:dark;--surface:#111111;--bg:#070707;--ink:#f2f0f7;--ink2:#b9b5c6;--ink3:#7d798a;--grid:#232129;--s1:#9085e9;--s2:#d95926;--s3:#199e70;--s4:#3987e5;--s5:#d55181;--q1:#1f1b38;--q2:#2e2760;--q3:#4a3fa0;--q4:#6d61d6;--q5:#9085e9;--q6:#c3bcf5;--qhi:#0f0c1f;--qlo:#e6e2f6;--pos:#9085e9;--neg:#e66767;--good:#3ccf8e;--warn:#e0a63a;--bad:#ff6b6b;--cur:"$";--tipbg:#f2f0f7;--tipfg:#0b0b0b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Space Grotesk',sans-serif;display:grid;grid-template-columns:1fr 300px;min-height:100vh}
+.mono{font-family:'Space Mono',monospace}
+main{padding:22px 28px 70px;min-width:0}
+.hd{display:flex;align-items:center;gap:14px;margin-bottom:6px}.lg{font-weight:700;font-size:20px;display:flex;align-items:center;gap:10px}.lg i{width:26px;height:26px;border:2px solid var(--s1);border-radius:50%;position:relative}.lg i::after{content:'';position:absolute;inset:5px;border-radius:50%;background:var(--s1);animation:p 1.8s infinite}@keyframes p{50%{transform:scale(.5);opacity:.5}}
+h1{font-size:30px;margin:4px 0 14px;letter-spacing:-.02em;font-weight:600}
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}.tabs button{border:1px solid var(--grid);background:transparent;color:var(--ink2);border-radius:8px;padding:8px 14px;font:600 13px 'Space Grotesk';cursor:pointer}.tabs button.on{background:var(--s1);border-color:var(--s1);color:#0b0b0b}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
+.kpi{border:1px solid var(--grid);border-radius:12px;padding:14px;background:var(--surface)}.kpi .l{font:400 11px 'Space Mono';color:var(--ink3);text-transform:uppercase}.kpi .v{font-size:28px;font-weight:600;letter-spacing:-.02em}.kpi .d{font-size:12px}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border:1px solid var(--grid);border-radius:14px;padding:16px 18px;min-width:0}.card h3{margin:0;font-size:15px;font-weight:600}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 12px}
+aside{border-left:1px solid var(--grid);padding:22px 20px;background:#0b0b0d;position:sticky;top:0;height:100vh;overflow:auto}
+aside h4{font:400 11px 'Space Mono';color:var(--ink3);text-transform:uppercase;letter-spacing:.08em;margin:18px 0 8px}
+.opt{display:flex;flex-direction:column;gap:4px}.opt button{text-align:left;border:1px solid var(--grid);background:transparent;color:var(--ink2);border-radius:8px;padding:8px 10px;font:500 13px 'Space Grotesk';cursor:pointer}.opt button.on{border-color:var(--s1);color:var(--ink);background:#1a1730}
+.feed div{border-left:2px solid var(--s1);padding:4px 0 4px 10px;margin-bottom:10px;font-size:12.5px;color:var(--ink2)}.feed b{color:var(--ink);font-weight:600}.feed span{display:block;font:400 11px 'Space Mono';color:var(--ink3)}
+.score{display:inline-block;min-width:34px;text-align:center;font:400 12px 'Space Mono';padding:2px 6px;border-radius:5px;background:#1d1a33;color:#c3bcf5}
+@media(max-width:1100px){body{grid-template-columns:1fr}aside{position:static;height:auto;border-left:0;border-top:1px solid var(--grid)}.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}}@media(max-width:640px){main{padding:16px}.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<main><div class="hd"><div class="lg"><i></i>Signalbase</div><span style="color:var(--ink3)">Account-based intelligence · Fernway</span></div>
+ <h1 id="ttl">Who’s in market right now</h1>
+ <nav class="tabs"><button data-sheet="accounts">Target accounts</button><button data-sheet="intent">Intent topics</button><button data-sheet="engage">Engagement</button><button data-sheet="committee">Buying committee</button><button data-sheet="journey">Account journey</button></nav>
+ <section data-panel="accounts"><div class="kpis" id="k1"></div>
+  <div class="g g21"><div class="card"><h3>Fit vs. intent</h3><p class="sub">Fit from firmographics (Clearbit); intent from Bombora surges + G2 category views + your site</p><div id="c_q"></div></div><div class="card"><h3>Accounts by stage</h3><p class="sub">Signalbase account stage</p><div id="c_stage"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Hot accounts without an open opportunity</h3><p class="sub">Ranked by combined score. These are worth a sequence today.</p><div id="t_hot"></div></div></section>
+ <section data-panel="intent" hidden>
+  <div class="card"><h3>Research topics surging across your target list</h3><p class="sub">Weekly Bombora composite score (0–100) · accounts in tier 1–2</p><div id="c_top"></div></div>
+  <div class="g g2" style="margin-top:14px"><div class="card"><h3>G2 category activity</h3><p class="sub">Accounts viewing your category, competitors, or comparison pages</p><div id="c_g2"></div></div><div class="card"><h3>Competitor research share</h3><p class="sub">Of accounts comparing vendors this period</p><div id="c_comp"></div></div></div></section>
+ <section data-panel="engage" hidden><div class="kpis" id="k3"></div>
+  <div class="card"><h3>Engaged minutes from target accounts</h3><p class="sub">De-anonymised site visits, email, ads, events — rolled up to the account</p><div id="c_eng"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Most engaged accounts this period</h3><p class="sub">Click a header to sort</p><div id="t_eng"></div></div></section>
+ <section data-panel="committee" hidden>
+  <div class="g g2"><div class="card"><h3>Buying-committee coverage</h3><p class="sub">Tier-1 accounts: share where we have an engaged contact in each role</p><div id="c_cov"></div></div><div class="card"><h3>Opportunity win rate by roles engaged</h3><p class="sub">Closed opportunities, last 12 months</p><div id="c_roles"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Gaps to close on open opportunities</h3><p class="sub">Salesforce OpportunityContactRole vs. LinkedIn org chart</p><div id="t_gap"></div></div></section>
+ <section data-panel="journey" hidden>
+  <div class="card"><h3>How target accounts moved this quarter</h3><p class="sub">Stage at start of quarter → stage today</p><div id="c_sk"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Accounts moved forward, by touch</h3><p class="sub">Last touch before the stage change</p><div id="c_mv"></div></div></section>
+</main>
+<aside><h4>Period</h4><div class="opt"><button data-f="range" data-v="30d">Last 30 days</button><button data-f="range" data-v="90d" class="on">This quarter</button><button data-f="range" data-v="12m">12 months</button></div>
+ <h4>Target list</h4><div class="opt"><button data-f="list" data-v="all" class="on">All tiers (1,240)</button><button data-f="list" data-v="t1">Tier 1 · named (180)</button><button data-f="list" data-v="fin">Financial services (310)</button></div>
+ <h4>Live signals</h4><div class="feed"><div><b>Halden Bank</b> 6 people researching “SOC 2 automation”<span>2 min ago · Bombora</span></div><div><b>Velo Mobility</b> viewed pricing 3× today<span>14 min ago · website</span></div><div><b>Ashgrove Health</b> compared you vs. Rivalry on G2<span>1 h ago · G2</span></div><div><b>Orbis Retail</b> new VP Operations hired<span>3 h ago · LinkedIn</span></div><div><b>Pellucid AI</b> opened 4 emails in a row<span>yesterday · HubSpot</span></div></div>
+ <h4>Connected</h4><div style="font:400 11.5px/1.9 'Space Mono';color:var(--ink3)">● Salesforce · ● HubSpot<br>● Bombora · ● G2 Buyer Intent<br>● Clearbit Reveal · ● LinkedIn</div></aside>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const ACC=['Halden Bank','Velo Mobility','Ashgrove Health','Orbis Retail','Pellucid AI','Fjord Energy','Stonebridge Law','Marlow Foods','Tessera Labs','Northbeam','Calder Labs','Mintworth','Oskar Freight','Harrow & Vale','Kilnworks','Lumen Studio','Quanta Geo','Corvid Games','Brightline Insurance','Norra Pensions','Cobalt Payments','Arden Mutual'];
+const TT={accounts:'Who’s in market right now',intent:'What they’re researching',engage:'Who’s paying attention',committee:'Who’s in the room',journey:'Who moved forward'};
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const f={all:1,t1:.145,fin:.25}[F.list];const m=F.range==='12m'?3:F.range==='30d'?.4:1;
+ const acc=ACC.map((a,i)=>{const fit=40+r()*60,intent=10+r()*90*(F.list==='t1'?1.1:1);return{a,fit,intent,score:Math.round(fit*.45+intent*.55),eng:Math.round((20+r()*400)*m),vis:Math.round(1+r()*14),opp:r()<.35,stage:K.pick(r,['Unaware','Aware','Engaged','Engaged','Qualified']),top:K.pick(r,['SOC 2 automation','Revenue analytics','Data governance','AI copilots','Workflow automation'])}});
+ return memo[k]={r,f,m,acc,L:K.periods(F.range)}}
+const S={range:'90d',list:'all'};
+const views={
+accounts(F){$('ttl').textContent=TT.accounts;const D=data(F);const hot=D.acc.filter(a=>a.fit>60&&a.intent>60);
+ K.kpis($('k1'),[{label:'Accounts in market',value:K.int(310*D.f),delta:.22},{label:'Hot (fit & intent)',value:K.int(hot.length*6*D.f+hot.length)},{label:'Without an open opp',value:K.int(hot.filter(a=>!a.opp).length*5*D.f+2)},{label:'Pipeline from hot accounts',value:K.money(4.8e6*D.f*D.m)},{label:'Win rate · hot vs. cold',value:'31% vs 9%'}]);
+ K.scatter($('c_q'),{points:D.acc.map(a=>({x:a.fit,y:a.intent,g:a.opp?1:0,label:a.a,tag:a.fit>80&&a.intent>80,extra:[['Top topic',a.top]]})),groups:['No open opp','Open opportunity'],xfmt:v=>Math.round(v),yfmt:v=>Math.round(v),xLabel:'Fit score',yLabel:'Intent score',h:320,xMax:100,yMax:100,quad:{x:60,y:60,labels:[['Act now',1,1]]}});
+ const st=['Unaware','Aware','Engaged','Qualified','Opportunity'];K.bars($('c_stage'),{labels:st,series:[{name:'Accounts',data:[540,380,210,74,36].map(v=>Math.round(v*D.f))}],fmt:K.int,h:320});
+ K.table($('t_hot'),{cols:[{k:'a',label:'Account'},{k:'score',label:'Score',align:'r',render:v=>{const s=document.createElement('span');s.className='score';s.textContent=v;return s}},{k:'fit',label:'Fit',align:'r',fmt:v=>Math.round(v)},{k:'intent',label:'Intent',align:'r',fmt:v=>Math.round(v),bar:true},{k:'top',label:'Top topic'},{k:'vis',label:'Visitors',align:'r'}],rows:D.acc.filter(a=>!a.opp),sort:'score',limit:10})},
+intent(F){$('ttl').textContent=TT.intent;const D=data(F);const T=['SOC 2 automation','Revenue analytics','Data governance','AI copilots','Workflow automation','Vendor risk','CRM migration'];const W=['W27','W28','W29','W30','W31','W32','W33','W34','W35','W36','W37','W38','W39'];const r=K.rng(K.seed(F,'it'));
+ K.heat($('c_top'),{rows:T,cols:W,data:T.map((t,i)=>W.map((w,j)=>Math.min(100,30+i*3+(i===0||i===3?j*4:j*(r()-.3)*3)+r()*20))),fmt:v=>Math.round(v),cell:26});
+ K.bars($('c_g2'),{labels:D.L,series:[{name:'Category views',data:K.series(r,D.L.length,60*D.f+8,{trend:.4,noise:.2})},{name:'Your profile',data:K.series(r,D.L.length,24*D.f+3,{trend:.5,noise:.25})},{name:'Comparisons',data:K.series(r,D.L.length,14*D.f+2,{trend:.6,noise:.3})}],stacked:true,fmt:K.int,h:250});
+ K.donut($('c_comp'),{items:[{name:'Rivalry',value:38},{name:'Ledgerly',value:24},{name:'Mosaic Data',value:17},{name:'Homegrown / spreadsheets',value:21}],fmt:v=>v+'%'})},
+engage(F){$('ttl').textContent=TT.engage;const D=data(F);const n=D.L.length;
+ K.kpis($('k3'),[{label:'Engaged accounts',value:K.int(420*D.f*Math.sqrt(D.m))},{label:'Engaged minutes',value:K.num(K.sum(D.acc.map(a=>a.eng))*12*D.f)},{label:'Known visitors',value:K.num(1840*D.f*D.m)},{label:'Ad reach (tier 1)',value:'82%'},{label:'Avg contacts / account',value:'3.4'}]);
+ K.line($('c_eng'),{labels:D.L,series:[{name:'Website',data:K.series(D.r,n,2400*D.f,{noise:.15,trend:.2})},{name:'Email',data:K.series(D.r,n,1300*D.f,{noise:.2})},{name:'Ads',data:K.series(D.r,n,900*D.f,{noise:.15,trend:.1})},{name:'Events',data:K.series(D.r,n,500*D.f,{noise:.5})}],stacked:true,fmt:K.num,h:270});
+ K.table($('t_eng'),{cols:[{k:'a',label:'Account'},{k:'eng',label:'Engaged min',align:'r',bar:true},{k:'vis',label:'People',align:'r'},{k:'stage',label:'Stage'},{k:'top',label:'Hottest topic'},{k:'opp',label:'Open opp',render:v=>v?'✓ yes':'— no'}],rows:D.acc,sort:'eng',limit:10})},
+committee(F){$('ttl').textContent=TT.committee;const D=data(F);
+ K.bars($('c_cov'),{labels:['Economic buyer','Champion','Technical evaluator','End user','Procurement','Security / legal'],series:[{name:'Coverage',data:[.34,.71,.58,.82,.19,.27]}],fmt:v=>K.pct(v,0),horizontal:true,h:270});
+ K.bars($('c_roles'),{labels:['1 role','2 roles','3 roles','4 roles','5+ roles'],series:[{name:'Win rate',data:[.07,.14,.24,.33,.41]}],fmt:v=>K.pct(v,0),h:270});
+ const r=K.rng(K.seed(F,'cm'));K.table($('t_gap'),{cols:[{k:'a',label:'Opportunity'},{k:'amt',label:'ACV',align:'r',fmt:K.money},{k:'have',label:'Roles engaged',align:'r'},{k:'miss',label:'Missing'},{k:'sug',label:'Suggested contact'}],rows:D.acc.filter(a=>a.opp).map(a=>({a:a.a,amt:(40e3+r()*240e3),have:1+Math.floor(r()*3),miss:K.pick(r,['Economic buyer','Security','Procurement','Economic buyer, Security']),sug:K.pick(r,['CFO — Ingrid S.','CISO — Marco T.','Head of Procurement — Lea V.','VP Finance — Tom H.'])})),sort:'amt'})},
+journey(F){$('ttl').textContent=TT.journey;const D=data(F);const s=v=>Math.round(v*D.f);
+ K.sankey($('c_sk'),{nodes:[['u0','Unaware',0,0],['a0','Aware',0,1],['e0','Engaged',0,2],['u1','Unaware',1,0],['a1','Aware',1,1],['e1','Engaged',1,2],['q1','Qualified',1,3],['o1','Opportunity',1,4]],links:[['u0','u1',s(420)],['u0','a1',s(150)],['u0','e1',s(30)],['a0','a1',s(220)],['a0','e1',s(120)],['a0','q1',s(25)],['e0','e1',s(80)],['e0','q1',s(55)],['e0','o1',s(30)],['e0','a1',s(20)]],h:330,fmt:K.int});
+ K.bars($('c_mv'),{labels:['Webinar','Sales email reply','Pricing page','Field event','LinkedIn ad','Case study'],series:[{name:'Accounts moved forward',data:[64,51,47,39,28,22].map(s)}],fmt:K.int,horizontal:true,h:240})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

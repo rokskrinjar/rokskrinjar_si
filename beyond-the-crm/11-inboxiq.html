@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inboxiq — Sequence analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Overpass+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#f7f7f4;--ink:#141714;--ink2:#4a504a;--ink3:#7f867f;--grid:#ebece6;--s1:#0d9488;--s2:#9333ea;--s3:#ea580c;--s4:#2563eb;--s5:#ca8a04;--q1:#d5f1ee;--q2:#a8e3dc;--q3:#6ccdc1;--q4:#27b0a1;--q5:#0d9488;--q6:#0b6b62;--pos:#0d9488;--neg:#c93a39;--good:#0f7a52;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Hanken Grotesk',sans-serif;display:grid;grid-template-columns:76px 1fr;min-height:100vh}
+.mono{font-family:'Overpass Mono',monospace}
+nav.rail{background:var(--surface);border-right:1px solid var(--grid);display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:6px;position:sticky;top:0;height:100vh}
+.rail .lg{width:40px;height:40px;border-radius:12px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800;margin-bottom:14px}
+.rail button{width:62px;border:0;background:transparent;border-radius:12px;padding:8px 2px;font:600 10.5px 'Hanken Grotesk';color:var(--ink3);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}.rail button i{font-style:normal;font-size:18px}.rail button.on{background:#e5f4f2;color:var(--s1)}
+main{padding:20px 30px 70px;min-width:0}
+.hd{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+h1{font-size:28px;margin:0;font-weight:800;letter-spacing:-.02em}.hd p{margin:2px 0 0;color:var(--ink3)}
+.src{font:400 11.5px 'Overpass Mono';color:var(--ink3)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.filters select{border:1px solid #dcdfd8;border-radius:10px;padding:7px 10px;font:600 13px 'Hanken Grotesk';background:#fff}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:14px}
+.kpi{background:var(--surface);border:1px solid var(--grid);border-radius:14px;padding:13px 15px}.kpi .l{font-size:12px;color:var(--ink3);font-weight:600}.kpi .v{font-size:24px;font-weight:800;letter-spacing:-.02em}.kpi .d{font-size:12px;font-weight:700}.kpi .s{font-size:11.5px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border:1px solid var(--grid);border-radius:16px;padding:18px 20px;min-width:0}.card h3{margin:0;font-size:15px;font-weight:800}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.steps{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}.st{flex:1;min-width:130px;border:1px solid var(--grid);border-radius:12px;padding:12px;position:relative}.st .n{font:600 11px 'Overpass Mono';color:var(--ink3)}.st b{display:block;font-size:13.5px;margin:2px 0 8px}.st .m{display:flex;justify-content:space-between;font-size:12px;color:var(--ink2)}.st .bar{height:5px;background:var(--grid);border-radius:3px;margin-top:6px}.st .bar i{display:block;height:100%;background:var(--s1);border-radius:3px}
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ab div{border:1px solid var(--grid);border-radius:12px;padding:14px}.ab .w{border-color:var(--s1);background:#f0faf8}.ab small{color:var(--ink3);font:600 11px 'Overpass Mono'}.ab p{margin:6px 0;font-weight:600}.ab b{font-size:22px}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}}@media(max-width:700px){body{grid-template-columns:1fr}nav.rail{position:static;height:auto;flex-direction:row;overflow-x:auto}main{padding:16px}.kpis{grid-template-columns:1fr 1fr}.ab{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="rail"><div class="lg">iq</div><button data-sheet="overview"><i>◉</i>Overview</button><button data-sheet="seq"><i>≡</i>Sequences</button><button data-sheet="steps"><i>⇣</i>Steps</button><button data-sheet="timing"><i>◷</i>Timing</button><button data-sheet="deliv"><i>✉</i>Deliver-ability</button></nav>
+<main><div class="hd"><div><h1 id="ttl">Outbound overview</h1><p>Sequences across Outreach, Salesloft and HubSpot — tied to the meetings and pipeline they produced</p></div><span class="src">Outreach · Salesloft · HubSpot Sequences · Gmail/O365 headers · Salesforce · Chili Piper</span></div>
+ <div class="filters"><select data-f="range"><option value="30d">Last 30 days</option><option value="90d" selected>Last quarter</option><option value="12m">Last 12 months</option></select><select data-f="team"><option value="all">All senders</option><option value="sdr">SDR team</option><option value="ae">Account executives</option></select><select data-f="persona"><option value="all">All personas</option><option value="fin">Finance leaders</option><option value="ops">Ops leaders</option></select></div>
+ <section data-panel="overview"><div class="kpis" id="k1"></div>
+  <div class="g g21"><div class="card"><h3>Emails sent and replies</h3><p class="sub">Positive reply = classified as interested, referral or meeting request</p><div id="c_tr"></div></div><div class="card"><h3>Replies by sentiment</h3><p class="sub">Classified by Inboxiq from reply text</p><div id="c_sent"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>From email to revenue</h3><p class="sub">Contacts enrolled → replied → meeting held (Chili Piper/Calendar) → opportunity → won</p><div id="c_fun"></div></div></section>
+ <section data-panel="seq" hidden><div class="card"><h3>Sequence leaderboard</h3><p class="sub">Every active sequence, with the pipeline it generated</p><div id="t_seq"></div></div>
+  <div class="card" style="margin-top:14px"><h3>A/B test: “Fin leaders — Q4 cold” step 1 subject line</h3><p class="sub">2,140 sends per variant · 97% confidence</p><div class="ab"><div class="w"><small>VARIANT A · WINNER</small><p>“Quick question about {{company}}’s close process”</p><b>9.8%</b> reply · 3.1% positive</div><div><small>VARIANT B</small><p>“How Calder cut month-end close to 2 days”</p><b>6.4%</b> reply · 1.9% positive</div></div></div></section>
+ <section data-panel="steps" hidden><div class="card"><h3>Where replies come from in a sequence</h3><p class="sub" id="stsub"></p><div class="steps" id="steps"></div></div>
+  <div class="g g2" style="margin-top:14px"><div class="card"><h3>Reply rate by step type</h3><p class="sub">All sequences</p><div id="c_type"></div></div><div class="card"><h3>Personalisation pays</h3><p class="sub">Reply rate by personalisation level (detected from merge fields vs. custom text)</p><div id="c_pers"></div></div></div></section>
+ <section data-panel="timing" hidden><div class="card"><h3>Positive reply rate by send time</h3><p class="sub">Recipient’s local time zone · darker = better</p><div id="c_hm"></div></div>
+  <div class="g g2" style="margin-top:14px"><div class="card"><h3>Days to first reply</h3><p class="sub">From enrolment</p><div id="c_dtr"></div></div><div class="card"><h3>Optimal cadence</h3><p class="sub">Positive reply rate by gap between touches</p><div id="c_gap"></div></div></div></section>
+ <section data-panel="deliv" hidden><div class="kpis" id="k5"></div>
+  <div class="card"><h3>Deliverability trend</h3><p class="sub">Bounces and spam-folder placement from seed tests and SMTP headers</p><div id="c_dl"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Sending domains & mailboxes</h3><p class="sub">Warm-up status and daily volume per mailbox</p><div id="t_mb"></div></div></section>
+</main>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const TT={overview:'Outbound overview',seq:'Sequences',steps:'Step performance',timing:'Timing',deliv:'Deliverability'};
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const m=F.range==='12m'?4:F.range==='30d'?.34:1;const f={all:1,sdr:.72,ae:.28}[F.team]*{all:1,fin:.45,ops:.55}[F.persona];const L=K.periods(F.range);const n=L.length;
+ const sent=K.series(r,n,48000*m*f/n,{noise:.1,trend:.1}),rep=sent.map(s=>s*(.052+r()*.012)),pos=rep.map(x=>x*(.33+r()*.08));return memo[k]={r,m,f,L,n,sent,rep,pos}}
+const S={range:'90d',team:'all',persona:'all'};
+const views={
+overview(F){$('ttl').textContent=TT.overview;const D=data(F);const s=K.sum(D.sent),rp=K.sum(D.rep),p=K.sum(D.pos);
+ K.kpis($('k1'),[{label:'Emails sent',value:K.num(s)},{label:'Reply rate',value:K.pct(rp/s),delta:.004,deltaText:'0.4 pts'},{label:'Positive replies',value:K.num(p)},{label:'Meetings held',value:K.num(p*.62),delta:.11},{label:'Pipeline',value:K.money(p*.62*.34*48000)},{label:'Emails per meeting',value:Math.round(s/(p*.62))+''}]);
+ K.line($('c_tr'),{labels:D.L,series:[{name:'Replies',data:D.rep},{name:'Positive replies',data:D.pos,slot:2}],fmt:K.num,h:260});
+ K.donut($('c_sent'),{items:[{name:'Interested / meeting',value:p},{name:'Referral to colleague',value:rp*.07},{name:'Not now',value:rp*.31},{name:'Not interested',value:rp*.19},{name:'Out of office',value:rp*.12}],fmt:K.num,center:{value:K.num(rp),label:'replies'}});
+ K.funnel($('c_fun'),{steps:[['Enrolled',s/3.4],['Replied',rp],['Positive',p],['Meeting held',p*.62],['Opportunity',p*.62*.34],['Won',p*.62*.34*.22]].map(x=>[x[0],Math.round(x[1])])})},
+seq(F){$('ttl').textContent=TT.seq;const D=data(F);const r=K.rng(K.seed(F,'s'));const SQ=['Fin leaders — Q4 cold','Ops leaders — AI ops','Webinar follow-up','Trial users → sales','Competitor displacement','Event: SaaStr booth','Re-engage closed-lost','Champion moved jobs'];
+ K.table($('t_seq'),{cols:[{k:'n',label:'Sequence'},{k:'tool',label:'Tool'},{k:'en',label:'Enrolled',align:'r',fmt:K.int},{k:'rr',label:'Reply',align:'r',fmt:v=>K.pct(v)},{k:'pr',label:'Positive',align:'r',fmt:v=>K.pct(v)},{k:'mt',label:'Meetings',align:'r',fmt:K.int},{k:'pipe',label:'Pipeline',align:'r',fmt:K.money,bar:true},{k:'unsub',label:'Opt-out',align:'r',fmt:v=>K.pct(v)}],rows:SQ.map((n,i)=>{const en=Math.round((200+r()*1800)*D.m*D.f);const rr=[.052,.061,.12,.15,.044,.18,.071,.21][i]*(.9+r()*.2);const pr=rr*(.28+r()*.15);const mt=Math.round(en*pr*.6);return{n,tool:['Outreach','Outreach','HubSpot','HubSpot','Salesloft','Outreach','Salesloft','Outreach'][i],en,rr,pr,mt,pipe:mt*.34*48000,unsub:.004+r()*.012}}),sort:'pipe'})},
+steps(F){$('ttl').textContent=TT.steps;const D=data(F);const ST=[['Email','Intro + one question',.031],['LinkedIn','Connect, no pitch',.012],['Email','Case study',.017],['Call','Talk track: close process',.024],['Email','3-minute version',.011],['LinkedIn','Comment on post',.006],['Email','Breakup',.021]];$('stsub').textContent='“Fin leaders — Q4 cold” · 7 steps over 16 days · share of all positive replies by step';const tot=K.sum(ST.map(x=>x[2]));
+ $('steps').innerHTML=ST.map((x,i)=>`<div class="st"><span class="n">STEP ${i+1} · DAY ${[1,2,4,6,9,12,16][i]} · ${x[0].toUpperCase()}</span><b>${x[1]}</b><div class="m"><span>${K.pct(x[2])} reply</span><span>${K.pct(x[2]/tot,0)} of replies</span></div><div class="bar"><i style="width:${x[2]/.031*100}%"></i></div></div>`).join('');
+ K.bars($('c_type'),{labels:['Manual email','Auto email','Call','LinkedIn','Video message'],series:[{name:'Reply rate',data:[.071,.038,.046,.022,.083]}],fmt:v=>K.pct(v),h:240});
+ K.bars($('c_pers'),{labels:['Template only','Merge fields','1 custom line','Fully custom first line'],series:[{name:'Reply rate',data:[.024,.036,.061,.094]},{name:'Positive rate',data:[.006,.010,.021,.035]}],fmt:v=>K.pct(v),h:240})},
+timing(F){$('ttl').textContent=TT.timing;const D=data(F);const r=K.rng(K.seed(F,'t'));const H=['7','8','9','10','11','12','13','14','15','16','17','18'];const DAY=['Mon','Tue','Wed','Thu','Fri'];
+ K.heat($('c_hm'),{rows:DAY,cols:H.map(h=>h+':00'),data:DAY.map((d,i)=>H.map((h,j)=>Math.max(.004,(.022-Math.abs(j-2.5)*.0016+(i===1||i===2?.004:0)-(i===4?.006:0)+(j===8?.003:0))*(.85+r()*.3)))),fmt:v=>K.pct(v,1),cell:30});
+ K.bars($('c_dtr'),{labels:['Same day','1 day','2–3 days','4–7 days','8–14 days','15+ days'],series:[{name:'Share of replies',data:[.22,.18,.21,.19,.13,.07]}],fmt:v=>K.pct(v,0),h:240});
+ K.line($('c_gap'),{labels:['1d','2d','3d','4d','5d','7d','10d'],series:[{name:'Positive reply rate',data:[.009,.013,.016,.015,.013,.011,.008]}],fmt:v=>K.pct(v,1),h:240})},
+deliv(F){$('ttl').textContent=TT.deliv;const D=data(F);
+ K.kpis($('k5'),[{label:'Inbox placement',value:'94.1%',delta:.012,deltaText:'1.2 pts'},{label:'Hard bounce',value:'1.8%',delta:-.004,goodDown:true,deltaText:'0.4 pts'},{label:'Spam folder',value:'3.2%'},{label:'Spam complaints',value:'0.04%'},{label:'Mailboxes',value:'38'},{label:'Domains',value:'6'}]);
+ K.line($('c_dl'),{labels:D.L,series:[{name:'Hard bounce',data:K.series(D.r,D.n,.022,{trend:-.3,noise:.1})},{name:'Spam folder',data:K.series(D.r,D.n,.041,{trend:-.25,noise:.12})},{name:'Unsubscribe',data:K.series(D.r,D.n,.007,{noise:.15})}],fmt:v=>K.pct(v,1),h:260});
+ const r=K.rng(K.seed(F,'mb'));K.table($('t_mb'),{cols:[{k:'mb',label:'Mailbox'},{k:'dom',label:'Domain'},{k:'vol',label:'Sends / day',align:'r',bar:true},{k:'pl',label:'Inbox placement',align:'r',fmt:v=>K.pct(v,0)},{k:'st',label:'Status'}],rows:['ana','ben','chloe','dev','elin','felix','grace','hugo'].map((n,i)=>({mb:n+'@'+(i%3===0?'fernway.com':i%3===1?'getfernway.com':'fernway.io'),dom:i%3===0?'fernway.com':i%3===1?'getfernway.com':'fernway.io',vol:Math.round(20+r()*60),pl:.86+r()*.13,st:i===5?'⚠ warming up (day 12)':i===3?'⚠ high bounce — check list':'✓ healthy'})),sort:'vol'})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

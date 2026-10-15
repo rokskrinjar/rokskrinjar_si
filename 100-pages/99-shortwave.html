@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shortwave — Voices in the Static</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Chivo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bak:#3a2418;--bak2:#241610;--amber:#ffb13b;--glow:#ffcf7a;--cream:#efe4cc;--green:#7cff9a;--dim:#efe4cc88}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#15100c;color:var(--cream);font-family:Chivo,sans-serif}
+a{color:inherit;text-decoration:none}button,input,textarea{font:inherit;cursor:pointer;color:inherit}
+.mono{font-family:'Share Tech Mono',monospace}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 4vw}
+.logo{font-weight:900;font-size:24px;letter-spacing:.24em;display:flex;align-items:center;gap:10px}
+.logo i{width:10px;height:10px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber)}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:7px 14px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);border-radius:4px}
+nav a.on{background:var(--amber);color:var(--bak2)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 4vw 60px}
+h2{font-weight:900;font-size:clamp(2rem,4.5vw,3.4rem);letter-spacing:-.01em}
+.sub{color:var(--dim);max-width:62ch;line-height:1.6;margin:8px 0 20px}
+/* radio */
+.set{background:linear-gradient(#4a3020,var(--bak) 30%,var(--bak2));border-radius:26px;padding:26px;box-shadow:0 30px 60px #000c,inset 0 2px 0 #ffffff18}
+.dial{position:relative;height:150px;background:radial-gradient(ellipse at 50% 120%,#ffcf7a55,#2a1a0a 70%),#1a0f08;border-radius:12px;border:4px solid #6a4a2a;overflow:hidden;cursor:ew-resize;touch-action:none}
+.scale{position:absolute;inset:0}
+.needle{position:absolute;top:0;bottom:0;width:3px;background:#e03a2a;box-shadow:0 0 8px #e03a2a;left:50%}
+.row{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;margin-top:20px}
+.grille{height:130px;border-radius:12px;background:repeating-linear-gradient(90deg,#1a0f08 0 4px,#6a4a2a 4px 7px)}
+.knob{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8a6a4a,#2a1a10);box-shadow:0 8px 16px #000a,inset 0 0 0 6px #1a0f08;position:relative;cursor:grab;touch-action:none}
+.knob::after{content:"";position:absolute;left:50%;top:10px;width:6px;height:26px;margin-left:-3px;background:var(--cream);border-radius:3px}
+.info{background:#0a0704;border-radius:10px;padding:14px;font-family:'Share Tech Mono';color:var(--green);min-height:130px;text-shadow:0 0 6px #7cff9a88;font-size:15px;line-height:1.5;overflow:hidden}
+.meter{height:16px;background:#0a0704;border-radius:4px;margin-top:10px;overflow:hidden;border:1px solid #6a4a2a}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,#7cff9a,#ffcf7a,#ff5a3a);transition:width .15s}
+.ctl{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;align-items:center}
+.btn{border:2px solid var(--amber);background:none;color:var(--amber);border-radius:30px;padding:8px 16px;font-weight:700;font-size:13px;letter-spacing:.08em}
+.btn.on{background:var(--amber);color:var(--bak2)}
+.presets{display:flex;gap:6px;flex-wrap:wrap}
+.presets button{border:1px solid #efe4cc33;background:none;border-radius:4px;padding:4px 8px;font-family:'Share Tech Mono';font-size:13px}
+/* morse */
+.morse{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.panel{background:#241610;border-radius:16px;padding:20px}
+.panel h3{font-weight:900;font-size:22px;margin-bottom:10px}
+textarea{width:100%;background:#0a0704;border:1px solid #6a4a2a;border-radius:8px;padding:12px;color:var(--green);font-family:'Share Tech Mono';font-size:18px;text-transform:uppercase;min-height:80px}
+.code{font-family:'Share Tech Mono';font-size:22px;color:var(--amber);word-break:break-all;margin:12px 0;min-height:2em;letter-spacing:.1em}
+.key{width:140px;height:80px;border-radius:12px;background:linear-gradient(#8a6a4a,#4a3020);border:0;box-shadow:0 8px 0 #1a0f08;margin:10px auto;display:block;font-weight:900;color:var(--cream);user-select:none}
+.key:active,.key.down{transform:translateY(6px);box-shadow:0 2px 0 #1a0f08}
+.chart{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px;margin-top:14px;font-family:'Share Tech Mono'}
+.chart div{background:#0a0704;border-radius:6px;padding:6px 8px;display:flex;justify-content:space-between;font-size:14px}
+.chart b{color:var(--amber)}
+/* qsl */
+.qsl{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.card{aspect-ratio:1.55;border-radius:6px;padding:16px;position:relative;overflow:hidden;box-shadow:0 10px 20px #0008;color:#1a0f08;transform:rotate(var(--r))}
+.card.locked{filter:grayscale(1) brightness(.35);}
+.card b{font-weight:900;font-size:34px;letter-spacing:.04em;display:block;line-height:1}
+.card small{font-family:'Share Tech Mono';font-size:12px;display:block}
+.card .stamp{position:absolute;right:14px;bottom:12px;border:3px solid currentColor;border-radius:50%;width:74px;height:74px;display:grid;place-items:center;text-align:center;font-size:10px;font-weight:900;transform:rotate(-14deg);opacity:.8}
+/* bands */
+.bands svg{width:100%;height:auto;display:block;background:#0a0704;border-radius:12px}
+.bl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+.bl div{background:#241610;border-left:4px solid var(--c);padding:10px 12px;font-size:14px;line-height:1.5}
+@media(max-width:860px){.row,.morse{grid-template-columns:1fr}.knob{margin:0 auto}}
+</style>
+</head>
+<body>
+<header><div class="logo"><i></i>SHORTWAVE</div><nav><a href="#radio">Receiver</a><a href="#morse">Morse Desk</a><a href="#qsl">QSL Cards</a><a href="#bands">Band Plan</a><a href="index.html">Index</a></nav></header>
+
+<section data-view="radio"><div class="wrap">
+ <h2>Voices in the static</h2>
+ <p class="sub">Drag the dial or turn the knob from 3 to 30 MHz. Between the hiss you'll find a time signal, a Morse beacon, a far-off concert and one very strange station that only sends numbers. Press Power first, because sound needs a click to start.</p>
+ <div class="set">
+  <div class="dial" id="dial"><svg class="scale" id="scale" viewBox="0 0 1000 150" preserveAspectRatio="none"></svg><div class="needle" id="needle"></div></div>
+  <div class="row"><div class="grille"></div><div class="knob" id="knob"></div><div><div class="info" id="info">RECEIVER OFF</div><div class="meter"><i id="sm" style="width:0"></i></div></div></div>
+  <div class="ctl"><button class="btn" id="power">⏻ Power</button><span class="mono" style="font-size:22px;color:var(--amber)" id="freq">—</span><span class="mono" style="color:var(--dim)">MHz</span><div class="presets" id="presets"></div></div>
+ </div>
+</div></section>
+
+<section data-view="morse" hidden><div class="wrap">
+ <h2>The Morse desk</h2><p class="sub">Type a message to hear it in Morse at 18 words per minute. Or tap the key yourself, and the decoder reads your dots and dashes.</p>
+ <div class="morse"><div class="panel"><h3>Send</h3><textarea id="mt" maxlength="60">CQ CQ DE SHORTWAVE</textarea><div class="code" id="mc"></div><button class="btn" id="mplay">▶ Transmit</button></div>
+  <div class="panel"><h3>Straight key</h3><button class="key" id="key">KEY</button><div class="code" id="kc"></div><div class="mono" style="font-size:28px;color:var(--green);min-height:1.4em" id="kd"></div><button class="btn" id="kclr">Clear</button></div></div>
+ <div class="chart" id="chart"></div>
+</div></section>
+
+<section data-view="qsl" hidden><div class="wrap">
+ <h2>QSL cards</h2><p class="sub">Radio stations send postcards to listeners who report hearing them. Tune in a station on the receiver to unlock its card.</p>
+ <div class="qsl" id="qslG"></div>
+</div></section>
+
+<section data-view="bands" hidden><div class="wrap">
+ <h2>The band plan</h2><p class="sub">The shortwave spectrum is split between broadcasters, radio amateurs, ships, aircraft and the odd mystery. Shortwave signals bounce off the ionosphere, so they can travel right around the planet.</p>
+ <div class="bands"><svg id="bsvg" viewBox="0 0 1000 260"></svg></div><div class="bl" id="bl"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'radio';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='qsl')qsl()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+const MORSE={A:'.-',B:'-...',C:'-.-.',D:'-..',E:'.',F:'..-.',G:'--.',H:'....',I:'..',J:'.---',K:'-.-',L:'.-..',M:'--',N:'-.',O:'---',P:'.--.',Q:'--.-',R:'.-.',S:'...',T:'-',U:'..-',V:'...-',W:'.--',X:'-..-',Y:'-.--',Z:'--..',0:'-----',1:'.----',2:'..---',3:'...--',4:'....-',5:'.....',6:'-....',7:'--...',8:'---..',9:'----.','/':'-..-.','?':'..--..'};
+const REV=Object.fromEntries(Object.entries(MORSE).map(([k,v])=>[v,k]));
+// stations
+const ST=[{f:5.0,id:'time',name:'WWV-style time signal',call:'TIME',txt:'Pulse every second, long tone on the minute',col:'#7cc0ff'},{f:7.039,id:'beacon',name:'Beacon "VVV DE Q1"',call:'Q1',txt:'Morse beacon: VVV VVV DE Q1 Q1',col:'#ffcf7a'},{f:9.51,id:'music',name:'Radio Aurora (Nordic service)',call:'RA',txt:'Folk music programme · "listening from far away"',col:'#ff8ac8'},{f:11.55,id:'numbers',name:'??? UNKNOWN',call:'E-17',txt:'Five-figure number groups, beeped out one digit at a time',col:'#7cff9a'},{f:14.23,id:'sstv',name:'Amateur SSTV',call:'SSTV',txt:'Slow-scan TV: an image arriving line by line',col:'#b89aff'},{f:21.8,id:'chirp',name:'Ionosonde sweep',call:'ION',txt:'A radar chirp that measures the ionosphere',col:'#ff7a5a'}];
+let found=new Set(store.get('sw-found',[]));
+let freq=9.2,AC=null,master,noiseG,sigG,cur=null,stationNodes=null,powered=false;
+const FMIN=3,FMAX=30,fx=f=>(f-FMIN)/(FMAX-FMIN)*1000;
+function scale(){let s='';for(let f=3;f<=30;f+=.5){const x=fx(f);const maj=f%1===0;s+=`<line x1="${x}" x2="${x}" y1="${maj?90:110}" y2="150" stroke="#ffcf7a" stroke-width="${maj?2:1}" opacity="${maj?.8:.4}"/>`;if(maj&&f%3===0)s+=`<text x="${x}" y="80" text-anchor="middle" fill="#ffcf7a" font-family="Share Tech Mono" font-size="18">${f}</text>`}
+ [['75m',3.9],['49m',6.0],['41m',7.3],['31m',9.6],['25m',11.8],['19m',15.3],['16m',17.7],['13m',21.6],['11m',25.8]].forEach(([l,f])=>s+=`<text x="${fx(f)}" y="30" text-anchor="middle" fill="#efe4cc66" font-family="Share Tech Mono" font-size="13">${l}</text>`);
+ ST.forEach(st=>s+=`<circle cx="${fx(st.f)}" cy="50" r="3" fill="${found.has(st.id)?st.col:'#efe4cc22'}"/>`);document.getElementById('scale').innerHTML=s}
+function ctx(){if(AC)return AC;AC=new AudioContext();master=AC.createGain();master.gain.value=.7;master.connect(AC.destination);const b=AC.createBuffer(1,AC.sampleRate*2,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;const n=AC.createBufferSource();n.buffer=b;n.loop=true;const bp=AC.createBiquadFilter();bp.type='bandpass';bp.frequency.value=1800;bp.Q.value=.5;noiseG=AC.createGain();noiseG.gain.value=0;n.connect(bp).connect(noiseG).connect(master);n.start();sigG=AC.createGain();sigG.gain.value=0;sigG.connect(master);
+ // fading LFO on noise
+ const l=AC.createOscillator(),lg=AC.createGain();l.frequency.value=.3;lg.gain.value=.05;l.connect(lg).connect(noiseG.gain);l.start();return AC}
+let schedT=null,nextT=0,step=0;
+function beep(f,t,d,v=.25,type='sine'){const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.005);g.gain.setValueAtTime(v,t+d-.005);g.gain.linearRampToValueAtTime(0,t+d);o.connect(g).connect(sigG);o.start(t);o.stop(t+d+.02)}
+function morseSeq(txt,t,unit=.066,f=700){[...txt].forEach(ch=>{if(ch===' '){t+=unit*4;return}const c=MORSE[ch];if(!c)return;[...c].forEach(s=>{const d=s==='.'?unit:unit*3;beep(f,t,d,.22);t+=d+unit});t+=unit*2});return t}
+const NUMS=()=>[...Array(5)].map(()=>[...Array(5)].map(()=>Math.random()*10|0).join(''));
+function schedule(){if(!AC||!cur){schedT=setTimeout(schedule,200);return}const now=AC.currentTime;if(nextT<now)nextT=now+.05;
+ while(nextT<now+.6){const id=cur.id;
+  if(id==='time'){const sec=Math.floor(nextT);beep(sec%60===0?1500:1000,nextT,sec%60===0?.8:.005*1+.01,.3);nextT+=1}
+  else if(id==='beacon'){nextT=morseSeq('VVV VVV DE Q1 Q1 ',nextT)+1}
+  else if(id==='music'){const sc=[0,2,3,5,7,8,10,12],root=57;const m=root+sc[(step*3+(step>>2))%8]+(step%8===7?-12:0);beep(440*2**((m-69)/12),nextT,.45,.12,'triangle');if(step%2===0)beep(440*2**((root-12-69)/12),nextT,.9,.08,'sine');step++;nextT+=.5}
+  else if(id==='numbers'){const g=cur._groups||(cur._groups=NUMS());const i=step%g.length;[...g[i]].forEach((d,k)=>{beep(320+(+d)*40,nextT+k*.45,.28,.15,'square')});step++;nextT+=g[i].length*.45+1.2;if(step%5===0){document.getElementById('info').innerHTML=infoTxt()}}
+  else if(id==='sstv'){for(let k=0;k<8;k++)beep(1200+Math.random()*1100,nextT+k*.03,.03,.1,'sine');beep(1200,nextT+.25,.01,.1);nextT+=.3}
+  else if(id==='chirp'){const o=AC.createOscillator(),g=AC.createGain();o.frequency.setValueAtTime(200,nextT);o.frequency.exponentialRampToValueAtTime(3000,nextT+1.2);g.gain.setValueAtTime(.12,nextT);g.gain.linearRampToValueAtTime(0,nextT+1.2);o.connect(g).connect(sigG);o.start(nextT);o.stop(nextT+1.25);nextT+=3}}
+ schedT=setTimeout(schedule,150)}
+function infoTxt(){if(!powered)return'RECEIVER OFF';if(!cur)return`${freq.toFixed(3)} MHz<br>· · · static · · ·<br><span style="opacity:.6">keep turning…</span>`;let extra='';if(cur.id==='numbers'){const g=cur._groups||(cur._groups=NUMS());extra='<br>'+g.join(' ')}return`${freq.toFixed(3)} MHz · ${cur.call}<br>${cur.name}<br><span style="opacity:.75">${cur.txt}</span>${extra}`}
+function tune(f){freq=Math.max(FMIN,Math.min(FMAX,f));document.getElementById('needle').style.left=fx(freq)/10+'%';document.getElementById('freq').textContent=freq.toFixed(3);document.getElementById('knob').style.transform=`rotate(${(freq-FMIN)*40}deg)`;
+ let best=null,bd=1;ST.forEach(s=>{const d=Math.abs(s.f-freq);if(d<bd){bd=d;best=s}});const strength=best?Math.max(0,1-bd/.12):0;
+ if(strength>.05){if(cur!==best){cur=best;step=0;best._groups=null}}else cur=null;
+ if(powered&&AC){noiseG.gain.setTargetAtTime(.35*(1-strength*.85)+.03,AC.currentTime,.05);sigG.gain.setTargetAtTime(strength,AC.currentTime,.05)}
+ document.getElementById('sm').style.width=(powered?Math.max(4,strength*100):0)+'%';
+ if(powered&&strength>.7&&cur&&!found.has(cur.id)){found.add(cur.id);store.set('sw-found',[...found]);scale()}
+ document.getElementById('info').innerHTML=infoTxt()}
+const dial=document.getElementById('dial');let dragD=false;dial.addEventListener('pointerdown',e=>{dragD=true;dial.setPointerCapture(e.pointerId);move(e)});dial.addEventListener('pointermove',e=>{if(dragD)move(e)});dial.addEventListener('pointerup',()=>dragD=false);
+function move(e){const r=dial.getBoundingClientRect();tune(FMIN+(e.clientX-r.left)/r.width*(FMAX-FMIN))}
+const knob=document.getElementById('knob');let ka=null;knob.addEventListener('pointerdown',e=>{knob.setPointerCapture(e.pointerId);const r=knob.getBoundingClientRect();ka=Math.atan2(e.clientY-r.top-r.height/2,e.clientX-r.left-r.width/2)});
+knob.addEventListener('pointermove',e=>{if(ka==null)return;const r=knob.getBoundingClientRect();const a=Math.atan2(e.clientY-r.top-r.height/2,e.clientX-r.left-r.width/2);let d=a-ka;if(d>Math.PI)d-=6.28;if(d<-Math.PI)d+=6.28;ka=a;tune(freq+d*.12)});knob.addEventListener('pointerup',()=>ka=null);
+dial.addEventListener('wheel',e=>{e.preventDefault();tune(freq-e.deltaY*.0008)},{passive:false});
+document.getElementById('power').onclick=e=>{powered=!powered;e.target.classList.toggle('on',powered);if(powered){ctx();AC.resume();if(!schedT)schedule()}else if(AC){noiseG.gain.setTargetAtTime(0,AC.currentTime,.05);sigG.gain.setTargetAtTime(0,AC.currentTime,.05)}tune(freq)};
+document.getElementById('presets').innerHTML=[3.5,ST[0].f,ST[1].f,ST[2].f,ST[3].f,ST[4].f,ST[5].f].map(f=>`<button data-f="${f}">${f.toFixed(2)}</button>`).join('');
+document.getElementById('presets').onclick=e=>{const f=e.target.dataset.f;if(f)tune(+f+(Math.random()-.5)*.02)};
+scale();tune(9.2);
+
+/* morse desk */
+function toMorse(t){return t.toUpperCase().split('').map(c=>c===' '?'/':MORSE[c]||'').join(' ')}
+document.getElementById('mt').oninput=()=>document.getElementById('mc').textContent=toMorse(document.getElementById('mt').value);document.getElementById('mc').textContent=toMorse(document.getElementById('mt').value);
+document.getElementById('mplay').onclick=()=>{ctx();AC.resume();sigG.gain.setTargetAtTime(1,AC.currentTime,.01);morseSeq(document.getElementById('mt').value.toUpperCase().replace(/[^A-Z0-9 /?]/g,''),AC.currentTime+.1)};
+document.getElementById('chart').innerHTML=Object.entries(MORSE).map(([k,v])=>`<div><b>${k}</b><span>${v.replace(/\./g,'·').replace(/-/g,'–')}</span></div>`).join('');
+let kdown=0,klast=0,sym='',out='',kosc=null,kg=null,gapT=null;const key=document.getElementById('key');
+function kd(){ctx();AC.resume();kdown=performance.now();key.classList.add('down');kosc=AC.createOscillator();kg=AC.createGain();kosc.frequency.value=650;kg.gain.value=.2;kosc.connect(kg).connect(AC.destination);kosc.start();clearTimeout(gapT)}
+function ku(){if(!kdown)return;const d=performance.now()-kdown;kdown=0;key.classList.remove('down');try{kosc.stop()}catch(e){}sym+=d<200?'.':'-';document.getElementById('kc').textContent=sym;clearTimeout(gapT);gapT=setTimeout(()=>{out+=REV[sym]||'?';sym='';document.getElementById('kd').textContent=out;document.getElementById('kc').textContent='';gapT=setTimeout(()=>{out+=' '},900)},450)}
+key.addEventListener('pointerdown',e=>{e.preventDefault();kd()});addEventListener('pointerup',ku);
+addEventListener('keydown',e=>{if(e.code==='Space'&&!document.querySelector('[data-view=morse]').hidden&&!e.repeat&&document.activeElement.tagName!=='TEXTAREA'){e.preventDefault();kd()}});addEventListener('keyup',e=>{if(e.code==='Space')ku()});
+document.getElementById('kclr').onclick=()=>{out='';sym='';document.getElementById('kd').textContent='';document.getElementById('kc').textContent=''};
+
+/* qsl */
+function qsl(){document.getElementById('qslG').innerHTML=ST.map((s,i)=>{const got=found.has(s.id);return`<div class="card ${got?'':'locked'}" style="background:${s.col};--r:${(i%3-1)*1.5}deg"><small>${got?'CONFIRMING YOUR RECEPTION OF':'NOT YET HEARD'}</small><b>${s.call}</b><small>${s.name}</small><small style="margin-top:8px">${got?`${s.f.toFixed(3)} MHz · SINPO 43433 · ${new Date().toLocaleDateString()}`:`Somewhere between 3 and 30 MHz…`}</small><div class="stamp">${got?'QSL<br>TNX<br>73':'?'}</div></div>`}).join('')+`<p class="sub" style="grid-column:1/-1">${found.size} of ${ST.length} stations logged. ${found.size===ST.length?'A true DXer. 73!':''}</p>`}
+
+/* band plan */
+const BANDS=[['Broadcast (SW)',[[5.9,6.2],[7.2,7.45],[9.4,9.9],[11.6,12.1],[13.57,13.87],[15.1,15.8],[17.48,17.9],[21.45,21.85],[25.67,26.1]],'#ff8ac8','International radio: news, music and propaganda, heard across continents.'],['Amateur (ham)',[[3.5,4],[7,7.2],[10.1,10.15],[14,14.35],[18.068,18.168],[21,21.45],[24.89,24.99],[28,29.7]],'#ffcf7a','Licensed hobbyists talking worldwide with home-built antennas.'],['Maritime',[[4.063,4.438],[6.2,6.525],[8.195,8.815],[12.23,13.2],[16.36,17.41],[22,22.855]],'#7cc0ff','Ships at sea: weather, distress calls and radio-fax charts.'],['Aeronautical',[[5.45,5.73],[6.525,6.765],[8.815,9.04],[10.005,10.1],[11.175,11.4],[13.2,13.36],[17.9,18.03]],'#7cff9a','Aircraft over oceans, beyond the reach of VHF.'],['Time & frequency',[[4.995,5.005],[9.995,10.005],[14.995,15.005],[19.995,20.005],[24.995,25.005]],'#ffffff','Standard time stations such as WWV: "At the tone…"'],['Citizens Band',[[26.965,27.405]],'#ff7a5a','CB radio: truckers, 10-4 good buddy.']];
+(function(){let s='';for(let f=3;f<=30;f+=3)s+=`<line x1="${fx(f)}" x2="${fx(f)}" y1="20" y2="240" stroke="#efe4cc18"/><text x="${fx(f)}" y="254" text-anchor="middle" fill="#efe4cc88" font-family="Share Tech Mono" font-size="12">${f} MHz</text>`;
+ BANDS.forEach((b,i)=>{const y=24+i*34;s+=`<text x="4" y="${y+16}" fill="${b[2]}" font-family="Share Tech Mono" font-size="11">${b[0]}</text>`;b[1].forEach(([a,c])=>s+=`<rect x="${fx(a)}" y="${y+22}" width="${Math.max(2,fx(c)-fx(a))}" height="8" fill="${b[2]}" opacity=".85"/>`)});
+ document.getElementById('bsvg').innerHTML=s;document.getElementById('bl').innerHTML=BANDS.map(b=>`<div style="--c:${b[2]}"><b>${b[0]}</b><br>${b[3]}</div>`).join('')})();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

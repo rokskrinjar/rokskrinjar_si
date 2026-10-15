@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiln & Clay — Pottery Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--clay:#c98a64;--clay2:#a86a48;--bisque:#efe2d2;--slip:#e6ebe4;--ash:#3b3530;--celadon:#9fb8a0;--dim:#3b353099}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--slip);color:var(--ash);font-family:'Work Sans',sans-serif}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:20px 5vw}
+.logo{font-family:Caprasimo;font-weight:400;font-size:30px;display:flex;gap:10px;align-items:center}
+.logo i{width:30px;height:30px;border-radius:50% 50% 45% 45%;background:var(--clay);box-shadow:inset -6px -4px 0 var(--clay2)}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:8px 16px;border-radius:30px;font-weight:500;font-size:14px}
+nav a.on{background:var(--ash);color:var(--slip)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1280px;margin:0 auto;padding:20px 5vw 80px}
+h2{font-family:Caprasimo;font-weight:400;font-size:clamp(2.6rem,6vw,5rem);line-height:.95;letter-spacing:-.02em}
+h2 em{color:var(--clay2)}
+.sub{max-width:58ch;line-height:1.65;margin:14px 0 30px;font-size:17px;color:var(--dim)}
+/* wheel */
+.wheel{display:grid;grid-template-columns:360px 1fr 300px;gap:30px;align-items:start}
+.panel{background:#fff;border-radius:24px;padding:20px;box-shadow:0 20px 40px -30px #3b353066}
+.panel h3{font-family:Caprasimo;font-weight:400;font-size:20px;margin-bottom:6px}
+.panel p{font-size:13px;color:var(--dim);margin-bottom:10px}
+#prof{width:100%;height:auto;display:block;background:repeating-linear-gradient(0deg,#0000 0 19px,#3b353010 19px 20px),repeating-linear-gradient(90deg,#0000 0 19px,#3b353010 19px 20px);border-radius:12px;touch-action:none;cursor:ns-resize}
+.pot{background:radial-gradient(ellipse at 50% 85%,#d3dccf,var(--slip) 60%);border-radius:30px;display:grid;place-items:center;min-height:560px;position:relative}
+.pot svg{width:100%;max-width:520px;height:auto}
+.pot .spin{position:absolute;bottom:18px;font-size:12px;letter-spacing:.2em;color:var(--dim)}
+.glazes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.gz{aspect-ratio:1;border-radius:50%;border:3px solid transparent}
+.gz.on{border-color:var(--ash)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn{background:var(--ash);color:var(--slip);border:0;border-radius:30px;padding:9px 16px;font-weight:500;font-size:13px}
+.btn.alt{background:none;color:var(--ash);box-shadow:inset 0 0 0 1.5px var(--ash)}
+.meas{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.meas div{background:var(--slip);border-radius:12px;padding:10px}
+.meas b{font-family:Caprasimo;font-size:24px;font-weight:600;display:block}
+.meas small{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+/* shelf */
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:24px}
+.shelf .item{text-align:center;background:none;border:0}
+.shelf .item svg{width:100%;height:220px}
+.shelf .item b{font-family:Caprasimo;font-weight:400;font-size:19px;display:block}
+.shelf .item small{color:var(--dim)}
+.plank{height:16px;background:linear-gradient(#b8845a,#8a5a38);border-radius:4px;margin:-10px 0 30px;box-shadow:0 10px 20px -10px #0006;grid-column:1/-1}
+/* firing */
+.fire{display:grid;grid-template-columns:1fr 320px;gap:30px;align-items:start}
+.fire svg{width:100%;height:auto;display:block;background:#fff;border-radius:24px}
+.cones{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.cones button{border:1.5px solid var(--ash);background:none;border-radius:30px;padding:6px 14px;font-size:13px}
+.cones button.on{background:var(--ash);color:var(--slip)}
+.kiln{background:#2a2420;border-radius:24px;padding:22px;color:var(--slip);text-align:center}
+.kiln .temp{font-family:Caprasimo;font-size:64px;font-weight:300;line-height:1}
+.kiln .glow{height:180px;border-radius:14px;margin:14px 0;background:#000;position:relative;overflow:hidden}
+.kiln .glow i{position:absolute;inset:0;transition:background 1s}
+.kiln .stage{font-size:14px;opacity:.8;min-height:2.6em}
+/* classes */
+.cls{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.cl{background:#fff;border-radius:24px;overflow:hidden}
+.cl .top{height:130px;display:grid;place-items:center;font-size:56px}
+.cl .b{padding:18px 20px}
+.cl h3{font-family:Caprasimo;font-weight:400;font-size:24px}
+.cl .meta{font-size:13px;color:var(--dim);margin:4px 0 12px}
+@media(max-width:1050px){.wheel,.fire{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo"><i></i>Kiln & Clay</div>
+ <nav><a href="#wheel">The Wheel</a><a href="#shelf">Drying Shelf</a><a href="#firing">The Firing</a><a href="#classes">Classes</a><a href="index.html">← Index</a></nav>
+</header>
+
+<section data-view="wheel"><div class="wrap">
+ <h2>Throw a <em>pot.</em></h2>
+ <p class="sub">Drag the dots on the left to shape the profile. The wheel turns it into a pot, the glaze goes on, and we'll tell you how much it holds.</p>
+ <div class="wheel">
+  <div class="panel"><h3>Profile</h3><p>The left edge is the centre line. Drag each point in or out.</p><svg id="prof" viewBox="0 0 300 400"></svg>
+   <div class="row"><button class="btn alt" data-s="vase">Vase</button><button class="btn alt" data-s="bowl">Bowl</button><button class="btn alt" data-s="mug">Mug</button><button class="btn alt" data-s="bottle">Bottle</button><button class="btn alt" data-s="moon">Moon jar</button></div></div>
+  <div class="pot"><svg id="potSvg" viewBox="0 0 520 560"></svg><div class="spin">● THE WHEEL IS TURNING</div></div>
+  <div class="panel"><h3>Glaze</h3><p id="gname">Celadon: a pale jade green, fired in reduction</p><div class="glazes" id="glazes"></div>
+   <h3 style="margin-top:16px">Dip depth</h3><input type="range" id="dip" min="20" max="100" value="80" style="width:100%;accent-color:#a86a48">
+   <div class="meas"><div><b id="mH">—</b><small>Height</small></div><div><b id="mW">—</b><small>Widest</small></div><div><b id="mV">—</b><small>Holds</small></div><div><b id="mC">—</b><small>Clay</small></div></div>
+   <input id="pname" placeholder="Name your pot" style="width:100%;margin-top:12px;border:0;border-bottom:1.5px solid #3b3530;background:none;padding:8px 0;font-family:Caprasimo;font-size:20px;outline:0" maxlength="24">
+   <button class="btn" id="keep" style="width:100%;margin-top:12px">Put on the drying shelf</button></div>
+ </div>
+</div></section>
+
+<section data-view="shelf" hidden><div class="wrap">
+ <h2>The drying <em>shelf.</em></h2>
+ <p class="sub">Greenware waiting for the kiln. Click any pot to put it back on the wheel.</p>
+ <div class="shelf" id="shelfG"></div>
+</div></section>
+
+<section data-view="firing" hidden><div class="wrap">
+ <h2>Into the <em>fire.</em></h2>
+ <p class="sub">Clay stops being clay and becomes ceramic somewhere past 600 °C, and at 573 °C the quartz inside it briefly changes shape. Choose a cone (a temperature standard) and run the kiln.</p>
+ <div class="fire">
+  <div><div class="cones" id="cones"></div><svg id="curve" viewBox="0 0 900 420"></svg></div>
+  <div class="kiln"><div style="font-size:12px;letter-spacing:.2em;opacity:.6">KILN No. 2 · GAS</div><div class="temp" id="kT">20°</div><div class="glow"><i id="kG"></i></div><div class="stage" id="kS">Loaded and ready.</div><button class="btn" id="fireBtn" style="background:#c98a64;color:#2a2420;width:100%;margin-top:10px">Light the kiln</button></div>
+ </div>
+</div></section>
+
+<section data-view="classes" hidden><div class="wrap">
+ <h2>Get your hands <em>dirty.</em></h2>
+ <p class="sub">Small classes, a wheel each and an apron that will never be clean again.</p>
+ <div class="cls" id="cls"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'wheel';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='shelf')shelf()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+// profile: 9 radii (0..140) at evenly spaced heights, bottom to top; y 0..1
+const SHAPES={vase:[60,90,115,120,100,70,50,55,70],bowl:[50,80,105,125,138,0,0,0,0],mug:[70,78,80,80,80,80,80,80,82],bottle:[70,110,125,120,90,40,26,26,34],moon:[55,105,130,138,132,112,78,48,50]};
+const GL=[['Celadon','a pale jade green, fired in reduction','#9fb8a0','#7a9a82',.9],['Tenmoku','deep iron black that breaks rust-brown on the edges','#2a1a14','#8a4a1a',1],['Shino','creamy white with orange flashing','#efe0cc','#d88a5a',.85],['Cobalt','a deep blue that pools in the grooves','#1f3f8a','#4a6ac8',1],['Oribe','copper green that runs down the pot','#3a7a4a','#8ab86a',.95],['Ash','wood-ash glaze with drips of glass','#b8a878','#6a7a4a',.9],['Chun','milky lavender blue','#a8b8d8','#c8a8c8',.9],['Raw clay','no glaze, just the naked stoneware','#c98a64','#a86a48',0]];
+let prof=SHAPES.vase.slice(),glaze=0,drag=null;
+function shapeFor(p){const n=p.filter((v,i)=>v>0||i===0);return n.length<2?p.slice(0,2):p.slice(0,p.lastIndexOf(p.slice().reverse().find(v=>v>0))+1)}
+function smooth(p){const q=shapeFor(p),out=[];const n=q.length;for(let i=0;i<(n-1)*10+1;i++){const t=i/10,k=Math.floor(t),f=t-k;const p0=q[Math.max(0,k-1)],p1=q[k],p2=q[Math.min(n-1,k+1)],p3=q[Math.min(n-1,k+2)];const v=.5*((2*p1)+(-p0+p2)*f+(2*p0-5*p1+4*p2-p3)*f*f+(-p0+3*p1-3*p2+p3)*f*f*f);out.push([Math.max(8,v),i/((n-1)*10)*(n-1)/8])}return out}
+function drawProf(){let s='<line x1="20" y1="0" x2="20" y2="400" stroke="#a86a48" stroke-dasharray="4 4"/>';const pts=smooth(prof);s+=`<path d="M20 380 ${pts.map(([r,y])=>`L${20+r*1.8} ${380-y*350}`).join(' ')}" stroke="#3b3530" stroke-width="2.5" fill="#c98a6433"/>`;
+ prof.forEach((r,i)=>{const y=380-i/8*350;s+=`<circle cx="${20+r*1.8}" cy="${y}" r="${r===0?5:9}" fill="${r===0?'#fff':'#a86a48'}" stroke="#3b3530" stroke-width="2" data-i="${i}" style="cursor:ew-resize"/>`});document.getElementById('prof').innerHTML=s}
+const ps=document.getElementById('prof');const pp=e=>{const r=ps.getBoundingClientRect();return[(e.clientX-r.left)/r.width*300,(e.clientY-r.top)/r.height*400]};
+ps.addEventListener('pointerdown',e=>{const[x,y]=pp(e);let best=0,bd=1e9;prof.forEach((r,i)=>{const d=Math.abs(380-i/8*350-y);if(d<bd){bd=d;best=i}});drag=best;ps.setPointerCapture(e.pointerId);move(e)});
+function move(e){if(drag==null)return;const[x]=pp(e);let r=Math.round(Math.max(0,Math.min(150,(x-20)/1.8)));if(r<14)r=drag===0?20:0;if(drag===0&&r===0)r=20;prof[drag]=r;drawProf();drawPot()}
+ps.addEventListener('pointermove',move);ps.addEventListener('pointerup',()=>drag=null);
+document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{prof=SHAPES[b.dataset.s].slice();drawProf();drawPot()});
+let phase=0;
+function potSVG(p,g,dip,uid='p'){const pts=smooth(p);const H=420,base=500,cx=260,sc=1.4;const top=pts[pts.length-1];const G=GL[g];const gy=base-H*(1-dip/100)*.0-H*top[1]*(1-dip/100);
+ const R=pts.map(([r,y])=>[r*sc,base-y*H]);const right=R.map(([r,y])=>`${cx+r} ${y}`),left=R.slice().reverse().map(([r,y])=>`${cx-r} ${y}`);
+ const body=`M${cx-R[0][0]} ${R[0][1]} L${right.join(' L')} L${left.join(' L')}Z`;
+ let s=`<defs><linearGradient id="${uid}sh" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".45"/><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset=".42" stop-color="#fff" stop-opacity=".45"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></linearGradient><clipPath id="${uid}c"><path d="${body}"/></clipPath><linearGradient id="${uid}gz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${G[3]}"/><stop offset=".4" stop-color="${G[2]}"/><stop offset="1" stop-color="${G[2]}"/></linearGradient></defs>`;
+ s+=`<ellipse cx="${cx}" cy="${base+6}" rx="${R[0][0]+30}" ry="12" fill="#3b353022"/><path d="${body}" fill="#c98a64"/>`;
+ const gtop=base-H*top[1]*(dip/100);
+ if(G[4])s+=`<g clip-path="url(#${uid}c)"><rect x="0" y="${gtop}" width="520" height="560" fill="url(#${uid}gz)" opacity="${G[4]}"/><path d="${[...Array(12)].map((_,i)=>{const x=cx-150+i*27;const L=10+((i*37)%40);return`M${x} ${gtop-2} q4 ${L/2} 0 ${L} q-4 6 0 8`}).join(' ')}" stroke="${G[2]}" stroke-width="7" fill="none" opacity="${G[4]}"/>${[...Array(40)].map((_,i)=>`<circle cx="${cx-140+(i*53)%280}" cy="${gtop+20+(i*29)%300}" r="${1+(i%3)}" fill="#fff" opacity=".18"/>`).join('')}</g>`;
+ // throwing lines
+ s+=`<g clip-path="url(#${uid}c)" opacity=".25">${[...Array(18)].map((_,i)=>`<path d="M0 ${base-i*24-((phase*6)%24)} Q260 ${base-i*24+8-((phase*6)%24)} 520 ${base-i*24-((phase*6)%24)}" stroke="#3b3530" stroke-width="1" fill="none"/>`).join('')}</g>`;
+ s+=`<path d="${body}" fill="url(#${uid}sh)"/>`;
+ s+=`<ellipse cx="${cx}" cy="${R[R.length-1][1]}" rx="${R[R.length-1][0]}" ry="${Math.max(4,R[R.length-1][0]*.22)}" fill="${G[4]&&dip>=96?G[3]:'#8a5a3a'}" stroke="#3b353055"/><ellipse cx="${cx}" cy="${R[R.length-1][1]+2}" rx="${Math.max(0,R[R.length-1][0]-8)}" ry="${Math.max(2,R[R.length-1][0]*.18)}" fill="#3b3530" opacity=".55"/>`;
+ return s}
+function drawPot(){document.getElementById('potSvg').innerHTML=`<ellipse cx="260" cy="512" rx="200" ry="26" fill="#8a8078"/><ellipse cx="260" cy="506" rx="200" ry="26" fill="#aaa098"/>${potSVG(prof,glaze,+document.getElementById('dip').value)}`;
+ const pts=smooth(prof);const Hcm=(shapeFor(prof).length-1)/8*30;let vol=0;for(let i=1;i<pts.length;i++){const r=Math.max(0,(pts[i][0]-8))*.12,h=(pts[i][1]-pts[i-1][1])*30;vol+=Math.PI*r*r*h}
+ const wid=Math.max(...pts.map(p=>p[0]))*.24;document.getElementById('mH').textContent=Hcm.toFixed(0)+' cm';document.getElementById('mW').textContent=wid.toFixed(0)+' cm';document.getElementById('mV').textContent=vol>1000?(vol/1000).toFixed(1)+' L':Math.round(vol)+' ml';document.getElementById('mC').textContent=(Hcm*wid*.03+.3).toFixed(1)+' kg'}
+function glazeUI(){document.getElementById('glazes').innerHTML=GL.map((g,i)=>`<button class="gz ${i===glaze?'on':''}" data-g="${i}" title="${g[0]}" style="background:radial-gradient(circle at 35% 30%,${g[3]},${g[2]})"></button>`).join('');document.getElementById('gname').textContent=`${GL[glaze][0]}: ${GL[glaze][1]}`}
+document.getElementById('glazes').onclick=e=>{const g=e.target.dataset.g;if(g!=null){glaze=+g;glazeUI();drawPot()}};
+document.getElementById('dip').oninput=drawPot;
+setInterval(()=>{if(!document.querySelector('[data-view=wheel]').hidden){phase++;drawPot()}},120);
+let SH=store.get('kc-shelf',[]);
+document.getElementById('keep').onclick=()=>{SH.unshift({p:prof.slice(),g:glaze,d:+document.getElementById('dip').value,n:document.getElementById('pname').value||['Untitled','Wobbly One','Nearly Round','Tuesday Vessel','Pot No. '+(SH.length+1)][SH.length%5]});SH=SH.slice(0,16);store.set('kc-shelf',SH);document.getElementById('keep').textContent='✓ On the shelf';setTimeout(()=>document.getElementById('keep').textContent='Put on the drying shelf',1200)};
+glazeUI();drawProf();drawPot();
+
+/* shelf */
+const HOUSE=[{p:SHAPES.moon,g:2,d:90,n:'Moon Jar (Mika)'},{p:SHAPES.bottle,g:1,d:70,n:'Tenmoku Bottle'},{p:SHAPES.bowl,g:0,d:100,n:'Celadon Bowl'},{p:SHAPES.mug,g:3,d:85,n:'Morning Mug'},{p:[60,80,95,100,96,90,88,92,100],g:4,d:60,n:'Oribe Vase'},{p:[80,120,135,132,120,100,0,0,0],g:5,d:80,n:'Ash Bowl'}];
+function shelf(){const all=[...SH,...HOUSE];let h='';all.forEach((x,i)=>{h+=`<button class="item" data-i="${i}"><svg viewBox="0 0 520 560">${potSVG(x.p,x.g,x.d,'s'+i)}</svg><b>${x.n.replace(/[<>&]/g,'')}</b><small>${GL[x.g][0]}${i<SH.length?' · yours':''}</small></button>`;if((i+1)%4===0)h+='<div class="plank"></div>'});document.getElementById('shelfG').innerHTML=h+'<div class="plank"></div>';document.getElementById('shelfG')._all=all}
+document.getElementById('shelfG').onclick=e=>{const b=e.target.closest('.item');if(!b)return;const x=document.getElementById('shelfG')._all[+b.dataset.i];prof=x.p.slice();glaze=x.g;document.getElementById('dip').value=x.d;glazeUI();drawProf();drawPot();go('wheel')};
+
+/* firing */
+const CONES=[['Cone 04 · bisque',1063,'Porous biscuit ware, ready to glaze'],['Cone 6 · midfire',1222,'Durable stoneware in an electric kiln'],['Cone 10 · high fire',1305,'Porcelain rings like a bell']];let cone=2,firing=null;
+function curve(){const peak=CONES[cone][1];const pts=[[0,20],[2,120],[4,200],[6,500],[6.8,573],[7.4,600],[9,900],[11,peak-60],[12.5,peak],[13,peak],[15,800],[18,573],[24,200],[30,40]];
+ const X=h=>60+h/30*810,Y=t=>380-t/1400*340;let s='';for(let t=0;t<=1400;t+=200)s+=`<line x1="60" x2="870" y1="${Y(t)}" y2="${Y(t)}" stroke="#3b353012"/><text x="52" y="${Y(t)+4}" text-anchor="end" font-size="12" fill="#3b3530aa">${t}°</text>`;for(let h=0;h<=30;h+=6)s+=`<text x="${X(h)}" y="402" text-anchor="middle" font-size="12" fill="#3b3530aa">${h} h</text>`;
+ s+=`<rect x="${X(6.5)}" y="20" width="${X(7.2)-X(6.5)}" height="360" fill="#c98a6422"/><text x="${X(6.85)}" y="36" text-anchor="middle" font-size="11" fill="#a86a48">QUARTZ INVERSION</text>`;
+ s+=`<rect x="${X(12.5)}" y="20" width="${X(13)-X(12.5)}" height="360" fill="#e0662a22"/><text x="${X(12.75)}" y="52" text-anchor="middle" font-size="11" fill="#e0662a">SOAK</text>`;
+ const d=pts.map(([h,t],i)=>(i?'L':'M')+X(h)+' '+Y(t)).join(' ');s+=`<path d="${d}" stroke="#a86a48" stroke-width="3.5" fill="none"/><path d="${d} L${X(30)} ${Y(0)} L${X(0)} ${Y(0)}Z" fill="url(#fg)" opacity=".4"/><defs><linearGradient id="fg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffcf6a"/><stop offset="1" stop-color="#c98a64" stop-opacity="0"/></linearGradient></defs>`;
+ s+=`<circle id="dot" cx="${X(0)}" cy="${Y(20)}" r="8" fill="#e0662a" stroke="#fff" stroke-width="3"/>`;document.getElementById('curve').innerHTML=s;document.getElementById('curve')._pts=pts;
+ document.getElementById('cones').innerHTML=CONES.map((c,i)=>`<button class="${i===cone?'on':''}" data-c="${i}">${c[0]}</button>`).join('')}
+function glowCol(t){if(t<500)return'#000';if(t<700)return`rgb(${(t-500)/200*120|0},0,0)`;if(t<900)return`rgb(${120+(t-700)/200*100|0},${(t-700)/200*40|0},0)`;if(t<1100)return`rgb(${220+(t-900)/200*35|0},${40+(t-900)/200*100|0},${(t-900)/200*20|0})`;return`rgb(255,${140+(t-1100)/300*90|0},${20+(t-1100)/300*120|0})`}
+document.getElementById('cones').onclick=e=>{const c=e.target.dataset.c;if(c!=null&&!firing){cone=+c;curve()}};
+document.getElementById('fireBtn').onclick=()=>{if(firing)return;const pts=document.getElementById('curve')._pts;let h=0;const X=h=>60+h/30*810,Y=t=>380-t/1400*340;
+ firing=setInterval(()=>{h+=.12;let t=20;for(let i=1;i<pts.length;i++)if(h<=pts[i][0]){const[a,b]=[pts[i-1],pts[i]];t=a[1]+(b[1]-a[1])*(h-a[0])/(b[0]-a[0]);break}const dot=document.getElementById('dot');dot.setAttribute('cx',X(h));dot.setAttribute('cy',Y(t));
+  document.getElementById('kT').textContent=Math.round(t)+'°';document.getElementById('kG').style.background=`radial-gradient(circle,${glowCol(t)},${glowCol(t*.8)} 70%)`;
+  document.getElementById('kS').textContent=h<4?'Candling: the last water steams off slowly.':h<7.2?(t>540?'573 °C: quartz inversion. Nobody open that door!':'Burning out organics. The smoke smells like campfire.'):h<12.5?'Climbing. The glaze is starting to melt into glass.':h<13?`Soaking at ${CONES[cone][1]} °C. Cone ${CONES[cone][0].split(' ')[1]} is bending.`:h<24?'Cooling slowly. The pots ping as the glaze settles.':'Cool enough to open. '+CONES[cone][2]+'.';
+  if(h>=30){clearInterval(firing);firing=null;document.getElementById('fireBtn').textContent='Fire again'}},60)};
+curve();
+
+/* classes */
+const CL=[['🏺','Wheel Taster','Sat · 2 hrs · £45','Centre, open, pull. You leave with one wonky bowl and a new obsession.','#efe2d2'],['🍵','Tea Bowls & Wabi-sabi','6 Tuesdays · £220','Chawan throwing, trimming and an ash-glaze firing in our wood kiln.','#9fb8a022'],['🌕','Big Pots','Weekend intensive · £180','Throwing in sections and joining them. Moon jars bigger than your head.','#c98a6433']];
+document.getElementById('cls').innerHTML=CL.map(c=>`<div class="cl"><div class="top" style="background:${c[4]}">${c[0]}</div><div class="b"><h3>${c[1]}</h3><div class="meta">${c[2]}</div><p style="line-height:1.55">${c[3]}</p><button class="btn" style="margin-top:12px" onclick="this.textContent='✓ Apron reserved'">Book a wheel</button></div></div>`).join('');
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

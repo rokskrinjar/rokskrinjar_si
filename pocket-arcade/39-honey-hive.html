@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Honey Hive</title>
+<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Nunito+Sans:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:manipulation;user-select:none}
+body{background:#2b1a0e;font-family:'Nunito Sans',sans-serif;color:#fff3d6;display:grid;grid-template-rows:auto 1fr;height:100%}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66zm0 32V66' fill='none' stroke='%23ffb52e' stroke-opacity='.08' stroke-width='2'/%3E%3C/svg%3E");pointer-events:none}
+header{padding:40px 16px 8px;text-align:center;position:relative}
+.bank{font-family:Grandstander,cursive;font-weight:800;font-size:clamp(34px,9vw,54px);color:#ffc93c;text-shadow:0 3px 0 #a0610f;line-height:1;font-variant-numeric:tabular-nums}
+.rate{font-weight:800;font-size:14px;opacity:.85;margin-top:4px}
+main{display:grid;grid-template-columns:1fr;grid-template-rows:minmax(200px,42%) 1fr;min-height:0;position:relative}
+@media (min-width:760px){main{grid-template-columns:1fr 1fr;grid-template-rows:1fr}}
+.stage{position:relative;display:grid;place-items:center;min-height:0}
+.hive{width:min(62vw,40vh,300px);aspect-ratio:1;cursor:pointer;position:relative;filter:drop-shadow(0 16px 30px #0008);transition:transform .08s}
+.hive:active{transform:scale(.94)}
+.hive svg{width:100%;height:100%}
+.float{position:absolute;font-family:Grandstander,cursive;font-weight:800;color:#fff3d6;pointer-events:none;animation:fl 1s forwards;text-shadow:0 2px 0 #a0610f;font-size:20px}@keyframes fl{to{transform:translateY(-70px);opacity:0}}
+.gold{position:absolute;font-size:38px;cursor:pointer;animation:bob 1s infinite alternate;z-index:3;filter:drop-shadow(0 0 12px #ffe066)}@keyframes bob{to{transform:translateY(-10px) rotate(8deg)}}
+.frenzy{position:absolute;top:6px;left:50%;transform:translateX(-50%);background:#ffc93c;color:#2b1a0e;font-weight:800;padding:4px 12px;border-radius:30px;font-size:13px;display:none}
+.shop{overflow-y:auto;padding:8px 12px 16px;min-height:0}
+.shop h3{font-family:Grandstander,cursive;font-size:15px;letter-spacing:.15em;color:#ffc93c;margin:10px 4px 6px}
+.ups{display:flex;gap:6px;flex-wrap:wrap}
+.up{border:2px solid #ffc93c55;background:#3d2614;border-radius:10px;padding:6px 10px;font:inherit;font-size:12px;color:#fff3d6;cursor:pointer;text-align:left;max-width:170px}.up b{display:block;font-size:12px;color:#ffc93c}.up:disabled{opacity:.4;cursor:default}
+.bld{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;width:100%;border:0;background:#3d2614;border-radius:12px;padding:8px 10px;margin-bottom:6px;font:inherit;color:#fff3d6;cursor:pointer;text-align:left;box-shadow:inset 0 -3px 0 #0003}
+.bld:disabled{opacity:.45;cursor:default}.bld:not(:disabled):hover{background:#4a2e17}
+.bld .ic{font-size:28px;text-align:center}.bld .nm{font-weight:800}.bld small{display:block;opacity:.7;font-size:11px}.bld .ct{font-family:Grandstander,cursive;font-size:24px;color:#ffc93c;min-width:36px;text-align:right}
+.bld .cost{font-size:12px;color:#ffc93c}
+.foot{display:flex;justify-content:space-between;font-size:11px;opacity:.6;margin-top:10px}.foot button{font:inherit;background:none;border:0;color:inherit;text-decoration:underline;cursor:pointer}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#ffc93c;color:#2b1a0e;font-weight:800;padding:8px 16px;border-radius:30px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9}.toast.on{opacity:1}
+.back{position:fixed;left:12px;top:12px;color:#fff3d6aa;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="back" href="index.html">← games</a>
+<header><div class="bank" id="bank">0</div><div class="rate" id="rate">0 honey / sec</div></header>
+<main>
+ <div class="stage" id="stage"><div class="frenzy" id="fz"></div><div class="hive" id="hive"><svg viewBox="0 0 200 200"><defs><radialGradient id="hg" cx="40%" cy="35%"><stop offset="0" stop-color="#ffe08a"/><stop offset=".6" stop-color="#ffb52e"/><stop offset="1" stop-color="#c26d0c"/></radialGradient></defs>
+  <g id="combs"></g></svg></div></div>
+ <div class="shop"><h3>UPGRADES <small style="opacity:.6;font-family:inherit;letter-spacing:0">(U buys cheapest)</small></h3><div class="ups" id="ups"></div><h3>COLONY <small style="opacity:.6;font-family:inherit;letter-spacing:0">(keys 1–6)</small></h3><div id="blds"></div>
+ <div class="foot"><span id="tot">Lifetime: 0</span><button id="reset">reset hive</button></div></div>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const K='best-honey-hive',SAVE='honey-hive-save';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const B=[['🐝','Worker bee','Buzzes about, gathers nectar',15,.2],['🌼','Wildflower patch','A meadow of free nectar',100,1],['🧑‍🌾','Beekeeper','Tends the frames with care',1100,8],['💜','Lavender field','Purple rows, fragrant honey',12000,47],['👑','Royal jelly lab','The queen approves',130000,260],['🏡','Apiary estate','Hundreds of hives',1.4e6,1400]];
+const U=[{n:'Sticky fingers',d:'Taps give ×2',c:100,f:s=>s.click*=2},{n:'Busy bees',d:'Worker bees ×2',c:500,f:s=>s.m[0]*=2},{n:'Pollen rush',d:'Wildflowers ×2',c:5000,f:s=>s.m[1]*=2},{n:'Smoker',d:'Beekeepers ×2',c:50000,f:s=>s.m[2]*=2},{n:'Golden comb',d:'Taps also earn 2% of /sec',c:80000,f:s=>s.pct+=.02},{n:'Waggle dance',d:'All production ×1.5',c:400000,f:s=>s.all*=1.5},{n:'Lavender oil',d:'Lavender ×2',c:900000,f:s=>s.m[3]*=2},{n:'Queen’s crown',d:'Royal labs ×2',c:1e7,f:s=>s.m[4]*=2},{n:'Mega frames',d:'Taps ×5',c:3e7,f:s=>s.click*=5},{n:'Honey empire',d:'All production ×2',c:2e8,f:s=>s.all*=2}];
+let S=ls.g(SAVE,null);function fresh(){return{h:0,tot:0,own:[0,0,0,0,0,0],ups:[],t:Date.now()}}if(!S||!S.own)S=fresh();
+let mod,frenzy=0,frenzyMult=1;
+function recompute(){mod={click:1,m:[1,1,1,1,1,1],pct:0,all:1};S.ups.forEach(i=>U[i].f(mod))}
+recompute();
+function hps(){return B.reduce((a,b,i)=>a+S.own[i]*b[4]*mod.m[i],0)*mod.all*frenzyMult}
+function cost(i){return Math.ceil(B[i][3]*Math.pow(1.15,S.own[i]))}
+function fmt(n){if(n<1000)return n<10?n.toFixed(n%1?1:0):Math.floor(n).toString();const u=['K','M','B','T','Qa','Qi'];let i=-1;while(n>=1000&&i<u.length-1){n/=1000;i++}return n.toFixed(n<10?2:n<100?1:0)+u[i]}
+let AC;function tone(f,d=.06,type='sine',v=.04){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2200)}
+// offline
+{const away=Math.min(8*3600,(Date.now()-(S.t||Date.now()))/1000);if(away>30){const gain=hps()*away*.5;if(gain>0){S.h+=gain;S.tot+=gain;setTimeout(()=>toast(`While you were away: +${fmt(gain)} honey 🍯`),400)}}}
+// combs svg
+{const g=document.getElementById('combs');const r=20,pts=[];for(let q=-2;q<=2;q++)for(let s=-2;s<=2;s++){if(Math.abs(q+s)>2)continue;const cx=100+r*1.75*(q+s/2),cy=100+r*1.52*s;pts.push([cx,cy])}
+ g.innerHTML=pts.map(([cx,cy],i)=>{const h=[...Array(6)].map((_,k)=>{const a=Math.PI/3*k+Math.PI/6;return(cx+Math.cos(a)*r*.98).toFixed(1)+','+(cy+Math.sin(a)*r*.98).toFixed(1)}).join(' ');return`<polygon points="${h}" fill="url(#hg)" stroke="#8a4d06" stroke-width="3"/><polygon points="${h}" fill="#fff" opacity="${i%3?0:.12}" transform="translate(-3 -3)"/>`}).join('')+`<text x="100" y="112" text-anchor="middle" font-size="34">🍯</text>`}
+function click(ev){const v=(mod.click+hps()*mod.pct)*(frenzy>0?7:1);S.h+=v;S.tot+=v;tone(700+Math.random()*200,.04,'triangle',.03);
+ const st=document.getElementById('stage'),r=st.getBoundingClientRect();const f=document.createElement('div');f.className='float';f.textContent='+'+fmt(v);const px=ev&&ev.clientX?ev.clientX-r.left:r.width/2+(Math.random()-.5)*80,py=ev&&ev.clientY?ev.clientY-r.top:r.height/2;f.style.left=px-20+'px';f.style.top=py-20+'px';st.appendChild(f);setTimeout(()=>f.remove(),1000);render()}
+function buy(i){const c=cost(i);if(S.h<c)return;S.h-=c;S.own[i]++;tone(440+i*80,.12,'triangle',.05);render(true)}
+function buyUp(i){if(S.ups.includes(i)||S.h<U[i].c)return;S.h-=U[i].c;S.ups.push(i);recompute();tone(880,.2,'triangle',.05);toast('Upgrade: '+U[i].n);render(true)}
+function renderShop(){document.getElementById('blds').innerHTML=B.map((b,i)=>`<button class="bld" data-i="${i}"><span class="ic">${b[0]}</span><span><span class="nm">${b[1]}</span><small>${b[2]} · +${fmt(b[4]*mod.m[i]*mod.all)}/s each</small><span class="cost">🍯 ${fmt(cost(i))}</span></span><span class="ct">${S.own[i]}</span></button>`).join('');
+ const avail=U.map((u,i)=>i).filter(i=>!S.ups.includes(i)).slice(0,4);document.getElementById('ups').innerHTML=avail.map(i=>`<button class="up" data-u="${i}"><b>${U[i].n} · ${fmt(U[i].c)}</b>${U[i].d}</button>`).join('')||'<small style="opacity:.6">All upgrades owned 👑</small>'}
+function render(full){if(full)renderShop();document.getElementById('bank').textContent=fmt(S.h);document.getElementById('rate').textContent=fmt(hps())+' honey / sec'+(frenzy>0?' · FRENZY':'');document.getElementById('tot').textContent='Lifetime: '+fmt(S.tot);
+ document.querySelectorAll('.bld').forEach(b=>b.disabled=S.h<cost(+b.dataset.i));document.querySelectorAll('.up').forEach(b=>b.disabled=S.h<U[+b.dataset.u].c)}
+document.getElementById('blds').onclick=e=>{const b=e.target.closest('.bld');if(b)buy(+b.dataset.i)};document.getElementById('ups').onclick=e=>{const b=e.target.closest('.up');if(b)buyUp(+b.dataset.u)};
+document.getElementById('hive').addEventListener('pointerdown',click);
+let last=performance.now(),acc=0,goldT=60+Math.random()*60;
+function tick(){const n=performance.now(),dt=Math.min(1,(n-last)/1000);last=n;const g=hps()*dt;S.h+=g;S.tot+=g;
+ if(frenzy>0){frenzy-=dt;document.getElementById('fz').style.display='block';document.getElementById('fz').textContent=`🐝 FRENZY ×7 taps · ${Math.ceil(frenzy)}s`;if(frenzy<=0){frenzyMult=1;document.getElementById('fz').style.display='none'}}
+ goldT-=dt;if(goldT<=0){goldT=70+Math.random()*80;spawnGold()}
+ acc+=dt;if(acc>.25){acc=0;render()}requestAnimationFrame(tick)}
+function spawnGold(){const st=document.getElementById('stage');const g=document.createElement('div');g.className='gold';g.textContent='🐝';g.style.left=10+Math.random()*70+'%';g.style.top=10+Math.random()*60+'%';st.appendChild(g);const kill=setTimeout(()=>g.remove(),9000);
+ g.onpointerdown=e=>{e.stopPropagation();clearTimeout(kill);g.remove();if(Math.random()<.5){frenzy=20;frenzyMult=2;toast('Golden bee! Frenzy: taps ×7, production ×2')}else{const b=Math.max(50,S.h*.15+hps()*30);S.h+=b;S.tot+=b;toast('Golden bee! +'+fmt(b)+' honey')}tone(1320,.3,'triangle',.06)}}
+setInterval(()=>{S.t=Date.now();ls.s(SAVE,S);if(S.tot>ls.g(K,0))ls.s(K,Math.floor(S.tot))},3000);addEventListener('beforeunload',()=>{S.t=Date.now();ls.s(SAVE,S);ls.s(K,Math.floor(Math.max(S.tot,ls.g(K,0))))});
+let confirmReset=false;document.getElementById('reset').onclick=e=>{if(!confirmReset){confirmReset=true;e.target.textContent='tap again to wipe the hive';setTimeout(()=>{confirmReset=false;e.target.textContent='reset hive'},3000);return}S=fresh();recompute();ls.s(SAVE,S);confirmReset=false;e.target.textContent='reset hive';render(true)};
+addEventListener('keydown',e=>{if(e.repeat)return;if(e.key===' '||e.key==='Enter'){e.preventDefault();click();const h=document.getElementById('hive');h.style.transform='scale(.94)';setTimeout(()=>h.style.transform='',80)}else if(/^[1-6]$/.test(e.key))buy(+e.key-1);else if(e.key==='u'||e.key==='U'){const i=U.map((u,i)=>i).filter(i=>!S.ups.includes(i)).sort((a,b)=>U[a].c-U[b].c)[0];if(i!==undefined)buyUp(i)}});
+render(true);requestAnimationFrame(tick);
+</script>
+</body>
+</html>

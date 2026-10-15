@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROJECT KESTREL — Launch Vehicle Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bp:#0f3d7a; --bp2:#0b2f5e; --line:#cfe3ff; --dim:#8fb4e6; --warn:#ffd23c; --hot:#ff6b3c; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bp); color:var(--line); font-family:'JetBrains Mono',monospace; font-size:14px; min-height:100vh;
+    background-image:linear-gradient(#cfe3ff14 1px,transparent 1px),linear-gradient(90deg,#cfe3ff14 1px,transparent 1px),linear-gradient(#cfe3ff08 1px,transparent 1px),linear-gradient(90deg,#cfe3ff08 1px,transparent 1px);
+    background-size:100px 100px,100px 100px,20px 20px,20px 20px; }
+  a { color:inherit; text-decoration:none; }
+  .hand { font-family:'Architects Daughter',cursive; }
+  .frame { margin:18px; border:2px solid var(--line); min-height:calc(100vh - 36px); position:relative; display:grid; grid-template-rows:auto 1fr auto; }
+  .frame::before { content:''; position:absolute; inset:6px; border:1px solid #cfe3ff55; pointer-events:none; }
+  .top { display:grid; grid-template-columns:auto 1fr auto; border-bottom:2px solid var(--line); }
+  .top .id { padding:14px 20px; border-right:2px solid var(--line); font-weight:700; letter-spacing:.2em; }
+  .top nav { display:flex; }
+  .top nav a { padding:14px 18px; border-right:1px solid #cfe3ff55; letter-spacing:.15em; font-size:12px; text-transform:uppercase; color:var(--dim); transition:all .2s; }
+  .top nav a:hover { color:var(--line); background:#cfe3ff10; }
+  .top nav a.on { color:var(--bp); background:var(--line); }
+  .top .home { padding:14px 20px; border-left:2px solid var(--line); font-size:12px; letter-spacing:.15em; }
+  .top .home:hover { background:var(--warn); color:var(--bp); }
+  [data-view][hidden] { display:none; }
+  [data-view] { padding:28px; }
+  /* title block */
+  .tb { display:grid; grid-template-columns:repeat(6,1fr); border-top:2px solid var(--line); font-size:11px; }
+  .tb div { padding:8px 12px; border-right:1px solid #cfe3ff55; }
+  .tb div:last-child { border:0; }
+  .tb b { display:block; font-size:13px; margin-top:2px; }
+  /* schematic */
+  .schem { display:grid; grid-template-columns:1fr 360px; gap:28px; align-items:start; }
+  .drawing { position:relative; }
+  .drawing svg { width:100%; max-height:calc(100vh - 220px); display:block; }
+  .drawing .part { cursor:pointer; }
+  .drawing .part path, .drawing .part rect, .drawing .part ellipse, .drawing .part polygon { transition:fill .3s, stroke .3s; }
+  .drawing .part:hover path, .drawing .part:hover rect, .drawing .part:hover polygon, .drawing .part:hover ellipse, .drawing .part.sel path, .drawing .part.sel rect, .drawing .part.sel polygon, .drawing .part.sel ellipse { fill:#ffd23c22; stroke:var(--warn); }
+  .drawing svg .draw { stroke-dasharray:2000; stroke-dashoffset:2000; animation:draw 3s ease forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  .spec { border:1px solid var(--line); padding:18px; position:sticky; top:20px; background:#0b2f5ecc; }
+  .spec h3 { font-family:'Architects Daughter'; font-size:1.8rem; font-weight:400; color:var(--warn); line-height:1.1; }
+  .spec .code { font-size:11px; color:var(--dim); letter-spacing:.2em; margin-bottom:12px; }
+  .spec p { line-height:1.7; color:#dbe9ff; margin:10px 0 16px; }
+  .spec table { width:100%; border-collapse:collapse; font-size:12px; }
+  .spec td { padding:6px 0; border-bottom:1px dashed #cfe3ff44; }
+  .spec td:last-child { text-align:right; color:var(--warn); }
+  .toggle { display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
+  .btn { font-family:inherit; font-size:12px; letter-spacing:.15em; text-transform:uppercase; padding:10px 14px; background:transparent; color:var(--line); border:1px solid var(--line); cursor:pointer; }
+  .btn:hover { background:var(--line); color:var(--bp); }
+  .btn.on { background:var(--warn); color:var(--bp); border-color:var(--warn); }
+  .btn.hot { background:var(--hot); border-color:var(--hot); color:#fff; }
+  /* launch */
+  .launch { display:grid; grid-template-columns:1fr 1.1fr; gap:28px; }
+  .pad { position:relative; height:calc(100vh - 230px); min-height:480px; border:1px solid var(--line); overflow:hidden; background:linear-gradient(#0b2f5e,#0f3d7a); }
+  .pad svg { position:absolute; inset:0; width:100%; height:100%; }
+  .count { font-size:clamp(3rem,7vw,6rem); font-weight:700; letter-spacing:-.02em; color:var(--warn); line-height:1; }
+  .phase { font-family:'Architects Daughter'; font-size:1.5rem; margin:6px 0 18px; }
+  .checklist { border:1px solid var(--line); }
+  .checklist li { list-style:none; display:grid; grid-template-columns:30px 1fr auto; padding:9px 12px; border-bottom:1px dashed #cfe3ff44; align-items:center; }
+  .checklist li:last-child { border:0; }
+  .checklist li .s { color:var(--dim); font-size:11px; }
+  .checklist li.go .s { color:#6bff9e; }
+  .checklist li.go::before { content:'■'; color:#6bff9e; }
+  .checklist li:not(.go)::before { content:'□'; color:var(--dim); }
+  .tele { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px; }
+  .tele div { border:1px solid #cfe3ff66; padding:10px; }
+  .tele small { font-size:10px; color:var(--dim); letter-spacing:.15em; }
+  .tele b { display:block; font-size:1.4rem; margin-top:4px; }
+  canvas#plot { width:100%; height:140px; border:1px solid #cfe3ff66; margin-top:10px; display:block; }
+  /* stages */
+  .stages { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .stage { border:1px solid var(--line); padding:20px; position:relative; }
+  .stage .n { position:absolute; top:-14px; left:16px; background:var(--bp); padding:0 8px; font-family:'Architects Daughter'; font-size:1.3rem; color:var(--warn); }
+  .stage svg { width:100%; height:200px; }
+  .stage table { width:100%; margin-top:10px; font-size:12px; }
+  .stage td { padding:5px 0; border-bottom:1px dashed #cfe3ff33; }
+  .stage td:last-child { text-align:right; }
+  .notes { margin-top:28px; font-family:'Architects Daughter'; font-size:1.25rem; line-height:1.6; color:#e6f0ff; border-left:3px solid var(--warn); padding-left:18px; max-width:900px; }
+  /* calculator */
+  .calc { display:grid; grid-template-columns:420px 1fr; gap:28px; }
+  .calc label { display:block; font-size:11px; letter-spacing:.15em; color:var(--dim); margin:16px 0 6px; text-transform:uppercase; }
+  .calc input[type=range] { width:100%; accent-color:var(--warn); }
+  .calc .v { float:right; color:var(--warn); }
+  .result { border:2px solid var(--line); padding:24px; }
+  .result .dv { font-size:3.6rem; font-weight:700; color:var(--warn); }
+  .result .formula { font-family:'Architects Daughter'; font-size:1.5rem; margin:10px 0 20px; }
+  .bars { margin-top:12px; }
+  .bars div { display:grid; grid-template-columns:160px 1fr 70px; gap:10px; align-items:center; margin:8px 0; font-size:12px; }
+  .bars i { height:12px; border:1px solid var(--line); position:relative; display:block; }
+  .bars i::after { content:''; position:absolute; top:0; left:0; bottom:0; width:var(--w); background:repeating-linear-gradient(45deg,var(--line) 0 2px,transparent 2px 6px); }
+  .bars .ok i::after { background:repeating-linear-gradient(45deg,#6bff9e 0 2px,transparent 2px 6px); }
+  @media (max-width:1000px){ .schem,.launch,.calc { grid-template-columns:1fr; } .stages { grid-template-columns:1fr; } .top { grid-template-columns:1fr; } .top nav { overflow-x:auto; } .tb { grid-template-columns:repeat(3,1fr); } .spec { position:static; } }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="top"><div class="id">KESTREL-II · LV-7</div><nav><a href="#schematic">01 Schematic</a><a href="#stages">02 Stages</a><a href="#launch">03 Launch sim</a><a href="#calc">04 Δv calculator</a></nav><a class="home" href="index.html">⟵ INDEX</a></div>
+  <div>
+    <section data-view="schematic">
+      <div class="schem">
+        <div class="drawing" id="drawing"></div>
+        <div class="spec" id="spec"></div>
+      </div>
+    </section>
+    <section data-view="stages" hidden>
+      <div class="stages" id="stagesEl"></div>
+      <p class="notes">NOTE: All stages share the 3.7 m tooling. Interstage separation by pneumatic pushers — NOT pyros (see incident report 44-B, "the loud Tuesday"). — R.K.</p>
+    </section>
+    <section data-view="launch" hidden>
+      <div class="launch">
+        <div class="pad" id="pad"><svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMax slice" id="padSvg"></svg></div>
+        <div>
+          <div style="font-size:11px;letter-spacing:.2em;color:var(--dim)">T-MINUS</div><div class="count" id="count">T-00:10</div><div class="phase" id="phase">Awaiting GO from all stations</div>
+          <ul class="checklist" id="check"></ul>
+          <div class="toggle"><button class="btn" id="poll">Run GO/NO-GO poll</button><button class="btn hot" id="launchBtn" disabled>Launch</button><button class="btn" id="scrub">Scrub</button></div>
+          <div class="tele"><div><small>ALTITUDE</small><b id="alt">0 m</b></div><div><small>VELOCITY</small><b id="vel">0 m/s</b></div><div><small>MAX-Q</small><b id="q">—</b></div></div>
+          <canvas id="plot" width="600" height="140"></canvas>
+        </div>
+      </div>
+    </section>
+    <section data-view="calc" hidden>
+      <div class="calc">
+        <div>
+          <p class="hand" style="font-size:1.4rem;line-height:1.4">The Tsiolkovsky rocket equation. Change the numbers; see if you reach orbit.</p>
+          <label>Specific impulse (Isp) <span class="v" id="ispV"></span></label><input type="range" id="isp" min="200" max="460" value="311">
+          <label>Wet mass (t) <span class="v" id="m0V"></span></label><input type="range" id="m0" min="50" max="600" value="312">
+          <label>Dry mass (t) <span class="v" id="mfV"></span></label><input type="range" id="mf" min="5" max="200" value="38">
+          <label>Payload (t) <span class="v" id="plV"></span></label><input type="range" id="pl" min="0" max="40" step=".5" value="6.5">
+          <div class="toggle"><button class="btn" data-pre="kerosene">RP-1/LOX</button><button class="btn" data-pre="hydrogen">LH2/LOX</button><button class="btn" data-pre="solid">Solid</button></div>
+        </div>
+        <div class="result"><div style="font-size:11px;letter-spacing:.2em;color:var(--dim)">ACHIEVABLE Δv</div><div class="dv" id="dv"></div><div class="formula">Δv = Isp · g₀ · ln(m₀ / m_f)</div><div id="verdict" class="hand" style="font-size:1.5rem;color:var(--warn)"></div><div class="bars" id="bars"></div></div>
+      </div>
+    </section>
+  </div>
+  <div class="tb"><div>DRAWN<b class="hand" style="font-size:1rem">R. Kowalczyk</b></div><div>CHECKED<b class="hand" style="font-size:1rem">M. Adebayo</b></div><div>SCALE<b>1 : 120</b></div><div>SHEET<b id="sheet">1 OF 4</b></div><div>DWG NO.<b>KST-LV7-0001-C</b></div><div>DATE<b id="dt"></b></div></div>
+</div>
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'schematic';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('.top nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));document.getElementById('sheet').textContent=(V.findIndex(v=>v.dataset.view===id)+1)+' OF 4';try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+document.getElementById('dt').textContent=new Date().toISOString().slice(0,10);
+
+/* ---------- schematic ---------- */
+const PARTS={fairing:['Payload Fairing','KST-100','Composite ogive, 4.2 m diameter. Splits along its vertical seam at 112 km, once the air is too thin to matter.',[['Length','12.4 m'],['Mass','1.9 t'],['Material','CFRP / Al honeycomb']]],
+payload:['Payload Adapter','KST-150','Where the satellite sits. Four separation springs push it away at 0.6 m/s, gently, like a parent at a school gate.',[['Capacity','6.5 t LEO'],['Interface','1194 mm clamp band'],['Sep. velocity','0.6 m/s']]],
+s2:['Second Stage','KST-200','One vacuum-optimised engine with a nozzle as big as a car. Restartable up to four times.',[['Propellant','LOX / RP-1'],['Thrust (vac)','934 kN'],['Burn time','397 s']]],
+inter:['Interstage','KST-250','Hollow carbon ring hiding the second-stage nozzle. Pneumatic pushers separate the stages — quietly, this time.',[['Length','4.1 m'],['Mass','1.1 t'],['Sep. system','Pneumatic']]],
+tank:['First Stage Tanks','KST-300','Friction-stir-welded aluminium-lithium. The LOX tank sits on top; the common bulkhead saves 900 kg.',[['LOX volume','287 m³'],['RP-1 volume','146 m³'],['Pressurant','Helium, COPV']]],
+fins:['Grid Fins','KST-340','Titanium lattice, steerable. Deployed after separation to guide the booster home.',[['Count','4'],['Material','Ti-6Al-4V'],['Actuation','Hydraulic']]],
+engines:['Main Engines','KST-400','Nine gas-generator engines in an octaweb. Three relight for the landing burn.',[['Thrust (SL)','7 600 kN'],['Isp (SL)','282 s'],['Throttle','40–100 %']]],
+legs:['Landing Legs','KST-450','Carbon fibre with aluminium honeycomb crush cores. Deploy 12 seconds before touchdown.',[['Span','18 m'],['Mass','2.1 t (set)'],['Deploy','Helium pneumatic']]]};
+function schematic(){return `<svg viewBox="0 0 700 900" id="sch">
+<g fill="none" stroke="#cfe3ff" stroke-width="1.6">
+ <g class="part" data-p="fairing"><path class="draw" d="M300 40 Q350 10 400 40 L420 120 L420 200 L280 200 L280 120Z" fill="#cfe3ff06"/></g>
+ <g class="part" data-p="payload"><rect class="draw" x="300" y="120" width="100" height="70" fill="#cfe3ff06" stroke-dasharray="6 4"/><rect x="320" y="140" width="60" height="40" fill="none"/></g>
+ <g class="part" data-p="s2"><rect class="draw" x="285" y="200" width="130" height="190" fill="#cfe3ff06"/><line x1="285" y1="300" x2="415" y2="300" stroke-dasharray="4 4"/></g>
+ <g class="part" data-p="inter"><polygon class="draw" points="285,390 415,390 420,450 280,450" fill="#cfe3ff06"/><path d="M325 390 L310 445 L390 445 L375 390" stroke-dasharray="3 3"/></g>
+ <g class="part" data-p="tank"><rect class="draw" x="280" y="450" width="140" height="330" fill="#cfe3ff06"/><path d="M280 610 Q350 640 420 610" /><line x1="350" y1="450" x2="350" y2="780" stroke-dasharray="2 6"/></g>
+ <g class="part" data-p="fins">${[0,1].map(i=>`<rect class="draw" x="${i?420:250}" y="462" width="30" height="36" fill="#cfe3ff06"/><path d="M${i?420:250} 470 h30 M${i?420:250} 480 h30 M${i?420:250} 490 h30 M${i?430:260} 462 v36 M${i?440:270} 462 v36"/>`).join('')}</g>
+ <g class="part" data-p="engines"><polygon class="draw" points="280,780 420,780 430,820 270,820" fill="#cfe3ff06"/>${[0,1,2,3,4].map(i=>`<path d="M${282+i*28} 820 L${278+i*28} 850 L${306+i*28} 850 L${302+i*28} 820Z"/>`).join('')}</g>
+ <g class="part" data-p="legs">${[0,1].map(i=>`<path class="draw" d="M${i?420:280} 730 L${i?500:200} 860 L${i?470:230} 860 L${i?420:280} 770Z" fill="#cfe3ff06"/>`).join('')}</g>
+</g>
+<g stroke="#8fb4e6" stroke-width="1" fill="#8fb4e6" font-family="JetBrains Mono" font-size="12">
+ <line x1="560" y1="40" x2="560" y2="850"/><line x1="550" y1="40" x2="570" y2="40"/><line x1="550" y1="850" x2="570" y2="850"/><text x="578" y="450" stroke="none">70.0 m</text>
+ <line x1="280" y1="880" x2="420" y2="880"/><line x1="280" y1="870" x2="280" y2="890"/><line x1="420" y1="870" x2="420" y2="890"/><text x="325" y="898" stroke="none">Ø 3.7 m</text>
+ ${[['fairing',120,'A'],['s2',290,'B'],['inter',420,'C'],['tank',600,'D'],['engines',810,'E']].map(([p,y,l])=>`<g class="part" data-p="${p}"><line x1="150" y1="${y}" x2="275" y2="${y}" stroke-dasharray="4 3"/><circle cx="138" cy="${y}" r="13" fill="none"/><text x="133" y="${y+4}" stroke="none" font-size="13">${l}</text></g>`).join('')}
+</g>
+<text x="40" y="60" font-family="Architects Daughter" font-size="26" fill="#ffd23c">KESTREL-II</text><text x="40" y="84" font-family="Architects Daughter" font-size="16" fill="#cfe3ff">side elevation · click a part</text>
+<text x="450" y="560" font-family="Architects Daughter" font-size="15" fill="#ffd23c" transform="rotate(-8 450 560)">← common bulkhead!</text></svg>`}
+document.getElementById('drawing').innerHTML=schematic();
+function showPart(p){const [n,c,d,t]=PARTS[p];document.getElementById('spec').innerHTML=`<div class="code">PART ${c}</div><h3>${n}</h3><p>${d}</p><table>${t.map(([a,b])=>`<tr><td>${a}</td><td>${b}</td></tr>`).join('')}</table><div class="toggle">${Object.keys(PARTS).map(k=>`<button class="btn${k===p?' on':''}" data-part="${k}">${PARTS[k][1].slice(4)}</button>`).join('')}</div>`;document.querySelectorAll('#sch .part').forEach(g=>g.classList.toggle('sel',g.dataset.p===p))}
+document.addEventListener('click',e=>{const g=e.target.closest('[data-p],[data-part]');if(g)showPart(g.dataset.p||g.dataset.part)});showPart('engines');
+
+/* ---------- stages ---------- */
+const ST=[['STAGE 1','Booster',[['Engines','9 × KE-1'],['Thrust','7 600 kN'],['Burn','162 s'],['Recovery','Propulsive landing']],'M60 20 L140 20 L140 170 L150 190 L50 190 L60 170Z'],['STAGE 2','Upper stage',[['Engines','1 × KE-1V'],['Thrust','934 kN'],['Burn','397 s'],['Restarts','4']],'M65 50 L135 50 L135 150 L150 190 L50 190 L65 150Z'],['FAIRING','Payload protection',[['Diameter','4.2 m'],['Length','12.4 m'],['Sep. alt.','112 km'],['Recovery','Parafoil + net']],'M100 10 Q140 30 150 80 L150 190 L50 190 L50 80 Q60 30 100 10Z']];
+document.getElementById('stagesEl').innerHTML=ST.map(([n,t,rows,path])=>`<div class="stage"><span class="n">${n}</span><svg viewBox="0 0 200 200"><path d="${path}" fill="#cfe3ff08" stroke="#cfe3ff" stroke-width="1.5"/><line x1="100" y1="0" x2="100" y2="200" stroke="#8fb4e6" stroke-dasharray="6 3 1 3"/></svg><div class="hand" style="font-size:1.3rem;color:var(--warn)">${t}</div><table>${rows.map(([a,b])=>`<tr><td>${a}</td><td>${b}</td></tr>`).join('')}</table></div>`).join('');
+
+/* ---------- launch sim ---------- */
+const stations=['Range safety','Weather','Propulsion','Guidance','Telemetry','Recovery','Flight director'];const chk=document.getElementById('check');
+chk.innerHTML=stations.map(s=>`<li><span>${s}</span><span class="s">STANDBY</span></li>`).join('');
+let armed=false,flying=false,t=10,alt=0,vel=0,hist=[],cdT,flT,flame=0;
+function padDraw(){const y=Math.max(-1600,-alt/40);const shake=flying&&alt<20000?(Math.random()-.5)*2:0;const sky=Math.min(1,alt/80000);
+ let s=`<rect width="400" height="600" fill="rgb(${15-sky*12},${61-sky*50},${122-sky*100})"/>`;for(let i=0;i<40;i++)s+=`<circle cx="${(i*97)%400}" cy="${(i*61)%500}" r="1" fill="#fff" opacity="${sky}"/>`;
+ s+=`<g transform="translate(${shake} ${-y*0})"><rect x="0" y="${560-y}" width="400" height="60" fill="#0b2f5e" stroke="#cfe3ff"/><path d="M120 ${560-y} L140 ${400-y} L150 ${400-y} L150 ${560-y}" fill="none" stroke="#cfe3ff" stroke-dasharray="4 3"/></g>`;
+ s+=`<g transform="translate(${200+shake} ${Math.max(90,380+y*0-(alt>0?Math.min(290,alt/20):0))})"><path d="M-12 -150 Q0 -175 12 -150 L14 -110 L14 150 L-14 150 L-14 -110Z" fill="#0f3d7a" stroke="#cfe3ff" stroke-width="1.5"/><line x1="-14" y1="-40" x2="14" y2="-40" stroke="#cfe3ff"/><line x1="-14" y1="-20" x2="14" y2="-20" stroke="#cfe3ff" stroke-dasharray="2 2"/>`;
+ if(flying){flame=(flame+1)%4;const L=40+Math.random()*30+flame*4;s+=`<path d="M-12 150 Q0 ${150+L*2} 12 150Z" fill="#ffd23c" opacity=".9"/><path d="M-8 150 Q0 ${150+L*1.3} 8 150Z" fill="#fff"/>`;for(let i=0;i<8;i++)s+=`<circle cx="${(Math.random()-.5)*60}" cy="${170+L+Math.random()*80}" r="${10+Math.random()*16}" fill="#cfe3ff" opacity="${.15+Math.random()*.2}"/>`}
+ s+='</g>';document.getElementById('padSvg').innerHTML=s}
+padDraw();
+document.getElementById('poll').onclick=()=>{if(flying)return;[...chk.children].forEach((li,i)=>{li.classList.remove('go');li.querySelector('.s').textContent='POLLING…';setTimeout(()=>{li.classList.add('go');li.querySelector('.s').textContent='GO';if(i===stations.length-1){armed=true;document.getElementById('launchBtn').disabled=false;document.getElementById('phase').textContent='All stations GO. Terminal count ready.'}},400+i*380)})};
+document.getElementById('launchBtn').onclick=()=>{if(!armed||flying)return;armed=false;document.getElementById('launchBtn').disabled=true;t=10;clearInterval(cdT);cdT=setInterval(()=>{t--;document.getElementById('count').textContent='T-00:'+String(Math.max(0,t)).padStart(2,'0');document.getElementById('phase').textContent=t>3?'Terminal count':t>0?'Ignition sequence start':'LIFTOFF';if(t<=0){clearInterval(cdT);liftoff()}},1000)};
+function liftoff(){flying=true;let T=0;hist=[];let maxq=0;flT=setInterval(()=>{T+=.1;const a=T<60?18+T*.35:T<120?12:0;vel+=a*.1*5;alt+=vel*.1*5;const rho=Math.exp(-alt/8500),q=.5*1.2*rho*vel*vel/1000;if(q>maxq){maxq=q;document.getElementById('q').textContent=q.toFixed(1)+' kPa'}
+ document.getElementById('alt').textContent=alt>1000?(alt/1000).toFixed(1)+' km':Math.round(alt)+' m';document.getElementById('vel').textContent=Math.round(vel)+' m/s';document.getElementById('count').textContent='T+'+String(Math.floor(T*5/60)).padStart(2,'0')+':'+String(Math.floor(T*5%60)).padStart(2,'0');
+ document.getElementById('phase').textContent=alt<1000?'Clear of the tower':alt<12000?'Pitch program · approaching Max-Q':alt<70000?'MECO · stage separation':alt<150000?'Second stage burn · fairing sep':'Orbit achieved. Welcome to space.';
+ hist.push(alt);plot();padDraw();if(alt>200000){clearInterval(flT);flying=false;padDraw()}},100)}
+function plot(){const c=document.getElementById('plot'),g=c.getContext('2d');g.clearRect(0,0,600,140);g.strokeStyle='#cfe3ff33';for(let i=0;i<600;i+=50){g.beginPath();g.moveTo(i,0);g.lineTo(i,140);g.stroke()}g.strokeStyle='#ffd23c';g.lineWidth=2;g.beginPath();hist.forEach((h,i)=>{const x=i/Math.max(hist.length,200)*600,y=136-h/200000*130;i?g.lineTo(x,y):g.moveTo(x,y)});g.stroke();g.fillStyle='#8fb4e6';g.font='11px JetBrains Mono';g.fillText('ALT vs TIME',8,14)}
+plot();
+document.getElementById('scrub').onclick=()=>{clearInterval(cdT);clearInterval(flT);flying=false;armed=false;alt=0;vel=0;hist=[];document.getElementById('launchBtn').disabled=true;document.getElementById('count').textContent='T-00:10';document.getElementById('phase').textContent='SCRUBBED. Recycling the count.';document.getElementById('alt').textContent='0 m';document.getElementById('vel').textContent='0 m/s';document.getElementById('q').textContent='—';[...chk.children].forEach(li=>{li.classList.remove('go');li.querySelector('.s').textContent='STANDBY'});plot();padDraw()};
+
+/* ---------- calculator ---------- */
+const I=id=>document.getElementById(id);
+function calc(){if(+mf.value>=+m0.value)mf.value=+m0.value-1;const isp=+isp_.value,M0=+m0.value+ +pl.value,MF=+mf.value+ +pl.value;const dv=isp*9.80665*Math.log(M0/MF);
+ I('ispV').textContent=isp+' s';I('m0V').textContent=m0.value+' t';I('mfV').textContent=mf.value+' t';I('plV').textContent=pl.value+' t';I('dv').textContent=Math.round(dv).toLocaleString()+' m/s';
+ const T=[['Suborbital hop',3000],['Low Earth orbit',9400],['Geostationary transfer',11800],['Moon (landing)',15900],['Mars transfer',13000]];
+ I('bars').innerHTML=T.map(([n,v])=>`<div class="${dv>=v?'ok':''}"><span>${n}</span><i style="--w:${Math.min(100,dv/v*100)}%"></i><span>${dv>=v?'✓ GO':Math.round(dv/v*100)+'%'}</span></div>`).join('');
+ I('verdict').textContent=dv>=9400?'Single stage to orbit?! Check your dry mass, engineer.':dv>=6000?'Respectable. Add a second stage and you\'re in business.':'Needs more boom.'}
+const isp_=I('isp');['isp','m0','mf','pl'].forEach(id=>I(id).oninput=calc);
+document.querySelectorAll('[data-pre]').forEach(b=>b.onclick=()=>{const p={kerosene:[311,312,38],hydrogen:[450,180,28],solid:[268,400,60]}[b.dataset.pre];isp_.value=p[0];m0.value=p[1];mf.value=p[2];document.querySelectorAll('[data-pre]').forEach(o=>o.classList.toggle('on',o===b));calc()});calc();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

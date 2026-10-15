@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ＰＬＡＺＡ ９５</title>
+<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Press+Start+2P&family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root { --s1:#12002b; --s2:#3b0a6b; --s3:#ff3cac; --s4:#ffb86c; --grid:#ff2d95; --neon:#0ff; }
+  body.miami { --s1:#001a33; --s2:#004e7a; --s3:#00e5ff; --s4:#ff77e9; --grid:#00e5ff; --neon:#ff77e9; }
+  body.lime { --s1:#001a0f; --s2:#0a4a3a; --s3:#b6ff3c; --s4:#fff45c; --grid:#b6ff3c; --neon:#fff45c; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { height:100%; overflow:hidden; background:#1a0033; }
+  body { font-family:'Press Start 2P',monospace; color:#fff; }
+  .sky { position:fixed; inset:0; background:linear-gradient(180deg,var(--s1) 0%,var(--s2) 35%,var(--s3) 58%,var(--s4) 62%,#1a0033 62.1%); transition:background 1s; }
+  .sun { position:fixed; left:50%; top:22vh; width:min(46vh,70vw); aspect-ratio:1; transform:translateX(-50%); border-radius:50%;
+    background:linear-gradient(180deg,#fff45c 0%,var(--s4) 45%,var(--s3) 90%);
+    --m:linear-gradient(180deg,#000 0 55%,transparent 55% 57%,#000 57% 63%,transparent 63% 66%,#000 66% 72%,transparent 72% 76%,#000 76% 82%,transparent 82% 87%,#000 87% 92%,transparent 92% 100%);
+    -webkit-mask:var(--m); mask:var(--m); filter:drop-shadow(0 0 40px var(--s3)); }
+  .grid { position:fixed; left:-50%; right:-50%; bottom:0; height:38vh; perspective:300px; overflow:hidden; }
+  .grid div { position:absolute; inset:-100% 0 0 0; transform:rotateX(70deg); transform-origin:bottom; background:linear-gradient(90deg,var(--grid) 2px,transparent 2px) 0 0/60px 60px, linear-gradient(0deg,var(--grid) 2px,transparent 2px) 0 0/60px 60px; background-color:#1a0033; animation:run 1s linear infinite; }
+  @keyframes run { to { background-position:0 60px,0 60px; } }
+  .mts { position:fixed; left:0; right:0; bottom:37.5vh; height:14vh; background:#0d0020; clip-path:polygon(0 100%,0 60%,8% 20%,15% 55%,24% 10%,33% 70%,40% 40%,47% 85%,55% 100%,60% 70%,68% 25%,76% 60%,84% 15%,92% 50%,100% 30%,100% 100%); opacity:.9; }
+  .title { position:fixed; top:6vh; width:100%; text-align:center; z-index:2; pointer-events:none; }
+  .title h1 { font-family:'Monoton',cursive; font-weight:400; font-size:clamp(3rem,11vw,9rem); text-shadow:0 0 10px var(--neon),0 0 30px var(--neon),4px 4px 0 var(--grid); letter-spacing:.05em; }
+  .title .jp { font-family:'Noto Sans JP',sans-serif; font-size:clamp(1rem,3vw,2rem); color:var(--neon); letter-spacing:.6em; margin-top:.5rem; text-shadow:0 0 12px var(--neon); }
+  .bust { position:fixed; left:50%; bottom:30vh; transform:translateX(-50%); z-index:1; font-size:18vh; filter:drop-shadow(0 0 20px var(--neon)) grayscale(1) contrast(1.4); animation:float 5s ease-in-out infinite; pointer-events:none; }
+  @keyframes float { 50% { transform:translate(-50%,-14px) rotate(3deg); } }
+  .icons { position:fixed; top:16px; left:16px; z-index:3; display:grid; gap:18px; }
+  .icon { width:84px; text-align:center; cursor:pointer; font-family:Tahoma,Verdana,sans-serif; font-size:12px; color:#fff; text-shadow:1px 1px 0 #000; user-select:none; padding:4px; border:1px dotted transparent; }
+  .icon:hover, .icon.sel { background:#00008088; border-color:#fff; }
+  .icon div { font-size:34px; margin-bottom:4px; filter:drop-shadow(2px 2px 0 #000); }
+  .window { position:fixed; z-index:10; background:#c0c0c0; color:#000; border:2px solid; border-color:#fff #404040 #404040 #fff; box-shadow:1px 1px 0 #000,8px 8px 0 #0004; width:340px; font-family:Tahoma,Verdana,sans-serif; font-size:13px; display:flex; flex-direction:column; }
+  .window[hidden] { display:none; }
+  .window .t { background:linear-gradient(90deg,#000080,var(--grid)); color:#fff; padding:3px 4px 3px 6px; font-weight:bold; display:flex; justify-content:space-between; align-items:center; cursor:move; user-select:none; touch-action:none; }
+  .window.inactive .t { background:linear-gradient(90deg,#808080,#b0b0b0); }
+  .window .t button { background:#c0c0c0; color:#000; border:1px solid; border-color:#fff #404040 #404040 #fff; width:18px; height:16px; font-size:11px; line-height:10px; cursor:pointer; font-weight:bold; }
+  .window .b { padding:10px; line-height:1.5; overflow:auto; max-height:60vh; }
+  .inset { background:#fff; border:2px solid; border-color:#404040 #fff #fff #404040; padding:8px; }
+  .btn95 { background:#c0c0c0; border:2px solid; border-color:#fff #404040 #404040 #fff; padding:4px 12px; font:inherit; cursor:pointer; }
+  .btn95:active { border-color:#404040 #fff #fff #404040; }
+  .floor { display:flex; gap:8px; margin-bottom:8px; }
+  .floor button.on { border-color:#404040 #fff #fff #404040; background:#d8d8d8; }
+  .store { display:flex; justify-content:space-between; padding:4px 6px; border-bottom:1px dotted #999; }
+  .store:hover { background:#000080; color:#fff; }
+  .menu-item { display:flex; justify-content:space-between; align-items:center; padding:4px 0; gap:8px; }
+  .viz { height:60px; display:flex; align-items:flex-end; gap:2px; background:#000; padding:4px; margin:8px 0; }
+  .viz i { flex:1; background:linear-gradient(to top,var(--grid),var(--neon)); height:4px; transition:height .08s; }
+  .fountain { height:170px; position:relative; background:linear-gradient(#7fd4ff,#1a6aa8); overflow:hidden; cursor:crosshair; border:2px solid; border-color:#404040 #fff #fff #404040; }
+  .coin { position:absolute; width:14px; height:14px; border-radius:50%; background:radial-gradient(#fff45c,#c79a00); animation:drop 1s ease-in forwards; }
+  @keyframes drop { 0% { transform:translateY(-120px) scale(1.4); } 80% { transform:none; } 100% { transform:scale(.8); opacity:.7; } }
+  .ripple { position:absolute; border:2px solid #fff; border-radius:50%; animation:rip 1s ease-out forwards; pointer-events:none; }
+  @keyframes rip { from { width:0; height:0; opacity:1; } to { width:120px; height:40px; opacity:0; margin:-20px 0 0 -60px; } }
+  .taskbar { position:fixed; bottom:0; left:0; right:0; height:36px; background:#c0c0c0; border-top:2px solid #fff; z-index:50; display:flex; align-items:center; gap:4px; padding:2px 4px; font-family:Tahoma,Verdana,sans-serif; font-size:12px; color:#000; }
+  .start { font-weight:bold; display:flex; gap:6px; align-items:center; }
+  .tasks { display:flex; gap:4px; flex:1; overflow:hidden; }
+  .tasks button { max-width:150px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tray { border:2px solid; border-color:#404040 #fff #fff #404040; padding:4px 10px; display:flex; gap:10px; }
+  .startmenu { position:fixed; bottom:36px; left:0; z-index:60; background:#c0c0c0; border:2px solid; border-color:#fff #404040 #404040 #fff; display:flex; font-family:Tahoma,Verdana,sans-serif; font-size:13px; color:#000; }
+  .startmenu[hidden] { display:none; }
+  .startmenu .side { background:linear-gradient(0deg,#000080,var(--grid)); color:#fff; writing-mode:vertical-rl; transform:rotate(180deg); padding:8px 4px; font-weight:bold; font-size:18px; letter-spacing:2px; }
+  .startmenu ul { list-style:none; min-width:200px; }
+  .startmenu li { padding:8px 16px; cursor:pointer; display:flex; gap:10px; }
+  .startmenu li:hover { background:#000080; color:#fff; }
+  .startmenu hr { border:0; border-top:1px solid #808080; border-bottom:1px solid #fff; margin:2px; }
+  .marquee { position:fixed; bottom:36px; left:0; right:0; z-index:4; background:#000; color:#fff45c; font-size:10px; padding:6px 0; white-space:nowrap; overflow:hidden; }
+  .marquee span { display:inline-block; animation:m 26s linear infinite; }
+  @keyframes m { from { transform:translateX(100vw); } to { transform:translateX(-100%); } }
+  .scan { position:fixed; inset:0; z-index:100; pointer-events:none; background:repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 2px,transparent 2px 4px); }
+  textarea, input.t95 { width:100%; font:inherit; border:2px solid; border-color:#404040 #fff #fff #404040; padding:4px; }
+  .gb p { border-bottom:1px dotted #999; padding:4px 0; }
+  .gb b { color:#000080; }
+</style>
+</head>
+<body>
+<div class="sky"></div><div class="sun"></div><div class="mts"></div><div class="grid"><div></div></div>
+<div class="title"><h1>PLAZA 95</h1><div class="jp">ショッピングモール</div></div>
+<div class="bust">🗿</div>
+
+<div class="icons">
+  <div class="icon" data-open="dir"><div>🏬</div>Directory</div>
+  <div class="icon" data-open="music"><div>💿</div>Muzak.wav</div>
+  <div class="icon" data-open="food"><div>🍜</div>Food Court</div>
+  <div class="icon" data-open="fountain"><div>⛲</div>Fountain</div>
+  <div class="icon" data-open="guest"><div>📖</div>Guestbook</div>
+  <div class="icon" data-open="display"><div>🖥️</div>Display</div>
+</div>
+
+<div class="window" id="w-dir" hidden style="left:120px;top:90px"><div class="t"><span>🏬 Mall Directory</span><button data-close>×</button></div><div class="b">
+  <div class="floor" id="floors"></div><div class="inset" id="stores" style="height:190px;overflow:auto"></div>
+  <p style="margin-top:8px;font-size:11px">You are here: ● Fountain Atrium</p></div></div>
+
+<div class="window" id="w-music" hidden style="right:40px;top:120px"><div class="t"><span>💿 Muzak.wav — Sound Recorder</span><button data-close>×</button></div><div class="b">
+  <div class="inset" id="track">Track 01 — リサフランク (Mall Mix)</div>
+  <div class="viz" id="viz"></div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn95" id="play">▶ Play</button><button class="btn95" id="next">⏭ Next</button><label style="display:flex;align-items:center;gap:6px">Slow <input type="range" id="slow" min="0.5" max="1.2" step="0.05" value="0.8"></label></div>
+  <p style="font-size:11px;margin-top:8px">Chords generated live with WebAudio. Best enjoyed on an escalator.</p></div></div>
+
+<div class="window" id="w-food" hidden style="left:30vw;top:14vh;width:360px"><div class="t"><span>🍜 Food Court — Order Kiosk</span><button data-close>×</button></div><div class="b">
+  <div id="menu"></div><hr style="margin:8px 0">
+  <div style="display:flex;justify-content:space-between"><b>Total</b><b id="ftotal">$0.00</b></div>
+  <button class="btn95" id="order" style="margin-top:8px;width:100%">Place order</button>
+  <div class="inset" id="receipt" style="margin-top:8px;display:none;font-family:monospace;font-size:12px"></div></div></div>
+
+<div class="window" id="w-fountain" hidden style="left:45vw;top:40vh;width:320px"><div class="t"><span>⛲ Wishing Fountain</span><button data-close>×</button></div><div class="b">
+  <div class="fountain" id="fount"></div><p style="margin-top:6px">Click the water to toss a coin. Coins: <b id="coins">0</b></p><p id="wish" style="font-style:italic;min-height:20px"></p></div></div>
+
+<div class="window" id="w-guest" hidden style="left:22vw;top:30vh;width:340px"><div class="t"><span>📖 Guestbook</span><button data-close>×</button></div><div class="b">
+  <form id="gbf"><input class="t95" id="gname" placeholder="Name" maxlength="20" required style="margin-bottom:4px"><textarea id="gmsg" rows="2" placeholder="Say something aesthetic" maxlength="100" required></textarea><button class="btn95" style="margin-top:4px">Sign</button></form>
+  <div class="gb inset" id="gb" style="margin-top:8px;max-height:150px;overflow:auto"></div></div></div>
+
+<div class="window" id="w-display" hidden style="right:20vw;top:18vh;width:300px"><div class="t"><span>🖥️ Display Properties</span><button data-close>×</button></div><div class="b">
+  <p>Wallpaper:</p><div style="display:grid;gap:4px;margin:6px 0">
+  <label><input type="radio" name="th" value="" checked> Sunset Plaza</label><label><input type="radio" name="th" value="miami"> Miami Nights</label><label><input type="radio" name="th" value="lime"> Acid Garden</label></div>
+  <label><input type="checkbox" id="scan" checked> CRT scanlines</label><br><label><input type="checkbox" id="bustT" checked> Statue</label></div></div>
+
+<div class="window" id="w-welcome" style="left:5vw;bottom:90px"><div class="t"><span>welcome.txt</span><button data-close>×</button></div><div class="b">Ｗｅｌｃｏｍｅ to Plaza ９５.<br>Double-click the icons to explore.<br>The fountain is eternal. The music never stops.</div></div>
+
+<div class="marquee"><span>★ ＷＥＬＣＯＭＥ ＴＯ ＴＨＥ ＰＬＡＺＡ ★ ALL SALES FINAL ★ THE PAST IS A PLACE YOU CAN SHOP ★ 永遠に ★ PLEASE DO NOT FEED THE DOLPHINS ★ ＡＥＳＴＨＥＴＩＣ ★</span></div>
+
+<div class="startmenu" id="sm" hidden><div class="side">Plaza<b>95</b></div><ul>
+  <li data-open="dir">🏬 Directory</li><li data-open="music">💿 Muzak</li><li data-open="food">🍜 Food Court</li><li data-open="fountain">⛲ Fountain</li><li data-open="guest">📖 Guestbook</li><li data-open="display">🖥️ Display</li><hr><li id="shut">🔌 Leave the mall…</li></ul></div>
+<div class="taskbar"><button class="btn95 start" id="startBtn">🪟 Start</button><div class="tasks" id="tasks"></div><div class="tray"><span id="vol">🔈</span><span id="clock"></span></div></div>
+<div class="scan" id="scanl"></div>
+
+<script>
+/* windows */
+let z=10;const wins=[...document.querySelectorAll('.window')];
+function focusW(w){wins.forEach(o=>o.classList.add('inactive'));w.classList.remove('inactive');w.style.zIndex=++z;renderTasks()}
+function openW(id){const w=document.getElementById('w-'+id);w.hidden=false;focusW(w);document.getElementById('sm').hidden=true;if(id==='dir')renderDir()}
+wins.forEach(w=>{const t=w.querySelector('.t');let ox,oy,d=false;
+ w.addEventListener('pointerdown',()=>focusW(w));
+ t.addEventListener('pointerdown',e=>{if(e.target.tagName==='BUTTON')return;d=true;const r=w.getBoundingClientRect();ox=e.clientX-r.left;oy=e.clientY-r.top;w.style.right='auto';w.style.bottom='auto';t.setPointerCapture(e.pointerId)});
+ t.addEventListener('pointermove',e=>{if(!d)return;w.style.left=Math.max(0,e.clientX-ox)+'px';w.style.top=Math.max(0,e.clientY-oy)+'px'});
+ t.addEventListener('pointerup',()=>d=false);
+ w.querySelector('[data-close]').onclick=()=>{w.hidden=true;if(w.id==='w-music')stopMusic();renderTasks()}});
+function renderTasks(){const tk=document.getElementById('tasks');tk.innerHTML='';wins.filter(w=>!w.hidden).forEach(w=>{const b=document.createElement('button');b.className='btn95';b.textContent=w.querySelector('.t span').textContent;if(!w.classList.contains('inactive'))b.style.borderColor='#404040 #fff #fff #404040';b.onclick=()=>focusW(w);tk.appendChild(b)})}
+document.querySelectorAll('.icon').forEach(i=>{i.onclick=()=>{document.querySelectorAll('.icon').forEach(o=>o.classList.remove('sel'));i.classList.add('sel')};i.ondblclick=()=>openW(i.dataset.open);
+ let tap=0;i.addEventListener('touchend',()=>{const n=Date.now();if(n-tap<350)openW(i.dataset.open);tap=n})});
+document.querySelectorAll('.startmenu [data-open]').forEach(l=>l.onclick=()=>openW(l.dataset.open));
+document.getElementById('startBtn').onclick=e=>{e.stopPropagation();const s=document.getElementById('sm');s.hidden=!s.hidden};
+document.addEventListener('click',e=>{if(!e.target.closest('#sm'))document.getElementById('sm').hidden=true});
+document.getElementById('shut').onclick=()=>{document.body.style.transition='filter 1s';document.body.style.filter='brightness(0)';setTimeout(()=>location.href='index.html',900)};
+focusW(document.getElementById('w-welcome'));
+const tick=()=>document.getElementById('clock').textContent=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});tick();setInterval(tick,10000);
+
+/* directory */
+const floors={'Level 1':[['Neon Sneakers','101'],['Palm Tree Pets','104'],['Chrome Records','109'],['Sbarro-ish','112'],['Mirror World','118']],'Level 2':[['Laser Tag Galaxy','201'],['Cassette Castle','206'],['Pastel Threads','210'],['Photo Booth ∞','215']],'Level 3':[['Arcade 2000','301'],['Tropical Tanning','305'],['Virtual Reality Lounge','309'],['Escalator to Nowhere','3½']]};
+let fl='Level 1';function renderDir(){const f=document.getElementById('floors');f.innerHTML='';Object.keys(floors).forEach(k=>{const b=document.createElement('button');b.className='btn95'+(k===fl?' on':'');b.textContent=k;b.onclick=()=>{fl=k;renderDir()};f.appendChild(b)});document.getElementById('stores').innerHTML=floors[fl].map(([n,u])=>`<div class="store"><span>${n}</span><span>Unit ${u}</span></div>`).join('')}
+
+/* music */
+let ac,master,playing=false,chordT,ci=0,trk=0;const bars=document.getElementById('viz');for(let i=0;i<24;i++)bars.appendChild(document.createElement('i'));
+const songs=[['Track 01 — リサフランク (Mall Mix)',[[60,64,67,71],[57,60,64,67],[53,57,60,64],[55,59,62,65]]],['Track 02 — Escalator Dreams',[[62,65,69,72],[58,62,65,69],[60,64,67,70],[57,61,64,67]]],['Track 03 — Fountain.exe',[[64,67,71,74],[60,64,67,71],[62,65,69,72],[59,62,66,69]]]];
+let an,dataA;
+function startMusic(){ac=ac||new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.18;const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1400;an=ac.createAnalyser();an.fftSize=64;dataA=new Uint8Array(an.frequencyBinCount);
+ const dl=ac.createDelay();dl.delayTime.value=.38;const fb=ac.createGain();fb.gain.value=.45;dl.connect(fb);fb.connect(dl);master.connect(lp);lp.connect(an);lp.connect(dl);dl.connect(an);an.connect(ac.destination);
+ playing=true;ci=0;playChord();document.getElementById('play').textContent='■ Stop';vizLoop()}
+function playChord(){if(!playing)return;const slow=+document.getElementById('slow').value;const ch=songs[trk][1][ci++%4];const dur=2.4/slow;
+ ch.forEach((n,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type=i?'triangle':'sawtooth';o.frequency.value=440*Math.pow(2,(n-69-12*(i===0))/12)*slow;o.detune.value=Math.random()*14-7;g.gain.setValueAtTime(0,ac.currentTime);g.gain.linearRampToValueAtTime(.25,ac.currentTime+.3);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+dur*1.2);o.connect(g);g.connect(master);o.start();o.stop(ac.currentTime+dur*1.3)});
+ chordT=setTimeout(playChord,dur*1000)}
+function stopMusic(){playing=false;clearTimeout(chordT);if(master)master.gain.setTargetAtTime(0,ac.currentTime,.2);document.getElementById('play').textContent='▶ Play'}
+function vizLoop(){if(!playing){[...bars.children].forEach(b=>b.style.height='4px');return}an.getByteFrequencyData(dataA);[...bars.children].forEach((b,i)=>b.style.height=Math.max(4,dataA[i]/255*52)+'px');requestAnimationFrame(vizLoop)}
+document.getElementById('play').onclick=()=>playing?stopMusic():startMusic();
+document.getElementById('next').onclick=()=>{trk=(trk+1)%songs.length;document.getElementById('track').textContent=songs[trk][0];ci=0};
+document.getElementById('vol').onclick=()=>openW('music');
+
+/* food */
+const menu=[['🍕 Pizza slice (eternal)',2.95],['🥤 Crystal soda',1.5],['🍣 Neon sushi roll',6.25],['🍦 Soft serve swirl',1.95],['🥨 Pretzel of the gods',2.5]];const qty=menu.map(()=>0);
+function renderMenu(){document.getElementById('menu').innerHTML=menu.map(([n,p],i)=>`<div class="menu-item"><span>${n}</span><span>$${p.toFixed(2)}</span><span><button class="btn95" data-q="${i}" data-d="-1">−</button> ${qty[i]} <button class="btn95" data-q="${i}" data-d="1">+</button></span></div>`).join('');document.getElementById('ftotal').textContent='$'+menu.reduce((a,[,p],i)=>a+p*qty[i],0).toFixed(2)}
+document.getElementById('menu').onclick=e=>{const b=e.target.closest('[data-q]');if(!b)return;qty[b.dataset.q]=Math.max(0,qty[b.dataset.q]+ +b.dataset.d);renderMenu()};renderMenu();
+document.getElementById('order').onclick=()=>{const r=document.getElementById('receipt');const items=menu.map((m,i)=>[m,qty[i]]).filter(x=>x[1]);if(!items.length){r.style.display='block';r.textContent='Your tray is empty. Like the parking lot.';return}
+ r.style.display='block';r.innerHTML='PLAZA 95 FOOD COURT<br>ORDER #'+(Math.random()*900+100|0)+'<br>----------------<br>'+items.map(([m,q])=>`${q}× ${m[0].slice(2)}`).join('<br>')+'<br>----------------<br>PLEASE WAIT BY THE FOUNTAIN ⛲';qty.fill(0);renderMenu()};
+
+/* fountain */
+let coins=0;const wishes=['You will find the perfect cassette.','A dolphin remembers you fondly.','The escalator will always go up.','Your GeoCities page will get a visitor.','Someone will sign your guestbook.','It is always 1995 somewhere.'];
+document.getElementById('fount').onclick=e=>{const F=e.currentTarget,r=F.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;const c=document.createElement('div');c.className='coin';c.style.left=x-7+'px';c.style.top=y-7+'px';F.appendChild(c);
+ setTimeout(()=>{const rp=document.createElement('div');rp.className='ripple';rp.style.left=x+'px';rp.style.top=y+'px';F.appendChild(rp);setTimeout(()=>rp.remove(),1000)},800);
+ coins++;document.getElementById('coins').textContent=coins;document.getElementById('wish').textContent='✨ '+wishes[Math.random()*wishes.length|0]};
+
+/* guestbook */
+let gb=[['DolphinLvr','This mall is so aesthetic omg'],['xX_Chad_Xx','first!!!!'],['Macintosh+','the fountain spoke to me']];
+try{const s=JSON.parse(localStorage.getItem('plaza95gb'));if(s)gb=s}catch(e){}
+const escH=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function renderGB(){document.getElementById('gb').innerHTML=gb.map(([n,m])=>`<p><b>${escH(n)}:</b> ${escH(m)}</p>`).join('')}renderGB();
+document.getElementById('gbf').onsubmit=e=>{e.preventDefault();gb.unshift([gname.value,gmsg.value]);try{localStorage.setItem('plaza95gb',JSON.stringify(gb.slice(0,30)))}catch(e){}gmsg.value='';renderGB()};
+
+/* display */
+document.querySelectorAll('[name=th]').forEach(r=>r.onchange=()=>document.body.className=r.value);
+document.getElementById('scan').onchange=e=>document.getElementById('scanl').style.display=e.target.checked?'':'none';
+document.getElementById('bustT').onchange=e=>document.querySelector('.bust').style.display=e.target.checked?'':'none';
+</script>
+</body>
+</html>

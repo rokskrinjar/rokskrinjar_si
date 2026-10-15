@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prospectr — SDR performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;900&family=Red+Hat+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#fff7ef;--ink:#1f1610;--ink2:#56483d;--ink3:#8c7d71;--grid:#f1e7dc;--s1:#0d9488;--s2:#9333ea;--s3:#ea580c;--s4:#2563eb;--s5:#ca8a04;--q1:#d5f1ee;--q2:#a8e3dc;--q3:#6ccdc1;--q4:#27b0a1;--q5:#0d9488;--q6:#0b6b62;--pos:#0d9488;--neg:#c93a39;--good:#0f7a52;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Red Hat Text',sans-serif}
+.disp{font-family:'Red Hat Display',sans-serif}
+header{display:flex;align-items:center;gap:16px;padding:18px 30px;flex-wrap:wrap}
+.lg{font:900 22px 'Red Hat Display';letter-spacing:-.02em;display:flex;align-items:center;gap:8px}.lg i{font-style:normal;background:var(--ink);color:#fff;border-radius:50%;width:28px;height:28px;display:grid;place-items:center;font-size:14px}
+header .sp{flex:1}.src{font-size:12px;color:var(--ink3)}
+.board{display:flex;gap:4px;padding:0 30px;overflow-x:auto}.board button{flex:1;min-width:140px;border:0;background:#fbeee2;border-radius:14px 14px 0 0;padding:12px 14px 10px;text-align:left;cursor:pointer;color:var(--ink2)}.board button b{display:block;font:700 15px 'Red Hat Display';color:var(--ink)}.board button span{font-size:12px}.board button.on{background:var(--surface)}
+.wrap{background:var(--surface);margin:0 30px 70px;border-radius:0 0 20px 20px;padding:20px 22px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}.filters button{border:1.5px solid var(--grid);background:#fff;border-radius:999px;padding:6px 12px;font:600 12.5px 'Red Hat Text';cursor:pointer;color:var(--ink2)}.filters button.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:#fffaf5;border:1px solid var(--grid);border-radius:14px;padding:14px 16px}.kpi .l{font-size:12.5px;color:var(--ink3)}.kpi .v{font:700 28px 'Red Hat Display';letter-spacing:-.02em}.kpi .d{font-size:12px;font-weight:600}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:16px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{border:1px solid var(--grid);border-radius:16px;padding:18px 20px;min-width:0}.card h3{margin:0;font:700 16px 'Red Hat Display'}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}.src{display:none}}@media(max-width:640px){header,.board{padding-left:16px;padding-right:16px}.wrap{margin:0 16px 60px;padding:16px}.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div class="lg"><i>P</i>Prospectr</div><span style="color:var(--ink3)">SDR team analytics</span><span class="sp"></span><span class="src">Outreach · Aircall · LinkedIn Sales Navigator · Chili Piper · Salesforce · Gong</span></header>
+<nav class="board"><button data-sheet="meet"><b>Meetings</b><span>booked & held</span></button><button data-sheet="lead"><b>Leaderboard</b><span>vs. quota</span></button><button data-sheet="mix"><b>Channel mix</b><span>where meetings come from</span></button><button data-sheet="hand"><b>Hand-off</b><span>SDR → AE</span></button><button data-sheet="show"><b>Show rate</b><span>no-shows & timing</span></button></nav>
+<div class="wrap"><div class="filters"><button data-f="range" data-v="30d">This month</button><button data-f="range" data-v="90d" class="on">This quarter</button><button data-f="range" data-v="12m">12 months</button><span style="width:8px"></span><button data-f="team" data-v="all" class="on">All pods</button><button data-f="team" data-v="in">Inbound pod</button><button data-f="team" data-v="out">Outbound pod</button></div>
+ <section data-panel="meet"><div class="kpis" id="k1"></div><div class="g g21"><div class="card"><h3>Meetings booked vs. held</h3><p class="sub">Chili Piper bookings, held = Gong recording or calendar attendance</p><div id="c_bh"></div></div><div class="card"><h3>Meetings by segment</h3><p class="sub">Held, selected period</p><div id="c_seg"></div></div></div></section>
+ <section data-panel="lead" hidden><div class="g g2"><div class="card"><h3>Held meetings vs. quota</h3><p class="sub">Tick = monthly-prorated quota</p><div id="c_bul"></div></div><div class="card"><h3>Pipeline sourced by SDR</h3><p class="sub">Opportunities from their meetings</p><div id="c_ps"></div></div></div>
+  <div class="card" style="margin-top:16px"><h3>SDR scorecard</h3><p class="sub">Click a header to sort</p><div id="t_sdr"></div></div></section>
+ <section data-panel="mix" hidden><div class="card"><h3>Meetings by first channel</h3><p class="sub">Channel of the touch that got the reply, by period</p><div id="c_mx"></div></div>
+  <div class="g g2" style="margin-top:16px"><div class="card"><h3>Touches per meeting</h3><p class="sub">By channel</p><div id="c_tpm"></div></div><div class="card"><h3>Connect rate by hour</h3><p class="sub">Aircall, prospect local time</p><div id="c_cr"></div></div></div></section>
+ <section data-panel="hand" hidden><div class="kpis" id="k4"></div><div class="g g21"><div class="card"><h3>From SDR meeting to revenue</h3><p class="sub">Selected period</p><div id="c_fun"></div></div><div class="card"><h3>Why AEs rejected meetings</h3><p class="sub">Salesforce rejection reason</p><div id="c_rej"></div></div></div></section>
+ <section data-panel="show" hidden><div class="g g2"><div class="card"><h3>Show rate by days until meeting</h3><p class="sub">Booked lead time</p><div id="c_lt"></div></div><div class="card"><h3>Show rate by weekday</h3><p class="sub">Held ÷ booked</p><div id="c_wd"></div></div></div>
+  <div class="card" style="margin-top:16px"><h3>Reminder sequence impact</h3><p class="sub">Show rate with and without the 24 h SMS + email reminder</p><div id="c_rem"></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const SD=['Amara','Bo','Carla','Diego','Emi','Finn','Gia','Hamza','Ines'];
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const m=F.range==='12m'?4:F.range==='30d'?.34:1;const f={all:1,in:.4,out:.6}[F.team];const L=K.periods(F.range);
+ const sd=SD.filter((_,i)=>F.team==='all'||(F.team==='in'?i<4:i>=4)).map(n=>{const q=Math.round(36*m);return{n,q,held:Math.round(q*(.6+r()*.7)),pipe:(150e3+r()*600e3)*m,show:.72+r()*.2,acc:.7+r()*.25,calls:Math.round((380+r()*500)*m),em:Math.round((900+r()*900)*m)}});
+ return memo[k]={r,m,f,L,sd}}
+const S={range:'90d',team:'all'};
+const views={
+meet(F){const D=data(F);const held=K.sum(D.sd.map(s=>s.held)),bk=Math.round(held/.81);
+ K.kpis($('k1'),[{label:'Meetings booked',value:K.int(bk),delta:.14},{label:'Meetings held',value:K.int(held),delta:.12},{label:'Show rate',value:K.pct(held/bk,0)},{label:'Accepted by AEs',value:'83%'},{label:'Pipeline sourced',value:K.money(K.sum(D.sd.map(s=>s.pipe)))}]);
+ const n=D.L.length;K.bars($('c_bh'),{labels:D.L,series:[{name:'Booked',data:K.series(D.r,n,bk/n,{noise:.18,trend:.15}),color:'#c9d9d6'},{name:'Held',data:K.series(D.r,n,held/n,{noise:.18,trend:.18})}],fmt:K.int,h:270});
+ K.donut($('c_seg'),{items:[{name:'Enterprise',value:.24},{name:'Mid-market',value:.47},{name:'SMB',value:.29}],fmt:v=>K.pct(v,0),center:{value:K.int(held),label:'held'}})},
+lead(F){const D=data(F);const so=[...D.sd].sort((a,b)=>b.held/b.q-a.held/a.q);
+ K.bullet($('c_bul'),{rows:so.map(s=>[s.n,s.held,s.q]),fmt:K.int});
+ const sp=[...D.sd].sort((a,b)=>b.pipe-a.pipe);K.bars($('c_ps'),{labels:sp.map(s=>s.n),series:[{name:'Pipeline',data:sp.map(s=>s.pipe)}],fmt:K.money,horizontal:true,h:300});
+ K.table($('t_sdr'),{cols:[{k:'n',label:'SDR'},{k:'held',label:'Held',align:'r',bar:true},{k:'att',label:'vs. quota',align:'r',fmt:v=>K.pct(v,0)},{k:'show',label:'Show rate',align:'r',fmt:v=>K.pct(v,0)},{k:'acc',label:'AE accepted',align:'r',fmt:v=>K.pct(v,0)},{k:'calls',label:'Calls',align:'r',fmt:K.int},{k:'em',label:'Emails',align:'r',fmt:K.int},{k:'pipe',label:'Pipeline',align:'r',fmt:K.money}],rows:D.sd.map(s=>({...s,att:s.held/s.q})),sort:'held'})},
+mix(F){const D=data(F);const n=D.L.length;const held=K.sum(D.sd.map(s=>s.held));
+ K.bars($('c_mx'),{labels:D.L,series:[{name:'Cold call',data:K.series(D.r,n,held*.34/n,{noise:.2})},{name:'Email',data:K.series(D.r,n,held*.29/n,{noise:.2})},{name:'LinkedIn',data:K.series(D.r,n,held*.18/n,{noise:.25,trend:.4})},{name:'Inbound follow-up',data:K.series(D.r,n,held*.19/n,{noise:.2})}],stacked:true,fmt:K.int,h:270});
+ K.bars($('c_tpm'),{labels:['Cold call','Email','LinkedIn','Inbound follow-up'],series:[{name:'Touches per meeting',data:[41,118,63,4.2]}],fmt:v=>v.toFixed(v<10?1:0),h:240,colorBy:i=>K.S(i)});
+ K.line($('c_cr'),{labels:['8','9','10','11','12','13','14','15','16','17'],series:[{name:'Connect rate',data:[.062,.081,.074,.069,.048,.052,.066,.071,.084,.077]}],fmt:v=>K.pct(v,1),h:240})},
+hand(F){const D=data(F);const held=K.sum(D.sd.map(s=>s.held));
+ K.kpis($('k4'),[{label:'Meetings held',value:K.int(held)},{label:'Accepted by AE',value:K.pct(.83,0)},{label:'Became opportunity',value:K.pct(.46,0)},{label:'Won',value:K.int(held*.46*.22)},{label:'Avg time to AE follow-up',value:'1.6 days'}]);
+ K.funnel($('c_fun'),{steps:[['Meeting held',held],['Accepted by AE',Math.round(held*.83)],['Discovery done',Math.round(held*.62)],['Opportunity',Math.round(held*.46)],['Won',Math.round(held*.46*.22)]]});
+ K.bars($('c_rej'),{labels:['Not decision maker','No budget','Wrong segment','Already a customer','Duplicate'],series:[{name:'Rejected meetings',data:[.36,.24,.19,.12,.09]}],fmt:v=>K.pct(v,0),horizontal:true,h:240})},
+show(F){const D=data(F);K.bars($('c_lt'),{labels:['Same day','1 day','2–3 days','4–7 days','8–14 days','15+ days'],series:[{name:'Show rate',data:[.91,.88,.82,.74,.63,.51]}],fmt:v=>K.pct(v,0),h:250});
+ K.bars($('c_wd'),{labels:['Mon','Tue','Wed','Thu','Fri'],series:[{name:'Show rate',data:[.79,.84,.85,.83,.71]}],fmt:v=>K.pct(v,0),h:250});
+ K.bars($('c_rem'),{labels:['Enterprise','Mid-market','SMB'],series:[{name:'No reminder',data:[.76,.71,.64]},{name:'With reminder',data:[.86,.83,.79]}],fmt:v=>K.pct(v,0),h:230})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

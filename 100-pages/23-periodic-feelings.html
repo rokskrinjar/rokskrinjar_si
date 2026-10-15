@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Periodic Table of Feelings</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f4f4f0; --ink:#16181d; --mute:#7a7f8a; --joy:#ffc93c; --sad:#5b8def; --anger:#ff5d5d; --fear:#9b6bff; --surprise:#ff9f43; --love:#ff7eb6; --calm:#3ccf9e; --shame:#8a8f99; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--ink); font-family:'Sora',sans-serif; }
+  a { color:inherit; text-decoration:none; }
+  .code { font-family:'Fira Code',monospace; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:20px 3vw; border-bottom:1px solid #16181d18; flex-wrap:wrap; gap:1rem; }
+  header h1 { font-weight:800; font-size:clamp(1.3rem,2.4vw,1.9rem); letter-spacing:-.02em; }
+  header h1 span { font-weight:300; }
+  .tabs { display:flex; background:#16181d0d; padding:4px; border-radius:14px; gap:4px; }
+  .tabs a { padding:9px 16px; border-radius:10px; font-size:14px; font-weight:600; color:var(--mute); }
+  .tabs a.on { background:#fff; color:var(--ink); box-shadow:0 2px 8px #0001; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:in .5s both; }
+  @keyframes in { from { opacity:0; } }
+  .page { padding:26px 3vw 60px; }
+  /* table */
+  .legend { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+  .legend button { display:flex; align-items:center; gap:8px; padding:7px 12px; border-radius:30px; border:1px solid #16181d22; background:#fff; font-family:inherit; font-size:13px; cursor:pointer; transition:opacity .2s; }
+  .legend button i { width:12px; height:12px; border-radius:3px; }
+  .legend button.off { opacity:.35; }
+  .layout { display:grid; grid-template-columns:1fr 340px; gap:24px; align-items:start; }
+  .table { display:grid; grid-template-columns:repeat(12,1fr); gap:6px; }
+  .el { aspect-ratio:1; border-radius:10px; background:var(--c); padding:6px 7px; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; position:relative; transition:transform .2s, opacity .3s, box-shadow .2s; color:#16181d; }
+  .el:hover { transform:scale(1.12); z-index:2; box-shadow:0 10px 24px #0003; }
+  .el.dim { opacity:.15; }
+  .el.sel { outline:3px solid var(--ink); outline-offset:2px; }
+  .el .n { font-family:'Fira Code'; font-size:10px; display:flex; justify-content:space-between; }
+  .el .s { font-weight:800; font-size:clamp(.9rem,1.8vw,1.6rem); letter-spacing:-.03em; line-height:1; }
+  .el .nm { font-size:9px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .gap { visibility:hidden; }
+  .detail { background:#fff; border-radius:20px; padding:24px; position:sticky; top:20px; box-shadow:0 10px 30px #0000000d; }
+  .detail .big { width:130px; height:130px; border-radius:18px; background:var(--c); padding:12px; display:flex; flex-direction:column; justify-content:space-between; margin-bottom:16px; }
+  .detail .big .s { font-weight:800; font-size:3.2rem; line-height:1; }
+  .detail h2 { font-weight:800; font-size:1.8rem; letter-spacing:-.02em; }
+  .detail .fam { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); margin:4px 0 14px; }
+  .detail p { line-height:1.6; font-size:.95rem; }
+  .props { margin-top:16px; font-size:13px; }
+  .props div { display:flex; justify-content:space-between; padding:8px 0; border-top:1px dashed #16181d22; }
+  .props b { font-family:'Fira Code'; font-weight:600; }
+  .bar { height:8px; border-radius:6px; background:#16181d10; margin-top:4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--c); }
+  .search { padding:10px 14px; border-radius:12px; border:1px solid #16181d22; font-family:inherit; font-size:14px; width:220px; }
+  /* lab */
+  .lab { display:grid; grid-template-columns:1fr 380px 1fr; gap:24px; align-items:center; }
+  .pick { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+  .pick .el { aspect-ratio:1; }
+  .flaskWrap { text-align:center; }
+  .flaskWrap svg { width:100%; max-width:340px; }
+  .slots { display:flex; justify-content:center; gap:14px; align-items:center; margin-bottom:10px; }
+  .slot { width:86px; height:86px; border-radius:14px; border:2px dashed #16181d33; display:grid; place-items:center; font-weight:800; font-size:1.8rem; background:var(--c,transparent); }
+  .result { background:#fff; border-radius:20px; padding:24px; min-height:260px; }
+  .result h3 { font-weight:800; font-size:2rem; letter-spacing:-.02em; }
+  .result .formula { font-family:'Fira Code'; font-size:1.2rem; margin:8px 0 14px; color:var(--mute); }
+  .btn { padding:12px 20px; border-radius:12px; border:0; background:var(--ink); color:#fff; font-family:inherit; font-weight:600; cursor:pointer; }
+  .btn.ghost { background:transparent; color:var(--ink); border:1px solid #16181d33; }
+  .bub { animation:bub 1.8s ease-in infinite; }
+  @keyframes bub { from { transform:translateY(0); opacity:.9; } to { transform:translateY(-120px); opacity:0; } }
+  .shake { animation:shake .5s; }
+  @keyframes shake { 20%,60% { transform:rotate(-6deg); } 40%,80% { transform:rotate(6deg); } }
+  /* journal */
+  .journal { display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+  .cal { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+  .cal div { aspect-ratio:1; border-radius:8px; background:#16181d0a; display:flex; flex-wrap:wrap; align-content:flex-end; padding:4px; gap:2px; font-size:10px; position:relative; }
+  .cal div span { position:absolute; top:4px; left:6px; color:var(--mute); font-family:'Fira Code'; }
+  .cal div i { width:10px; height:10px; border-radius:3px; }
+  .cal div.today { outline:2px solid var(--ink); }
+  .todayPick { display:flex; flex-wrap:wrap; gap:6px; margin:14px 0; }
+  .todayPick button { padding:8px 12px; border-radius:30px; border:1px solid #16181d22; background:#fff; font-family:inherit; font-size:13px; cursor:pointer; display:flex; gap:6px; align-items:center; }
+  .todayPick button i { width:10px; height:10px; border-radius:3px; }
+  .todayPick button.on { background:var(--ink); color:#fff; }
+  .dist { margin-top:20px; }
+  .dist div { display:grid; grid-template-columns:90px 1fr 40px; gap:10px; align-items:center; margin:6px 0; font-size:13px; }
+  @media (max-width:1000px){ .layout,.lab,.journal { grid-template-columns:1fr; } .table { grid-template-columns:repeat(6,1fr); } .gap { display:none; } .detail { position:static; } }
+</style>
+</head>
+<body>
+<header><h1>The Periodic Table <span>of Feelings</span></h1><nav class="tabs"><a href="#table">Table</a><a href="#lab">Reaction lab</a><a href="#journal">Mood journal</a><a href="index.html">← Index</a></nav></header>
+
+<section data-view="table" class="page">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:6px"><div class="legend" id="legend"></div><input class="search" id="q" placeholder="Search a feeling…"></div>
+  <div class="layout"><div class="table" id="table"></div><aside class="detail" id="detail"></aside></div>
+</section>
+
+<section data-view="lab" class="page" hidden>
+  <div class="lab">
+    <div><h3 style="font-weight:800;margin-bottom:10px">Pick two elements</h3><div class="pick" id="pick"></div></div>
+    <div class="flaskWrap"><div class="slots"><div class="slot" id="s1">?</div><b style="font-size:1.6rem">+</b><div class="slot" id="s2">?</div></div>
+      <svg viewBox="0 0 200 260" id="flask"><defs><clipPath id="fc"><path d="M80 20 L80 100 L30 220 Q25 240 45 240 L155 240 Q175 240 170 220 L120 100 L120 20Z"/></clipPath></defs><g clip-path="url(#fc)"><rect id="liquid" x="0" y="160" width="200" height="100" fill="#ddd" style="transition:all .8s"/><g id="bubbles"></g></g><path d="M80 20 L80 100 L30 220 Q25 240 45 240 L155 240 Q175 240 170 220 L120 100 L120 20" fill="none" stroke="#16181d" stroke-width="4" stroke-linejoin="round"/><line x1="70" y1="20" x2="130" y2="20" stroke="#16181d" stroke-width="6" stroke-linecap="round"/></svg>
+      <div><button class="btn" id="mix">⚗ React</button> <button class="btn ghost" id="clear">Clear</button></div></div>
+    <div class="result" id="result"><h3>Awaiting reagents</h3><p style="color:var(--mute);line-height:1.6;margin-top:8px">Some feelings combine into something new. Others simply fizz. Choose two and press React.</p><p class="code" style="margin-top:18px;font-size:12px;color:var(--mute)">Discovered compounds: <b id="disc">0</b> / <span id="discT"></span></p></div>
+  </div>
+</section>
+
+<section data-view="journal" class="page" hidden>
+  <div class="journal">
+    <div><h3 style="font-weight:800;font-size:1.6rem">How do you feel today?</h3><p style="color:var(--mute);margin-top:6px">Tap up to three elements. Saved on this device only.</p><div class="todayPick" id="todayPick"></div>
+      <div class="dist" id="dist"></div></div>
+    <div><h3 style="font-weight:800;font-size:1.6rem;margin-bottom:12px" id="calT"></h3><div class="cal" id="cal"></div></div>
+  </div>
+</section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'table';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('.tabs a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+const FAM={joy:['Joy','var(--joy)'],love:['Love','var(--love)'],calm:['Calm','var(--calm)'],surprise:['Surprise','var(--surprise)'],fear:['Fear','var(--fear)'],anger:['Anger','var(--anger)'],sad:['Sadness','var(--sad)'],shame:['Shame','var(--shame)']};
+/* [sym,name,family,intensity 1-10,half-life,description,col,row] */
+const E=[['Jy','Joy','joy',8,'hours','A warm, bright expansion — the lungs remember how to fill.',1,1],['Hp','Hope','joy',5,'weeks','Joy that has not happened yet, held carefully in both hands.',12,1],
+['Dl','Delight','joy',7,'minutes','A small, surprising joy; usually involves a dog.',1,2],['Pr','Pride','joy',6,'days','The glow of having done the hard thing.',2,2],['Am','Amusement','joy',4,'seconds','The fizz before a laugh.',11,2],['Gr','Gratitude','love',5,'days','Noticing the gift after it arrives.',12,2],
+['Lv','Love','love',10,'years','Heavy, stable, radioactive in the best way.',1,3],['Af','Affection','love',6,'hours','Love in its everyday clothes.',2,3],['Cm','Compassion','love',7,'days','Feeling with, not for.',3,3],['Ad','Admiration','love',5,'days','Looking up without feeling small.',4,3],['Tr','Trust','love',7,'years','Slow to form, quick to decay under pressure.',5,3],['Ls','Longing','love',8,'months','Love pointed at a distance.',6,3],['Cn','Contentment','calm',4,'days','Nothing is missing, for now.',7,3],['Rl','Relief','calm',6,'minutes','The exhale after a held breath.',8,3],['Sr','Serenity','calm',3,'hours','Still water; the mind at anchor.',9,3],['Nt','Nostalgia','sad',5,'hours','Joy and sadness sharing a blanket.',10,3],['Aw','Awe','surprise',9,'minutes','The self gets smaller and the world gets bigger.',11,3],['Cu','Curiosity','surprise',5,'hours','An itch shaped like a question.',12,3],
+['Sp','Surprise','surprise',7,'seconds','The half-second where anything is possible.',1,4],['Cf','Confusion','surprise',4,'minutes','The map and the territory disagree.',2,4],['Fr','Fear','fear',9,'minutes','An alarm that cannot tell a tiger from a deadline.',3,4],['Ax','Anxiety','fear',6,'weeks','Fear with no fixed address.',4,4],['Dr','Dread','fear',7,'days','Fear of a future that has already RSVP\'d.',5,4],['Nv','Nervousness','fear',4,'hours','Butterflies, unsupervised.',6,4],['Vn','Vulnerability','fear',6,'hours','Being seen without armour; frightening, necessary.',7,4],['An','Anger','anger',9,'minutes','Energy that wants to change something, now.',8,4],['Ir','Irritation','anger',3,'minutes','A pebble in the emotional shoe.',9,4],['Fu','Frustration','anger',6,'hours','Anger with its wheels stuck in mud.',10,4],['Rs','Resentment','anger',7,'years','Anger stored at room temperature. Spoils slowly.',11,4],['Jl','Jealousy','anger',7,'days','Fear of losing, dressed as anger.',12,4],
+['Sd','Sadness','sad',7,'days','A heaviness that asks you to slow down.',1,5],['Lo','Loneliness','sad',7,'weeks','Hunger for being known.',2,5],['Gf','Grief','sad',10,'years','Love with nowhere to go.',3,5],['Dp','Disappointment','sad',5,'days','The gap between the picture and the thing.',4,5],['Mn','Melancholy','sad',4,'weeks','Sadness that has learned to play the cello.',5,5],['Bo','Boredom','sad',2,'hours','Waiting for a feeling to arrive.',6,5],['Sh','Shame','shame',8,'years','Not "I did bad" but "I am bad". Lies, mostly.',7,5],['Gu','Guilt','shame',6,'days','A useful ache that points to repair.',8,5],['Em','Embarrassment','shame',5,'minutes','Shame\'s harmless little cousin. Blushes a lot.',9,5],['Rg','Regret','shame',6,'years','Replaying the tape, hoping for a different ending.',10,5],['Ap','Apathy','shame',1,'weeks','The volume knob stuck on zero.',11,5],['Ex','Exhaustion','sad',5,'days','Every feeling, all at once, then none.',12,5]];
+E.forEach((e,i)=>e.n=i+1);
+const off=new Set();let sel=E[0];
+function renderLegend(){document.getElementById('legend').innerHTML=Object.entries(FAM).map(([k,[n,c]])=>`<button data-f="${k}" class="${off.has(k)?'off':''}"><i style="background:${c}"></i>${n}</button>`).join('')}
+document.getElementById('legend').onclick=e=>{const b=e.target.closest('[data-f]');if(!b)return;const f=b.dataset.f;off.has(f)?off.delete(f):off.add(f);renderLegend();renderTable()};
+const q=document.getElementById('q');q.oninput=renderTable;
+function renderTable(){const s=q.value.toLowerCase();const t=document.getElementById('table');t.innerHTML='';
+ for(let r=1;r<=5;r++)for(let c=1;c<=12;c++){const e=E.find(x=>x[6]===c&&x[7]===r);if(!e){t.insertAdjacentHTML('beforeend','<div class="gap"></div>');continue}const dim=off.has(e[2])||(s&&!e[1].toLowerCase().includes(s)&&!e[0].toLowerCase().includes(s));
+  t.insertAdjacentHTML('beforeend',`<div class="el${dim?' dim':''}${e===sel?' sel':''}" style="--c:${FAM[e[2]][1]}" data-n="${e.n}"><div class="n"><span>${e.n}</span><span>${e[3]}</span></div><div class="s">${e[0]}</div><div class="nm">${e[1]}</div></div>`)}}
+document.getElementById('table').onclick=e=>{const el=e.target.closest('.el');if(!el)return;sel=E[el.dataset.n-1];renderTable();renderDetail()};
+const REACT={};
+function renderDetail(){const e=sel;const partners=Object.keys(REACT).filter(k=>k.split('+').includes(e[0])).map(k=>REACT[k][0]).slice(0,3);
+ document.getElementById('detail').innerHTML=`<div class="big" style="--c:${FAM[e[2]][1]}"><div class="code" style="display:flex;justify-content:space-between;font-size:12px"><span>${e.n}</span><span>${e[3]}.0</span></div><div class="s">${e[0]}</div></div><h2>${e[1]}</h2><div class="fam">${FAM[e[2]][0]} group · period ${e[7]}</div><p>${e[5]}</p>
+ <div class="props"><div><span>Intensity</span><b>${e[3]} / 10</b></div><div class="bar" style="--c:${FAM[e[2]][1]}"><i style="width:${e[3]*10}%"></i></div><div><span>Half-life</span><b>${e[4]}</b></div><div><span>State at room temp.</span><b>${e[3]>7?'volatile':e[3]>4?'liquid':'stable'}</b></div><div><span>Known compounds</span><b>${partners.join(', ')||'—'}</b></div></div>`}
+
+/* lab reactions */
+const R=[['Jy','Sd','Nostalgia','Nt','Joy and sadness, dissolved together. The taste of old photographs.'],['Fr','Sp','Awe','Aw','Fear\'s alarm and surprise\'s wonder combine into something vast.'],['Lv','Fr','Vulnerability','Vn','Loving something you could lose.'],['Lv','Gf','Tenderness','Td','Grief softened by the love that caused it.'],['An','Fr','Jealousy','Jl','A classic, unstable compound. Handle with gloves.'],['Jy','Rl','Euphoria','Eu','Relief amplifies joy until the chest can barely contain it.'],['Sd','An','Bitterness','Bt','A slow, corrosive precipitate. Stains everything.'],['Cu','Fr','Thrill','Th','The rollercoaster compound.'],['Hp','Fr','Anticipation','At','Fear and hope looking at the same door.'],['Gu','Lv','Remorse','Rm','The feeling that makes an apology real.'],['Lo','Lv','Longing','Ls','Love at a distance; a noble gas.'],['Pr','Gr','Humility','Hu','Pride tempered by thanks — the rarest stable isotope.'],['Bo','Cu','Inspiration','In','Boredom is the spark gap; curiosity is the spark.'],['Sr','Jy','Bliss','Bl','Pure, quiet, fleeting. Observed mostly on Sunday mornings.'],['Em','Am','Giggles','Gg','Uncontrollable. Contagious. Occurs at funerals and exams.'],['Ax','Rl','Catharsis','Ct','The storm that clears the air.']];
+R.forEach(r=>REACT[[r[0],r[1]].sort().join('+')]=[r[2],r[3],r[4]]);
+document.getElementById('discT').textContent=R.length;const disc=new Set();let pickA=null,pickB=null;
+document.getElementById('pick').innerHTML=E.filter((e,i)=>i%1===0).map(e=>`<div class="el" style="--c:${FAM[e[2]][1]}" data-n="${e.n}" title="${e[1]}"><div class="n"><span>${e.n}</span></div><div class="s">${e[0]}</div><div class="nm">${e[1]}</div></div>`).join('');
+function slot(id,e){const s=document.getElementById(id);s.textContent=e?e[0]:'?';s.style.setProperty('--c',e?FAM[e[2]][1]:'transparent')}
+document.getElementById('pick').onclick=ev=>{const el=ev.target.closest('.el');if(!el)return;const e=E[el.dataset.n-1];if(!pickA||pickB){pickA=e;pickB=null}else pickB=e;slot('s1',pickA);slot('s2',pickB);
+ const c=[pickA,pickB].filter(Boolean).map(x=>getComputedStyle(document.body).getPropertyValue(FAM[x[2]][1].slice(4,-1)).trim());document.getElementById('liquid').setAttribute('fill',c[c.length-1]||'#ddd');document.getElementById('liquid').setAttribute('y',pickB?110:160)};
+document.getElementById('clear').onclick=()=>{pickA=pickB=null;slot('s1');slot('s2');document.getElementById('liquid').setAttribute('fill','#ddd');document.getElementById('liquid').setAttribute('y',160);document.getElementById('bubbles').innerHTML=''};
+document.getElementById('mix').onclick=()=>{const res=document.getElementById('result');if(!pickA||!pickB){res.innerHTML='<h3>Need two reagents</h3><p style="color:var(--mute);margin-top:8px">Pick two elements from the table on the left.</p>';return}
+ const k=[pickA[0],pickB[0]].sort().join('+'),r=REACT[k];const fl=document.getElementById('flask');fl.classList.remove('shake');void fl.getBoundingClientRect();fl.classList.add('shake');
+ document.getElementById('bubbles').innerHTML=[...Array(12)].map((_,i)=>`<circle class="bub" cx="${50+Math.random()*100}" cy="${230-Math.random()*20}" r="${3+Math.random()*6}" fill="#fff" opacity=".8" style="animation-delay:${Math.random()*1.5}s;transform-box:fill-box"/>`).join('');
+ document.getElementById('liquid').setAttribute('fill',r?`hsl(${(pickA.n*37+pickB.n*53)%360} 80% 65%)`:'#c8c8c8');
+ if(r){disc.add(k);res.innerHTML=`<div class="code" style="font-size:12px;color:var(--mute)">REACTION SUCCESSFUL</div><h3>${r[0]}</h3><div class="formula">${pickA[0]} + ${pickB[0]} → ${r[1]}</div><p style="line-height:1.6">${r[2]}</p><p class="code" style="margin-top:18px;font-size:12px;color:var(--mute)">Discovered compounds: <b>${disc.size}</b> / ${R.length}</p>`}
+ else res.innerHTML=`<div class="code" style="font-size:12px;color:var(--mute)">NO REACTION</div><h3>${pickA[1]} &amp; ${pickB[1]}</h3><div class="formula">${pickA[0]} + ${pickB[0]} → ${pickA[0]}${pickB[0]} (mixture)</div><p style="line-height:1.6">They sit together, unmixed, like oil and water — both present, neither changed. Try another pairing. <i>Hint: opposites often react.</i></p><p class="code" style="margin-top:18px;font-size:12px;color:var(--mute)">Discovered compounds: <b>${disc.size}</b> / ${R.length}</p>`};
+
+/* journal */
+const KEY='ptof-journal';let J={};try{J=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
+const dk=d=>d.toISOString().slice(0,10);const today=new Date();
+if(!Object.keys(J).length){for(let i=1;i<28;i++){const d=new Date();d.setDate(d.getDate()-i);const n=1+(i*7)%3;J[dk(d)]=[...Array(n)].map((_,k)=>E[(i*11+k*17)%E.length][0])}}
+const quick=['Jy','Cn','Ax','Sd','Lv','Fu','Cu','Ex','Gr','Bo','Hp','Lo'];
+function renderJ(){const t=J[dk(today)]||[];document.getElementById('todayPick').innerHTML=quick.map(s=>{const e=E.find(x=>x[0]===s);return `<button data-s="${s}" class="${t.includes(s)?'on':''}"><i style="background:${FAM[e[2]][1]}"></i>${e[1]}</button>`}).join('');
+ const cal=document.getElementById('cal');cal.innerHTML='';document.getElementById('calT').textContent='The last four weeks';for(let i=27;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const L=J[dk(d)]||[];cal.insertAdjacentHTML('beforeend',`<div class="${i===0?'today':''}" title="${d.toDateString()}: ${L.map(s=>E.find(x=>x[0]===s)?.[1]).join(', ')}"><span>${d.getDate()}</span>${L.map(s=>{const e=E.find(x=>x[0]===s);return e?`<i style="background:${FAM[e[2]][1]}"></i>`:''}).join('')}</div>`)}
+ const cnt={};Object.values(J).flat().forEach(s=>{const e=E.find(x=>x[0]===s);if(e)cnt[e[2]]=(cnt[e[2]]||0)+1});const tot=Object.values(cnt).reduce((a,b)=>a+b,0)||1;
+ document.getElementById('dist').innerHTML='<h4 style="font-weight:800;margin-bottom:8px">Your emotional composition</h4>'+Object.entries(FAM).map(([k,[n,c]])=>`<div><span>${n}</span><div class="bar" style="--c:${c}"><i style="width:${(cnt[k]||0)/tot*100}%"></i></div><span class="code">${Math.round((cnt[k]||0)/tot*100)}%</span></div>`).join('')}
+document.getElementById('todayPick').onclick=e=>{const b=e.target.closest('[data-s]');if(!b)return;const k=dk(today);let t=J[k]||[];const s=b.dataset.s;t=t.includes(s)?t.filter(x=>x!==s):[...t,s].slice(-3);J[k]=t;try{localStorage.setItem(KEY,JSON.stringify(J))}catch(e){}renderJ()};
+
+renderLegend();renderTable();renderDetail();renderJ();go(location.hash.slice(1));
+</script>
+</body>
+</html>

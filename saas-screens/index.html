@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fifty SaaS Screens</title>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ecebe6;--card:#f8f7f3;--tx:#161614;--mu:#706d66;--ln:#d8d5cc;--acc:#ff4f1f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 'Geist',system-ui,sans-serif}
+.mono{font-family:'Geist Mono',monospace}
+.wrap{max-width:1440px;margin:0 auto;padding:0 32px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font:500 13px 'Geist Mono';color:var(--mu)}
+nav a{color:var(--tx);text-decoration:none}nav span a{margin-left:16px}
+header{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:end;padding:30px 0 34px;border-bottom:2px solid var(--tx)}
+.big{font:900 clamp(120px,19vw,300px)/.78 'Big Shoulders Display';letter-spacing:-.02em;margin:0}
+.big span{color:var(--acc)}
+header h1{font:700 clamp(30px,3.6vw,52px)/1.02 'Geist';letter-spacing:-.035em;margin:0 0 14px;max-width:16ch;text-wrap:balance}
+header p{color:var(--mu);margin:0;max-width:44em;font-size:16px}
+.stats{display:flex;gap:26px;margin-top:20px;font:500 13px 'Geist Mono';color:var(--mu);flex-wrap:wrap}.stats b{color:var(--tx);font-weight:500}
+.ctrl{position:sticky;top:0;z-index:10;background:var(--bg);display:flex;gap:10px;align-items:center;padding:14px 0;border-bottom:1px solid var(--ln);flex-wrap:wrap}
+.chip{border:1.5px solid var(--tx);background:transparent;color:var(--tx);border-radius:999px;padding:6px 13px;font:600 13px 'Geist';cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip small{font:500 11px 'Geist Mono';opacity:.6}.chip.on{background:var(--tx);color:var(--bg)}
+.ctrl .sp{flex:1}.srch{border:1.5px solid var(--ln);background:var(--card);border-radius:999px;padding:7px 14px;font:14px 'Geist';width:240px;color:var(--tx)}
+.tone{display:flex;border:1.5px solid var(--ln);border-radius:999px;overflow:hidden}.tone button{border:0;background:var(--card);padding:6px 12px;font:600 12.5px 'Geist';cursor:pointer;color:var(--mu)}.tone button.on{background:var(--tx);color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px 22px;padding:28px 0 60px}
+.card{display:flex;flex-direction:column;text-decoration:none;color:inherit}
+.thumb{position:relative;aspect-ratio:16/10;border-radius:10px;overflow:hidden;background:var(--card);border:1px solid var(--ln);box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.card:hover .thumb img{transform:scale(1.035)}
+.no{position:absolute;left:10px;top:10px;background:var(--tx);color:var(--bg);font:900 20px/1 'Big Shoulders Display';padding:5px 8px 4px;border-radius:5px;letter-spacing:.02em}
+.open{position:absolute;right:10px;bottom:10px;background:var(--acc);color:#fff;font:600 12.5px 'Geist';padding:6px 11px;border-radius:999px;opacity:0;transform:translateY(6px);transition:.2s}.card:hover .open{opacity:1;transform:none}
+.meta{padding:12px 2px 0}
+.row1{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.row1 h2{font:700 20px 'Geist';letter-spacing:-.02em;margin:0}.row1 span{font:500 11.5px 'Geist Mono';color:var(--mu);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.what{color:var(--mu);font-size:13.5px;margin:1px 0 8px}
+.dir{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px}
+.sw{display:flex}.sw i{width:14px;height:14px;border-radius:50%;margin-left:-4px;border:1.5px solid var(--bg)}.sw i:first-child{margin-left:0}
+.font{font:12px 'Geist Mono';color:var(--mu);margin-top:4px}
+.steal{margin-top:8px;font-size:13.5px;color:#34322d;border-left:2px solid var(--acc);padding-left:10px}
+.like{position:absolute;right:10px;top:10px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(248,247,243,.92);color:var(--tx);display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:transform .15s,background .2s;z-index:2}
+.like svg{width:19px;height:19px}.like:hover{transform:scale(1.1)}.like.on{background:var(--acc);color:#fff}.like.on svg path{fill:currentColor}
+.like.pop{animation:pop .45s cubic-bezier(.3,1.6,.5,1)}@keyframes pop{40%{transform:scale(1.35)}}
+.chip.likec.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.empty{grid-column:1/-1;text-align:center;color:var(--mu);padding:60px 0}
+footer{border-top:2px solid var(--tx);padding:22px 0 50px;display:flex;justify-content:space-between;font:500 13px 'Geist Mono';color:var(--mu);flex-wrap:wrap;gap:10px}footer a{color:var(--tx)}
+@media(max-width:1100px){.grid{grid-template-columns:1fr 1fr}header{grid-template-columns:1fr;gap:10px}}
+@media(max-width:680px){.wrap{padding:0 16px}.grid{grid-template-columns:1fr}.srch{width:100%}.ctrl .sp{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <nav><a href="/100-pages/">← 100 pages</a><span><a href="/pocket-arcade/">games</a></span></nav>
+ <header><div class="big">5<span>0</span></div><div><h1>SaaS screens worth stealing from.</h1><p>Fifty fictional products, each with its own visual language and a real, clickable interface: landing pages, dashboards, editors, onboarding flows, pricing and docs. Every card names the design direction and the one idea worth borrowing.</p>
+  <div class="stats" id="stats"></div></div></header>
+ <div class="ctrl" id="ctrl"><div id="cats" style="display:flex;gap:6px;flex-wrap:wrap"></div><span class="sp"></span><div class="tone" id="tone"><button class="on" data-t="all">Any</button><button data-t="light">Light</button><button data-t="dark">Dark</button></div><input class="srch" id="q" placeholder="Search: “kanban”, “serif”, “map”…"></div>
+ <main class="grid" id="grid"></main>
+ <footer><span>All products, companies and people are fictional. Built as single HTML files.</span><a href="/100-pages/">Back to the 100 pages →</a></footer>
+</div>
+<script>
+const D=[
+['01-ledgerline','Ledgerline','Accounting automation · landing','Landing','Accountant’s ledger paper','#f4f6ef #1b2a22 #1f6b45 #c4392b','Young Serif · IBM Plex Mono','The hero demo is a reconciliation table that ticks itself to 100% and gets stamped “Reconciled”.'],
+['02-northwind','Northwind','Logistics control tower','Dashboard','Night-ops command centre','#0b1015 #ffb020 #36d1c4 #ff5d5d','Barlow Condensed · Martian Mono','Trucks travel along dashed bezier lanes on a stylised map while exceptions stream into a side feed.'],
+['03-petal','Petal','HR onboarding wizard','Flow','Soft blobs & handwritten asides','#fff4ef #3b1e3f #ff8fa3 #bfe3c8','Bricolage Grotesque · Gloria Hallelujah','A “ready for day one” ring and an hour-by-hour first-day plan make paperwork feel human.'],
+['04-quanta','Quanta','Geocoding API · developer landing','Landing','Graphite dev-tool, live numbers','#0e0f12 #3d6bff #ff7a2f #4ad295','Manrope · Fira Code','The headline number ticks live; code tabs, response panel and a latency histogram that redraws.'],
+['05-atlas','Atlas CRM','Sales pipeline kanban','App','Warm-neutral productivity','#f6f5f2 #23211c #1c5d99 #c8901a','Figtree','Drag deals between stages; the quota bar splits won (solid) from weighted pipeline (hatched).'],
+['06-tally','Tally','Spend management · pricing','Pricing','Pricing as a printed receipt','#0f3d3e #f3efe6 #ff6b4a #9fe0c8','Familjen Grotesk · DM Mono','Every toggle prints a new line on a zig-zag receipt, so the price reads like a bill.'],
+['07-beacon','Beacon','Public status page','Content','Calm Swiss status','#fbfbfa #161616 #1e9e5a #e8a317','Public Sans · Red Hat Mono','The headline is the status in plain English; 90-day uptime bars have hover tooltips.'],
+['08-shipyard','Shipyard','Deploy platform · changelog','Content','Editorial magazine changelog','#eceae4 #191a1c #2a4bd7 #c2502a','Newsreader · Azeret Mono','Giant italic masthead, sticky version numerals and “Fig. 1” captions under product UI.'],
+['09-rawdb','RAWDB','Database · brutalist landing','Landing','Neo-brutalism, black / white / yellow','#ffffff #0a0a0a #ffe600 #9a9a9a','Archivo Black · Space Mono','A “What you get / What you don’t” anti-feature list next to a self-typing terminal.'],
+['10-orbit','Orbit','Scheduling · bento landing','Landing','Bento grid of working mini-apps','#f2f0ea #12204a #ffd75e #bcd7ff','Onest','Every bento tile is a tiny functional UI: booking calendar, time-zone overlap, copy link.'],
+['11-signal','Signal','Product analytics report','Dashboard','Tufte-style data ink','#ffffff #14171f #1f4fd1 #e2562e','Schibsted Grotesk · Spline Sans Mono','Cohort heatmap and funnel with drop-off notes, closed by an analyst-voiced insight.'],
+['12-inkwell','Inkwell','Email builder','App','Three-panel builder on a checkerboard','#ebe8e2 #2a2240 #c4b3f5 #3a2a1d','Albert Sans · Playfair Display','Click blocks to insert, reorder in place, and keep a live pre-flight checklist in view.'],
+['13-bastion','Bastion','Security trust center','Content','Forest & bone with sealed badges','#0e1a15 #ece6d6 #7bd389 #d9b86c','Hanken Grotesk · Overpass Mono','A shield ring fills to “112/112 controls passing”; controls are searchable and filterable.'],
+['14-manual','Relay Docs','Developer documentation','Content','Literary three-column docs','#fcfcfb #1d1f21 #0b7a75 #16191d','Literata · Instrument Sans · JetBrains Mono','A serif reading voice for docs, a scroll-spy table of contents and ⌘K search.'],
+['15-kestrel','Kestrel','Keyboard-first tasks · landing','Landing','Warm charcoal with 3D keycaps','#1a1714 #f2ebe1 #ff9b42 #efe7db','Unbounded · Instrument Sans · Sometype Mono','The hero is a working command palette: type, arrow, enter.'],
+['16-murmur','Murmur','AI meeting notes','App','Calm mint with a serif summary','#f3f5f2 #202723 #2e9d7c #e07a5f','Spectral · Karla','A waveform scrubber synced to the transcript; answers cite the exact timestamp.'],
+['17-harbor','Harbor','Support helpdesk inbox','App','Nautical navy & sea-foam','#f7f3ec #0d2238 #3fc1b0 #e0533d','Red Hat Display · Red Hat Text','SLA pills on every ticket, macros that fill the reply, a first-response countdown.'],
+['18-grain','Grain','Whiteboard · multiplayer landing','Landing','The landing page is the canvas','#fbfaf7 #1e1d1b #ff5c8a #3a86ff','Darker Grotesque · DM Sans · Caveat','Live cursors wander, stickies drag, and the headline is “selected” by a teammate.'],
+['19-fieldnote','Fieldnote','Year in numbers · report','Content','Bodoni editorial annual report','#f6f1e4 #1f3b2c #d4a12a #6c705f','Bodoni Moda · Work Sans','Numbers count up on scroll, sections use Roman numerals, the cover is a sun of rays.'],
+['20-sprout','Sprout','Workspace setup checklist','Flow','A plant that grows with progress','#eef3e8 #24301f #4f9a3d #c96f4a','Gabarito','Each finished step grows a leaf; the last one makes it bloom, with confetti.'],
+['21-dataport98','Dataport 98','Enterprise data sync','App','Windows 98 nostalgia','#008080 #c0c0c0 #000080 #ffffe1','Pixelify Sans · Tahoma','Draggable windows, a Start menu and a paperclip offering to map your custom fields.'],
+['22-halo','Halo','Video meetings · spatial landing','Landing','visionOS-style spatial glass','#2b2118 #7a5a40 #f5f0eb #e5484d','Lexend','Glass panels arranged in 3D tilt with the pointer while the active speaker rotates.'],
+['23-gridiron','Gridiron','AI spreadsheet','App','Refined grid with an AI column','#ffffff #1d2330 #0f766e #b45309','Atkinson Hyperlegible · Roboto Mono','An AI column fills row by row; the formula bar shows the prompt as a function.'],
+['24-toggle','Toggle','Feature flags','App','Crisp cobalt dev console','#f7f7fb #17172b #2d4bff #e2338b','Rethink Sans · Martian Mono','A 150-dot population grid lights up as you drag the rollout slider.'],
+['25-tracewell','Tracewell','Observability · trace view','Dashboard','Dark trace waterfall','#0c0d10 #5cc8ff #ffb547 #ff5f6d','Geologica · Fragment Mono','A span waterfall with service chips, error spans in red and a flame graph below.'],
+['26-payday','Payday','Earned-wage access · app landing','Landing','Tangerine & cocoa with phones','#ffe3d3 #2b1a14 #ff7a3d #2fbf8f','Urbanist','Three phone mockups; the “slide to get paid” control actually slides.'],
+['27-clause','Clause','Contract review','App','Legal paper with redlines','#e9e7e2 #fffefa #1f3f8f #b3261e','EB Garamond · IBM Plex Sans Condensed','A risk-gauge needle drops as issues are resolved; comments highlight their clause.'],
+['28-keystone','Keystone','Property management','Dashboard','Architectural slate, sage & brass','#eef0ee #2f3a40 #a8bfa8 #b78a3e','Jost · Azeret Mono','A building stacking plan where every unit is a clickable, colour-coded tile.'],
+['29-clinicos','Clinic OS','Clinic day scheduler','App','Calm teal medical','#f4f8f8 #17323a #0e8c8c #f0806c','Nunito Sans','Provider columns, typed appointment colours and a live waiting-room queue.'],
+['30-mise','Mise','Restaurant POS','App','Dark touchscreen, tomato & basil','#161412 #f5efe6 #e8442e #3fa060','Bebas Neue · Mulish','Huge tap targets, colour-coded categories and a paper-white ticket; 86’d items fade.'],
+['31-girder','Girder','Construction Gantt','Dashboard','Hi-vis yellow & hazard stripes','#141414 #ffd000 #ff6a13 #3dd68c','Saira Condensed · Saira','A weather strip warns when concrete pours are at risk; bars snap to weeks.'],
+['32-syllabus','Syllabus','Online course page','Content','Chalkboard & university press','#1f3b33 #f1efe6 #f6c453 #e8826f','Fraunces · Outfit','An inline quiz teaches with a deliberately misleading chart.'],
+['33-kindred','Kindred','Nonprofit donation page','Pricing','Warm, human, impact-first','#f7efe4 #2a2420 #c8462d #5e6b2f','Crimson Pro · Rubik','The amount converts into “hot meals”, drawn as dots, next to a wall of donor quotes.'],
+['34-gridwise','Gridwise','Energy & carbon','Dashboard','Clean-energy flow diagram','#f5f6f1 #14213d #f4b400 #4fb3bf','Sora','Animated flow lines run from sources to loads, their width set by live power.'],
+['35-shortlist','Shortlist','Recruiting · candidate review','App','Crisp indigo scorecards','#f6f5f8 #1e1b2e #3d3bb8 #2a9d6f','Be Vietnam Pro','Stage counters, a candidate timeline and a 1–4 rubric with verdict buttons.'],
+['36-storefront','Storefront','Online store admin','Dashboard','Monochrome with fuchsia data','#fafafa #0d0d0d #d6246e #16a34a','Geist · Geist Mono','A giant revenue number leads; a hover crosshair compares against the previous period.'],
+['37-claimly','Claimly','Insurance claim tracker','Flow','Friendly sky & sunshine','#eaf4ff #123052 #5aa9ff #ffcc33','Fredoka · Inclusive Sans','A parcel-tracking-style stepper for a claim, a little animated car, drag-to-upload.'],
+['38-watchtower','Watchtower','Security operations centre','Dashboard','Ice-blue tactical HUD','#060a12 #8fd8ff #ff3b5c #ffb02e','Chakra Petch · Share Tech Mono','Attack arcs draw onto a dotted world while the response log types itself.'],
+['39-reel','Reel','Video review & feedback','App','Cinema dark, lime & lilac','#111012 #efedf2 #d2f065 #b9a6ff','Wix Madefor Display · Wix Madefor Text','A timeline with chapters, an attention heat strip and comment markers that jump.'],
+['40-askwell','Askwell','Survey · one question at a time','Flow','Typeform-like colour shifts','#1d3b2a #f4efe2 #f4c95d #2b2340','Gloock · Plus Jakarta Sans','Each question repaints the whole page; everything works from the keyboard.'],
+['41-plugboard','Plugboard','Integrations marketplace','Landing','Modular-synth patch bay','#e9e3d6 #262320 #e0483a #2e7fd6','Bai Jamjuree · JetBrains Mono','Integrations drawn as coloured patch cables between output and input jacks.'],
+['42-remit','Remit','Invoice editor','App','Swiss invoice on paper','#d8dcd5 #151a17 #1b4d3e #ffe14d','Libre Franklin · Libre Caslon Text','A live A4 preview whose total flashes yellow whenever a number changes.'],
+['43-commonplace','Commonplace','Team wiki editor','App','Warm notebook editor','#fdfcf9 #22201c #b5532c #fff1b8','Source Serif 4 · Commissioner','Slash menu, block handles, and highlights linked to margin comments.'],
+['44-summit','Summit','OKRs · goal tree','Dashboard','Alpine topographic','#f7f9fb #3b4450 #2f6f9f #3c9d6b','Encode Sans Expanded','Contour lines behind a goal tree of progress rings, with a weekly check-in slider.'],
+['45-cadence','Cadence','Sales sequences','App','The sequence as a musical score','#0f1b2d #f3ead8 #d8b46a #7fb3ff','Cormorant Garamond · Sora','Steps are notes on a staff (pitch = how personal), waits are rests.'],
+['46-conduit','Conduit','Data pipeline editor','App','Light node canvas, pastel types','#f7f8fb #1b2030 #3b8fd9 #2c9a5c','Recursive','A run animates stage by stage through the graph; dragged nodes re-route their edges.'],
+['47-upvote','Upvote','Public roadmap & voting','Content','Pastel neo-brutalism','#fdf6ec #1a1a1a #c9b8ff #b6f0cf','Lilita One · Work Sans','Chunky vote buttons, and duplicate-idea detection while you type.'],
+['48-vaultline','Vaultline','Team password vault','App','Brushed steel & vault red','#e4e7ea #1c2228 #c8102e #178f5a','Exo 2 · Overpass Mono','A breach alert with one-click rotate and a live one-time code with a countdown ring.'],
+['49-console','Console','Workspace settings','App','Monochrome utility','#ffffff #0f0f0f #d92d20 #f6f6f6','Golos Text · IBM Plex Mono','Two-column settings, a floating “unsaved changes” bar and type-to-confirm delete.'],
+['50-atelier','Atelier','Agency proposal · e-sign','Pricing','Aubergine & blush luxury','#2d1b2e #f2d7d0 #c9a46a #fbf5f0','Italiana · Questrial','Pick a scope, watch the total update, then sign with a finger or a typed script.']];
+const lum=h=>{const n=parseInt(h.slice(1),16),r=n>>16,g=n>>8&255,b=n&255;return(.299*r+.587*g+.114*b)/255};
+const ITEMS=D.map(d=>({f:d[0],name:d[1],what:d[2],cat:d[3],dir:d[4],pal:d[5].split(' '),font:d[6],steal:d[7],dark:lum(d[5].split(' ')[0])<.4}));
+const CATS=['All','Landing','Dashboard','App','Flow','Content','Pricing'];let cat='All',tone='all',likes=[];
+try{likes=JSON.parse(localStorage.getItem('saas50-likes')||'[]')}catch(e){}
+const saveLikes=()=>{try{localStorage.setItem('saas50-likes',JSON.stringify(likes))}catch(e){}};
+const HEART='<svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.5 8.1 3.6 4.5 7.2 4.5c2 0 3.5 1.1 4.8 2.8 1.3-1.7 2.8-2.8 4.8-2.8 3.6 0 5.7 3.6 4.5 6.8-1.8 4.6-9.3 9.2-9.3 9.2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+try{const s=JSON.parse(localStorage.getItem('saas50')||'{}');cat=s.cat||cat;tone=s.tone||tone}catch(e){}
+const $=s=>document.getElementById(s);
+$('stats').innerHTML=`<span><b>50</b> products</span><span><b>${new Set(ITEMS.flatMap(i=>i.font.split(' · '))).size}</b> typefaces</span><span><b>${ITEMS.filter(i=>i.dark).length}</b> dark · <b>${ITEMS.filter(i=>!i.dark).length}</b> light</span><span><b>0</b> templates reused</span>`;
+function draw(){const q=$('q').value.toLowerCase().trim();
+ $('cats').innerHTML=CATS.map(c=>`<button class="chip ${c===cat?'on':''}" data-c="${c}">${c}<small>${c==='All'?50:ITEMS.filter(i=>i.cat===c).length}</small></button>`).join('')+`<button class="chip likec ${cat==='Liked'?'on':''}" data-c="Liked">♥ Liked<small>${likes.length}</small></button>`;
+ document.querySelectorAll('#tone button').forEach(b=>b.classList.toggle('on',b.dataset.t===tone));
+ const L=ITEMS.filter(i=>(cat==='All'||i.cat===cat||(cat==='Liked'&&likes.includes(i.f)))&&(tone==='all'||(tone==='dark')===i.dark)&&(!q||[i.name,i.what,i.dir,i.font,i.steal,i.cat].join(' ').toLowerCase().includes(q)));
+ const card=i=>{const on=likes.includes(i.f);return`<a class="card" href="${i.f}.html"><div class="thumb"><button class="like ${on?'on':''}" data-like="${i.f}" aria-label="${on?'Unlike':'Like'} ${i.name}" aria-pressed="${on}">${HEART}</button><img src="thumbs/${i.f.slice(0,2)}.jpg" alt="${i.name} — ${i.what}" loading="lazy"><span class="no">${i.f.slice(0,2)}</span><span class="open">Open live →</span></div>
+  <div class="meta"><div class="row1"><h2>${i.name}</h2><span>${i.cat}</span></div><div class="what">${i.what}</div><div class="dir"><span class="sw">${i.pal.map(c=>`<i style="background:${c}"></i>`).join('')}</span>${i.dir}</div><div class="font">${i.font}</div><div class="steal">${i.steal}</div></div></a>`};
+ $('grid').innerHTML=L.length?L.map(card).join(''):`<div class="empty">${cat==='Liked'?'No favourites yet — tap the ♥ on any design.':'Nothing matches — try another word.'}</div>`;
+ try{localStorage.setItem('saas50',JSON.stringify({cat,tone}))}catch(e){}}
+$('grid').addEventListener('click',e=>{const b=e.target.closest('[data-like]');if(b){e.preventDefault();e.stopPropagation();const f=b.dataset.like,on=!likes.includes(f);likes=on?[...likes,f]:likes.filter(x=>x!==f);saveLikes();
+ if(cat==='Liked'){draw();return}
+ b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);b.classList.remove('pop');if(on){void b.offsetWidth;b.classList.add('pop')}
+ const c=document.querySelector('[data-c="Liked"] small');if(c)c.textContent=likes.length}});
+$('cats').onclick=e=>{const b=e.target.closest('[data-c]');if(b){cat=b.dataset.c;draw()}};$('tone').onclick=e=>{const b=e.target.closest('[data-t]');if(b){tone=b.dataset.t;draw()}};$('q').oninput=draw;
+addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement!==$('q')){e.preventDefault();$('q').focus()}});
+draw();
+</script>
+</body>
+</html>

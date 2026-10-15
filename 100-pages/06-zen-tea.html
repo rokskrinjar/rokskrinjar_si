@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>静 Shizuka — Tea House</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#f4efe6; --ink:#1d1a16; --mute:#8a7f70; --red:#b33a26; --line:#1d1a1626; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--paper); color:var(--ink); font-family:'Zen Kaku Gothic New',sans-serif; font-weight:300; }
+  body::before { content:''; position:fixed; inset:0; pointer-events:none; opacity:.35; z-index:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .25 0 0 0 0 .2 0 0 0 .25 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  a { color:inherit; text-decoration:none; }
+  .home { position:fixed; top:32px; left:32px; font-size:12px; letter-spacing:.3em; color:var(--mute); z-index:20; }
+  .home:hover { color:var(--red); }
+  nav.side { position:fixed; right:28px; top:50%; transform:translateY(-50%); z-index:20; display:flex; flex-direction:column; gap:22px; }
+  nav.side a { writing-mode:vertical-rl; font-family:'Shippori Mincho',serif; font-size:15px; letter-spacing:.35em; color:var(--mute); position:relative; transition:color .4s; padding:4px; }
+  nav.side a small { font-family:'Zen Kaku Gothic New'; font-size:9px; letter-spacing:.2em; margin-top:8px; opacity:.7; }
+  nav.side a.on, nav.side a:hover { color:var(--ink); }
+  nav.side a.on::before { content:''; position:absolute; left:-10px; top:6px; width:5px; height:5px; border-radius:50%; background:var(--red); }
+  [data-view] { position:relative; z-index:1; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:ink 1.1s ease both; }
+  @keyframes ink { from { opacity:0; filter:blur(6px); } }
+  .hero { height:100vh; display:grid; place-items:center; position:relative; overflow:hidden; }
+  .enso { width:min(64vmin,560px); }
+  .enso path { fill:none; stroke:var(--ink); stroke-width:22; stroke-linecap:round; stroke-dasharray:1500; stroke-dashoffset:1500; filter:url(#rough); }
+  .draw .enso path { animation:brush 3.2s cubic-bezier(.6,.05,.3,1) .4s forwards; }
+  @keyframes brush { to { stroke-dashoffset:90; } }
+  .v { position:absolute; writing-mode:vertical-rl; font-family:'Shippori Mincho',serif; }
+  .v1 { right:16vw; top:18vh; font-size:clamp(2.4rem,5vw,4.4rem); letter-spacing:.3em; font-weight:700; opacity:0; animation:fade 2s 2.4s forwards; }
+  .v2 { right:calc(16vw + 6rem); top:24vh; font-size:1rem; letter-spacing:.5em; color:#6b6153; opacity:0; animation:fade 2s 3s forwards; }
+  .seal { position:absolute; right:calc(16vw - 3.8rem); top:62vh; width:52px; height:52px; background:var(--red); color:var(--paper); display:grid; place-items:center; font-family:'Shippori Mincho'; font-size:26px; border-radius:4px; opacity:0; animation:stamp .5s 4s forwards; }
+  @keyframes fade { to { opacity:1; } }
+  @keyframes stamp { from { opacity:0; transform:scale(2) rotate(-4deg); } to { opacity:.92; transform:scale(1) rotate(-4deg); } }
+  .en { position:absolute; left:10vw; bottom:12vh; max-width:22rem; font-size:.95rem; line-height:2; color:#6b6153; opacity:0; animation:fade 2s 3.4s forwards; }
+  .en b { display:block; font-family:'Shippori Mincho'; font-weight:400; font-size:1.8rem; color:var(--ink); letter-spacing:.1em; margin-bottom:.8rem; }
+  .page { max-width:1040px; margin:0 auto; padding:16vh 8vw 14vh; }
+  .ph { display:flex; align-items:flex-end; gap:2rem; margin-bottom:10vh; }
+  .ph .jp { font-family:'Shippori Mincho'; font-size:clamp(3rem,7vw,5.5rem); letter-spacing:.2em; line-height:1; }
+  .ph p { color:var(--mute); letter-spacing:.3em; font-size:.8rem; text-transform:uppercase; padding-bottom:.8rem; }
+  /* menu */
+  .seasons { display:flex; gap:2.4rem; margin-bottom:6vh; }
+  .seasons button { font-family:'Shippori Mincho'; font-size:1.6rem; background:none; border:0; color:var(--mute); cursor:pointer; padding-bottom:.4rem; border-bottom:1px solid transparent; transition:all .4s; }
+  .seasons button.on { color:var(--ink); border-color:var(--red); }
+  .seasons button span { display:block; font-family:'Zen Kaku Gothic New'; font-size:.65rem; letter-spacing:.3em; }
+  .menu { display:grid; grid-template-columns:1fr 1fr; gap:8vh 7vw; }
+  .item { border-top:1px solid var(--line); padding-top:2rem; animation:ink .8s both; }
+  .item .jp { font-family:'Shippori Mincho'; font-size:2.2rem; letter-spacing:.2em; }
+  .item .name { font-size:.8rem; letter-spacing:.3em; text-transform:uppercase; color:var(--mute); margin:.6rem 0 1.2rem; }
+  .item p { line-height:2; font-size:.95rem; }
+  .item .p { font-family:'Shippori Mincho'; float:right; font-size:1.1rem; color:var(--red); }
+  .wagashi { margin-top:10vh; display:grid; grid-template-columns:auto 1fr; gap:3rem; align-items:center; border-top:1px solid var(--line); padding-top:6vh; }
+  .wagashi svg { width:160px; }
+  /* ceremony */
+  .steps { display:grid; grid-template-columns:1fr 1.1fr; gap:6vw; align-items:center; min-height:52vh; }
+  .stepArt { aspect-ratio:1; max-width:420px; width:100%; }
+  .stepArt svg { width:100%; height:100%; }
+  .stepArt .ln { fill:none; stroke:var(--ink); stroke-width:3; stroke-linecap:round; stroke-dasharray:900; stroke-dashoffset:900; animation:brush2 1.8s ease forwards; }
+  @keyframes brush2 { to { stroke-dashoffset:0; } }
+  .stepTxt .n { font-family:'Shippori Mincho'; font-size:5rem; color:var(--red); line-height:1; }
+  .stepTxt h3 { font-family:'Shippori Mincho'; font-weight:400; font-size:2rem; letter-spacing:.15em; margin:1rem 0; }
+  .stepTxt p { line-height:2.1; color:#4a4238; }
+  .stepNav { display:flex; align-items:center; gap:1.4rem; margin-top:3rem; }
+  .stepNav button { width:52px; height:52px; border-radius:50%; border:1px solid var(--ink); background:none; font-size:1.1rem; cursor:pointer; transition:all .3s; color:var(--ink); }
+  .stepNav button:hover { background:var(--ink); color:var(--paper); }
+  .dots { display:flex; gap:10px; }
+  .dots i { width:6px; height:6px; border-radius:50%; background:var(--line); transition:all .4s; }
+  .dots i.on { background:var(--red); transform:scale(1.4); }
+  /* garden */
+  .gardenWrap { position:relative; border:10px solid #3a2e22; box-shadow:0 30px 60px #0003; }
+  #garden { display:block; width:100%; height:62vh; cursor:crosshair; touch-action:none; }
+  .gtools { display:flex; gap:1rem; margin-top:1.6rem; flex-wrap:wrap; align-items:center; }
+  .gtools button { font-family:'Shippori Mincho'; font-size:1rem; padding:.7rem 1.4rem; background:none; border:1px solid var(--ink); cursor:pointer; letter-spacing:.2em; color:var(--ink); }
+  .gtools button.on, .gtools button:hover { background:var(--ink); color:var(--paper); }
+  .gtools span { color:var(--mute); font-size:.85rem; margin-left:auto; }
+  /* reserve */
+  .reserve { display:grid; grid-template-columns:1.1fr 1fr; gap:6vw; }
+  .cal { border-top:1px solid var(--ink); }
+  .calHead { display:flex; justify-content:space-between; align-items:center; padding:1.2rem 0; font-family:'Shippori Mincho'; font-size:1.3rem; letter-spacing:.2em; }
+  .calHead button { background:none; border:0; font-size:1.3rem; cursor:pointer; color:var(--ink); }
+  .days { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; text-align:center; }
+  .days .dow { font-size:.7rem; color:var(--mute); letter-spacing:.2em; padding:.4rem 0; }
+  .days button { aspect-ratio:1; border:0; background:none; font-family:'Shippori Mincho'; font-size:1rem; cursor:pointer; border-radius:50%; color:var(--ink); transition:all .25s; }
+  .days button:hover:not(:disabled) { background:#1d1a1612; }
+  .days button:disabled { color:#1d1a1640; cursor:default; text-decoration:line-through; }
+  .days button.sel { background:var(--ink); color:var(--paper); }
+  .slots { display:flex; gap:.6rem; flex-wrap:wrap; margin:1.6rem 0; }
+  .slots button { padding:.6rem 1.1rem; border:1px solid var(--line); background:none; font:inherit; cursor:pointer; letter-spacing:.1em; color:var(--ink); }
+  .slots button.sel { border-color:var(--red); color:var(--red); }
+  .slots button:disabled { opacity:.35; text-decoration:line-through; cursor:default; }
+  .form label { display:block; font-size:.75rem; letter-spacing:.3em; color:var(--mute); margin:1.4rem 0 .5rem; text-transform:uppercase; }
+  .form input, .form select { width:100%; background:none; border:0; border-bottom:1px solid var(--line); font:inherit; font-size:1.05rem; padding:.5rem 0; color:var(--ink); }
+  .form .chk { display:flex; gap:.8rem; align-items:center; margin-top:1.4rem; font-size:.95rem; }
+  .submit { margin-top:2.4rem; width:100%; padding:1.1rem; background:var(--ink); color:var(--paper); border:0; font-family:'Shippori Mincho'; font-size:1.1rem; letter-spacing:.4em; cursor:pointer; transition:background .3s; }
+  .submit:hover { background:var(--red); }
+  .card { margin-top:2rem; padding:2rem; border:1px solid var(--line); position:relative; line-height:2; }
+  .card .seal { position:absolute; right:1.4rem; top:1.4rem; opacity:.92; animation:none; transform:rotate(-6deg); }
+  .petal { position:fixed; top:-20px; width:12px; height:9px; background:#f2b8c0; border-radius:12px 0; opacity:.8; pointer-events:none; animation:fall linear forwards; z-index:15; }
+  body.autumn .petal { background:#c8642c; border-radius:2px 10px; }
+  body.summer .petal, body.winter .petal { background:#fff; border-radius:50%; width:6px; height:6px; box-shadow:0 0 4px #0002; }
+  body.summer .petal { background:#b8e0a0; }
+  @keyframes fall { to { transform:translate(var(--dx),110vh) rotate(720deg); } }
+  @media (max-width:760px){ .menu,.steps,.reserve,.wagashi { grid-template-columns:1fr; } .v2 { display:none; } nav.side { right:8px; gap:12px; } nav.side a small { display:none; } .page { padding-right:16vw; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="rough"><feTurbulence baseFrequency=".04" numOctaves="3" seed="4"/><feDisplacementMap in="SourceGraphic" scale="14"/></filter></svg>
+<a class="home" href="index.html">← 目次</a>
+<nav class="side">
+  <a href="#home">茶室<small>HOME</small></a>
+  <a href="#menu">品書<small>MENU</small></a>
+  <a href="#ceremony">茶道<small>WAY</small></a>
+  <a href="#garden">石庭<small>GARDEN</small></a>
+  <a href="#reserve">予約<small>RESERVE</small></a>
+</nav>
+
+<section data-view="home" class="hero">
+  <svg class="enso" viewBox="0 0 500 500"><path d="M340 88 C 250 40, 110 70, 80 200 C 50 330, 170 440, 290 420 C 410 400, 460 280, 420 180 C 395 120, 360 100, 320 96"/></svg>
+  <div class="v v1">静かな茶室</div>
+  <div class="v v2">一期一会・京都 東山</div>
+  <div class="seal">静</div>
+  <p class="en"><b>Shizuka</b>A four-and-a-half tatami room in Higashiyama. One kettle. One scroll. One meeting, never to be repeated.</p>
+</section>
+
+<section data-view="menu" class="page" hidden>
+  <div class="ph"><div class="jp">品書</div><p>Seasonal menu</p></div>
+  <div class="seasons" id="seasons"></div>
+  <div class="menu" id="menuList"></div>
+  <div class="wagashi"><svg viewBox="0 0 160 160" id="wagashiArt"></svg><div><div class="item" style="border:0;padding:0"><div class="jp" id="wgName"></div><div class="name" id="wgEn"></div><p id="wgTxt"></p></div></div></div>
+</section>
+
+<section data-view="ceremony" class="page" hidden>
+  <div class="ph"><div class="jp">茶道</div><p>The way of tea · seven movements</p></div>
+  <div class="steps"><div class="stepArt" id="stepArt"></div><div class="stepTxt"><div class="n" id="stepN"></div><h3 id="stepH"></h3><p id="stepP"></p>
+    <div class="stepNav"><button id="prev" aria-label="Previous">←</button><div class="dots" id="dots"></div><button id="next" aria-label="Next">→</button></div></div></div>
+</section>
+
+<section data-view="garden" class="page" hidden style="max-width:1300px">
+  <div class="ph"><div class="jp">石庭</div><p>Rake the sand · place the stones</p></div>
+  <div class="gardenWrap"><canvas id="garden"></canvas></div>
+  <div class="gtools"><button data-tool="rake" class="on">熊手 Rake</button><button data-tool="stone">石 Stone</button><button data-tool="moss">苔 Moss</button><button id="smooth">均す Smooth</button><span>Drag to rake. Lines curve around the stones you place.</span></div>
+</section>
+
+<section data-view="reserve" class="page" hidden>
+  <div class="ph"><div class="jp">予約</div><p>Reserve a gathering</p></div>
+  <div class="reserve">
+    <div class="cal"><div class="calHead"><button id="mPrev">‹</button><span id="mLabel"></span><button id="mNext">›</button></div><div class="days" id="days"></div>
+      <div class="slots" id="slots"></div></div>
+    <form class="form" id="rform">
+      <label>Name</label><input id="rname" required placeholder="Your name">
+      <label>Guests</label><select id="rguests"><option>1</option><option selected>2</option><option>3</option><option>4</option></select>
+      <label>Ceremony</label><select id="rkind"><option value="4800">Chaji · full ceremony with kaiseki (¥4,800)</option><option value="2200">Chakai · tea and sweets (¥2,200)</option><option value="3600">Lesson · learn to whisk (¥3,600)</option></select>
+      <div class="chk"><input type="checkbox" id="kimono"> Kimono dressing (+¥3,000 per guest)</div>
+      <button class="submit">予約する · Reserve</button>
+      <div id="rout"></div>
+    </form>
+  </div>
+</section>
+
+<script>
+/* router */
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'home';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav.side a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}
+ if(id==='home'){const h=V[0];h.classList.remove('draw');void h.offsetWidth;h.classList.add('draw')}if(id==='garden')setTimeout(sizeG,30)}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* petals by season */
+let season='spring';
+setInterval(()=>{if(document.hidden)return;const p=document.createElement('div');p.className='petal';p.style.left=Math.random()*100+'vw';p.style.setProperty('--dx',(Math.random()*200-60)+'px');p.style.animationDuration=(7+Math.random()*6)+'s';document.body.appendChild(p);setTimeout(()=>p.remove(),14000)},700);
+
+/* menu */
+const S={spring:['春','Spring','#f2b8c0',[['濃茶','Koicha',2200,'Thick tea from first-harvest Uji tencha, shared from one bowl.'],['桜湯','Sakura-yu',900,'Salted cherry blossoms unfolding in hot water.'],['薄茶','Usucha',1400,'Thin and frothy, whisked to a pale jade foam.'],['新茶','Shincha',1300,'The year\'s first sencha. Grassy, sweet, fleeting.']],['桜餅','Sakura-mochi','Pink rice cake wrapped in a salted cherry leaf.']],
+ summer:['夏','Summer','#9cc9a0',[['冷茶','Reicha',1200,'Cold-brewed gyokuro, poured over a single block of ice.'],['薄茶','Usucha',1400,'Served in a wide, shallow bowl to let the heat escape.'],['麦茶','Mugicha',700,'Roasted barley. Tastes like a summer holiday in 1985.'],['抹茶氷','Kakigōri',1600,'Shaved ice, matcha syrup, sweet azuki.']],['水羊羹','Mizu-yōkan','Translucent bean jelly, cool as a river stone.']],
+ autumn:['秋','Autumn','#c8642c',[['焙じ茶','Hōjicha',900,'Roasted over charcoal. Smells of fallen leaves.'],['濃茶','Koicha',2200,'The richest bowl of the year, from aged tencha.'],['玄米茶','Genmaicha',800,'Green tea with toasted rice. Nutty, humble.'],['栗茶','Kuri-cha',1100,'Chestnut-infused bancha, a house secret.']],['栗きんとん','Kuri-kinton','Sweet chestnut, pressed through silk into a small mountain.']],
+ winter:['冬','Winter','#e8e4dc',[['濃茶','Koicha',2400,'Whisked beside the sunken hearth, the ro.'],['甘酒','Amazake',800,'Sweet fermented rice, warm as a blanket.'],['番茶','Bancha',700,'Late-harvest leaves, gentle enough for midnight.'],['柚子茶','Yuzu-cha',1000,'Citrus preserve in hot water. Sunshine in a cup.']],['雪餅','Yuki-mochi','White mochi dusted like fresh snow on a lantern.']]};
+const seasEl=document.getElementById('seasons');
+Object.entries(S).forEach(([k,v])=>{const b=document.createElement('button');b.innerHTML=`${v[0]}<span>${v[1].toUpperCase()}</span>`;b.onclick=()=>setSeason(k);b.dataset.s=k;seasEl.appendChild(b)});
+function setSeason(k){season=k;document.body.className=k==='spring'?'':k;const v=S[k];[...seasEl.children].forEach(b=>b.classList.toggle('on',b.dataset.s===k));
+ document.getElementById('menuList').innerHTML=v[3].map(([jp,n,p,d],i)=>`<div class="item" style="animation-delay:${i*.12}s"><div class="jp">${jp}</div><div class="name">${n} <span class="p">¥${p.toLocaleString()}</span></div><p>${d}</p></div>`).join('');
+ const [wj,we,wt]=v[4];document.getElementById('wgName').textContent=wj;document.getElementById('wgEn').textContent='Wagashi of the season · '+we;document.getElementById('wgTxt').textContent=wt;
+ document.getElementById('wagashiArt').innerHTML=`<ellipse cx="80" cy="128" rx="62" ry="12" fill="#1d1a1615"/><path d="M24 118 Q24 50 80 46 Q136 50 136 118 Z" fill="${v[2]}"/><path d="M40 100 Q80 70 120 100" stroke="#fff8" stroke-width="3" fill="none"/><circle cx="80" cy="58" r="6" fill="#fff6"/>`}
+setSeason('spring');
+
+/* ceremony */
+const steps=[['清め','Purification','The host wipes the tea scoop and caddy with a folded silk cloth, the fukusa. Every movement is slow enough to be watched.','M60 160 Q120 120 200 160 T340 160 M80 220 L320 220'],
+['湯','Hot water','Water is ladled from the iron kettle with a bamboo hishaku. The sound of pouring is part of the ceremony — listen for it.','M200 60 L200 260 M150 60 Q200 40 250 60 M130 260 Q200 300 270 260 L270 330 Q200 360 130 330 Z'],
+['茶','Measuring','Three scoops of matcha are placed into the bowl — one for the heaven, one for the earth, one for the guest.','M100 240 Q200 330 300 240 Q300 200 200 200 Q100 200 100 240 M160 140 L240 180'],
+['点てる','Whisking','The chasen moves in a swift M-shape, not a circle, until a fine jade foam rises. Fifteen seconds. No more.','M140 260 Q200 320 260 260 M200 100 L200 220 M180 110 L180 210 M220 110 L220 210 M160 220 Q200 240 240 220'],
+['回す','Turning','The guest receives the bowl and turns it twice clockwise, so as not to drink from its front — its most beautiful face belongs to the host.','M200 200 m-90 0 a90 90 0 1 0 180 0 a90 90 0 1 0 -180 0 M290 200 l-14 -18 M290 200 l14 -16'],
+['飲む','Drinking','Three and a half sips. The last is taken with a small, audible slurp, a way of saying: it was good.','M110 190 Q200 290 290 190 M150 150 Q200 110 250 150'],
+['拝見','Appreciation','Finally, guests admire the empty bowl, the scoop, the caddy — asking where each was made, and by whom.','M120 260 L280 260 M150 260 Q150 160 200 140 Q250 160 250 260 M200 100 L200 130']];
+let si=0;const dots=document.getElementById('dots');steps.forEach(()=>dots.appendChild(document.createElement('i')));
+function showStep(i){si=(i+steps.length)%steps.length;const [jp,en,t,d]=steps[si];document.getElementById('stepN').textContent=['一','二','三','四','五','六','七'][si];document.getElementById('stepH').textContent=jp+' · '+en;document.getElementById('stepP').textContent=t;
+ document.getElementById('stepArt').innerHTML=`<svg viewBox="0 0 400 400"><circle cx="200" cy="200" r="180" fill="none" stroke="#1d1a1614"/><path class="ln" d="${d}" filter="url(#rough)"/></svg>`;[...dots.children].forEach((d,j)=>d.classList.toggle('on',j===si))}
+document.getElementById('prev').onclick=()=>showStep(si-1);document.getElementById('next').onclick=()=>showStep(si+1);
+addEventListener('keydown',e=>{if(V[2].hidden)return;if(e.key==='ArrowRight')showStep(si+1);if(e.key==='ArrowLeft')showStep(si-1)});showStep(0);
+
+/* garden */
+const G=document.getElementById('garden'),g=G.getContext('2d');let tool='rake',stones=[{x:.3,y:.45,r:.07},{x:.68,y:.6,r:.05},{x:.74,y:.3,r:.035}],moss=[],trail=[],gw,gh;
+function sizeG(){const r=G.getBoundingClientRect();if(!r.width)return;const d=Math.min(devicePixelRatio,2);gw=G.width=r.width*d;gh=G.height=r.height*d;base();}
+function base(){g.fillStyle='#e6dccb';g.fillRect(0,0,gw,gh);g.strokeStyle='#cbbfa9';g.lineWidth=2;for(let y=10;y<gh;y+=14){g.beginPath();for(let x=0;x<=gw;x+=10){let yy=y;for(const s of stones){const sx=s.x*gw,sy=s.y*gh,R=s.r*gw*1.9,dx=x-sx,dy=y-sy,dd=Math.hypot(dx,dy);if(dd<R){yy=sy+dy/dd*R*(dd<R*.55?0:1)}}x?g.lineTo(x,yy):g.moveTo(x,yy)}g.stroke()}
+ for(const s of stones){const sx=s.x*gw,sy=s.y*gh,R=s.r*gw;for(let k=1;k<5;k++){g.beginPath();g.strokeStyle='#bdae94';g.arc(sx,sy,R+k*14,0,7);g.stroke()}}
+ drawStatic()}
+function drawStatic(){for(const m of moss){g.fillStyle='#6b7d3a';g.beginPath();g.arc(m.x*gw,m.y*gh,m.r,0,7);g.fill();g.fillStyle='#8a9a4a';g.beginPath();g.arc(m.x*gw-3,m.y*gh-3,m.r*.6,0,7);g.fill()}
+ for(const s of stones){const sx=s.x*gw,sy=s.y*gh,R=s.r*gw;g.fillStyle='#0003';g.beginPath();g.ellipse(sx+R*.2,sy+R*.25,R*1.05,R*.8,0,0,7);g.fill();const gr=g.createRadialGradient(sx-R*.4,sy-R*.4,R*.1,sx,sy,R);gr.addColorStop(0,'#8a857c');gr.addColorStop(1,'#3d3934');g.fillStyle=gr;g.beginPath();g.ellipse(sx,sy,R,R*.78,.3,0,7);g.fill()}}
+function rakeTo(x,y){if(!trail.length){trail.push([x,y]);return}const [px,py]=trail[trail.length-1];const dx=x-px,dy=y-py,d=Math.hypot(dx,dy);if(d<4)return;const nx=-dy/d,ny=dx/d;
+ for(let k=-3;k<=3;k++){g.strokeStyle='#e6dccb';g.lineWidth=12;g.beginPath();g.moveTo(px+nx*k*12,py+ny*k*12);g.lineTo(x+nx*k*12,y+ny*k*12);g.stroke()}
+ for(let k=-3;k<=3;k++){g.strokeStyle='#c2b499';g.lineWidth=2.5;g.beginPath();g.moveTo(px+nx*k*12,py+ny*k*12);g.lineTo(x+nx*k*12,y+ny*k*12);g.stroke()}
+ trail.push([x,y]);drawStatic()}
+let down=false;const pos=e=>{const r=G.getBoundingClientRect();return[(e.clientX-r.left)/r.width*gw,(e.clientY-r.top)/r.height*gh]};
+G.onpointerdown=e=>{down=true;G.setPointerCapture(e.pointerId);const [x,y]=pos(e);if(tool==='stone'){stones.push({x:x/gw,y:y/gh,r:.02+Math.random()*.04});base();down=false}else if(tool==='moss'){moss.push({x:x/gw,y:y/gh,r:10+Math.random()*16});drawStatic()}else{trail=[[x,y]]}};
+G.onpointermove=e=>{if(!down)return;const [x,y]=pos(e);if(tool==='rake')rakeTo(x,y);else if(tool==='moss'&&Math.random()<.3){moss.push({x:x/gw,y:y/gh,r:6+Math.random()*12});drawStatic()}};
+G.onpointerup=()=>{down=false;trail=[]};
+document.querySelectorAll('[data-tool]').forEach(b=>b.onclick=()=>{tool=b.dataset.tool;document.querySelectorAll('[data-tool]').forEach(o=>o.classList.toggle('on',o===b))});
+document.getElementById('smooth').onclick=()=>{moss=[];base()};addEventListener('resize',()=>{if(!V[3].hidden)sizeG()});
+
+/* reserve */
+let view=new Date();view.setDate(1);let selD=null,selT=null;const today=new Date();today.setHours(0,0,0,0);
+const hash=(d,t)=>((d.getDate()*31+d.getMonth()*7+t*13)%5);
+function renderCal(){document.getElementById('mLabel').textContent=view.toLocaleDateString('ja-JP',{year:'numeric',month:'long'});const el=document.getElementById('days');el.innerHTML='日月火水木金土'.split('').map(d=>`<div class="dow">${d}</div>`).join('');
+ const first=view.getDay(),n=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();for(let i=0;i<first;i++)el.appendChild(document.createElement('div'));
+ for(let d=1;d<=n;d++){const dt=new Date(view.getFullYear(),view.getMonth(),d);const b=document.createElement('button');b.type='button';b.textContent=d;b.disabled=dt<today||dt.getDay()===2;if(selD&&+selD===+dt)b.classList.add('sel');b.onclick=()=>{selD=dt;selT=null;renderCal()};el.appendChild(b)}
+ const sl=document.getElementById('slots');sl.innerHTML='';if(selD){['10:00','11:30','13:00','14:30','16:00'].forEach((t,i)=>{const b=document.createElement('button');b.type='button';b.textContent=t;b.disabled=hash(selD,i)===0;if(selT===t)b.classList.add('sel');b.onclick=()=>{selT=t;renderCal()};sl.appendChild(b)})}else sl.innerHTML='<p style="color:var(--mute);font-size:.9rem">Select a day. Closed on Tuesdays.</p>'}
+document.getElementById('mPrev').onclick=()=>{view.setMonth(view.getMonth()-1);renderCal()};document.getElementById('mNext').onclick=()=>{view.setMonth(view.getMonth()+1);renderCal()};renderCal();
+document.getElementById('rform').onsubmit=e=>{e.preventDefault();const o=document.getElementById('rout');if(!selD||!selT){o.innerHTML='<p style="color:var(--red);margin-top:1rem">Please choose a day and time on the calendar.</p>';return}
+ const n=+rguests.value,price=(+rkind.value+(kimono.checked?3000:0))*n;
+ o.innerHTML=`<div class="card"><div class="seal">静</div><b style="font-family:'Shippori Mincho';font-size:1.3rem">${rname.value.replace(/</g,'')} 様</b><br>${selD.toLocaleDateString('ja-JP',{month:'long',day:'numeric',weekday:'long'})} · ${selT}<br>${rkind.options[rkind.selectedIndex].text.split('(')[0]} · ${n}名<br>合計 ¥${price.toLocaleString()}<br><span style="color:var(--mute);font-size:.85rem">Please arrive ten minutes early. Remove your shoes at the stone step.</span></div>`};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

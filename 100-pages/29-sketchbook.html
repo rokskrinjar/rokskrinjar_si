@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>my sketchbook ✎</title>
+<link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#fdfcf7; --grid:#cfe0f3; --ink:#2b2f3a; --red:#e2574c; --blue:#3b6fd8; --hl:#fff27a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#e9e3d6; color:var(--ink); font-family:'Patrick Hand',cursive; font-size:20px; min-height:100vh; }
+  a { color:inherit; }
+  .book { max-width:1200px; margin:26px auto; background:var(--paper); min-height:calc(100vh - 52px); position:relative; box-shadow:0 2px 0 #d8d0bf, 0 4px 0 #cfc6b2, 0 6px 0 #c6bca6, 0 20px 40px #0002;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px); background-size:26px 26px; background-position:-1px -1px; padding:40px 50px 60px 90px; }
+  .book::before { content:''; position:absolute; left:58px; top:0; bottom:0; width:2px; background:#f3a6a6; }
+  .rings { position:absolute; left:14px; top:40px; bottom:40px; display:flex; flex-direction:column; justify-content:space-around; }
+  .rings i { width:28px; height:14px; border-radius:10px; border:3px solid #9aa0a8; border-left-color:transparent; background:#e9e3d6; }
+  .sketch { filter:url(#rough); }
+  header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px; }
+  h1 { font-family:'Gloria Hallelujah'; font-size:clamp(2rem,4.4vw,3.2rem); line-height:1.1; transform:rotate(-2deg); }
+  h1 .hl { background:linear-gradient(transparent 55%,var(--hl) 55% 90%,transparent 90%); padding:0 6px; }
+  .tabs { display:flex; gap:10px; flex-wrap:wrap; }
+  .tabs a { text-decoration:none; font-family:'Gloria Hallelujah'; font-size:17px; padding:6px 16px 8px; border:2.5px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; background:var(--paper); transition:transform .15s; }
+  .tabs a:hover { transform:rotate(-2deg) scale(1.05); }
+  .tabs a.on { background:var(--hl); }
+  [data-view][hidden] { display:none; }
+  [data-view] { margin-top:28px; }
+  .note { font-size:18px; color:#6a6f7a; transform:rotate(-1deg); display:inline-block; }
+  .arrow { display:inline-block; font-family:'Gloria Hallelujah'; color:var(--red); transform:rotate(-8deg); }
+  /* doodle */
+  .tools { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:14px; }
+  .tool { font-family:'Gloria Hallelujah'; font-size:15px; padding:6px 12px; background:var(--paper); border:2.5px solid var(--ink); border-radius:15px 225px 15px 255px/225px 15px 255px 15px; cursor:pointer; }
+  .tool.on { background:var(--ink); color:var(--paper); }
+  .swatch { width:30px; height:30px; border-radius:50%; border:3px solid var(--paper); outline:2.5px solid var(--ink); cursor:pointer; }
+  .swatch.on { transform:scale(1.25); }
+  .pad { position:relative; border:3px solid var(--ink); border-radius:6px 20px 8px 24px/20px 8px 24px 6px; background:#ffffffcc; }
+  #pad { width:100%; height:62vh; display:block; cursor:crosshair; touch-action:none; border-radius:inherit; }
+  .tape { position:absolute; width:110px; height:28px; background:#f2e6b8cc; box-shadow:0 1px 2px #0002; z-index:2; }
+  /* stickies */
+  .wall { position:relative; min-height:66vh; border:3px dashed #9aa0a8; border-radius:14px; }
+  .sticky { position:absolute; width:200px; min-height:180px; padding:30px 16px 16px; box-shadow:2px 6px 14px #0003; cursor:grab; user-select:none; font-size:21px; line-height:1.25; transition:box-shadow .2s; }
+  .sticky:active { cursor:grabbing; box-shadow:4px 14px 24px #0004; }
+  .sticky::before { content:''; position:absolute; top:-10px; left:50%; width:70px; height:22px; transform:translateX(-50%) rotate(-3deg); background:#ffffff88; box-shadow:0 1px 2px #0002; }
+  .sticky [contenteditable] { outline:none; min-height:110px; cursor:text; }
+  .sticky .x { position:absolute; top:4px; right:8px; cursor:pointer; font-family:'Gloria Hallelujah'; opacity:.5; }
+  .sticky .x:hover { opacity:1; color:var(--red); }
+  .colors { display:flex; gap:8px; align-items:center; }
+  /* todo */
+  .todo { display:grid; grid-template-columns:1.2fr 1fr; gap:40px; }
+  .todo ul { list-style:none; }
+  .todo li { display:flex; align-items:center; gap:14px; padding:6px 0; font-size:24px; line-height:26px; cursor:pointer; position:relative; }
+  .box { width:26px; height:26px; flex-shrink:0; }
+  .todo li .t { position:relative; }
+  .todo li .t svg { position:absolute; left:-4px; right:-4px; top:6px; width:calc(100% + 8px); height:18px; overflow:visible; pointer-events:none; }
+  .todo li .t svg path { stroke:var(--red); stroke-width:3; fill:none; stroke-dasharray:400; stroke-dashoffset:400; transition:stroke-dashoffset .5s ease; }
+  .todo li.done .t svg path { stroke-dashoffset:0; }
+  .todo li.done .t { color:#9aa0a8; }
+  .todo li .del { opacity:0; font-size:18px; color:var(--red); margin-left:auto; }
+  .todo li:hover .del { opacity:.7; }
+  .add { display:flex; gap:10px; margin-top:12px; }
+  .add input { flex:1; font-family:'Patrick Hand'; font-size:22px; border:0; border-bottom:2.5px solid var(--ink); background:transparent; outline:none; padding:4px; }
+  .prog { margin-top:18px; }
+  .doodles { position:relative; }
+  .doodles svg { width:100%; }
+  .stamp { display:inline-block; font-family:'Gloria Hallelujah'; color:var(--red); border:3px solid var(--red); border-radius:10px; padding:4px 12px; transform:rotate(-8deg); margin-top:10px; }
+  .back { position:fixed; left:18px; bottom:18px; font-family:'Gloria Hallelujah'; font-size:16px; text-decoration:none; background:var(--hl); padding:6px 14px; border:2.5px solid var(--ink); border-radius:255px 15px 225px 15px/15px 225px 15px 255px; transform:rotate(-3deg); z-index:30; }
+  @media (max-width:800px){ .book { padding:30px 16px 40px 50px; margin:10px; } .book::before { left:38px; } .rings { left:4px; } .todo { grid-template-columns:1fr; } .sticky { width:160px; min-height:150px; font-size:18px; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="rough"><feTurbulence baseFrequency=".03" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter></svg>
+<a class="back" href="index.html">← back to index</a>
+<div class="book">
+  <div class="rings"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <header><h1>my <span class="hl">sketchbook</span> ✎<br><span class="note" style="font-size:18px">property of: a very busy brain</span></h1>
+    <nav class="tabs"><a href="#doodle">doodle pad</a><a href="#stickies">sticky wall</a><a href="#todo">to-do</a></nav></header>
+
+  <section data-view="doodle">
+    <div class="tools" id="tools">
+      <button class="tool on" data-t="pencil">✏️ pencil</button><button class="tool" data-t="marker">🖍 marker</button><button class="tool" data-t="spray">💨 spray</button><button class="tool" data-t="eraser">🧽 eraser</button>
+      <span id="swatches" class="colors"></span>
+      <label class="note">size <input type="range" id="size" min="1" max="30" value="4"></label>
+      <button class="tool" id="undo">↶ undo</button><button class="tool" id="clearPad">🗑 clear</button><button class="tool" id="savePad">💾 save</button>
+    </div>
+    <div class="pad"><div class="tape" style="left:-20px;top:-12px;transform:rotate(-30deg)"></div><div class="tape" style="right:-20px;top:-12px;transform:rotate(28deg)"></div><canvas id="pad"></canvas></div>
+    <p class="note" style="margin-top:12px">tip: hold shift for straight lines · the spray can is very satisfying <span class="arrow">↗</span></p>
+  </section>
+
+  <section data-view="stickies" hidden>
+    <div class="tools"><span class="note">add a note:</span><span class="colors" id="stickyColors"></span><span class="note" style="margin-left:auto">drag them around · click text to edit · saved automatically</span></div>
+    <div class="wall" id="wall"></div>
+  </section>
+
+  <section data-view="todo" hidden>
+    <div class="todo">
+      <div><h2 style="font-family:'Gloria Hallelujah';font-size:2rem;transform:rotate(-1deg)">things to do ☐</h2><ul id="todoList"></ul><form class="add" id="addF"><input id="newT" placeholder="...and another thing" maxlength="60"><button class="tool">+ add</button></form>
+        <div class="prog note" id="prog"></div></div>
+      <div class="doodles"><svg viewBox="0 0 400 420" class="sketch" id="doodleArt"></svg><div id="stampWrap" style="text-align:center"></div></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'doodle';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('.tabs a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='doodle')sizePad()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- doodle pad ---------- */
+const pad=document.getElementById('pad'),g=pad.getContext('2d');let tool='pencil',color='#2b2f3a',hist=[],drawing=false,last=null,start=null,snapshot=null;
+const COLS=['#2b2f3a','#e2574c','#3b6fd8','#2fa36b','#f2a93b','#9b59d0','#ff7eb6'];
+document.getElementById('swatches').innerHTML=COLS.map((c,i)=>`<span class="swatch${i?'':' on'}" data-c="${c}" style="background:${c}"></span>`).join('');
+document.getElementById('swatches').onclick=e=>{const c=e.target.dataset.c;if(!c)return;color=c;document.querySelectorAll('#swatches .swatch').forEach(s=>s.classList.toggle('on',s===e.target))};
+document.getElementById('tools').addEventListener('click',e=>{const b=e.target.closest('[data-t]');if(!b)return;tool=b.dataset.t;document.querySelectorAll('[data-t]').forEach(o=>o.classList.toggle('on',o===b))});
+function sizePad(){const r=pad.getBoundingClientRect();if(!r.width)return;const img=pad.width?pad.toDataURL():null;const d=Math.min(devicePixelRatio,2);pad.width=r.width*d;pad.height=r.height*d;g.setTransform(d,0,0,d,0,0);g.lineCap='round';g.lineJoin='round';
+ if(img&&hist.length){const im=new Image();im.onload=()=>g.drawImage(im,0,0,r.width,r.height);im.src=img}else if(!hist.length)welcome()}
+function welcome(){g.font='28px "Gloria Hallelujah"';g.fillStyle='#b8bec8';g.fillText('draw something here ↓',40,60);g.strokeStyle='#b8bec8';g.lineWidth=3;g.beginPath();g.arc(160,200,50,0,Math.PI*1.8);g.stroke();g.beginPath();g.arc(145,190,5,0,7);g.arc(175,190,5,0,7);g.fill();g.beginPath();g.arc(160,205,22,.2,Math.PI-.2);g.stroke()}
+const pos=e=>{const r=pad.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]};
+pad.addEventListener('pointerdown',e=>{pad.setPointerCapture(e.pointerId);hist.push(g.getImageData(0,0,pad.width,pad.height));if(hist.length>30)hist.shift();drawing=true;last=pos(e);start=last;snapshot=g.getImageData(0,0,pad.width,pad.height);stroke(last,last,e)});
+pad.addEventListener('pointermove',e=>{if(!drawing)return;const p=pos(e);if(e.shiftKey){g.putImageData(snapshot,0,0);stroke(start,p,e)}else{stroke(last,p,e);last=p}});
+pad.addEventListener('pointerup',()=>drawing=false);
+function stroke(a,b,e){const sz=+document.getElementById('size').value;g.globalCompositeOperation=tool==='eraser'?'destination-out':'source-over';
+ if(tool==='spray'){g.fillStyle=color;for(let i=0;i<sz*4;i++){const r=Math.random()*sz*2.5,an=Math.random()*7;g.fillRect(b[0]+Math.cos(an)*r,b[1]+Math.sin(an)*r,1.2,1.2)}return}
+ g.strokeStyle=color;g.globalAlpha=tool==='marker'?.35:1;g.lineWidth=tool==='marker'?sz*3:tool==='eraser'?sz*4:sz*(e.pressure&&e.pointerType==='pen'?e.pressure*1.6:1);
+ g.beginPath();g.moveTo(a[0]+(tool==='pencil'?Math.random()*.6:0),a[1]);g.lineTo(b[0],b[1]);g.stroke();g.globalAlpha=1;g.globalCompositeOperation='source-over'}
+document.getElementById('undo').onclick=()=>{const h=hist.pop();if(h)g.putImageData(h,0,0)};
+document.getElementById('clearPad').onclick=()=>{hist.push(g.getImageData(0,0,pad.width,pad.height));g.clearRect(0,0,pad.width,pad.height)};
+document.getElementById('savePad').onclick=()=>{const c=document.createElement('canvas');c.width=pad.width;c.height=pad.height;const x=c.getContext('2d');x.fillStyle='#fdfcf7';x.fillRect(0,0,c.width,c.height);x.drawImage(pad,0,0);const a=document.createElement('a');a.download='my-doodle.png';a.href=c.toDataURL();a.click()};
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!V[0].hidden){e.preventDefault();document.getElementById('undo').click()}});
+addEventListener('resize',()=>{if(!V[0].hidden)sizePad()});
+
+/* ---------- stickies ---------- */
+const SC=['#fff27a','#ffc4d6','#b8f0c8','#bfe3ff','#ffd7a3'];
+let notes=store.get('sk-notes',[{x:4,y:6,c:0,r:-3,t:'buy milk\n(the good kind)'},{x:30,y:14,c:1,r:2,t:'call grandma ♥'},{x:58,y:4,c:2,r:-1,t:'idea: a website with 100 pages??'},{x:18,y:48,c:3,r:3,t:'drink water, you plant'},{x:62,y:46,c:4,r:-4,t:'learn the ukulele chord for sad songs'}]);
+document.getElementById('stickyColors').innerHTML=SC.map((c,i)=>`<span class="swatch" data-sc="${i}" style="background:${c}" title="add note"></span>`).join('');
+document.getElementById('stickyColors').onclick=e=>{const i=e.target.dataset.sc;if(i==null)return;notes.push({x:10+Math.random()*60,y:10+Math.random()*50,c:+i,r:Math.random()*8-4,t:''});saveN();renderN(true)};
+const saveN=()=>store.set('sk-notes',notes);const wall=document.getElementById('wall');
+function renderN(focusLast){wall.innerHTML='';notes.forEach((n,i)=>{const d=document.createElement('div');d.className='sticky';Object.assign(d.style,{left:n.x+'%',top:n.y+'%',background:SC[n.c],transform:`rotate(${n.r}deg)`,zIndex:i+1});d.innerHTML=`<span class="x" title="remove">✕</span><div contenteditable="true" spellcheck="false"></div>`;const ed=d.querySelector('[contenteditable]');ed.innerText=n.t;ed.oninput=()=>{n.t=ed.innerText;saveN()};
+ d.querySelector('.x').onclick=()=>{notes.splice(i,1);saveN();renderN()};
+ d.addEventListener('pointerdown',e=>{if(e.target.isContentEditable||e.target.classList.contains('x'))return;const wr=wall.getBoundingClientRect(),sx=e.clientX,sy=e.clientY,ox=n.x,oy=n.y;d.style.zIndex=999;d.setPointerCapture(e.pointerId);
+  const mv=ev=>{n.x=Math.max(0,Math.min(85,ox+(ev.clientX-sx)/wr.width*100));n.y=Math.max(0,Math.min(80,oy+(ev.clientY-sy)/wr.height*100));d.style.left=n.x+'%';d.style.top=n.y+'%';d.style.transform=`rotate(${n.r+ (ev.clientX-sx)/40}deg) scale(1.04)`};
+  const up=()=>{d.removeEventListener('pointermove',mv);d.removeEventListener('pointerup',up);d.style.transform=`rotate(${n.r}deg)`;notes.push(notes.splice(i,1)[0]);saveN();renderN()};d.addEventListener('pointermove',mv);d.addEventListener('pointerup',up)});
+ wall.appendChild(d);if(focusLast&&i===notes.length-1)setTimeout(()=>ed.focus(),50)})}
+renderN();
+
+/* ---------- to-do ---------- */
+let todos=store.get('sk-todos',[['water the plants',true],['finish the sketchbook website',false],['reply to that email (you know the one)',false],['go outside for 20 minutes',false],['eat something green',true]]);
+const box=done=>`<svg class="box sketch" viewBox="0 0 26 26"><rect x="2" y="2" width="22" height="22" rx="4" fill="none" stroke="#2b2f3a" stroke-width="2.5"/>${done?'<path d="M6 13 L11 19 L22 4" stroke="#2fa36b" stroke-width="3.5" fill="none" stroke-linecap="round"/>':''}</svg>`;
+function renderT(){const ul=document.getElementById('todoList');ul.innerHTML=todos.map(([t,d],i)=>`<li class="${d?'done':''}" data-i="${i}">${box(d)}<span class="t">${t.replace(/</g,'')}<svg preserveAspectRatio="none" viewBox="0 0 100 18"><path d="M0 9 Q 12 3 25 10 T 50 8 T 75 11 T 100 7"/></svg></span><span class="del" data-del="${i}">✕</span></li>`).join('');
+ const n=todos.filter(t=>t[1]).length;document.getElementById('prog').innerHTML=`${n} of ${todos.length} done ${'★'.repeat(n)}${'☆'.repeat(Math.max(0,todos.length-n))}`;
+ document.getElementById('stampWrap').innerHTML=todos.length&&n===todos.length?'<div class="stamp">ALL DONE! go have a snack 🍪</div>':'';store.set('sk-todos',todos);drawDoodle(n/Math.max(1,todos.length))}
+document.getElementById('todoList').onclick=e=>{const del=e.target.closest('[data-del]');if(del){todos.splice(+del.dataset.del,1);renderT();return}const li=e.target.closest('li');if(!li)return;todos[li.dataset.i][1]=!todos[li.dataset.i][1];renderT()};
+document.getElementById('addF').onsubmit=e=>{e.preventDefault();const v=newT.value.trim();if(!v)return;todos.push([v,false]);newT.value='';renderT()};
+function drawDoodle(p){const sun=p>.99;document.getElementById('doodleArt').innerHTML=`<path d="M40 380 Q200 360 360 380" stroke="#2b2f3a" stroke-width="3" fill="none"/>
+ <path d="M200 380 L200 ${380-p*200}" stroke="#2fa36b" stroke-width="5" fill="none"/>${[...Array(Math.floor(p*6))].map((_,i)=>`<path d="M200 ${360-i*32} q${i%2?30:-30} -18 ${i%2?46:-46} -4 q${i%2?-20:20} 14 ${i%2?-46:46} 4" fill="#b8f0c8" stroke="#2fa36b" stroke-width="2.5"/>`).join('')}
+ ${sun?`<g transform="translate(200 ${170})"><circle r="30" fill="#ffc4d6" stroke="#e2574c" stroke-width="3"/>${[...Array(8)].map((_,i)=>`<ellipse rx="14" ry="24" transform="rotate(${i*45}) translate(0 -38)" fill="#fff27a" stroke="#2b2f3a" stroke-width="2"/>`).join('')}<circle r="14" fill="#f2a93b" stroke="#2b2f3a" stroke-width="2.5"/></g>`:''}
+ <path d="M150 380 L165 330 L235 330 L250 380Z" fill="#f2a93b" stroke="#2b2f3a" stroke-width="3"/><circle cx="330" cy="70" r="${sun?34:22}" fill="#fff27a" stroke="#2b2f3a" stroke-width="3"/>${sun?[...Array(10)].map((_,i)=>`<line x1="${330+Math.cos(i*.63)*44}" y1="${70+Math.sin(i*.63)*44}" x2="${330+Math.cos(i*.63)*58}" y2="${70+Math.sin(i*.63)*58}" stroke="#2b2f3a" stroke-width="3" stroke-linecap="round"/>`).join(''):''}
+ <text x="30" y="60" font-family="Gloria Hallelujah" font-size="20" fill="#6a6f7a" transform="rotate(-6 30 60)">${sun?'look! it bloomed!':p>.5?'growing...':'a little seedling'}</text>`}
+renderT();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

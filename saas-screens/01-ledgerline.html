@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ledgerline — Close the books in a day</title>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--paper:#f4f6ef;--rule:#c9d8c4;--ink:#1b2a22;--green:#1f6b45;--red:#c4392b;--mute:#6a7b70}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 'IBM Plex Sans',sans-serif}
+.lined{background-image:repeating-linear-gradient(to bottom,transparent 0 31px,var(--rule) 31px 32px)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+nav{display:flex;align-items:center;gap:32px;padding:22px 0;border-bottom:2px solid var(--ink)}
+.logo{font:400 26px 'Young Serif',serif;display:flex;align-items:center;gap:10px}.logo i{width:22px;height:22px;border:2px solid var(--ink);border-radius:3px;display:grid;place-items:center;font:600 12px 'IBM Plex Mono';font-style:normal}
+nav a{color:var(--ink);text-decoration:none;font-size:14px}nav .sp{flex:1}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border:2px solid var(--ink);background:var(--ink);color:var(--paper)!important;font:600 14px 'IBM Plex Sans';text-decoration:none;border-radius:2px;cursor:pointer}
+.btn.o{background:transparent;color:var(--ink)!important}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;padding:64px 0 72px;position:relative}
+.margin{position:absolute;left:-14px;top:0;bottom:0;border-left:2px solid var(--red);opacity:.55}
+.eyebrow{font:500 12px 'IBM Plex Mono';letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+h1{font:400 clamp(44px,6vw,78px)/1.02 'Young Serif',serif;margin:16px 0 22px;letter-spacing:-.01em;text-wrap:balance}
+h1 em{font-style:normal;background:linear-gradient(transparent 62%,#cfe6c5 62%)}
+.lede{font-size:19px;color:#34463b;max-width:30em}
+.cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.proof{display:flex;gap:28px;margin-top:38px;font:500 13px 'IBM Plex Mono';color:var(--mute)}.proof b{display:block;font:400 30px 'Young Serif';color:var(--ink)}
+.book{align-self:start;margin-top:30px;background:#fff;border:2px solid var(--ink);box-shadow:10px 10px 0 var(--ink);font:13px 'IBM Plex Mono';position:relative}
+.book h4{margin:0;padding:14px 18px;border-bottom:2px solid var(--ink);display:flex;justify-content:space-between;font:600 12px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase}
+.book h4 span{color:var(--green)}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+td,th{padding:9px 14px;border-bottom:1px solid var(--rule);text-align:left;white-space:nowrap}
+th{font-weight:500;color:var(--mute);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+td.n{text-align:right}tr.m td{background:#eef7ea}tr.m .st{color:var(--green)}tr.q .st{color:#a06a00}
+.st{font-weight:600}
+.bar{height:6px;background:#e3eadf;margin:14px 18px 6px}.bar i{display:block;height:100%;background:var(--green);width:0;transition:width .6s}
+.foot{display:flex;justify-content:space-between;padding:4px 18px 16px;color:var(--mute)}
+.stamp{position:absolute;right:-18px;top:-22px;transform:rotate(9deg);border:3px solid var(--red);color:var(--red);font:600 14px 'IBM Plex Mono';padding:6px 10px;letter-spacing:.12em;background:var(--paper);opacity:0;transition:opacity .4s,transform .4s}
+.stamp.on{opacity:1;transform:rotate(-6deg) scale(1)}
+.logos{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;padding:26px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);font:400 22px 'Young Serif';color:#7c8e82}
+section{padding:84px 0}
+h2{font:400 clamp(32px,4vw,48px)/1.08 'Young Serif';margin:0 0 14px;text-wrap:balance}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);border:2px solid var(--ink)}
+.col{padding:28px;border-right:2px solid var(--ink)}.col:last-child{border-right:0}
+.col .k{font:600 12px 'IBM Plex Mono';color:var(--red)}
+.col h3{font:400 24px 'Young Serif';margin:10px 0 8px}
+.col p{margin:0;color:#3d5045;font-size:15px}
+.t-ac{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:2px solid var(--ink)}
+.tacc{padding:26px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:120px 1fr;gap:16px}
+.tacc:nth-child(odd){padding-right:28px;border-right:1px solid var(--rule)}.tacc:nth-child(even){padding-left:28px}
+.tacc b{font:400 38px 'Young Serif';color:var(--green)}
+.quote{display:grid;grid-template-columns:1fr 2fr;gap:40px;align-items:start}
+blockquote{margin:0;font:400 30px/1.3 'Young Serif';text-wrap:balance}
+.who{font:500 13px 'IBM Plex Mono';color:var(--mute);margin-top:18px}
+.final{background:var(--ink);color:var(--paper);padding:70px;display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+.final h2{color:var(--paper);margin:0}
+.final .btn{background:var(--paper);color:var(--ink)!important;border-color:var(--paper)}
+footer{padding:30px 0 60px;font:12px 'IBM Plex Mono';color:var(--mute);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+@media(max-width:860px){.hero,.quote{grid-template-columns:1fr}.cols{grid-template-columns:1fr}.col{border-right:0;border-bottom:2px solid var(--ink)}.t-ac{grid-template-columns:1fr}.tacc:nth-child(n){padding:22px 0;border-right:0}nav a:not(.btn){display:none}.book{overflow-x:auto}.final{padding:36px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <nav><div class="logo"><i>Ł</i>Ledgerline</div><a href="#">Product</a><a href="#">Close</a><a href="#">Customers</a><a href="#">Pricing</a><span class="sp"></span><a href="#">Sign in</a><a class="btn" href="#">Book a demo</a></nav>
+ <div class="hero lined">
+  <div class="margin"></div>
+  <div>
+   <div class="eyebrow">Month-end close, automated</div>
+   <h1>Close the books in <em>a day</em>, not a month.</h1>
+   <p class="lede">Ledgerline matches every bank line to its journal entry, flags what doesn’t reconcile, and drafts the adjustments — so your team reviews instead of retypes.</p>
+   <div class="cta"><a class="btn" href="#">Start a free close →</a><a class="btn o" href="#">See a sample audit trail</a></div>
+   <div class="proof"><div><b>1.4 days</b>average close</div><div><b>98.7%</b>auto-matched</div><div><b>SOC 2</b>Type II</div></div>
+  </div>
+  <div class="book" id="book">
+   <div class="stamp" id="stamp">RECONCILED</div>
+   <h4>Operating account · Sept <span id="pct">0% matched</span></h4>
+   <table><thead><tr><th>Date</th><th>Bank line</th><th>Ledger</th><th style="text-align:right">Amount</th><th>Status</th></tr></thead><tbody id="rows"></tbody></table>
+   <div class="bar"><i id="bar"></i></div>
+   <div class="foot"><span id="cnt">0 / 8 lines</span><span>Δ €0.00</span></div>
+  </div>
+ </div>
+ <div class="logos"><span>Harrow & Vale</span><span>Northbeam</span><span>Oskar Freight</span><span>Calder Labs</span><span>Mintworth</span></div>
+ <section>
+  <div class="eyebrow">How it works</div><h2>Three entries. Balanced every time.</h2>
+  <div class="cols" style="margin-top:30px">
+   <div class="col"><div class="k">DR · 01</div><h3>Connect</h3><p>Banks, cards, Stripe and your ERP sync nightly. Nothing to export, nothing to paste.</p></div>
+   <div class="col"><div class="k">DR · 02</div><h3>Match</h3><p>Rules learn from your past closes. Splits, partial payments and FX gains are matched line by line.</p></div>
+   <div class="col"><div class="k">CR · 03</div><h3>Review & post</h3><p>Exceptions arrive as a short queue with a suggested journal. Approve, and it posts with a full audit trail.</p></div>
+  </div>
+ </section>
+ <section style="padding-top:0">
+  <div class="t-ac">
+   <div class="tacc"><b>−71%</b><div><h3 style="font:400 22px 'Young Serif';margin:0 0 4px">Manual journal entries</h3><p style="margin:0;color:#3d5045">Recurring accruals and prepaid schedules post themselves.</p></div></div>
+   <div class="tacc"><b>12 min</b><div><h3 style="font:400 22px 'Young Serif';margin:0 0 4px">Audit request turnaround</h3><p style="margin:0;color:#3d5045">Every number links to its source document and approver.</p></div></div>
+   <div class="tacc"><b>40+</b><div><h3 style="font:400 22px 'Young Serif';margin:0 0 4px">Currencies, natively</h3><p style="margin:0;color:#3d5045">Revaluation runs at the close rate you choose.</p></div></div>
+   <div class="tacc"><b>0</b><div><h3 style="font:400 22px 'Young Serif';margin:0 0 4px">Spreadsheets required</h3><p style="margin:0;color:#3d5045">Though you can still export one if it makes you feel better.</p></div></div>
+  </div>
+ </section>
+ <section class="quote" style="border-top:2px solid var(--ink)">
+  <div class="eyebrow">From the controller’s desk</div>
+  <div><blockquote>“We used to lose the first week of every month to reconciliation. Now it’s a Tuesday-morning review with coffee.”</blockquote><div class="who">Marta Okafor — Financial Controller, Oskar Freight</div></div>
+ </section>
+ <div class="final"><h2>Your next close could be your fastest.</h2><a class="btn" href="#">Book a 20-minute demo</a></div>
+ <footer><span>© 2026 Ledgerline Ltd. · Debits on the left, always.</span><span>Security · Privacy · Status · Careers</span></footer>
+</div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const R=[['09-02','STRIPE PAYOUT 8841','4000 · Sales','12,480.00'],['09-03','AWS EMEA','6120 · Hosting','-3,212.44'],['09-05','PAYROLL BATCH 37','6000 · Salaries','-48,900.00'],['09-08','HARROW&VALE INV-221','1200 · AR','9,750.00'],['09-11','WEWORK LDN','6310 · Rent','-6,400.00'],['09-14','FX CONV USD→EUR','7900 · FX gain','182.17'],['09-19','GUSTO TAX','2210 · Payroll tax','-11,034.90'],['09-23','NORTHBEAM INV-230','1200 · AR','4,200.00']];
+const tb=document.getElementById('rows');R.forEach(r=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="n">${r[3]}</td><td class="st">· pending</td>`;tb.appendChild(tr)});
+let i=0;function step(){const rows=tb.children;if(i<rows.length){const tr=rows[i];const q=i===5;tr.className=q?'q':'m';tr.querySelector('.st').textContent=q?'⚑ review':'✓ matched';i++;
+ const p=Math.round(i/rows.length*100);document.getElementById('pct').textContent=p+'% matched';document.getElementById('bar').style.width=p+'%';document.getElementById('cnt').textContent=i+' / '+rows.length+' lines';setTimeout(step,520)}
+ else{setTimeout(()=>{const r=rows[5];r.className='m';r.querySelector('.st').textContent='✓ adjusted';document.getElementById('stamp').classList.add('on')},700);setTimeout(()=>{i=0;[...rows].forEach(r=>{r.className='';r.querySelector('.st').textContent='· pending'});document.getElementById('stamp').classList.remove('on');document.getElementById('bar').style.width='0';step()},6000)}}
+setTimeout(step,700);
+</script>
+</body>
+</html>

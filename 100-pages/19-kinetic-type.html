@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOTION/TYPE — Kinetic Typography Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Sans:wght@400;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0a0a0a; --fg:#f2f2ec; --acc:#d4ff3a; --acc2:#ff4fd8; }
+  body.inv { --bg:#f2f2ec; --fg:#0a0a0a; --acc:#3a2cff; --acc2:#ff4f00; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--fg); font-family:'Instrument Sans',sans-serif; overflow-x:hidden; transition:background .5s, color .5s; }
+  a { color:inherit; text-decoration:none; }
+  header { position:fixed; top:0; left:0; right:0; z-index:30; display:flex; justify-content:space-between; align-items:center; padding:18px 3vw; mix-blend-mode:difference; color:#fff; }
+  header .logo { font-family:'Anton'; font-size:22px; letter-spacing:.02em; }
+  header nav { display:flex; gap:24px; font-size:14px; }
+  header nav a { position:relative; overflow:hidden; display:inline-block; height:1.2em; }
+  header nav a span { display:block; transition:transform .4s cubic-bezier(.7,0,.2,1); }
+  header nav a span::after { content:attr(data-t); display:block; }
+  header nav a:hover span, header nav a.on span { transform:translateY(-50%); }
+  header nav a.on { text-decoration:underline; text-underline-offset:4px; }
+  [data-view][hidden] { display:none; }
+  /* stage */
+  .stage { height:100vh; position:relative; overflow:hidden; cursor:none; }
+  .words { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; padding:0 3vw; }
+  .line { font-family:'Anton'; font-size:clamp(4rem,16vw,15rem); line-height:.86; text-transform:uppercase; white-space:nowrap; display:flex; }
+  .line .ch { display:inline-block; transition:transform .5s cubic-bezier(.2,.8,.2,1), color .3s; will-change:transform; }
+  .line.out { color:transparent; -webkit-text-stroke:2px var(--fg); }
+  .line.acc .ch { color:var(--acc); }
+  .cursor { position:fixed; width:90px; height:90px; border-radius:50%; background:var(--acc); mix-blend-mode:difference; pointer-events:none; z-index:25; transform:translate(-50%,-50%); transition:width .3s, height .3s; }
+  .marquee { position:absolute; bottom:0; left:0; right:0; border-top:1px solid var(--fg); overflow:hidden; white-space:nowrap; padding:14px 0; font-family:'Instrument Serif'; font-style:italic; font-size:1.6rem; }
+  .marquee div { display:inline-block; animation:mq 30s linear infinite; }
+  @keyframes mq { to { transform:translateX(-50%); } }
+  .scrolltext { min-height:200vh; padding:10vh 3vw; }
+  .scrolltext p { font-family:'Anton'; font-size:clamp(2.4rem,7vw,6.5rem); line-height:1; text-transform:uppercase; margin-bottom:6vh; }
+  .scrolltext .w { display:inline-block; margin-right:.25em; opacity:.12; transition:opacity .3s, color .3s; }
+  .scrolltext .w.lit { opacity:1; }
+  .scrolltext .w.hi { color:var(--acc); }
+  /* playground */
+  .play { min-height:100vh; display:grid; grid-template-columns:340px 1fr; padding-top:70px; }
+  .ctrl { padding:24px 3vw; border-right:1px solid #ffffff22; display:flex; flex-direction:column; gap:18px; }
+  body.inv .ctrl { border-color:#00000022; }
+  .ctrl label { font-size:12px; letter-spacing:.14em; text-transform:uppercase; opacity:.6; display:block; margin-bottom:6px; }
+  .ctrl input[type=text] { width:100%; background:transparent; border:0; border-bottom:2px solid var(--fg); color:var(--fg); font-family:'Anton'; font-size:2rem; text-transform:uppercase; padding:4px 0; outline:none; }
+  .ctrl input[type=range] { width:100%; accent-color:var(--acc); }
+  .fx { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .fx button, .pal button { padding:10px; font-family:inherit; font-size:13px; font-weight:600; background:transparent; color:var(--fg); border:1px solid currentColor; cursor:pointer; text-align:left; transition:all .2s; }
+  .fx button.on { background:var(--acc); color:#000; border-color:var(--acc); }
+  .pal { display:flex; gap:6px; }
+  .pal button { width:36px; height:36px; padding:0; border-radius:50%; border:2px solid var(--fg); }
+  .pal button.on { outline:3px solid var(--acc); outline-offset:2px; }
+  .preview { display:grid; place-items:center; overflow:hidden; position:relative; background:var(--pbg,transparent); transition:background .4s; }
+  #pv { font-family:'Anton'; text-transform:uppercase; text-align:center; line-height:.9; color:var(--pfg,var(--fg)); padding:4vw; user-select:none; }
+  #pv .ch { display:inline-block; white-space:pre; }
+  /* fx keyframes */
+  .fx-wave .ch { animation:wave calc(1.2s / var(--sp)) ease-in-out infinite; animation-delay:calc(var(--i) * .06s); }
+  @keyframes wave { 50% { transform:translateY(-.25em); } }
+  .fx-explode .ch { animation:explode calc(2.4s / var(--sp)) cubic-bezier(.7,0,.2,1) infinite; animation-delay:calc(var(--i) * .02s); }
+  @keyframes explode { 0%,100% { transform:none; } 45%,55% { transform:translate(var(--rx),var(--ry)) rotate(var(--rr)) scale(.6); opacity:.4; } }
+  .fx-flip .ch { animation:flip calc(1.8s / var(--sp)) cubic-bezier(.7,0,.2,1) infinite; animation-delay:calc(var(--i) * .08s); }
+  @keyframes flip { 0%,60% { transform:perspective(400px) rotateX(0); } 80%,100% { transform:perspective(400px) rotateX(360deg); } }
+  .fx-stretch .ch { animation:stretch calc(1.4s / var(--sp)) ease-in-out infinite; animation-delay:calc(var(--i) * .1s); transform-origin:bottom; }
+  @keyframes stretch { 50% { transform:scaleY(1.6) scaleX(.8); } }
+  .fx-glitch .ch { animation:glitch calc(.9s / var(--sp)) steps(2) infinite; animation-delay:calc(var(--i) * -.13s); }
+  @keyframes glitch { 0% { transform:none; text-shadow:none; } 20% { transform:translate(-4px,2px); text-shadow:4px 0 var(--acc2),-4px 0 var(--acc); } 40% { transform:none; } 70% { transform:translate(3px,-2px) skewX(10deg); } }
+  .fx-spin .ch { animation:spin calc(3s / var(--sp)) linear infinite; animation-delay:calc(var(--i) * .1s); }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .fx-type .ch { opacity:0; animation:type calc(4s / var(--sp)) steps(1) infinite; animation-delay:calc(var(--i) * .08s / var(--sp)); }
+  @keyframes type { 0% { opacity:0; } 5%,85% { opacity:1; } 100% { opacity:0; } }
+  .fx-drop .ch { animation:drop calc(2s / var(--sp)) cubic-bezier(.3,1.6,.5,1) infinite; animation-delay:calc(var(--i) * .07s); }
+  @keyframes drop { 0% { transform:translateY(-120vh); } 30%,80% { transform:none; } 100% { transform:translateY(120vh); } }
+  /* specimen */
+  .spec { min-height:100vh; padding:90px 3vw 60px; display:grid; grid-template-columns:1fr 1.2fr; gap:3vw; }
+  .glyphs { display:grid; grid-template-columns:repeat(7,1fr); border-top:1px solid; border-left:1px solid; align-self:start; }
+  .glyphs button { aspect-ratio:1; border:0; border-right:1px solid; border-bottom:1px solid; background:none; color:var(--fg); font-family:'Anton'; font-size:clamp(1.2rem,2.4vw,2.2rem); cursor:pointer; transition:background .15s; }
+  .glyphs button:hover, .glyphs button.on { background:var(--acc); color:#000; }
+  .big { position:relative; border:1px solid; aspect-ratio:1; display:grid; place-items:center; overflow:hidden; }
+  .big .g { font-family:'Anton'; font-size:min(40vw,38vh); line-height:1; }
+  .big .ml { position:absolute; left:0; right:0; border-top:1px dashed var(--acc2); font-size:11px; padding-left:8px; color:var(--acc2); }
+  .meta { display:flex; justify-content:space-between; margin-top:12px; font-size:13px; opacity:.7; }
+  .pangram { grid-column:1/-1; font-family:'Instrument Serif'; font-size:clamp(1.6rem,4vw,3.4rem); line-height:1.1; border-top:1px solid; padding-top:2rem; }
+  .pangram i { color:var(--acc); }
+  .sizes div { font-family:'Anton'; white-space:nowrap; overflow:hidden; line-height:1.05; }
+  /* sequences */
+  .seq { height:100vh; position:relative; overflow:hidden; display:grid; place-items:center; }
+  .seqStage { font-family:'Anton'; text-transform:uppercase; text-align:center; line-height:.9; font-size:clamp(3rem,12vw,11rem); position:relative; }
+  .seqStage .ln { display:block; overflow:hidden; }
+  .seqStage .ln span { display:inline-block; animation:up .9s cubic-bezier(.7,0,.2,1) both; }
+  @keyframes up { from { transform:translateY(110%); } }
+  .seqStage .ln.serif { font-family:'Instrument Serif'; font-style:italic; text-transform:none; color:var(--acc); }
+  .seqCtl { position:absolute; bottom:30px; left:3vw; right:3vw; display:flex; gap:16px; align-items:center; }
+  .seqCtl button { background:none; border:1px solid var(--fg); color:var(--fg); padding:10px 16px; font-family:inherit; cursor:pointer; }
+  .prog { flex:1; height:2px; background:#ffffff33; position:relative; }
+  .prog i { position:absolute; left:0; top:0; bottom:0; background:var(--acc); }
+  .toggle { position:fixed; right:3vw; bottom:24px; z-index:30; width:48px; height:48px; border-radius:50%; border:0; background:var(--acc); cursor:pointer; font-size:20px; }
+  @media (max-width:860px){ .play,.spec { grid-template-columns:1fr; } .ctrl { border-right:0; } header nav { gap:12px; font-size:12px; } .stage { cursor:auto; } .cursor { display:none; } }
+</style>
+</head>
+<body>
+<header><a class="logo" href="#stage">MOTION/TYPE</a><nav><a href="#stage"><span data-t="Stage">Stage</span></a><a href="#play"><span data-t="Playground">Playground</span></a><a href="#specimen"><span data-t="Specimen">Specimen</span></a><a href="#sequences"><span data-t="Sequences">Sequences</span></a><a href="index.html"><span data-t="← Index">← Index</span></a></nav></header>
+<div class="cursor" id="cur"></div>
+
+<section data-view="stage">
+  <div class="stage" id="stage"><div class="words" id="words"></div>
+    <div class="marquee"><div>letters are little machines — they lean, they bounce, they fall in love with the cursor — letters are little machines — they lean, they bounce, they fall in love with the cursor — </div></div></div>
+  <div class="scrolltext" id="st"></div>
+</section>
+
+<section data-view="play" hidden>
+  <div class="play">
+    <div class="ctrl">
+      <div><label>Your words</label><input type="text" id="txt" value="Hello motion" maxlength="30"></div>
+      <div><label>Effect</label><div class="fx" id="fx"></div></div>
+      <div><label>Speed <span id="spV"></span></label><input type="range" id="sp" min=".25" max="3" step=".05" value="1"></div>
+      <div><label>Size</label><input type="range" id="sz" min="3" max="18" step=".5" value="10"></div>
+      <div><label>Tracking</label><input type="range" id="tr" min="-.08" max=".3" step=".01" value="0"></div>
+      <div><label>Palette</label><div class="pal" id="pal"></div></div>
+    </div>
+    <div class="preview" id="preview"><div id="pv"></div></div>
+  </div>
+</section>
+
+<section data-view="specimen" hidden>
+  <div class="spec">
+    <div><div class="glyphs" id="glyphs"></div><div class="sizes" style="margin-top:2rem" id="sizes"></div></div>
+    <div><div class="big" id="big"></div><div class="meta"><span>ANTON · CONDENSED SANS</span><span id="gcode"></span></div></div>
+    <div class="pangram">Sphinx of black quartz, <i>judge my vow</i> — while the quick brown fox jumps over the lazy dog, twice, for emphasis.</div>
+  </div>
+</section>
+
+<section data-view="sequences" hidden>
+  <div class="seq"><div class="seqStage" id="seq"></div>
+    <div class="seqCtl"><button id="seqPrev">←</button><button id="seqPlay">❚❚ Pause</button><button id="seqNext">→</button><div class="prog"><i id="seqProg"></i></div><span id="seqN"></span></div></div>
+</section>
+<button class="toggle" id="inv" title="Invert">◐</button>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'stage';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('header nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}document.getElementById('cur').style.display=id==='stage'?'':'none';if(id==='sequences')playSeq(si);else clearTimeout(seqT)}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+document.getElementById('inv').onclick=()=>document.body.classList.toggle('inv');
+const split=(t,cls='ch')=>[...t].map((c,i)=>`<span class="${cls}" style="--i:${i}">${c===' '?'&nbsp;':c}</span>`).join('');
+
+/* stage: cursor-repelled letters */
+const LINES=[['Type','',''],['that','out',''],['moves','acc',''],['you','','']];
+document.getElementById('words').innerHTML=LINES.map(([w,c])=>`<div class="line ${c}">${split(w)}</div>`).join('');
+const chs=[...document.querySelectorAll('#words .ch')],cur=document.getElementById('cur');let mx=-999,my=-999;
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+function repel(){if(!V[0].hidden){chs.forEach(c=>{const r=c.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=cx-mx,dy=cy-my,d=Math.hypot(dx,dy),R=220;if(d<R){const f=(1-d/R);c.style.transform=`translate(${dx/d*f*60}px,${dy/d*f*60}px) rotate(${dx/d*f*20}deg) scale(${1+f*.25})`}else c.style.transform=''});}requestAnimationFrame(repel)}repel();
+/* scroll-lit paragraph */
+const ST=['Typography is what language looks like.','When it moves, it starts to speak out loud.','Every letter is a tiny actor waiting for a cue.'];
+document.getElementById('st').innerHTML=ST.map(s=>`<p>${s.split(' ').map(w=>`<span class="w${/moves|speak|actor|looks/i.test(w)?' hi':''}">${w}</span>`).join(' ')}</p>`).join('');
+const ws=[...document.querySelectorAll('.scrolltext .w')];addEventListener('scroll',()=>{if(V[0].hidden)return;ws.forEach(w=>{const r=w.getBoundingClientRect();w.classList.toggle('lit',r.top<innerHeight*.7)})},{passive:true});
+
+/* playground */
+const FX=['wave','explode','flip','stretch','glitch','spin','type','drop'];let fx='wave';
+const PAL=[['#0a0a0a','#d4ff3a'],['#ff4fd8','#0a0a0a'],['#3a2cff','#f2f2ec'],['#f2f2ec','#ff4f00'],['#101820','#fee715']];let pal=0;
+document.getElementById('fx').innerHTML=FX.map(f=>`<button data-f="${f}" class="${f===fx?'on':''}">${f}</button>`).join('');
+document.getElementById('pal').innerHTML=PAL.map(([b,f],i)=>`<button data-p="${i}" style="background:linear-gradient(135deg,${b} 50%,${f} 50%)" class="${i===pal?'on':''}"></button>`).join('');
+document.getElementById('fx').onclick=e=>{if(!e.target.dataset.f)return;fx=e.target.dataset.f;document.querySelectorAll('#fx button').forEach(b=>b.classList.toggle('on',b===e.target));renderPv()};
+document.getElementById('pal').onclick=e=>{const p=e.target.dataset.p;if(p==null)return;pal=+p;document.querySelectorAll('#pal button').forEach(b=>b.classList.toggle('on',b===e.target));renderPv()};
+function renderPv(){const pv=document.getElementById('pv'),t=document.getElementById('txt').value||' ';pv.className='fx-'+fx;pv.innerHTML=t.split(/(\s+)/).map((w,wi)=>w.trim()?`<span style="display:inline-block;white-space:nowrap">${[...w].map((c,i)=>`<span class="ch" style="--i:${wi*4+i};--rx:${(Math.random()-.5)*300}px;--ry:${(Math.random()-.5)*300}px;--rr:${(Math.random()-.5)*540}deg">${c}</span>`).join('')}</span>`:' ').join('');
+ pv.style.fontSize=sz.value+'vw';pv.style.letterSpacing=tr.value+'em';pv.style.setProperty('--sp',sp.value);document.getElementById('spV').textContent=(+sp.value).toFixed(2)+'×';const pr=document.getElementById('preview');pr.style.setProperty('--pbg',PAL[pal][0]);pr.style.setProperty('--pfg',PAL[pal][1])}
+['txt','sp','sz','tr'].forEach(id=>document.getElementById(id).oninput=renderPv);renderPv();
+
+/* specimen */
+const G='ABCDEFGHIJKLMNOPQRSTUVWXYZ&0123456789!?@#'.split('');let gi=0;
+document.getElementById('glyphs').innerHTML=G.map((g,i)=>`<button data-g="${i}">${g}</button>`).join('');
+document.getElementById('glyphs').onclick=e=>{const i=e.target.dataset.g;if(i==null)return;showG(+i)};
+function showG(i){gi=i;document.querySelectorAll('#glyphs button').forEach((b,k)=>b.classList.toggle('on',k===i));document.getElementById('big').innerHTML=`<div class="g">${G[i]}</div><div class="ml" style="top:14%">ascender</div><div class="ml" style="top:22%">cap height</div><div class="ml" style="top:80%">baseline</div>`;document.getElementById('gcode').textContent='U+'+G[i].charCodeAt(0).toString(16).toUpperCase().padStart(4,'0')}
+showG(0);addEventListener('keydown',e=>{if(V[2].hidden)return;if(e.key==='ArrowRight')showG((gi+1)%G.length);if(e.key==='ArrowLeft')showG((gi-1+G.length)%G.length);const k=G.indexOf(e.key.toUpperCase());if(k>=0)showG(k)});
+document.getElementById('sizes').innerHTML=[96,64,40,24,14].map(s=>`<div style="font-size:${s}px">${s}px — Motion makes meaning</div>`).join('');
+
+/* sequences */
+const SEQ=[[['Every','word'],['is a','serif:frame of film']],[['Hold','still'],['— then','serif:leap']],[['Loud','type'],['for','serif:quiet people']],[['Read','it'],['as it','serif:runs away']],[['The','end'],['(for','serif:now)']]];let si=0,seqT,seqPlay=true,seqStart;
+function playSeq(i){si=(i+SEQ.length)%SEQ.length;const s=SEQ[si];document.getElementById('seq').innerHTML=s.map(pair=>pair.map(w=>{const serif=w.startsWith('serif:');const t=serif?w.slice(6):w;return `<span class="ln${serif?' serif':''}"><span>${t}</span></span>`}).join('')).join('');
+ document.querySelectorAll('#seq .ln span').forEach((sp,k)=>sp.style.animationDelay=k*.15+'s');document.getElementById('seqN').textContent=`${si+1} / ${SEQ.length}`;clearTimeout(seqT);seqStart=Date.now();if(seqPlay)seqT=setTimeout(()=>playSeq(si+1),3200)}
+(function prog(){if(!V[3].hidden){document.getElementById('seqProg').style.width=seqPlay?Math.min(100,(Date.now()-seqStart)/3200*100)+'%':document.getElementById('seqProg').style.width}requestAnimationFrame(prog)})();
+seqPrev.onclick=()=>playSeq(si-1);seqNext.onclick=()=>playSeq(si+1);seqPlay_=document.getElementById('seqPlay');seqPlay_.onclick=()=>{seqPlay=!seqPlay;seqPlay_.textContent=seqPlay?'❚❚ Pause':'▶ Play';if(seqPlay)playSeq(si);else clearTimeout(seqT)};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

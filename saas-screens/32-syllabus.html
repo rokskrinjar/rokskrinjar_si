@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Syllabus — Data Literacy for Managers</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--board:#1f3b33;--b2:#28483f;--chalk:#f1efe6;--paper:#fbf8f1;--tx:#1d2622;--mu:#6b756f;--ln:#e4dfd2;--sun:#f6c453;--rose:#e8826f}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--tx);font:16px/1.55 'Outfit',sans-serif}
+.board{background:var(--board);color:var(--chalk);position:relative;overflow:hidden}
+.board::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.07),transparent 60%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E")}
+.nav{position:relative;display:flex;align-items:center;gap:20px;padding:20px 40px;font-size:15px}.nav b{font:800 22px 'Fraunces'}.nav a{color:rgba(241,239,230,.7);text-decoration:none}.nav .sp{flex:1}
+.hero{position:relative;display:grid;grid-template-columns:1.4fr 1fr;gap:40px;padding:30px 40px 50px;max-width:1240px;margin:0 auto}
+.tag{display:inline-block;border:1.5px dashed rgba(241,239,230,.5);padding:3px 10px;border-radius:999px;font-size:13px}
+h1{font:600 clamp(40px,5vw,66px)/1.02 'Fraunces';letter-spacing:-.02em;margin:14px 0}
+h1 u{text-decoration:none;background:linear-gradient(transparent 70%,rgba(246,196,83,.55) 70%)}
+.hero p{opacity:.8;max-width:32em;font-size:18px}
+.chalk{font-family:'Fraunces';font-style:italic;color:var(--sun)}
+.prog{background:var(--b2);border-radius:20px;padding:22px;align-self:start;border:1px solid rgba(255,255,255,.1)}
+.prog .ring{display:flex;align-items:center;gap:16px}.prog svg{width:90px;height:90px;transform:rotate(-90deg)}
+.prog b{font:800 34px 'Fraunces'}.prog .row{display:flex;justify-content:space-between;padding:8px 0;border-top:1px dashed rgba(255,255,255,.15);font-size:14px}
+.btn{display:block;text-align:center;background:var(--sun);color:var(--board);border:0;border-radius:12px;padding:13px;font:600 16px 'Outfit';margin-top:14px;cursor:pointer;text-decoration:none}
+.main{max-width:1240px;margin:0 auto;padding:40px;display:grid;grid-template-columns:1.4fr 1fr;gap:40px}
+h2{font:600 30px 'Fraunces';margin:0 0 16px;letter-spacing:-.01em}
+.mod{border:1px solid var(--ln);border-radius:16px;margin-bottom:10px;background:#fff;overflow:hidden}
+.mod .h{display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer}
+.mod .n{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font:800 16px 'Fraunces';background:var(--paper)}
+.mod.done .n{background:var(--board);color:var(--chalk)}.mod.cur .n{background:var(--sun)}
+.mod .h div{flex:1}.mod .h small{display:block;color:var(--mu)}.mod .h em{font-style:normal;color:var(--mu);font-size:14px}
+.mod .ls{display:none;padding:0 18px 14px 68px}.mod.open .ls{display:block}
+.ls div{display:flex;gap:10px;padding:7px 0;border-top:1px dashed var(--ln);font-size:15px}.ls i{font-style:normal;width:20px;color:var(--mu)}.ls .ok i{color:#2e8b57}.ls .now{font-weight:600}
+.quiz{background:#fff;border:1px solid var(--ln);border-radius:20px;padding:24px;position:sticky;top:20px}
+.quiz .q{font:600 20px/1.35 'Fraunces';margin:8px 0 16px}
+.opt{display:block;width:100%;text-align:left;border:1.5px solid var(--ln);background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px;font:15px 'Outfit';cursor:pointer;transition:.15s}
+.opt:hover{border-color:var(--board)}.opt.r{border-color:#2e8b57;background:#eaf6ee}.opt.w{border-color:var(--rose);background:#fdf0ed}
+.expl{display:none;margin-top:12px;font-size:15px;color:#3e4a44;background:var(--paper);border-radius:12px;padding:12px}.expl.on{display:block}
+.mini{display:flex;align-items:end;gap:6px;height:90px;margin:12px 0 4px}.mini i{flex:1;background:var(--board);border-radius:4px 4px 0 0}.mini i.t{background:var(--rose)}
+@media(max-width:900px){.hero,.main{grid-template-columns:1fr;padding-left:18px;padding-right:18px}.nav a{display:none}.quiz{position:static}}
+</style>
+</head>
+<body>
+<div class="board"><div class="nav"><b>Syllabus</b><a href="#">My courses</a><a href="#">Catalogue</a><a href="#">Certificates</a><span class="sp"></span><span>Hi, Ines</span></div>
+ <div class="hero"><div><span class="tag">Course · 6 modules · ~5 hours</span><h1>Data literacy for <u>managers</u> who hate spreadsheets.</h1><p>Read a chart without being fooled by it, ask analysts better questions, and know when a number is lying. <span class="chalk">No formulas, promise.</span></p></div>
+  <div class="prog"><div class="ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="#f6c453" stroke-width="4" stroke-dasharray="94.2" stroke-dashoffset="54" stroke-linecap="round"/></svg><div><b>42%</b><div style="opacity:.7;font-size:14px">2 of 6 modules done</div></div></div>
+   <div class="row" style="margin-top:12px"><span>Next up</span><b style="font:600 14px Outfit">3.2 Truncated axes</b></div><div class="row"><span>Streak</span><span>🔥 6 days</span></div><div class="row"><span>Cohort</span><span>Fernway · 18 managers</span></div><a class="btn" href="#quiz">Continue lesson →</a></div></div></div>
+<div class="main">
+ <div><h2>Course outline</h2><div id="mods"></div></div>
+ <div><div class="quiz" id="quiz"><span style="color:var(--mu);font-size:14px">Quick check · Lesson 3.2</span><div class="q">Revenue “jumped” from €980k to €1.02M. The chart below makes it look like it tripled. Why?</div>
+  <div class="mini"><i style="height:22%"></i><i style="height:26%"></i><i style="height:30%"></i><i class="t" style="height:96%"></i></div><div style="font-size:12px;color:var(--mu);margin-bottom:14px">y-axis: €970k → €1.03M</div>
+  <button class="opt" data-a="0">Revenue really did triple</button><button class="opt" data-a="1">The y-axis doesn’t start at zero</button><button class="opt" data-a="0">The bars are the wrong colour</button>
+  <div class="expl" id="ex"><b>Exactly.</b> A truncated axis turns a 4% rise into a skyscraper. When the bars’ heights matter, start at zero — or show the change as a number instead.</div></div></div>
+</div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const M=[['Why numbers lie','4 lessons · 42 min',2,['What a metric is','Averages vs medians','Survivorship bias','Recap']],['Asking good questions','3 lessons · 35 min',2,['Questions analysts love','Defining success','Recap']],['Reading charts','5 lessons · 58 min',1,['Picking the right chart','Truncated axes','Dual axes are a trap','Colour on purpose','Recap']],['Experiments & A/B tests','4 lessons · 50 min',0,['Why test at all','Sample size, intuitively','Peeking','Recap']],['Dashboards that get used','3 lessons · 40 min',0,['One question per dashboard','Leading vs lagging','Recap']],['Final project','Present one decision',0,['Brief','Peer review']]];
+let open=2;function draw(){document.getElementById('mods').innerHTML=M.map((m,i)=>`<div class="mod ${m[2]===2?'done':m[2]===1?'cur':''} ${i===open?'open':''}"><div class="h" data-i="${i}"><span class="n">${m[2]===2?'✓':i+1}</span><div><b>${m[0]}</b><small>${m[1]}</small></div><em>${m[2]===2?'Done':m[2]===1?'In progress':''}</em></div><div class="ls">${m[3].map((l,k)=>`<div class="${m[2]===2||(m[2]===1&&k<1)?'ok':m[2]===1&&k===1?'now':''}"><i>${m[2]===2||(m[2]===1&&k<1)?'✓':m[2]===1&&k===1?'▶':'○'}</i>${i+1}.${k+1} ${l}</div>`).join('')}</div></div>`).join('')}
+document.getElementById('mods').onclick=e=>{const h=e.target.closest('.h');if(h){open=open===+h.dataset.i?-1:+h.dataset.i;draw()}};draw();
+document.querySelectorAll('.opt').forEach(o=>o.onclick=()=>{o.classList.add(o.dataset.a==='1'?'r':'w');if(o.dataset.a==='1')document.getElementById('ex').classList.add('on')});
+</script>
+</body>
+</html>

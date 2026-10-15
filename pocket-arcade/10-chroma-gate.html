@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Chroma Gate</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none;background:#17161d;font-family:Outfit,sans-serif;color:#fff}
+canvas{display:block;position:fixed;inset:0}
+.hud{position:fixed;top:14px;right:18px;text-align:right;pointer-events:none}.hud b{font-size:40px;font-weight:800;display:block;line-height:1}.hud small{opacity:.6;font-size:12px;letter-spacing:.2em}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#17161dcc}.ov.on{display:grid}
+.ov h1{font-size:clamp(42px,12vw,78px);font-weight:800;line-height:.95}
+.ov h1 span:nth-child(1){color:#ff3b6b}.ov h1 span:nth-child(2){color:#ffd23f}.ov h1 span:nth-child(3){color:#35e0c2}.ov h1 span:nth-child(4){color:#8c5cff}
+.ov p{margin:14px 0 24px;font-weight:300;opacity:.8;line-height:1.6}
+button{font:inherit;font-weight:800;font-size:18px;border:0;background:#fff;color:#17161d;width:86px;height:86px;border-radius:50%;cursor:pointer;box-shadow:0 0 0 6px #ffffff22}
+.back{position:fixed;left:12px;top:10px;color:#fff9;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud"><b id="s">0</b><small id="bs">BEST 0</small></div>
+<div class="ov on" id="ov"><div><h1 id="t"><span>CH</span><span>RO</span><span>MA</span><br><span>GATE</span></h1><p id="m">Tap, Space or ↑ to hop.<br>Only pass through your own colour.</p><button id="go">▶</button></div></div>
+<a class="back" href="index.html">← games</a>
+<script>
+const K='best-chroma-gate';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const cv=document.getElementById('c'),x=cv.getContext('2d');let W,H,S;
+function fit(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);S=Math.max(.75,Math.min(1.25,Math.min(W/420,H/760)))}fit();addEventListener('resize',fit);
+const C=['#ff3b6b','#ffd23f','#35e0c2','#8c5cff'];const TAU=Math.PI*2;
+let st='menu',ball,obs,cam,score,best=ls.g(K,0),parts=[],nextY,t=0,pulse=0;
+document.getElementById('bs').textContent='BEST '+best;
+let AC;function tone(f,d=.08,type='sine',v=.06){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+const mod=(a,n)=>((a%n)+n)%n;
+function addObs(){const k=Math.min(1,score/25);const kinds=score<3?['ring']:['ring','ring','bar','dots','twin'];const kind=kinds[Math.random()*kinds.length|0];const dir=Math.random()<.5?1:-1;const sp=(.018+Math.random()*.012+k*.02)*dir;
+ const o={kind,y:nextY,rot:Math.random()*TAU,sp,star:true,sw:true};
+ if(kind==='ring'){o.R=(90+Math.random()*30)*S;o.T=16*S}
+ if(kind==='twin'){o.R=100*S;o.R2=70*S;o.T=13*S}
+ if(kind==='bar'){o.T=18*S;o.off=Math.random()*400;o.vs=(2+k*2.5)*dir*S;o.star=true}
+ if(kind==='dots'){o.R=95*S;o.n=16;o.dr=8*S}
+ obs.push(o);o.swY=o.y-((o.R||60*S)+95*S);nextY-=((o.R||60*S)*2+230*S)}
+function start(){ball={y:H*.72,vy:0,c:Math.random()*4|0};cam=0;obs=[];parts=[];score=0;nextY=H*.72-230*S;for(let i=0;i<4;i++)addObs();st='play';document.getElementById('ov').classList.remove('on');document.getElementById('s').textContent=0;hop()}
+function hop(){if(st!=='play')return;ball.vy=-7.6*S;tone(700+ball.c*80,.06,'triangle',.04)}
+function die(){if(st!=='play')return;st='dead';tone(140,.5,'sawtooth',.06);for(let i=0;i<50;i++){const a=Math.random()*TAU,s=Math.random()*7;parts.push({x:W/2,y:ball.y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:1,c:C[i%4]})}if(score>best){best=score;ls.s(K,best)}document.getElementById('bs').textContent='BEST '+best;
+ setTimeout(()=>{st='over';document.getElementById('t').textContent=score>=best&&score>0?'NEW BEST':'WRONG HUE';document.getElementById('m').innerHTML=`${score} gates · best ${best}`;document.getElementById('go').textContent='↻';document.getElementById('ov').classList.add('on')},900)}
+function hitColor(o,by,r){const cx=W/2;
+ if(o.kind==='ring'||o.kind==='twin'){const res=[];const rings=o.kind==='twin'?[[o.R,o.rot],[o.R2,-o.rot+.4]]:[[o.R,o.rot]];for(const[R,rot]of rings){const d=Math.abs(by-o.y);if(Math.abs(d-R)<o.T/2+r){const ang=by<o.y?-Math.PI/2:Math.PI/2;res.push(Math.floor(mod(ang-rot,TAU)/(TAU/4)))}}return res}
+ if(o.kind==='bar'){if(Math.abs(by-o.y)<o.T/2+r){const sw=W/4;return[Math.floor(mod(cx-o.off,sw*4)/sw)]}return[]}
+ if(o.kind==='dots'){const res=[];for(let i=0;i<o.n;i++){const a=o.rot+i/o.n*TAU,dx=Math.cos(a)*o.R,dy=o.y+Math.sin(a)*o.R;if(Math.hypot(dx,by-dy)<o.dr+r)res.push(Math.floor(i/(o.n/4)))}return res}
+ return[]}
+function drawObs(o){const cx=W/2,y=o.y-cam;x.lineCap='butt';
+ if(o.kind==='ring'||o.kind==='twin'){const rings=o.kind==='twin'?[[o.R,o.rot],[o.R2,-o.rot+.4]]:[[o.R,o.rot]];rings.forEach(([R,rot])=>{x.lineWidth=o.T;for(let i=0;i<4;i++){x.strokeStyle=C[i];x.beginPath();x.arc(cx,y,R,rot+i*TAU/4+.01,rot+(i+1)*TAU/4-.01);x.stroke()}})}
+ if(o.kind==='bar'){const sw=W/4;for(let i=-1;i<5;i++){const sx=mod(o.off,sw*4)+i*sw-sw*4;for(let k=0;k<2;k++){x.fillStyle=C[mod(i,4)];x.fillRect(sx+k*sw*4,y-o.T/2,sw-2,o.T)}}}
+ if(o.kind==='dots'){for(let i=0;i<o.n;i++){const a=o.rot+i/o.n*TAU;x.fillStyle=C[Math.floor(i/(o.n/4))];x.beginPath();x.arc(cx+Math.cos(a)*o.R,y+Math.sin(a)*o.R,o.dr,0,TAU);x.fill()}}
+ if(o.star){const s=(12+Math.sin(t*.1)*2)*S;x.save();x.translate(cx,y);x.rotate(t*.02);x.fillStyle='#fff';x.beginPath();for(let i=0;i<10;i++){const rr=i%2?s*.45:s;x.lineTo(Math.cos(i*Math.PI/5-Math.PI/2)*rr,Math.sin(i*Math.PI/5-Math.PI/2)*rr)}x.fill();x.restore()}
+ if(o.sw){const sy=o.swY-cam,r=13*S;for(let i=0;i<4;i++){x.fillStyle=C[i];x.beginPath();x.moveTo(cx,sy);x.arc(cx,sy,r,i*TAU/4+t*.05,(i+1)*TAU/4+t*.05);x.fill()}}}
+function frame(){t++;x.fillStyle='#17161d';x.fillRect(0,0,W,H);
+ const g=x.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*.7);g.addColorStop(0,ball?C[ball.c]+'18':'#ffffff08');g.addColorStop(1,'transparent');x.fillStyle=g;x.fillRect(0,0,W,H);
+ x.fillStyle='#ffffff08';for(let i=0;i<30;i++){const yy=mod(i*97-(cam||0)*.3,H);x.fillRect((i*211)%W,yy,2,2)}
+ if(st==='play'){ball.vy+=.36*S;ball.vy=Math.min(ball.vy,12*S);ball.y+=ball.vy;if(ball.y-cam<H*.45)cam=ball.y-H*.45;if(ball.y-cam>H+20)die();
+  const r=10*S;for(const o of obs){o.rot+=o.sp;if(o.kind==='bar')o.off+=o.vs;
+   const hc=hitColor(o,ball.y,r);if(hc.some(c=>c!==ball.c)){die();break}
+   if(o.star&&Math.abs(ball.y-o.y)<22*S){o.star=false;score++;document.getElementById('s').textContent=score;pulse=1;tone(1040,.12,'sine',.06);for(let i=0;i<14;i++){const a=Math.random()*TAU;parts.push({x:W/2,y:o.y,vx:Math.cos(a)*3,vy:Math.sin(a)*3,l:1,c:'#fff'})}}
+   if(o.sw&&Math.abs(ball.y-o.swY)<24*S){o.sw=false;let n;do{n=Math.random()*4|0}while(n===ball.c);ball.c=n;tone(500,.15,'square',.03);for(let i=0;i<14;i++){const a=Math.random()*TAU;parts.push({x:W/2,y:o.swY,vx:Math.cos(a)*3,vy:Math.sin(a)*3,l:1,c:C[n]})}}}
+  while(nextY>cam-H)addObs();obs=obs.filter(o=>o.y-cam<H+200*S)}
+ else if(st==='menu'){if(!obs){obs=[];cam=0;nextY=H*.5;addObs()}obs.forEach(o=>o.rot+=o.sp)}
+ else obs.forEach(o=>{o.rot+=o.sp*.3});
+ (obs||[]).forEach(drawObs);
+ if(ball&&st==='play'){x.fillStyle=C[ball.c];x.shadowColor=C[ball.c];x.shadowBlur=18;x.beginPath();x.arc(W/2,ball.y-cam,10*S*(1+pulse*.3),0,TAU);x.fill();x.shadowBlur=0;pulse*=.9}
+ parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.12;p.l-=.02;x.globalAlpha=Math.max(0,p.l);x.fillStyle=p.c;x.beginPath();x.arc(p.x,p.y-(st==='play'?cam:cam),3,0,TAU);x.fill()});x.globalAlpha=1;parts=parts.filter(p=>p.l>0);
+ requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+function act(){if(st==='play')hop();else if(document.getElementById('ov').classList.contains('on'))start()}
+addEventListener('keydown',e=>{if([' ','ArrowUp','w','W','Enter'].includes(e.key)){e.preventDefault();act()}});
+cv.addEventListener('pointerdown',e=>{e.preventDefault();act()});document.getElementById('go').onclick=e=>{e.stopPropagation();start()};
+</script>
+</body>
+</html>

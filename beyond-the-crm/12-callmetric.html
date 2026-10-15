@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Callmetric — Conversation analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Martian+Mono:wght@400&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{color-scheme:dark;--surface:#14171f;--bg:#0b1015;--ink:#e9eef5;--ink2:#a9b4c3;--ink3:#6f7c8e;--grid:#222a36;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--q1:#14243b;--q2:#183a66;--q3:#1c5cab;--q4:#3987e5;--q5:#6da7ec;--q6:#9ec5f4;--qhi:#0b1220;--qlo:#dfe6f2;--pos:#3987e5;--neg:#e66767;--good:#3ccf8e;--warn:#e0a63a;--bad:#ff6b6b;--cur:"$";--tipbg:#e9eef5;--tipfg:#0b1015}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Onest',sans-serif}
+.mono{font-family:'Martian Mono',monospace}
+header{display:flex;align-items:center;gap:16px;padding:16px 28px;flex-wrap:wrap}
+.lg{font-weight:700;font-size:19px;display:flex;align-items:center;gap:10px}.wave{display:flex;gap:2px;align-items:center;height:22px}.wave i{width:3px;border-radius:2px;background:var(--s1);animation:w 1.1s ease-in-out infinite}.wave i:nth-child(2){animation-delay:.15s}.wave i:nth-child(3){animation-delay:.3s}.wave i:nth-child(4){animation-delay:.45s}@keyframes w{0%,100%{height:6px}50%{height:20px}}
+header .sp{flex:1}.src{font:400 11px 'Martian Mono';color:var(--ink3)}
+.tabs{display:flex;gap:2px;margin:0 28px;background:var(--surface);border-radius:12px;padding:4px;width:max-content;max-width:calc(100% - 56px);overflow-x:auto}.tabs button{border:0;background:transparent;color:var(--ink2);padding:8px 14px;border-radius:9px;font:600 13px 'Onest';cursor:pointer;white-space:nowrap}.tabs button.on{background:var(--s1);color:#fff}
+.wrap{padding:16px 28px 70px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.filters select{background:var(--surface);color:var(--ink);border:1px solid var(--grid);border-radius:9px;padding:7px 10px;font:500 13px 'Onest'}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--surface);border-radius:14px;padding:15px 16px;border:1px solid var(--grid)}.kpi .l{font-size:12.5px;color:var(--ink3)}.kpi .v{font-size:27px;font-weight:700;letter-spacing:-.02em}.kpi .d{font-size:12px}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border:1px solid var(--grid);border-radius:16px;padding:18px 20px;min-width:0}.card h3{margin:0;font-size:15px;font-weight:700}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.snip{border:1px solid var(--grid);border-radius:12px;padding:12px 14px;margin-bottom:8px;font-size:13.5px;color:var(--ink2)}.snip b{color:var(--ink)}.snip span{display:block;font:400 11px 'Martian Mono';color:var(--ink3);margin-top:4px}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}.src{display:none}}@media(max-width:640px){.wrap,header{padding-left:16px;padding-right:16px}.tabs{margin:0 16px}.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div class="lg"><span class="wave"><i></i><i></i><i></i><i></i></span>Callmetric</div><span style="color:var(--ink3)">What 9,412 sales calls say about winning</span><span class="sp"></span><span class="src">Gong · Zoom · Aircall · Salesforce opportunity outcomes · Clari forecast</span></header>
+<nav class="tabs"><button data-sheet="behav">Winning behaviours</button><button data-sheet="topics">Topics</button><button data-sheet="comp">Competitors</button><button data-sheet="obj">Objections</button><button data-sheet="price">Pricing moments</button></nav>
+<div class="wrap"><div class="filters"><select data-f="range"><option value="90d">Last quarter</option><option value="12m" selected>Last 12 months</option></select><select data-f="stage"><option value="all">All call types</option><option value="disc">Discovery</option><option value="demo">Demo</option><option value="neg">Negotiation</option></select><select data-f="seg"><option value="all">All segments</option><option value="ent">Enterprise</option><option value="mm">Mid-market</option></select></div>
+ <section data-panel="behav"><div class="kpis" id="k1"></div>
+  <div class="g g2"><div class="card"><h3>Talk ratio vs. win rate</h3><p class="sub">Deals bucketed by the rep’s average talk ratio across the deal’s calls</p><div id="c_tr"></div></div><div class="card"><h3>Questions asked on discovery calls</h3><p class="sub">Win rate by number of open questions the rep asked</p><div id="c_q"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Behaviours that separate won from lost</h3><p class="sub">Average per call, won vs. lost deals</p><div id="c_beh"></div></div></section>
+ <section data-panel="topics" hidden><div class="card"><h3>Topic share by call stage</h3><p class="sub">Minutes spent on each topic (transcript classification) · darker = more time</p><div id="c_th"></div></div>
+  <div class="g g2" style="margin-top:14px"><div class="card"><h3>Topic mentions over time</h3><p class="sub">Share of calls mentioning the topic</p><div id="c_tt"></div></div><div class="card"><h3>Topics linked to winning</h3><p class="sub">Win-rate lift when the topic is discussed before proposal</p><div id="c_lift"></div></div></div></section>
+ <section data-panel="comp" hidden><div class="kpis" id="k3"></div>
+  <div class="g g21"><div class="card"><h3>Competitor mentions</h3><p class="sub">Share of calls mentioning each competitor</p><div id="c_cm"></div></div><div class="card"><h3>Head-to-head win rate</h3><p class="sub">Deals where the competitor came up on a call</p><div id="c_h2h"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>What buyers say when they compare</h3><p class="sub">Most frequent comparison snippets this quarter</p><div id="snip"></div></div></section>
+ <section data-panel="obj" hidden><div class="g g2"><div class="card"><h3>Objections raised</h3><p class="sub">Share of deals where the objection came up</p><div id="c_ob"></div></div><div class="card"><h3>Win rate when the objection was handled vs. not</h3><p class="sub">“Handled” = the rep responded with evidence within the same call</p><div id="c_oh"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Objection handling by rep</h3><p class="sub">Share of objections handled in-call</p><div id="c_or"></div></div></section>
+ <section data-panel="price" hidden><div class="kpis" id="k5"></div>
+  <div class="g g2"><div class="card"><h3>When pricing first comes up</h3><p class="sub">Call number in the deal, won vs. lost</p><div id="c_pw"></div></div><div class="card"><h3>Who brings it up first</h3><p class="sub">Share of deals</p><div id="c_who"></div></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const memo={};
+function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const f=(F.range==='90d'?.27:1)*{all:1,disc:.38,demo:.34,neg:.28}[F.stage]*{all:1,ent:.42,mm:.58}[F.seg];return memo[k]={r,f,L:K.periods(F.range==='90d'?'90d':'12m')}}
+const S={range:'12m',stage:'all',seg:'all'};
+const views={
+behav(F){const D=data(F);K.kpis($('k1'),[{label:'Calls analysed',value:K.int(9412*D.f)},{label:'Hours of conversation',value:K.int(6280*D.f)},{label:'Avg talk ratio',value:'54%',sub:'winners: 46%'},{label:'Avg longest monologue',value:'2m 41s'},{label:'Calls with next step set',value:'68%'}]);
+ K.bars($('c_tr'),{labels:['< 35%','35–45%','45–55%','55–65%','65%+'],series:[{name:'Win rate',data:[.24,.33,.29,.19,.12]}],fmt:v=>K.pct(v,0),h:250});
+ K.line($('c_q'),{labels:['0–4','5–8','9–12','13–16','17–20','21+'],series:[{name:'Win rate',data:[.12,.19,.27,.31,.26,.2]}],fmt:v=>K.pct(v,0),h:250});
+ K.bars($('c_beh'),{labels:['Open questions','Customer stories told','Next steps agreed','Exec on the call','Interruptions','Monologue > 3 min'],series:[{name:'Won deals',data:[13.2,1.8,.92,.41,3.1,.6]},{name:'Lost deals',data:[7.9,.6,.58,.12,5.4,1.9]}],fmt:v=>v.toFixed(1),h:260,horizontal:true})},
+topics(F){const D=data(F);const r=K.rng(K.seed(F,'t'));const T=['Pain & goals','Product demo','Integrations','Security','Pricing','Implementation','Competition','Next steps'];const C=['Discovery','Demo','Technical','Negotiation'];
+ K.heat($('c_th'),{rows:T,cols:C,data:T.map((t,i)=>C.map((c,j)=>Math.max(.01,[[.34,.08,.05,.03],[.05,.41,.18,.02],[.06,.14,.31,.04],[.02,.05,.22,.08],[.04,.07,.04,.36],[.03,.06,.12,.14],[.07,.06,.03,.1],[.08,.08,.06,.21]][i][j]*(.85+r()*.3)))),fmt:v=>K.pct(v,0),cell:30});
+ K.line($('c_tt'),{labels:D.L,series:[{name:'AI features',data:K.series(r,D.L.length,.18,{trend:1.3,noise:.08})},{name:'Security & SOC 2',data:K.series(r,D.L.length,.24,{trend:.3,noise:.08})},{name:'Budget freeze',data:K.series(r,D.L.length,.15,{trend:-.4,noise:.1})}],fmt:v=>K.pct(v,0),h:250});
+ K.bars($('c_lift'),{labels:['Business case / ROI','Implementation plan','Security review','Integrations','Customer references'],series:[{name:'Win-rate lift',data:[.14,.11,.09,.06,.08]}],fmt:v=>'+'+K.pct(v,0),horizontal:true,h:250})},
+comp(F){const D=data(F);K.kpis($('k3'),[{label:'Deals with a competitor',value:'58%'},{label:'Most mentioned',value:'Rivalry'},{label:'Win rate vs. Rivalry',value:'34%',delta:.05,deltaText:'5 pts'},{label:'Win rate vs. spreadsheets',value:'61%'},{label:'Competitive deal size',value:'+22%'}]);
+ K.line($('c_cm'),{labels:D.L,series:[{name:'Rivalry',data:K.series(D.r,D.L.length,.21,{trend:.25,noise:.08})},{name:'Ledgerly',data:K.series(D.r,D.L.length,.12,{trend:-.1,noise:.1})},{name:'Mosaic Data',data:K.series(D.r,D.L.length,.08,{trend:.4,noise:.12})}],fmt:v=>K.pct(v,0),h:260});
+ K.bars($('c_h2h'),{labels:['Rivalry','Ledgerly','Mosaic Data','Spreadsheets / DIY'],series:[{name:'Win rate',data:[.34,.47,.39,.61]}],fmt:v=>K.pct(v,0),horizontal:true,h:260});
+ $('snip').innerHTML=[['“Rivalry is cheaper, but their reporting is a mess.”','Halden Bank · discovery · 12 Sep'],['“Ledgerly does the forecast piece, but not the attribution.”','Velo Mobility · demo · 3 Sep'],['“Mosaic quoted us half, but we’d need a consultant.”','Tessera Labs · negotiation · 28 Aug']].map(x=>`<div class="snip"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')},
+obj(F){const D=data(F);const O=['Too expensive','No time to implement','Already have a tool','Need security review','Not a priority this quarter','Need exec buy-in'];
+ K.bars($('c_ob'),{labels:O,series:[{name:'Share of deals',data:[.41,.33,.29,.24,.22,.18]}],fmt:v=>K.pct(v,0),horizontal:true,h:270});
+ K.bars($('c_oh'),{labels:O.map(o=>o.split(' ').slice(0,2).join(' ')),series:[{name:'Not handled',data:[.11,.13,.09,.16,.07,.12]},{name:'Handled',data:[.27,.31,.24,.33,.19,.29]}],fmt:v=>K.pct(v,0),h:270});
+ const R=['Ana R.','Ben O.','Chloé M.','Dev P.','Elin B.','Felix W.','Grace K.','Hugo S.'];const r=K.rng(K.seed(F,'o'));const v=R.map(()=>.4+r()*.5);const ix=R.map((_,i)=>i).sort((a,b)=>v[b]-v[a]);K.bars($('c_or'),{labels:ix.map(i=>R[i]),series:[{name:'Handled in-call',data:ix.map(i=>v[i])}],fmt:v=>K.pct(v,0),h:240})},
+price(F){const D=data(F);K.kpis($('k5'),[{label:'Deals discussing price on call 1',value:'27%'},{label:'Win rate if price before value',value:'14%'},{label:'Win rate if value first',value:'31%'},{label:'Avg discount asked on calls',value:'18%'},{label:'Discount granted',value:'12%'}]);
+ K.bars($('c_pw'),{labels:['Call 1','Call 2','Call 3','Call 4','Call 5+'],series:[{name:'Won',data:[.08,.17,.31,.27,.17]},{name:'Lost',data:[.29,.26,.21,.14,.1]}],fmt:v=>K.pct(v,0),h:250});
+ K.donut($('c_who'),{items:[{name:'Buyer asked first',value:.58},{name:'Rep raised it',value:.31},{name:'Procurement email',value:.11}],fmt:v=>K.pct(v,0)})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

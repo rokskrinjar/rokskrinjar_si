@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clause — MSA review · Halden Bank</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#e9e7e2;--paper:#fffefa;--tx:#1c1d21;--mu:#6d6f76;--ln:#d9d6ce;--blue:#1f3f8f;--red:#b3261e;--amb:#a35f00;--grn:#1e7b4f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 'IBM Plex Sans Condensed',sans-serif}
+.top{display:flex;align-items:center;gap:14px;padding:10px 20px;background:#fff;border-bottom:1px solid var(--ln)}
+.lg{font:600 20px 'EB Garamond';display:flex;gap:6px;align-items:center}.lg i{font-style:normal;color:var(--blue);font-size:24px}
+.top .doc{color:var(--mu)}.top .doc b{color:var(--tx)}.top .sp{flex:1}
+.b{border:1px solid var(--ln);background:#fff;padding:7px 12px;border-radius:6px;font:600 13px 'IBM Plex Sans Condensed';cursor:pointer}.b.p{background:var(--blue);color:#fff;border-color:var(--blue)}
+.lay{display:grid;grid-template-columns:280px 1fr 320px;gap:0;max-width:1500px;margin:0 auto}
+.risk{padding:20px;position:sticky;top:0;height:100vh;overflow:auto}
+.score{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:18px;text-align:center}
+.score .g{width:150px;height:80px;margin:6px auto 0;position:relative;overflow:hidden}
+.score .g i{position:absolute;inset:0;border-radius:150px 150px 0 0;background:conic-gradient(from 270deg at 50% 100%,var(--grn) 0 60deg,var(--amb) 60deg 120deg,var(--red) 120deg 180deg,transparent 180deg)}
+.score .g i::after{content:'';position:absolute;left:22px;right:22px;top:22px;bottom:-60px;border-radius:50%;background:#fff}
+.needle{position:absolute;left:50%;bottom:0;width:3px;height:66px;background:var(--tx);transform-origin:bottom;transform:rotate(28deg);border-radius:2px;transition:transform 1s}
+.score b{font:600 30px 'EB Garamond';display:block;margin-top:4px}
+h4{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--mu);margin:22px 0 8px}
+.iss{display:flex;gap:10px;padding:10px 12px;background:#fff;border:1px solid var(--ln);border-radius:10px;margin-bottom:6px;cursor:pointer}
+.iss i{width:8px;border-radius:4px;flex:none}.iss b{display:block;font-weight:600}.iss span{color:var(--mu);font-size:12.5px}
+.iss.done{opacity:.5}.iss.done b{text-decoration:line-through}
+.paper{background:var(--paper);margin:24px 0;padding:70px 80px;box-shadow:0 2px 10px rgba(0,0,0,.06);font:19px/1.65 'EB Garamond',serif;min-height:120vh}
+.paper h1{font:500 30px 'EB Garamond';text-align:center;margin:0 0 4px;letter-spacing:.02em}.paper .pt{text-align:center;font-style:italic;color:var(--mu);margin-bottom:40px}
+.paper h2{font:600 17px 'EB Garamond';letter-spacing:.1em;text-transform:uppercase;margin:34px 0 10px}
+.cl{position:relative;padding:4px 8px;margin:0 -8px;border-radius:4px;transition:background .2s}
+.cl.hl{background:#fff4d6}
+.del{color:var(--red);text-decoration:line-through;text-decoration-thickness:1.5px}.ins{color:var(--blue);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
+.cl .n{position:absolute;left:-44px;top:6px;font:500 12px 'IBM Plex Sans Condensed';color:var(--mu)}
+.flag{border-bottom:2px solid var(--red);background:rgba(179,38,30,.06)}.flag.a{border-color:var(--amb);background:rgba(163,95,0,.07)}
+.side{padding:24px 20px 24px 0;position:relative}
+.cm{background:#fff;border:1px solid var(--ln);border-left:3px solid var(--blue);border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:13.5px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.cm.on{transform:translateX(-6px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.cm .h{display:flex;gap:8px;align-items:center;margin-bottom:6px}.cm .av{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:10px;font-weight:600}
+.cm.ai{border-left-color:var(--amb);background:#fffaf0}
+.cm .act{display:flex;gap:6px;margin-top:10px}.cm .act button{border:1px solid var(--ln);background:#fff;border-radius:6px;padding:4px 9px;font:600 12px 'IBM Plex Sans Condensed';cursor:pointer}.cm .act button.y{background:var(--grn);color:#fff;border-color:var(--grn)}
+@media(max-width:1150px){.lay{grid-template-columns:1fr 300px}.risk{display:none}}@media(max-width:760px){.lay{grid-template-columns:1fr}.side{padding:0 16px 40px}.paper{padding:40px 24px;margin:0}.cl .n{display:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="lg"><i>§</i>Clause</div><span class="doc">Halden Bank · <b>Master Services Agreement v4</b> · their paper</span><span class="sp"></span><span style="color:var(--mu)">Compared to your playbook “Enterprise SaaS · EU”</span><button class="b">Export redline</button><button class="b p">Send to counterparty</button></div>
+<div class="lay">
+ <aside class="risk"><div class="score"><div style="font-size:12px;color:var(--mu)">Contract risk</div><div class="g"><i></i><div class="needle" id="nd"></div></div><b id="rs">Medium</b><span style="color:var(--mu);font-size:12.5px" id="rc">3 open issues · 2 resolved</span></div>
+  <h4>Deviations from playbook</h4><div id="iss"></div></aside>
+ <main class="paper"><h1>Master Services Agreement</h1><div class="pt">between Halden Bank ASA (“Customer”) and Pellucid AI, Lda. (“Provider”)</div>
+  <h2>7. Limitation of Liability</h2><div class="cl" id="c1"><span class="n">7.1</span>Except for breaches of Section 9 (Confidentiality), each party’s total liability under this Agreement shall not exceed <span class="flag" data-k="1"><span class="del">three (3) times</span> <span class="ins">the fees paid in the twelve (12) months preceding the claim</span></span>.</div>
+  <div class="cl" id="c2"><span class="n">7.2</span>Neither party shall be liable for indirect, incidental or consequential damages, <span class="flag a" data-k="2">including loss of data, howsoever arising</span>.</div>
+  <h2>9. Confidentiality</h2><div class="cl"><span class="n">9.1</span>Each party shall protect the other’s Confidential Information with at least the same degree of care it uses for its own, and in no event less than reasonable care.</div>
+  <h2>11. Term and Termination</h2><div class="cl" id="c3"><span class="n">11.2</span>Customer may terminate this Agreement <span class="flag" data-k="3">for convenience at any time upon <span class="del">ten (10)</span> <span class="ins">ninety (90)</span> days’ written notice</span>, with a pro-rata refund of prepaid fees.</div>
+  <div class="cl"><span class="n">11.3</span>Upon termination, Provider shall make Customer Data available for export for thirty (30) days, after which it shall be deleted.</div>
+  <h2>14. Governing Law</h2><div class="cl" id="c4"><span class="n">14.1</span>This Agreement is governed by the laws of <span class="flag a" data-k="4">Norway, and the courts of Oslo shall have exclusive jurisdiction</span>.</div></main>
+ <aside class="side" id="side"></aside>
+</div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const I=[[1,'c1','Liability cap','Playbook: 12 months of fees. They proposed 3× — accepted our edit?','var(--red)','ai','Clause AI','The counterparty’s 3× cap exceeds your playbook limit. I’ve redlined to 12 months of fees, which matches 14 of your last 18 signed MSAs.'],[2,'c2','Data loss carve-in','Data loss should be excluded from the consequential-damages waiver','var(--amb)','h','Marta (Legal)','For a bank this is going to be a hill they die on. Suggest we accept but cap data-loss claims at 2× fees.'],[3,'c3','Termination notice','10 days is too short for an annual prepaid deal','var(--red)','ai','Clause AI','Changed to 90 days. Halden accepted 60 days on their 2024 order form — that’s a reasonable fallback.'],[4,'c4','Governing law','Playbook prefers Portugal; Norway acceptable for EEA banks','var(--amb)','h','Joon (Sales)','They won’t move on this. Fine by me if legal agrees.']];
+const done=new Set([4]);let on=1;
+function draw(){document.getElementById('iss').innerHTML=I.map(x=>`<div class="iss ${done.has(x[0])?'done':''}" data-k="${x[0]}"><i style="background:${x[4]}"></i><div><b>${x[2]}</b><span>${x[3]}</span></div></div>`).join('');
+ document.getElementById('side').innerHTML=I.map(x=>`<div class="cm ${x[5]==='ai'?'ai':''} ${x[0]===on?'on':''}" data-k="${x[0]}"><div class="h"><span class="av" style="background:${x[5]==='ai'?'var(--amb)':'var(--blue)'}">${x[5]==='ai'?'✦':x[6][0]}</span><b>${x[6]}</b><span style="color:var(--mu);margin-left:auto">§${x[1]==='c1'?'7.1':x[1]==='c2'?'7.2':x[1]==='c3'?'11.2':'14.1'}</span></div>${x[7]}<div class="act">${done.has(x[0])?'<span style="color:var(--grn);font-weight:600">✓ Resolved</span>':'<button class="y" data-r="'+x[0]+'">Accept</button><button>Reply</button>'}</div></div>`).join('');
+ document.querySelectorAll('.cl').forEach(c=>c.classList.remove('hl'));const cur=I.find(x=>x[0]===on);if(cur)document.getElementById(cur[1]).classList.add('hl');
+ const open=4-done.size;document.getElementById('rc').textContent=`${open} open issue${open===1?'':'s'} · ${done.size} resolved`;document.getElementById('rs').textContent=open>2?'Medium':open>0?'Low':'Clear';document.getElementById('nd').style.transform=`rotate(${-70+open*25}deg)`}
+document.addEventListener('click',e=>{const r=e.target.closest('[data-r]');if(r){done.add(+r.dataset.r);draw();return}const k=e.target.closest('[data-k]');if(k){on=+k.dataset.k;draw();document.getElementById(I.find(x=>x[0]===on)[1]).scrollIntoView({behavior:'smooth',block:'center'})}});
+draw();
+</script>
+</body>
+</html>

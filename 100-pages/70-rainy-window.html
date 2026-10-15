@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rainy Window — Lo-fi Study Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--night:#1e1b2e;--dusk:#2e2745;--lav:#b7a6e8;--peach:#ffb38a;--lamp:#ffd28a;--mint:#9fe3c9;--txt:#efe9ff;--dim:#efe9ff88}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--night);color:var(--txt);font-family:Comfortaa,sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}button,input{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 4vw}
+.logo{font-weight:700;font-size:20px;display:flex;gap:10px;align-items:center}
+.logo i{width:10px;height:10px;border-radius:50%;background:var(--peach);box-shadow:0 0 12px var(--peach)}
+nav{display:flex;gap:4px;background:#ffffff0d;padding:4px;border-radius:30px;flex-wrap:wrap}
+nav a{padding:8px 16px;border-radius:30px;font-size:13px;font-weight:600;color:var(--dim)}
+nav a.on{background:var(--lav);color:var(--night)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1200px;margin:0 auto;padding:10px 4vw 60px}
+.mono{font-family:'IBM Plex Mono',monospace}
+.room{position:relative;border-radius:28px;overflow:hidden;box-shadow:0 30px 80px #0008}
+.room svg{display:block;width:100%;height:auto}
+.room .hot{cursor:pointer}
+.room .hot:hover{filter:brightness(1.2)}
+.nowp{display:flex;align-items:center;gap:16px;margin-top:16px;background:#ffffff0a;border-radius:20px;padding:14px 18px;flex-wrap:wrap}
+.nowp .disc{width:54px;height:54px;border-radius:50%;background:repeating-radial-gradient(#222 0 2px,#333 2px 4px);position:relative;animation:spin 4s linear infinite;animation-play-state:paused}
+.nowp .disc::after{content:"";position:absolute;inset:36%;border-radius:50%;background:var(--peach)}
+.playing .disc{animation-play-state:running}
+@keyframes spin{to{transform:rotate(360deg)}}
+.nowp b{display:block;font-size:15px}.nowp small{color:var(--dim);font-size:12px}
+.pbtn{margin-left:auto;background:var(--peach);color:var(--night);border:0;border-radius:30px;padding:12px 22px;font-weight:700}
+.eq{display:flex;gap:3px;align-items:flex-end;height:24px}
+.eq i{width:4px;background:var(--mint);border-radius:2px;height:4px;transition:height .1s}
+.hint{font-size:12px;color:var(--dim);margin-top:10px;text-align:center}
+/* pomodoro */
+.pomo{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;min-height:70vh}
+.ringwrap{position:relative;width:min(420px,80vw);aspect-ratio:1;margin:0 auto}
+.ringwrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ringwrap .t{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ringwrap .t b{font-family:'IBM Plex Mono';font-size:clamp(3rem,9vw,5.4rem);font-weight:500}
+.ringwrap .t small{display:block;color:var(--dim);letter-spacing:.3em;font-size:12px;text-transform:uppercase}
+.modes{display:flex;gap:6px;justify-content:center;margin-bottom:20px}
+.modes button{border:1px solid #ffffff22;background:none;border-radius:30px;padding:8px 14px;font-size:13px}
+.modes button.on{background:var(--lav);color:var(--night);border-color:var(--lav)}
+.ctrl{display:flex;gap:10px;justify-content:center;margin-top:20px}
+.cbtn{background:#ffffff14;border:0;border-radius:30px;padding:12px 24px;font-weight:700}
+.cbtn.main{background:var(--peach);color:var(--night)}
+.focus input{width:100%;background:none;border:0;border-bottom:2px solid #ffffff22;font-size:26px;padding:8px 0;outline:0;font-family:Comfortaa}
+.tomatoes{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;font-size:26px}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.stat div{background:#ffffff0a;border-radius:16px;padding:14px}
+.stat b{font-family:'IBM Plex Mono';font-size:28px;font-weight:500;display:block}
+.stat small{color:var(--dim);font-size:12px}
+/* mixer */
+.mixer{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-top:20px}
+.ch{background:#ffffff0a;border-radius:22px;padding:20px 16px;text-align:center;transition:.3s}
+.ch.on{background:#b7a6e822;box-shadow:inset 0 0 0 1px var(--lav)}
+.ch .ic{font-size:44px;display:block;margin-bottom:8px}
+.ch input{width:100%;accent-color:var(--lav)}
+.ch b{display:block;margin-bottom:8px}
+.presets{display:flex;gap:8px;flex-wrap:wrap}
+.presets button{border:1px solid #ffffff22;background:none;border-radius:30px;padding:8px 16px;font-size:13px}
+h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin:10px 0 6px}
+.sub{color:var(--dim);line-height:1.6;max-width:56ch;margin-bottom:18px}
+/* tasks */
+.tasks{max-width:640px;margin:0 auto}
+.tadd{display:flex;gap:8px;margin:16px 0}
+.tadd input{flex:1;background:#ffffff0a;border:0;border-radius:16px;padding:14px 16px;font-size:16px;outline:0}
+.task{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#ffffff08;border-radius:16px;margin-bottom:8px;transition:.3s}
+.task.done{opacity:.45}
+.task.done span{text-decoration:line-through}
+.task .ck{width:24px;height:24px;border-radius:50%;border:2px solid var(--lav);background:none;flex:none;display:grid;place-items:center;font-size:13px}
+.task.done .ck{background:var(--mint);border-color:var(--mint);color:var(--night)}
+.task span{flex:1}
+.task .x{background:none;border:0;color:var(--dim);font-size:18px}
+.quote{text-align:center;color:var(--dim);font-style:italic;margin-top:30px}
+@media(max-width:860px){.pomo{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo"><i></i>rainy window · lo-fi radio</div>
+ <nav><a href="#room">the room</a><a href="#pomodoro">pomodoro</a><a href="#mixer">ambience</a><a href="#tasks">to-do</a><a href="index.html">← index</a></nav>
+</header>
+
+<section data-view="room"><div class="wrap">
+ <div class="room"><svg id="roomSvg" viewBox="0 0 1200 680"></svg></div>
+ <div class="nowp" id="np"><div class="disc"></div><div><b id="trk">rain on the window, 3 a.m.</b><small id="trk2">generated live in your browser · 72 bpm</small></div><div class="eq" id="eq"></div><button class="pbtn" id="play">▶ play radio</button></div>
+ <div class="hint">tip: click the lamp, the window, the cat and the radio</div>
+</div></section>
+
+<section data-view="pomodoro" hidden><div class="wrap">
+ <div class="pomo">
+  <div>
+   <div class="modes" id="modes"><button class="on" data-m="25">focus 25</button><button data-m="5">short break 5</button><button data-m="15">long break 15</button></div>
+   <div class="ringwrap"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="#ffffff10" stroke-width="10"/><circle id="arc" cx="100" cy="100" r="90" fill="none" stroke="#ffb38a" stroke-width="10" stroke-linecap="round" stroke-dasharray="565.5" stroke-dashoffset="0"/></svg><div class="t"><div><b id="clock">25:00</b><small id="mlabel">focus</small></div></div></div>
+   <div class="ctrl"><button class="cbtn main" id="start">start</button><button class="cbtn" id="reset">reset</button><button class="cbtn" id="skip">skip</button></div>
+  </div>
+  <div class="focus">
+   <div class="mono" style="color:var(--dim);font-size:12px;letter-spacing:.2em">I'M WORKING ON</div>
+   <input id="focusT" value="chapter 3 notes" maxlength="40">
+   <div class="tomatoes" id="toms"></div>
+   <div class="stat"><div><b id="sToday">0</b><small>sessions today</small></div><div><b id="sMin">0</b><small>minutes focused</small></div></div>
+  </div>
+ </div>
+</div></section>
+
+<section data-view="mixer" hidden><div class="wrap">
+ <h2>make it sound like somewhere</h2>
+ <p class="sub">Every sound is made live by your browser from filtered noise. Nothing is recorded. Mix them to taste.</p>
+ <div class="presets" id="presets"><button data-p="storm">⛈ stormy attic</button><button data-p="cafe">☕ corner café</button><button data-p="cabin">🔥 cabin by the sea</button><button data-p="off">mute all</button></div>
+ <div class="mixer" id="mix"></div>
+</div></section>
+
+<section data-view="tasks" hidden><div class="wrap tasks">
+ <h2>small things, one at a time</h2>
+ <form class="tadd" id="tform"><input id="tin" placeholder="add a little task…" maxlength="80"><button class="cbtn main">add</button></form>
+ <div id="tlist"></div>
+ <div class="quote" id="quote"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'room';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+document.getElementById('eq').innerHTML='<i></i>'.repeat(8);
+
+/* ---------- audio engine ---------- */
+let AC=null,master,noiseBuf;
+function ctx(){if(AC)return AC;try{AC=new AudioContext();master=AC.createGain();master.gain.value=.8;master.connect(AC.destination);noiseBuf=AC.createBuffer(1,AC.sampleRate*2,AC.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}catch(e){AC=null}return AC}
+function noiseSrc(){const s=AC.createBufferSource();s.buffer=noiseBuf;s.loop=true;s.start();return s}
+// radio
+let radio=null,beat=0,nextT=0,schedT=null;const BPM=72,SPB=60/BPM/2;
+const CH=[[51,55,58,62],[48,51,55,58],[53,56,60,63],[46,50,53,56]];// Ebmaj7, Cm7, Fm7, Bb7
+const mtof=m=>440*2**((m-69)/12);
+function startRadio(){if(!ctx())return;AC.resume();radio={out:AC.createGain(),lp:AC.createBiquadFilter()};radio.lp.type='lowpass';radio.lp.frequency.value=1600;radio.out.gain.value=.55;radio.lp.connect(radio.out).connect(master);
+ const cr=noiseSrc(),cf=AC.createBiquadFilter(),cg=AC.createGain();cf.type='highpass';cf.frequency.value=3000;cg.gain.value=.012;cr.connect(cf).connect(cg).connect(radio.out);radio.crackle=cr;
+ nextT=AC.currentTime+.1;beat=0;sched()}
+function sched(){while(nextT<AC.currentTime+.3){play(beat,nextT);nextT+=SPB*(beat%2?0.84:1.16);beat++}schedT=setTimeout(sched,60)}
+function play(b,t){const bar=Math.floor(b/8)%4,step=b%8;
+ if(step===0){CH[bar].forEach((m,i)=>{const o=AC.createOscillator(),g=AC.createGain();o.type=i?'triangle':'sine';o.frequency.value=mtof(m);o.detune.value=(Math.random()-.5)*14;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.07,t+.08);g.gain.exponentialRampToValueAtTime(.002,t+SPB*8);o.connect(g).connect(radio.lp);o.start(t);o.stop(t+SPB*8.2)});
+  const b2=AC.createOscillator(),bg=AC.createGain();b2.type='sine';b2.frequency.value=mtof(CH[bar][0]-12);bg.gain.setValueAtTime(.18,t);bg.gain.exponentialRampToValueAtTime(.001,t+SPB*3);b2.connect(bg).connect(radio.lp);b2.start(t);b2.stop(t+SPB*3.2)}
+ if(step===0||step===5){const k=AC.createOscillator(),kg=AC.createGain();k.frequency.setValueAtTime(120,t);k.frequency.exponentialRampToValueAtTime(40,t+.15);kg.gain.setValueAtTime(.5,t);kg.gain.exponentialRampToValueAtTime(.001,t+.3);k.connect(kg).connect(radio.out);k.start(t);k.stop(t+.32)}
+ if(step===2||step===6){const n=AC.createBufferSource();n.buffer=noiseBuf;const f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=1800;const g=AC.createGain();g.gain.setValueAtTime(.16,t);g.gain.exponentialRampToValueAtTime(.001,t+.18);n.connect(f).connect(g).connect(radio.out);n.start(t,Math.random());n.stop(t+.2)}
+ {const n=AC.createBufferSource();n.buffer=noiseBuf;const f=AC.createBiquadFilter();f.type='highpass';f.frequency.value=7000;const g=AC.createGain();g.gain.setValueAtTime(step%2?.02:.035,t);g.gain.exponentialRampToValueAtTime(.001,t+.05);n.connect(f).connect(g).connect(radio.out);n.start(t,Math.random());n.stop(t+.06)}
+ if(step===3&&Math.random()<.6){const m=CH[bar][Math.random()*4|0]+12+[0,2,-1][Math.random()*3|0];const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=mtof(m);g.gain.setValueAtTime(.06,t);g.gain.exponentialRampToValueAtTime(.001,t+.8);o.connect(g).connect(radio.lp);o.start(t);o.stop(t+.85)}}
+function stopRadio(){if(!radio)return;clearTimeout(schedT);radio.out.gain.setTargetAtTime(0,AC.currentTime,.2);const r=radio;setTimeout(()=>{try{r.crackle.stop();r.out.disconnect()}catch(e){}},800);radio=null}
+const TRK=[['rain on the window, 3 a.m.','generated live · 72 bpm'],['tea going cold','generated live · 72 bpm'],['the library closes at nine','generated live · 72 bpm'],['cat asleep on the notes','generated live · 72 bpm']];let tk=0;
+function toggleRadio(){const np=document.getElementById('np');if(radio){stopRadio();np.classList.remove('playing');document.getElementById('play').textContent='▶ play radio'}else{startRadio();np.classList.add('playing');document.getElementById('play').textContent='❚❚ pause';tk=(tk+1)%TRK.length;document.getElementById('trk').textContent=TRK[tk][0]}draw()}
+document.getElementById('play').onclick=toggleRadio;
+setInterval(()=>{document.querySelectorAll('#eq i').forEach(i=>i.style.height=(radio?4+Math.random()*20:4)+'px')},120);
+
+// ambience channels
+const AMB=[['rain','🌧',n=>{const f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=2500;f.Q.value=.4;n.connect(f);return f}],['thunder','⛈',n=>{const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=180;const g=AC.createGain();g.gain.value=0;n.connect(f).connect(g);setInterval(()=>{if(!AC)return;const t=AC.currentTime;if(Math.random()<.25){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(2.2,t+.1);g.gain.exponentialRampToValueAtTime(.01,t+4)}},3000);return g}],['fire','🔥',n=>{const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=600;const m=AC.createGain();m.gain.value=.6;n.connect(f).connect(m);const cr=AC.createGain();cr.gain.value=0;const hf=AC.createBiquadFilter();hf.type='highpass';hf.frequency.value=2000;n.connect(hf).connect(cr);setInterval(()=>{if(!AC)return;const t=AC.currentTime;for(let i=0;i<3;i++)if(Math.random()<.5){cr.gain.setValueAtTime(.8,t+i*.07);cr.gain.exponentialRampToValueAtTime(.001,t+i*.07+.03)}},180);const o=AC.createGain();m.connect(o);cr.connect(o);return o}],['waves','🌊',n=>{const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=900;const g=AC.createGain();const l=AC.createOscillator(),lg=AC.createGain();l.frequency.value=.09;lg.gain.value=.5;l.connect(lg).connect(g.gain);g.gain.value=.5;l.start();n.connect(f).connect(g);return g}],['café','☕',n=>{const f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=700;f.Q.value=1.2;const g=AC.createGain();g.gain.value=.7;n.connect(f).connect(g);const cl=AC.createGain();g.connect(cl);setInterval(()=>{if(!AC||!chan.café||chan.café.v===0)return;if(Math.random()<.3){const t=AC.currentTime,o=AC.createOscillator(),og=AC.createGain();o.frequency.value=2400+Math.random()*1800;og.gain.setValueAtTime(.05,t);og.gain.exponentialRampToValueAtTime(.001,t+.25);o.connect(og).connect(chan.café.g);o.start(t);o.stop(t+.3)}},700);return cl}],['wind','🍃',n=>{const f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=400;f.Q.value=3;const l=AC.createOscillator(),lg=AC.createGain();l.frequency.value=.13;lg.gain.value=250;l.connect(lg).connect(f.frequency);l.start();n.connect(f);return f}]];
+const chan={};let lvls=store.get('rw-amb',{rain:.5,thunder:0,fire:0,waves:0,'café':0,wind:0});
+function ensureChan(k){if(chan[k]||!ctx())return;const def=AMB.find(a=>a[0]===k);const n=noiseSrc();const node=def[2](n);const g=AC.createGain();g.gain.value=0;node.connect(g).connect(master);chan[k]={g,v:0}}
+function setLvl(k,v){lvls[k]=v;store.set('rw-amb',lvls);if(v>0){ensureChan(k)}if(chan[k]){AC.resume();chan[k].v=v;chan[k].g.gain.setTargetAtTime(v*.6,AC.currentTime,.3)}mixUI()}
+function mixUI(){document.getElementById('mix').innerHTML=AMB.map(([k,ic])=>`<div class="ch ${lvls[k]>0?'on':''}"><span class="ic">${ic}</span><b>${k}</b><input type="range" min="0" max="100" value="${Math.round((lvls[k]||0)*100)}" data-k="${k}"></div>`).join('')}
+document.getElementById('mix').addEventListener('input',e=>{const k=e.target.dataset.k;if(k){lvls[k]=e.target.value/100;setLvl(k,lvls[k])}});
+const PRE={storm:{rain:.8,thunder:.6,wind:.4,fire:0,waves:0,'café':0},cafe:{rain:.3,'café':.7,fire:0,thunder:0,waves:0,wind:0},cabin:{fire:.7,waves:.5,wind:.2,rain:0,thunder:0,'café':0},off:{rain:0,thunder:0,fire:0,waves:0,'café':0,wind:0}};
+document.getElementById('presets').onclick=e=>{const p=e.target.dataset.p;if(!p)return;Object.entries(PRE[p]).forEach(([k,v])=>setLvl(k,v))};
+mixUI();
+
+/* ---------- room ---------- */
+let lamp=true,winOpen=false,catMood=0,T=0;
+function draw(){const L=lamp;let s=`<defs><linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${L?'#3a2f55':'#221c35'}"/><stop offset="1" stop-color="${L?'#4a3a66':'#2a2240'}"/></linearGradient><radialGradient id="glow" cx="330" cy="330" r="420" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffd28a" stop-opacity="${L?.45:0}"/><stop offset="1" stop-color="#ffd28a" stop-opacity="0"/></radialGradient><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2a4a"/><stop offset="1" stop-color="#4a3a6a"/></linearGradient><clipPath id="win"><rect x="620" y="80" width="440" height="330" rx="8"/></clipPath></defs>
+ <rect width="1200" height="680" fill="url(#wall)"/>
+ <g clip-path="url(#win)"><rect x="620" y="80" width="440" height="330" fill="url(#sky)"/>${[...Array(14)].map((_,i)=>`<rect x="${630+i*32}" y="${230+(i*37)%90}" width="${20+(i%3)*8}" height="${200}" fill="#15203a"/>`+[...Array(6)].map((_,k)=>(i*7+k)%3?'':`<rect x="${634+i*32+(k%2)*8}" y="${250+(i*37)%90+k*18}" width="5" height="6" fill="#ffd28a" opacity=".8"/>`).join('')).join('')}<g id="rain"></g></g>
+ <g class="hot" data-h="window"><rect x="620" y="80" width="440" height="330" rx="8" fill="${winOpen?'none':'#b7a6e80c'}" stroke="#2a2040" stroke-width="16"/><path d="M840 80 V410 M620 245 H1060" stroke="#2a2040" stroke-width="10"/>${winOpen?'<rect x="850" y="84" width="200" height="155" fill="#b7a6e814" stroke="#2a2040" stroke-width="6" transform="skewY(-8) translate(0 120)"/>':''}</g>
+ <rect x="600" y="410" width="480" height="18" rx="4" fill="#2a2040"/>
+ <g transform="translate(640 360)"><path d="M10 50 h40 l-6 -40 h-28z" fill="#c9785a"/><path d="M30 10 q-20 -30 -30 -10 M30 10 q10 -40 30 -20 M30 10 q-4 -30 -10 -44" stroke="#6fbf8a" stroke-width="7" fill="none" stroke-linecap="round"/></g>
+ <!-- shelf -->
+ <rect x="90" y="120" width="360" height="12" fill="#2a2040"/>${['#ffb38a','#9fe3c9','#b7a6e8','#ff8aa8','#ffd28a','#8ab8ff'].map((c,i)=>`<rect x="${110+i*30}" y="${60+(i%2)*10}" width="24" height="${60-(i%2)*10}" fill="${c}" opacity=".85" rx="2"/>`).join('')}<circle cx="340" cy="100" r="18" fill="#9fe3c9"/><path d="M330 100 l10 -30 l10 30" fill="#6fbf8a"/>
+ <!-- desk -->
+ <rect x="60" y="470" width="760" height="24" rx="6" fill="#5a4570"/><rect x="90" y="494" width="20" height="186" fill="#4a3860"/><rect x="770" y="494" width="20" height="186" fill="#4a3860"/>
+ <!-- laptop -->
+ <path d="M300 470 L330 340 H560 L590 470Z" fill="#2a2040"/><path d="M320 460 L345 352 H546 L570 460Z" fill="${L?'#8ab8ff':'#5a78c8'}" opacity=".7"/>${[0,1,2,3,4].map(i=>`<rect x="${360+(i%2)*10}" y="${372+i*16}" width="${120-i*14}" height="5" rx="2" fill="#fff" opacity=".6"/>`).join('')}<rect x="270" y="466" width="350" height="10" rx="4" fill="#3a2f55"/>
+ <!-- mug -->
+ <g transform="translate(640 420)"><rect width="42" height="50" rx="6" fill="#ffb38a"/><path d="M42 12 q18 0 18 14 q0 14 -18 14" stroke="#ffb38a" stroke-width="7" fill="none"/>${[0,1,2].map(i=>`<path d="M${10+i*10} -6 q-6 -14 0 -26 q6 -12 0 -24" stroke="#fff" stroke-opacity=".35" stroke-width="3" fill="none"><animateTransform attributeName="transform" type="translate" values="0 0;0 -8;0 0" dur="${2+i*.5}s" repeatCount="indefinite"/></path>`).join('')}</g>
+ <!-- radio -->
+ <g class="hot" data-h="radio" transform="translate(120 400)"><rect width="140" height="70" rx="12" fill="#c9785a"/><circle cx="36" cy="35" r="22" fill="#2a2040"/>${[...Array(5)].map((_,i)=>`<circle cx="36" cy="35" r="${4+i*4}" fill="none" stroke="#ffb38a" stroke-opacity=".3"/>`).join('')}<rect x="72" y="16" width="54" height="16" rx="4" fill="#ffd28a" opacity="${radio?1:.4}"/><circle cx="84" cy="50" r="7" fill="#2a2040"/><circle cx="110" cy="50" r="7" fill="#2a2040"/><path d="M110 0 L130 -40" stroke="#2a2040" stroke-width="3"/>${radio?'<text x="70" y="-10" font-size="20" fill="#9fe3c9">♪<animateTransform attributeName="transform" type="translate" values="0 0;10 -20" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="2s" repeatCount="indefinite"/></text>':''}</g>
+ <!-- lamp -->
+ <g class="hot" data-h="lamp"><path d="M720 470 h60 l-10 -8 h-40z" fill="#2a2040"/><path d="M750 462 L720 330 L680 300" stroke="#2a2040" stroke-width="8" fill="none"/><path d="M640 300 L720 300 L700 250 L660 250Z" fill="${L?'#ffd28a':'#6a5a8a'}" transform="rotate(-20 680 280)"/>${L?'<path d="M650 318 L520 470 L800 470 L720 318Z" fill="#ffd28a" opacity=".12"/>':''}</g>
+ <!-- cat -->
+ <g class="hot" data-h="cat" transform="translate(880 400)"><ellipse cx="60" cy="0" rx="62" ry="30" fill="#2a2040"/><circle cx="118" cy="-22" r="26" fill="#2a2040"/><path d="M100 -40 l6 -22 l12 16Z M126 -44 l12 -18 l4 22Z" fill="#2a2040"/>${catMood===1?'<path d="M108 -24 q5 -5 10 0 M126 -24 q5 -5 10 0" stroke="#ffd28a" stroke-width="2" fill="none"/>':`<ellipse cx="112" cy="-24" rx="3" ry="${catMood===2?5:1.2}" fill="#9fe3c9"/><ellipse cx="130" cy="-24" rx="3" ry="${catMood===2?5:1.2}" fill="#9fe3c9"/>`}<path id="tail" d="M0 0 q-40 10 -50 -20" stroke="#2a2040" stroke-width="12" fill="none" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" values="0 0 0;${catMood===2?30:12} 0 0;0 0 0" dur="${catMood===2?.6:3}s" repeatCount="indefinite"/></path>${catMood===1?'<text x="150" y="-50" font-size="22" fill="#b7a6e8">z<animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/></text>':''}</g>
+ <rect x="0" y="600" width="1200" height="80" fill="#1a1528" opacity=".6"/>
+ <rect width="1200" height="680" fill="url(#glow)" pointer-events="none"/>${L?'':'<rect width="1200" height="680" fill="#0a0818" opacity=".35" pointer-events="none"/>'}`;
+ document.getElementById('roomSvg').innerHTML=s}
+const drops=[...Array(90)].map(()=>({x:620+Math.random()*440,y:80+Math.random()*330,l:8+Math.random()*14,v:4+Math.random()*4}));
+function rainLoop(){const g=document.getElementById('rain');if(g&&!document.querySelector('[data-view=room]').hidden){drops.forEach(d=>{d.y+=d.v*(winOpen?1.3:1);d.x-=winOpen?1:.4;if(d.y>410){d.y=80;d.x=620+Math.random()*460}});g.innerHTML=drops.map(d=>`<line x1="${d.x.toFixed(1)}" y1="${d.y.toFixed(1)}" x2="${(d.x-2).toFixed(1)}" y2="${(d.y+d.l).toFixed(1)}" stroke="#b7c8ff" stroke-opacity=".5" stroke-width="1.5"/>`).join('')}requestAnimationFrame(rainLoop)}
+document.getElementById('roomSvg').onclick=e=>{const h=e.target.closest('[data-h]');if(!h)return;const k=h.dataset.h;
+ if(k==='lamp'){lamp=!lamp;click(1200)}if(k==='window'){winOpen=!winOpen;setLvl('rain',winOpen?Math.max(.8,lvls.rain):Math.min(.4,lvls.rain||.4))}if(k==='cat'){catMood=(catMood+1)%3;meow()}if(k==='radio'){toggleRadio();return}draw()};
+function click(f){if(!ctx())return;AC.resume();const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;g.gain.setValueAtTime(.08,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+.05);o.connect(g).connect(master);o.start();o.stop(AC.currentTime+.06)}
+function meow(){if(!ctx())return;AC.resume();const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain(),f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=900;o.type='sawtooth';o.frequency.setValueAtTime(catMood===2?700:450,t);o.frequency.linearRampToValueAtTime(catMood===2?900:600,t+.15);o.frequency.linearRampToValueAtTime(400,t+.5);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.12,t+.05);g.gain.exponentialRampToValueAtTime(.001,t+.55);o.connect(f).connect(g).connect(master);o.start(t);o.stop(t+.6)}
+draw();rainLoop();
+
+/* ---------- pomodoro ---------- */
+let mode=25,left=25*60,run=null,sess=store.get('rw-sess',{d:new Date().toDateString(),n:0,min:0});if(sess.d!==new Date().toDateString())sess={d:new Date().toDateString(),n:0,min:0};
+function pUI(){const m=Math.floor(left/60),s=left%60;document.getElementById('clock').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;document.getElementById('arc').style.strokeDashoffset=565.5*(1-left/(mode*60));document.getElementById('arc').style.stroke=mode===25?'#ffb38a':'#9fe3c9';document.getElementById('mlabel').textContent=mode===25?'focus':'break';document.getElementById('start').textContent=run?'pause':'start';
+ document.getElementById('toms').innerHTML=[...Array(Math.max(4,sess.n))].map((_,i)=>`<span style="opacity:${i<sess.n?1:.18}">🍅</span>`).join('');document.getElementById('sToday').textContent=sess.n;document.getElementById('sMin').textContent=sess.min;
+ document.title=run?`${document.getElementById('clock').textContent} · ${mode===25?'focus':'break'}`:'Rainy Window — Lo-fi Study Room'}
+function setMode(m){mode=m;left=m*60;clearInterval(run);run=null;document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('on',+b.dataset.m===m));pUI()}
+function done(){clearInterval(run);run=null;if(mode===25){sess.n++;sess.min+=25;store.set('rw-sess',sess)}chime();setMode(mode===25?(sess.n%4===0?15:5):25)}
+function chime(){if(!ctx())return;AC.resume();[659,784,988].forEach((f,i)=>{const t=AC.currentTime+i*.25,o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;g.gain.setValueAtTime(.12,t);g.gain.exponentialRampToValueAtTime(.001,t+1.2);o.connect(g).connect(master);o.start(t);o.stop(t+1.3)})}
+document.getElementById('start').onclick=()=>{if(run){clearInterval(run);run=null}else{ctx();run=setInterval(()=>{left--;if(left<=0)done();pUI()},1000)}pUI()};
+document.getElementById('reset').onclick=()=>setMode(mode);document.getElementById('skip').onclick=done;
+document.getElementById('modes').onclick=e=>{const m=e.target.dataset.m;if(m)setMode(+m)};
+document.getElementById('focusT').value=store.get('rw-focus','chapter 3 notes');document.getElementById('focusT').oninput=e=>store.set('rw-focus',e.target.value);pUI();
+
+/* ---------- tasks ---------- */
+let TS=store.get('rw-tasks',[['water the plant',true],['reply to Mika',false],['read 20 pages',false],['stretch for 5 minutes',false]]);
+const Q=['"Slow progress is still progress."','"You don\'t have to do it all tonight."','"One page, then another page."','"Rest is part of the work."'];
+function tUI(){store.set('rw-tasks',TS);document.getElementById('tlist').innerHTML=TS.map((t,i)=>`<div class="task ${t[1]?'done':''}"><button class="ck" data-c="${i}">${t[1]?'✓':''}</button><span>${t[0].replace(/[<>&]/g,'')}</span><button class="x" data-x="${i}">×</button></div>`).join('')||'<p style="text-align:center;color:var(--dim)">nothing left. go make tea.</p>';document.getElementById('quote').textContent=Q[TS.filter(t=>t[1]).length%Q.length]}
+document.getElementById('tform').onsubmit=e=>{e.preventDefault();const v=document.getElementById('tin').value.trim();if(v){TS.push([v,false]);document.getElementById('tin').value='';tUI()}};
+document.getElementById('tlist').onclick=e=>{const c=e.target.dataset.c,x=e.target.dataset.x;if(c!=null){TS[c][1]=!TS[c][1];if(TS[c][1])click(1800)}if(x!=null)TS.splice(+x,1);tUI()};tUI();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

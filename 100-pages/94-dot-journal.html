@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dot Journal</title>
+<link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Inconsolata:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fbfaf6;--dot:#c9c4b8;--ink:#23252b;--mint:#9fdcc6;--peach:#f7c4a5;--lav:#c9b8ef;--butter:#f5e08e;--dim:#23252b88}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#d8d2c4;color:var(--ink);font-family:Inconsolata,monospace;font-size:17px}
+a{color:inherit;text-decoration:none}button,input{font:inherit;cursor:pointer;color:inherit}
+.h{font-family:'Gochi Hand',cursive}
+.book{max-width:1100px;margin:24px auto 60px;background:var(--paper);background-image:radial-gradient(var(--dot) 1.2px,transparent 1.4px);background-size:22px 22px;background-position:11px 11px;border-radius:8px 16px 16px 8px;box-shadow:0 30px 60px #0003,inset 20px 0 30px -20px #0002;position:relative;min-height:80vh;padding:30px 5vw 50px}
+.band{position:absolute;right:60px;top:-10px;bottom:-10px;width:14px;background:#23252b;border-radius:4px}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.logo{font-family:'Gochi Hand';font-size:40px;line-height:1}
+.logo i{font-style:normal;background:linear-gradient(transparent 55%,var(--mint) 55%)}
+nav{display:flex;gap:4px;flex-wrap:wrap;position:relative;z-index:2}
+nav a{font-family:'Gochi Hand';font-size:20px;padding:4px 14px;border-radius:4px 4px 0 0;background:var(--c,#eee);transform:translateY(4px)}
+nav a:nth-child(1){--c:var(--mint)}nav a:nth-child(2){--c:var(--peach)}nav a:nth-child(3){--c:var(--lav)}nav a:nth-child(4){--c:var(--butter)}nav a:nth-child(5){--c:#e8e4da}
+nav a.on{transform:translateY(-2px);box-shadow:0 -3px 0 var(--ink) inset}
+[data-view][hidden]{display:none}
+h2{font-family:'Gochi Hand';font-weight:400;font-size:clamp(2rem,4vw,2.8rem);line-height:1.1}
+h2 span{background:linear-gradient(transparent 55%,var(--c,var(--mint)) 55%)}
+.tape{display:inline-block;background:repeating-linear-gradient(45deg,#f7c4a5aa 0 8px,#f7c4a566 8px 16px);padding:4px 16px;transform:rotate(-2deg);font-family:'Gochi Hand';font-size:18px;margin:6px 0 14px}
+/* daily */
+.dgrid{display:grid;grid-template-columns:1fr 260px;gap:30px}
+.day h3{font-family:'Gochi Hand';font-weight:400;font-size:26px;margin:16px 0 4px;border-bottom:2px solid var(--ink);display:inline-block}
+.item{display:flex;gap:12px;align-items:baseline;padding:4px 0;line-height:22px;min-height:22px}
+.item .sig{width:22px;text-align:center;font-weight:600;cursor:pointer;flex:none;font-size:18px}
+.item .txt{flex:1}
+.item.done .txt{text-decoration:line-through;color:var(--dim)}
+.item.mig .txt{color:var(--dim)}
+.item .pri{color:#d0453a;font-weight:600}
+.item .rm{opacity:0;border:0;background:none;color:var(--dim)}
+.item:hover .rm{opacity:1}
+.add{display:flex;gap:6px;margin-top:10px}
+.add select,.add input{border:0;border-bottom:2px dashed var(--ink);background:transparent;padding:6px;font-size:17px}
+.add input{flex:1;outline:0}
+.key{border:2px solid var(--ink);padding:14px;background:#fffffa;transform:rotate(1deg)}
+.key div{display:flex;gap:10px;padding:3px 0}
+.key b{width:22px;text-align:center}
+.btn{border:2px solid var(--ink);background:#fff;padding:6px 14px;font-family:'Gochi Hand';font-size:18px;border-radius:4px}
+/* habits */
+.hab{overflow-x:auto}
+.hab table{border-collapse:collapse;font-size:13px}
+.hab td,.hab th{width:22px;height:22px;text-align:center;padding:0}
+.hab th{font-weight:400;color:var(--dim)}
+.hab td.n{width:auto;text-align:left;padding-right:12px;font-family:'Gochi Hand';font-size:19px;white-space:nowrap}
+.hab td.c{cursor:pointer;border:1px solid #23252b22}
+.hab td.c.on{background:var(--c)}
+.hab td.c.today{outline:2px solid var(--ink);outline-offset:-2px}
+.hab td.s{width:60px;font-size:13px;color:var(--dim)}
+/* pixels */
+.px{display:grid;grid-template-columns:30px repeat(12,1fr);gap:3px;max-width:620px}
+.px div{aspect-ratio:1;border:1px solid #23252b22;border-radius:2px;cursor:pointer;font-size:10px;display:grid;place-items:center;color:var(--dim)}
+.px div.lab{border:0;cursor:default}
+.px div.x{visibility:hidden}
+.moods{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.moods button{border:2px solid var(--ink);border-radius:30px;padding:4px 12px;background:#fff;display:flex;gap:6px;align-items:center;font-size:14px}
+.moods button i{width:16px;height:16px;border-radius:50%}
+.moods button.on{background:var(--ink);color:#fff}
+.pgrid{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:start}
+.bars div{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:14px}
+.bars span{height:14px;border-radius:7px}
+/* collections */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.col{background:#fffffae0;border:2px solid var(--ink);padding:14px;position:relative;transform:rotate(var(--r))}
+.col::before{content:"";position:absolute;top:-12px;left:30%;width:40%;height:22px;background:var(--c);opacity:.8;transform:rotate(-3deg)}
+.col h3{font-family:'Gochi Hand';font-weight:400;font-size:26px;margin-bottom:6px}
+.col li{list-style:none;display:flex;gap:8px;padding:3px 0;cursor:pointer}
+.col li.done span{text-decoration:line-through;color:var(--dim)}
+.col input{width:100%;border:0;border-bottom:1px dashed var(--ink);background:none;padding:4px 0;margin-top:6px;outline:0}
+@media(max-width:860px){.dgrid,.pgrid{grid-template-columns:1fr}.band{display:none}}
+</style>
+</head>
+<body>
+<div class="book"><div class="band"></div>
+<header><div class="logo">my <i>dot journal</i></div><nav><a href="#daily">Daily log</a><a href="#habits">Habits</a><a href="#pixels">Year in pixels</a><a href="#lists">Collections</a><a href="index.html">← index</a></nav></header>
+
+<section data-view="daily">
+ <div class="dgrid"><div class="day" id="daily"></div>
+  <div><div class="key"><div class="h" style="font-size:22px">key</div><div><b>•</b>task</div><div><b>×</b>done</div><div><b>&gt;</b>migrated</div><div><b>○</b>event</div><div><b>–</b>note</div><div><b style="color:#d0453a">*</b>priority</div><div style="font-size:13px;color:var(--dim);margin-top:6px">Tap a task's bullet to cycle it: • → × → &gt;</div></div>
+   <div class="tape" style="margin-top:22px">today's quote</div><p class="h" style="font-size:22px;line-height:1.3" id="quote"></p></div></div>
+</section>
+
+<section data-view="habits" hidden>
+ <h2 style="--c:var(--peach)"><span id="hmonth"></span></h2><div class="tape">habit tracker</div>
+ <div class="hab"><table id="habT"></table></div>
+ <div class="add" style="max-width:420px"><input id="newHab" placeholder="new habit…" maxlength="20"><button class="btn" id="addHab">add</button></div>
+</section>
+
+<section data-view="pixels" hidden>
+ <h2 style="--c:var(--lav)"><span>a year in pixels</span></h2><div class="tape">one colour for every day</div>
+ <div class="moods" id="moods"></div>
+ <div class="pgrid"><div class="px" id="px"></div><div class="bars" id="bars"></div></div>
+</section>
+
+<section data-view="lists" hidden>
+ <h2 style="--c:var(--butter)"><span>collections</span></h2><div class="tape">lists worth keeping</div>
+ <div class="cols" id="cols"></div>
+</section>
+</div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'daily';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const esc=s=>s.replace(/[<>&]/g,'');
+const today=new Date(),dkey=d=>d.toISOString().slice(0,10);
+
+/* daily */
+const yest=new Date(today-864e5);
+let LOG=store.get('dj-log',{[dkey(yest)]:[['x','call the dentist',0],['>','finish chapter 2',0],['o','Sam\'s birthday drinks',0],['-','the plum tree is blossoming',0]],[dkey(today)]:[['.','finish chapter 2',1],['.','water the ferns',0],['o','yoga 18:30',0],['.','reply to Aunt Jo',0],['-','ideas: a zine about bread?',0]]});
+const SIG={'.':'•','x':'×','>':'&gt;','o':'○','-':'–'};
+function daily(){const days=Object.keys(LOG).sort();let h='';days.slice(-3).forEach(d=>{const dt=new Date(d+'T12:00');h+=`<h3>${dt.toLocaleDateString('en',{weekday:'long',day:'numeric',month:'short'}).toLowerCase()}${d===dkey(today)?' · today':''}</h3>`+LOG[d].map((it,i)=>`<div class="item ${it[0]==='x'?'done':it[0]==='>'?'mig':''}"><span class="sig" data-d="${d}" data-i="${i}">${SIG[it[0]]}</span><span class="txt">${it[2]?'<span class="pri">* </span>':''}${esc(it[1])}</span><button class="rm" data-rd="${d}" data-ri="${i}">✕</button></div>`).join('')});
+ h+=`<div class="add"><select id="ty"><option value=".">• task</option><option value="o">○ event</option><option value="-">– note</option></select><input id="nt" placeholder="rapid log…" maxlength="60"><label style="display:flex;align-items:center;gap:4px;font-size:14px"><input type="checkbox" id="pri">*</label><button class="btn" id="addI">add</button></div><div style="margin-top:14px"><button class="btn" id="migrate">migrate open tasks to tomorrow ></button></div>`;
+ document.getElementById('daily').innerHTML=h;store.set('dj-log',LOG);
+ document.getElementById('addI').onclick=add;document.getElementById('nt').onkeydown=e=>{if(e.key==='Enter')add()};
+ document.getElementById('migrate').onclick=()=>{const t=dkey(today),tm=dkey(new Date(+today+864e5));LOG[tm]=LOG[tm]||[];(LOG[t]||[]).forEach(it=>{if(it[0]==='.'){LOG[tm].push(['.',it[1],it[2]]);it[0]='>'}});daily()}}
+function add(){const v=document.getElementById('nt').value.trim();if(!v)return;const k=dkey(today);LOG[k]=LOG[k]||[];LOG[k].push([document.getElementById('ty').value,v,document.getElementById('pri').checked?1:0]);daily();document.getElementById('nt').focus()}
+document.getElementById('daily').addEventListener('click',e=>{const s=e.target.closest('.sig');if(s){const it=LOG[s.dataset.d][+s.dataset.i];if('.x>'.includes(it[0])){it[0]={'.':'x','x':'>','>':'.'}[it[0]];tick();daily()}}if(e.target.dataset.rd){LOG[e.target.dataset.rd].splice(+e.target.dataset.ri,1);daily()}});
+function tick(){try{const a=window._a||(window._a=new AudioContext());const n=a.createBufferSource(),b=a.createBuffer(1,a.sampleRate*.05,a.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.exp(-i/300)*.4;n.buffer=b;n.connect(a.destination);n.start()}catch(e){}}
+const Q=['"Small steps, every day."','"Done is better than perfect."','"You don\'t have to see the whole staircase."','"Rest is productive too."','"Write it down, then let it go."'];document.getElementById('quote').textContent=Q[today.getDate()%Q.length];
+daily();
+
+/* habits */
+const dim=new Date(today.getFullYear(),today.getMonth()+1,0).getDate();const mkey=today.toISOString().slice(0,7);
+let HB=store.get('dj-hab',null)||{[mkey]:[['💧 water 2L','#9fdcc6',[1,2,3,5,6,7,8,10,11,12]],['📖 read 20 min','#c9b8ef',[1,2,4,5,8,9,11]],['🚶 walk','#f7c4a5',[2,3,4,6,7,9,10,12]],['🌙 bed by 11','#f5e08e',[1,3,5,6,10]]]};
+if(!HB[mkey])HB[mkey]=(HB[Object.keys(HB).sort().pop()]||[]).map(h=>[h[0],h[1],[]]);
+function habits(){document.getElementById('hmonth').textContent=today.toLocaleDateString('en',{month:'long',year:'numeric'}).toLowerCase();const H=HB[mkey];
+ let h=`<tr><th></th>${[...Array(dim)].map((_,i)=>`<th>${i+1}</th>`).join('')}<th>streak</th></tr>`;
+ H.forEach((hb,j)=>{let st=0;for(let d=today.getDate();d>0;d--){if(hb[2].includes(d))st++;else if(d<today.getDate())break}h+=`<tr><td class="n">${esc(hb[0])}</td>${[...Array(dim)].map((_,i)=>`<td class="c ${hb[2].includes(i+1)?'on':''} ${i+1===today.getDate()?'today':''}" style="--c:${hb[1]}" data-j="${j}" data-d="${i+1}"></td>`).join('')}<td class="s">${st} 🔥</td></tr>`});
+ document.getElementById('habT').innerHTML=h;store.set('dj-hab',HB)}
+document.getElementById('habT').onclick=e=>{const c=e.target.closest('.c');if(!c)return;const hb=HB[mkey][+c.dataset.j],d=+c.dataset.d;const i=hb[2].indexOf(d);i>-1?hb[2].splice(i,1):hb[2].push(d);tick();habits()};
+document.getElementById('addHab').onclick=()=>{const v=document.getElementById('newHab').value.trim();if(!v)return;HB[mkey].push([v,['#9fdcc6','#c9b8ef','#f7c4a5','#f5e08e','#a8c8f0'][HB[mkey].length%5],[]]);document.getElementById('newHab').value='';habits()};habits();
+
+/* pixels */
+const MOODS=[['great','#7ccf9b'],['good','#bfe6a8'],['okay','#f5e08e'],['meh','#c9c4b8'],['tired','#c9b8ef'],['sad','#8fb3e8'],['stressed','#f28e7c']];let mood=0;
+let PX=store.get('dj-px',null);if(!PX){PX={};const r=(n=>()=>(n=(n*9301+49297)%233280)/233280)(7);for(let d=new Date(today.getFullYear(),0,1);d<today;d=new Date(+d+864e5))PX[dkey(d)]=Math.min(6,Math.floor(r()*r()*7))}
+function pixels(){document.getElementById('moods').innerHTML=MOODS.map((m,i)=>`<button class="${i===mood?'on':''}" data-m="${i}"><i style="background:${m[1]}"></i>${m[0]}</button>`).join('');const y=today.getFullYear();let h='<div class="lab"></div>'+'JFMAMJJASOND'.split('').map(m=>`<div class="lab h" style="font-size:16px">${m}</div>`).join('');
+ for(let d=1;d<=31;d++){h+=`<div class="lab">${d}</div>`;for(let m=0;m<12;m++){const dt=new Date(y,m,d);if(dt.getMonth()!==m){h+='<div class="x"></div>';continue}const k=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;const v=PX[k];h+=`<div data-k="${k}" style="${v!=null?`background:${MOODS[v][1]}`:''};${k===dkey(today)?'outline:2px solid #23252b':''}" title="${k}"></div>`}}
+ document.getElementById('px').innerHTML=h;const cnt=MOODS.map((_,i)=>Object.values(PX).filter(v=>v===i).length);const mx=Math.max(1,...cnt);
+ document.getElementById('bars').innerHTML='<div class="h" style="font-size:24px">so far this year</div>'+MOODS.map((m,i)=>`<div><span style="width:${cnt[i]/mx*180}px;background:${m[1]}"></span>${m[0]} · ${cnt[i]}</div>`).join('')+`<p style="margin-top:14px;font-size:14px;color:var(--dim);max-width:30ch">Tap a mood, then tap a day. The past days are filled in with example moods.</p>`;store.set('dj-px',PX)}
+document.getElementById('moods').onclick=e=>{const b=e.target.closest('[data-m]');if(b){mood=+b.dataset.m;pixels()}};
+document.getElementById('px').onclick=e=>{const k=e.target.dataset.k;if(!k)return;PX[k]=PX[k]===mood?undefined:mood;if(PX[k]===undefined)delete PX[k];pixels()};pixels();
+
+/* collections */
+let CO=store.get('dj-cols',[['books to read','#c9b8ef',[['The Left Hand of Darkness',1],['Braiding Sweetgrass',0],['Piranesi',0]]],['places to go','#9fdcc6',[['Lofoten',0],['Kyoto in autumn',0],['that bakery on Elm St',1]]],['things that made me smile','#f5e08e',[['a dog in a raincoat',1],['perfect toast',1],['mum\'s voicemail',1]]],['to learn','#f7c4a5',[['sourdough',0],['basic Italian',0],['how to whistle',0]]]]);
+function cols(){document.getElementById('cols').innerHTML=CO.map((c,i)=>`<div class="col" style="--c:${c[1]};--r:${(i%2?1:-1)*(.6+i*.2)}deg"><h3>${esc(c[0])}</h3><ul>${c[2].map((it,j)=>`<li class="${it[1]?'done':''}" data-c="${i}" data-j="${j}"><b>${it[1]?'×':'•'}</b><span>${esc(it[0])}</span></li>`).join('')}</ul><input data-add="${i}" placeholder="+ add…" maxlength="40"></div>`).join('');store.set('dj-cols',CO)}
+document.getElementById('cols').onclick=e=>{const li=e.target.closest('li');if(!li)return;const it=CO[+li.dataset.c][2][+li.dataset.j];it[1]=it[1]?0:1;tick();cols()};
+document.getElementById('cols').onkeydown=e=>{if(e.key!=='Enter')return;const i=e.target.dataset.add;if(i==null||!e.target.value.trim())return;CO[+i][2].push([e.target.value.trim(),0]);cols();document.querySelector(`[data-add="${i}"]`).focus()};cols();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

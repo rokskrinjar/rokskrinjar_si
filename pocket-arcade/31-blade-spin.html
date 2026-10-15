@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Blade Spin</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Antique&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none;background:#efe4cf;font-family:'Shippori Antique',serif;color:#2a1d14}
+canvas{display:block;position:fixed;inset:0}
+.hud{position:fixed;top:12px;right:16px;text-align:right;pointer-events:none}.hud b{font-family:'Noto Serif JP',serif;font-weight:900;font-size:38px;display:block;line-height:1;color:#b8322a}.hud small{font-size:13px}
+.stage{position:fixed;top:14px;left:50%;transform:translateX(-50%);font-size:13px;letter-spacing:.2em;pointer-events:none;text-align:center}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#efe4cfe6}.ov.on{display:grid}
+.ov h1{font-family:'Noto Serif JP',serif;font-weight:900;font-size:clamp(46px,13vw,90px);line-height:1;letter-spacing:.04em}.ov h1 span{color:#b8322a}
+.ov p{margin:14px auto 24px;line-height:1.8;max-width:320px}
+button{font-family:'Noto Serif JP',serif;font-weight:900;font-size:20px;border:0;background:#2a1d14;color:#efe4cf;padding:12px 36px;cursor:pointer;letter-spacing:.2em}
+.back{position:fixed;left:12px;top:12px;color:#2a1d14;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="stage" id="stg">STAGE 1</div>
+<div class="hud"><b id="s">0</b><small id="bs">best 0</small></div>
+<div class="ov on" id="ov"><div><h1 id="t">BLADE<br><span>SPIN</span></h1><p id="m">Throw every blade into the turning log.<br>Never strike another blade. Apples are a bonus.<br>Tap · Space · ↑ to throw.</p><button id="go">THROW</button></div></div>
+<a class="back" href="index.html">← games</a>
+<script>
+const K='best-blade-spin';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const cv=document.getElementById('c'),x=cv.getContext('2d');let W,H,LR,LX,LY,KL;
+function fit(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);LR=Math.min(W*.26,H*.15,120);LX=W/2;LY=H*.32;KL=LR*.9}fit();addEventListener('resize',fit);
+let st='menu',stage=1,score=0,best=ls.g(K,0),rot=0,spd=.03,stuck=[],apples=[],flying=null,left=0,total=0,t=0,parts=[],shake=0,breakT=0,chunks=[],pattern,falling=[];
+document.getElementById('bs').textContent='best '+best;
+let AC;function tone(f,d=.08,type='triangle',v=.06,to){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;if(to)o.frequency.exponentialRampToValueAtTime(to,AC.currentTime+d);g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+const boss=()=>stage%5===0;
+function setup(){stuck=[];apples=[];flying=null;chunks=[];rot=0;total=left=Math.min(11,5+Math.floor(stage/2))+(boss()?2:0);
+ const pre=Math.min(4,Math.floor((stage-1)/2));for(let i=0;i<pre;i++)stuck.push({a:i*Math.PI*2/pre+Math.random()*.4,pre:true});
+ for(let i=0;i<(Math.random()<.7?1+(Math.random()*2|0):0);i++){let a;do{a=Math.random()*Math.PI*2}while(stuck.some(s=>Math.abs(ang(s.a-a))<.4)||apples.some(p=>Math.abs(ang(p.a-a))<.5));apples.push({a})}
+ pattern=boss()?'boss':['steady','swing','burst','reverse'][Math.floor(Math.random()*Math.min(4,1+stage/2))];spd=(.025+Math.min(.035,stage*.003))*(Math.random()<.5?1:-1);
+ document.getElementById('stg').innerHTML=(boss()?'<span style="color:#b8322a">BOSS · </span>':'')+'STAGE '+stage+'<br>'+'▮'.repeat(left)}
+function ang(a){return Math.atan2(Math.sin(a),Math.cos(a))}
+function start(){stage=1;score=0;setup();st='play';document.getElementById('ov').classList.remove('on');hud()}
+function hud(){document.getElementById('s').textContent=score;if(score>best){best=score;ls.s(K,best)}document.getElementById('bs').textContent='best '+best}
+function throwK(){if(st!=='play'||flying||left<=0)return;flying={y:H*.82,v:-Math.max(26,H*.045)};left--;document.getElementById('stg').innerHTML=(boss()?'<span style="color:#b8322a">BOSS · </span>':'')+'STAGE '+stage+'<br>'+'▮'.repeat(left)+'<span style="opacity:.25">'+'▮'.repeat(total-left)+'</span>';tone(900,.06,'sine',.04,400)}
+function update(){t++;
+ const base=Math.abs(spd),dir=Math.sign(spd);let w=spd;
+ if(pattern==='swing')w=spd*(1+Math.sin(t*.03)*.8);else if(pattern==='burst')w=spd*(t%120<40?2.4:.5);else if(pattern==='reverse')w=(Math.sin(t*.012)>0?1:-1)*base*1.4;else if(pattern==='boss')w=Math.sin(t*.02)*base*2.2+Math.sin(t*.051)*base;
+ if(st==='play'||st==='menu')rot+=w;
+ if(flying){flying.y+=flying.v;const hitY=LY+LR;if(flying.y<=hitY){// contact at angle pointing down (PI/2) in world => local angle
+  const la=ang(Math.PI/2-rot);if(stuck.some(s=>Math.abs(ang(s.a-la))<.2)){fail();return}
+  stuck.push({a:la});flying=null;score+=1;shake=5;tone(220,.08,'square',.05);for(let i=0;i<6;i++)parts.push({x:LX,y:LY+LR,vx:(Math.random()-.5)*4,vy:Math.random()*3,l:1,c:'#c89b62'});
+  const ap=apples.findIndex(p=>Math.abs(ang(p.a-la))<.28);if(ap>=0){score+=5;tone(1300,.12,'sine',.05);const a=apples[ap].a+rot;for(let i=0;i<12;i++)parts.push({x:LX+Math.cos(a)*(LR+10),y:LY+Math.sin(a)*(LR+10),vx:(Math.random()-.5)*6,vy:(Math.random()-.5)*6,l:1,c:'#d63a2f'});apples.splice(ap,1)}
+  hud();if(left===0)clearStage()}}
+ if(st==='break'){breakT++;if(breakT>70){stage++;setup();st='play'}}}
+function clearStage(){st='break';breakT=0;score+=boss()?20:5;hud();tone(523,.15);setTimeout(()=>tone(784,.25),110);
+ for(let i=0;i<8;i++){const a=i/8*Math.PI*2;chunks.push({x:LX,y:LY,vx:Math.cos(a)*6,vy:Math.sin(a)*6-4,r:a,vr:(Math.random()-.5)*.3})}
+ stuck.forEach(s=>{const a=s.a+rot;falling.push({x:LX+Math.cos(a)*(LR+KL/2),y:LY+Math.sin(a)*(LR+KL/2),a:a,vx:Math.cos(a)*5,vy:Math.sin(a)*5-3,vr:(Math.random()-.5)*.4})});stuck=[]}
+function fail(){st='dead';const fk=flying;flying=null;falling.push({x:LX,y:LY+LR+KL/2,a:Math.PI/2,vx:(Math.random()-.5)*6,vy:-6,vr:.35});tone(120,.4,'sawtooth',.07,50);shake=14;
+ setTimeout(()=>{st='over';document.getElementById('t').innerHTML=score>=best&&score>0?'NEW<br><span>BEST</span>':'CLANG<br><span>!</span>';document.getElementById('m').innerHTML=`Stage ${stage} · score ${score}<br>Best ${best}`;document.getElementById('go').textContent='AGAIN';document.getElementById('ov').classList.add('on')},900)}
+function knife(px,py,a){x.save();x.translate(px,py);x.rotate(a);// a points from handle toward tip
+ x.fillStyle='#2a1d14';x.beginPath();x.roundRect(-KL*.5,-KL*.06,KL*.42,KL*.12,KL*.05);x.fill();x.fillStyle='#b8322a';x.fillRect(-KL*.3,-KL*.065,KL*.05,KL*.13);
+ x.fillStyle='#d9d4c8';x.beginPath();x.moveTo(-KL*.08,-KL*.07);x.lineTo(KL*.42,-KL*.03);x.lineTo(KL*.5,0);x.lineTo(KL*.42,KL*.05);x.lineTo(-KL*.08,KL*.07);x.fill();x.strokeStyle='#8e897c';x.lineWidth=1;x.beginPath();x.moveTo(-KL*.05,0);x.lineTo(KL*.4,0);x.stroke();x.restore()}
+function draw(){x.fillStyle='#efe4cf';x.fillRect(0,0,W,H);x.fillStyle='#e4d6bc';for(let i=0;i<30;i++){x.globalAlpha=.4;x.beginPath();x.arc((i*211)%W,(i*137)%H,40+(i%5)*20,0,7);x.fill()}x.globalAlpha=1;
+ x.fillStyle='#b8322a';x.globalAlpha=.9;x.beginPath();x.arc(W*.82,H*.14,Math.min(W,H)*.09,0,7);x.fill();x.globalAlpha=1;
+ x.save();if(shake>0){x.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);shake*=.8}
+ if(st!=='break'){stuck.forEach(s=>{const a=s.a+rot;knife(LX+Math.cos(a)*(LR+KL*.5-KL*.12),LY+Math.sin(a)*(LR+KL*.5-KL*.12),a+Math.PI)});
+  apples.forEach(p=>{const a=p.a+rot,ax=LX+Math.cos(a)*(LR+LR*.18),ay=LY+Math.sin(a)*(LR+LR*.18);x.fillStyle='#d63a2f';x.beginPath();x.arc(ax,ay,LR*.16,0,7);x.fill();x.fillStyle='#fff6';x.beginPath();x.arc(ax-LR*.05,ay-LR*.05,LR*.05,0,7);x.fill();x.strokeStyle='#4a7a2a';x.lineWidth=3;x.beginPath();x.moveTo(ax,ay-LR*.14);x.lineTo(ax+LR*.04,ay-LR*.24);x.stroke()});
+  x.save();x.translate(LX,LY);x.rotate(rot);x.fillStyle='#0002';x.beginPath();x.arc(4,6,LR,0,7);x.fill();
+  x.fillStyle=boss()?'#5a3a2a':'#b98652';x.beginPath();x.arc(0,0,LR,0,7);x.fill();x.strokeStyle=boss()?'#3a2418':'#8f6034';x.lineWidth=2;for(let i=1;i<5;i++){x.beginPath();x.arc(0,0,LR*i/5,0,7);x.stroke()}
+  x.strokeStyle='#6e4526';x.lineWidth=4;x.beginPath();x.arc(0,0,LR-2,0,7);x.stroke();x.fillStyle='#6e4526';x.beginPath();x.arc(0,0,LR*.08,0,7);x.fill();
+  if(boss()){x.fillStyle='#b8322a';x.font=`900 ${LR*.5}px 'Noto Serif JP'`;x.textAlign='center';x.textBaseline='middle';x.fillText('鬼',0,0)}x.restore()}
+ chunks.forEach(c=>{c.x+=c.vx;c.y+=c.vy;c.vy+=.4;c.r+=c.vr;x.save();x.translate(c.x,c.y);x.rotate(c.r);x.fillStyle='#b98652';x.beginPath();x.moveTo(0,0);x.arc(0,0,LR*.9,0,Math.PI/4);x.closePath();x.fill();x.restore()});chunks=chunks.filter(c=>c.y<H+100);
+ falling.forEach(f=>{f.x+=f.vx;f.y+=f.vy;f.vy+=.5;f.a+=f.vr;knife(f.x,f.y,f.a)});falling=falling.filter(f=>f.y<H+100);
+ if(flying)knife(LX,flying.y+KL*.5,-Math.PI/2);
+ if(st==='play'&&!flying&&left>0)knife(LX,H*.82+KL*.5,-Math.PI/2);
+ parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.2;p.l-=.03;x.globalAlpha=Math.max(0,p.l);x.fillStyle=p.c;x.fillRect(p.x,p.y,4,4)});x.globalAlpha=1;parts=parts.filter(p=>p.l>0);
+ x.restore()}
+function loop(){update();draw();requestAnimationFrame(loop)}setup();requestAnimationFrame(loop);
+function act(){if(st==='play')throwK();else if(document.getElementById('ov').classList.contains('on'))start()}
+addEventListener('keydown',e=>{if([' ','ArrowUp','Enter','w'].includes(e.key)){e.preventDefault();if(!e.repeat)act()}});
+cv.addEventListener('pointerdown',e=>{e.preventDefault();act()});document.getElementById('go').onclick=e=>{e.stopPropagation();start()};
+</script>
+</body>
+</html>

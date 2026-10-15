@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Örn — Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600&family=Newsreader:ital,opsz@1,6..72&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#111; --paper:#fafaf8; --mute:#9a9a96; --line:#e4e4e0; --acc:#c84b2f; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--paper); color:var(--ink); font-family:'Archivo',sans-serif; font-weight:300; }
+  a { color:inherit; text-decoration:none; }
+  .it { font-family:'Newsreader',serif; font-style:italic; }
+  header { position:fixed; top:0; left:0; right:0; z-index:30; display:grid; grid-template-columns:1fr auto 1fr; padding:22px 3vw; font-size:13px; mix-blend-mode:difference; color:#fff; }
+  header .name { font-weight:600; letter-spacing:.02em; }
+  header nav { display:flex; gap:26px; }
+  header nav a { opacity:.6; transition:opacity .3s; }
+  header nav a.on, header nav a:hover { opacity:1; }
+  header .r { text-align:right; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:fade .9s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes fade { from { opacity:0; transform:translateY(12px); } }
+  /* index */
+  .index { padding:22vh 3vw 10vh; }
+  .intro { font-size:clamp(1.6rem,3.4vw,3rem); line-height:1.15; max-width:1100px; font-weight:300; letter-spacing:-.01em; }
+  .intro .it { color:var(--acc); }
+  .filters { display:flex; gap:22px; margin:12vh 0 18px; font-size:13px; border-bottom:1px solid var(--ink); padding-bottom:10px; flex-wrap:wrap; }
+  .filters button { background:none; border:0; font:inherit; cursor:pointer; color:var(--mute); }
+  .filters button.on { color:var(--ink); text-decoration:line-through; text-decoration-color:var(--acc); }
+  .filters .view { margin-left:auto; display:flex; gap:12px; }
+  .list .proj { display:grid; grid-template-columns:60px 1.4fr 1fr 1fr 80px; padding:18px 0; border-bottom:1px solid var(--line); font-size:15px; cursor:pointer; transition:padding .4s cubic-bezier(.2,.8,.2,1), color .3s; align-items:baseline; }
+  .list .proj:hover { padding-left:18px; color:var(--acc); }
+  .list .proj .t { font-size:clamp(1.3rem,2.4vw,2rem); font-weight:400; letter-spacing:-.01em; }
+  .list .proj span { color:var(--mute); }
+  .list .proj:hover span { color:inherit; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3vw 2vw; }
+  .grid .proj { cursor:pointer; }
+  .grid .proj .img { aspect-ratio:4/5; background:#efefeb; overflow:hidden; }
+  .grid .proj .img svg { width:100%; height:100%; transition:transform 1.2s cubic-bezier(.2,.8,.2,1); }
+  .grid .proj:hover svg { transform:scale(1.05); }
+  .grid .proj p { margin-top:10px; font-size:14px; display:flex; justify-content:space-between; }
+  .preview { position:fixed; width:320px; aspect-ratio:4/5; pointer-events:none; z-index:25; opacity:0; transform:translate(-50%,-50%) scale(.9); transition:opacity .3s, transform .3s; background:#efefeb; overflow:hidden; }
+  .preview.on { opacity:1; transform:translate(-50%,-50%) scale(1); }
+  .preview svg { width:100%; height:100%; }
+  /* project */
+  .proj-page { padding:14vh 3vw 10vh; }
+  .ph { display:grid; grid-template-columns:1fr 1fr; gap:3vw; align-items:end; margin-bottom:5vh; }
+  .ph h1 { font-weight:400; font-size:clamp(3rem,8vw,7.5rem); line-height:.9; letter-spacing:-.04em; }
+  .ph .meta { display:grid; grid-template-columns:auto 1fr; gap:6px 24px; font-size:14px; }
+  .ph .meta dt { color:var(--mute); }
+  .draw { position:relative; background:#fff; border:1px solid var(--line); }
+  .draw svg { width:100%; display:block; }
+  .draw .tabs { position:absolute; top:14px; left:14px; display:flex; gap:4px; }
+  .draw .tabs button { background:#fff; border:1px solid var(--ink); font:inherit; font-size:12px; padding:6px 12px; cursor:pointer; }
+  .draw .tabs button.on { background:var(--ink); color:#fff; }
+  .draw .scale { position:absolute; right:14px; bottom:14px; font-size:11px; color:var(--mute); }
+  .text { display:grid; grid-template-columns:1fr 2fr; gap:3vw; margin:8vh 0; }
+  .text p { font-size:clamp(1.1rem,1.6vw,1.4rem); line-height:1.6; }
+  .text .it { font-size:1.4rem; color:var(--acc); }
+  .nextP { display:flex; justify-content:space-between; border-top:1px solid var(--ink); padding-top:14px; font-size:14px; }
+  .nextP button { background:none; border:0; font:inherit; cursor:pointer; font-size:clamp(1.2rem,2vw,1.8rem); }
+  .nextP button:hover { color:var(--acc); }
+  /* studio */
+  .studio { padding:22vh 3vw 10vh; }
+  .studio .big { font-size:clamp(2rem,4.4vw,4rem); line-height:1.1; letter-spacing:-.02em; max-width:1200px; }
+  .people { display:grid; grid-template-columns:repeat(4,1fr); gap:2vw; margin-top:12vh; }
+  .person .ph2 { aspect-ratio:3/4; background:#efefeb; position:relative; overflow:hidden; }
+  .person .ph2 svg { width:100%; height:100%; filter:grayscale(1); transition:filter .5s; }
+  .person:hover svg { filter:none; }
+  .person b { display:block; font-weight:400; margin-top:10px; }
+  .person small { color:var(--mute); }
+  .principles { display:grid; grid-template-columns:repeat(3,1fr); gap:3vw; margin-top:12vh; border-top:1px solid var(--ink); padding-top:20px; }
+  .principles h4 { font-weight:600; font-size:13px; margin-bottom:10px; }
+  .principles p { line-height:1.6; color:#444; }
+  /* contact */
+  .contact { padding:22vh 3vw 10vh; display:grid; grid-template-columns:1fr 1fr; gap:4vw; }
+  .contact .big { font-size:clamp(2.4rem,5vw,4.6rem); line-height:1; letter-spacing:-.03em; }
+  .contact .big a { border-bottom:2px solid var(--acc); }
+  .contact dl { margin-top:5vh; display:grid; grid-template-columns:auto 1fr; gap:8px 30px; font-size:15px; }
+  .contact dt { color:var(--mute); }
+  .mapBox { border:1px solid var(--line); background:#fff; }
+  .mapBox svg { width:100%; display:block; }
+  .form { margin-top:4vh; display:grid; gap:10px; }
+  .form input, .form textarea { font:inherit; font-size:16px; border:0; border-bottom:1px solid var(--ink); background:transparent; padding:10px 0; outline:none; }
+  .form button { justify-self:start; font:inherit; background:var(--ink); color:#fff; border:0; padding:12px 22px; cursor:pointer; }
+  footer { padding:3vh 3vw; font-size:12px; color:var(--mute); display:flex; justify-content:space-between; }
+  @media (max-width:900px){ .list .proj { grid-template-columns:40px 1fr; } .list .proj span:nth-child(n+3) { display:none; } .grid { grid-template-columns:1fr 1fr; } .ph,.text,.contact { grid-template-columns:1fr; } .people,.principles { grid-template-columns:1fr 1fr; } header { grid-template-columns:1fr; gap:8px; } header .r { text-align:left; } .preview { display:none; } }
+</style>
+</head>
+<body>
+<header><div class="name">Studio Örn</div><nav><a href="#index">Work</a><a href="#studio">Studio</a><a href="#contact">Contact</a></nav><div class="r"><a href="index.html">← Index</a></div></header>
+<div class="preview" id="preview"></div>
+
+<section data-view="index" class="index">
+  <p class="intro">Studio Örn is an architecture practice in Reykjavík and Lisbon. We design <span class="it">quiet buildings for loud landscapes</span> — houses, libraries and the occasional lighthouse.</p>
+  <div class="filters" id="filters"><button data-f="all" class="on">All</button><button data-f="Residential">Residential</button><button data-f="Cultural">Cultural</button><button data-f="Public">Public</button><button data-f="Unbuilt">Unbuilt</button><div class="view"><button data-v="list" class="on" id="vList">List</button><button data-v="grid" id="vGrid">Grid</button></div></div>
+  <div id="projects"></div>
+</section>
+
+<section data-view="project" class="proj-page" hidden><div id="projEl"></div></section>
+
+<section data-view="studio" class="studio" hidden>
+  <p class="big">We are eleven people who believe a building should be <span class="it" style="color:var(--acc)">a little quieter than its site</span>. We draw by hand first, argue about daylight, and visit every site in the worst weather we can find.</p>
+  <div class="people" id="people"></div>
+  <div class="principles"><div><h4>01 — Weather first</h4><p>We design for the worst day of the year. The other 364 take care of themselves.</p></div><div><h4>02 — Local, literally</h4><p>Stone from the hillside, timber from the valley, builders from the village.</p></div><div><h4>03 — Room to wander</h4><p>Every building gets one space with no stated purpose. People always find one.</p></div></div>
+</section>
+
+<section data-view="contact" class="contact" hidden>
+  <div><p class="big">Let's make something <span class="it">quiet</span>.<br><a href="#contact">hello@orn.studio</a></p>
+    <dl><dt>Reykjavík</dt><dd>Grandagarður 16, 101</dd><dt>Lisbon</dt><dd>Rua da Boavista 42, 1200</dd><dt>Phone</dt><dd>+354 555 0142</dd><dt>Hours</dt><dd id="hours"></dd></dl>
+    <form class="form" id="cform"><input placeholder="Name" required><input placeholder="Email" type="email" required><textarea rows="3" placeholder="Tell us about the site"></textarea><button>Send</button><p id="cmsg" class="it" style="color:var(--acc)"></p></form></div>
+  <div class="mapBox"><svg viewBox="0 0 600 600" id="map"></svg></div>
+</section>
+<footer><span>© Studio Örn ehf.</span><span id="time"></span></footer>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'index';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('header nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id||(id==='project'&&a.getAttribute('href')==='#index')));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const tick=()=>{document.getElementById('time').textContent='Reykjavík '+new Date().toLocaleTimeString('en-GB',{timeZone:'Atlantic/Reykjavik',hour:'2-digit',minute:'2-digit'})+' · Lisbon '+new Date().toLocaleTimeString('en-GB',{timeZone:'Europe/Lisbon',hour:'2-digit',minute:'2-digit'})};tick();setInterval(tick,30000);
+
+/* projects: name, type, place, year, form params [w,d,h,roof,skew], palette, text */
+const P=[['House on the Lava Field','Residential','Hafnir, Iceland',2024,[5,3,2,'gable',0],['#2a2a28','#8a8f86'],'A black timber house that lies low against the wind, with one enormous window facing the only tree for miles.'],
+['Library of Small Hours','Cultural','Porto, Portugal',2023,[6,4,3,'saw',0],['#d9c9b0','#6a5a44'],'A 24-hour public library. The reading room is lit by a sawtooth roof, so daylight never falls directly on a page.'],
+['Harbour Baths','Public','Ísafjörður, Iceland',2022,[7,3,1,'flat',1],['#e6e6e1','#4a6a7a'],'Geothermal pools cut into the harbour wall. Swimmers look out at the fishing boats; the boats look back.'],
+['The Stair Chapel','Cultural','Alentejo, Portugal',2021,[2,2,5,'mono',0],['#f2ece1','#c84b2f'],'A chapel that is mostly a staircase. At the top: a single bench, and the plain.'],
+['Weather Station Hut','Unbuilt','Hornstrandir, Iceland',2026,[2,2,2,'gable',1],['#c84b2f','#1a1a1a'],'A red refuge for hikers and meteorologists. Designed to be carried in by boat, in eleven pieces.'],
+['Cork House','Residential','Sintra, Portugal',2020,[4,4,2,'flat',0],['#a8784a','#3a2a1a'],'Walls of expanded cork — warm, fragrant, and silent. The owner says it feels like living inside a wine barrel.'],
+['Lighthouse Keeper\'s Studio','Residential','Grótta, Iceland',2019,[2,3,4,'mono',1],['#f5f5f2','#111'],'A white tower beside a white tower. One is for ships; the other is for someone who paints them.'],
+['Market Under the Viaduct','Public','Lisbon, Portugal',2025,[8,2,2,'vault',0],['#d7d2c6','#556b4a'],'Twenty stalls tucked beneath a 19th-century viaduct. The arches do the architecture; we did the lighting.']];
+/* axonometric drawing */
+function axo(p,mode='axo',big=false){const [w,d,h,roof,sk]=p[4],[c1,c2]=p[5];const S=big?60:34,cx=big?450:150,cy=big?420:250;const iso=(x,y,z)=>[cx+(x-y)*S*.87,cy+(x+y)*S*.5-z*S];
+ let s=`<rect width="${big?900:300}" height="${big?700:375}" fill="${big?'#fff':'#efefeb'}"/>`;
+ if(mode==='axo'){const pts=a=>a.map(q=>iso(...q).join(',')).join(' ');const W=w,D=d,Hh=h;
+  s+=`<polygon points="${pts([[-1,-1,0],[W+1,-1,0],[W+1,D+1,0],[-1,D+1,0]])}" fill="#0000000a"/>`;
+  s+=`<polygon points="${pts([[0,D,0],[W,D,0],[W,D,Hh],[0,D,Hh]])}" fill="${c1}" stroke="#111" stroke-width="1"/>`;
+  s+=`<polygon points="${pts([[W,0,0],[W,D,0],[W,D,Hh],[W,0,Hh]])}" fill="${c2}" stroke="#111" stroke-width="1"/>`;
+  const R=roof==='gable'?pts([[0,D/2,Hh+1.2],[W,D/2,Hh+1.2],[W,D,Hh],[0,D,Hh]])+'|'+pts([[W,0,Hh],[W,D,Hh],[W,D/2,Hh+1.2]]):roof==='mono'?pts([[0,0,Hh+1],[W,0,Hh+1],[W,D,Hh],[0,D,Hh]]):roof==='saw'?[...Array(W)].map((_,i)=>pts([[i,0,Hh],[i+1,0,Hh],[i+1,D,Hh+.8],[i,D,Hh+.8]])).join('|'):roof==='vault'?pts([[0,0,Hh],[W,0,Hh],[W,D,Hh],[0,D,Hh]]):pts([[0,0,Hh],[W,0,Hh],[W,D,Hh],[0,D,Hh]]);
+  R.split('|').forEach((r,i)=>s+=`<polygon points="${r}" fill="${i%2?c2:'#f4f4f0'}" stroke="#111" stroke-width="1"/>`);
+  for(let i=1;i<W;i++){const [x1,y1]=iso(i,D,.4),[x2,y2]=iso(i,D,Hh-.4);if(i%2)s+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#fff8" stroke-width="${big?6:3}"/>`}
+  const [gx,gy]=iso(W*.3,D,0),[gx2,gy2]=iso(W*.3+Math.min(1.6,W*.3),D,Math.min(Hh*.8,1.6));s+=`<polygon points="${gx},${gy} ${gx2},${gy2-(gy2-gy)} ${gx2},${gy2} ${gx},${gy-(gy-gy2)}" fill="#9fc3d8" opacity=".7"/>`;
+  if(sk){s+=`<g stroke="#111" stroke-width=".7" fill="none">${[...Array(6)].map((_,i)=>`<circle cx="${iso(W+2+i*.3,D+1.5,0)[0]}" cy="${iso(W+2+i*.3,D+1.5,0)[1]-i*6}" r="${6+i*3}"/>`).join('')}</g>`}
+  s+=`<circle cx="${iso(-1.5,D+1,0)[0]}" cy="${iso(-1.5,D+1,0)[1]-S*.9}" r="${S*.28}" fill="none" stroke="#111"/><line x1="${iso(-1.5,D+1,0)[0]}" y1="${iso(-1.5,D+1,0)[1]-S*.6}" x2="${iso(-1.5,D+1,0)[0]}" y2="${iso(-1.5,D+1,0)[1]}" stroke="#111"/>`}
+ else if(mode==='plan'){const X=big?120:40,Y=big?120:60,U=big?80:32;s+=`<rect x="${X}" y="${Y}" width="${w*U}" height="${d*U}" fill="none" stroke="#111" stroke-width="${big?8:4}"/>`;for(let i=1;i<w;i++)if(i%2)s+=`<line x1="${X+i*U}" y1="${Y}" x2="${X+i*U}" y2="${Y+d*U*.6}" stroke="#111" stroke-width="${big?3:2}"/>`;s+=`<path d="M${X+w*U*.3} ${Y+d*U} a${U*.8} ${U*.8} 0 0 0 ${U*.8} ${-U*.8}" fill="none" stroke="#111" stroke-width="1"/><rect x="${X+U*.3}" y="${Y+U*.3}" width="${U*1.2}" height="${U*.6}" fill="#0001" stroke="#111"/>`;
+  s+=`<text x="${X}" y="${Y-14}" font-family="Archivo" font-size="${big?16:11}">GROUND FLOOR PLAN</text><g transform="translate(${X+w*U+40} ${Y+20})"><circle r="16" fill="none" stroke="#111"/><path d="M0 -14 L5 4 L0 0 L-5 4Z" fill="${p[5][0]==='#f5f5f2'?'#c84b2f':p[5][0]}"/><text y="34" text-anchor="middle" font-size="12" font-family="Archivo">N</text></g>`}
+ else{const X=big?100:30,G=big?560:300,U=big?80:32;s+=`<line x1="0" y1="${G}" x2="${big?900:300}" y2="${G}" stroke="#111" stroke-width="2"/><rect x="${X}" y="${G-h*U}" width="${w*U}" height="${h*U}" fill="none" stroke="#111" stroke-width="${big?6:3}"/>`;
+  if(roof==='gable')s+=`<polyline points="${X},${G-h*U} ${X+w*U/2},${G-h*U-U*1.2} ${X+w*U},${G-h*U}" fill="none" stroke="#111" stroke-width="${big?6:3}"/>`;if(roof==='mono')s+=`<line x1="${X}" y1="${G-h*U-U}" x2="${X+w*U}" y2="${G-h*U}" stroke="#111" stroke-width="${big?6:3}"/>`;if(roof==='saw')for(let i=0;i<w;i++)s+=`<polyline points="${X+i*U},${G-h*U} ${X+i*U},${G-h*U-U*.8} ${X+(i+1)*U},${G-h*U}" fill="none" stroke="#111" stroke-width="2"/>`;if(roof==='vault')for(let i=0;i<w;i+=2)s+=`<path d="M${X+i*U} ${G} A${U} ${U*1.2} 0 0 1 ${X+(i+2)*U} ${G}" fill="none" stroke="#111" stroke-width="2"/>`;
+  s+=`<path d="M${X+w*U*.6} ${G-h*U*.3} L${X+w*U*.6+40} ${G-h*U*.3-60}" stroke="#c84b2f" stroke-width="1.5" stroke-dasharray="4 4"/><text x="${X+w*U*.6+44}" y="${G-h*U*.3-64}" font-family="Newsreader" font-style="italic" font-size="${big?18:11}" fill="#c84b2f">low winter sun</text><rect x="${X+w*U+30}" y="${G-26}" width="10" height="26" fill="#111"/><circle cx="${X+w*U+35}" cy="${G-32}" r="6" fill="#111"/>`;
+  s+=`<text x="${X}" y="${G+30}" font-family="Archivo" font-size="${big?16:11}">SECTION A–A</text>`}
+ return `<svg viewBox="0 0 ${big?900:300} ${big?700:375}" preserveAspectRatio="xMidYMid slice">${s}</svg>`}
+
+/* list/grid */
+let filt='all',view='list';const pre=document.getElementById('preview');
+function renderList(){const L=P.map((p,i)=>[p,i]).filter(([p])=>filt==='all'||p[1]===filt);const el=document.getElementById('projects');el.className=view;
+ el.innerHTML=L.map(([p,i])=>view==='list'?`<div class="proj" data-i="${i}"><span>${String(i+1).padStart(2,'0')}</span><div class="t">${p[0]}</div><span>${p[2]}</span><span>${p[1]}</span><span style="text-align:right">${p[3]}</span></div>`:`<div class="proj" data-i="${i}"><div class="img">${axo(p)}</div><p><b style="font-weight:400">${p[0]}</b><span style="color:var(--mute)">${p[3]}</span></p></div>`).join('')}
+document.getElementById('filters').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.f){filt=b.dataset.f;document.querySelectorAll('[data-f]').forEach(x=>x.classList.toggle('on',x===b))}if(b.dataset.v){view=b.dataset.v;document.querySelectorAll('[data-v]').forEach(x=>x.classList.toggle('on',x===b))}renderList()};
+const projects=document.getElementById('projects');
+projects.addEventListener('mousemove',e=>{if(view!=='list'){pre.classList.remove('on');return}const r=e.target.closest('.proj');if(!r){pre.classList.remove('on');return}const i=+r.dataset.i;if(pre.dataset.i!=i){pre.innerHTML=axo(P[i]);pre.dataset.i=i}pre.style.left=e.clientX+180+'px';pre.style.top=e.clientY+'px';pre.classList.add('on')});
+projects.addEventListener('mouseleave',()=>pre.classList.remove('on'));
+projects.addEventListener('click',e=>{const r=e.target.closest('.proj');if(r){pre.classList.remove('on');openP(+r.dataset.i)}});
+renderList();
+
+/* project page */
+let cur=0,mode='axo';
+function openP(i){cur=(i+P.length)%P.length;mode='axo';renderP();go('project')}
+function renderP(){const p=P[cur];document.getElementById('projEl').innerHTML=`<div class="ph"><h1>${p[0]}</h1><dl class="meta"><dt>Type</dt><dd>${p[1]}</dd><dt>Location</dt><dd>${p[2]}</dd><dt>Year</dt><dd>${p[3]}</dd><dt>Area</dt><dd>${p[4][0]*p[4][1]*22} m²</dd><dt>Status</dt><dd>${p[1]==='Unbuilt'?'Competition entry':'Completed'}</dd></dl></div>
+ <div class="draw"><div class="tabs"><button data-m="axo" class="${mode==='axo'?'on':''}">Axonometric</button><button data-m="plan" class="${mode==='plan'?'on':''}">Plan</button><button data-m="section" class="${mode==='section'?'on':''}">Section</button></div>${axo(p,mode,true)}<div class="scale">1:200 · drawn by Studio Örn</div></div>
+ <div class="text"><p class="it">"${p[6].split('.')[0]}."</p><p>${p[6]} The brief asked for ${p[1]==='Residential'?'a home':'a public room'}; we gave it a view, a threshold and a place to sit out of the wind. Materials are few and honest — ${p[5][0]==='#2a2a28'?'charred larch':'lime render, oak'} and glass — and the building is expected to weather gracefully for a hundred years.</p></div>
+ <div class="nextP"><button id="pPrev">← ${P[(cur-1+P.length)%P.length][0]}</button><button id="pNext">${P[(cur+1)%P.length][0]} →</button></div>`;
+ document.querySelectorAll('.draw .tabs button').forEach(b=>b.onclick=()=>{mode=b.dataset.m;renderP()});document.getElementById('pPrev').onclick=()=>openP(cur-1);document.getElementById('pNext').onclick=()=>openP(cur+1)}
+
+/* studio people */
+const PEOPLE=[['Katrín Örnsdóttir','Founding partner'],['Tiago Mendes','Partner'],['Sunna Jónsdóttir','Architect'],['Inês Carvalho','Architect'],['Baldur Magnússon','Model maker'],['Rita Ferraz','Landscape'],['Óli Pétursson','Engineer'],['Marta Sousa','Studio manager']];
+document.getElementById('people').innerHTML=PEOPLE.map(([n,r],i)=>`<div class="person"><div class="ph2"><svg viewBox="0 0 120 160"><rect width="120" height="160" fill="${['#d9c9b0','#c8d3d8','#e6d6c8','#cfd8c0'][i%4]}"/><circle cx="60" cy="62" r="24" fill="#f0d9c4"/><path d="M${34+i%3*2} ${56} Q60 ${22+i%4*4} ${86-i%2*4} 56 L86 ${46+i%3*6} Q60 ${30} 34 46Z" fill="${['#2a1a10','#6a4a2a','#b8a080','#111'][i%4]}"/><path d="M20 160 Q60 96 100 160" fill="${['#111','#c84b2f','#4a6a7a','#556b4a'][i%4]}"/></svg></div><b>${n}</b><small>${r}</small></div>`).join('');
+
+/* contact map */
+const M=document.getElementById('map');let ms=`<rect width="600" height="600" fill="#fff"/>`;for(let i=0;i<14;i++){ms+=`<line x1="${i*48}" y1="0" x2="${i*48-120}" y2="600" stroke="#e4e4e0" stroke-width="${i%4?1:6}"/><line x1="0" y1="${i*46}" x2="600" y2="${i*46+60}" stroke="#e4e4e0" stroke-width="${i%5?1:8}"/>`}
+ms+=`<path d="M0 420 Q150 380 300 440 T600 400 L600 600 L0 600Z" fill="#dde8ee"/><text x="40" y="540" font-family="Newsreader" font-style="italic" font-size="22" fill="#7a9aaa">Faxaflói bay</text><circle cx="330" cy="300" r="10" fill="#c84b2f"/><circle cx="330" cy="300" r="10" fill="none" stroke="#c84b2f"><animate attributeName="r" values="10;40" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="2s" repeatCount="indefinite"/></circle><text x="350" y="296" font-family="Archivo" font-weight="600" font-size="15">Studio Örn</text><text x="350" y="314" font-family="Archivo" font-size="12" fill="#9a9a96">Grandagarður 16</text>`;M.innerHTML=ms;
+const h=new Date().toLocaleString('en-GB',{timeZone:'Atlantic/Reykjavik',hour:'numeric',hour12:false});document.getElementById('hours').textContent=`Mon–Fri 9–17 · ${h>=9&&h<17?'open now':'closed now'}`;
+document.getElementById('cform').onsubmit=e=>{e.preventDefault();document.getElementById('cmsg').textContent='Thank you. We\'ll reply after our next site visit. (Demo — nothing was sent.)'};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

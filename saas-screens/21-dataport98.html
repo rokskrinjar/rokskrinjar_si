@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dataport 98 — Enterprise Data Sync</title>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--d:#008080;--g:#c0c0c0;--hi:#fff;--sh:#808080;--dk:#000;--ti:#000080;--ti2:#1084d0}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--d);font:12px/1.35 Tahoma,'Segoe UI',sans-serif;color:#000;overflow:hidden;user-select:none}
+.bev{background:var(--g);box-shadow:inset -1px -1px var(--dk),inset 1px 1px var(--hi),inset -2px -2px var(--sh),inset 2px 2px #dfdfdf}
+.in{background:#fff;box-shadow:inset -1px -1px var(--hi),inset 1px 1px var(--sh),inset -2px -2px #dfdfdf,inset 2px 2px var(--dk)}
+.icons{position:absolute;left:12px;top:12px;display:grid;gap:18px}
+.ic{width:76px;text-align:center;color:#fff;cursor:pointer}.ic i{display:block;font-size:30px;font-style:normal;line-height:1.2;filter:drop-shadow(1px 1px 0 #000)}.ic span{padding:1px 3px}.ic.sel span{background:var(--ti);outline:1px dotted #fff}
+.win{position:absolute;padding:3px;min-width:260px}
+.tb{background:linear-gradient(90deg,var(--ti),var(--ti2));color:#fff;font:600 13px 'Pixelify Sans',Tahoma;padding:3px 4px 3px 6px;display:flex;align-items:center;gap:6px;cursor:move}
+.tb.off{background:linear-gradient(90deg,#808080,#b5b5b5)}.tb .sp{flex:1}
+.tb button{width:18px;height:16px;padding:0;font:700 10px Tahoma;line-height:1;cursor:pointer;border:0}
+.menu{display:flex;gap:2px;padding:3px 2px}.menu span{padding:2px 6px}.menu span:hover{background:var(--ti);color:#fff}
+.body{padding:8px}
+.btn{padding:5px 14px;min-width:76px;border:0;font:12px Tahoma;cursor:pointer}.btn:active{box-shadow:inset 1px 1px var(--dk),inset -1px -1px var(--hi)}
+.prog{height:22px;padding:3px;display:flex;gap:2px;overflow:hidden}.prog i{width:10px;height:100%;background:var(--ti);flex:none}
+fieldset{border:1px solid var(--sh);box-shadow:1px 1px var(--hi);padding:8px 10px;margin:8px 0}legend{padding:0 4px}
+.tbl{height:150px;overflow:auto}.tbl table{border-collapse:collapse;width:100%}.tbl th{position:sticky;top:0;text-align:left;font-weight:400;padding:2px 6px}.tbl td{padding:2px 6px;white-space:nowrap}.tbl tr.s td{background:var(--ti);color:#fff}
+.bar{position:fixed;left:0;right:0;bottom:0;height:34px;padding:3px;display:flex;gap:4px;align-items:center;z-index:50}
+.start{display:flex;align-items:center;gap:4px;font:700 13px 'Pixelify Sans';padding:3px 8px;height:26px;border:0;cursor:pointer}
+.task{height:26px;padding:3px 8px;min-width:150px;display:flex;align-items:center;gap:6px;border:0;font:12px Tahoma;cursor:pointer}
+.tray{margin-left:auto;height:26px;padding:4px 10px;display:flex;gap:8px;align-items:center}
+.smenu{position:fixed;left:3px;bottom:34px;width:240px;display:none;z-index:60;padding:3px}.smenu.on{display:flex}
+.smenu .side{background:linear-gradient(0deg,var(--ti),var(--ti2));color:#c0c0c0;writing-mode:vertical-rl;transform:rotate(180deg);font:700 20px 'Pixelify Sans';padding:8px 4px}
+.smenu .items{flex:1}.smenu .items div{padding:7px 10px;display:flex;gap:10px;align-items:center;cursor:pointer}.smenu .items div:hover{background:var(--ti);color:#fff}
+.clippy{position:absolute;right:30px;bottom:60px;display:flex;align-items:flex-end;gap:6px}
+.tip{background:#ffffe1;border:1px solid #000;border-radius:10px;padding:10px;max-width:230px;position:relative}.tip::after{content:'';position:absolute;right:-9px;bottom:14px;border:8px solid transparent;border-left-color:#000}
+.clip{font-size:54px;line-height:1;animation:bob 2s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-6px)}}
+@media(max-width:800px){.win{position:relative!important;left:auto!important;top:auto!important;margin:8px;width:auto!important}.icons,.clippy{display:none}body{overflow:auto}}
+</style>
+</head>
+<body>
+<div class="icons"><div class="ic"><i>🖥</i><span>My Data</span></div><div class="ic sel"><i>🔄</i><span>Dataport Sync</span></div><div class="ic"><i>📊</i><span>Reports</span></div><div class="ic"><i>🗑</i><span>Recycle Bin</span></div></div>
+<div class="win bev" id="w1" style="left:120px;top:30px;width:560px">
+ <div class="tb"><span>🔄</span><span>Dataport 98 — Sync Wizard</span><span class="sp"></span><button class="bev">_</button><button class="bev">□</button><button class="bev">✕</button></div>
+ <div class="menu"><span>File</span><span>Edit</span><span>Sync</span><span>Tools</span><span>Help</span></div>
+ <div class="body"><div style="display:flex;gap:12px"><div style="width:120px;height:170px;background:linear-gradient(#000080,#1084d0);color:#fff;padding:10px;font:600 14px 'Pixelify Sans'">Welcome to the<br>Dataport Sync<br>Wizard<div style="font-size:44px;margin-top:20px">💾</div></div>
+  <div style="flex:1"><p style="margin:0 0 6px"><b>Step 3 of 4:</b> Synchronising your CRM with the data warehouse.</p>
+   <fieldset><legend>Source → Destination</legend>📇 Salesforce (EU-14) → 🏛 Snowflake / ANALYTICS.CRM</fieldset>
+   <fieldset><legend>Progress</legend><div class="prog in" id="prog"></div><div style="display:flex;justify-content:space-between;margin-top:5px"><span id="ptx">Copying records…</span><span id="pct">0%</span></div><div style="margin-top:4px;color:#444" id="eta">Estimated time remaining: 2 minutes</div></fieldset>
+   <label><input type="checkbox" checked> Schedule nightly at 02:00</label><br><label><input type="checkbox" checked> E-mail me if anything fails</label></div></div>
+  <div style="display:flex;justify-content:flex-end;gap:6px;margin-top:10px;border-top:1px solid var(--sh);box-shadow:0 1px var(--hi) inset;padding-top:10px"><button class="btn bev">&lt; Back</button><button class="btn bev">Next &gt;</button><button class="btn bev">Cancel</button></div></div></div>
+<div class="win bev" id="w2" style="left:420px;top:330px;width:470px">
+ <div class="tb off"><span>📋</span><span>Records — accounts.tbl</span><span class="sp"></span><button class="bev">_</button><button class="bev">✕</button></div>
+ <div class="body"><div class="tbl in"><table><thead><tr><th class="bev">Account</th><th class="bev">Owner</th><th class="bev">ARR</th><th class="bev">Status</th></tr></thead><tbody id="rows"></tbody></table></div><div style="margin-top:6px;color:#444" id="cnt">0 objects</div></div></div>
+<div class="clippy"><div class="tip"><b>It looks like you’re syncing 48,210 records!</b><br>Would you like help mapping custom fields?<div style="margin-top:8px;display:flex;gap:6px"><button class="btn bev" style="min-width:0">Yes</button><button class="btn bev" style="min-width:0" onclick="this.closest('.clippy').remove()">Don’t show again</button></div></div><div class="clip">📎</div></div>
+<div class="smenu bev" id="sm"><div class="side">Dataport<b style="color:#fff">98</b></div><div class="items"><div>📊 Reports</div><div>🔄 Sync Wizard</div><div>🔌 Connectors</div><div>⚙ Control Panel</div><div>❓ Help</div><div style="border-top:1px solid var(--sh)">⏻ Shut Down…</div></div></div>
+<div class="bar bev"><button class="start bev" id="st">🪟 Start</button><button class="task in">🔄 Sync Wizard</button><button class="task bev">📋 accounts.tbl</button><div class="tray in">🔊 📶 <span id="clk">14:07</span></div></div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;top:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const prog=document.getElementById('prog');let p=0;
+const R=[['Halden Bank','J. Moreau','€184,000','Synced'],['Orbis Retail','S. Ruiz','€42,000','Synced'],['Fjord Energy','L. Teo','€96,000','Synced'],['Kilnworks','A. Kahn','€23,500','Conflict'],['Velo Mobility','J. Moreau','€151,000','Synced'],['Ashgrove Health','S. Ruiz','€78,000','Synced'],['Pellucid AI','A. Kahn','€212,000','Synced'],['Stonebridge Law','L. Teo','€64,000','Synced'],['Marlow Foods','J. Moreau','€118,000','Synced'],['Tessera Labs','S. Ruiz','€56,000','Synced']];let ri=0;
+setInterval(()=>{p=p>=100?0:p+1;if(p===0){prog.innerHTML='';ri=0;document.getElementById('rows').innerHTML=''}const n=Math.floor(p/100*Math.floor((prog.clientWidth-6)/12));while(prog.children.length<n)prog.appendChild(document.createElement('i'));document.getElementById('pct').textContent=p+'%';document.getElementById('eta').textContent=p>=100?'Done! 48,210 records in 1 min 52 s':`Estimated time remaining: ${Math.max(1,Math.round((100-p)/40*1.2))} minute(s)`;document.getElementById('ptx').textContent=p>=100?'Complete.':'Copying records…';
+ if(p%9===0&&ri<R.length){const r=R[ri++];document.getElementById('rows').insertAdjacentHTML('beforeend',`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]==='Conflict'?'⚠ Conflict':'✓ '+r[3]}</td></tr>`);document.getElementById('cnt').textContent=ri*4821+' object(s)'}},140);
+document.getElementById('rows').onclick=e=>{const tr=e.target.closest('tr');if(!tr)return;document.querySelectorAll('#rows tr').forEach(r=>r.classList.toggle('s',r===tr))};
+document.getElementById('st').onclick=e=>{e.stopPropagation();document.getElementById('sm').classList.toggle('on')};document.body.onclick=()=>document.getElementById('sm').classList.remove('on');
+let z=10;document.querySelectorAll('.win').forEach(w=>{w.onmousedown=()=>{w.style.zIndex=++z;document.querySelectorAll('.tb').forEach(t=>t.classList.toggle('off',t.parentNode!==w))};const tb=w.querySelector('.tb');tb.onpointerdown=e=>{const ox=e.clientX-w.offsetLeft,oy=e.clientY-w.offsetTop;tb.setPointerCapture(e.pointerId);tb.onpointermove=m=>{w.style.left=(m.clientX-ox)+'px';w.style.top=Math.max(0,m.clientY-oy)+'px'};tb.onpointerup=()=>tb.onpointermove=null}});
+document.querySelectorAll('.ic').forEach(i=>i.onclick=()=>document.querySelectorAll('.ic').forEach(x=>x.classList.toggle('sel',x===i)));
+setInterval(()=>{const d=new Date();document.getElementById('clk').textContent=d.toTimeString().slice(0,5)},5000);
+</script>
+</body>
+</html>

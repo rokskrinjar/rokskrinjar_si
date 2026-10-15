@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pricepoint — Pricing & discount analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#fafaf9;--ink:#121212;--ink2:#4a4a48;--ink3:#80807b;--grid:#ececea;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--q1:#cde2fb;--q2:#9ec5f4;--q3:#6da7ec;--q4:#3987e5;--q5:#256abf;--q6:#104281;--pos:#2a78d6;--neg:#e34948;--good:#12805c;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Schibsted Grotesk',sans-serif}
+.mono{font-family:'JetBrains Mono',monospace}
+.bar{background:var(--ink);color:#f2f2f0;display:flex;align-items:center;gap:22px;padding:0 28px;height:54px;overflow-x:auto}
+.lg{font-weight:800;font-size:18px;display:flex;align-items:center;gap:8px;white-space:nowrap}.lg i{font-style:normal;color:var(--s4)}
+.bar button{border:0;background:none;color:#a5a5a0;font:600 13.5px 'Schibsted Grotesk';cursor:pointer;height:54px;box-shadow:inset 0 -3px 0 transparent;white-space:nowrap}.bar button.on{color:#fff;box-shadow:inset 0 -3px 0 var(--s4)}
+.sub2{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 28px;border-bottom:1px solid var(--grid);background:var(--surface)}
+.sub2 .src{font:400 11.5px 'JetBrains Mono';color:var(--ink3)}
+.filters{display:flex;gap:6px;flex-wrap:wrap}.filters button{border:1px solid #ddd;background:#fff;border-radius:6px;padding:6px 11px;font:600 12.5px 'Schibsted Grotesk';cursor:pointer;color:var(--ink2)}.filters button.on{border-color:var(--ink);color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.wrap{padding:18px 28px 70px;max-width:1440px;margin:0 auto}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-bottom:16px;border-bottom:1px solid var(--grid)}
+.kpi{padding:4px 18px 16px 0}.kpi+.kpi{padding-left:18px;border-left:1px solid var(--grid)}.kpi .l{font-size:12.5px;color:var(--ink3)}.kpi .v{font:500 30px 'JetBrains Mono';letter-spacing:-.04em}.kpi .d{font-size:12px;font-weight:600}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:16px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border:1px solid var(--grid);border-radius:10px;padding:18px 20px;min-width:0}.card h3{margin:0;font-size:15px;font-weight:700}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.rule{background:#fff8e6;border:1px solid #f1dfae;border-radius:10px;padding:12px 14px;font-size:13.5px;margin-bottom:16px}.rule b{color:#7a5500}
+.ok{color:var(--good);font-weight:600}.no{color:var(--bad);font-weight:600}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.kpi:nth-child(4){border-left:0;padding-left:0}.g2,.g21{grid-template-columns:1fr}}@media(max-width:640px){.wrap,.sub2{padding-left:16px;padding-right:16px}.kpis{grid-template-columns:1fr 1fr}.kpi{border-left:0!important;padding-left:0!important}}
+</style>
+</head>
+<body>
+<nav class="bar"><div class="lg"><i>◆</i>Pricepoint</div><button data-sheet="disc">Discounting</button><button data-sheet="real">Price realisation</button><button data-sheet="pkg">Packaging</button><button data-sheet="desk">Deal desk</button><button data-sheet="sim">Price test</button></nav>
+<div class="sub2"><div class="filters"><button data-f="range" data-v="90d">Quarter</button><button data-f="range" data-v="12m" class="on">12 months</button><span style="width:8px"></span><button data-f="seg" data-v="all" class="on">All</button><button data-f="seg" data-v="mm">Mid-market</button><button data-f="seg" data-v="ent">Enterprise</button></div><span class="src">Salesforce CPQ quotes · DealHub approvals · Stripe invoices · Gong pricing mentions</span></div>
+<div class="wrap">
+ <section data-panel="disc"><div class="kpis" id="k1"></div><div class="rule" id="rule"></div>
+  <div class="g g21"><div class="card"><h3>How deep the discounts go</h3><p class="sub">Closed-won deals by discount off list price</p><div id="c_hist"></div></div><div class="card"><h3>Discount by quarter-end proximity</h3><p class="sub">Average discount by days before quarter end the deal closed</p><div id="c_qe"></div></div></div>
+  <div class="card" style="margin-top:16px"><h3>Discount vs. win rate, by rep</h3><p class="sub">Do bigger discounts actually win more? Each dot is a rep.</p><div id="c_sc"></div></div></section>
+ <section data-panel="real" hidden><div class="kpis" id="k2"></div>
+  <div class="card"><h3>Price realisation by product</h3><p class="sub">Average invoiced price ÷ list price (tick = 90% target)</p><div id="c_bul"></div></div>
+  <div class="card" style="margin-top:16px"><h3>Realised price per seat over time</h3><p class="sub">Stripe invoiced amount ÷ seats, new contracts</p><div id="c_ppu"></div></div></section>
+ <section data-panel="pkg" hidden><div class="g g2"><div class="card"><h3>Plan mix of new bookings</h3><p class="sub">Share of new ARR</p><div id="c_mix"></div></div><div class="card"><h3>Add-on attach rate</h3><p class="sub">Share of new deals including each add-on</p><div id="c_att"></div></div></div>
+  <div class="card" style="margin-top:16px"><h3>Where customers sit against plan limits</h3><p class="sub">Seats used ÷ seats bought, by plan · darker = more customers</p><div id="c_lim"></div></div></section>
+ <section data-panel="desk" hidden><div class="kpis" id="k4"></div>
+  <div class="g g2"><div class="card"><h3>Approval time by discount band</h3><p class="sub">Median hours from quote submitted to approved</p><div id="c_appr"></div></div><div class="card"><h3>Non-standard terms requested</h3><p class="sub">Share of enterprise quotes</p><div id="c_terms"></div></div></div>
+  <div class="card" style="margin-top:16px"><h3>Approval queue</h3><p class="sub">Quotes waiting on deal desk right now</p><div id="t_q"></div></div></section>
+ <section data-panel="sim" hidden><div class="card"><h3>Price test: Business plan $49 → $59 / seat</h3><p class="sub">50/50 split of self-serve sign-ups for 6 weeks (Stripe price IDs) · 4,812 visitors per arm</p><div id="c_ab"></div></div>
+  <div class="g g2" style="margin-top:16px"><div class="card"><h3>Conversion to paid</h3><p class="sub">By arm, cumulative</p><div id="c_conv"></div></div><div class="card"><h3>Revenue per visitor</h3><p class="sub">The number that decides it</p><div id="c_rpv"></div></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const memo={};
+function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const m=F.range==='90d'?.27:1;const d={all:.17,mm:.13,ent:.22}[F.seg];return memo[k]={r,m,d,L:K.periods(F.range)}}
+const S={range:'12m',seg:'all'};
+const views={
+disc(F){const D=data(F);K.kpis($('k1'),[{label:'Average discount',value:K.pct(D.d),delta:.012,goodDown:true,deltaText:'1.2 pts'},{label:'Revenue given away',value:K.money(31e6*D.m*D.d/(1-D.d))},{label:'Deals > 25% off',value:'14%'},{label:'Discounts without a give-get',value:'61%',delta:.08,goodDown:true,deltaText:'8 pts'},{label:'Win rate lift above 20% off',value:'+1 pt'}]);
+ $('rule').innerHTML='<b>Finding:</b> discounts above 20% raise win rate by just 1 point, but cost '+K.money(31e6*D.m*.04)+' a year. Deals that asked for something in return (longer term, case study, prepay) got the same win rate with half the discount.';
+ const r=D.r;K.bars($('c_hist'),{labels:['0%','1–5%','6–10%','11–15%','16–20%','21–25%','26–30%','30%+'],series:[{name:'Deals',data:[38,22,41,47,52,31,19,11].map(v=>Math.round(v*D.m*(.85+r()*.3)))}],fmt:K.int,h:260});
+ K.line($('c_qe'),{labels:['60+ days','45','30','21','14','7','3','Last day'],series:[{name:'Avg discount',data:[.12,.13,.14,.16,.18,.21,.24,.27].map(v=>v*D.d/.17)}],fmt:v=>K.pct(v,0),h:260});
+ const N=['Ana R.','Ben O.','Chloé M.','Dev P.','Elin B.','Felix W.','Grace K.','Hugo S.','Iris N.','Jonas L.'];K.scatter($('c_sc'),{points:N.map(n=>{const dd=.08+r()*.22;return{x:dd,y:.18+r()*.15+dd*.05,label:n,tag:dd>.27}}),xfmt:v=>K.pct(v,0),yfmt:v=>K.pct(v,0),xLabel:'Average discount',yLabel:'Win rate',h:280})},
+real(F){const D=data(F);K.kpis($('k2'),[{label:'Price realisation',value:K.pct(1-D.d),delta:-.01,deltaText:'1 pt'},{label:'List price per seat',value:'$49'},{label:'Realised per seat',value:'$'+(49*(1-D.d)).toFixed(2)},{label:'Ramp deals',value:'23%'},{label:'Uplift at renewal',value:'+6.1%'}]);
+ K.bullet($('c_bul'),{rows:[['Business plan',1-D.d*.8,.9],['Enterprise plan',1-D.d*1.3,.9],['AI add-on',1-D.d*.5,.9],['Analytics add-on',1-D.d*.9,.9],['Premium support',1-D.d*.3,.9],['Services',1-D.d*1.6,.9]],fmt:v=>K.pct(v,0)});
+ K.line($('c_ppu'),{labels:D.L,series:[{name:'Business plan',data:K.series(D.r,D.L.length,49*(1-D.d*.8),{noise:.03,trend:.04})},{name:'Enterprise plan',data:K.series(D.r,D.L.length,79*(1-D.d*1.3),{noise:.03,trend:-.02})}],fmt:v=>'$'+v.toFixed(0),h:260,yMin:30})},
+pkg(F){const D=data(F);K.donut($('c_mix'),{items:[{name:'Pro',value:.18},{name:'Business',value:.47},{name:'Enterprise',value:.35}],fmt:v=>K.pct(v,0)});
+ K.bars($('c_att'),{labels:['AI assistant','Advanced analytics','Premium support','SSO & audit','Sandbox'],series:[{name:'Attach rate',data:[.38,.27,.21,.44,.09]}],fmt:v=>K.pct(v,0),horizontal:true,h:250});
+ const r=K.rng(K.seed(F,'l'));K.heat($('c_lim'),{rows:['Pro','Business','Enterprise'],cols:['< 50%','50–70%','70–90%','90–100%','Over limit'],data:[[.12,.21,.31,.24,.12],[.18,.27,.29,.19,.07],[.31,.33,.22,.11,.03]],fmt:v=>K.pct(v,0),cell:34})},
+desk(F){const D=data(F);K.kpis($('k4'),[{label:'Quotes approved',value:K.int(612*D.m)},{label:'Median approval time',value:'6.4 h',delta:-.21,goodDown:true,deltaText:'1.7 h'},{label:'Auto-approved',value:'58%'},{label:'Rejected / revised',value:'12%'},{label:'Waiting now',value:'9'}]);
+ K.bars($('c_appr'),{labels:['0–10%','11–20%','21–30%','30%+'],series:[{name:'Median hours',data:[.2,4.1,13.5,31]}],fmt:v=>v.toFixed(1)+' h',h:250});
+ K.bars($('c_terms'),{labels:['Custom payment terms','Price lock > 1 yr','Uncapped liability','Termination for convenience','MFN clause'],series:[{name:'Share of quotes',data:[.41,.33,.12,.19,.08]}],fmt:v=>K.pct(v,0),horizontal:true,h:250});
+ const r=K.rng(K.seed(F,'q'));K.table($('t_q'),{cols:[{k:'a',label:'Account'},{k:'rep',label:'Rep'},{k:'acv',label:'ACV',align:'r',fmt:K.money},{k:'disc',label:'Discount',align:'r',fmt:v=>K.pct(v,0),bar:true},{k:'give',label:'Give-get',render:v=>{const s=document.createElement('span');s.className=v?'ok':'no';s.textContent=v?'✓ '+v:'✗ none';return s}},{k:'wait',label:'Waiting',align:'r'}],rows:['Halden Bank','Velo Mobility','Ashgrove Health','Orbis Retail','Northbeam','Tessera Labs','Calder Labs'].map(a=>({a,rep:K.pick(r,['Ana R.','Ben O.','Felix W.','Grace K.']),acv:40e3+r()*260e3,disc:.12+r()*.22,give:K.pick(r,['3-yr term','case study','prepay annual','','']),wait:Math.round(1+r()*30)+' h'})),sort:'disc'})},
+sim(F){const D=data(F);const W=['W1','W2','W3','W4','W5','W6'];
+ K.bars($('c_ab'),{labels:['Visitors','Trials','Paid','Revenue (6 wks)'],series:[{name:'$49 (control)',data:[4812,602,151,151*49*8]},{name:'$59 (test)',data:[4806,588,139,139*59*8]}],fmt:K.num,h:260});
+ K.line($('c_conv'),{labels:W,series:[{name:'$49 (control)',data:[.006,.012,.018,.023,.028,.0314]},{name:'$59 (test)',data:[.005,.011,.016,.021,.025,.0289]}],fmt:v=>K.pct(v,1),h:240});
+ K.bars($('c_rpv'),{labels:['$49 (control)','$59 (test)'],series:[{name:'Revenue per visitor',data:[151*49*8/4812,139*59*8/4806]}],fmt:v=>'$'+v.toFixed(2),h:240,colorBy:i=>K.S(i)})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

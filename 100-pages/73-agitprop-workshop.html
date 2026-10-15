@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGITPROP — Poster Workshop</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#d7261e;--black:#141210;--cream:#efe4cc;--grey:#8a8478}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--black);font-family:'PT Sans Narrow',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;cursor:pointer;color:inherit}
+header{display:grid;grid-template-columns:auto 1fr;align-items:stretch;border-bottom:6px solid var(--black);position:relative;overflow:hidden}
+.logo{background:var(--red);color:var(--cream);font-family:Anton;font-size:40px;padding:10px 30px 10px 20px;clip-path:polygon(0 0,100% 0,88% 100%,0 100%);letter-spacing:.02em}
+nav{display:flex;align-items:center;gap:0;flex-wrap:wrap;padding-left:10px}
+nav a{font-family:Anton;font-size:20px;padding:10px 16px;text-transform:uppercase;letter-spacing:.04em;transform:skewX(-12deg)}
+nav a.on{background:var(--black);color:var(--cream)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1300px;margin:0 auto;padding:30px 4vw 80px}
+h2{font-family:Anton;font-weight:400;font-size:clamp(3rem,8vw,7rem);line-height:.85;text-transform:uppercase;transform:rotate(-3deg);transform-origin:left}
+h2 span{color:var(--red)}
+.sub{font-size:20px;max-width:56ch;line-height:1.4;margin:24px 0}
+/* workshop */
+.ws{display:grid;grid-template-columns:minmax(0,520px) 1fr;gap:40px;align-items:start}
+.poster{background:var(--cream);box-shadow:14px 14px 0 var(--black);border:3px solid var(--black);aspect-ratio:2/3;width:100%}
+.poster svg{width:100%;height:100%;display:block}
+.ctrl label{display:block;font-family:Anton;font-size:18px;text-transform:uppercase;margin:18px 0 8px;letter-spacing:.04em}
+.ctrl input[type=text]{width:100%;font-family:Anton;font-size:28px;text-transform:uppercase;padding:8px 12px;border:3px solid var(--black);background:#fff}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{border:3px solid var(--black);background:none;padding:6px 12px;font-family:Anton;text-transform:uppercase;letter-spacing:.04em}
+.chips button.on{background:var(--black);color:var(--cream)}
+.sw{width:40px;height:40px;border:3px solid var(--black)!important;padding:0!important}
+.sw.on{outline:4px solid var(--red);outline-offset:2px}
+.big{font-family:Anton;font-size:24px;background:var(--red);color:var(--cream);border:3px solid var(--black);padding:12px 24px;text-transform:uppercase;box-shadow:6px 6px 0 var(--black);margin-top:20px}
+.big:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--black)}
+input[type=range]{width:100%;accent-color:var(--red)}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:26px}
+.gp{border:3px solid var(--black);box-shadow:8px 8px 0 var(--black);background:var(--cream);aspect-ratio:2/3;transition:transform .2s;padding:0}
+.gp:hover{transform:rotate(-2deg) translateY(-6px)}
+.gp svg{width:100%;height:100%;display:block}
+/* manifesto */
+.man{display:grid;gap:0}
+.thesis{display:grid;grid-template-columns:140px 1fr 200px;gap:30px;align-items:center;padding:30px 0;border-bottom:3px solid var(--black)}
+.thesis .n{font-family:Anton;font-size:110px;line-height:.8;color:var(--red)}
+.thesis h3{font-family:Anton;font-weight:400;font-size:40px;text-transform:uppercase;line-height:1}
+.thesis p{font-size:20px;line-height:1.4;margin-top:8px;max-width:52ch}
+.thesis svg{width:180px;height:140px}
+/* type lab */
+.tl{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.tl .card{border:3px solid var(--black);background:#fff;aspect-ratio:1;position:relative;overflow:hidden}
+.tl .card svg{width:100%;height:100%}
+.tl .cap{position:absolute;left:0;bottom:0;background:var(--black);color:var(--cream);font-family:Anton;padding:4px 10px;font-size:14px;letter-spacing:.06em}
+@media(max-width:900px){.ws{grid-template-columns:1fr}.thesis{grid-template-columns:80px 1fr}.thesis svg{display:none}.thesis .n{font-size:70px}}
+</style>
+</head>
+<body>
+<header><div class="logo">AGITPROP</div><nav><a href="#workshop">Workshop</a><a href="#gallery">Gallery</a><a href="#manifesto">Manifesto</a><a href="#typelab">Type Lab</a><a href="index.html">Index →</a></nav></header>
+
+<section data-view="workshop"><div class="wrap">
+ <h2>Make a <span>poster!</span></h2>
+ <p class="sub">A poster workshop in the style of 1920s constructivist design: diagonal type, bold wedges and circles. The slogans are about everyday life and the geometry is loud.</p>
+ <div class="ws">
+  <div class="poster"><svg id="poster" viewBox="0 0 600 900"></svg></div>
+  <div class="ctrl">
+   <label>Slogan</label><input type="text" id="slogan" value="Read More Books!" maxlength="26">
+   <div class="chips" id="presets" style="margin-top:8px"></div>
+   <label>Composition</label><div class="chips" id="comp"></div>
+   <label>Palette</label><div class="chips" id="pal"></div>
+   <label>Angle · <span id="angV">-24</span>°</label><input type="range" id="ang" min="-50" max="50" value="-24">
+   <label>Figure</label><div class="chips" id="fig"></div>
+   <button class="big" id="shuffle">⚡ Shuffle everything</button> <button class="big" id="pin" style="background:var(--black)">📌 Pin to gallery</button>
+  </div>
+ </div>
+</div></section>
+
+<section data-view="gallery" hidden><div class="wrap">
+ <h2>The <span>wall</span></h2>
+ <p class="sub">Posters from the workshop. Yours go at the front. Click one to put it back on the press.</p>
+ <div class="gal" id="gal"></div>
+</div></section>
+
+<section data-view="manifesto" hidden><div class="wrap">
+ <h2>Five <span>theses</span></h2>
+ <p class="sub">What the constructivists believed about design, adapted for anyone with a laptop.</p>
+ <div class="man" id="man"></div>
+</div></section>
+
+<section data-view="typelab" hidden><div class="wrap">
+ <h2>Type <span>lab</span></h2>
+ <p class="sub">The same words set six ways. Type something and watch the layouts change.</p>
+ <input type="text" id="tlIn" value="Water Your Plants" maxlength="22" style="width:100%;font-family:Anton;font-size:34px;text-transform:uppercase;padding:10px 14px;border:3px solid #141210;margin-bottom:24px">
+ <div class="tl" id="tl"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'workshop';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='gallery')gal()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+const PAL={Classic:['#efe4cc','#d7261e','#141210','#8a8478'],Night:['#141210','#d7261e','#efe4cc','#5a5448'],Ochre:['#e8d3a0','#1a3a6a','#141210','#c8641e'],Signal:['#f2f0ea','#141210','#e8b21e','#d7261e']};
+const SLOG=['Read More Books!','Water Your Plants','Call Your Mother','Cycle to Work!','Tea, Not Tantrums','Build the Future','Sleep Eight Hours','Recycle Everything','Learn a Language','Mend Your Socks'];
+const COMP=['Wedge','Circle','Diagonal','Stairs','Montage'];const FIG=['Worker','Megaphone','Tower','Gear','None'];
+let S={t:'Read More Books!',c:'Wedge',p:'Classic',a:-24,f:'Megaphone'};
+const esc=s=>s.replace(/[<>&"]/g,'').toUpperCase();
+function figure(f,col){if(f==='Megaphone')return`<g transform="translate(360 300) rotate(-20)"><path d="M0 0 L150 -60 L150 60 Z" fill="${col[2]}"/><rect x="-40" y="-18" width="44" height="36" fill="${col[2]}"/><path d="M160 -40 q30 40 0 80 M180 -60 q50 60 0 120" stroke="${col[1]}" stroke-width="10" fill="none"/></g>`;
+ if(f==='Worker')return`<g transform="translate(380 230)"><circle cx="0" cy="0" r="46" fill="${col[2]}"/><path d="M-60 60 L60 60 L90 330 L-90 330Z" fill="${col[2]}"/><path d="M50 90 L190 -40" stroke="${col[2]}" stroke-width="36" stroke-linecap="square"/><rect x="170" y="-80" width="30" height="80" fill="${col[1]}" transform="rotate(40 185 -40)"/></g>`;
+ if(f==='Tower')return`<g transform="translate(420 120)" stroke="${col[2]}" stroke-width="8" fill="none"><path d="M-80 600 L0 0 L80 600"/>${[...Array(9)].map((_,i)=>`<path d="M${-10-i*8} ${60+i*60} L${10+i*8} ${60+i*60}"/><path d="M${-10-i*8} ${60+i*60} L${14+i*8.5} ${120+i*60}"/>`).join('')}<circle cx="0" cy="0" r="14" fill="${col[1]}" stroke="none"/></g>`;
+ if(f==='Gear'){let p='';const R=150,r=120,n=14;for(let i=0;i<n*2;i++){const a=i/(n*2)*Math.PI*2,rr=i%2?r:R;p+=(i?'L':'M')+(Math.cos(a)*rr).toFixed(1)+' '+(Math.sin(a)*rr).toFixed(1)}return`<g transform="translate(420 280)"><path d="${p}Z" fill="${col[2]}"><animateTransform attributeName="transform" type="rotate" values="0;360" dur="30s" repeatCount="indefinite"/></path><circle r="50" fill="${col[0]}"/></g>`}return''}
+function poster(st,withAnim=true){const col=PAL[st.p],t=esc(st.t),words=t.split(' ');let s=`<rect width="600" height="900" fill="${col[0]}"/>`;const a=st.a;
+ if(st.c==='Wedge')s+=`<path d="M-50 900 L650 120 L650 380Z" fill="${col[1]}"/><circle cx="150" cy="200" r="110" fill="${col[2]}"/>`;
+ if(st.c==='Circle')s+=`<circle cx="300" cy="360" r="260" fill="${col[1]}"/><rect x="-20" y="420" width="640" height="40" fill="${col[2]}" transform="rotate(${a} 300 440)"/>`;
+ if(st.c==='Diagonal')s+=`<rect x="-200" y="330" width="1000" height="200" fill="${col[1]}" transform="rotate(${a} 300 430)"/><rect x="-200" y="560" width="1000" height="26" fill="${col[2]}" transform="rotate(${a} 300 430)"/>`;
+ if(st.c==='Stairs')for(let i=0;i<6;i++)s+=`<rect x="${40+i*80}" y="${780-i*100}" width="${560-i*80}" height="100" fill="${i%2?col[1]:col[2]}"/>`;
+ if(st.c==='Montage')s+=`<rect x="60" y="80" width="300" height="400" fill="${col[3]}" transform="rotate(8 210 280)"/><circle cx="440" cy="560" r="150" fill="${col[1]}"/><rect x="40" y="620" width="520" height="30" fill="${col[2]}"/>`;
+ s+=figure(st.f,col);
+ // type
+ const big=words.slice(0,Math.ceil(words.length/2)).join(' '),small=words.slice(Math.ceil(words.length/2)).join(' ');
+ const fs=Math.min(150,900/Math.max(4,big.length)*1.3),fs2=Math.min(110,700/Math.max(4,small.length)*1.3);
+ s+=`<g transform="rotate(${a} 300 560)"><text x="300" y="${560}" text-anchor="middle" font-family="Anton" font-size="${fs}" fill="${st.c==='Diagonal'||st.c==='Circle'?col[0]:col[2]}" stroke="${col[0]}" stroke-width="${st.c==='Diagonal'?0:3}" paint-order="stroke">${big}</text><text x="300" y="${560+fs2+10}" text-anchor="middle" font-family="Anton" font-size="${fs2}" fill="${col[1]===col[0]?col[2]:st.c==='Circle'?col[2]:col[1]}" stroke="${col[0]}" stroke-width="3" paint-order="stroke">${small}</text></g>`;
+ s+=`<rect x="0" y="840" width="600" height="60" fill="${col[2]}"/><text x="24" y="880" font-family="PT Sans Narrow" font-weight="700" font-size="22" letter-spacing="6" fill="${col[0]}">AGITPROP WORKSHOP · №${Math.abs([...st.t].reduce((h,c)=>h*31+c.charCodeAt(0),7))%900+100}</text><text x="576" y="880" text-anchor="end" font-family="Anton" font-size="26" fill="${col[1]}">★</text>`;return s}
+function chips(id,arr,key,swatch){document.getElementById(id).innerHTML=arr.map(v=>swatch?`<button class="sw ${S[key]===v?'on':''}" data-k="${key}" data-v="${v}" title="${v}" style="background:linear-gradient(135deg,${PAL[v][0]} 50%,${PAL[v][1]} 50%)"></button>`:`<button class="${S[key]===v?'on':''}" data-k="${key}" data-v="${v}">${v}</button>`).join('')}
+function draw(){document.getElementById('poster').innerHTML=poster(S);chips('comp',COMP,'c');chips('pal',Object.keys(PAL),'p',true);chips('fig',FIG,'f');document.getElementById('angV').textContent=S.a;
+ document.getElementById('presets').innerHTML=SLOG.slice(0,6).map(s=>`<button data-slog="${s}" style="font-size:13px;padding:4px 8px">${s}</button>`).join('')}
+document.querySelector('.ctrl').addEventListener('click',e=>{const{k,v,slog}=e.target.dataset;if(k){S[k]=v;draw()}if(slog){S.t=slog;document.getElementById('slogan').value=slog;draw()}});
+document.getElementById('slogan').oninput=e=>{S.t=e.target.value||' ';draw()};
+document.getElementById('ang').oninput=e=>{S.a=+e.target.value;draw()};
+const pick=a=>a[Math.random()*a.length|0];
+document.getElementById('shuffle').onclick=()=>{S={t:pick(SLOG),c:pick(COMP),p:pick(Object.keys(PAL)),a:Math.round(Math.random()*70-35),f:pick(FIG)};document.getElementById('slogan').value=S.t;document.getElementById('ang').value=S.a;draw();stamp()};
+let mine=store.get('ap-mine',[]);
+document.getElementById('pin').onclick=()=>{mine.unshift({...S});mine=mine.slice(0,12);store.set('ap-mine',mine);const b=document.getElementById('pin');b.textContent='✓ Pinned!';setTimeout(()=>b.textContent='📌 Pin to gallery',1200)};
+function stamp(){try{const a=new AudioContext(),t=a.currentTime,n=a.createBufferSource(),b=a.createBuffer(1,a.sampleRate*.15,a.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.exp(-i/900);n.buffer=b;const f=a.createBiquadFilter();f.type='lowpass';f.frequency.value=800;n.connect(f).connect(a.destination);n.start(t)}catch(e){}}
+draw();
+
+/* gallery */
+const HOUSE=[{t:'Cycle to Work!',c:'Diagonal',p:'Classic',a:-30,f:'Gear'},{t:'Tea, Not Tantrums',c:'Circle',p:'Ochre',a:12,f:'None'},{t:'Build the Future',c:'Stairs',p:'Signal',a:-8,f:'Tower'},{t:'Call Your Mother',c:'Wedge',p:'Night',a:-20,f:'Megaphone'},{t:'Mend Your Socks',c:'Montage',p:'Classic',a:6,f:'Worker'},{t:'Learn a Language',c:'Diagonal',p:'Ochre',a:28,f:'Megaphone'},{t:'Sleep Eight Hours',c:'Circle',p:'Night',a:-14,f:'Gear'},{t:'Recycle Everything',c:'Wedge',p:'Signal',a:-36,f:'Worker'}];
+function gal(){const all=[...mine,...HOUSE];document.getElementById('gal').innerHTML=all.map((p,i)=>`<button class="gp" data-i="${i}"><svg viewBox="0 0 600 900">${poster(p)}</svg></button>`).join('');document.getElementById('gal')._all=all}
+document.getElementById('gal').onclick=e=>{const b=e.target.closest('.gp');if(!b)return;S={...document.getElementById('gal')._all[+b.dataset.i]};document.getElementById('slogan').value=S.t;document.getElementById('ang').value=S.a;draw();go('workshop')};
+
+/* manifesto */
+const TH=[['Art into life','Design should do a job. A poster that nobody reads is just wallpaper.','<path d="M20 120 L160 20" stroke="#d7261e" stroke-width="18"/><circle cx="50" cy="40" r="26" fill="#141210"/>'],['The diagonal is dynamic','Horizontal lines rest and vertical lines stand still, but a diagonal line moves.','<rect x="0" y="50" width="200" height="40" fill="#d7261e" transform="rotate(-25 100 70)"/>'],['Few colours, loud colours','Red, black and paper are enough. Two more are too many.','<rect x="10" y="20" width="60" height="100" fill="#d7261e"/><rect x="80" y="20" width="60" height="100" fill="#141210"/><rect x="150" y="20" width="20" height="100" fill="#efe4cc" stroke="#141210" stroke-width="3"/>'],['Type is an image','Letters can be built and stacked, cut and rotated. Set them large, tilt them, and make them shout.','<text x="10" y="110" font-family="Anton" font-size="110" fill="#141210" transform="rotate(-10 90 70)">A</text><text x="90" y="120" font-family="Anton" font-size="80" fill="#d7261e">!</text>'],['Build with geometry','Circles, wedges and bars are the building blocks, like beams on a construction site.','<circle cx="60" cy="70" r="50" fill="#d7261e"/><path d="M90 130 L180 10 L180 130Z" fill="#141210"/>']];
+document.getElementById('man').innerHTML=TH.map((t,i)=>`<div class="thesis"><div class="n">${i+1}</div><div><h3>${t[0]}</h3><p>${t[1]}</p></div><svg viewBox="0 0 200 140">${t[2]}</svg></div>`).join('');
+
+/* type lab */
+function tl(){const t=esc(document.getElementById('tlIn').value||'WORDS');const w=t.split(' ');const L=[
+ ['Stacked',`<rect width="400" height="400" fill="#efe4cc"/>${w.map((x,i)=>`<text x="20" y="${90+i*Math.min(110,340/w.length)}" font-family="Anton" font-size="${Math.min(110,340/w.length,720/Math.max(3,x.length))}" fill="${i%2?'#d7261e':'#141210'}">${x}</text>`).join('')}`],
+ ['Diagonal',`<rect width="400" height="400" fill="#d7261e"/><text x="200" y="230" text-anchor="middle" font-family="Anton" font-size="${Math.min(90,700/t.length)}" fill="#efe4cc" transform="rotate(-35 200 200)">${t}</text>`],
+ ['Circular',`<rect width="400" height="400" fill="#141210"/><defs><path id="cp" d="M200 200 m-140 0 a140 140 0 1 1 280 0 a140 140 0 1 1 -280 0"/></defs><circle cx="200" cy="200" r="90" fill="#d7261e"/><text font-family="Anton" font-size="36" fill="#efe4cc" letter-spacing="4"><textPath href="#cp">${(t+' ★ ').repeat(3)}</textPath></text>`],
+ ['Cascade',`<rect width="400" height="400" fill="#efe4cc"/>${[...t].map((c,i)=>`<text x="${20+i*(360/t.length)}" y="${60+i*(320/t.length)}" font-family="Anton" font-size="${40+i*2}" fill="${c===' '?'none':i%3?'#141210':'#d7261e'}">${c}</text>`).join('')}`],
+ ['Vertical',`<rect width="400" height="400" fill="#efe4cc"/><rect x="0" y="0" width="140" height="400" fill="#141210"/><text x="100" y="380" font-family="Anton" font-size="${Math.min(120,560/t.length*1.4)}" fill="#efe4cc" transform="rotate(-90 100 380)">${t}</text><circle cx="280" cy="200" r="90" fill="#d7261e"/>`],
+ ['Outline',`<rect width="400" height="400" fill="#efe4cc"/>${[0,1,2,3].map(i=>`<text x="200" y="${120+i*70}" text-anchor="middle" font-family="Anton" font-size="${Math.min(90,700/t.length)}" fill="${i===3?'#d7261e':'none'}" stroke="#141210" stroke-width="2">${t}</text>`).join('')}`]];
+ document.getElementById('tl').innerHTML=L.map(([n,s])=>`<div class="card"><svg viewBox="0 0 400 400">${s}</svg><span class="cap">${n}</span></div>`).join('')}
+document.getElementById('tlIn').oninput=tl;tl();
+try{document.fonts.ready.then(()=>{draw();tl()})}catch(e){}
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

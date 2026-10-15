@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOLD — an origami studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Kaisei+Decol:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f4efe9; --ink:#2d2a32; --a:#e56b5d; --b:#f2b84b; --c:#4aa3a2; --d:#6c63b5; --e:#9bc26b; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--ink); font-family:'Zen Maru Gothic',sans-serif; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+  header { display:flex; justify-content:space-between; align-items:center; padding:20px 5vw; }
+  .logo { font-family:'Zen Maru Gothic'; font-weight:900; font-size:26px; letter-spacing:.2em; display:flex; gap:10px; align-items:center; }
+  .logo svg { width:34px; }
+  nav { display:flex; gap:4px; background:#fff; padding:5px; border-radius:40px; box-shadow:0 4px 20px #2d2a3212; flex-wrap:wrap; }
+  nav a { padding:9px 16px; border-radius:30px; font-weight:700; font-size:14px; }
+  nav a.on { background:var(--ink); color:#fff; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:unfold .8s cubic-bezier(.2,.9,.2,1) both; transform-origin:top; }
+  @keyframes unfold { from { opacity:0; transform:perspective(900px) rotateX(-20deg); } }
+  /* hero */
+  .hero { display:grid; grid-template-columns:1fr 1fr; min-height:calc(100vh - 90px); align-items:center; padding:0 5vw; gap:4vw; }
+  .hero h1 { font-family:'Kaisei Decol'; font-weight:700; font-size:clamp(3rem,7vw,6.4rem); line-height:1; }
+  .hero h1 span { color:var(--a); }
+  .hero p { font-size:1.2rem; line-height:1.7; margin:1.4rem 0 2rem; max-width:30rem; }
+  .btn { display:inline-block; padding:14px 24px; border-radius:40px; background:var(--ink); color:#fff; font-weight:700; border:0; cursor:pointer; font-family:inherit; font-size:15px; transition:transform .2s; }
+  .btn:hover { transform:translateY(-3px); }
+  .btn.light { background:#fff; color:var(--ink); box-shadow:0 4px 14px #2d2a3218; }
+  .stage { perspective:1200px; height:560px; position:relative; }
+  .crane { position:absolute; left:50%; top:50%; transform-style:preserve-3d; animation:float 10s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform:translate(-50%,-50%) rotateY(-24deg) rotateX(12deg) rotateZ(-3deg); } 50% { transform:translate(-50%,-58%) rotateY(24deg) rotateX(-6deg) rotateZ(3deg); } }
+  .tri { position:absolute; width:0; height:0; transform-style:preserve-3d; }
+  .f { position:absolute; left:0; top:0; transform-origin:0 0; backface-visibility:visible; }
+  .bits { position:absolute; inset:0; pointer-events:none; }
+  .bit { position:absolute; width:40px; height:40px; clip-path:polygon(50% 0,100% 100%,0 100%); animation:drift 12s ease-in-out infinite; opacity:.8; }
+  @keyframes drift { 50% { transform:translateY(-30px) rotate(40deg); } }
+  /* steps */
+  .page { max-width:1200px; margin:0 auto; padding:4vh 5vw 10vh; }
+  .ph h2 { font-family:'Kaisei Decol'; font-weight:700; font-size:clamp(2.4rem,5vw,4rem); }
+  .ph p { margin:.4rem 0 2rem; opacity:.75; }
+  .models { display:flex; gap:10px; margin-bottom:22px; flex-wrap:wrap; }
+  .models button { padding:10px 18px; border-radius:30px; border:2px solid var(--ink); background:#fff; font-family:inherit; font-weight:700; cursor:pointer; }
+  .models button.on { background:var(--ink); color:#fff; }
+  .tut { display:grid; grid-template-columns:1.1fr 1fr; gap:4vw; align-items:center; background:#fff; border-radius:32px; padding:36px; box-shadow:0 20px 50px #2d2a3212; }
+  .diagram { aspect-ratio:1; background:repeating-linear-gradient(0deg,#0000 0 23px,#2d2a3208 23px 24px),repeating-linear-gradient(90deg,#0000 0 23px,#2d2a3208 23px 24px); border-radius:20px; }
+  .diagram svg { width:100%; height:100%; }
+  .diagram .paper { transition:all .8s cubic-bezier(.4,0,.2,1); }
+  .stepN { font-family:'Kaisei Decol'; font-size:5rem; line-height:1; color:var(--a); }
+  .stepT { font-size:1.6rem; font-weight:900; margin:.4rem 0 .8rem; }
+  .stepD { line-height:1.8; font-size:1.05rem; }
+  .prog { display:flex; gap:6px; margin:1.6rem 0; }
+  .prog i { flex:1; height:6px; border-radius:6px; background:#2d2a3218; transition:background .3s; }
+  .prog i.on { background:var(--a); }
+  .dash { stroke-dasharray:8 6; animation:march 1s linear infinite; }
+  @keyframes march { to { stroke-dashoffset:-14; } }
+  /* fortune teller */
+  .ft { display:grid; grid-template-columns:1fr 1fr; gap:4vw; align-items:center; }
+  .teller { width:min(420px,90vw); aspect-ratio:1; margin:0 auto; position:relative; perspective:900px; }
+  .quad { position:absolute; width:50%; height:50%; transition:transform .25s ease-in-out; transform-style:preserve-3d; }
+  .quad svg { width:100%; height:100%; display:block; filter:drop-shadow(0 6px 8px #2d2a3222); }
+  .q0 { left:0; top:0; transform-origin:100% 100%; } .q1 { right:0; top:0; transform-origin:0 100%; } .q2 { right:0; bottom:0; transform-origin:0 0; } .q3 { left:0; bottom:0; transform-origin:100% 0; }
+  .teller.h .q0 { transform:translate(-14px,-4px) rotateY(-12deg); } .teller.h .q1 { transform:translate(14px,-4px) rotateY(12deg); } .teller.h .q2 { transform:translate(14px,4px) rotateY(12deg); } .teller.h .q3 { transform:translate(-14px,4px) rotateY(-12deg); }
+  .teller.v .q0 { transform:translate(-4px,-14px) rotateX(12deg); } .teller.v .q1 { transform:translate(4px,-14px) rotateX(12deg); } .teller.v .q2 { transform:translate(4px,14px) rotateX(-12deg); } .teller.v .q3 { transform:translate(-4px,14px) rotateX(-12deg); }
+  .teller .cq { cursor:pointer; }
+  .choices { display:flex; gap:10px; flex-wrap:wrap; margin:1rem 0; }
+  .choices button { padding:10px 16px; border-radius:30px; border:0; font-family:inherit; font-weight:900; cursor:pointer; color:#fff; font-size:15px; }
+  .fortune { background:#fff; border-radius:24px; padding:26px; margin-top:1rem; font-family:'Kaisei Decol'; font-size:1.5rem; line-height:1.5; min-height:120px; box-shadow:0 10px 30px #2d2a3212; position:relative; }
+  .fortune.pop { animation:pop .6s cubic-bezier(.3,1.6,.5,1); }
+  @keyframes pop { from { transform:scale(.6) rotate(-4deg); opacity:0; } }
+  /* papers */
+  .papers { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:24px; }
+  .paper { border-radius:20px; background:#fff; padding:14px; box-shadow:0 10px 30px #2d2a3212; transition:transform .3s; }
+  .paper:hover { transform:translateY(-6px) rotate(-1deg); }
+  .sheet { aspect-ratio:1; border-radius:6px; position:relative; overflow:hidden; box-shadow:inset 0 0 0 1px #0001; }
+  .sheet::after { content:''; position:absolute; right:0; top:0; width:30%; height:30%; background:linear-gradient(225deg,var(--bg) 50%,#0002 50%,#fff8 60%,transparent 70%); transition:all .4s; }
+  .paper:hover .sheet::after { width:44%; height:44%; }
+  .paper h3 { font-weight:900; margin-top:12px; }
+  .paper .row { display:flex; justify-content:space-between; align-items:center; margin-top:6px; }
+  .paper button { border:0; background:var(--ink); color:#fff; padding:8px 14px; border-radius:20px; font-family:inherit; font-weight:700; cursor:pointer; }
+  .cart { position:fixed; right:20px; bottom:20px; z-index:30; background:var(--ink); color:#fff; border-radius:40px; padding:12px 20px; font-weight:700; box-shadow:0 10px 30px #0003; transform:translateY(120px); transition:transform .4s cubic-bezier(.3,1.5,.5,1); }
+  .cart.show { transform:none; }
+  @media (max-width:900px){ .hero,.tut,.ft { grid-template-columns:1fr; } .stage { height:380px; } }
+</style>
+</head>
+<body>
+<header><div class="logo"><svg viewBox="0 0 40 40"><polygon points="4,34 20,6 36,34" fill="#e56b5d"/><polygon points="20,6 36,34 20,26" fill="#c2503f"/></svg>FOLD</div><nav><a href="#home">Studio</a><a href="#learn">Learn to fold</a><a href="#teller">Fortune teller</a><a href="#papers">Paper shop</a><a href="index.html">← Index</a></nav></header>
+
+<section data-view="home">
+  <div class="hero"><div><h1>One sheet.<br><span>No cuts.</span><br>Endless things.</h1><p>A tiny studio in Kyoto teaching the quiet art of folding paper. Start with a crane; end up, a few thousand folds later, somewhere unexpected.</p><a class="btn" href="#learn">Start folding →</a> <a class="btn light" href="#teller">Play the fortune teller</a></div>
+    <div class="stage" id="stage"><div class="bits" id="bits"></div><div class="crane" id="crane"></div></div></div>
+</section>
+
+<section data-view="learn" class="page" hidden>
+  <div class="ph"><h2>Learn to fold</h2><p>Step through the diagram. Use ← → keys, or the buttons.</p></div>
+  <div class="models" id="models"></div>
+  <div class="tut"><div class="diagram"><svg viewBox="0 0 400 400" id="dia"></svg></div>
+    <div><div class="stepN" id="sn"></div><div class="stepT" id="st"></div><div class="stepD" id="sd"></div><div class="prog" id="pg"></div><button class="btn light" id="prev">← Back</button> <button class="btn" id="next">Next fold →</button></div></div>
+</section>
+
+<section data-view="teller" class="page" hidden>
+  <div class="ft"><div class="teller" id="teller"></div>
+    <div><div class="ph"><h2>Paper fortune teller</h2><p id="ftHint">Pick a colour.</p></div><div class="choices" id="choices"></div><div class="fortune" id="fortune">Your future is folded inside…</div><button class="btn light" id="ftReset" style="margin-top:1rem">Start over</button></div></div>
+</section>
+
+<section data-view="papers" class="page" hidden>
+  <div class="ph"><h2>Paper shop</h2><p>Hand-printed washi and kami, 15 × 15 cm, 20 sheets per pack.</p></div>
+  <div class="papers" id="papers"></div>
+</section>
+<div class="cart" id="cart"></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'home';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* 3D crane from triangles: faces as [p1,p2,p3] in 3D, rendered with matrix3d on a unit right triangle */
+const C=['#e56b5d','#d65a4d','#f07b6c','#c24f42','#ea8a7c'];
+const P={body1:[[0,0,0],[60,-20,0],[0,-40,20]],body2:[[0,0,0],[60,-20,0],[0,-40,-20]],body3:[[0,0,0],[-60,-20,0],[0,-40,20]],body4:[[0,0,0],[-60,-20,0],[0,-40,-20]],
+ neck1:[[50,-18,0],[110,-110,0],[62,-24,6]],neck2:[[50,-18,0],[110,-110,0],[62,-24,-6]],head:[[110,-110,0],[128,-96,0],[108,-100,4]],
+ tail1:[[-50,-18,0],[-120,-100,0],[-62,-24,6]],tail2:[[-50,-18,0],[-120,-100,0],[-62,-24,-6]],
+ wingL1:[[20,-30,10],[-30,-30,10],[-10,-60,150]],wingL2:[[20,-30,10],[-10,-60,150],[30,-50,120]],wingR1:[[20,-30,-10],[-30,-30,-10],[-10,-60,-150]],wingR2:[[20,-30,-10],[-10,-60,-150],[30,-50,-120]]};
+function tri3d([a,b,c],col){const u=[b[0]-a[0],b[1]-a[1],b[2]-a[2]],v=[c[0]-a[0],c[1]-a[1],c[2]-a[2]];const n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];const l=Math.hypot(...n)||1;
+ const m=[u[0]/100,u[1]/100,u[2]/100,0,v[0]/100,v[1]/100,v[2]/100,0,n[0]/l,n[1]/l,n[2]/l,0,a[0],a[1],a[2],1];return `<div class="f" style="width:100px;height:100px;background:${col};clip-path:polygon(0 0,100% 0,0 100%);transform:matrix3d(${m.join(',')})"></div>`}
+document.getElementById('crane').innerHTML=`<svg viewBox="0 0 420 320" width="460" style="overflow:visible;filter:drop-shadow(0 30px 30px #2d2a3230)">
+ <polygon points="205,195 95,35 180,205" fill="#b8473b"/><polygon points="205,195 95,35 150,120" fill="#c9564a"/>
+ <polygon points="150,212 50,92 162,206" fill="#d65a4d"/><polygon points="150,212 50,92 140,190" fill="#e8796b"/>
+ <polygon points="262,210 362,98 276,204" fill="#d65a4d"/><polygon points="362,98 394,114 368,108" fill="#b8473b"/><polygon points="262,210 362,98 270,190" fill="#e8796b"/>
+ <polygon points="145,212 210,178 275,212 210,252" fill="#e56b5d"/><polygon points="145,212 210,252 210,212" fill="#c24f42"/><polygon points="275,212 210,252 210,212" fill="#d65a4d"/>
+ <polygon points="210,190 330,24 240,206" fill="#f28a7b"/><polygon points="210,190 330,24 262,128" fill="#f7a597"/>
+ <line x1="210" y1="212" x2="210" y2="252" stroke="#a8412f" stroke-width="1.2"/></svg>`;
+document.getElementById('bits').innerHTML=[...Array(10)].map((_,i)=>`<div class="bit" style="left:${(i*37)%90}%;top:${(i*53)%85}%;background:${['#f2b84b','#4aa3a2','#6c63b5','#9bc26b','#e56b5d'][i%5]};animation-delay:${-i*1.3}s;transform:scale(${.5+(i%3)*.3}) rotate(${i*40}deg)"></div>`).join('');
+
+/* tutorials: each step returns svg */
+const sq=(pts,fill,extra='')=>`<polygon class="paper" points="${pts}" fill="${fill}" stroke="#2d2a32" stroke-width="2.5" stroke-linejoin="round" ${extra}/>`;
+const fold=(x1,y1,x2,y2)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#2d2a32" stroke-width="2" class="dash"/>`;
+const arrow=(d)=>`<path d="${d}" stroke="#e56b5d" stroke-width="3" fill="none" marker-end="url(#ah)"/>`;
+const DEFS=`<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#e56b5d"/></marker></defs>`;
+const MODELS={'Paper crane':[['Start with a square','Coloured side down. A 15 cm sheet is perfect for your first crane.',()=>sq('80,80 320,80 320,320 80,320','#fbe3de')],
+ ['Fold diagonally','Fold corner to corner both ways, then unfold. You now have an X of creases.',()=>sq('80,80 320,80 320,320 80,320','#fbe3de')+fold(80,80,320,320)+fold(320,80,80,320)+arrow('M300 300 Q220 220 110 110')],
+ ['Square base','Collapse along the creases into a small square with two flaps on each side.',()=>sq('200,70 310,180 200,290 90,180','#e56b5d')+`<line x1="200" y1="70" x2="200" y2="290" stroke="#2d2a32" stroke-width="2"/>`],
+ ['Kite folds','Fold the lower edges of the top layer to meet the centre line.',()=>sq('200,70 310,180 200,290 90,180','#e56b5d')+fold(200,290,145,125)+fold(200,290,255,125)+arrow('M290 190 Q250 200 215 190')+arrow('M110 190 Q150 200 185 190')],
+ ['Petal fold','Lift the bottom point up, pressing the sides inward. Repeat on the back.',()=>sq('200,40 250,180 200,340 150,180','#e56b5d')+`<line x1="200" y1="40" x2="200" y2="340" stroke="#2d2a32" stroke-width="2"/>`+arrow('M200 330 Q260 200 205 60')],
+ ['Narrow the legs','Fold both lower edges to the centre, front and back. The legs become thin.',()=>sq('200,40 230,180 200,340 170,180','#d65a4d')+fold(200,340,188,190)+fold(200,340,212,190)],
+ ['Neck & tail','Inside-reverse fold both legs upward. One will be the neck, one the tail.',()=>sq('200,120 240,200 200,250 160,200','#d65a4d')+sq('160,200 90,80 105,78 175,205','#e56b5d')+sq('240,200 310,80 295,78 225,205','#e56b5d')],
+ ['Fly!','Reverse-fold a head, gently pull the wings apart and puff the body. Make 999 more for good luck.',()=>sq('200,170 250,210 200,240 150,210','#d65a4d')+sq('150,210 80,90 100,86 165,212','#e56b5d')+sq('250,210 320,90 300,86 235,212','#e56b5d')+sq('80,90 70,110 96,98','#c24f42')+sq('200,190 60,150 180,210','#f07b6c')+sq('200,190 340,140 220,210','#ea8a7c')]],
+ 'Jumping frog':[['Rectangle','Use an index card or half a square, 2:1 ratio.',()=>sq('60,120 340,120 340,280 60,280','#e3f0d3')],['Top triangle','Fold the top corners diagonally both ways and collapse into a triangle.',()=>sq('60,200 200,60 340,200 340,280 60,280','#9bc26b')],['Front legs','Fold the triangle\'s bottom corners up to its tip.',()=>sq('60,200 200,60 340,200 340,280 60,280','#9bc26b')+sq('130,130 200,60 200,200','#7aa84f')+sq('270,130 200,60 200,200','#7aa84f')],['Body','Fold the sides in to the centre.',()=>sq('140,200 200,60 260,200 260,300 140,300','#9bc26b')],['Spring','Fold the bottom up, then half of it back down — a Z-fold.',()=>sq('140,200 200,60 260,200 260,240 140,240','#9bc26b')+`<path d="M140 240 L260 240 L260 260 L140 260Z" fill="#7aa84f" stroke="#2d2a32" stroke-width="2"/>`],['Jump!','Press on its back and slide your finger off. Frog races are strongly encouraged.',()=>sq('140,200 200,60 260,200 260,240 140,240','#9bc26b')+`<circle cx="180" cy="120" r="8" fill="#fff" stroke="#2d2a32" stroke-width="2"/><circle cx="220" cy="120" r="8" fill="#fff" stroke="#2d2a32" stroke-width="2"/>`+arrow('M200 330 Q300 280 320 160')]],
+ 'Paper boat':[['Rectangle','Start with a sheet of A4, folded in half top to bottom.',()=>sq('80,140 320,140 320,260 80,260','#dff0ef')],['Triangle top','Fold the top corners down to meet in the middle.',()=>sq('80,200 200,100 320,200 320,280 80,280','#4aa3a2')],['Brim','Fold the bottom strips up on both sides — like a hat.',()=>sq('80,220 200,100 320,220 320,260 80,260','#4aa3a2')+`<rect x="80" y="220" width="240" height="40" fill="#3a8a89" stroke="#2d2a32" stroke-width="2"/>`],['Diamond','Open the hat from the bottom and flatten into a diamond.',()=>sq('200,90 300,200 200,310 100,200','#4aa3a2')],['Sail!','Pull the top corners outward. A boat appears, ready for puddles.',()=>`<path d="M80 220 L320 220 L280 290 L120 290Z" fill="#3a8a89" stroke="#2d2a32" stroke-width="2.5"/>`+sq('200,90 260,220 140,220','#4aa3a2')+`<path d="M40 310 Q100 290 160 310 T280 310 T400 310" stroke="#4aa3a2" stroke-width="3" fill="none"/>`]]};
+let model='Paper crane',step=0;
+document.getElementById('models').innerHTML=Object.keys(MODELS).map(m=>`<button data-m="${m}" class="${m===model?'on':''}">${m}</button>`).join('');
+document.getElementById('models').onclick=e=>{const m=e.target.dataset.m;if(!m)return;model=m;step=0;document.querySelectorAll('#models button').forEach(b=>b.classList.toggle('on',b===e.target));renderStep()};
+function renderStep(){const S=MODELS[model],[t,d,f]=S[step];document.getElementById('dia').innerHTML=DEFS+f();document.getElementById('sn').textContent=String(step+1).padStart(2,'0');document.getElementById('st').textContent=t;document.getElementById('sd').textContent=d;document.getElementById('pg').innerHTML=S.map((_,i)=>`<i class="${i<=step?'on':''}"></i>`).join('');document.getElementById('next').textContent=step===S.length-1?'Start again ↺':'Next fold →';crinkle()}
+document.getElementById('next').onclick=()=>{step=(step+1)%MODELS[model].length;renderStep()};document.getElementById('prev').onclick=()=>{step=Math.max(0,step-1);renderStep()};
+addEventListener('keydown',e=>{if(V[1].hidden)return;if(e.key==='ArrowRight')document.getElementById('next').click();if(e.key==='ArrowLeft')document.getElementById('prev').click()});
+let AC;function crinkle(){try{AC=AC||new AudioContext();const b=AC.createBuffer(1,AC.sampleRate*.12,AC.sampleRate),c=b.getChannelData(0);for(let i=0;i<c.length;i++)c[i]=(Math.random()*2-1)*(Math.random()<.1?.5:.05)*(1-i/c.length);const s=AC.createBufferSource(),f=AC.createBiquadFilter();f.type='highpass';f.frequency.value=2500;s.buffer=b;s.connect(f);f.connect(AC.destination);s.start()}catch(e){}}
+renderStep();
+
+/* fortune teller */
+const COLS=[['red','#e56b5d'],['yellow','#f2b84b'],['teal','#4aa3a2'],['purple','#6c63b5']];const NUMS=[[1,2],[3,4],[5,6],[7,8]];
+const FORT=['A letter is on its way to you.','Say yes to the next invitation.','Something lost will turn up in a coat pocket.','You will learn a new word and use it perfectly.','A small kindness will come back doubled.','Tea tastes better when shared. Share some.','The answer is hidden in your third drawer.','Tomorrow, look up. The sky has a message.'];
+function quadSVG(i){const [n,c]=COLS[i];return `<svg viewBox="0 0 100 100">${[0,1].map(k=>`<polygon class="cq" points="${k?'100,0 100,100 0,100':'0,0 100,0 0,100'}" fill="${c}" stroke="#2d2a32" stroke-width="2" style="filter:brightness(${k?.9:1.05})"/>`).join('')}<text x="${i%3?66:34}" y="${i<2?40:70}" text-anchor="middle" font-family="Zen Maru Gothic" font-weight="900" font-size="12" fill="#fff">${n.toUpperCase()}</text></svg>`}
+const tel=document.getElementById('teller');tel.innerHTML=[0,1,2,3].map(i=>`<div class="quad q${i}">${quadSVG(i)}</div>`).join('');
+let stage=0,pickN=null;
+function choices(){const ch=document.getElementById('choices');if(stage===0)ch.innerHTML=COLS.map(([n,c],i)=>`<button data-c="${i}" style="background:${c}">${n}</button>`).join('');else if(stage===1)ch.innerHTML=NUMS.flat().map(n=>`<button data-n="${n}" style="background:#2d2a32">${n}</button>`).join('');else if(stage===2)ch.innerHTML=NUMS.flat().filter(n=>n!==pickN).map(n=>`<button data-f="${n}" style="background:#6c63b5">flap ${n}</button>`).join('');else ch.innerHTML=''}
+async function pump(times){for(let i=0;i<times;i++){tel.className='teller '+(i%2?'v':'h');crinkle();await new Promise(r=>setTimeout(r,320))}tel.className='teller'}
+document.getElementById('choices').onclick=async e=>{const b=e.target.closest('button');if(!b)return;document.getElementById('choices').innerHTML='';
+ if(b.dataset.c!=null){const n=COLS[b.dataset.c][0];document.getElementById('ftHint').textContent=`Spell it out: ${n.toUpperCase().split('').join('-')}…`;await pump(n.length);stage=1;document.getElementById('ftHint').textContent='Now pick a number.'}
+ else if(b.dataset.n!=null){pickN=+b.dataset.n;document.getElementById('ftHint').textContent=`Counting to ${pickN}…`;await pump(pickN);stage=2;document.getElementById('ftHint').textContent='Pick a flap to lift.'}
+ else if(b.dataset.f!=null){stage=3;const f=document.getElementById('fortune');f.classList.remove('pop');void f.offsetWidth;f.classList.add('pop');f.textContent='✦ '+FORT[+b.dataset.f-1];document.getElementById('ftHint').textContent='The paper has spoken.'}
+ choices()};
+document.getElementById('ftReset').onclick=()=>{stage=0;pickN=null;document.getElementById('fortune').textContent='Your future is folded inside…';document.getElementById('ftHint').textContent='Pick a colour.';choices()};choices();
+
+/* papers */
+const PAPERS=[['Seigaiha waves','radial-gradient(circle at 50% 100%,#4aa3a2 0 30%,#fff 30% 36%,#4aa3a2 36% 46%,#fff 46% 52%,#4aa3a2 52% 62%,transparent 62%) 0 0/40px 20px, #4aa3a2',6],['Asanoha hemp','repeating-conic-gradient(from 30deg,#6c63b5 0 60deg,#8a82d0 60deg 120deg) 0 0/40px 40px',6],['Sakura dots','radial-gradient(#f7c6cf 25%,transparent 27%) 0 0/24px 24px, radial-gradient(#fff 15%,transparent 17%) 12px 12px/24px 24px, #e56b5d',5],['Ichimatsu check','conic-gradient(#2d2a32 25%,#f2b84b 0 50%,#2d2a32 0 75%,#f2b84b 0) 0 0/36px 36px',5],['Kikko tortoise','repeating-linear-gradient(60deg,#9bc26b 0 10px,#7aa84f 10px 12px),repeating-linear-gradient(-60deg,transparent 0 10px,#7aa84f 10px 12px),#9bc26b',7],['Plain kami · 12 colours','linear-gradient(135deg,#e56b5d 0 16%,#f2b84b 16% 33%,#9bc26b 33% 50%,#4aa3a2 50% 66%,#6c63b5 66% 83%,#2d2a32 83%)',4],['Gold foil','linear-gradient(135deg,#b8902a,#f7e2a0 40%,#c9a24a 60%,#fff4c8 80%,#b8902a)',9],['Indigo shibori','radial-gradient(ellipse at 50% 50%,#fff 0 12%,transparent 14%) 0 0/30px 30px,repeating-linear-gradient(90deg,#1d2a5a 0 14px,#2a3a7a 14px 16px)',8]];
+let cart=0,cartSum=0;document.getElementById('papers').innerHTML=PAPERS.map(([n,bg,p],i)=>`<div class="paper"><div class="sheet" style="background:${bg}"></div><h3>${n}</h3><div class="row"><span>€${p}</span><button data-p="${i}">Add</button></div></div>`).join('');
+document.getElementById('papers').onclick=e=>{const b=e.target.closest('[data-p]');if(!b)return;cart++;cartSum+=PAPERS[b.dataset.p][2];crinkle();const c=document.getElementById('cart');c.textContent=`🧺 ${cart} pack${cart>1?'s':''} · €${cartSum}`;c.classList.add('show');b.textContent='✓'};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

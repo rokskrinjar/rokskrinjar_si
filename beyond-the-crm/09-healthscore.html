@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Healthscore — Customer health</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fragment+Mono&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{color-scheme:dark;--surface:#1b1815;--bg:#141210;--ink:#f4eee6;--ink2:#c3b9ab;--ink3:#8c8275;--grid:#2c2823;--s1:#d95926;--s2:#3987e5;--s3:#c98500;--s4:#9085e9;--s5:#199e70;--q1:#2b2018;--q2:#4a2c1a;--q3:#7a3d1d;--q4:#b4511f;--q5:#d95926;--q6:#f0a47c;--qhi:#1b1210;--qlo:#f2e4d8;--pos:#3987e5;--neg:#e66767;--good:#3ccf8e;--warn:#e9b44c;--bad:#ff6b6b;--cur:"$";--tipbg:#f4eee6;--tipfg:#141210}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Outfit',sans-serif}
+.mono{font-family:'Fragment Mono',monospace}
+header{padding:24px 32px 10px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+.lg{font-weight:300;font-size:15px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink2)}.lg b{color:var(--s1);font-weight:600}
+h1{font-weight:300;font-size:46px;letter-spacing:-.03em;margin:6px 0 0;line-height:1}h1 b{font-weight:600}
+.src{font:400 11.5px 'Fragment Mono';color:var(--ink3);text-align:right;line-height:1.8}
+.tabs{display:flex;gap:22px;padding:0 32px;border-bottom:1px solid var(--grid);overflow-x:auto}.tabs button{border:0;background:none;color:var(--ink3);font:500 14px 'Outfit';padding:12px 0;cursor:pointer;box-shadow:inset 0 -2px 0 transparent;white-space:nowrap}.tabs button.on{color:var(--ink);box-shadow:inset 0 -2px 0 var(--s1)}
+.wrap{padding:18px 32px 70px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.filters button{border:1px solid var(--grid);background:transparent;color:var(--ink2);border-radius:999px;padding:6px 13px;font:500 13px 'Outfit';cursor:pointer}.filters button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--surface);border-radius:16px;padding:16px}.kpi .l{font-size:12.5px;color:var(--ink3)}.kpi .v{font-size:30px;font-weight:600;letter-spacing:-.02em}.kpi .d{font-size:12px}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g12{grid-template-columns:1fr 1.5fr}
+.card{background:var(--surface);border-radius:18px;padding:18px 20px;min-width:0}.card h3{margin:0;font-size:15.5px;font-weight:600}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.tier{display:inline-flex;gap:5px;align-items:center;font-weight:600}.t-h{color:var(--good)}.t-w{color:var(--warn)}.t-r{color:var(--bad)}
+.quote{border-left:2px solid var(--s1);padding:6px 0 6px 12px;margin:0 0 12px;color:var(--ink2);font-size:13.5px}.quote b{display:block;color:var(--ink3);font:400 11.5px 'Fragment Mono';margin-top:3px}
+.pb{display:inline-block;font:400 11.5px 'Fragment Mono';padding:2px 8px;border-radius:5px;background:#2a221c;color:var(--ink2)}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g12{grid-template-columns:1fr}header{grid-template-columns:1fr}.src{text-align:left}}@media(max-width:640px){.wrap,header,.tabs{padding-left:16px;padding-right:16px}.kpis{grid-template-columns:1fr 1fr}h1{font-size:34px}}
+</style>
+</head>
+<body>
+<header><div><div class="lg"><b>●</b> Healthscore</div><h1 id="ttl">How healthy is <b>the book?</b></h1></div><div class="src">Salesforce · Pendo product usage · Zendesk<br>Delighted NPS · Stripe billing · Gainsight CTAs</div></header>
+<nav class="tabs"><button data-sheet="port">Portfolio</button><button data-sheet="drivers">What drives health</button><button data-sheet="acc">Accounts</button><button data-sheet="nps">NPS & voice</button><button data-sheet="play">Playbooks</button></nav>
+<div class="wrap">
+ <div class="filters"><button data-f="range" data-v="90d">Last 90 days</button><button data-f="range" data-v="12m" class="on">12 months</button><span style="width:10px"></span><button data-f="csm" data-v="all" class="on">All CSMs</button><button data-f="csm" data-v="maya">Maya’s book</button><button data-f="csm" data-v="joon">Joon’s book</button><button data-f="csm" data-v="lena">Lena’s book</button></div>
+ <section data-panel="port"><div class="kpis" id="k1"></div>
+  <div class="g g12"><div class="card"><h3>Book by health tier</h3><p class="sub">Share of ARR · tiers from the weighted score</p><div id="c_tier"></div></div><div class="card"><h3>ARR by health tier over time</h3><p class="sub">Month-end snapshot</p><div id="c_trend"></div></div></div></section>
+ <section data-panel="drivers" hidden>
+  <div class="g g2"><div class="card"><h3>What predicts churn here</h3><p class="sub">Relative weight in the health model, fitted on 2 years of renewals</p><div id="c_w"></div></div><div class="card"><h3>Health components by segment</h3><p class="sub">0–100, higher is healthier</p><div id="c_comp"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Weekly active users vs. renewal outcome</h3><p class="sub">Each dot is an account that renewed or churned in the last 12 months</p><div id="c_sc"></div></div></section>
+ <section data-panel="acc" hidden><div class="card"><h3>Every account, one score</h3><p class="sub">Sorted by ARR at risk. Click a header to sort.</p><div id="t_acc"></div></div></section>
+ <section data-panel="nps" hidden><div class="kpis" id="k4"></div>
+  <div class="g g2"><div class="card"><h3>Score distribution</h3><p class="sub">Delighted responses, selected period</p><div id="c_dist"></div></div><div class="card"><h3>NPS trend by segment</h3><p class="sub">Rolling 90 days</p><div id="c_nt"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>What detractors are saying</h3><p class="sub">Clustered open-text, most frequent first</p><div id="q"></div></div></section>
+ <section data-panel="play" hidden><div class="kpis" id="k5"></div>
+  <div class="g g2"><div class="card"><h3>Saves by playbook</h3><p class="sub">Accounts that moved from red to yellow/green within 60 days</p><div id="c_pl"></div></div><div class="card"><h3>Time to first action</h3><p class="sub">Hours from alert to CSM action</p><div id="c_tta"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Open playbooks</h3><p class="sub">Triggered automatically by health changes</p><div id="t_pl"></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const TTL={port:'How healthy is <b>the book?</b>',drivers:'What <b>actually</b> predicts churn',acc:'Every account, <b>one score</b>',nps:'What customers <b>say</b>',play:'What we <b>did</b> about it'};
+const A=['Halden Bank','Velo Mobility','Ashgrove Health','Orbis Retail','Pellucid AI','Fjord Energy','Stonebridge Law','Marlow Foods','Tessera Labs','Northbeam','Calder Labs','Mintworth','Oskar Freight','Harrow & Vale','Kilnworks','Lumen Studio','Quanta Geo','Corvid Games'];
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const f=F.csm==='all'?1:.33;const L=K.periods(F.range);
+ const acc=A.filter((_,i)=>F.csm==='all'||i%3==={maya:0,joon:1,lena:2}[F.csm]).map(a=>{const sc=Math.round(25+r()*72);return{a,arr:(30e3+r()*420e3),sc,tier:sc>=70?'Healthy':sc>=45?'Watch':'At risk',trend:Math.round((r()-.45)*24),usage:Math.round(30+r()*70),sup:Math.round(30+r()*70),nps:Math.round(r()*10),ren:['Oct','Nov','Dec','Jan','Feb','Mar'][Math.floor(r()*6)],csm:K.pick(r,['Maya','Joon','Lena'])}});
+ return memo[k]={r,f,L,acc,arr:58e6*f}}
+const S={range:'12m',csm:'all'};const TC={Healthy:'--good',Watch:'--warn','At risk':'--bad'};const TI={Healthy:'●',Watch:'◐','At risk':'▲'};
+const tierEl=v=>{const s=document.createElement('span');s.className='tier '+(v==='Healthy'?'t-h':v==='Watch'?'t-w':'t-r');s.textContent=TI[v]+' '+v;return s};
+const views={
+port(F){$('ttl').innerHTML=TTL.port;const D=data(F);const sh={Healthy:.61,Watch:.26,'At risk':.13};
+ K.kpis($('k1'),[{label:'ARR under management',value:K.money(D.arr)},{label:'Healthy',value:K.pct(sh.Healthy,0),delta:.04,deltaText:'4 pts'},{label:'ARR at risk',value:K.money(D.arr*sh['At risk']),delta:-.08,goodDown:true},{label:'Avg health score',value:'68',delta:.03,deltaText:'2 pts'},{label:'Renewals next 90d',value:K.money(D.arr*.19)}]);
+ K.donut($('c_tier'),{items:Object.keys(sh).map(t=>({name:TI[t]+' '+t,value:D.arr*sh[t],color:K.css(TC[t])})),fmt:K.money,center:{value:K.money(D.arr),label:'ARR'}});
+ const n=D.L.length;K.line($('c_trend'),{labels:D.L,series:[{name:'Healthy',data:K.series(D.r,n,D.arr*.55,{trend:.12,noise:.02}),color:K.css('--good')},{name:'Watch',data:K.series(D.r,n,D.arr*.27,{trend:-.03,noise:.04}),color:K.css('--warn')},{name:'At risk',data:K.series(D.r,n,D.arr*.15,{trend:-.15,noise:.05}),color:K.css('--bad')}],stacked:true,fmt:K.money,h:270})},
+drivers(F){$('ttl').innerHTML=TTL.drivers;const D=data(F);
+ K.bars($('c_w'),{labels:['Weekly active users trend','Champion still at company','Feature breadth (Pendo)','Exec sponsor engaged','Open P1/P2 tickets','Late payments (Stripe)','NPS response'],series:[{name:'Weight',data:[.27,.19,.15,.13,.11,.09,.06]}],fmt:v=>K.pct(v,0),horizontal:true,h:290});
+ const r=K.rng(K.seed(F,'c'));K.heat($('c_comp'),{rows:['Enterprise','Mid-market','SMB'],cols:['Usage','Breadth','Support','Relationship','Billing'],data:[0,1,2].map(i=>[0,1,2,3,4].map(j=>40+r()*55-i*4)),fmt:v=>Math.round(v),cell:40});
+ const pts=Array.from({length:70},()=>{const w=r();const churned=r()>(.25+w*.7);return{x:w*100,y:20+r()*80,g:churned?1:0,label:churned?'Churned':'Renewed'}});
+ K.scatter($('c_sc'),{points:pts.map(p=>({x:p.x,y:p.y,g:p.g,label:p.label})),groups:['Renewed','Churned'],colors:['--good','--bad'],xfmt:v=>Math.round(v)+'%',yfmt:v=>Math.round(v),xLabel:'Weekly active users, % of seats',yLabel:'Health score 90d before renewal',xMax:100,yMax:100,h:300})},
+acc(F){$('ttl').innerHTML=TTL.acc;const D=data(F);K.table($('t_acc'),{cols:[{k:'a',label:'Account'},{k:'arr',label:'ARR',align:'r',fmt:K.money,bar:true},{k:'sc',label:'Score',align:'r'},{k:'tier',label:'Tier',render:tierEl},{k:'trend',label:'30d change',align:'r',render:v=>(v>=0?'▲ +':'▼ ')+v},{k:'usage',label:'Usage',align:'r'},{k:'sup',label:'Support',align:'r'},{k:'nps',label:'Last NPS',align:'r'},{k:'ren',label:'Renews'},{k:'csm',label:'CSM'}],rows:D.acc.map(a=>({...a,risk:a.tier==='At risk'?a.arr:0})),sort:'arr'})},
+nps(F){$('ttl').innerHTML=TTL.nps;const D=data(F);const dist=[2,1,2,3,4,6,8,14,19,21,20];
+ K.kpis($('k4'),[{label:'NPS',value:'+38',delta:.06,deltaText:'6'},{label:'Responses',value:K.int(1240*D.f)},{label:'Promoters',value:'41%'},{label:'Detractors',value:'14%'},{label:'Response rate',value:'27%'}]);
+ K.bars($('c_dist'),{labels:dist.map((_,i)=>String(i)),series:[{name:'Responses',data:dist.map(v=>v*12*D.f)}],fmt:K.int,h:250,colorBy:i=>K.css(i<=6?'--bad':i<=8?'--warn':'--good')});
+ K.line($('c_nt'),{labels:D.L,series:[{name:'Enterprise',data:K.series(D.r,D.L.length,44,{trend:.1,noise:.06})},{name:'Mid-market',data:K.series(D.r,D.L.length,36,{trend:.05,noise:.08})},{name:'SMB',data:K.series(D.r,D.L.length,29,{trend:-.04,noise:.1})}],fmt:v=>'+'+Math.round(v),h:250});
+ $('q').innerHTML=[['Reporting is too slow on large workspaces','42 mentions · mostly Enterprise'],['We lost our admin and nobody knows the setup','31 mentions'],['Pricing jumped at renewal','24 mentions · mostly SMB'],['Mobile app is missing offline mode','19 mentions']].map(x=>`<p class="quote">“${x[0]}”<b>${x[1]}</b></p>`).join('')},
+play(F){$('ttl').innerHTML=TTL.play;const D=data(F);
+ K.kpis($('k5'),[{label:'Playbooks triggered',value:K.int(184*D.f)},{label:'Saved (red → yellow/green)',value:'46%',delta:.07,deltaText:'7 pts'},{label:'ARR saved',value:K.money(D.arr*.041)},{label:'Median time to action',value:'9 h'},{label:'Ignored alerts',value:'11%'}]);
+ K.bars($('c_pl'),{labels:['Champion left','Usage drop','Low adoption','P1 ticket','Late payment'],series:[{name:'Triggered',data:[38,61,42,24,19].map(v=>v*D.f)},{name:'Saved',data:[14,33,21,16,13].map(v=>v*D.f)}],fmt:K.int,h:260});
+ K.bars($('c_tta'),{labels:['< 4 h','4–12 h','12–24 h','1–3 d','> 3 d'],series:[{name:'Save rate',data:[.61,.52,.41,.29,.14]}],fmt:v=>K.pct(v,0),h:260});
+ K.table($('t_pl'),{cols:[{k:'a',label:'Account'},{k:'pb',label:'Playbook',render:v=>{const s=document.createElement('span');s.className='pb';s.textContent=v;return s}},{k:'arr',label:'ARR',align:'r',fmt:K.money},{k:'age',label:'Open for',align:'r'},{k:'csm',label:'Owner'},{k:'step',label:'Next step'}],rows:D.acc.filter(a=>a.tier!=='Healthy').map((a,i)=>({a:a.a,pb:['Champion left','Usage drop','Low adoption','P1 ticket'][i%4],arr:a.arr,age:(2+i*3)+' days',csm:a.csm,step:['Map new stakeholders','Usage review call','Enablement session','Exec escalation'][i%4]})),sort:'arr'})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

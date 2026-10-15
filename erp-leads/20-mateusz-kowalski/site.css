@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap');
+:root{--e-bg:#f2f3f1;--e-card:#fff;--e-ink:#1f2326;--e-mu:#5b6064;--e-ln:#d9dcd8;--e-acc:#1e8c5a;--e-acc2:#1f2326;--e-acc-ink:#fff;--e-soft:#e5e9e4;--e-r:3px;--e-font:'Barlow',system-ui,sans-serif;--e-head:'Barlow Condensed',system-ui,sans-serif;--e-hw:800;--e-hl:0;--e-cta-bg:#1e8c5a;--e-cta-btn:#1f2326;--e-cta-btn-ink:#fff;--e-overlay:linear-gradient(90deg,rgba(25,28,30,.94),rgba(25,28,30,.6))}
+body.e-side .e-head{background:#1f2326;border-right:0}
+body.e-side .e-brand b{color:#fff}body.e-side .e-brand small,body.e-side .e-nav a{color:#a7adb1}
+body.e-side .e-nav a.on{background:#1e8c5a;color:#fff}
+.e-head .e-burger{background:#1e8c5a;color:#fff}
+.e-hero .e-name{font-size:clamp(40px,5.4vw,78px);line-height:.95;text-transform:uppercase}
+.e-hero.banner .e-por{border-radius:3px;border:4px solid #1e8c5a}
+.e-hero.banner .e-kick{color:#5fd39c}
+.e-h{text-transform:uppercase;letter-spacing:.01em}
+.e-stats b{color:#1e8c5a;font-family:var(--e-head);font-size:1.25em}
+.e-why .n{color:#1e8c5a;font-family:var(--e-head)}
+.e-why.grid>div{border-top:4px solid #1e8c5a}

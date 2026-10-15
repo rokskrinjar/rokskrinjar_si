@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ERP Leads · 25 experts</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Familjen+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f1ec;--card:#fbfaf7;--tx:#16181c;--mu:#666a72;--ln:#dcd8cf;--acc:#2f49c9;--acc2:#e5533d;--ok:#1f8a4c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 'Familjen Grotesk',system-ui,sans-serif}
+.wrap{max-width:1440px;margin:0 auto;padding:0 32px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:13.5px;color:var(--mu);gap:12px;flex-wrap:wrap}
+nav a{color:var(--tx);text-decoration:none}nav span a{margin-left:16px}
+header{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:end;padding:16px 0 30px;border-bottom:1px solid var(--tx)}
+h1{font:400 clamp(54px,7.6vw,124px)/.9 'Instrument Serif',Georgia,serif;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1 em{color:var(--acc)}
+header p{margin:0 0 16px;color:#41444b;font-size:16.5px;max-width:46em}
+.stats{display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mu)}.stats b{font:400 40px/1 'Instrument Serif';color:var(--tx);display:block}
+.mono{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
+.same{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--ln)}
+.same div{padding:16px 16px 16px 0;font-size:13.5px;color:#41444b}.same div+div{padding-left:16px;border-left:1px solid var(--ln)}
+.same b{display:block;color:var(--tx);font-weight:600;margin:4px 0 2px}
+/* matcher */
+.match{margin:26px 0 0;background:var(--tx);color:#eef0f4;border-radius:14px;padding:22px 24px;display:grid;grid-template-columns:300px 1fr;gap:28px}
+.match h2{font:400 34px/1 'Instrument Serif';margin:4px 0 8px}.match p{margin:0;color:#b7bbc6;font-size:14px}
+.mq{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.mq label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#b7bbc6}
+.mq select{appearance:none;background:#23262c url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23b7bbc6'/%3E%3C/svg%3E") no-repeat right 12px center;border:1px solid #3a3e46;color:#fff;border-radius:8px;padding:9px 30px 9px 11px;font:500 14px 'Familjen Grotesk';width:100%}
+.top{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.top a{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;background:#202329;border:1px solid #33373f;border-radius:10px;padding:10px 12px;color:inherit;text-decoration:none;transition:border-color .2s}
+.top a:hover{border-color:var(--acc)}
+.top img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.top b{display:block;font-weight:600;font-size:14.5px}.top small{color:#9ca1ad;font-size:12px;line-height:1.3;display:block}
+.pct{font:400 30px/1 'Instrument Serif';color:#fff}.pct i{font-style:normal;font-size:15px;color:#9ca1ad}
+.top a:first-child .pct{color:#9fb1ff}
+/* controls */
+.ctrl{position:sticky;top:0;z-index:10;background:var(--bg);display:flex;gap:8px;align-items:center;padding:14px 0;border-bottom:1px solid var(--ln);flex-wrap:wrap;margin-top:24px}
+.chip{border:1px solid var(--ln);background:var(--card);color:var(--tx);border-radius:999px;padding:6px 13px;font:600 13px 'Familjen Grotesk';cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip small{font-size:11px;opacity:.55}.chip.on{background:var(--tx);border-color:var(--tx);color:var(--bg)}
+.chip.likec.on{background:var(--acc2);border-color:var(--acc2);color:#fff}
+.ctrl .sp{flex:1}
+.ctrl select,.srch{border:1px solid var(--ln);background:var(--card);border-radius:999px;padding:7px 14px;font:14px 'Familjen Grotesk';color:var(--tx)}
+.srch{width:230px}
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px 24px;padding:28px 0 60px}
+.card{display:flex;flex-direction:column;min-width:0}
+.card .lnk{display:flex;flex-direction:column;text-decoration:none;color:inherit}
+.thumb{position:relative;aspect-ratio:16/10;border-radius:10px;overflow:hidden;background:#e6e3dc;border:1px solid var(--ln)}
+.thumb>img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.card:hover .thumb>img{transform:scale(1.03)}
+.no{position:absolute;left:10px;top:10px;background:var(--tx);color:var(--bg);padding:5px 8px;border-radius:6px}
+.open{position:absolute;right:10px;bottom:10px;background:var(--acc);color:#fff;font:600 12.5px 'Familjen Grotesk';padding:6px 11px;border-radius:999px;opacity:0;transform:translateY(6px);transition:.2s}.card:hover .open{opacity:1;transform:none}
+.mb{position:absolute;left:10px;bottom:10px;background:rgba(22,24,28,.88);color:#fff;font:600 12px 'Familjen Grotesk';padding:5px 10px;border-radius:999px}
+.like,.cbtn{position:absolute;top:10px;height:38px;border-radius:999px;border:0;background:rgba(251,250,247,.94);color:var(--tx);display:flex;align-items:center;justify-content:center;gap:5px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);z-index:2;transition:transform .15s}
+.like{right:10px;width:38px}.cbtn{right:56px;min-width:38px;padding:0 10px;font:700 12.5px 'Familjen Grotesk'}
+.like svg{width:19px;height:19px}.cbtn svg{width:18px;height:18px}.like:hover,.cbtn:hover{transform:scale(1.08)}
+.like.on{background:var(--acc2);color:#fff}.like.on svg path{fill:currentColor}.cbtn.has{background:var(--tx);color:var(--bg)}.cbtn b:empty{display:none}
+.like.pop{animation:pop .45s cubic-bezier(.3,1.6,.5,1)}@keyframes pop{40%{transform:scale(1.35)}}
+.who{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:start;padding:14px 2px 0}
+.who img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:1px solid var(--ln)}
+.who h2{font:400 30px/1 'Instrument Serif';margin:0 0 3px}
+.who .role{font-size:14px;color:#2d3036;line-height:1.35}
+.who .loc{font-size:12.5px;color:var(--mu);margin-top:4px}
+.tags{display:flex;gap:5px;flex-wrap:wrap;padding:10px 2px 0}
+.tags span{font-size:11.5px;font-weight:600;border:1px solid var(--ln);border-radius:6px;padding:2px 7px;color:#41444b;background:var(--card)}
+.tags span.g{border-color:transparent;background:#e3e7fb;color:#22379e}
+.why{margin:10px 2px 0;font-size:13.5px;color:#363940;border-left:2px solid var(--acc);padding-left:10px}.why b{font-weight:600}
+.kpi{display:flex;gap:16px;padding:10px 2px 0;font-size:12px;color:var(--mu)}.kpi b{display:block;font:400 22px/1 'Instrument Serif';color:var(--tx)}
+/* comments */
+.cm{margin-top:10px;background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.cm[hidden]{display:none}
+.cm .mood{display:flex;gap:6px;flex-wrap:wrap}
+.cm .mood button,.cm .asp button{border:1px solid var(--ln);background:transparent;color:var(--tx);border-radius:999px;padding:5px 11px;font:600 12.5px 'Familjen Grotesk';cursor:pointer}
+.cm .mood button.on[data-m="+"]{background:var(--ok);border-color:var(--ok);color:#fff}.cm .mood button.on[data-m="~"]{background:#b7791f;border-color:#b7791f;color:#fff}.cm .mood button.on[data-m="-"]{background:#c53030;border-color:#c53030;color:#fff}
+.cm .asp{display:flex;gap:5px;flex-wrap:wrap}.cm .asp button{font-size:12px;padding:3px 9px}.cm .asp button.on{background:var(--tx);border-color:var(--tx);color:var(--bg)}
+.cm textarea{width:100%;min-height:74px;resize:vertical;border:1px solid var(--ln);border-radius:8px;padding:9px 10px;font:14.5px/1.45 'Familjen Grotesk';color:var(--tx);background:#fff}
+.cm textarea:focus{outline:2px solid var(--acc);outline-offset:-1px}
+.cm .row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.cm .save{border:0;background:var(--acc);color:#fff;font:700 13.5px 'Familjen Grotesk';border-radius:999px;padding:8px 16px;cursor:pointer}.cm .save:disabled{opacity:.4;cursor:default}
+.cm .hint{font-size:12px;color:var(--mu)}
+.cl{display:flex;flex-direction:column;gap:6px}
+.ci{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:start;font-size:13.5px;border-top:1px solid var(--ln);padding-top:8px}
+.ci .md{font:700 11px 'Familjen Grotesk';border-radius:999px;padding:2px 8px;color:#fff;white-space:nowrap}.ci .md.p{background:var(--ok)}.ci .md.n{background:#c53030}.ci .md.x{background:#b7791f}
+.ci small{display:block;color:var(--mu);font-size:11.5px}.ci .del{border:0;background:none;color:var(--mu);cursor:pointer;font-size:15px;padding:0 4px}.ci .del:hover{color:var(--acc2)}
+.gen{border-top:1px solid var(--tx);padding:28px 0 30px;display:grid;grid-template-columns:1fr 1.4fr;gap:40px}
+.gen h2{font:400 46px/1 'Instrument Serif';margin:0 0 10px}.gen p{margin:0;color:var(--mu);max-width:46ch}
+.gen .cm{margin:0}
+.sync{font-size:12.5px;color:var(--mu);display:flex;align-items:center;gap:6px}.sync i{width:8px;height:8px;border-radius:50%;background:#b7791f;display:inline-block;flex:none}.sync.ok i{background:var(--ok)}
+.empty{grid-column:1/-1;text-align:center;color:var(--mu);padding:60px 0}
+footer{border-top:1px solid var(--tx);padding:22px 0 50px;display:flex;justify-content:space-between;font-size:13.5px;color:var(--mu);flex-wrap:wrap;gap:10px}footer a{color:var(--tx)}
+@media(max-width:1100px){.grid{grid-template-columns:1fr 1fr}header{grid-template-columns:1fr;gap:16px}.match{grid-template-columns:1fr;gap:14px}.same{grid-template-columns:repeat(3,1fr)}.same div:nth-child(4){border-left:0;padding-left:0}.gen{grid-template-columns:1fr;gap:16px}}
+@media(max-width:760px){.mq{grid-template-columns:1fr 1fr}.top{grid-template-columns:1fr}}
+@media(max-width:680px){.ctrl{position:static}.wrap{padding:0 16px}.grid{grid-template-columns:1fr}.srch{width:100%}.ctrl .sp{display:none}.same{grid-template-columns:1fr 1fr}.same div{border-left:0!important;padding-left:0!important}.match{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <nav><a href="/100-pages/">← 100 pages</a><span><a href="/saas-screens/">saas</a><a href="/beyond-the-crm/">dashboards</a></span></nav>
+ <header><h1>25 people who could lead <em>your ERP project.</em></h1>
+  <div><p>Twenty-five fictional independent ERP experts, each with a complete website explaining why they are the right person to lead a digitalisation or ERP programme: their track record, method, projects, an honest fit check, a project plan generator and booking. Each site has its own design.</p><div class="stats" id="stats"></div></div></header>
+ <div class="same"><div><span class="mono">Home</span><b>Why me</b>Proof points, best for / not for</div><div><span class="mono">Experience</span><b>Career & depth</b>Platforms, industries, references</div><div><span class="mono">Approach</span><b>Method</b>Phases, governance, red flags</div><div><span class="mono">Projects</span><b>Case studies</b>Filterable, with lessons learned</div><div><span class="mono">Fit & plan</span><b>3 tools</b>Fit check, plan generator, risk check</div><div><span class="mono">Work with me</span><b>Booking</b>Availability, fees, FAQ, intro call</div></div>
+ <section class="match" aria-label="Find a match"><div><span class="mono" style="color:#9fb1ff">Quick match</span><h2>Who fits your project?</h2><p>Four answers, scored against each expert’s own fit check. Example answers are filled in — change them.</p></div>
+  <div><div class="mq" id="mq"></div><div class="top" id="top"></div></div></section>
+ <div class="ctrl"><div id="cats" style="display:flex;gap:6px;flex-wrap:wrap"></div><span class="sp"></span><select id="plat" aria-label="Platform"></select><input class="srch" id="q" placeholder="Search: “pharma”, “rescue”, “Oslo” …"></div>
+ <main class="grid" id="grid"><div class="empty">Loading 25 experts …</div></main>
+ <section class="gen"><div><h2>What do you like?</h2><p>Click the speech bubble on any expert to note what works and what doesn’t. I distil these comments into your design guidelines and apply them to the next pages. Use the box on the right for the collection as a whole.</p><p class="sync" id="sync" style="margin-top:12px"><i></i><span>Checking storage …</span></p></div><div id="genbox"></div></section>
+ <footer><span>All experts, clients, references and figures are fictional. Photos: Pexels. Bookings in the demos are not sent anywhere.</span><a href="/100-pages/">Back to 100 pages →</a></footer>
+</div>
+<script>
+const DIRS=['01-marta-kos','02-daniel-reiter','03-aisha-rahman','04-tomaz-novak','05-lucia-ferrer','06-henrik-sandberg','07-grace-okonkwo','08-pieter-de-vries','09-elena-popescu','10-james-whitfield','11-sofia-marchetti','12-kenji-watanabe','13-nina-petrovic','14-marcus-lindqvist','15-claire-dubois','16-rok-zupan','17-hannah-fischer','18-omar-haddad','19-ingrid-solberg','20-mateusz-kowalski','21-laura-bennett','22-aleksandra-horvat','23-david-cohen','24-ana-kralj','25-viktor-hartmann'];
+const GROUP={Implementation:[1,2,3,4,5,6,8,12,13,15,20],'Programme & governance':[7,14,16,17,23,25],Specialists:[9,11,18,19,21,24],'Strategy & selection':[10,22]};
+const PLATFORMS=['Not decided yet','SAP S/4HANA','SAP Business One','Microsoft Dynamics 365 F&O','Microsoft Dynamics 365 Business Central','Oracle NetSuite','Oracle Fusion Cloud','Odoo','Infor CloudSuite','IFS Cloud','Epicor Kinetic','Sage X3','Acumatica','Pantheon'];
+const INDUSTRIES=['Discrete manufacturing','Process manufacturing & food','Distribution & wholesale','Retail & e-commerce','Professional services','Construction & engineering','Public sector & utilities','Life sciences & pharma','SaaS & subscription','Asset-intensive & field service','Logistics & transport'];
+const SIT=[['select','Choosing an ERP'],['implement','Starting an implementation'],['rescue','Mid-project and in trouble'],['migrate','Upgrade or migration'],['optimise','Live, but not delivering value'],['strategy','Need a digital strategy first']];
+const SIZE=[['s','< 50 people'],['m','50–250'],['l','250–1,000'],['xl','1,000–5,000'],['xxl','5,000+']];
+const $=s=>document.getElementById(s);
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let ALL=[],cat='All',plat='',likes=[],ans={platform:'Not decided yet',industry:'Discrete manufacturing',situation:'implement',size:'m'};
+try{likes=JSON.parse(localStorage.getItem('erp25-likes')||'[]')}catch(e){}
+try{const s=JSON.parse(localStorage.getItem('erp25')||'{}');cat=s.cat||cat;plat=s.plat||'';if(s.ans)ans={...ans,...s.ans}}catch(e){}
+const saveLikes=()=>{try{localStorage.setItem('erp25-likes',JSON.stringify(likes))}catch(e){}};
+const saveState=()=>{try{localStorage.setItem('erp25',JSON.stringify({cat,plat,ans}))}catch(e){}};
+/* collect each expert's real site data: site.js calls E.site({...}) */
+window.E={site(d){const s=document.currentScript&&document.currentScript.dataset.dir;ALL.push({...d,dir:s,no:+s.slice(0,2)})}};
+let left=DIRS.length;DIRS.forEach(d=>{const s=document.createElement('script');s.src=d+'/site.js';s.dataset.dir=d;s.async=false;s.onload=s.onerror=()=>{if(!--left){ALL.sort((a,b)=>a.no-b.no);init()}};document.head.appendChild(s)});
+const groupOf=n=>Object.keys(GROUP).find(g=>GROUP[g].includes(n));
+const mainPlats=x=>x.platforms.filter(p=>p.lvl>=4).map(p=>p.n);
+const short=n=>n.replace('Microsoft Dynamics 365 Business Central','Business Central').replace('Microsoft Dynamics 365 F&O','D365 F&O').replace('Oracle Fusion Cloud','Oracle Fusion');
+function score(x){const F=x.fit;const p=ans.platform==='Not decided yet'?(F.undecided??.6):(F.platforms[ans.platform]??.12);const i=F.industries[ans.industry]??.3;const s=F.situation[ans.situation]??.5;const z=F.size[ans.size]??.5;const u=ans.platform==='Not decided yet'?.15:0;return Math.round((p*(.25-u)+i*.25+s*(.3+u)+z*.2)*100)}
+function matcher(){const sel=(k,lab,opts)=>`<label>${lab}<select data-a="${k}">${opts.map(o=>{const[v,t]=Array.isArray(o)?o:[o,o];return`<option value="${esc(v)}" ${ans[k]===v?'selected':''}>${esc(t)}</option>`}).join('')}</select></label>`;
+ $('mq').innerHTML=sel('platform','Platform',PLATFORMS)+sel('industry','Industry',INDUSTRIES)+sel('situation','Where you are',SIT)+sel('size','Company size',SIZE);tops()}
+function tops(){const R=ALL.map(x=>({x,s:score(x)})).sort((a,b)=>b.s-a.s).slice(0,3);
+ $('top').innerHTML=R.map(({x,s})=>`<a href="${x.dir}/tools.html"><img src="img/${x.photo}.jpg" alt=""><span><b>${esc(x.name)}</b><small>${esc(x.role)}</small></span><span class="pct">${s}<i>%</i></span></a>`).join('');
+ document.querySelectorAll('.mb').forEach(m=>{const x=ALL.find(a=>a.dir===m.dataset.mb);m.textContent=score(x)+'% match'})}
+$('mq').addEventListener('change',e=>{const k=e.target.dataset.a;if(!k)return;ans[k]=e.target.value;saveState();tops()});
+const CATS=['All',...Object.keys(GROUP)];
+const HEART='<svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.5 8.1 3.6 4.5 7.2 4.5c2 0 3.5 1.1 4.8 2.8 1.3-1.7 2.8-2.8 4.8-2.8 3.6 0 5.7 3.6 4.5 6.8-1.8 4.6-9.3 9.2-9.3 9.2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+const CHAT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>';
+/* comments: synced to _feedback/erp.json through the local server */
+const COL='erp',ASP=['colours','typography','layout','photos','content','fit & plan tools','booking','mobile'],MOODS=[['+','I like it'],['~','Mixed'],['-','I don’t like it']];
+let CM=[],open=new Set(),draft={},pending=false;const API=(location.protocol==='file:'?'http://localhost:5510':'')+'/__feedback/';
+try{CM=JSON.parse(localStorage.getItem('erp25-comments')||'[]')}catch(e){}
+const saveLocal=()=>{try{localStorage.setItem('erp25-comments',JSON.stringify(CM))}catch(e){}};
+function syncState(ok,msg){const s=$('sync');s.classList.toggle('ok',ok);s.querySelector('span').textContent=msg}
+const OFF='Saved in this browser for now. When the local server is reachable again, comments are moved into the project automatically.';
+async function push(){saveLocal();try{const r=await fetch(API+COL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(CM)});if(!r.ok)throw 0;pending=false;syncState(true,'Saved to the project (_feedback/erp.json) so Claude can read them.')}catch(e){pending=true;syncState(false,OFF)}}
+async function pull(){try{const r=await fetch(API+COL,{cache:'no-store'});if(!r.ok)throw 0;const j=await r.json();
+ const ids=new Set(j.map(x=>x.id));const only=CM.filter(x=>!ids.has(x.id));CM=[...j,...only];if(only.length)push();else{saveLocal();syncState(true,'Comments are saved to the project (_feedback/erp.json) so Claude can read them.')}}
+ catch(e){pending=CM.length>0;syncState(false,OFF)}if(ALL.length)draw();gen()}
+setInterval(()=>{if(pending)pull()},15000);addEventListener('focus',()=>{if(pending)pull()});
+const when=ts=>new Date(ts).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+function box(f){const d=draft[f]||(draft[f]={m:'+',a:[],t:''});const L=CM.filter(x=>x.page===f);
+ return`<div class="mood">${MOODS.map(m=>`<button type="button" data-mood="${m[0]}" data-f="${f}" data-m="${m[0]}" class="${d.m===m[0]?'on':''}">${m[1]}</button>`).join('')}</div>
+ <div class="asp">${ASP.map(a=>`<button type="button" data-asp="${a}" data-f="${f}" class="${d.a.includes(a)?'on':''}">${a}</button>`).join('')}</div>
+ <textarea data-ta="${f}" placeholder="${f==='_collection'?'What do you like or dislike about the collection as a whole? What should I do more or less of?':'What exactly works or doesn’t? E.g. “the fit check is convincing”, “too much text on the home page”, “love the dark design” …'}">${esc(d.t)}</textarea>
+ <div class="row"><span class="hint">Save with Ctrl + Enter</span><button type="button" class="save" data-save="${f}" ${d.t.trim()?'':'disabled'}>Save comment</button></div>
+ ${L.length?`<div class="cl">${L.map(x=>`<div class="ci"><span class="md ${x.mood==='+'?'p':x.mood==='-'?'n':'x'}">${(MOODS.find(m=>m[0]===x.mood)||MOODS[1])[1]}</span><div>${esc(x.text)}<small>${when(x.ts)}${x.aspects.length?' · '+x.aspects.join(', '):''}</small></div><button type="button" class="del" data-del="${x.id}" aria-label="Delete comment">×</button></div>`).join('')}</div>`:''}`}
+function gen(){$('genbox').innerHTML=`<div class="cm">${box('_collection')}</div>`}
+const nPages=()=>new Set(CM.filter(x=>x.page!=='_collection').map(x=>x.page)).size;
+function addC(f){const d=draft[f];if(!d||!d.t.trim())return;const it=ALL.find(i=>i.dir===f);CM.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),collection:COL,page:f,name:it?it.name:'Whole collection',mood:d.m,aspects:d.a,text:d.t.trim(),ts:new Date().toISOString()});draft[f]={m:d.m,a:[],t:''};push();rerender(f)}
+function rerender(f){const c=document.querySelector('[data-c="Commented"] small');if(c)c.textContent=nPages();if(f==='_collection'){gen();return}const el=document.querySelector(`.cm[data-cm="${f}"]`);if(el&&!el.hidden)el.innerHTML=box(f);const b=document.querySelector(`.cbtn[data-c-open="${f}"]`);if(b){const n=CM.filter(x=>x.page===f).length;b.classList.toggle('has',n>0);b.querySelector('b').textContent=n||''}}
+function draw(){const q=$('q').value.toLowerCase().trim();
+ $('cats').innerHTML=CATS.map(c=>`<button class="chip ${c===cat?'on':''}" data-c="${c}">${c}<small>${c==='All'?ALL.length:GROUP[c].length}</small></button>`).join('')+`<button class="chip likec ${cat==='Liked'?'on':''}" data-c="Liked">♥ Liked<small>${likes.length}</small></button><button class="chip ${cat==='Commented'?'on':''}" data-c="Commented">Commented<small>${nPages()}</small></button>`;
+ const L=ALL.filter(x=>(cat==='All'||groupOf(x.no)===cat||(cat==='Liked'&&likes.includes(x.dir))||(cat==='Commented'&&CM.some(c=>c.page===x.dir)))&&(!plat||mainPlats(x).includes(plat))&&(!q||[x.name,x.role,x.location,x.kicker,x.tagline,...x.industries.map(i=>i.n),...x.platforms.map(p=>p.n),...x.why.map(w=>w.h)].join(' ').toLowerCase().includes(q)));
+ $('grid').innerHTML=L.length?L.map(x=>{const on=likes.includes(x.dir),n=CM.filter(c=>c.page===x.dir).length,mp=mainPlats(x);return`<article class="card"><a class="lnk" href="${x.dir}/index.html"><div class="thumb"><button class="like ${on?'on':''}" data-like="${x.dir}" aria-label="${on?'Unlike':'Like'} ${esc(x.name)}" aria-pressed="${on}">${HEART}</button><button class="cbtn ${n?'has':''}" data-c-open="${x.dir}" aria-label="Comment on ${esc(x.name)}" aria-expanded="${open.has(x.dir)}">${CHAT}<b>${n||''}</b></button><img src="thumbs/${x.dir.slice(0,2)}.jpg" alt="${esc(x.name)} website" loading="lazy"><span class="no mono">${x.dir.slice(0,2)}</span><span class="mb" data-mb="${x.dir}">${score(x)}% match</span><span class="open">Open site →</span></div>
+  <div class="who"><img src="img/${x.photo}.jpg" alt="" loading="lazy"><div><h2>${esc(x.name)}</h2><div class="role">${esc(x.role)}</div><div class="loc">${esc(x.location)} · ${x.years} years · ${esc(groupOf(x.no))}</div></div></div>
+  <div class="tags">${mp.map(p=>`<span class="g">${esc(short(p))}</span>`).join('')}${x.industries.filter(i=>i.lvl>=4).slice(0,3).map(i=>`<span>${esc(i.n)}</span>`).join('')}</div>
+  <div class="why"><b>Why ${esc(x.first)}:</b> ${esc(x.why[0].h)}. ${esc(x.why[0].proof)}</div>
+  <div class="kpi">${x.stats.slice(0,3).map(s=>`<span><b>${esc(s[0])}</b>${esc(s[1])}</span>`).join('')}</div></a>
+  <div class="cm" data-cm="${x.dir}" ${open.has(x.dir)?'':'hidden'}>${open.has(x.dir)?box(x.dir):''}</div></article>`}).join(''):`<div class="empty">${cat==='Liked'?'Nothing liked yet. Tap ♥ on any expert.':cat==='Commented'?'No comments yet. Click the speech bubble on any expert.':'No matches. Try another word or platform.'}</div>`;
+ saveState()}
+function init(){const P=[...new Set(ALL.flatMap(mainPlats))].sort();if(plat&&!P.includes(plat))plat='';
+ $('plat').innerHTML=`<option value="">All platforms</option>`+P.map(p=>`<option ${p===plat?'selected':''}>${esc(p)}</option>`).join('');
+ $('stats').innerHTML=`<span><b>25</b>experts</span><span><b>150</b>pages</span><span><b>${new Set(ALL.flatMap(x=>x.platforms.map(p=>p.n))).size}</b>ERP platforms</span><span><b>${ALL.reduce((a,x)=>a+x.cases.length,0)}</b>case studies</span>`;
+ matcher();draw()}
+$('grid').addEventListener('click',e=>{const o=e.target.closest('[data-c-open]');if(!o)return;e.preventDefault();e.stopPropagation();const f=o.dataset.cOpen,el=document.querySelector(`.cm[data-cm="${f}"]`);if(open.has(f)){open.delete(f);el.hidden=true}else{open.add(f);el.innerHTML=box(f);el.hidden=false;el.querySelector('textarea').focus()}o.setAttribute('aria-expanded',open.has(f))},true);
+document.addEventListener('click',e=>{const t=e.target.closest('[data-mood],[data-asp],[data-save],[data-del]');if(!t)return;
+ if(t.dataset.del){const x=CM.find(c=>c.id===t.dataset.del);CM=CM.filter(c=>c.id!==t.dataset.del);push();if(x)rerender(x.page);return}
+ const f=t.dataset.f||t.dataset.save,d=draft[f]||(draft[f]={m:'+',a:[],t:''});
+ if(t.dataset.mood){d.m=t.dataset.mood;t.parentElement.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===t));return}
+ if(t.dataset.asp){const a=t.dataset.asp;d.a=d.a.includes(a)?d.a.filter(x=>x!==a):[...d.a,a];t.classList.toggle('on');return}
+ if(t.dataset.save)addC(f)});
+document.addEventListener('input',e=>{const f=e.target.dataset&&e.target.dataset.ta;if(!f)return;const d=draft[f]||(draft[f]={m:'+',a:[],t:''});d.t=e.target.value;const s=e.target.closest('.cm').querySelector('[data-save]');if(s)s.disabled=!d.t.trim()});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)&&e.target.dataset&&e.target.dataset.ta)addC(e.target.dataset.ta)});
+$('grid').addEventListener('click',e=>{const b=e.target.closest('[data-like]');if(!b)return;e.preventDefault();e.stopPropagation();const f=b.dataset.like,on=!likes.includes(f);likes=on?[...likes,f]:likes.filter(x=>x!==f);saveLikes();
+ if(cat==='Liked'){draw();return}
+ b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);b.classList.remove('pop');if(on){void b.offsetWidth;b.classList.add('pop')}
+ const c=document.querySelector('[data-c="Liked"] small');if(c)c.textContent=likes.length});
+$('cats').onclick=e=>{const b=e.target.closest('[data-c]');if(b){cat=b.dataset.c;draw()}};$('plat').onchange=e=>{plat=e.target.value;draw()};$('q').oninput=draw;
+addEventListener('keydown',e=>{if(e.key==='/'&&!/TEXTAREA|INPUT|SELECT/.test(document.activeElement.tagName)){e.preventDefault();$('q').focus()}});
+gen();pull();
+</script>
+</body>
+</html>

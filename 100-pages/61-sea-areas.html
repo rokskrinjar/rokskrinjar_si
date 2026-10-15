@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sea Areas — The Coastal Forecast</title>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--sea:#0f2a3d;--sea2:#16384f;--foam:#e8f1f2;--chart:#f2ecdc;--buoy:#e0532b;--lime:#c8d86a;--dim:#e8f1f299}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--sea);color:var(--foam);font-family:Spectral,serif;font-weight:300}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:20px 5vw;border-bottom:1px solid #e8f1f222}
+.logo{font-family:'DM Mono';font-size:14px;letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.logo i{width:12px;height:12px;border-radius:50%;background:var(--buoy);box-shadow:0 0 0 4px #e0532b33;animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 10px #e0532b00}}
+nav{display:flex;gap:22px;font-family:'DM Mono';font-size:13px;letter-spacing:.1em;flex-wrap:wrap}
+nav a{color:var(--dim);padding-bottom:3px}nav a.on{color:var(--foam);border-bottom:1px solid var(--buoy)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1240px;margin:0 auto;padding:30px 5vw 80px}
+h1{font-weight:300;font-size:clamp(2.6rem,6vw,5rem);line-height:1;letter-spacing:-.01em}
+h1 em{color:var(--lime)}
+.issued{font-family:'DM Mono';font-size:12px;letter-spacing:.14em;color:var(--dim);margin:12px 0 26px}
+.mapgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,1fr);gap:34px;align-items:start}
+.chart{background:var(--sea2);border:1px solid #e8f1f222;border-radius:4px;position:relative}
+.chart svg{display:block;width:100%;height:auto}
+.area{cursor:pointer;transition:opacity .2s}
+.area rect{transition:fill .3s}
+.area:hover rect{stroke:#fff;stroke-width:2}
+.area text{font-family:'DM Mono';font-size:10px;fill:#0f2a3d;pointer-events:none;letter-spacing:.04em}
+.fcast{border-left:2px solid var(--buoy);padding-left:24px}
+.fcast h2{font-weight:500;font-size:44px;line-height:1}
+.fcast .row{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid #e8f1f218;font-size:20px;line-height:1.4}
+.fcast .row small{font-family:'DM Mono';font-size:11px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;padding-top:6px}
+.warn{display:inline-block;background:var(--buoy);color:#fff;font-family:'DM Mono';font-size:12px;padding:4px 10px;letter-spacing:.14em;margin:10px 0}
+.key{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;font-family:'DM Mono';font-size:11px}
+.key span{display:flex;align-items:center;gap:5px}
+.key i{width:14px;height:14px;display:inline-block}
+/* broadcast */
+.radio{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:start}
+.set{background:linear-gradient(#3b2a1d,#23180f);border-radius:18px;padding:22px;box-shadow:0 30px 60px #0008,inset 0 2px 0 #ffffff18}
+.grille{height:150px;border-radius:10px;background:repeating-linear-gradient(90deg,#1a120b 0 3px,#6b5238 3px 6px);margin-bottom:16px;position:relative;overflow:hidden}
+.grille i{position:absolute;inset:0;background:radial-gradient(circle,#ffcf7a55,transparent 60%);opacity:0;transition:opacity .4s}
+.grille.on i{opacity:1;animation:glow 1.2s infinite alternate}
+@keyframes glow{to{opacity:.4}}
+.dial{background:#f2e3bf;color:#23180f;border-radius:8px;padding:10px 14px;font-family:'DM Mono';font-size:12px;display:flex;justify-content:space-between;position:relative}
+.dial b{position:absolute;top:0;bottom:0;width:2px;background:var(--buoy);left:62%}
+.knobs{display:flex;justify-content:space-between;margin-top:16px}
+.knob{width:62px;height:62px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8a6a48,#2a1c10);border:0;box-shadow:0 4px 8px #0008;color:#f2e3bf;font-family:'DM Mono';font-size:10px}
+.script{font-size:22px;line-height:1.75;max-height:62vh;overflow:auto;padding-right:14px}
+.script p{margin-bottom:18px;opacity:.35;transition:opacity .4s}
+.script p.on{opacity:1}
+.script p b{font-weight:500;color:var(--lime)}
+.poem{font-style:italic;color:var(--dim);font-size:18px;margin-bottom:20px}
+/* beaufort */
+.bf{display:grid;grid-template-columns:1fr 360px;gap:34px;align-items:start}
+.bf canvas{width:100%;height:auto;display:block;border-radius:4px}
+.bfnum{font-size:120px;line-height:.9;font-weight:300}
+.bfname{font-size:34px;font-weight:500;margin-bottom:14px}
+.bfrow{display:grid;grid-template-columns:120px 1fr;padding:10px 0;border-bottom:1px solid #e8f1f218;font-size:17px}
+.bfrow small{font-family:'DM Mono';font-size:11px;letter-spacing:.14em;color:var(--dim);padding-top:4px}
+input[type=range]{width:100%;accent-color:var(--buoy)}
+.ticks{display:flex;justify-content:space-between;font-family:'DM Mono';font-size:11px;color:var(--dim);margin-top:4px}
+/* tides */
+.ports{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.ports button{border:1px solid #e8f1f244;background:none;border-radius:30px;padding:7px 14px;font-family:'DM Mono';font-size:12px}
+.ports button.on{background:var(--foam);color:var(--sea)}
+.tide svg{width:100%;height:auto;display:block}
+.tt{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.tt div{border:1px solid #e8f1f222;padding:14px;border-radius:4px}
+.tt b{font-size:30px;font-weight:300;display:block}
+.tt small{font-family:'DM Mono';font-size:11px;letter-spacing:.14em;color:var(--dim)}
+@media(max-width:900px){.mapgrid,.radio,.bf{grid-template-columns:1fr}.tt{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo"><i></i>Sea Areas · Coastal Forecast</div>
+ <nav><a href="#chart">The Chart</a><a href="#broadcast">The Broadcast</a><a href="#beaufort">Beaufort Scale</a><a href="#tides">Tide Tables</a><a href="index.html">↩ Index</a></nav>
+</header>
+
+<section data-view="chart"><div class="wrap">
+ <h1>And now the forecast <em>for sea areas.</em></h1>
+ <div class="issued" id="issued"></div>
+ <div class="mapgrid">
+  <div class="chart"><svg id="areas" viewBox="0 0 640 700"></svg></div>
+  <div class="fcast" id="fcast"></div>
+ </div>
+</div></section>
+
+<section data-view="broadcast" hidden><div class="wrap">
+ <h1>Read <em>slowly</em>, four times a day.</h1>
+ <div class="issued">Every area in the same order, the same way. It works like a lullaby for people on land.</div>
+ <div class="radio">
+  <div class="set"><div class="grille" id="grille"><i></i></div><div class="dial"><span>LW</span><span>MW</span><span>198</span><span>FM</span><b></b></div>
+   <div class="knobs"><button class="knob" id="play">PLAY</button><button class="knob" id="slow">PACE</button><button class="knob" id="stop">STOP</button></div>
+   <p style="font-family:'DM Mono';font-size:11px;color:#f2e3bf99;margin-top:14px;line-height:1.6" id="pace">Pace: measured. Uses your browser's voice if it has one. Otherwise the text scrolls on its own.</p></div>
+  <div><div class="poem">"Dogger, Fisher, German Bight — the words go out like a lighthouse beam across the dark."</div><div class="script" id="script"></div></div>
+ </div>
+</div></section>
+
+<section data-view="beaufort" hidden><div class="wrap">
+ <h1>Force 0 <em>to</em> 12.</h1>
+ <div class="issued">Admiral Francis Beaufort, 1805. He measured wind by what it does to the sea.</div>
+ <div class="bf">
+  <div><canvas id="bfc" width="900" height="520"></canvas><input type="range" id="bfr" min="0" max="12" value="5"><div class="ticks"></div></div>
+  <div><div class="bfnum" id="bfn">5</div><div class="bfname" id="bfname"></div><div id="bfrows"></div></div>
+ </div>
+</div></section>
+
+<section data-view="tides" hidden><div class="wrap">
+ <h1>High water, <em>low water.</em></h1>
+ <div class="issued">Predictions for today. Two tides a day, each about 50 minutes later than the day before.</div>
+ <div class="ports" id="ports"></div>
+ <div class="tide"><svg id="tsvg" viewBox="0 0 1000 380"></svg></div>
+ <div class="tt" id="tt"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'chart';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='beaufort')bfStart()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+// schematic grid: [name, col, row, w, h]
+const AR=[['Southeast Iceland',3,0,2,1],['Faeroes',5,0,2,1],['Bailey',3,1,2,1],['Fair Isle',5,1,2,1],['Viking',7,1,2,1],['Rockall',1,2,2,1],['Hebrides',3,2,2,1],['Cromarty',5,2,2,1],['North Utsire',9,1,2,1],['South Utsire',9,2,2,1],['Forties',7,2,2,1],['Malin',3,3,2,1],['Forth',5,3,2,1],['Fisher',9,3,2,1],['Shannon',1,3,2,2],['Irish Sea',3,4,2,1],['Tyne',5,4,2,1],['Dogger',7,3,2,2],['German Bight',9,4,2,1],['Fastnet',1,5,2,1],['Lundy',3,5,2,1],['Humber',5,5,2,1],['Thames',7,5,2,1],['Sole',1,6,2,1],['Plymouth',3,6,2,1],['Portland',5,6,2,1],['Wight',7,6,1,1],['Dover',8,6,1,1],['FitzRoy',1,7,3,1],['Biscay',4,7,3,1],['Trafalgar',2,8,3,1]];
+function rnd(s){return()=>((s=(s*9301+49297)%233280)/233280)}
+const today=new Date();const seed=today.getFullYear()*400+today.getMonth()*31+today.getDate();const R=rnd(seed);
+const DIRS=['north','northeast','east','southeast','south','southwest','west','northwest'];
+const cyc=R()*8|0;
+function fc(i,name){const r=rnd(seed+i*97);const col=AR[i][1],row=AR[i][2];const base=Math.max(2,Math.min(10,Math.round(3+r()*3+(col<4?2:0)+(row<3?1:0)+(Math.sin(seed+col)*1.5))));
+ const d=DIRS[(cyc+Math.round(col/4)+(r()<.3?1:0))%8],veer=r()<.4?`, veering ${DIRS[(DIRS.indexOf(d)+1)%8]}`:r()<.3?`, backing ${DIRS[(DIRS.indexOf(d)+7)%8]}`:'';
+ const hi=base+(r()<.6?2:1);const gale=hi>=8;const force=`${base} to ${hi}${gale&&r()<.5?', occasionally gale '+(hi+1)+' later':''}`;
+ const sea=['smooth','slight','moderate','rough','very rough','high','very high'][Math.min(6,Math.max(0,Math.round(hi/2)-1))];const sea2=r()<.5?` or ${['slight','moderate','rough','very rough','high','very high','phenomenal'][Math.min(6,Math.max(0,Math.round(hi/2)))]}`:'';
+ const wx=[['Fair','fair'],['Showers','showers'],['Rain','rain'],['Rain then showers','rain then showers'],['Squally showers','squally showers'],['Fog patches','fog patches'],['Wintry showers','wintry showers']][r()*7|0];
+ const vis=wx[1].includes('fog')?'moderate or poor, occasionally very poor':wx[1]==='fair'?'good':r()<.5?'good, occasionally poor':'moderate or good, occasionally poor';
+ return{name,wind:`${d[0].toUpperCase()+d.slice(1)} ${force}${veer}.`,sea:`${sea[0].toUpperCase()+sea.slice(1)}${sea2}.`,wx:`${wx[0]}.`,vis:`${vis[0].toUpperCase()+vis.slice(1)}.`,f:hi,gale,short:`${d} ${base} to ${hi}${veer}. ${sea}${sea2}. ${wx[1]}. ${vis}.`}}
+const FC=AR.map((a,i)=>fc(i,a[0]));
+const fcol=f=>f>=10?'#e0532b':f>=8?'#f08a4b':f>=6?'#f2c46b':f>=4?'#c8d86a':'#9fd4c9';
+let selA=AR.findIndex(a=>a[0]==='Dogger');
+function drawAreas(){const W=56,H=66,ox=14,oy=14;let s=`<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line y2="6" stroke="#0f2a3d" stroke-width="1.5" opacity=".35"/></pattern></defs>`;
+ for(let x=0;x<640;x+=40)s+=`<line x1="${x}" x2="${x}" y1="0" y2="700" stroke="#e8f1f20a"/>`;for(let y=0;y<700;y+=40)s+=`<line y1="${y}" y2="${y}" x1="0" x2="640" stroke="#e8f1f20a"/>`;
+ AR.forEach((a,i)=>{const[n,c,r,w,h]=a,f=FC[i],x=ox+c*W,y=oy+r*H;s+=`<g class="area" data-i="${i}"><rect x="${x+2}" y="${y+2}" width="${w*W-4}" height="${h*H-4}" rx="3" fill="${fcol(f.f)}" ${i===selA?'stroke="#fff" stroke-width="3"':''}/>${f.gale?`<rect x="${x+2}" y="${y+2}" width="${w*W-4}" height="${h*H-4}" rx="3" fill="url(#hatch)"/>`:''}<text x="${x+8}" y="${y+18}">${n.toUpperCase().split(' ').join('</text><text x="'+(x+8)+'" y="'+(y+30)+'">')}</text><text x="${x+w*W-10}" y="${y+h*H-10}" text-anchor="end" style="font-size:16px">${f.f}</text></g>`});
+document.getElementById('areas').innerHTML=s;const f=FC[selA];
+ document.getElementById('fcast').innerHTML=`<div class="issued" style="margin:0 0 6px">SEA AREA</div><h2>${f.name}</h2>${f.gale?'<div class="warn">⚠ GALE WARNING IN FORCE</div>':''}<div class="row"><small>Wind</small><span>${f.wind}</span></div><div class="row"><small>Sea state</small><span>${f.sea}</span></div><div class="row"><small>Weather</small><span>${f.wx}</span></div><div class="row"><small>Visibility</small><span>${f.vis}</span></div>
+ <div class="key">${[[2,'0–3'],[4,'4–5'],[6,'6–7'],[8,'Gale 8–9'],[10,'Storm 10+']].map(([v,l])=>`<span><i style="background:${fcol(v)}"></i>${l}</span>`).join('')}</div>`}
+document.getElementById('areas').onclick=e=>{const g=e.target.closest('.area');if(g){selA=+g.dataset.i;drawAreas()}};
+const gales=FC.filter(f=>f.gale).map(f=>f.name);
+document.getElementById('issued').textContent=`ISSUED ${today.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'}).toUpperCase()} · 00:48 UTC · ${gales.length?'GALE WARNINGS: '+gales.slice(0,6).join(', ').toUpperCase()+(gales.length>6?'…':''):'NO GALE WARNINGS'}`;
+drawAreas();
+
+/* broadcast */
+const ORDER=['Viking','North Utsire','South Utsire','Forties','Cromarty','Forth','Tyne','Dogger','Fisher','German Bight','Humber','Thames','Dover','Wight','Portland','Plymouth','Biscay','Trafalgar','FitzRoy','Sole','Lundy','Fastnet','Irish Sea','Shannon','Rockall','Malin','Hebrides','Bailey','Fair Isle','Faeroes','Southeast Iceland'];
+const paras=[`<b>And now the forecast for sea areas</b>, issued at 00:48 on ${today.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})}.`,`There are warnings of gales in ${gales.length?gales.join(', '):'no areas'}.`,`The general synopsis at midnight: low, ${Math.round(960+R()*30)}, moving ${DIRS[cyc]} and deepening, expected Rockall ${Math.round(950+R()*30)} by midnight tonight.`,...ORDER.map(n=>{const f=FC[AR.findIndex(a=>a[0]===n)];return`<b>${n}.</b> ${f.short}`}),`<b>That completes the forecast.</b> Goodnight.`];
+document.getElementById('script').innerHTML=paras.map((p,i)=>`<p data-i="${i}">${p}</p>`).join('');
+let bi=-1,btimer=null,rate=.82,playing=false;
+function hl(i){document.querySelectorAll('#script p').forEach((p,k)=>p.classList.toggle('on',k===i));const p=document.querySelector(`#script p[data-i="${i}"]`);if(p)p.scrollIntoView({block:'center',behavior:'smooth'})}
+function next(){if(!playing)return;bi++;if(bi>=paras.length){stop();return}hl(bi);const txt=paras[bi].replace(/<[^>]+>/g,'');let spoke=false;
+ try{if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(txt);u.rate=rate;u.pitch=.9;const v=speechSynthesis.getVoices().find(v=>/en-GB/.test(v.lang));if(v)u.voice=v;u.onend=()=>{btimer=setTimeout(next,500)};u.onerror=()=>{btimer=setTimeout(next,txt.length*55/rate)};speechSynthesis.speak(u);spoke=true}}catch(e){}
+ if(!spoke)btimer=setTimeout(next,txt.length*55/rate)}
+function stop(){playing=false;clearTimeout(btimer);try{speechSynthesis.cancel()}catch(e){}document.getElementById('grille').classList.remove('on')}
+document.getElementById('play').onclick=()=>{stop();playing=true;bi=-1;document.getElementById('grille').classList.add('on');chime();setTimeout(next,1800)};
+document.getElementById('stop').onclick=stop;
+document.getElementById('slow').onclick=()=>{rate=rate>.8?.65:rate>.6?1:.82;document.getElementById('pace').textContent='Pace: '+(rate<.7?'very slow, for insomniacs':rate<.9?'measured':'brisk')+'.'};
+function chime(){try{const a=new AudioContext();[523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=a.createOscillator(),g=a.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,a.currentTime+i*.3);g.gain.linearRampToValueAtTime(.12,a.currentTime+i*.3+.02);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+i*.3+1.4);o.connect(g).connect(a.destination);o.start(a.currentTime+i*.3);o.stop(a.currentTime+i*.3+1.5)})}catch(e){}}
+
+/* beaufort */
+const BF=[['Calm','<1','Sea like a mirror.','Smoke rises straight up.',0],['Light air','1–3','Ripples like scales, no crests.','Smoke drifts.',.1],['Light breeze','4–6','Small wavelets. Crests look glassy.','Leaves rustle.',.2],['Gentle breeze','7–10','Large wavelets. A few scattered white horses.','Flags extend.',.6],['Moderate breeze','11–16','Small waves, fairly frequent white horses.','Dust and loose paper blow about.',1],['Fresh breeze','17–21','Moderate longer waves, many white horses, some spray.','Small trees sway.',1.5],['Strong breeze','22–27','Large waves form, with white foam crests everywhere.','Umbrellas are hard to use.',2.2],['Near gale','28–33','The sea heaps up. Foam blows in streaks.','Hard to walk against.',3],['Gale','34–40','Moderately high waves. Crests break into spindrift.','Twigs break off trees.',4],['Severe gale','41–47','High waves and dense streaks of foam. Spray cuts visibility.','Slates fly off roofs.',5],['Storm','48–55','Very high waves with overhanging crests. The sea looks white.','Trees are uprooted.',6.4],['Violent storm','56–63','Exceptionally high waves. Small ships drop out of sight in the troughs.','Widespread damage.',7.8],['Hurricane force','64+','The air is filled with foam and spray. The sea is completely white.','Devastation.',9.5]];
+const bc=document.getElementById('bfc'),bx=bc.getContext('2d');let bfRun=false,bt=0;
+document.querySelector('.ticks').innerHTML=BF.map((_,i)=>`<span>${i}</span>`).join('');
+function bfUI(){const n=+document.getElementById('bfr').value;const b=BF[n];document.getElementById('bfn').textContent=n;document.getElementById('bfname').textContent=b[0];document.getElementById('bfrows').innerHTML=`<div class="bfrow"><small>WIND</small><span>${b[1]} knots</span></div><div class="bfrow"><small>AT SEA</small><span>${b[2]}</span></div><div class="bfrow"><small>ON LAND</small><span>${b[3]}</span></div><div class="bfrow"><small>WAVE HEIGHT</small><span>~${b[4]} m</span></div>`}
+function bfDraw(){const n=+document.getElementById('bfr').value,W=900,H=520,amp=BF[n][4]*14+1;bt+=.016*(1+n*.15);
+ const g=bx.createLinearGradient(0,0,0,H);const dark=n/12;g.addColorStop(0,`rgb(${180-dark*120},${200-dark*130},${210-dark*120})`);g.addColorStop(1,`rgb(${120-dark*80},${140-dark*90},${150-dark*80})`);bx.fillStyle=g;bx.fillRect(0,0,W,H);
+ for(let l=0;l<5;l++){const y0=220+l*60,a=amp*(.5+l*.18);bx.beginPath();bx.moveTo(0,H);for(let x=0;x<=W;x+=6){const y=y0+Math.sin(x*.012+bt*(1.2+l*.2)+l)*a+Math.sin(x*.031-bt*1.7)*a*.35;bx.lineTo(x,y)}bx.lineTo(W,H);bx.closePath();bx.fillStyle=`rgb(${20+l*10},${60+l*12},${84+l*10})`;bx.fill();
+  if(n>=3){bx.fillStyle='#ffffffcc';for(let x=0;x<W;x+=24){const y=y0+Math.sin(x*.012+bt*(1.2+l*.2)+l)*a+Math.sin(x*.031-bt*1.7)*a*.35;const crest=Math.cos(x*.012+bt*(1.2+l*.2)+l);if(crest>1-n*.08){bx.beginPath();bx.ellipse(x,y+2,6+n,2+n*.3,0,0,7);bx.fill()}}}}
+ // boat
+ const bxp=450,by=220+Math.sin(bxp*.012+bt*1.2)*amp*.5;const tilt=Math.cos(bxp*.012+bt*1.2)*amp*.004;bx.save();bx.translate(bxp,by-8);bx.rotate(tilt);bx.fillStyle='#e0532b';bx.beginPath();bx.moveTo(-50,0);bx.lineTo(50,0);bx.lineTo(38,20);bx.lineTo(-38,20);bx.fill();bx.fillStyle='#f2ecdc';bx.fillRect(-14,-24,28,24);bx.fillStyle='#0f2a3d';bx.fillRect(-2,-50,4,28);bx.restore();
+ if(n>=8){bx.fillStyle='#ffffff55';for(let i=0;i<n*14;i++)bx.fillRect((i*67+bt*400)%W,(i*37)%H,14,2)}
+ if(bfRun&&!document.querySelector('[data-view=beaufort]').hidden)requestAnimationFrame(bfDraw);else bfRun=false}
+function bfStart(){bfUI();if(!bfRun){bfRun=true;bfDraw()}}
+document.getElementById('bfr').oninput=bfUI;
+
+/* tides */
+const PORTS=[['Dover',6.8,1.2,0],['Liverpool',9.4,1.4,1.2],['Aberdeen',4.3,1,2.1],['Falmouth',5.3,1.1,3.4],['Leith',5.6,1.2,1.8],['St Malo',12.2,2.4,.5]];let port=0;
+function tides(){document.getElementById('ports').innerHTML=PORTS.map((p,i)=>`<button class="${i===port?'on':''}" data-p="${i}">${p[0]}</button>`).join('');
+ const[n,hi,lo,ph]=PORTS[port],mid=(hi+lo)/2,amp=(hi-lo)/2,per=12.42,phase=ph+(today.getDate()*.84)%per;
+ const h=t=>mid+amp*Math.cos((t-phase)/per*2*Math.PI)*(1+.08*Math.cos(t/24*Math.PI));
+ const X=t=>50+t/24*900,Y=v=>330-v/13*300;let s='';for(let v=0;v<=12;v+=2)s+=`<line x1="50" x2="950" y1="${Y(v)}" y2="${Y(v)}" stroke="#e8f1f214"/><text x="40" y="${Y(v)+4}" text-anchor="end" font-family="DM Mono" font-size="11" fill="#e8f1f288">${v}m</text>`;
+ for(let t=0;t<=24;t+=3)s+=`<text x="${X(t)}" y="360" text-anchor="middle" font-family="DM Mono" font-size="11" fill="#e8f1f288">${String(t).padStart(2,'0')}:00</text>`;
+ let d=`M${X(0)} ${Y(0)}`;for(let t=0;t<=24;t+=.1)d+=` L${X(t)} ${Y(h(t))}`;s+=`<path d="${d} L${X(24)} ${Y(0)}Z" fill="#9fd4c922"/><path d="${d.replace(/^M[^L]+/,'M'+X(0)+' '+Y(h(0)))}" stroke="#9fd4c9" stroke-width="3" fill="none"/>`;
+ const ex=[];for(let t=.05;t<24;t+=.05){const a=h(t-.05),b=h(t),c=h(t+.05);if(b>a&&b>c)ex.push(['HW',t,b]);if(b<a&&b<c)ex.push(['LW',t,b])}
+ ex.forEach(([k,t,v])=>s+=`<circle cx="${X(t)}" cy="${Y(v)}" r="6" fill="${k==='HW'?'#c8d86a':'#e0532b'}"/><text x="${X(t)}" y="${Y(v)+(k==='HW'?-14:22)}" text-anchor="middle" font-family="DM Mono" font-size="12" fill="#e8f1f2">${k} ${String(Math.floor(t)).padStart(2,'0')}:${String(Math.round(t%1*60)%60).padStart(2,'0')}</text>`);
+ const now=today.getHours()+today.getMinutes()/60;s+=`<line x1="${X(now)}" x2="${X(now)}" y1="20" y2="330" stroke="#e0532b" stroke-dasharray="4 4"/><text x="${X(now)+6}" y="34" font-family="DM Mono" font-size="11" fill="#e0532b">NOW ${h(now).toFixed(1)}m</text>`;
+ document.getElementById('tsvg').innerHTML=s;const rising=h(now+.1)>h(now);
+ document.getElementById('tt').innerHTML=ex.slice(0,4).map(([k,t,v])=>`<div><small>${k==='HW'?'HIGH WATER':'LOW WATER'}</small><b>${String(Math.floor(t)).padStart(2,'0')}:${String(Math.round(t%1*60)%60).padStart(2,'0')}</b><span>${v.toFixed(1)} m</span></div>`).join('')+`<div style="grid-column:1/-1"><small>RIGHT NOW AT ${n.toUpperCase()}</small><b>${h(now).toFixed(2)} m, ${rising?'flooding ↑':'ebbing ↓'}</b></div>`}
+document.getElementById('ports').onclick=e=>{const p=e.target.dataset.p;if(p!=null){port=+p;tides()}};tides();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

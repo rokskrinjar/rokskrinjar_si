@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Remit — New invoice</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Libre+Caslon+Text:ital@0;1&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#d8dcd5;--panel:#f6f7f4;--tx:#151a17;--mu:#6b736d;--ln:#dfe3dc;--acc:#1b4d3e;--hl:#ffe14d}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 'Libre Franklin',sans-serif;display:grid;grid-template-columns:440px 1fr;height:100vh}
+.form{background:var(--panel);overflow:auto;padding:24px 26px;border-right:1px solid var(--ln)}
+.lg{font:800 18px 'Libre Franklin';display:flex;align-items:center;gap:8px;margin-bottom:22px}.lg i{width:22px;height:22px;background:var(--acc);clip-path:polygon(0 0,100% 0,100% 70%,70% 100%,0 100%)}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--mu);margin:22px 0 10px}
+label{display:block;font-size:12.5px;font-weight:600;margin-bottom:4px}
+input,select{width:100%;border:1px solid var(--ln);border-radius:8px;padding:9px 10px;font:14px 'Libre Franklin';background:#fff;color:var(--tx)}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.li{display:grid;grid-template-columns:1fr 54px 80px 26px;gap:6px;margin-bottom:6px}.li input{padding:8px}.li button{border:0;background:none;color:var(--mu);cursor:pointer}
+.add{border:1px dashed #b8beb6;background:transparent;border-radius:8px;width:100%;padding:9px;font:600 13px 'Libre Franklin';cursor:pointer;color:var(--mu)}
+.sw{display:flex;gap:6px}.sw button{flex:1;border:1px solid var(--ln);background:#fff;border-radius:8px;padding:8px;font:600 13px 'Libre Franklin';cursor:pointer}.sw button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.send{position:sticky;bottom:-24px;background:var(--panel);padding:16px 0 4px;margin-top:20px;display:flex;gap:8px}.send button{flex:1;border:0;border-radius:10px;padding:13px;font:700 15px 'Libre Franklin';cursor:pointer}.send .p{background:var(--acc);color:#fff}.send .g{background:#fff;border:1px solid var(--ln)}
+.view{overflow:auto;display:flex;justify-content:center;align-items:flex-start;padding:40px 30px}
+.paper{width:640px;max-width:100%;aspect-ratio:1/1.414;background:#fff;box-shadow:0 30px 60px rgba(0,0,0,.18);padding:56px 56px 40px;display:flex;flex-direction:column;position:relative}
+.ph{display:flex;justify-content:space-between;align-items:flex-start}
+.ph .co{font:800 22px 'Libre Franklin';letter-spacing:-.02em}.ph .co small{display:block;font:400 11px/1.5 'Libre Franklin';color:var(--mu);margin-top:6px;letter-spacing:0}
+.big{font:400 72px/1 'Libre Caslon Text',serif;letter-spacing:-.03em;margin:40px 0 4px}
+.big i{font-size:.4em;color:var(--mu)}
+.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;font-size:11px;margin:20px 0 26px;border-top:2px solid var(--tx);padding-top:12px}
+.meta span{display:block;color:var(--mu);text-transform:uppercase;letter-spacing:.1em;font-size:9.5px}.meta b{font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:12px}th{text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--mu);padding:6px 0;border-bottom:1px solid var(--tx)}td{padding:9px 0;border-bottom:1px solid #eee}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.tot{margin-left:auto;width:52%;margin-top:14px;font-size:12px}.tot div{display:flex;justify-content:space-between;padding:4px 0}.tot .g{border-top:2px solid var(--tx);margin-top:6px;padding-top:8px;font:400 22px 'Libre Caslon Text'}
+.foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-size:10.5px;color:var(--mu);border-top:1px solid #eee;padding-top:12px}
+.paybtn{background:var(--tx);color:#fff;padding:8px 12px;border-radius:6px;font-weight:700;font-size:11px}
+.flash{animation:fl .6s}@keyframes fl{from{background:var(--hl)}}
+.stamp{position:absolute;right:50px;top:150px;border:3px solid var(--acc);color:var(--acc);font:800 18px 'Libre Franklin';letter-spacing:.2em;padding:6px 12px;transform:rotate(-8deg);opacity:0;transition:.4s}.stamp.on{opacity:.85}
+@media(max-width:1000px){body{grid-template-columns:1fr;height:auto}.view{padding:20px 10px}.paper{padding:30px 24px}}
+</style>
+</head>
+<body>
+<section class="form"><div class="lg"><i></i>Remit</div>
+ <h2>Bill to</h2><div class="r2"><div><label>Client</label><select id="cl"><option>Halden Bank ASA</option><option>Velo Mobility B.V.</option><option>Marlow Foods SAS</option></select></div><div><label>Invoice no.</label><input id="no" value="INV-2026-0142"></div></div>
+ <div class="r2"><div><label>Issued</label><input value="1 Oct 2026"></div><div><label>Terms</label><select id="tm"><option value="14">Net 14</option><option value="30" selected>Net 30</option><option value="0">Due on receipt</option></select></div></div>
+ <h2>Line items</h2><div id="items"></div><button class="add" id="ad">+ Add line</button>
+ <h2>Currency & tax</h2><div class="sw" id="cur"><button class="on" data-c="€">EUR</button><button data-c="NOK ">NOK</button><button data-c="$">USD</button></div>
+ <div class="r2" style="margin-top:10px"><div><label>VAT</label><select id="vat"><option value="0">Reverse charge (0%)</option><option value="25">25% (NO)</option><option value="21">21% (NL)</option></select></div><div><label>Discount %</label><input id="dc" type="number" value="0"></div></div>
+ <div class="send"><button class="g">Save draft</button><button class="p" id="sd">Send invoice →</button></div></section>
+<section class="view"><div class="paper" id="paper"></div></section>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const L=[['Discovery workshop (2 days)',1,4800],['Design sprint — onboarding flow',1,9600],['Prototype testing, 8 sessions',8,450]];let cur='€',sent=false;const $=s=>document.getElementById(s);
+function form(){$('items').innerHTML=L.map((l,i)=>`<div class="li"><input data-i="${i}" data-k="0" value="${l[0]}"><input data-i="${i}" data-k="1" type="number" value="${l[1]}"><input data-i="${i}" data-k="2" type="number" value="${l[2]}"><button data-x="${i}">✕</button></div>`).join('')}
+const f=v=>cur+v.toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
+function paper(flash){const sub=L.reduce((a,l)=>a+l[1]*l[2],0),dc=sub*(+$('dc').value||0)/100,vat=(sub-dc)*(+$('vat').value)/100,tot=sub-dc+vat;const due=new Date(2026,9,1+(+$('tm').value));
+ $('paper').innerHTML=`<div class="stamp ${sent?'on':''}">SENT · TRACKING</div><div class="ph"><div class="co">Studio Nordvik<small>Rua das Flores 18, 4050-262 Porto<br>VAT PT 516 228 004 · hello@nordvik.studio</small></div><div style="text-align:right;font-size:11px;color:var(--mu)">Invoice<br><b style="color:var(--tx);font-size:13px">${$('no').value}</b></div></div>
+ <div class="big ${flash?'flash':''}">${f(tot)}<i> due ${due.toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</i></div>
+ <div class="meta"><div><span>Billed to</span><b>${$('cl').value}</b></div><div><span>Issued</span><b>1 October 2026</b></div><div><span>Terms</span><b>${$('tm').selectedOptions[0].text}</b></div></div>
+ <table><thead><tr><th>Description</th><th class="n">Qty</th><th class="n">Rate</th><th class="n">Amount</th></tr></thead><tbody>${L.map(l=>`<tr><td>${l[0]}</td><td class="n">${l[1]}</td><td class="n">${f(+l[2])}</td><td class="n">${f(l[1]*l[2])}</td></tr>`).join('')}</tbody></table>
+ <div class="tot"><div><span>Subtotal</span><span>${f(sub)}</span></div>${dc?`<div><span>Discount</span><span>−${f(dc)}</span></div>`:''}<div><span>VAT ${$('vat').value}%${$('vat').value==='0'?' (reverse charge)':''}</span><span>${f(vat)}</span></div><div class="g"><span>Total</span><span>${f(tot)}</span></div></div>
+ <div class="foot"><span>IBAN PT50 0023 0000 4553 1290 0941 · BIC ACTVPTPL<br><i style="font-family:'Libre Caslon Text'">Thank you — it was a pleasure.</i></span><span class="paybtn">Pay online →</span></div>`}
+document.addEventListener('input',e=>{const t=e.target;if(t.dataset.i){L[+t.dataset.i][+t.dataset.k]=t.dataset.k==='0'?t.value:+t.value}paper(true)});
+document.addEventListener('change',()=>paper(true));
+$('items').onclick=e=>{const x=e.target.closest('[data-x]');if(x){L.splice(+x.dataset.x,1);form();paper(true)}};$('ad').onclick=()=>{L.push(['New item',1,0]);form();paper()};
+$('cur').onclick=e=>{const b=e.target.closest('[data-c]');if(b){cur=b.dataset.c;document.querySelectorAll('#cur button').forEach(x=>x.classList.toggle('on',x===b));paper(true)}};
+$('sd').onclick=()=>{sent=true;paper();$('sd').textContent='✓ Sent — opened 0 times'};form();paper();
+</script>
+</body>
+</html>

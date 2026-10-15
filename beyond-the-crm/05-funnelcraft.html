@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Funnelcraft — Lifecycle funnel</title>
+<link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800&family=Martian+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#eef6f5;--ink:#0f2624;--ink2:#3f5653;--ink3:#76898a;--grid:#e3ecea;--s1:#0d9488;--s2:#9333ea;--s3:#ea580c;--s4:#2563eb;--s5:#ca8a04;--q1:#d5f1ee;--q2:#a8e3dc;--q3:#6ccdc1;--q4:#27b0a1;--q5:#0d9488;--q6:#0b6b62;--pos:#0d9488;--neg:#c93a39;--good:#0f7a52;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Rethink Sans',sans-serif}
+.mono{font-family:'Martian Mono',monospace}
+.top{background:var(--ink);color:#e6f3f1;padding:16px 30px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.lg{font-weight:800;font-size:19px;display:flex;align-items:center;gap:9px}.lg svg{width:24px}
+.top .sp{flex:1}.top .s{font:400 11px 'Martian Mono';color:#8fb8b2}
+.sheetrow{background:var(--ink);padding:0 30px;display:flex;gap:4px;overflow-x:auto}
+.sheetrow button{border:0;background:#1b3b38;color:#9cc4be;font:700 13px 'Rethink Sans';padding:10px 16px;border-radius:10px 10px 0 0;cursor:pointer;white-space:nowrap}.sheetrow button.on{background:var(--bg);color:var(--ink)}
+.wrap{padding:18px 30px 70px;max-width:1400px;margin:0 auto}
+.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.filters label{font:500 11px 'Martian Mono';color:var(--ink3);text-transform:uppercase;letter-spacing:.06em}
+.seg{display:flex;background:#fff;border:1px solid #d3e3e0;border-radius:9px;padding:2px}.seg button{border:0;background:none;padding:6px 11px;border-radius:7px;font:700 12.5px 'Rethink Sans';color:var(--ink2);cursor:pointer}.seg button.on{background:var(--s1);color:#fff}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--surface);border-radius:14px;padding:14px 16px;border-top:4px solid var(--s1)}.kpi .l{font-size:12.5px;color:var(--ink3);font-weight:600}.kpi .v{font-size:26px;font-weight:800;letter-spacing:-.02em}.kpi .d{font-size:12px;font-weight:700}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.3fr 1fr}
+.card{background:var(--surface);border-radius:16px;padding:18px 20px;min-width:0}.card h3{margin:0;font-size:15px;font-weight:800}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.def{font:400 11.5px 'Martian Mono';color:var(--ink3);background:#f2f8f7;border-radius:8px;padding:8px 10px;margin-top:12px}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}}@media(max-width:640px){.wrap,.top,.sheetrow{padding-left:16px;padding-right:16px}.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="top"><div class="lg"><svg viewBox="0 0 24 24"><path d="M3 4h18l-6 8v6l-6 3v-9z" fill="#2fd1c0"/></svg>Funnelcraft</div><span style="color:#8fb8b2">Lifecycle analytics for Fernway</span><span class="sp"></span><span class="s">HubSpot lifecycle · Marketo programs · Salesforce opps · Clearbit enrichment</span></div>
+<nav class="sheetrow"><button data-sheet="funnel">Funnel</button><button data-sheet="velocity">Velocity</button><button data-sheet="cohorts">Lead cohorts</button><button data-sheet="sources">Sources</button><button data-sheet="leaks">Leaks & recycling</button></nav>
+<div class="wrap">
+ <div class="filters"><label>Period</label><div class="seg"><button data-f="range" data-v="30d">30d</button><button data-f="range" data-v="90d" class="on">Quarter</button><button data-f="range" data-v="12m">12m</button></div><label style="margin-left:10px">Company size</label><div class="seg"><button data-f="size" data-v="all" class="on">All</button><button data-f="size" data-v="s">1–200</button><button data-f="size" data-v="m">201–1000</button><button data-f="size" data-v="l">1000+</button></div><label style="margin-left:10px">ICP fit</label><div class="seg"><button data-f="icp" data-v="all" class="on">All</button><button data-f="icp" data-v="a">A-fit only</button></div></div>
+ <section data-panel="funnel"><div class="kpis" id="k1"></div>
+  <div class="g g21"><div class="card"><h3>Lifecycle funnel</h3><p class="sub">Contacts reaching each stage in the period (HubSpot lifecyclestage history)</p><div id="c_fun"></div><div class="def">MQL = score ≥ 60 · SAL = sales accepted in Salesforce · SQL = opportunity created</div></div>
+   <div class="card"><h3>Stage volumes over time</h3><p class="sub">New entries per period</p><div id="c_vol"></div></div></div></section>
+ <section data-panel="velocity" hidden><div class="kpis" id="k2"></div>
+  <div class="g g2"><div class="card"><h3>Days spent in each stage</h3><p class="sub">Median, this period vs. last</p><div id="c_days"></div></div><div class="card"><h3>Lead → opportunity velocity</h3><p class="sub">Median days from MQL to opportunity, per period</p><div id="c_vel"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Speed to lead</h3><p class="sub">Minutes from MQL to first sales touch (Outreach activity), share of leads</p><div id="c_stl"></div></div></section>
+ <section data-panel="cohorts" hidden>
+  <div class="card"><h3>When do leads become SQLs?</h3><p class="sub">Monthly MQL cohorts · cumulative share converted to SQL by weeks since MQL</p><div id="c_coh"></div></div>
+  <div class="g g2" style="margin-top:14px"><div class="card"><h3>SQL rate by ICP fit grade</h3><p class="sub">Clearbit-based fit score assigned at creation</p><div id="c_fit"></div></div><div class="card"><h3>Engagement before conversion</h3><p class="sub">Median page views, email clicks and events for leads that converted vs. not</p><div id="c_eng"></div></div></div></section>
+ <section data-panel="sources" hidden>
+  <div class="card"><h3>Funnel by original source</h3><p class="sub">hs_analytics_source × lifecycle stage. Sort by any column.</p><div id="t_src"></div></div>
+  <div class="card" style="margin-top:14px"><h3>MQL → SQL conversion by source</h3><p class="sub">Selected period</p><div id="c_src"></div></div></section>
+ <section data-panel="leaks" hidden><div class="kpis" id="k5"></div>
+  <div class="g g2"><div class="card"><h3>Why leads were disqualified</h3><p class="sub">Salesforce Lead.Disqualified_Reason__c</p><div id="c_dq"></div></div><div class="card"><h3>Recycled leads that came back</h3><p class="sub">Returned to nurture, later re-qualified</p><div id="c_rec"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>MQLs nobody followed up</h3><p class="sub">No sales activity within 5 business days. Assigned owner shown.</p><div id="t_ghost"></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const memo={};
+function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const m=F.range==='12m'?4:F.range==='30d'?.34:1;const f={all:1,s:.45,m:.33,l:.22}[F.size]*(F.icp==='a'?.3:1);const q=F.icp==='a'?1.9:1;
+ const vis=Math.round(184000*m*f),lead=Math.round(vis*.042),mql=Math.round(lead*.36*q),sal=Math.round(mql*.58*Math.min(1.3,q)),sql=Math.round(sal*.61),won=Math.round(sql*.24*Math.min(1.25,q));return memo[k]={r,m,f,L:K.periods(F.range),vis,lead,mql,sal,sql,won}}
+const S={range:'90d',size:'all',icp:'all'};
+const views={
+funnel(F){const D=data(F);K.kpis($('k1'),[{label:'Visitors',value:K.num(D.vis)},{label:'Leads',value:K.num(D.lead),delta:.08},{label:'MQLs',value:K.num(D.mql),delta:.12},{label:'SQLs',value:K.num(D.sql),delta:.06},{label:'Lead → won',value:K.pct(D.won/D.lead,2),delta:.0006,deltaText:'0.06 pts'}]);
+ K.funnel($('c_fun'),{steps:[['Lead',D.lead],['MQL',D.mql],['SAL',D.sal],['SQL',D.sql],['Customer',D.won]]});
+ const n=D.L.length;K.line($('c_vol'),{labels:D.L,series:[{name:'MQL',data:K.series(D.r,n,D.mql/n,{noise:.18,trend:.15})},{name:'SAL',data:K.series(D.r,n,D.sal/n,{noise:.2,trend:.1})},{name:'SQL',data:K.series(D.r,n,D.sql/n,{noise:.22,trend:.08})}],fmt:K.num,h:290})},
+velocity(F){const D=data(F);K.kpis($('k2'),[{label:'MQL → SQL',value:'11.4 days',delta:-.14,goodDown:true,deltaText:'1.9 days'},{label:'SQL → won',value:'64 days',delta:-.05,goodDown:true,deltaText:'3 days'},{label:'Lead → won',value:'97 days'},{label:'Median speed to lead',value:'38 min',delta:-.31,goodDown:true,deltaText:'17 min'},{label:'Followed up < 1 h',value:'61%',delta:.09,deltaText:'9 pts'}]);
+ K.bars($('c_days'),{labels:['Lead','MQL','SAL','SQL','Proposal','Negotiation'],series:[{name:'Last period',data:[18,6.1,3.4,21,17,14]},{name:'This period',data:[16,4.9,2.6,19,18,12]}],fmt:v=>v.toFixed(v<10?1:0)+'d',h:260});
+ K.line($('c_vel'),{labels:D.L,series:[{name:'MQL → SQL days',data:K.series(D.r,D.L.length,13.5,{trend:-.22,noise:.08})}],fmt:v=>v.toFixed(1)+'d',h:260,yMin:5});
+ K.bars($('c_stl'),{labels:['< 5 min','5–30 min','30–60 min','1–4 h','4–24 h','1–3 days','> 3 days'],series:[{name:'Share of MQLs',data:[.14,.27,.2,.16,.11,.07,.05]},{name:'SQL rate',data:[.41,.36,.31,.24,.18,.12,.07]}],fmt:v=>K.pct(v,0),h:230})},
+cohorts(F){const D=data(F);const r=K.rng(K.seed(F,'coh'));const M=['Apr','May','Jun','Jul','Aug','Sep'];const W=['W1','W2','W4','W6','W8','W12'];const q=F.icp==='a'?1.6:1;
+ K.heat($('c_coh'),{rows:M.map(x=>x+' MQLs'),cols:W,data:M.map((_,i)=>W.map((_,j)=>j>(M.length-1-i)+1?null:Math.min(.95,(.06+j*.045+i*.004)*q*(.9+r()*.2)))),fmt:v=>K.pct(v,0),cell:30});
+ K.bars($('c_fit'),{labels:['A fit','B fit','C fit','D fit','Unscored'],series:[{name:'MQL → SQL',data:[.48,.31,.17,.07,.12]}],fmt:v=>K.pct(v,0),h:240});
+ K.bars($('c_eng'),{labels:['Page views','Email clicks','Webinars','Pricing page views'],series:[{name:'Converted',data:[14,5.2,1.4,3.1]},{name:'Did not convert',data:[6,1.8,.4,.6]}],fmt:v=>v.toFixed(1),h:240})},
+sources(F){const D=data(F);const SR=[['Organic search',.31,.12],['Paid search',.19,.15],['Paid social',.14,.08],['Direct',.11,.18],['Referrals',.08,.22],['Email marketing',.09,.1],['Offline (events)',.08,.24]];
+ const rows=SR.map(([s,sh,c])=>{const lead=Math.round(D.lead*sh);const mql=Math.round(lead*.36);const sql=Math.round(mql*c*1.6);return{s,lead,mql,sql,won:Math.round(sql*.24),conv:sql/Math.max(1,mql)}});
+ K.table($('t_src'),{cols:[{k:'s',label:'Source'},{k:'lead',label:'Leads',align:'r',fmt:K.int},{k:'mql',label:'MQLs',align:'r',fmt:K.int},{k:'sql',label:'SQLs',align:'r',fmt:K.int,bar:true},{k:'won',label:'Customers',align:'r',fmt:K.int},{k:'conv',label:'MQL → SQL',align:'r',fmt:v=>K.pct(v,0)}],rows,sort:'sql'});
+ const so=[...rows].sort((a,b)=>b.conv-a.conv);K.bars($('c_src'),{labels:so.map(x=>x.s),series:[{name:'MQL → SQL',data:so.map(x=>x.conv)}],fmt:v=>K.pct(v,0),horizontal:true,h:260})},
+leaks(F){const D=data(F);K.kpis($('k5'),[{label:'Disqualified',value:K.num(D.mql*.31)},{label:'Recycled to nurture',value:K.num(D.mql*.22)},{label:'Came back later',value:'18%'},{label:'Never followed up',value:K.num(D.mql*.06),delta:-.22,goodDown:true},{label:'Pipeline lost to no follow-up',value:K.money(D.mql*.06*.11*42000)}]);
+ K.donut($('c_dq'),{items:[{name:'Student / job seeker',value:24},{name:'Too small',value:21},{name:'No budget this year',value:18},{name:'Competitor customer',value:13},{name:'Wrong region',value:9},{name:'Other',value:15}].slice(0,5),fmt:v=>v+'%'});
+ K.line($('c_rec'),{labels:D.L,series:[{name:'Recycled',data:K.series(D.r,D.L.length,D.mql*.22/D.L.length,{noise:.2})},{name:'Re-qualified',data:K.series(D.r,D.L.length,D.mql*.04/D.L.length,{noise:.3,trend:.3})}],fmt:K.num,h:250});
+ const r=K.rng(K.seed(F,'g'));K.table($('t_ghost'),{cols:[{k:'n',label:'Contact'},{k:'c',label:'Company'},{k:'fit',label:'Fit'},{k:'score',label:'Score',align:'r',bar:true},{k:'age',label:'Days waiting',align:'r'},{k:'o',label:'Owner'}],rows:['Mara L.','Tom B.','Aiko M.','Sara L.','Lukas W.','Priya N.','Owen P.','Leila H.'].map((n,i)=>({n,c:['Halden Bank','Orbis Retail','Velo Mobility','Kilnworks','Fjord Energy','Ashgrove Health','Northbeam','Tessera Labs'][i],fit:K.pick(r,['A','A','B','B','C']),score:Math.round(62+r()*35),age:Math.round(5+r()*16),o:K.pick(r,['Unassigned','Ben O.','Grace K.','Felix W.'])})),sort:'score'})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

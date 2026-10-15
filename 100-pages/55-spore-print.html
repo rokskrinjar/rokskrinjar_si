@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spore Print — A Field Guide to Fungi</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Karla:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--soil:#1c1612;--soil2:#2a211b;--moss:#6f7d3a;--cream:#efe6d2;--amber:#d8913a;--rust:#a4472a;--dim:#efe6d288}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--soil);color:var(--cream);font-family:Karla,sans-serif;min-height:100vh;
+ background-image:radial-gradient(circle at 20% 10%,#6f7d3a22,transparent 40%),radial-gradient(circle at 90% 80%,#a4472a1a,transparent 40%)}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:24px 5vw}
+.logo{font-family:'Instrument Serif';font-size:34px;font-style:italic;display:flex;align-items:center;gap:12px}
+.logo svg{width:40px;height:40px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:8px 16px;border-radius:30px;font-size:14px;font-weight:600;color:var(--dim)}
+nav a.on{background:var(--cream);color:var(--soil)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1280px;margin:0 auto;padding:20px 5vw 80px}
+h2{font-family:'Instrument Serif';font-weight:400;font-size:clamp(3rem,7vw,6rem);line-height:.95;letter-spacing:-.01em}
+h2 i{color:var(--amber)}
+.lede{font-size:1.1rem;line-height:1.65;max-width:60ch;color:#efe6d2bb;margin:14px 0 30px}
+.warn{display:flex;gap:12px;align-items:flex-start;background:#a4472a33;border:1px solid #a4472a;border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.5;margin-bottom:30px;max-width:760px}
+.warn b{color:#ffb08a}
+/* guide */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px}
+.chip{border:1px solid #efe6d244;background:none;border-radius:30px;padding:7px 14px;font-size:13px;font-weight:600}
+.chip.on{background:var(--amber);border-color:var(--amber);color:var(--soil)}
+.species{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+.sp{background:var(--soil2);border-radius:16px;overflow:hidden;border:1px solid #efe6d214;transition:transform .3s;cursor:pointer;text-align:left;padding:0;display:block;width:100%}
+.sp:hover{transform:translateY(-6px)}
+.sp .art{height:210px;background:radial-gradient(ellipse at 50% 100%,#3a4a22,#241d17 70%);display:grid;place-items:end center;position:relative}
+.sp .art svg{height:190px;width:auto}
+.sp .body{padding:16px 18px 20px}
+.sp h3{font-family:'Instrument Serif';font-weight:400;font-size:28px;line-height:1}
+.sp .lat{font-family:'Instrument Serif';font-style:italic;color:var(--dim);font-size:17px}
+.tag{display:inline-block;margin-top:10px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:20px}
+.t-edible{background:#6f7d3a;color:#f3f7e0}.t-toxic{background:#d8913a;color:#1c1612}.t-deadly{background:#8c1c13;color:#ffd9cf}
+.modal{position:fixed;inset:0;background:#0c0906e8;display:none;place-items:center;z-index:30;padding:20px}
+.modal.on{display:grid}
+.mbox{background:var(--cream);color:var(--soil);border-radius:18px;max-width:880px;width:100%;display:grid;grid-template-columns:320px 1fr;overflow:hidden;max-height:92vh}
+.mbox .art{background:radial-gradient(ellipse at 50% 100%,#6f7d3a,#2a211b 75%);display:grid;place-items:end center;padding-top:20px}
+.mbox .txt{padding:30px;overflow:auto}
+.mbox h3{font-family:'Instrument Serif';font-weight:400;font-size:44px;line-height:1}
+.mbox dl{display:grid;grid-template-columns:120px 1fr;gap:8px 14px;margin:18px 0;font-size:15px}
+.mbox dt{font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding-top:3px;color:#1c161299}
+.x{position:absolute;right:24px;top:20px;font-size:30px;background:none;border:0;color:var(--cream)}
+/* key */
+.key{max-width:820px}
+.crumbs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;font-size:13px}
+.crumbs span{background:#efe6d214;padding:5px 10px;border-radius:20px}
+.qcard{background:var(--soil2);border-radius:18px;padding:34px;border:1px solid #efe6d21a}
+.qcard h3{font-family:'Instrument Serif';font-weight:400;font-size:clamp(1.8rem,3.4vw,2.8rem);line-height:1.1;margin-bottom:22px}
+.answers{display:grid;gap:12px}
+.ans{display:flex;gap:16px;align-items:center;text-align:left;background:#efe6d20d;border:1px solid #efe6d22a;border-radius:12px;padding:16px 18px;font-size:16px;transition:.2s}
+.ans:hover{background:var(--amber);color:var(--soil);border-color:var(--amber)}
+.ans svg{width:64px;height:64px;flex:none}
+.result{display:grid;grid-template-columns:200px 1fr;gap:26px;align-items:center}
+/* print */
+.pgrid{display:grid;grid-template-columns:1fr 320px;gap:34px;align-items:start}
+.paper{background:#fbf7ee;border-radius:6px;padding:18px;box-shadow:0 30px 60px #0009;position:relative}
+.paper.dark{background:#1a1a1a}
+.paper canvas{display:block;width:100%;height:auto;border-radius:2px}
+.paper .lbl{position:absolute;left:30px;bottom:26px;font-family:'Instrument Serif';font-style:italic;font-size:22px;color:#1c1612aa}
+.paper.dark .lbl{color:#efe6d2aa}
+.ctrl label{display:block;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin:16px 0 8px;color:var(--dim)}
+.ctrl select,.ctrl input[type=range]{width:100%;accent-color:var(--amber)}
+.ctrl select{padding:10px;border-radius:8px;background:var(--soil2);color:var(--cream);border:1px solid #efe6d233;font-size:15px}
+.big{display:block;width:100%;margin-top:22px;background:var(--amber);color:var(--soil);border:0;border-radius:40px;padding:16px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:13px}
+/* calendar */
+.cgrid{display:grid;grid-template-columns:minmax(300px,560px) 1fr;gap:40px;align-items:center}
+.wheel svg{width:100%;height:auto}
+.wheel .mo{cursor:pointer}
+.cal-list{display:grid;gap:10px}
+.cal-list div{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--soil2);border-radius:10px}
+.cal-list i{width:14px;height:14px;border-radius:50%;flex:none}
+@media(max-width:860px){.mbox,.pgrid,.cgrid,.result{grid-template-columns:1fr}.mbox .art{height:220px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo"><svg viewBox="0 0 40 40"><path d="M4 20 Q20 0 36 20Z" fill="#d8913a"/><path d="M4 20 H36" stroke="#efe6d2" stroke-width="2"/><path d="M17 20 Q16 30 14 37 H26 Q24 30 23 20Z" fill="#efe6d2"/></svg>Spore Print</div>
+ <nav><a href="#guide">Field Guide</a><a href="#key">Identify</a><a href="#print">Spore Print</a><a href="#season">Seasons</a><a href="index.html">↩ Index</a></nav>
+</header>
+
+<section data-view="guide"><div class="wrap">
+ <h2>What grows in <i>the dark</i></h2>
+ <p class="lede">Twelve common species from European woods and meadows. Some are delicious and some can kill you. The deadly ones often look the most harmless.</p>
+ <div class="warn"><span>⚠</span><div><b>Never eat a wild mushroom because a website said so.</b> Ask an experienced local forager or your regional mycological society, and check every specimen in person.</div></div>
+ <div class="filters" id="gfilt"><button class="chip on" data-f="all">All</button><button class="chip" data-f="edible">Edible</button><button class="chip" data-f="toxic">Poisonous</button><button class="chip" data-f="deadly">Deadly</button></div>
+ <div class="species" id="species"></div>
+</div></section>
+
+<section data-view="key" hidden><div class="wrap key">
+ <h2>Who <i>are</i> you?</h2>
+ <p class="lede">A dichotomous key. Answer one question about the mushroom in front of you and follow the branches to a likely name.</p>
+ <div class="crumbs" id="crumbs"></div>
+ <div class="qcard" id="qcard"></div>
+</div></section>
+
+<section data-view="print" hidden><div class="wrap">
+ <h2>Take a <i>spore print</i></h2>
+ <p class="lede">Put the cap gills-down on paper, cover it with a glass and wait overnight. Millions of spores fall and leave a pattern, and its colour is one of the best clues to what the species is.</p>
+ <div class="pgrid">
+  <div class="paper" id="paper"><canvas id="pc" width="800" height="800"></canvas><div class="lbl" id="plbl"></div></div>
+  <div class="ctrl">
+   <label>Species</label><select id="psp"></select>
+   <label>Gill count · <span id="gv">96</span></label><input type="range" id="gills" min="24" max="180" value="96">
+   <label>Hours under the glass · <span id="hv">8</span></label><input type="range" id="hours" min="1" max="12" value="8">
+   <label>Paper</label><select id="ppr"><option value="w">White</option><option value="d">Black (for pale spores)</option><option value="h">Half & half</option></select>
+   <button class="big" id="lift">Lift the cap ↑</button>
+   <p style="font-size:13px;line-height:1.6;color:var(--dim);margin-top:18px">Tip: pale spores disappear on white paper. Use half black, half white paper so any print colour shows up.</p>
+  </div>
+ </div>
+</div></section>
+
+<section data-view="season" hidden><div class="wrap">
+ <h2>The fruiting <i>year</i></h2>
+ <p class="lede">Most fungi live underground all year as a web of threads. Mushrooms are just the fruit. Click a month to see what's appearing.</p>
+ <div class="cgrid"><div class="wheel"><svg id="wheel" viewBox="-300 -300 600 600"></svg></div><div><h3 id="mname" style="font-family:'Instrument Serif';font-weight:400;font-size:48px;margin-bottom:14px"></h3><div class="cal-list" id="clist"></div></div></div>
+</div></section>
+
+<div class="modal" id="modal"><button class="x" id="mx">×</button><div class="mbox" id="mbox"></div></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'guide';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+// [name, latin, edibility, cap shape, cap colour, stem colour, underside, spots, ring, volva, spore print, months[], habitat, notes, gill colour, height]
+const SP=[
+ ['Fly Agaric','Amanita muscaria','toxic','convex','#c8261c','#f4efe4','gills',1,1,1,'#f7f5ee',[8,9,10,11],'Under birch and pine','The fairy-tale toadstool. It contains ibotenic acid and muscimol and causes delirium and vomiting. White warts can wash off in rain.','#f6f1e4',1],
+ ['Death Cap','Amanita phalloides','deadly','convex','#9da05a','#eeecd8','gills',0,1,1,'#f7f5ee',[8,9,10,11],'Under oak and beech','Causes about 90% of fatal mushroom poisonings worldwide. It is said to taste pleasant. Symptoms go away, then the liver fails days later.','#f6f3e6',1],
+ ['Destroying Angel','Amanita virosa','deadly','conical','#f3f1ea','#f3f1ea','gills',0,1,1,'#f7f5ee',[7,8,9,10],'Damp acidic woodland','Pure, elegant white and completely deadly. Easy to confuse with a young field mushroom.','#faf8f2',1.1],
+ ['Chanterelle','Cantharellus cibarius','edible','funnel','#e8a92a','#e8a92a','ridges',0,0,0,'#f3e3b8',[6,7,8,9,10,11],'Mossy woods, oak and birch','Smells faintly of apricots. It has forked ridges, not true gills, that run down the stem. Watch out for the orange false chanterelle.','#e8a92a',.8],
+ ['Porcini','Boletus edulis','edible','bun','#8a5a33','#e3d6b8','pores',0,0,0,'#6b5a2a',[8,9,10,11],'Under spruce, pine and oak','The king of mushrooms. It has sponge-like pores instead of gills and a stem with fine white netting near the top.','#e6dba0',1],
+ ['Parasol','Macrolepiota procera','edible','flat','#b99a78','#8e7358','gills',2,1,0,'#f7f5ee',[7,8,9,10],'Grassland and woodland edges','Can grow 30 cm across. The snakeskin stem and the double ring that slides up and down are the key features.','#f5efe2',1.5],
+ ['Field Mushroom','Agaricus campestris','edible','convex','#f4efe6','#f4efe6','gills',0,1,0,'#4a2c1f',[7,8,9,10],'Pasture with grazing animals','Gills go from bright pink to chocolate brown. White gills on a "field mushroom" can mean a destroying angel.','#d98b8b',.7],
+ ['Shaggy Ink Cap','Coprinus comatus','edible','bell','#f1ede2','#f4f1ea','gills',2,1,0,'#161311',[9,10,11],'Lawns, roadsides, disturbed ground','Edible only while young and white. Within hours the gills melt into black ink, which was once used for writing.','#f1e2e6',1.4],
+ ['Sulphur Tuft','Hypholoma fasciculare','toxic','convex','#e2c231','#e6d36a','gills',0,0,0,'#4a3040',[1,2,3,4,5,6,7,8,9,10,11,12],'Clusters on dead wood','Bright clumps on stumps all year round. Bitter and poisonous. Its greenish gills tell it apart from edible honey fungus.','#a8b34c',.7],
+ ['Oyster Mushroom','Pleurotus ostreatus','edible','shelf','#8d8d95','#e9e5dd','gills',0,0,0,'#e3dbe8',[10,11,12,1,2,3],'Shelves on beech and dead hardwood','A carnivore: it traps and digests tiny nematode worms to get nitrogen. Easy to grow at home on coffee grounds.','#efeae2',.6],
+ ['Deadly Webcap','Cortinarius rubellus','deadly','conical','#b85a26','#c4773f','gills',0,0,0,'#8a4a22',[8,9,10],'Wet conifer woods, moss','Its toxin, orellanine, destroys the kidneys, and symptoms can take up to three weeks to appear. It has been mistaken for chanterelles.','#b86a36',.9],
+ ['Olive Jack O\'Lantern','Omphalotus olearius','toxic','funnel','#e0661e','#d8621c','gills',0,0,0,'#f3ead0',[8,9,10,11],'Clusters on olive and oak roots','Its gills glow faintly green in the dark. It looks like a chanterelle but has sharp true gills and grows in clusters.','#e67a22',.9]];
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function shade(h,k){const n=parseInt(h.slice(1),16);return`rgb(${Math.min(255,(n>>16)*k)|0},${Math.min(255,(n>>8&255)*k)|0},${Math.min(255,(n&255)*k)|0})`}
+function shroom(s,i){const[,,,shape,cap,stem,under,spots,ring,volva,,,,,gill,hh]=s;const H=150*hh,cx=100,base=200,top=base-H;let g='';const id='g'+i+Math.random().toString(36).slice(2,6);
+ g+=`<defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="${shade(cap,.7)}"/><stop offset=".45" stop-color="${shade(cap,1.15)}"/><stop offset="1" stop-color="${shade(cap,.6)}"/></linearGradient><linearGradient id="${id}s" x1="0" x2="1"><stop offset="0" stop-color="${shade(stem,.75)}"/><stop offset=".5" stop-color="${shade(stem,1.05)}"/><stop offset="1" stop-color="${shade(stem,.7)}"/></linearGradient></defs>`;
+ g+=`<ellipse cx="${cx}" cy="${base+2}" rx="60" ry="7" fill="#0005"/>`;
+ if(shape==='shelf'){g+=`<path d="M10 ${base-60} Q10 ${base-90} 40 ${base-96} Q120 ${base-110} 180 ${base-60} Q140 ${base-40} 40 ${base-44}Z" fill="url(#${id})"/><path d="M40 ${base-44} Q110 ${base-38} 170 ${base-56}" stroke="${gill}" stroke-width="10" fill="none" opacity=".8"/><path d="M10 ${base-100} V${base}" stroke="#4a3528" stroke-width="18"/>`;return g}
+ const sw=shape==='bun'?22:shape==='funnel'?11:9,sh=H*(shape==='flat'?.9:.72);
+ if(volva)g+=`<path d="M${cx-sw-10} ${base} Q${cx-sw-12} ${base-24} ${cx-sw+2} ${base-22} L${cx+sw-2} ${base-22} Q${cx+sw+12} ${base-24} ${cx+sw+10} ${base}Z" fill="${shade(stem,.9)}"/>`;
+ g+=`<path d="M${cx-sw} ${base} Q${cx-sw*(shape==='bun'?1.5:1.1)} ${base-sh*.5} ${cx-sw*.7} ${base-sh} L${cx+sw*.7} ${base-sh} Q${cx+sw*(shape==='bun'?1.5:1.1)} ${base-sh*.5} ${cx+sw} ${base}Z" fill="url(#${id}s)"/>`;
+ if(spots===2&&shape==='flat')for(let k=0;k<8;k++)g+=`<path d="M${cx-sw*.8} ${base-20-k*sh/9} l${sw*1.6} -6" stroke="#5a4535" stroke-width="3" opacity=".6"/>`;
+ if(ring)g+=`<path d="M${cx-sw-6} ${base-sh*.72} Q${cx} ${base-sh*.64} ${cx+sw+6} ${base-sh*.72} L${cx+sw} ${base-sh*.78} L${cx-sw} ${base-sh*.78}Z" fill="${shade(stem,1)}"/>`;
+ const t=base-sh;let capP,capW=shape==='flat'?84:shape==='bun'?66:shape==='funnel'?52:shape==='bell'?30:56;
+ if(shape==='convex')capP=`M${cx-capW} ${t+6} Q${cx-capW} ${t-capW*.9} ${cx} ${t-capW*.9} Q${cx+capW} ${t-capW*.9} ${cx+capW} ${t+6}Z`;
+ if(shape==='bun')capP=`M${cx-capW} ${t+10} Q${cx-capW-6} ${t-capW*.8} ${cx} ${t-capW*.8} Q${cx+capW+6} ${t-capW*.8} ${cx+capW} ${t+10} Q${cx} ${t+2} ${cx-capW} ${t+10}Z`;
+ if(shape==='flat')capP=`M${cx-capW} ${t+4} Q${cx-capW*.6} ${t-24} ${cx} ${t-30} Q${cx+capW*.6} ${t-24} ${cx+capW} ${t+4}Z`;
+ if(shape==='conical')capP=`M${cx-capW} ${t+6} Q${cx-capW*.5} ${t-capW*.6} ${cx} ${t-capW*1.05} Q${cx+capW*.5} ${t-capW*.6} ${cx+capW} ${t+6}Z`;
+ if(shape==='funnel')capP=`M${cx-capW} ${t-26} Q${cx} ${t-6} ${cx+capW} ${t-26} Q${cx+capW*.5} ${t+2} ${cx+sw} ${t+14} L${cx-sw} ${t+14} Q${cx-capW*.5} ${t+2} ${cx-capW} ${t-26}Z`;
+ if(shape==='bell')capP=`M${cx-capW} ${t+30} Q${cx-capW-4} ${t-90} ${cx} ${t-96} Q${cx+capW+4} ${t-90} ${cx+capW} ${t+30}Z`;
+ if(shape!=='funnel'){g+=`<path d="M${cx-capW+4} ${t+4} Q${cx} ${t+(shape==='bell'?40:16)} ${cx+capW-4} ${t+4}" fill="${gill}"/>`;if(under==='gills')for(let k=-5;k<=5;k++)g+=`<path d="M${cx} ${t+8} L${cx+k*capW/6} ${t+5}" stroke="${shade(gill,.8)}" stroke-width="1"/>`}
+ g+=`<path d="${capP}" fill="url(#${id})"/>`;
+ if(shape==='funnel')for(let k=-4;k<=4;k++)g+=`<path d="M${cx+k*6} ${t+12} Q${cx+k*10} ${t-6} ${cx+k*capW/4.5} ${t-20}" stroke="${shade(cap,.75)}" fill="none"/>`;
+ if(spots===1){const r=(n=>()=>(n=(n*9301+49297)%233280)/233280)(i+3);for(let k=0;k<14;k++){const a=Math.PI*(.1+r()*.8),rr=capW*(.3+r()*.6);g+=`<ellipse cx="${cx-Math.cos(a)*rr}" cy="${t-Math.sin(a)*capW*.75*(rr/capW)+2}" rx="${3+r()*4}" ry="${2+r()*3}" fill="#f7f1e4"/>`}}
+ if(spots===2){const r=(n=>()=>(n=(n*9301+49297)%233280)/233280)(i+9);for(let k=0;k<22;k++){const x=cx+(r()-.5)*capW*(shape==='bell'?1.5:1.7),y=t-(shape==='bell'?r()*80:r()*22);g+=`<path d="M${x} ${y} l4 -6 l4 6Z" fill="${shape==='bell'?'#c9b89a':'#5a4535'}" opacity=".8"/>`}g+=`<ellipse cx="${cx}" cy="${t-(shape==='bell'?92:28)}" rx="${shape==='bell'?14:16}" ry="7" fill="${shape==='bell'?'#b89a6a':'#6b4a33'}"/>`}
+ if(under==='pores')g+=`<path d="M${cx-capW+6} ${t+8} Q${cx} ${t+14} ${cx+capW-6} ${t+8}" stroke="${gill}" stroke-width="5" fill="none"/>`;
+ return g}
+const svg=(s,i,h=190)=>`<svg viewBox="0 -30 200 240" style="height:${h}px">${shroom(s,i)}</svg>`;
+const EL={edible:'Edible',toxic:'Poisonous',deadly:'Deadly'};
+let gf='all';
+function renderGuide(){document.getElementById('species').innerHTML=SP.map((s,i)=>gf!=='all'&&s[2]!==gf?'':`<button class="sp" data-i="${i}"><div class="art">${svg(s,i)}</div><div class="body"><h3>${s[0]}</h3><div class="lat">${s[1]}</div><span class="tag t-${s[2]}">${EL[s[2]]}</span></div></button>`).join('')}
+document.getElementById('gfilt').onclick=e=>{const f=e.target.dataset.f;if(!f)return;gf=f;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));renderGuide()};
+function openSp(i){const s=SP[i];document.getElementById('mbox').innerHTML=`<div class="art">${svg(s,i,280)}</div><div class="txt"><span class="tag t-${s[2]}" style="margin:0 0 10px">${EL[s[2]]}</span><h3>${s[0]}</h3><div class="lat" style="font-family:'Instrument Serif';font-style:italic;font-size:22px;opacity:.7">${s[1]}</div><dl><dt>Habitat</dt><dd>${s[12]}</dd><dt>Underside</dt><dd>${s[6]==='ridges'?'False gills (forked ridges)':s[6]==='pores'?'Sponge-like pores':'True gills'}</dd><dt>Ring · volva</dt><dd>${s[8]?'Ring present':'No ring'} · ${s[9]?'Sac-like volva at base':'no volva'}</dd><dt>Spore print</dt><dd><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${s[10]};border:1px solid #0003;vertical-align:-2px"></span> ${s[10]==='#f7f5ee'?'White':s[10]==='#161311'?'Black':'Coloured'}</dd><dt>Season</dt><dd>${s[11].length===12?'All year':s[11].map(m=>MON[m-1]).join(' · ')}</dd></dl><p style="line-height:1.65">${s[13]}</p></div>`;document.getElementById('modal').classList.add('on')}
+document.getElementById('species').onclick=e=>{const b=e.target.closest('.sp');if(b)openSp(+b.dataset.i)};
+document.getElementById('mx').onclick=()=>document.getElementById('modal').classList.remove('on');
+document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')e.target.classList.remove('on')};
+renderGuide();
+
+/* key */
+const KEY={
+ start:['What is under the cap?',[['Thin blade-like gills','gills',6],['A sponge of tiny pores','=4',4],['Blunt forked ridges running down the stem','ridges',3],['It grows as a shelf from wood, no real stem','=9',9]]],
+ ridges:['Is it growing alone on soil, or in a tight cluster on wood or roots?',[['Scattered on mossy soil, egg-yolk yellow','=3',3],['Dense orange clusters at the base of a tree','=11',11]]],
+ gills:['Look at the base of the stem. Is there a sac-like cup (volva)?',[['Yes, a cup or sac at the base','volva',1],['No cup, the stem just enters the ground','novolva',5]]],
+ volva:['What colour is the cap?',[['Scarlet with white warts','=0',0],['Olive-green to yellowish','=1',1],['Pure white all over','=2',2]]],
+ novolva:['Which fits best?',[['Very tall, brown-scaled flat cap, snakeskin stem','=5',5],['Tall white shaggy cylinder, gills turning black','=7',7],['Clusters of sulphur-yellow caps on dead wood','=8',8],['White cap in grazed pasture, pink to brown gills','=6',6],['Rusty-orange pointed cap in wet conifer moss','=10',10]]]};
+let path=['start'];
+function renderKey(){const cur=path[path.length-1];const crumbs=document.getElementById('crumbs');crumbs.innerHTML=path.map((p,i)=>`<span>${i+1}. ${p.startsWith('=')?'Result':KEY[p][0].split(' ').slice(0,4).join(' ')+'…'}</span>`).join('')+(path.length>1?'<button class="chip" id="kback">← back</button> <button class="chip" id="kre">Start again</button>':'');
+ const q=document.getElementById('qcard');
+ if(cur.startsWith('=')){const i=+cur.slice(1),s=SP[i];q.innerHTML=`<div class="result"><div style="text-align:center">${svg(s,i,220)}</div><div><div style="font-size:12px;letter-spacing:.2em;font-weight:800;color:var(--amber)">PROBABLY…</div><h3 style="margin:6px 0">${s[0]}</h3><div style="font-family:'Instrument Serif';font-style:italic;font-size:20px;color:var(--dim)">${s[1]}</div><span class="tag t-${s[2]}">${EL[s[2]]}</span><p style="line-height:1.6;margin-top:14px;color:#efe6d2cc">${s[13]}</p><p style="margin-top:14px;font-size:13px;color:#ffb08a">A key narrows things down. It does not prove what you have. Take a spore print and ask an expert.</p></div></div>`}
+ else{const[qq,ans]=KEY[cur];q.innerHTML=`<h3>${qq}</h3><div class="answers">${ans.map(a=>`<button class="ans" data-n="${a[1]}"><svg viewBox="0 -30 200 240">${shroom(SP[a[2]],a[2]+50)}</svg>${a[0]}</button>`).join('')}</div>`}
+ const b=document.getElementById('kback');if(b)b.onclick=()=>{path.pop();renderKey()};const r=document.getElementById('kre');if(r)r.onclick=()=>{path=['start'];renderKey()}}
+document.getElementById('qcard').onclick=e=>{const b=e.target.closest('.ans');if(!b)return;path.push(b.dataset.n);renderKey()};renderKey();
+
+/* spore print */
+const pc=document.getElementById('pc'),px=pc.getContext('2d');
+document.getElementById('psp').innerHTML=SP.filter(s=>s[3]!=='shelf').map(s=>`<option value="${SP.indexOf(s)}">${s[0]}</option>`).join('');
+let anim=null;
+function paper(){const p=document.getElementById('ppr').value;document.getElementById('paper').classList.toggle('dark',p==='d');px.fillStyle=p==='d'?'#1a1a1a':'#fbf7ee';px.fillRect(0,0,800,800);if(p==='h'){px.fillStyle='#1a1a1a';px.fillRect(400,0,400,800)}}
+function printSp(){cancelAnimationFrame(anim);paper();const s=SP[+document.getElementById('psp').value],n=+document.getElementById('gills').value,hrs=+document.getElementById('hours').value;
+ document.getElementById('plbl').textContent=s[1]+' · '+hrs+' h';const R=300+Math.random()*40,col=s[10],ridged=s[6]==='ridges',pores=s[6]==='pores';
+ const seed=Math.random()*1000;let frame=0;const total=90;
+ const ang=[...Array(n)].map((_,k)=>k/n*Math.PI*2+Math.sin(k*1.7+seed)*.01);
+ function step(){frame++;px.save();px.translate(400,400);px.globalCompositeOperation='source-over';
+  const a=Math.min(.05,hrs/12*.05);
+  if(pores){for(let k=0;k<700;k++){const r=Math.sqrt(Math.random())*R,t=Math.random()*7;px.fillStyle=col;px.globalAlpha=a*2;px.beginPath();px.arc(Math.cos(t)*r,Math.sin(t)*r,2+Math.random()*2,0,7);px.fill()}}
+  else ang.forEach((t,k)=>{const short=k%2?.55+((k*37)%10)/40:1;const r0=R*(ridged?.1:(k%4===0?.12:.25+(1-short)*.4)),r1=R*(.96+Math.sin(k*3+seed)*.03);px.strokeStyle=col;px.globalAlpha=a;px.lineWidth=(ridged?7:R*2*Math.PI/n*.45)*(1+Math.random()*.3);px.beginPath();const w=ridged?Math.sin(frame*.1+k)*.04:0;px.moveTo(Math.cos(t)*r0,Math.sin(t)*r0);px.quadraticCurveTo(Math.cos(t+w)*(r0+r1)/2,Math.sin(t+w)*(r0+r1)/2,Math.cos(t+w*2)*r1,Math.sin(t+w*2)*r1);px.stroke()});
+  px.globalAlpha=1;px.restore();
+  // stem hole
+  if(frame===total){px.save();paperHole();px.restore()}
+  if(frame<total)anim=requestAnimationFrame(step)}
+ function paperHole(){const p=document.getElementById('ppr').value;px.fillStyle=p==='d'?'#1a1a1a':'#fbf7ee';px.beginPath();px.arc(400,400,R*.08,0,7);px.fill();if(p==='h'){px.fillStyle='#1a1a1a';px.beginPath();px.arc(400,400,R*.08,-Math.PI/2,Math.PI/2);px.fill()}}
+ step()}
+document.getElementById('lift').onclick=printSp;
+['gills','hours'].forEach(id=>document.getElementById(id).oninput=e=>document.getElementById(id==='gills'?'gv':'hv').textContent=e.target.value);
+document.getElementById('ppr').onchange=printSp;document.getElementById('psp').onchange=printSp;
+printSp();
+
+/* seasons */
+let mon=new Date().getMonth()+1;
+const COLS=['#c8261c','#9da05a','#f3f1ea','#e8a92a','#8a5a33','#b99a78','#d98b8b','#f1ede2','#e2c231','#8d8d95','#b85a26','#e0661e'];
+function wheel(){let s='';const R0=110,R1=270;
+ for(let m=0;m<12;m++){const a0=(m/12-.25)*Math.PI*2,a1=((m+1)/12-.25)*Math.PI*2,on=m+1===mon;const p=(r,a)=>`${Math.cos(a)*r} ${Math.sin(a)*r}`;
+  s+=`<path class="mo" data-m="${m+1}" d="M${p(R0-40,a0)} L${p(R1+22,a0)} A${R1+22} ${R1+22} 0 0 1 ${p(R1+22,a1)} L${p(R0-40,a1)} A${R0-40} ${R0-40} 0 0 0 ${p(R0-40,a0)}Z" fill="${on?'#d8913a22':'transparent'}" stroke="#efe6d218"/>`;
+  const am=(a0+a1)/2;s+=`<text x="${Math.cos(am)*(R0-58)}" y="${Math.sin(am)*(R0-58)+5}" text-anchor="middle" font-size="14" font-family="Karla" font-weight="800" fill="${on?'#d8913a':'#efe6d288'}" pointer-events="none">${MON[m]}</text>`}
+ SP.forEach((sp,i)=>{const r=R0+i*13.5;sp[11].forEach(m=>{const a0=((m-1)/12-.25)*Math.PI*2+.03,a1=(m/12-.25)*Math.PI*2-.03;s+=`<path d="M${Math.cos(a0)*r} ${Math.sin(a0)*r} A${r} ${r} 0 0 1 ${Math.cos(a1)*r} ${Math.sin(a1)*r}" stroke="${COLS[i]}" stroke-width="9" stroke-linecap="round" fill="none" opacity="${sp[11].includes(mon)?1:.25}" pointer-events="none"/>`})});
+ s+=`<text y="-6" text-anchor="middle" font-family="Instrument Serif" font-size="30" fill="#efe6d2">${SP.filter(x=>x[11].includes(mon)).length}</text><text y="16" text-anchor="middle" font-size="11" font-family="Karla" letter-spacing="2" fill="#efe6d288">SPECIES</text>`;
+ document.getElementById('wheel').innerHTML=s;
+ document.getElementById('mname').textContent=['January','February','March','April','May','June','July','August','September','October','November','December'][mon-1];
+ const L=SP.map((x,i)=>[x,i]).filter(([x])=>x[11].includes(mon));document.getElementById('clist').innerHTML=L.length?L.map(([x,i])=>`<div><i style="background:${COLS[i]}"></i><b>${x[0]}</b><span style="font-family:'Instrument Serif';font-style:italic;color:var(--dim)">${x[1]}</span><span class="tag t-${x[2]}" style="margin:0 0 0 auto">${EL[x[2]]}</span></div>`).join(''):'<p style="color:var(--dim)">A quiet month. Look for bracket fungi on dead wood.</p>'}
+document.getElementById('wheel').onclick=e=>{const p=e.target.closest('.mo');if(p){mon=+p.dataset.m;wheel()}};wheel();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

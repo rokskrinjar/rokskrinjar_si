@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iron Temple — Strength Toolkit</title>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--concrete:#1b1b1a;--slab:#262624;--chalk:#ecebe6;--dim:#ecebe680;--rust:#c2412d;--r25:#d62b2b;--b20:#1f5fcf;--y15:#f2c21b;--g10:#1f9a4a;--w5:#f2f2f2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--concrete);color:var(--chalk);font-family:'Barlow Semi Condensed',sans-serif;background-image:radial-gradient(#ffffff08 1px,transparent 1px),radial-gradient(#00000030 1px,transparent 1px);background-size:7px 7px,11px 11px}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;cursor:pointer;color:inherit}
+.t{font-family:Teko,sans-serif;letter-spacing:.02em}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 4vw;border-bottom:4px solid var(--rust)}
+.logo{font-family:Teko;font-weight:700;font-size:40px;line-height:1;letter-spacing:.06em;display:flex;gap:10px;align-items:center}
+.logo i{width:34px;height:34px;border-radius:50%;border:6px solid var(--chalk);display:inline-block;position:relative}
+.logo i::after{content:"";position:absolute;inset:6px;border-radius:50%;background:var(--rust)}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{font-family:Teko;font-size:22px;padding:4px 14px;letter-spacing:.06em}
+nav a.on{background:var(--chalk);color:var(--concrete)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1260px;margin:0 auto;padding:26px 4vw 70px}
+h2{font-family:Teko;font-weight:700;font-size:clamp(3rem,8vw,6rem);line-height:.8;text-transform:uppercase}
+h2 span{color:var(--rust)}
+.sub{color:var(--dim);max-width:58ch;line-height:1.5;margin:10px 0 24px;font-size:18px}
+.panel{background:var(--slab);border:1px solid #ffffff14;padding:18px}
+/* plates */
+.pl{display:grid;grid-template-columns:320px 1fr;gap:24px;align-items:start}
+.num{display:flex;align-items:center;gap:10px}
+.num input{width:100%;background:#0006;border:2px solid #ffffff22;color:var(--chalk);font-family:Teko;font-size:64px;line-height:1;padding:4px 12px}
+.seg{display:flex;border:2px solid #ffffff22;margin:10px 0}
+.seg button{flex:1;padding:8px 0;border:0;background:none;font-family:Teko;font-size:22px}
+.seg button.on{background:var(--chalk);color:var(--concrete)}
+.quick{display:flex;gap:6px;flex-wrap:wrap}
+.quick button{border:1px solid #ffffff33;background:none;padding:4px 10px;font-family:Teko;font-size:20px}
+.bar svg{width:100%;height:auto;display:block}
+.perside{font-family:Teko;font-size:30px;margin-top:10px}
+.perside span{display:inline-block;padding:0 10px;margin:2px;color:#111}
+.inv{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.inv label{font-size:13px;color:var(--dim)}
+.inv input{width:100%;background:#0006;border:1px solid #ffffff22;color:var(--chalk);padding:4px;font-family:Teko;font-size:22px}
+/* 1rm */
+.rm{display:grid;grid-template-columns:320px 1fr;gap:24px;align-items:start}
+.big{font-family:Teko;font-size:110px;line-height:.8;color:var(--rust)}
+table{width:100%;border-collapse:collapse;font-size:18px}
+td,th{padding:8px 10px;border-bottom:1px solid #ffffff14;text-align:left}
+th{font-family:Teko;font-weight:500;font-size:20px;color:var(--dim);letter-spacing:.06em}
+td.b{font-family:Teko;font-size:26px}
+tr.hl td{background:#c2412d33}
+.pbar{height:8px;background:#ffffff14}
+.pbar i{display:block;height:100%;background:var(--rust)}
+/* workout */
+.split{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.split button{border:2px solid var(--chalk);background:none;padding:6px 16px;font-family:Teko;font-size:24px}
+.split button.on{background:var(--chalk);color:var(--concrete)}
+.ex{display:grid;grid-template-columns:1fr auto;gap:10px;padding:14px 0;border-bottom:1px solid #ffffff14}
+.ex h3{font-family:Teko;font-weight:600;font-size:30px;line-height:1}
+.ex small{color:var(--dim)}
+.sets{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.set{min-width:74px;border:2px solid #ffffff33;background:none;padding:4px 8px;font-family:Teko;font-size:20px;line-height:1.1;text-align:center}
+.set.done{background:var(--g10);border-color:var(--g10)}
+.set small{display:block;font-family:'Barlow Semi Condensed';font-size:11px;opacity:.7}
+.vol{font-family:Teko;font-size:48px}
+/* timer */
+.tmr{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.ring{position:relative;width:min(420px,80vw);aspect-ratio:1;margin:0 auto}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .c{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring b{font-family:Teko;font-size:clamp(5rem,14vw,9rem);line-height:.8}
+.pre{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pre button{border:2px solid var(--chalk);background:none;padding:16px 0;font-family:Teko;font-size:34px}
+.pre button.on{background:var(--rust);border-color:var(--rust)}
+.go{width:100%;margin-top:10px;background:var(--chalk);color:var(--concrete);border:0;padding:16px;font-family:Teko;font-size:36px}
+.quote{font-family:Teko;font-size:34px;line-height:1;margin-top:26px;color:var(--dim)}
+@media(max-width:900px){.pl,.rm,.tmr{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="logo"><i></i>IRON TEMPLE</div><nav><a href="#plates">Plate Math</a><a href="#max">1RM</a><a href="#workout">Workout</a><a href="#rest">Rest Timer</a><a href="index.html">Index</a></nav></header>
+
+<section data-view="plates"><div class="wrap">
+ <h2>Load <span>the bar.</span></h2>
+ <p class="sub">Type a target weight and we'll tell you what to put on each side, in competition plate colours, using the fewest plates.</p>
+ <div class="pl">
+  <div class="panel">
+   <div class="t" style="font-size:20px;color:var(--dim)">TARGET</div><div class="num"><input type="number" id="target" value="142.5" step="2.5" min="0"></div>
+   <div class="seg" id="unit"><button data-v="kg" class="on">KG</button><button data-v="lb">LB</button></div>
+   <div class="seg" id="barW"><button data-v="20" class="on">20 bar</button><button data-v="15">15 bar</button><button data-v="10">10 tech</button></div>
+   <div class="quick" id="quick"></div>
+   <div class="t" style="font-size:20px;color:var(--dim);margin-top:14px">PAIRS AVAILABLE</div><div class="inv" id="inv"></div>
+   <div class="seg" id="collar" style="margin-top:12px"><button data-v="2.5" class="on">Comp collars 2×2.5</button><button data-v="0">Spring clips</button></div>
+  </div>
+  <div class="panel bar"><svg id="barSvg" viewBox="0 0 1000 360"></svg><div class="perside" id="perside"></div><div id="note" style="color:var(--dim);margin-top:6px"></div></div>
+ </div>
+</div></section>
+
+<section data-view="max" hidden><div class="wrap">
+ <h2>One-rep <span>max.</span></h2>
+ <p class="sub">Estimate your 1RM from any set of up to 10 reps, then see what to load for every percentage. This is an estimate, not a dare.</p>
+ <div class="rm">
+  <div class="panel">
+   <div class="t" style="font-size:20px;color:var(--dim)">LIFT</div><div class="seg" id="lift"><button data-v="Squat" class="on">Squat</button><button data-v="Bench">Bench</button><button data-v="Deadlift">Dead</button></div>
+   <div class="t" style="font-size:20px;color:var(--dim)">WEIGHT (KG)</div><div class="num"><input type="number" id="rmW" value="100" min="1"></div>
+   <div class="t" style="font-size:20px;color:var(--dim);margin-top:10px">REPS · <span id="rmRv">5</span></div><input type="range" id="rmR" min="1" max="10" value="5" style="width:100%;accent-color:#c2412d">
+   <div class="t" style="font-size:20px;color:var(--dim);margin-top:14px">ESTIMATED 1RM</div><div class="big" id="rmOut">—</div><div style="color:var(--dim);font-size:14px" id="rmF"></div>
+  </div>
+  <div class="panel"><table><thead><tr><th>%</th><th>LOAD</th><th>REPS</th><th>USE FOR</th></tr></thead><tbody id="pct"></tbody></table></div>
+ </div>
+</div></section>
+
+<section data-view="workout" hidden><div class="wrap">
+ <h2>Today's <span>session.</span></h2>
+ <p class="sub">Pick a day from a classic 3-day split. Tap each set as you finish it and the rest timer starts on its own.</p>
+ <div class="split" id="split"></div>
+ <div class="pl"><div class="panel"><div class="t" style="font-size:20px;color:var(--dim)">VOLUME LIFTED</div><div class="vol" id="vol">0 kg</div><div class="pbar"><i id="prog" style="width:0"></i></div><div id="progT" style="margin-top:6px;color:var(--dim)"></div><button class="go" id="resetW" style="font-size:24px;padding:10px">Reset day</button></div><div class="panel" id="exL"></div></div>
+</div></section>
+
+<section data-view="rest" hidden><div class="wrap">
+ <div class="tmr">
+  <div class="ring"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="88" fill="none" stroke="#ffffff14" stroke-width="14"/><circle id="arc" cx="100" cy="100" r="88" fill="none" stroke="#c2412d" stroke-width="14" stroke-dasharray="552.9" stroke-dashoffset="0"/></svg><div class="c"><div><b id="tm">1:30</b><div class="t" style="font-size:24px;color:var(--dim)" id="tl">REST</div></div></div></div>
+  <div><h2>Rest <span>up.</span></h2><p class="sub">3–5 minutes for heavy strength sets, 60–90 seconds for accessories. Breathe, drink water, then go again.</p>
+   <div class="pre" id="pre"><button data-v="60">1:00</button><button data-v="90" class="on">1:30</button><button data-v="120">2:00</button><button data-v="180">3:00</button><button data-v="240">4:00</button><button data-v="300">5:00</button></div>
+   <button class="go" id="tgo">START</button><div class="quote" id="quote">"The iron never lies to you."</div></div>
+ </div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'plates';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const segs=(id,cb)=>document.getElementById(id).onclick=e=>{const v=e.target.dataset.v;if(v==null)return;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));cb(v)};
+
+/* plates */
+const KG=[[25,'#d62b2b',450,44],[20,'#1f5fcf',450,40],[15,'#f2c21b',400,36],[10,'#1f9a4a',325,32],[5,'#f2f2f2',230,26],[2.5,'#1b1b1a',190,20],[1.25,'#c8c8c8',160,16],[.5,'#c8c8c8',130,12]];
+const LB=[[45,'#1f5fcf',450,40],[35,'#f2c21b',400,36],[25,'#1f9a4a',325,32],[10,'#f2f2f2',230,24],[5,'#1b1b1a',190,20],[2.5,'#c8c8c8',160,16]];
+let unit='kg',barW=20,collar=2.5,inv={kg:{25:6,20:2,15:2,10:2,5:2,2.5:2,1.25:2,.5:2},lb:{45:8,35:2,25:2,10:2,5:2,2.5:2}};
+function plates(){const P=unit==='kg'?KG:LB;const tgt=+document.getElementById('target').value||0;const bar=unit==='kg'?barW:(barW===20?45:barW===15?35:25);const col=unit==='kg'?collar:(collar?5.5:0);let side=(tgt-bar-col*2)/2;const out=[];const iv=inv[unit];
+ P.forEach(([w])=>{let n=Math.min(Math.floor((side+1e-9)/w),iv[w]||0);for(let i=0;i<n;i++)out.push(w);side-=n*w});
+ const loaded=bar+col*2+out.reduce((a,b)=>a+b,0)*2;
+ let s=`<rect x="0" y="330" width="1000" height="30" fill="#141414"/><rect x="40" y="172" width="920" height="16" rx="4" fill="#9a9a9a"/><rect x="40" y="172" width="920" height="4" fill="#d8d8d8"/><rect x="350" y="170" width="300" height="20" fill="url(#knurl)"/><defs><pattern id="knurl" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 6 L6 0 M-1 1 L1 -1 M5 7 L7 5" stroke="#666" stroke-width="1"/></pattern></defs><rect x="300" y="160" width="14" height="40" fill="#aaa"/><rect x="686" y="160" width="14" height="40" fill="#aaa"/>`;
+ const draw=(dir)=>{let x=dir>0?700:300;x+=dir*4;out.forEach(w=>{const p=P.find(q=>q[0]===w);const h=p[2]*.62,wd=p[3]*.9;const X=dir>0?x:x-wd;s+=`<rect x="${X}" y="${180-h/2}" width="${wd}" height="${h}" rx="4" fill="${p[1]}" stroke="#0008" stroke-width="2"/><rect x="${X+wd*.2}" y="${180-h/2+6}" width="${wd*.14}" height="${h-12}" fill="#ffffff22"/><text x="${X+wd/2}" y="${184}" text-anchor="middle" font-family="Teko" font-size="${Math.min(22,wd*.7)}" fill="${p[1]==='#f2f2f2'||p[1]==='#f2c21b'||p[1]==='#c8c8c8'?'#111':'#fff'}" transform="rotate(${dir>0?90:-90} ${X+wd/2} 180)">${w}</text>`;x+=dir*(wd+2)});if(col)s+=`<rect x="${dir>0?x:x-24}" y="150" width="24" height="60" rx="3" fill="#8a8a8a" stroke="#0008"/>`};
+ draw(1);draw(-1);
+ s+=`<text x="500" y="90" text-anchor="middle" font-family="Teko" font-size="80" fill="#ecebe6">${loaded%1?loaded.toFixed(2):loaded} ${unit.toUpperCase()}</text>${Math.abs(loaded-tgt)>.01?`<text x="500" y="128" text-anchor="middle" font-family="Teko" font-size="26" fill="#c2412d">Closest possible: ${(tgt-loaded).toFixed(2)} ${unit} short</text>`:''}`;
+ document.getElementById('barSvg').innerHTML=s;
+ document.getElementById('perside').innerHTML='PER SIDE: '+(out.length?out.map(w=>{const p=P.find(q=>q[0]===w);return`<span style="background:${p[1]};${p[1]==='#1b1b1a'?'color:#fff':''}">${w}</span>`}).join(''):'just the bar');
+ document.getElementById('note').textContent=`Bar ${bar} ${unit}${col?` + collars ${col*2} ${unit}`:''} · ${out.length*2} plates to load.${unit==='lb'?' That\'s '+(loaded*.4536).toFixed(1)+' kg.':' That\'s '+(loaded*2.2046).toFixed(0)+' lb.'}`;
+ document.getElementById('quick').innerHTML=(unit==='kg'?[60,100,140,180,220,250]:[135,225,315,405,495]).map(q=>`<button data-q="${q}">${q}</button>`).join('');
+ document.getElementById('inv').innerHTML=P.map(([w,c])=>`<label><span style="display:inline-block;width:10px;height:10px;background:${c};margin-right:4px"></span>${w}<input type="number" min="0" max="12" value="${iv[w]}" data-w="${w}"></label>`).join('')}
+document.getElementById('target').oninput=plates;segs('unit',v=>{unit=v;document.getElementById('target').value=v==='kg'?142.5:315;plates()});segs('barW',v=>{barW=+v;plates()});segs('collar',v=>{collar=+v;plates()});
+document.getElementById('quick').onclick=e=>{const q=e.target.dataset.q;if(q){document.getElementById('target').value=q;plates()}};
+document.getElementById('inv').oninput=e=>{const w=e.target.dataset.w;if(w){inv[unit][w]=+e.target.value;plates()}};plates();
+
+/* 1RM */
+let lift='Squat';
+function rm(){const w=+document.getElementById('rmW').value||0,r=+document.getElementById('rmR').value;document.getElementById('rmRv').textContent=r;const ep=r===1?w:w*(1+r/30),br=r===1?w:w*36/(37-r);const m=(ep+br)/2;document.getElementById('rmOut').textContent=m.toFixed(1);document.getElementById('rmF').textContent=`Epley ${ep.toFixed(1)} · Brzycki ${br.toFixed(1)} · average shown`;
+ const rows=[[100,1,'Test day. Bring a spotter'],[95,2,'Heavy singles and doubles'],[90,3,'Peak strength'],[85,5,'Strength (5×5)'],[80,7,'Strength-hypertrophy'],[75,9,'Hypertrophy'],[70,11,'Hypertrophy / volume'],[65,14,'Technique, speed'],[60,17,'Warm-up, deload'],[50,20,'Warm-up']];
+ document.getElementById('pct').innerHTML=rows.map(([p,rp,u])=>`<tr class="${Math.abs(rp-r)<=1&&p<100?'hl':''}"><td class="b">${p}%</td><td class="b">${(Math.round(m*p/100/2.5)*2.5).toFixed(1)}</td><td>${rp}</td><td style="color:var(--dim)">${u}<div class="pbar" style="margin-top:4px"><i style="width:${p}%"></i></div></td></tr>`).join('')}
+['rmW','rmR'].forEach(id=>document.getElementById(id).oninput=rm);segs('lift',v=>{lift=v;document.getElementById('rmW').value={Squat:100,Bench:70,Deadlift:130}[v];rm()});rm();
+
+/* workout */
+const DAYS={Push:[['Bench press',[5,5,5,5,5],80],['Overhead press',[8,8,8],45],['Incline DB press',[10,10,10],24],['Triceps dips',[12,12,12],0],['Lateral raise',[15,15,15],8]],Pull:[['Deadlift',[5,3,1],140],['Barbell row',[8,8,8],70],['Pull-ups',[8,8,8],0],['Face pulls',[15,15,15],20],['Hammer curl',[12,12,12],14]],Legs:[['Back squat',[5,5,5,5,5],110],['Romanian deadlift',[8,8,8],90],['Walking lunge',[12,12,12],20],['Leg press',[12,12,12],160],['Calf raise',[15,15,15,15],60]]};
+let day='Push',done=store.get('it-done',{});
+function workout(){document.getElementById('split').innerHTML=Object.keys(DAYS).map(d=>`<button class="${d===day?'on':''}" data-d="${d}">${d.toUpperCase()}</button>`).join('');
+ let vol=0,tot=0,cnt=0;document.getElementById('exL').innerHTML=DAYS[day].map(([n,reps,w],i)=>`<div class="ex"><div><h3>${n}</h3><small>${reps.length} sets · ${w?w+' kg':'bodyweight'}</small><div class="sets">${reps.map((r,j)=>{const k=`${day}-${i}-${j}`,d=done[k];tot++;if(d){cnt++;vol+=r*(w||75)}return`<button class="set ${d?'done':''}" data-k="${k}">${r}×${w||'BW'}<small>set ${j+1}</small></button>`}).join('')}</div></div></div>`).join('');
+ document.getElementById('vol').textContent=vol.toLocaleString()+' kg';document.getElementById('prog').style.width=(cnt/tot*100)+'%';document.getElementById('progT').textContent=`${cnt}/${tot} sets${cnt===tot?' · session complete 💪':''}`;store.set('it-done',done)}
+document.getElementById('split').onclick=e=>{const d=e.target.dataset.d;if(d){day=d;workout()}};
+document.getElementById('exL').onclick=e=>{const b=e.target.closest('.set');if(!b)return;const k=b.dataset.k;done[k]=!done[k];workout();if(done[k]){startTimer(k.startsWith(day+'-0')?180:90,false)}};
+document.getElementById('resetW').onclick=()=>{Object.keys(done).filter(k=>k.startsWith(day)).forEach(k=>delete done[k]);workout()};workout();
+
+/* rest timer */
+let dur=90,left=90,iv=null;
+function tUI(){document.getElementById('tm').textContent=`${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}`;document.getElementById('arc').style.strokeDashoffset=552.9*(1-left/dur);document.getElementById('tgo').textContent=iv?'PAUSE':left<dur&&left>0?'RESUME':'START';document.getElementById('tl').textContent=left===0?'GO LIFT':'REST'}
+function beep(f,d){try{const a=window._a||(window._a=new AudioContext());const o=a.createOscillator(),g=a.createGain();o.type='square';o.frequency.value=f;g.gain.setValueAtTime(.08,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d);o.connect(g).connect(a.destination);o.start();o.stop(a.currentTime+d)}catch(e){}}
+function startTimer(s,show=true){dur=s;left=s;clearInterval(iv);iv=setInterval(()=>{left--;if(left<=3&&left>0)beep(660,.12);if(left<=0){left=0;clearInterval(iv);iv=null;beep(990,.5);document.getElementById('quote').textContent=QUOTES[Math.random()*QUOTES.length|0]}tUI()},1000);document.querySelectorAll('#pre button').forEach(b=>b.classList.toggle('on',+b.dataset.v===s));tUI();if(show)return}
+const QUOTES=['"The iron never lies to you."','"Chalk up. Breathe. Lift."','"Strong is built one set at a time."','"Rest is part of the program."','"Brace like you mean it."'];
+document.getElementById('pre').onclick=e=>{const v=e.target.dataset.v;if(v){clearInterval(iv);iv=null;dur=left=+v;document.querySelectorAll('#pre button').forEach(b=>b.classList.toggle('on',b===e.target));tUI()}};
+document.getElementById('tgo').onclick=()=>{if(iv){clearInterval(iv);iv=null;tUI()}else{if(left<=0)left=dur;const l=left;startTimer(dur);left=l;tUI()}};tUI();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Figtree:wght@400;500;600;700&display=swap');
+:root{--e-bg:#fbf5f2;--e-card:#fff;--e-ink:#2b1230;--e-mu:#6f5a6f;--e-ln:#eedfe0;--e-acc:#8a2f7c;--e-acc2:#ff6f59;--e-acc-ink:#fff;--e-soft:#f6e9ea;--e-r:18px;--e-font:'Figtree',system-ui,sans-serif;--e-head:'Fraunces',Georgia,serif;--e-hw:600;--e-hl:-.02em;--e-cta-bg:#4a1d4f;--e-cta-btn:#ff6f59}
+.e-hero.card{background:radial-gradient(circle at 85% 20%,#ffd9cf 0,transparent 40%),radial-gradient(circle at 10% 90%,#f1d6ee 0,transparent 40%)}
+.e-hero.card .e-bc{box-shadow:0 30px 70px rgba(74,29,79,.14);border:0}
+.e-hero .e-name{font-size:clamp(36px,4.6vw,62px);line-height:1.05}
+.e-hero .e-por{border:6px solid #fbf5f2;box-shadow:0 0 0 2px var(--e-acc2)}
+.e-kick{color:var(--e-acc2);font-weight:700}
+.e-btn{border-radius:999px}
+.e-why .n{color:var(--e-acc2)}.e-why h3{font-size:24px}
+.e-stats b{color:var(--e-acc)}
+.e-tl.cards>div{border-top:5px solid var(--e-acc2)}
+.e-quote{font-style:italic}

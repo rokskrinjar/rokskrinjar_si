@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGNAL/LOSS — Glitch Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Syne+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0b2e;--panel:#17144a;--c:#00e5ff;--m:#ff2bd6;--y:#ffe600;--txt:#e8e6ff;--dim:#e8e6ff80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:'Syne Mono',monospace;min-height:100vh;background-image:repeating-linear-gradient(#0000 0 3px,#ffffff06 3px 4px)}
+a{color:inherit;text-decoration:none}button,input,textarea{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 3vw;border-bottom:1px solid #ffffff1a}
+.logo{font-family:'Rubik Glitch';font-size:34px;letter-spacing:.02em;text-shadow:3px 0 var(--m),-3px 0 var(--c)}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:6px 12px;border:1px solid #ffffff22;font-size:13px;text-transform:uppercase}
+nav a.on{background:var(--y);color:var(--bg);border-color:var(--y)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1400px;margin:0 auto;padding:20px 3vw 60px}
+h2{font-family:'Rubik Glitch';font-weight:400;font-size:clamp(2.2rem,5vw,4rem);line-height:1;text-shadow:2px 0 var(--m),-2px 0 var(--c)}
+.sub{color:var(--dim);max-width:64ch;line-height:1.6;margin:8px 0 18px;font-size:14px}
+/* studio */
+.st{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}
+.cv{background:#000;border:1px solid #ffffff22;position:relative}
+.cv canvas{display:block;width:100%;height:auto}
+.cv .tag{position:absolute;left:10px;top:8px;font-size:11px;background:#000a;padding:2px 6px}
+.panel{background:var(--panel);border:1px solid #ffffff1a;padding:14px}
+.fx{margin-bottom:12px}
+.fx label{display:flex;justify-content:space-between;font-size:12px;text-transform:uppercase;margin-bottom:4px}
+.fx input[type=range]{width:100%;accent-color:var(--m)}
+.btn{display:block;width:100%;border:1px solid var(--c);background:none;padding:10px;margin-top:8px;text-transform:uppercase;font-size:13px;color:var(--c)}
+.btn:hover{background:var(--c);color:var(--bg)}
+.btn.m{border-color:var(--m);color:var(--m)}.btn.m:hover{background:var(--m);color:#fff}
+.btn.y{border-color:var(--y);color:var(--y)}.btn.y:hover{background:var(--y);color:var(--bg)}
+.srcs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:10px}
+.srcs button{border:1px solid #ffffff33;background:none;padding:6px 0;font-size:11px}
+.srcs button.on{background:#fff;color:var(--bg)}
+.file{display:block;border:1px dashed #ffffff55;padding:8px;text-align:center;font-size:12px;margin-bottom:10px}
+.file input{display:none}
+/* presets */
+.pre{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.pc{background:var(--panel);border:1px solid #ffffff1a;padding:8px;text-align:left}
+.pc canvas{width:100%;height:auto;display:block}
+.pc b{display:block;margin-top:6px;color:var(--y)}
+.pc small{color:var(--dim);font-size:11px}
+/* text */
+.gt{position:relative;font-family:'Rubik Glitch';font-size:clamp(3rem,12vw,9rem);line-height:1;text-align:center;margin:40px 0;word-break:break-word}
+.gt span{position:absolute;inset:0}
+.gt .a{color:var(--c);animation:g1 var(--sp) infinite steps(1);mix-blend-mode:screen}
+.gt .b{color:var(--m);animation:g2 var(--sp) infinite steps(1);mix-blend-mode:screen}
+@keyframes g1{0%{clip-path:inset(10% 0 70% 0);transform:translate(-6px,0)}20%{clip-path:inset(60% 0 10% 0);transform:translate(5px,0)}40%{clip-path:inset(30% 0 40% 0);transform:translate(-3px,0)}60%{clip-path:inset(80% 0 2% 0);transform:translate(8px,0)}80%{clip-path:inset(0 0 85% 0);transform:translate(-8px,0)}100%{clip-path:inset(45% 0 35% 0);transform:translate(2px,0)}}
+@keyframes g2{0%{clip-path:inset(70% 0 5% 0);transform:translate(6px,0)}25%{clip-path:inset(5% 0 75% 0);transform:translate(-5px,0)}50%{clip-path:inset(40% 0 30% 0);transform:translate(4px,0)}75%{clip-path:inset(15% 0 60% 0);transform:translate(-7px,0)}100%{clip-path:inset(85% 0 0 0);transform:translate(3px,0)}}
+.tin{width:100%;background:var(--panel);border:1px solid #ffffff33;padding:12px;font-size:22px;text-align:center}
+/* history */
+.hist{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.hc{background:var(--panel);border-left:4px solid var(--m);padding:16px}
+.hc .y2{font-family:'Rubik Glitch';font-size:34px;color:var(--y)}
+.hc p{color:var(--dim);font-size:14px;line-height:1.6;margin-top:6px}
+@media(max-width:900px){.st{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="logo">SIGNAL/LOSS</div><nav><a href="#studio">Studio</a><a href="#presets">Presets</a><a href="#text">Text</a><a href="#history">Glitch History</a><a href="index.html">Exit</a></nav></header>
+
+<section data-view="studio"><div class="wrap">
+ <h2>Break it beautifully</h2>
+ <p class="sub">Choose a source image or load one of your own (it never leaves your device). Stack the effects and hit GLITCH for chaos. Every effect works directly on the pixels.</p>
+ <div class="st">
+  <div class="cv"><canvas id="cv" width="960" height="600"></canvas><span class="tag" id="tag">SRC: SUNSET · 960×600</span></div>
+  <div class="panel">
+   <div class="srcs" id="srcs"><button data-s="sunset" class="on">Sunset</button><button data-s="city">City</button><button data-s="face">Face</button><button data-s="bars">Bars</button></div>
+   <label class="file">⇪ Load your own image<input type="file" id="file" accept="image/*"></label>
+   <div id="fxL"></div>
+   <button class="btn y" id="glitch">⚡ GLITCH</button><button class="btn" id="resetFx">Reset effects</button><button class="btn m" id="crush">JPEG crush ×10</button>
+  </div>
+ </div>
+</div></section>
+
+<section data-view="presets" hidden><div class="wrap">
+ <h2>Recipes</h2><p class="sub">Tried and tested effect stacks. Click one to load it into the studio.</p>
+ <div class="pre" id="pre"></div>
+</div></section>
+
+<section data-view="text" hidden><div class="wrap">
+ <h2>Glitch text</h2><p class="sub">Type anything. The layers slice and shift in pure CSS, so it's cheap enough to use on a real website.</p>
+ <input class="tin" id="tin" value="NO SIGNAL" maxlength="20"><div style="display:flex;gap:10px;align-items:center;margin-top:10px;font-size:13px">SPEED <input type="range" id="tsp" min="200" max="3000" value="900" style="flex:1;accent-color:#ff2bd6"></div>
+ <div class="gt" id="gt"></div>
+</div></section>
+
+<section data-view="history" hidden><div class="wrap">
+ <h2>A short history of errors</h2><p class="sub">Glitch art turns malfunction into material, the moment a machine shows how it works by failing.</p>
+ <div class="hist" id="hist"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'studio';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='presets')presets()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+const W=960,H=600;const src=document.createElement('canvas');src.width=W;src.height=H;const sx=src.getContext('2d');const cv=document.getElementById('cv'),cx=cv.getContext('2d');
+function source(k,x=sx,w=W,h=H){if(k==='sunset'){const g=x.createLinearGradient(0,0,0,h);g.addColorStop(0,'#1a0a4a');g.addColorStop(.5,'#ff5a8a');g.addColorStop(.62,'#ffc05a');g.addColorStop(.63,'#2a0a3a');g.addColorStop(1,'#0a0a2a');x.fillStyle=g;x.fillRect(0,0,w,h);x.fillStyle='#ffe28a';x.beginPath();x.arc(w/2,h*.55,h*.2,Math.PI,0);x.fill();for(let i=0;i<8;i++){x.fillStyle='#1a0a4a';x.fillRect(0,h*.46+i*h*.018,w,i*1.2+1)}x.strokeStyle='#ff2bd6';x.lineWidth=2;for(let i=0;i<14;i++){x.beginPath();x.moveTo(w/2,h*.63);x.lineTo((i-6.5)*w*.18+w/2,h);x.stroke()}for(let j=0;j<8;j++){const y=h*.63+Math.pow(j/8,2)*h*.37;x.beginPath();x.moveTo(0,y);x.lineTo(w,y);x.stroke()}}
+ if(k==='city'){x.fillStyle='#0a1030';x.fillRect(0,0,w,h);for(let i=0;i<60;i++){const bw=20+Math.random()*60,bh=h*(.2+Math.random()*.6),bx=(i*37)%w;x.fillStyle=`hsl(${230+Math.random()*30},40%,${10+Math.random()*12}%)`;x.fillRect(bx,h-bh,bw,bh);for(let yy=h-bh+8;yy<h;yy+=14)for(let xx=bx+4;xx<bx+bw-6;xx+=10)if(Math.random()<.4){x.fillStyle=Math.random()<.8?'#ffd87a':'#00e5ff';x.fillRect(xx,yy,5,7)}}x.fillStyle='#ff2bd6';x.font=`bold ${h*.1}px Syne Mono`;x.fillText('OPEN 24H',w*.1,h*.3)}
+ if(k==='face'){x.fillStyle='#e8d0c0';x.fillRect(0,0,w,h);const g=x.createRadialGradient(w/2,h/2,10,w/2,h/2,h*.6);g.addColorStop(0,'#f4c8a8');g.addColorStop(1,'#6a3a5a');x.fillStyle=g;x.fillRect(0,0,w,h);x.fillStyle='#2a1a2a';x.beginPath();x.ellipse(w/2,h*.45,h*.3,h*.38,0,0,7);x.fill();x.fillStyle='#e8b090';x.beginPath();x.ellipse(w/2,h*.5,h*.24,h*.32,0,0,7);x.fill();x.fillStyle='#2a1a2a';[[-1],[1]].forEach(([s])=>{x.beginPath();x.ellipse(w/2+s*h*.1,h*.45,h*.035,h*.02,0,0,7);x.fill()});x.fillStyle='#c83a5a';x.beginPath();x.ellipse(w/2,h*.64,h*.06,h*.02,0,0,7);x.fill()}
+ if(k==='bars'){['#fff','#ff0','#0ff','#0f0','#f0f','#f00','#00f'].forEach((c,i)=>{x.fillStyle=c;x.fillRect(i*w/7,0,w/7+1,h*.68)});['#00f','#111','#f0f','#111','#0ff','#111','#fff'].forEach((c,i)=>{x.fillStyle=c;x.fillRect(i*w/7,h*.68,w/7+1,h*.08)});for(let i=0;i<6;i++){x.fillStyle=['#0a2a6a','#fff','#3a0a6a','#111','#111','#111'][i];x.fillRect(i*w/6,h*.76,w/6+1,h*.24)}}}
+let srcK='sunset',userImg=null;
+const FX=[['shift','RGB shift',0,60,14],['sort','Pixel sort',0,100,0],['blocks','Datamosh blocks',0,40,6],['wave','Wave warp',0,60,0],['scan','Scanlines',0,100,40],['noise','Noise',0,100,12],['posterize','Posterize',0,100,0],['invert','Invert bands',0,20,0]];
+let P=Object.fromEntries(FX.map(f=>[f[0],f[4]])),seed=1;
+document.getElementById('fxL').innerHTML=FX.map(f=>`<div class="fx"><label>${f[1]}<span id="v_${f[0]}">${P[f[0]]}</span></label><input type="range" min="${f[2]}" max="${f[3]}" value="${P[f[0]]}" data-k="${f[0]}"></div>`).join('');
+function rnd(s){return()=>((s=(s*16807)%2147483647)/2147483647)}
+function apply(ctxOut,base,p,w=W,h=H,sd=seed){const r=rnd(sd);ctxOut.drawImage(base,0,0,w,h);let img=ctxOut.getImageData(0,0,w,h),d=img.data;const k=w/960;
+ if(p.wave){const o=new Uint8ClampedArray(d);for(let y=0;y<h;y++){const off=Math.round(Math.sin(y*.04+sd)*p.wave*k*(r()<.1?3:1));for(let x=0;x<w;x++){const sxp=Math.min(w-1,Math.max(0,x+off));const i=(y*w+x)*4,j=(y*w+sxp)*4;d[i]=o[j];d[i+1]=o[j+1];d[i+2]=o[j+2]}}}
+ if(p.sort){const th=255-p.sort*2.2;for(let y=0;y<h;y++){let x=0;while(x<w){while(x<w&&lum(d,(y*w+x)*4)<th)x++;const s=x;while(x<w&&lum(d,(y*w+x)*4)>=th)x++;if(x-s>2){const px=[];for(let i=s;i<x;i++){const q=(y*w+i)*4;px.push([d[q],d[q+1],d[q+2]])}px.sort((a,b)=>(a[0]+a[1]+a[2])-(b[0]+b[1]+b[2]));px.forEach((c,i)=>{const q=(y*w+s+i)*4;d[q]=c[0];d[q+1]=c[1];d[q+2]=c[2]})}}}}
+ if(p.shift){const o=new Uint8ClampedArray(d);const s=Math.round(p.shift*k);for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=(y*w+x)*4;const rI=(y*w+Math.min(w-1,x+s))*4,bI=(y*w+Math.max(0,x-s))*4;d[i]=o[rI];d[i+2]=o[bI+2]}}
+ if(p.blocks){const o=new Uint8ClampedArray(d);for(let b=0;b<p.blocks;b++){const bw=Math.floor((20+r()*160)*k),bh=Math.floor((6+r()*50)*k),x0=Math.floor(r()*(w-bw)),y0=Math.floor(r()*(h-bh)),dx=Math.floor((r()-.5)*200*k),dy=Math.floor((r()-.5)*40*k);const ch=r()*3|0;for(let y=0;y<bh;y++)for(let x=0;x<bw;x++){const tx=x0+x+dx,ty=y0+y+dy;if(tx<0||ty<0||tx>=w||ty>=h)continue;const i=((y0+y)*w+x0+x)*4,j=(ty*w+tx)*4;d[j]=o[i];d[j+1]=o[i+1];d[j+2]=o[i+2];if(r()<.002)d[j+ch]=255}}}
+ if(p.posterize){const lv=Math.max(2,Math.round(16-p.posterize*.14));const st=255/(lv-1);for(let i=0;i<d.length;i+=4){d[i]=Math.round(d[i]/st)*st;d[i+1]=Math.round(d[i+1]/st)*st;d[i+2]=Math.round(d[i+2]/st)*st}}
+ if(p.invert){for(let b=0;b<p.invert;b++){const y0=Math.floor(r()*h),bh=Math.floor((2+r()*20)*k);for(let y=y0;y<Math.min(h,y0+bh);y++)for(let x=0;x<w;x++){const i=(y*w+x)*4;d[i]=255-d[i];d[i+1]=255-d[i+1];d[i+2]=255-d[i+2]}}}
+ if(p.noise){const a=p.noise*1.2;for(let i=0;i<d.length;i+=4){const n=(r()-.5)*a;d[i]+=n;d[i+1]+=n;d[i+2]+=n}}
+ if(p.scan){const a=p.scan/100*.55;for(let y=0;y<h;y+=Math.max(2,Math.round(3*k)))for(let x=0;x<w;x++){const i=(y*w+x)*4;d[i]*=1-a;d[i+1]*=1-a;d[i+2]*=1-a}}
+ ctxOut.putImageData(img,0,0)}
+const lum=(d,i)=>d[i]*.3+d[i+1]*.59+d[i+2]*.11;
+function render(){if(userImg){sx.fillStyle='#000';sx.fillRect(0,0,W,H);const s=Math.max(W/userImg.width,H/userImg.height);sx.drawImage(userImg,(W-userImg.width*s)/2,(H-userImg.height*s)/2,userImg.width*s,userImg.height*s)}else source(srcK);apply(cx,src,P);document.getElementById('tag').textContent=`SRC: ${userImg?'YOUR IMAGE':srcK.toUpperCase()} · ${W}×${H} · SEED ${seed}`}
+let rt=null;document.getElementById('fxL').oninput=e=>{const k=e.target.dataset.k;if(!k)return;P[k]=+e.target.value;document.getElementById('v_'+k).textContent=P[k];clearTimeout(rt);rt=setTimeout(render,30)};
+function syncUI(){document.querySelectorAll('#fxL input').forEach(i=>{i.value=P[i.dataset.k];document.getElementById('v_'+i.dataset.k).textContent=P[i.dataset.k]})}
+document.getElementById('srcs').onclick=e=>{const s=e.target.dataset.s;if(!s)return;srcK=s;userImg=null;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));render()};
+document.getElementById('file').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{const im=new Image();im.onload=()=>{userImg=im;document.querySelectorAll('#srcs button').forEach(b=>b.classList.remove('on'));render()};im.src=rd.result};rd.readAsDataURL(f)};
+document.getElementById('glitch').onclick=()=>{seed=Math.floor(Math.random()*1e6)+1;FX.forEach(f=>{P[f[0]]=Math.random()<.6?Math.round(Math.random()*f[3]*.8):0});syncUI();render();zap()};
+document.getElementById('resetFx').onclick=()=>{FX.forEach(f=>P[f[0]]=0);syncUI();render()};
+document.getElementById('crush').onclick=()=>{let url=cv.toDataURL('image/jpeg',.08);let n=0;const step=()=>{const im=new Image();im.onload=()=>{cx.drawImage(im,Math.round(Math.random()*4-2),0);url=cv.toDataURL('image/jpeg',.05+Math.random()*.05);if(++n<10)step()};im.src=url};step()};
+function zap(){try{const a=window._a||(window._a=new AudioContext());const n=a.createBufferSource(),b=a.createBuffer(1,a.sampleRate*.25,a.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(i%800<400?1:.2)*Math.exp(-i/6000);n.buffer=b;const g=a.createGain();g.gain.value=.15;n.connect(g).connect(a.destination);n.start()}catch(e){}}
+render();
+
+/* presets */
+const PRE=[['VHS Dream','sunset',{shift:10,sort:0,blocks:2,wave:6,scan:70,noise:30,posterize:0,invert:0}],['Pixel Rain','city',{shift:4,sort:70,blocks:0,wave:0,scan:20,noise:0,posterize:0,invert:0}],['Corrupted File','face',{shift:24,sort:0,blocks:36,wave:0,scan:0,noise:10,posterize:40,invert:4}],['Test Pattern Panic','bars',{shift:30,sort:0,blocks:14,wave:30,scan:50,noise:40,posterize:0,invert:6}],['Melt','sunset',{shift:6,sort:90,blocks:0,wave:40,scan:0,noise:0,posterize:0,invert:0}],['Neo Noir','city',{shift:18,sort:0,blocks:8,wave:0,scan:80,noise:20,posterize:70,invert:2}]];
+let pdone=false;function presets(){if(pdone)return;pdone=true;document.getElementById('pre').innerHTML=PRE.map((p,i)=>`<button class="pc" data-i="${i}"><canvas width="320" height="200"></canvas><b>${p[0]}</b><small>${Object.entries(p[2]).filter(([,v])=>v).map(([k,v])=>k+' '+v).join(' · ')}</small></button>`).join('');
+ document.querySelectorAll('#pre canvas').forEach((c,i)=>{const s=document.createElement('canvas');s.width=320;s.height=200;source(PRE[i][1],s.getContext('2d'),320,200);apply(c.getContext('2d'),s,PRE[i][2],320,200,i+3)})}
+document.getElementById('pre').onclick=e=>{const b=e.target.closest('.pc');if(!b)return;const p=PRE[+b.dataset.i];srcK=p[1];userImg=null;P={...p[2]};syncUI();document.querySelectorAll('#srcs button').forEach(x=>x.classList.toggle('on',x.dataset.s===srcK));render();go('studio')};
+
+/* text */
+function gt(){const t=(document.getElementById('tin').value||' ').replace(/[<>&]/g,'');const el=document.getElementById('gt');el.style.setProperty('--sp',document.getElementById('tsp').value+'ms');el.innerHTML=`${t}<span class="a" aria-hidden="true">${t}</span><span class="b" aria-hidden="true">${t}</span>`}
+document.getElementById('tin').oninput=gt;document.getElementById('tsp').oninput=gt;gt();
+
+/* history */
+const HI=[['1965','Nam June Paik put magnets on TV sets and watched the picture bend. It was an early "broken media" artwork.'],['1980s','Home video users worked out that tracking errors and dropouts could look beautiful. VHS became a texture.'],['2000s','Datamoshing: deleting video keyframes so one scene\'s pixels drift onto the next one\'s motion.'],['2010','Pixel sorting spreads through code art. It sorts bright runs of pixels so images seem to melt.'],['2010s','Glitch moves into music videos, fashion and fonts. The error becomes a style.'],['Today','Every compression artefact is a possible brushstroke. You just made one.']];
+document.getElementById('hist').innerHTML=HI.map(h=>`<div class="hc"><div class="y2">${h[0]}</div><p>${h[1]}</p></div>`).join('');
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

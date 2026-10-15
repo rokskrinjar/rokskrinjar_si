@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONTOUR — Trail Atlas of the Kestrel Range</title>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#f1ead8; --ink:#3b2a1a; --contour:#a0703f; --water:#5b8fa8; --forest:#6f8a4e; --red:#c8452e; --mute:#8a7a62; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--paper); color:var(--ink); font-family:'Source Serif 4',serif; }
+  a { color:inherit; text-decoration:none; }
+  .mono { font-family:'DM Mono',monospace; }
+  header { display:flex; justify-content:space-between; align-items:center; padding:14px 3vw; border-bottom:2px solid var(--ink); flex-wrap:wrap; gap:10px; }
+  .logo { font-family:'Big Shoulders Display'; font-weight:800; font-size:30px; letter-spacing:.06em; }
+  .logo span { color:var(--red); }
+  nav { display:flex; gap:4px; flex-wrap:wrap; }
+  nav a { font-family:'DM Mono'; font-size:13px; padding:8px 14px; border:1.5px solid var(--ink); border-radius:30px; }
+  nav a.on { background:var(--ink); color:var(--paper); }
+  [data-view][hidden] { display:none; }
+  .atlas { display:grid; grid-template-columns:1fr 380px; min-height:calc(100vh - 66px); }
+  .mapBox { position:relative; border-right:2px solid var(--ink); overflow:hidden; }
+  #map { width:100%; height:100%; display:block; cursor:crosshair; }
+  .readout { position:absolute; left:14px; bottom:14px; background:#f1ead8ee; border:1.5px solid var(--ink); padding:8px 12px; font-family:'DM Mono'; font-size:12px; pointer-events:none; }
+  .compass { position:absolute; right:16px; top:16px; width:70px; height:70px; }
+  .layers { position:absolute; left:14px; top:14px; display:flex; gap:6px; flex-wrap:wrap; }
+  .layers label { background:#f1ead8ee; border:1.5px solid var(--ink); padding:5px 10px; font-family:'DM Mono'; font-size:12px; border-radius:20px; cursor:pointer; display:flex; gap:6px; align-items:center; }
+  .side { padding:20px; overflow:auto; max-height:calc(100vh - 66px); }
+  .side h2 { font-family:'Big Shoulders Display'; font-weight:800; font-size:2rem; letter-spacing:.04em; }
+  .trail { border:1.5px solid var(--ink); padding:12px 14px; margin-top:10px; cursor:pointer; background:#fbf7ec; transition:transform .15s; position:relative; }
+  .trail:hover { transform:translateX(-4px); }
+  .trail.on { background:var(--ink); color:var(--paper); }
+  .trail b { font-family:'Big Shoulders Display'; font-size:1.3rem; letter-spacing:.03em; }
+  .trail .st { display:flex; gap:14px; font-family:'DM Mono'; font-size:12px; margin-top:4px; }
+  .trail .sw { position:absolute; right:12px; top:14px; width:28px; height:6px; }
+  .diff { display:inline-block; font-family:'DM Mono'; font-size:11px; padding:2px 8px; border-radius:10px; border:1px solid currentColor; margin-left:8px; }
+  .profile { margin-top:16px; border:1.5px solid var(--ink); background:#fbf7ec; padding:10px; }
+  .profile svg { width:100%; display:block; }
+  .profile h4 { font-family:'DM Mono'; font-size:12px; font-weight:400; margin-bottom:4px; display:flex; justify-content:space-between; }
+  .page { max-width:1100px; margin:0 auto; padding:5vh 4vw 10vh; }
+  .page h2 { font-family:'Big Shoulders Display'; font-weight:800; font-size:clamp(2.6rem,6vw,4.4rem); letter-spacing:.03em; }
+  /* gear */
+  .gearCtl { display:flex; gap:10px; flex-wrap:wrap; margin:1.4rem 0; align-items:center; }
+  .gearCtl button { font-family:'DM Mono'; font-size:13px; padding:8px 14px; border:1.5px solid var(--ink); background:transparent; cursor:pointer; border-radius:20px; }
+  .gearCtl button.on { background:var(--forest); color:#fff; border-color:var(--forest); }
+  .gear { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .cat h3 { font-family:'Big Shoulders Display'; font-size:1.4rem; border-bottom:2px solid var(--ink); margin-bottom:8px; }
+  .cat label { display:flex; gap:10px; align-items:center; padding:6px 0; border-bottom:1px dotted #3b2a1a44; cursor:pointer; }
+  .cat input { accent-color:var(--red); width:18px; height:18px; }
+  .cat label.done span { text-decoration:line-through; opacity:.5; }
+  .pack { margin-top:1.6rem; display:flex; align-items:center; gap:16px; font-family:'DM Mono'; }
+  .pack .bar { flex:1; height:14px; border:1.5px solid var(--ink); }
+  .pack .bar i { display:block; height:100%; background:repeating-linear-gradient(45deg,var(--forest) 0 6px,#8aa56a 6px 12px); transition:width .4s; }
+  /* log */
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:2px solid var(--ink); margin:1.6rem 0; }
+  .stats div { padding:18px; border-right:1.5px solid var(--ink); }
+  .stats div:last-child { border:0; }
+  .stats b { display:block; font-family:'Big Shoulders Display'; font-weight:800; font-size:2.4rem; }
+  .stats span { font-family:'DM Mono'; font-size:12px; color:var(--mute); }
+  form.log { display:grid; grid-template-columns:2fr 1fr 1fr auto; gap:10px; margin-bottom:1.4rem; }
+  form.log select, form.log input { font-family:'DM Mono'; font-size:14px; padding:10px; border:1.5px solid var(--ink); background:#fbf7ec; }
+  form.log button { font-family:'DM Mono'; padding:10px 18px; background:var(--red); color:#fff; border:0; cursor:pointer; }
+  .entries li { list-style:none; display:grid; grid-template-columns:110px 1fr auto auto; gap:16px; padding:12px 0; border-bottom:1px dotted #3b2a1a55; align-items:center; }
+  .badges { display:flex; gap:10px; flex-wrap:wrap; margin-top:1.6rem; }
+  .badge { width:92px; text-align:center; font-family:'DM Mono'; font-size:11px; opacity:.3; }
+  .badge.got { opacity:1; }
+  .badge svg { width:70px; height:70px; }
+  @media (max-width:900px){ .atlas { grid-template-columns:1fr; } .mapBox { height:60vh; border-right:0; border-bottom:2px solid var(--ink); } .side { max-height:none; } .gear { grid-template-columns:1fr; } .stats { grid-template-columns:1fr 1fr; } form.log { grid-template-columns:1fr 1fr; } }
+</style>
+</head>
+<body>
+<header><div class="logo">CONTOUR<span>/</span>KESTREL RANGE</div><nav><a href="#atlas">Atlas</a><a href="#gear">Gear list</a><a href="#log">Logbook</a><a href="index.html">← Index</a></nav></header>
+
+<section data-view="atlas">
+  <div class="atlas">
+    <div class="mapBox"><canvas id="map"></canvas>
+      <div class="layers"><label><input type="checkbox" id="lShade" checked> hillshade</label><label><input type="checkbox" id="lTrails" checked> trails</label><label><input type="checkbox" id="lLabels" checked> labels</label><label style="cursor:default">interval <select id="interval" style="font-family:DM Mono;border:0;background:none"><option value="20">20 m</option><option value="40" selected>40 m</option><option value="80">80 m</option></select></label></div>
+      <svg class="compass" viewBox="0 0 70 70"><circle cx="35" cy="35" r="30" fill="#f1ead8ee" stroke="#3b2a1a" stroke-width="1.5"/><path d="M35 8 L41 35 L35 31 L29 35Z" fill="#c8452e"/><path d="M35 62 L41 35 L35 39 L29 35Z" fill="#3b2a1a"/><text x="35" y="20" text-anchor="middle" font-family="DM Mono" font-size="9">N</text></svg>
+      <div class="readout" id="readout">hover the map</div></div>
+    <div class="side"><h2>Trails</h2><p style="font-style:italic;color:var(--mute)">Select a route to see its elevation profile. Distances & climbs are measured from the terrain.</p><div id="trails"></div><div class="profile" id="profile"></div></div>
+  </div>
+</section>
+
+<section data-view="gear" class="page" hidden>
+  <h2>Gear list</h2><p style="font-style:italic">Ticked items are remembered on this device.</p>
+  <div class="gearCtl" id="gearCtl"><span class="mono" style="font-size:13px">Trip:</span><button data-k="day" class="on">Day hike</button><button data-k="over">Overnight</button><button data-k="winter">Winter</button></div>
+  <div class="gear" id="gearEl"></div><div class="pack"><span id="packTxt"></span><div class="bar"><i id="packBar"></i></div><span id="packW"></span></div>
+</section>
+
+<section data-view="log" class="page" hidden>
+  <h2>Logbook</h2>
+  <div class="stats" id="stats"></div>
+  <form class="log" id="logF"><select id="lTrail"></select><input type="date" id="lDate" required><input id="lNote" placeholder="notes" maxlength="40"><button>+ Log hike</button></form>
+  <ul class="entries" id="entries"></ul>
+  <h3 style="font-family:'Big Shoulders Display';font-size:1.6rem;margin-top:2rem">Badges</h3><div class="badges" id="badges"></div>
+</section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'atlas';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='atlas')requestAnimationFrame(drawMap);if(id==='log')renderLog()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* terrain: value-noise fbm in normalized [0,1] coords → metres */
+const perm=[...Array(512)].map((_,i)=>{let x=Math.sin(i*127.1)*43758.5453;return x-Math.floor(x)});
+const vn=(x,y)=>{const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;const h=(a,b)=>perm[((a*57+b*131)&511+512)%512];const s=t=>t*t*(3-2*t);const a=h(xi,yi),b=h(xi+1,yi),c=h(xi,yi+1),d=h(xi+1,yi+1);return a+(b-a)*s(xf)+(c-a)*s(yf)+(a-b-c+d)*s(xf)*s(yf)};
+function elev(u,v){let e=0,amp=1,f=3.2,sum=0;for(let o=0;o<5;o++){e+=vn(u*f+o*7.3,v*f+o*3.1)*amp;sum+=amp;amp*=.5;f*=2.1}e/=sum;const peak=Math.exp(-((u-.62)**2+(v-.38)**2)*9);const ridge=Math.exp(-((u-.3)**2)*30-((v-.62)**2)*6)*.5;const valley=Math.exp(-((v-(.8-u*.5))**2)*80)*.35;return Math.max(0,(e*.7+peak*.75+ridge*.35-valley))*2600+400}
+const RES=160;let H=null;function heights(){H=new Float32Array((RES+1)*(RES+1));for(let j=0;j<=RES;j++)for(let i=0;i<=RES;i++)H[j*(RES+1)+i]=elev(i/RES,j/RES)}heights();
+const hAt=(u,v)=>{const x=Math.min(RES-.001,Math.max(0,u*RES)),y=Math.min(RES-.001,Math.max(0,v*RES)),i=x|0,j=y|0,fx=x-i,fy=y-j;const g=(a,b)=>H[b*(RES+1)+a];return g(i,j)*(1-fx)*(1-fy)+g(i+1,j)*fx*(1-fy)+g(i,j+1)*(1-fx)*fy+g(i+1,j+1)*fx*fy};
+
+/* trails as polylines in [0,1] */
+const TR=[['Lakeshore Loop','easy','#2f6fa0',[[.12,.82],[.2,.76],[.3,.78],[.38,.72],[.46,.74],[.5,.82],[.4,.9],[.26,.9],[.12,.82]]],
+['Kestrel Summit','hard','#c8452e',[[.18,.92],[.26,.8],[.36,.66],[.44,.58],[.5,.5],[.56,.44],[.6,.4],[.62,.38]]],
+['Ridgeback Traverse','moderate','#6f3fa0',[[.1,.6],[.18,.62],[.26,.63],[.34,.62],[.42,.6],[.5,.56]]],
+['Falls Canyon','moderate','#2f8a5a',[[.78,.9],[.76,.78],[.72,.68],[.74,.56],[.8,.48],[.86,.4]]],
+['Hermit\'s Hut','hard','#b8762a',[[.9,.12],[.82,.18],[.76,.24],[.7,.3],[.66,.34],[.62,.38]]]];
+const KM_PER_UNIT=14;
+function stats(t){let d=0,gain=0,loss=0,max=0,prof=[];const pts=t[3];for(let k=0;k<pts.length-1;k++){const [a,b]=pts[k],[c,e]=pts[k+1];const L=Math.hypot(c-a,e-b),n=Math.ceil(L*200);for(let s=0;s<n;s++){const u=a+(c-a)*s/n,v=b+(e-b)*s/n;const h=hAt(u,v);if(prof.length){const dh=h-prof.at(-1)[1];dh>0?gain+=dh:loss-=dh}prof.push([d+L*KM_PER_UNIT*s/n,h]);max=Math.max(max,h)}d+=L*KM_PER_UNIT}prof.push([d,hAt(...pts.at(-1))]);return{d,gain,loss,max,prof,hrs:d/4.5+gain/600}}
+TR.forEach(t=>t.s=stats(t));let selT=1;
+
+/* marching squares contours */
+const cv=document.getElementById('map'),g=cv.getContext('2d');let W,Hh;
+function drawMap(){const r=cv.getBoundingClientRect();if(!r.width)return;const dpr=Math.min(devicePixelRatio,2);W=r.width;Hh=r.height;cv.width=W*dpr;cv.height=Hh*dpr;g.setTransform(dpr,0,0,dpr,0,0);
+ g.fillStyle='#f1ead8';g.fillRect(0,0,W,Hh);const S=Math.max(W,Hh);const ox=(W-S)/2,oy=(Hh-S)/2;const X=u=>ox+u*S,Y=v=>oy+v*S;
+ if(document.getElementById('lShade').checked){const step=4;for(let y=0;y<Hh;y+=step)for(let x=0;x<W;x+=step){const u=(x-ox)/S,v=(y-oy)/S;const dx=hAt(u+.004,v)-hAt(u-.004,v),dy=hAt(u,v+.004)-hAt(u,v-.004);const sh=(-dx-dy)/60;const h=hAt(u,v);
+  g.fillStyle=h<560?`rgba(91,143,168,.35)`:h<1100?`rgba(111,138,78,${.12+Math.max(0,sh)*.1})`:sh>0?`rgba(255,255,255,${Math.min(.35,sh*.2)})`:`rgba(59,42,26,${Math.min(.28,-sh*.15)})`;g.fillRect(x,y,step,step)}}
+ const iv=+document.getElementById('interval').value;const n=RES;const cell=S/n;
+ for(let lvl=Math.ceil(400/iv)*iv;lvl<3400;lvl+=iv){const major=lvl%(iv*5)===0;g.strokeStyle=lvl<=560?'#5b8fa8':major?'#7a4a22':'#a0703f';g.lineWidth=major?1.4:.6;g.globalAlpha=major?.9:.6;g.beginPath();
+  for(let j=0;j<n;j++)for(let i=0;i<n;i++){const a=H[j*(n+1)+i],b=H[j*(n+1)+i+1],c=H[(j+1)*(n+1)+i+1],d=H[(j+1)*(n+1)+i];const idx=(a>lvl)|((b>lvl)<<1)|((c>lvl)<<2)|((d>lvl)<<3);if(idx===0||idx===15)continue;
+   const x0=ox+i*cell,y0=oy+j*cell;const t=(p,q)=>(lvl-p)/(q-p);const T=[x0+t(a,b)*cell,y0],R=[x0+cell,y0+t(b,c)*cell],B=[x0+t(d,c)*cell,y0+cell],L=[x0,y0+t(a,d)*cell];
+   const seg=(p,q)=>{g.moveTo(p[0],p[1]);g.lineTo(q[0],q[1])};
+   switch(idx){case 1:case 14:seg(L,T);break;case 2:case 13:seg(T,R);break;case 3:case 12:seg(L,R);break;case 4:case 11:seg(R,B);break;case 5:seg(L,T);seg(R,B);break;case 6:case 9:seg(T,B);break;case 7:case 8:seg(L,B);break;case 10:seg(T,R);seg(L,B);break}}
+  g.stroke();if(major&&document.getElementById('lLabels').checked){g.globalAlpha=1;g.fillStyle='#7a4a22';g.font='10px DM Mono';for(let k=0;k<6;k++){const u=.1+((lvl*7+k*37)%80)/100,v=.1+((lvl*13+k*53)%80)/100;if(Math.abs(hAt(u,v)-lvl)<iv*.25){g.fillStyle='#f1ead8';g.fillRect(X(u)-12,Y(v)-6,26,11);g.fillStyle='#7a4a22';g.fillText(lvl,X(u)-11,Y(v)+3)}}}}
+ g.globalAlpha=1;
+ if(document.getElementById('lLabels').checked){[['Kestrel Peak',.62,.38,'▲'],['Mirror Lake',.28,.84,''],['Hermit\'s Hut',.9,.12,'⌂'],['Ridgeback',.24,.58,''],['Falls',.8,.5,'≋']].forEach(([n,u,v,ic])=>{g.fillStyle='#3b2a1a';g.font='italic 14px "Source Serif 4"';g.fillText(`${ic} ${n}${ic==='▲'?' '+Math.round(hAt(u,v))+' m':''}`,X(u)+6,Y(v)-6)})}
+ cv._base=g.getImageData(0,0,cv.width,cv.height);cv._m={ox,oy,S};drawOverlay()}
+function drawOverlay(){if(!cv._base)return;g.putImageData(cv._base,0,0);const {ox,oy,S}=cv._m;const X=u=>ox+u*S,Y=v=>oy+v*S;
+ if(document.getElementById('lTrails').checked)TR.forEach((t,k)=>{g.strokeStyle=t[2];g.lineWidth=k===selT?4.5:2.5;g.setLineDash(k===selT?[]:[7,5]);g.globalAlpha=k===selT?1:.75;g.beginPath();t[3].forEach(([u,v],i)=>i?g.lineTo(X(u),Y(v)):g.moveTo(X(u),Y(v)));g.stroke();g.setLineDash([]);const [u,v]=t[3][0];g.fillStyle=t[2];g.beginPath();g.arc(X(u),Y(v),5,0,7);g.fill()});
+ g.globalAlpha=1;if(hoverP){g.fillStyle='#c8452e';g.beginPath();g.arc(hoverP[0],hoverP[1],6,0,7);g.fill();g.strokeStyle='#fff';g.lineWidth=2;g.stroke()}cv._m={ox,oy,S}}
+let hoverP=null;
+cv.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect(),m=cv._m;if(!m)return;const u=(e.clientX-r.left-m.ox)/m.S,v=(e.clientY-r.top-m.oy)/m.S;if(u<0||v<0||u>1||v>1)return;document.getElementById('readout').textContent=`${(46.3+(.5-v)*.12).toFixed(4)}° N  ${(13.8+u*.16).toFixed(4)}° E  ·  ${Math.round(hAt(u,v))} m`});
+['lShade','lTrails','lLabels','interval'].forEach(id=>document.getElementById(id).onchange=drawMap);addEventListener('resize',()=>{if(!V[0].hidden)drawMap()});
+
+function renderTrails(){document.getElementById('trails').innerHTML=TR.map((t,k)=>`<div class="trail${k===selT?' on':''}" data-k="${k}"><span class="sw" style="background:${t[2]}"></span><b>${t[0]}</b><span class="diff">${t[1]}</span><div class="st"><span>${t.s.d.toFixed(1)} km</span><span>↑ ${Math.round(t.s.gain)} m</span><span>⏱ ${Math.floor(t.s.hrs)}h${String(Math.round(t.s.hrs%1*60)).padStart(2,'0')}</span></div></div>`).join('');
+ const t=TR[selT],P=t.s.prof,mx=Math.max(...P.map(p=>p[1])),mn=Math.min(...P.map(p=>p[1]));const W2=340,H2=150;const x=d=>d/t.s.d*W2,y=h=>H2-10-(h-mn)/(mx-mn||1)*(H2-30);
+ document.getElementById('profile').innerHTML=`<h4><span>ELEVATION PROFILE</span><span>${Math.round(mn)}–${Math.round(mx)} m</span></h4><svg viewBox="0 0 ${W2} ${H2}" id="profSvg"><path d="M0 ${H2} L${P.map(p=>x(p[0])+' '+y(p[1])).join(' L')} L${W2} ${H2}Z" fill="${t[2]}" opacity=".18"/><polyline points="${P.map(p=>x(p[0])+','+y(p[1])).join(' ')}" fill="none" stroke="${t[2]}" stroke-width="2"/>${[0,.25,.5,.75,1].map(f=>`<text x="${Math.min(W2-24,f*W2)}" y="${H2-1}" font-family="DM Mono" font-size="9" fill="#8a7a62">${(t.s.d*f).toFixed(1)}</text>`).join('')}<line id="pl" x1="0" x2="0" y1="0" y2="${H2}" stroke="#3b2a1a" stroke-dasharray="3 3" opacity="0"/></svg><div class="mono" style="font-size:12px;margin-top:4px" id="pread">max ${Math.round(t.s.max)} m · descent ${Math.round(t.s.loss)} m</div>`;
+ const ps=document.getElementById('profSvg');ps.onmousemove=e=>{const r=ps.getBoundingClientRect(),f=(e.clientX-r.left)/r.width;const p=P[Math.min(P.length-1,Math.round(f*(P.length-1)))];const l=document.getElementById('pl');l.setAttribute('x1',f*W2);l.setAttribute('x2',f*W2);l.setAttribute('opacity',1);document.getElementById('pread').textContent=`${p[0].toFixed(2)} km · ${Math.round(p[1])} m`;
+  const pts=t[3];let acc=0;for(let k=0;k<pts.length-1;k++){const L=Math.hypot(pts[k+1][0]-pts[k][0],pts[k+1][1]-pts[k][1])*KM_PER_UNIT;if(acc+L>=p[0]){const s=(p[0]-acc)/L,m=cv._m;hoverP=[m.ox+(pts[k][0]+(pts[k+1][0]-pts[k][0])*s)*m.S,m.oy+(pts[k][1]+(pts[k+1][1]-pts[k][1])*s)*m.S];break}acc+=L}drawOverlay()};ps.onmouseleave=()=>{hoverP=null;drawOverlay()}}
+document.getElementById('trails').onclick=e=>{const t=e.target.closest('.trail');if(!t)return;selT=+t.dataset.k;renderTrails();drawOverlay()};renderTrails();
+
+/* gear */
+const GEAR={day:{Essentials:['Map & compass','Headlamp','First-aid kit','Sunscreen','Knife'],Clothing:['Rain shell','Warm layer','Hat','Hiking boots'],'Food & water':['2 L water','Snacks','Lunch','Water filter']},over:{Essentials:['Map & compass','Headlamp','First-aid kit','Tent','Sleeping bag','Sleeping pad'],Clothing:['Rain shell','Down jacket','Spare socks','Camp shoes'],'Food & water':['Stove & fuel','Dinner & breakfast','Water filter','Mug']},winter:{Essentials:['Map & compass','Avalanche beacon','Shovel & probe','Headlamp','Emergency bivvy'],Clothing:['Insulated boots','Crampons','Goggles','Mittens','Down jacket'],'Food & water':['Insulated bottle','Hot flask','High-calorie snacks']}};
+let trip='day',ticks=store.get('ct-gear',{});
+function renderGear(){const G=GEAR[trip];document.getElementById('gearEl').innerHTML=Object.entries(G).map(([c,items])=>`<div class="cat"><h3>${c}</h3>${items.map(it=>{const k=trip+':'+it;return `<label class="${ticks[k]?'done':''}"><input type="checkbox" data-k="${k}" ${ticks[k]?'checked':''}><span>${it}</span></label>`}).join('')}</div>`).join('');
+ const all=Object.values(G).flat(),n=all.filter(it=>ticks[trip+':'+it]).length;document.getElementById('packTxt').textContent=`${n}/${all.length} packed`;document.getElementById('packBar').style.width=n/all.length*100+'%';document.getElementById('packW').textContent=`≈ ${(n*.42+ (trip==='over'?2:trip==='winter'?3:0)).toFixed(1)} kg`}
+document.getElementById('gearEl').onchange=e=>{const k=e.target.dataset.k;ticks[k]=e.target.checked;store.set('ct-gear',ticks);renderGear()};
+document.getElementById('gearCtl').onclick=e=>{const k=e.target.dataset.k;if(!k)return;trip=k;document.querySelectorAll('#gearCtl button').forEach(b=>b.classList.toggle('on',b===e.target));renderGear()};renderGear();
+
+/* log */
+let LOG=store.get('ct-log',[[3,'2026-06-14','misty morning'],[0,'2026-07-02','swam in the lake'],[2,'2026-08-19','windy on top']]);
+document.getElementById('lTrail').innerHTML=TR.map((t,k)=>`<option value="${k}">${t[0]}</option>`).join('');document.getElementById('lDate').valueAsDate=new Date();
+function renderLog(){const tot=LOG.reduce((a,[k])=>({d:a.d+TR[k].s.d,g:a.g+TR[k].s.gain,h:a.h+TR[k].s.hrs}),{d:0,g:0,h:0});const peak=LOG.some(([k])=>k===1);
+ document.getElementById('stats').innerHTML=`<div><b>${LOG.length}</b><span>hikes logged</span></div><div><b>${tot.d.toFixed(0)}</b><span>kilometres</span></div><div><b>${Math.round(tot.g).toLocaleString()}</b><span>metres climbed</span></div><div><b>${(tot.g/8849).toFixed(2)}×</b><span>Everests</span></div>`;
+ document.getElementById('entries').innerHTML=LOG.map(([k,d,n],i)=>`<li><span class="mono">${d}</span><span><b style="color:${TR[k][2]}">${TR[k][0]}</b> <i style="color:var(--mute)">${(n||'').replace(/</g,'')}</i></span><span class="mono">${TR[k].s.d.toFixed(1)} km</span><button data-rm="${i}" style="border:0;background:none;cursor:pointer;color:var(--red)">✕</button></li>`).join('');
+ const B=[['First steps',LOG.length>=1],['Summiteer',peak],['Five trails',new Set(LOG.map(l=>l[0])).size>=5],['50 km club',tot.d>=50],['Sky walker',tot.g>=5000],['Regular',LOG.length>=10]];
+ document.getElementById('badges').innerHTML=B.map(([n,got],i)=>`<div class="badge${got?' got':''}"><svg viewBox="0 0 70 70"><circle cx="35" cy="35" r="30" fill="${got?['#c8452e','#6f8a4e','#2f6fa0','#b8762a','#6f3fa0','#3b2a1a'][i]:'#ccc'}" stroke="#3b2a1a" stroke-width="2"/><path d="M15 46 L28 26 L35 36 L42 22 L55 46Z" fill="#f1ead8"/></svg><div>${n}</div></div>`).join('')}
+document.getElementById('logF').onsubmit=e=>{e.preventDefault();LOG.unshift([+lTrail.value,lDate.value,lNote.value]);store.set('ct-log',LOG);lNote.value='';renderLog()};
+document.getElementById('entries').onclick=e=>{const b=e.target.dataset.rm;if(b==null)return;LOG.splice(+b,1);store.set('ct-log',LOG);renderLog()};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

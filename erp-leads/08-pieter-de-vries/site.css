@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=Karla:wght@400;500;600;700&display=swap');
+:root{--e-bg:#fbfaf6;--e-card:#fff;--e-ink:#14302f;--e-mu:#5a6b69;--e-ln:#e2e3d9;--e-acc:#00545c;--e-acc2:#f2c230;--e-acc-ink:#fff;--e-soft:#eef1ea;--e-r:8px;--e-font:'Karla',system-ui,sans-serif;--e-head:'Bitter',Georgia,serif;--e-hw:700;--e-hl:-.015em;--e-overlay:linear-gradient(90deg,rgba(0,58,64,.92) 25%,rgba(0,84,92,.35));--e-cta-bg:#00545c;--e-cta-btn:#f2c230;--e-cta-btn-ink:#14302f}
+.e-hero.banner .e-por{border-color:#f2c230}
+.e-hero.banner .e-name{font-size:clamp(38px,5vw,70px)}
+.e-hero.banner .e-btn:not(.ghost){background:#f2c230;color:#14302f}
+.e-kick{color:#b78a00}
+.e-why.split .stick h2{font-size:clamp(32px,3.6vw,50px)}
+.e-why h3{font-size:24px}
+.e-stats b{color:var(--e-acc)}
+.e-mini>div{border-top-color:#f2c230}
+.e-cases.cards .c{border-bottom:4px solid #f2c230}

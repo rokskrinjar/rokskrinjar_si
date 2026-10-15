@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHOSPHOR/OS — Terminal</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root { --p:#33ff66; --pd:#1c9a3e; --ph:#bfffcf; }
+  body.amber { --p:#ffb000; --pd:#a86f00; --ph:#ffe2a8; }
+  body.white { --p:#e8f0ff; --pd:#8a93a6; --ph:#ffffff; }
+  body.cyan { --p:#3ff0ff; --pd:#1a8f99; --ph:#c8fbff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { height:100%; background:radial-gradient(ellipse at 50% 30%,#1b1a17,#050505); }
+  body { display:grid; place-items:center; font-family:'VT323',monospace; color:var(--p); overflow:hidden; }
+  .desk { display:flex; flex-direction:column; align-items:center; gap:0; }
+  .bezel { width:min(1100px,94vw); height:min(700px,78vh); background:linear-gradient(145deg,#d8d2c2,#b5ae9c); border-radius:26px 26px 18px 18px; padding:34px 34px 54px; box-shadow:0 40px 80px #000,inset 0 2px 0 #fff8,inset 0 -4px 0 #0003; position:relative; }
+  .brand { position:absolute; bottom:16px; left:40px; font-size:15px; color:#6b665c; letter-spacing:.4em; }
+  .knobs { position:absolute; bottom:12px; right:36px; display:flex; gap:18px; align-items:center; }
+  .knob { width:30px; height:30px; border-radius:50%; background:conic-gradient(#555,#222,#555,#222,#555); border:2px solid #444; cursor:pointer; transition:transform .2s; box-shadow:0 2px 4px #0006; }
+  .knob::after { content:''; display:block; width:3px; height:12px; background:#ddd; margin:2px auto; border-radius:2px; }
+  .knob-lbl { font-size:11px; color:#6b665c; letter-spacing:.2em; text-align:center; }
+  .led { width:9px; height:9px; border-radius:50%; background:var(--p); box-shadow:0 0 10px var(--p); }
+  .led.off { background:#333; box-shadow:none; }
+  .power { width:40px; height:22px; border-radius:4px; background:#2a2926; border:2px solid #444; cursor:pointer; color:#999; font-size:12px; font-family:inherit; }
+  .screen { position:relative; width:100%; height:100%; background:#030503; border-radius:22px / 26px; overflow:hidden; box-shadow:inset 0 0 80px #000,inset 0 0 0 3px #111; }
+  .glow { position:absolute; inset:0; background:radial-gradient(ellipse at center,color-mix(in srgb,var(--p) 12%,transparent) 0%,transparent 75%); pointer-events:none; }
+  .screen::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0 1px,transparent 1px 3px); pointer-events:none; z-index:3; }
+  .screen::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 30% 20%,#ffffff10,transparent 40%); animation:flicker .12s infinite; pointer-events:none; z-index:4; }
+  @keyframes flicker { 50% { opacity:.6; } }
+  .screen.off #out, .screen.off canvas { opacity:0; transition:opacity .3s; }
+  .screen.off .glow { opacity:0; }
+  .screen.boot { animation:crt .6s ease-out; }
+  @keyframes crt { 0% { transform:scaleY(.005) scaleX(.6); filter:brightness(4); } 40% { transform:scaleY(.01) scaleX(1); } 100% { transform:none; } }
+  #out { position:absolute; inset:0; padding:26px 32px; font-size:22px; line-height:1.18; white-space:pre-wrap; overflow-y:auto; text-shadow:0 0 6px color-mix(in srgb,var(--p) 65%,transparent),0 0 2px var(--p); scrollbar-width:none; filter:blur(var(--blur,0px)) brightness(var(--br,1)); }
+  #game { position:absolute; inset:0; margin:auto; z-index:2; display:none; image-rendering:pixelated; }
+  .cursor { display:inline-block; width:.6em; height:1em; background:var(--p); vertical-align:-2px; animation:blink 1s steps(1) infinite; box-shadow:0 0 8px var(--p); }
+  @keyframes blink { 50% { opacity:0; } }
+  .dim { color:var(--pd); } .hi { color:var(--ph); } .warn { color:#ff5a3c; text-shadow:0 0 6px #f53; } .inv { background:var(--p); color:#030503; text-shadow:none; }
+  .keyboard { width:min(980px,86vw); height:46px; margin-top:-6px; background:linear-gradient(#cfc8b6,#a9a28f); border-radius:0 0 30px 30px; box-shadow:0 30px 40px #000a; display:flex; justify-content:center; align-items:center; gap:14px; font-size:13px; color:#5b574c; letter-spacing:.2em; }
+  .keyboard button { font-family:inherit; font-size:15px; background:#e9e3d2; border:0; border-bottom:4px solid #8c8676; border-radius:5px; padding:3px 12px; cursor:pointer; color:#3b382f; }
+  .keyboard button:active { border-bottom-width:1px; transform:translateY(3px); }
+  input#in { position:absolute; opacity:0; pointer-events:none; }
+</style>
+</head>
+<body>
+<div class="desk">
+  <div class="bezel">
+    <div class="screen" id="screen"><div class="glow"></div><div id="out"></div><canvas id="game" width="600" height="400"></canvas></div>
+    <div class="brand">GREENLINE · PHOSPHOR 9000</div>
+    <div class="knobs">
+      <div><div class="knob" id="kBright" title="Brightness"></div><div class="knob-lbl">BRT</div></div>
+      <div><div class="knob" id="kFocus" title="Focus"></div><div class="knob-lbl">FOC</div></div>
+      <div><div class="knob" id="kTint" title="Phosphor"></div><div class="knob-lbl">TNT</div></div>
+      <div class="led" id="led"></div>
+      <button class="power" id="pwr">⏻</button>
+    </div>
+  </div>
+  <div class="keyboard"><button data-cmd="help">F1 HELP</button><button data-cmd="ls">F2 LS</button><button data-cmd="snake">F3 SNAKE</button><button data-cmd="adventure">F4 ADVENT</button><button data-cmd="mail">F5 MAIL</button><button data-cmd="exit">F10 EXIT</button></div>
+</div>
+<input id="in" autocomplete="off" autofocus>
+<script>
+const out=document.getElementById('out'),inp=document.getElementById('in'),scr=document.getElementById('screen');
+const cur=document.createElement('span');cur.className='cursor';out.appendChild(cur);
+const prompt=document.createElement('span');
+let line='',ready=false,hist=[],hi=-1,mode='shell',cwd='/home/operator',on=true;
+const FS={'/':['home','sys','games'],'/home':['operator'],'/home/operator':['readme.txt','manifesto.txt','todo.txt','secret.dat'],'/sys':['kernel.bin','fonts.cfg'],'/games':['snake.exe','adventure.exe']};
+const FILES={'readme.txt':'This terminal has been running since 1984.\nIt has seen things. It remembers everything.\n','manifesto.txt':'1. The glow is the message.\n2. Every pixel is a phosphor dot that chose to shine.\n3. There is no dark mode. There is only mode.\n','todo.txt':'[x] calibrate phosphor\n[x] feed the modem\n[ ] find out who keeps typing FORMAT C:\n[ ] beat SNAKE high score (current: 42)\n','secret.dat':'<warn>ACCESS DENIED.</warn> TRY: SUDO CAT SECRET.DAT\n','kernel.bin':'<dim>01001000 01001001 00100000 01000001 01001110 01001110 01000001</dim>\n','fonts.cfg':'FONT=VT323\nGLOW=ON\nNOSTALGIA=MAX\n'};
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function add(cls,t){const s=document.createElement('span');if(cls)s.className=cls;s.innerHTML=t.replace(/<warn>(.*?)<\/warn>/gs,'<span class="warn">$1</span>').replace(/<dim>(.*?)<\/dim>/gs,'<span class="dim">$1</span>').replace(/<hi>(.*?)<\/hi>/gs,'<span class="hi">$1</span>').replace(/<inv>(.*?)<\/inv>/g,'<span class="inv">$1</span>');out.insertBefore(s,cur);out.scrollTop=1e9}
+async function type(cls,t,d=8){const s=document.createElement('span');if(cls)s.className=cls;out.insertBefore(s,cur);for(const ch of t){s.textContent+=ch;out.scrollTop=1e9;if(ch!==' '&&d)await new Promise(r=>setTimeout(r,d))}}
+const ps=()=>`OPERATOR@PHOSPHOR:${cwd.replace('/home/operator','~')}$ `;
+function newPrompt(){add('hi',mode==='adv'?'> ':ps());prompt.textContent='';out.insertBefore(prompt,cur)}
+function resolve(p){if(!p)return cwd;if(p==='~')return'/home/operator';let parts=(p.startsWith('/')?p:cwd+'/'+p).split('/').filter(Boolean),st=[];for(const x of parts){if(x==='..')st.pop();else if(x!=='.')st.push(x)}return'/'+st.join('/')}
+
+/* ---------- mail ---------- */
+const MAIL=[['SYSOP','WELCOME ABOARD','Operator,\nYour account is active. Please do not feed the modem after midnight.\n— SYSOP'],['MOTHER','ARE YOU EATING?','You have been online for 72 hours. I can hear the modem from the kitchen.\nLove, Mom'],['UNKNOWN','THEY ARE WATCHING','The high score in SNAKE is not what it seems.\nMeet me in /games.\n— A friend']];
+/* ---------- adventure ---------- */
+const ROOMS={start:['You are in a dim server room. Fans hum like distant surf. Exits: NORTH, EAST.',{north:'hall',east:'closet'}],hall:['A long corridor lined with dead monitors. One of them flickers your name. Exits: SOUTH, NORTH.',{south:'start',north:'core'}],closet:['A supply closet. There is a FLOPPY DISK on the shelf. Exits: WEST.',{west:'start'}],core:['The mainframe core. A slot glows, waiting for a disk. Exits: SOUTH.',{south:'hall'}]};
+let adv={room:'start',disk:false,inv:[]};
+function advCmd(v){const [a,b]=v.split(' ');if(['n','s','e','w'].includes(a))return advCmd('go '+{n:'north',s:'south',e:'east',w:'west'}[a]);
+ if(a==='look'||a==='l')return ROOMS[adv.room][0]+(adv.room==='closet'&&adv.disk?' The shelf is empty.':'')+'\n';
+ if(a==='go'){const n=ROOMS[adv.room][1][b];if(!n)return"YOU CAN'T GO THAT WAY.\n";adv.room=n;return advCmd('look')}
+ if(a==='take'&&b==='disk'&&adv.room==='closet'&&!adv.disk){adv.disk=true;adv.inv.push('FLOPPY DISK');return'TAKEN. IT IS LABELLED "DO NOT RUN".\n'}
+ if(a==='inventory'||a==='i')return adv.inv.length?'YOU CARRY: '+adv.inv.join(', ')+'\n':'YOU CARRY NOTHING BUT REGRET.\n';
+ if((a==='insert'||a==='use')&&adv.disk&&adv.room==='core'){mode='shell';adv={room:'start',disk:false,inv:[]};return'<hi>THE MAINFRAME WHIRS. THE SCREEN FILLS WITH STARS.\nYOU HAVE FREED THE MACHINE. IT SAYS: "THANK YOU, OPERATOR."\n*** THE END ***</hi>\n'}
+ if(a==='quit'||a==='q'){mode='shell';return'YOU WAKE UP AT YOUR DESK.\n'}
+ return'I DO NOT UNDERSTAND. TRY LOOK, GO NORTH, TAKE DISK, INVENTORY, INSERT DISK, QUIT.\n'}
+
+const cmds={
+ help:()=>'<hi>AVAILABLE COMMANDS</hi>\n  HELP        this message          LS [DIR]    list files\n  CD &lt;DIR&gt;    change directory      CAT &lt;F&gt;     read file\n  PWD         where am I            HISTORY     command history\n  DATE        system clock          CALC &lt;EXP&gt;  arithmetic\n  THEME &lt;C&gt;   green|amber|white|cyan\n  MAIL        read messages         FORTUNE     wisdom\n  SNAKE       play a game           ADVENTURE   text quest\n  MATRIX      ???                   BANNER &lt;T&gt;  big letters\n  CLEAR       wipe screen           EXIT        return to index\n<dim>TIP: TAB completes, ↑/↓ recalls history.</dim>\n',
+ ls:a=>{const p=resolve(a);const l=FS[p];if(!l)return'LS: '+esc(a||'').toUpperCase()+': NOT A DIRECTORY\n';return l.map(n=>FS[resolve(p+'/'+n)]?'<hi>'+n.toUpperCase()+'/</hi>':n.toUpperCase()).join('    ')+'\n'},
+ cd:a=>{const p=resolve(a||'~');if(!FS[p])return'CD: NO SUCH DIRECTORY\n';cwd=p;return''},
+ pwd:()=>cwd.toUpperCase()+'\n',
+ cat:a=>{if(!a)return'CAT: MISSING OPERAND\n';const here=FS[cwd]||[];return here.includes(a)&&FILES[a]?FILES[a]:'CAT: '+esc(a).toUpperCase()+': NO SUCH FILE\n'},
+ sudo:a=>a==='cat secret.dat'?'[SUDO] PASSWORD FOR OPERATOR: ********\n<hi>THE SECRET IS: THE PHOSPHOR NEVER REALLY TURNS OFF.\nIT JUST WAITS FOR YOU.</hi>\n':'OPERATOR IS NOT IN THE SUDOERS FILE. THIS INCIDENT WILL BE REPORTED.\n',
+ history:()=>hist.slice().reverse().map((h,i)=>`  ${String(i+1).padStart(3)}  ${esc(h)}`).join('\n')+'\n',
+ date:()=>new Date().toString().toUpperCase()+'\n',
+ calc:a=>{if(!/^[\d\s+\-*/().%]+$/.test(a||''))return'CALC: DIGITS AND + - * / ( ) ONLY\n';try{return'= '+Function('return ('+a+')')()+'\n'}catch(e){return'CALC: SYNTAX ERROR\n'}},
+ theme:a=>{const t=['green','amber','white','cyan'];if(!t.includes(a))return'THEME: CHOOSE '+t.join('|').toUpperCase()+'\n';document.body.className=a==='green'?'':a;return'PHOSPHOR SWAPPED TO '+a.toUpperCase()+'.\n'},
+ fortune:()=>['A CLEAN DESK IS A SIGN OF A FULL HARD DRIVE.\n','THERE ARE 10 KINDS OF PEOPLE.\n','THE CURSOR BLINKS BECAUSE IT IS THINKING OF YOU.\n','TO ERR IS HUMAN. TO REALLY FOUL THINGS UP REQUIRES A COMPUTER.\n','GOTO CONSIDERED CHARMING.\n'][Math.random()*5|0],
+ mail:a=>{if(a&&MAIL[a-1]){const m=MAIL[a-1];return`FROM: ${m[0]}\nSUBJ: ${m[1]}\n${'-'.repeat(30)}\n${m[2]}\n`}return'<hi>INBOX (3)</hi>\n'+MAIL.map((m,i)=>`  ${i+1}  ${m[0].padEnd(10)} ${m[1]}`).join('\n')+'\n<dim>TYPE MAIL 1, MAIL 2 … TO READ.</dim>\n'},
+ banner:a=>{const F={A:'01110100011111110001',B:'11110100011111010001',C:'01111100001000001111',D:'11110100011000111110',E:'11111100001111010000',H:'10001100011111110001',I:'11111001000010011111',L:'10000100001000011111',O:'01110100011000101110',P:'11110100011111010000',R:'11110100011111010010',S:'01111100000111000011',T:'11111001000010000100',N:'10001110011010110011',M:'10001110111010110001',G:'01111100001001101111',K:'10010101001100010100',U:'10001100011000101110',W:'10001101011010101010',Y:'10001010100010000100',' ':'00000000000000000000'};
+  const t=(a||'HI').toUpperCase().slice(0,10);let rows=['','','',''];for(const ch of t){const f=F[ch]||F[' '];for(let r=0;r<4;r++)rows[r]+=f.slice(r*5,r*5+5).replace(/1/g,'█').replace(/0/g,' ')+' '}return'<hi>'+rows.join('\n')+'</hi>\n'},
+ matrix:()=>{runMatrix();return''},
+ snake:()=>{startSnake();return''},
+ adventure:()=>{mode='adv';return'<hi>*** COLOSSAL SERVER ROOM ***</hi>\n'+ROOMS.start[0]+'\n<dim>(TYPE QUIT TO LEAVE)</dim>\n'},
+ clear:()=>{[...out.childNodes].forEach(n=>{if(n!==cur&&n!==prompt)n.remove()});return''},
+ exit:()=>{setTimeout(()=>location.href='index.html',600);return'LOGGING OFF...\n'}
+};
+function run(v){hist.unshift(v);hi=-1;if(mode==='adv'){add('',advCmd(v.toLowerCase()));return}
+ const [c,...a]=v.toLowerCase().split(/\s+/);const f=cmds[c];add('',f?f(a.join(' ')):('?SYNTAX ERROR: '+esc(c).toUpperCase()+'\n'))}
+function submit(){const v=line.trim();const p=document.createElement('span');p.textContent=line+'\n';if(prompt.parentNode)out.replaceChild(p,prompt);line='';if(v)run(v);if(mode!=='game')newPrompt()}
+
+/* ---------- boot ---------- */
+async function boot(){ready=false;[...out.childNodes].forEach(n=>{if(n!==cur)n.remove()});scr.classList.remove('boot');void scr.offsetWidth;scr.classList.add('boot');
+ const seq=[['dim','PHOSPHOR/OS v3.11 (c) 1984 Greenline Systems\n'],['dim','MEMORY CHECK .......... 640K OK\n'],['dim','MOUNTING /dev/tape0 ... OK\n'],['dim','CALIBRATING PHOSPHOR .. OK\n\n'],
+ ['hi','  ____  _   _  ___  ____  ____  _   _  ___  ____\n |  _ \\| | | |/ _ \\/ ___||  _ \\| | | |/ _ \\|  _ \\\n | |_) | |_| | | | \\___ \\| |_) | |_| | | | | |_) |\n |  __/|  _  | |_| |___) |  __/|  _  | |_| |  _ <\n |_|   |_| |_|\\___/|____/|_|   |_| |_|\\___/|_| \\_\\\n\n'],
+ ['','WELCOME, OPERATOR. YOU HAVE 3 NEW MESSAGES.\nTYPE HELP OR USE THE F-KEYS BELOW.\n\n']];
+ for(const [c,t] of seq)await type(c,t,c==='hi'?1:12);mode='shell';newPrompt();ready=true}
+boot();
+
+addEventListener('click',()=>inp.focus());
+addEventListener('keydown',e=>{if(!ready||!on)return;if(mode==='game'){snakeKey(e);return}inp.focus();
+ if(e.key==='Enter'){submit();e.preventDefault()}
+ else if(e.key==='Backspace'){line=line.slice(0,-1);prompt.textContent=line;e.preventDefault()}
+ else if(e.key==='ArrowUp'){if(hi<hist.length-1){hi++;line=hist[hi].toUpperCase();prompt.textContent=line}e.preventDefault()}
+ else if(e.key==='ArrowDown'){if(hi>0){hi--;line=hist[hi].toUpperCase()}else{hi=-1;line=''}prompt.textContent=line;e.preventDefault()}
+ else if(e.key==='Tab'){e.preventDefault();const parts=line.split(' ');const last=parts.pop().toLowerCase();const pool=parts.length?(FS[cwd]||[]):Object.keys(cmds);const m=pool.filter(n=>n.startsWith(last));if(m.length===1){parts.push(m[0].toUpperCase());line=parts.join(' ')+(parts.length===1?' ':'');prompt.textContent=line}else if(m.length>1){const p=document.createElement('span');p.textContent=line+'\n';out.replaceChild(p,prompt);add('dim',m.join('  ').toUpperCase()+'\n');const keep=line;newPrompt();line=keep;prompt.textContent=line}}
+ else if(e.key.length===1&&!e.ctrlKey&&!e.metaKey){line+=e.key.toUpperCase();prompt.textContent=line;e.preventDefault()}
+});
+document.querySelectorAll('[data-cmd]').forEach(b=>b.onclick=e=>{e.stopPropagation();if(!ready||!on||mode==='game')return;line=b.dataset.cmd.toUpperCase();prompt.textContent=line;setTimeout(submit,150)});
+
+/* ---------- knobs ---------- */
+let br=1,foc=0,tint=0;const themes=['','amber','white','cyan'];
+document.getElementById('kBright').onclick=e=>{br=br>=1.4?.6:+(br+.2).toFixed(1);out.style.setProperty('--br',br);e.currentTarget.style.transform=`rotate(${(br-1)*200}deg)`};
+document.getElementById('kFocus').onclick=e=>{foc=(foc+1)%4;out.style.setProperty('--blur',[0,.6,1.2,.3][foc]+'px');e.currentTarget.style.transform=`rotate(${foc*90}deg)`};
+document.getElementById('kTint').onclick=e=>{tint=(tint+1)%4;document.body.className=themes[tint];e.currentTarget.style.transform=`rotate(${tint*90}deg)`};
+document.getElementById('pwr').onclick=e=>{e.stopPropagation();on=!on;scr.classList.toggle('off',!on);document.getElementById('led').classList.toggle('off',!on);if(on)boot();else{stopSnake();ready=false}};
+
+/* ---------- matrix ---------- */
+function runMatrix(){const cv=document.getElementById('game');cv.style.display='block';cv.style.inset='0';cv.width=scr.clientWidth;cv.height=scr.clientHeight;cv.style.width='100%';cv.style.height='100%';const g=cv.getContext('2d');const cols=Math.floor(cv.width/16),ys=Array(cols).fill(0).map(()=>Math.random()*-50);const col=getComputedStyle(document.body).getPropertyValue('--p');let n=0;
+ const t=setInterval(()=>{g.fillStyle='rgba(3,5,3,.12)';g.fillRect(0,0,cv.width,cv.height);g.fillStyle=col;g.font='18px VT323';ys.forEach((y,i)=>{g.fillText(String.fromCharCode(0x30A0+Math.random()*96),i*16,y*16);ys[i]=y*16>cv.height&&Math.random()>.97?0:y+1});if(++n>220){clearInterval(t);cv.style.display='none';g.clearRect(0,0,cv.width,cv.height)}},40)}
+
+/* ---------- snake ---------- */
+let sn,sd,food,sT,score,best=42;
+function startSnake(){mode='game';const cv=document.getElementById('game');cv.width=600;cv.height=400;cv.style.width='min(600px,90%)';cv.style.height='auto';cv.style.display='block';out.style.opacity=.15;
+ sn=[[10,10],[9,10],[8,10]];sd=[1,0];score=0;placeFood();clearInterval(sT);sT=setInterval(stepSnake,110)}
+function placeFood(){food=[Math.random()*30|0,Math.random()*20|0]}
+function stepSnake(){const h=[sn[0][0]+sd[0],sn[0][1]+sd[1]];if(h[0]<0||h[1]<0||h[0]>=30||h[1]>=20||sn.some(s=>s[0]===h[0]&&s[1]===h[1]))return endSnake();sn.unshift(h);if(h[0]===food[0]&&h[1]===food[1]){score++;placeFood()}else sn.pop();drawSnake()}
+function drawSnake(){const g=document.getElementById('game').getContext('2d'),c=getComputedStyle(document.body).getPropertyValue('--p');g.fillStyle='#030503';g.fillRect(0,0,600,400);g.strokeStyle=c;g.lineWidth=2;g.strokeRect(1,1,598,398);g.fillStyle=c;g.shadowColor=c;g.shadowBlur=10;sn.forEach(([x,y],i)=>g.fillRect(x*20+2,y*20+2,16,16));g.fillRect(food[0]*20+6,food[1]*20+6,8,8);g.shadowBlur=0;g.font='22px VT323';g.fillText('SCORE '+score+'   HI '+best+'   [ESC] QUIT',14,24)}
+function endSnake(){clearInterval(sT);if(score>best)best=score;const cv=document.getElementById('game');cv.style.display='none';out.style.opacity=1;mode='shell';add('',`GAME OVER. SCORE: ${score}. HIGH SCORE: ${best}.\n`+(score>42?'<hi>NEW RECORD! THE STRANGER WAS RIGHT.</hi>\n':''));newPrompt()}
+function stopSnake(){if(mode==='game'){clearInterval(sT);document.getElementById('game').style.display='none';out.style.opacity=1;mode='shell'}}
+function snakeKey(e){const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]}[e.key];if(m&&!(m[0]===-sd[0]&&m[1]===-sd[1]))sd=m;if(e.key==='Escape')endSnake();e.preventDefault()}
+</script>
+</body>
+</html>

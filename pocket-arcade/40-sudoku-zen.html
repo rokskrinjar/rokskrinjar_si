@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Sudoku Zen</title>
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:manipulation;user-select:none}
+body{background:#f1ebdd;font-family:'Zen Kaku Gothic New',sans-serif;color:#1c1b19;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:40px 10px 10px}
+body::after{content:'';position:fixed;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:#c8412d;opacity:.9;z-index:-1}
+h1{font-family:'Yuji Syuku',serif;font-weight:400;font-size:clamp(28px,8vw,40px);letter-spacing:.12em}
+.bar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;font-size:13px}
+.bar button{font:inherit;font-size:12px;border:1px solid #1c1b19;background:none;color:#1c1b19;padding:4px 10px;border-radius:20px;cursor:pointer}.bar button.on{background:#1c1b19;color:#f1ebdd}
+.bar span{font-variant-numeric:tabular-nums;margin-left:6px}
+.grid{display:grid;grid-template-columns:repeat(9,var(--s));border:2.5px solid #1c1b19;background:#fbf8f1;--s:min(10vw,calc((100vh - 290px)/9),52px)}
+.c{width:var(--s);height:var(--s);border-right:1px solid #cfc6b3;border-bottom:1px solid #cfc6b3;display:grid;place-items:center;font-size:calc(var(--s)*.58);cursor:pointer;position:relative;font-weight:400}
+.c:nth-child(3n){border-right:2px solid #1c1b19}.c:nth-child(9n){border-right:0}
+.c:nth-child(n+19):nth-child(-n+27),.c:nth-child(n+46):nth-child(-n+54){border-bottom:2px solid #1c1b19}.c:nth-child(n+73){border-bottom:0}
+.c.given{font-weight:700}.c.user{color:#2b4f8c}.c.rel{background:#ece4d2}.c.same{background:#f3d9c9}.c.sel{background:#e6b9a5}.c.bad{color:#c8412d}.c.bad.user{text-decoration:underline wavy}
+.c .n{position:absolute;inset:2px;display:grid;grid-template-columns:repeat(3,1fr);font-size:calc(var(--s)*.22);color:#7b7466;line-height:1}.c .n i{font-style:normal;display:grid;place-items:center}
+.c.flash{animation:fl .6s}@keyframes fl{50%{background:#f7d6a8}}
+.pad{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;width:min(96vw,470px)}.pad button{font:inherit;font-size:20px;border:0;background:#fbf8f1;border-radius:8px;height:46px;cursor:pointer;box-shadow:0 2px 0 #cfc6b3}.pad button.done{opacity:.25}
+.tools{display:flex;gap:6px;width:min(96vw,470px)}.tools button{flex:1;font:inherit;font-size:12px;border:1px solid #1c1b19;background:none;border-radius:8px;padding:8px 0;cursor:pointer}.tools button.on{background:#c8412d;border-color:#c8412d;color:#fff}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#f1ebdde6}.ov.on{display:grid}
+.ov h2{font-family:'Yuji Syuku',serif;font-weight:400;font-size:clamp(40px,12vw,70px)}.ov p{margin:10px 0 20px;line-height:1.7}
+.ov button{font:inherit;border:0;background:#1c1b19;color:#f1ebdd;padding:12px 28px;border-radius:30px;cursor:pointer}
+.back{position:fixed;left:12px;top:12px;color:#1c1b19;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="back" href="index.html">← games</a>
+<h1>数独 Sudoku Zen</h1>
+<div class="bar" id="lvl"><button data-l="easy">Easy</button><button data-l="medium" class="on">Medium</button><button data-l="hard">Hard</button><span id="tm">0:00</span><span id="bs"></span></div>
+<div class="grid" id="grid"></div>
+<div class="pad" id="pad"></div>
+<div class="tools"><button id="notes">✎ Notes (N)</button><button id="erase">⌫ Erase</button><button id="undo">↶ Undo (Z)</button><button id="hint">✦ Hint (H)</button></div>
+<div class="ov" id="ov"><div><h2 id="ot">完成</h2><p id="op"></p><button id="go">Another puzzle</button></div></div>
+<script>
+const K='best-sudoku-zen';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const gridEl=document.getElementById('grid'),padEl=document.getElementById('pad');let lvl='medium',sol,given,val,notes,sel=40,noteMode=false,hist=[],t0,timer,done=false,best=ls.g(K,{}),hints=0;if(typeof best!=='object'||!best)best={};
+let AC;function tone(f,d=.1,type='sine',v=.05){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+const PEERS=[...Array(81)].map((_,i)=>{const r=i/9|0,c=i%9,s=new Set();for(let k=0;k<9;k++){s.add(r*9+k);s.add(k*9+c)}const br=r-r%3,bc=c-c%3;for(let a=0;a<3;a++)for(let b=0;b<3;b++)s.add((br+a)*9+bc+b);s.delete(i);return[...s]});
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+function count(b,lim){// returns number of solutions up to lim
+ let n=0;const cand=i=>{let m=0x3fe;for(const p of PEERS[i])if(b[p])m&=~(1<<b[p]);return m};
+ (function rec(){if(n>=lim)return;let bi=-1,bm=0,bc=10;for(let i=0;i<81;i++)if(!b[i]){const m=cand(i);let c=0;for(let v=1;v<=9;v++)if(m>>v&1)c++;if(c<bc){bc=c;bi=i;bm=m;if(c<=1)break}}
+  if(bi<0){n++;return}if(bc===0)return;for(let v=1;v<=9&&n<lim;v++)if(bm>>v&1){b[bi]=v;rec();b[bi]=0}})();return n}
+function fullGrid(){const b=Array(81).fill(0);(function rec(i){if(i===81)return true;if(b[i])return rec(i+1);for(const v of shuffle([1,2,3,4,5,6,7,8,9])){if(PEERS[i].every(p=>b[p]!==v)){b[i]=v;if(rec(i+1))return true;b[i]=0}}return false})(0);return b}
+function generate(){const target={easy:40,medium:32,hard:26}[lvl];sol=fullGrid();const b=sol.slice();let clues=81;for(const i of shuffle([...Array(81).keys()])){if(clues<=target)break;const v=b[i];b[i]=0;if(count(b.slice(),2)!==1)b[i]=v;else clues--}given=b.map(v=>v>0);val=b.slice();notes=[...Array(81)].map(()=>new Set());hist=[];done=false;hints=0;t0=Date.now();clearInterval(timer);timer=setInterval(tick,1000);tick();render();document.getElementById('ov').classList.remove('on');hudBest()}
+function tick(){if(done)return;const s=Math.floor((Date.now()-t0)/1000);document.getElementById('tm').textContent=`${s/60|0}:${String(s%60).padStart(2,'0')}`}
+function hudBest(){const b=best[lvl];document.getElementById('bs').textContent=b?`best ${b/60|0}:${String(b%60).padStart(2,'0')}`:''}
+for(let i=0;i<81;i++){const d=document.createElement('div');d.className='c';d.onclick=()=>{sel=i;render()};gridEl.appendChild(d)}
+for(let v=1;v<=9;v++){const b=document.createElement('button');b.textContent=v;b.onclick=()=>input(v);padEl.appendChild(b)}
+function conflicts(i){return val[i]&&PEERS[i].some(p=>val[p]===val[i])}
+function render(){const cells=gridEl.children,sv=val[sel];const rel=new Set(PEERS[sel]);
+ for(let i=0;i<81;i++){const c=cells[i];c.className='c'+(given[i]?' given':val[i]?' user':'')+(i===sel?' sel':sv&&val[i]===sv?' same':rel.has(i)?' rel':'')+(conflicts(i)?' bad':'');
+  if(val[i])c.textContent=val[i];else if(notes[i].size){c.innerHTML='<div class="n">'+[1,2,3,4,5,6,7,8,9].map(v=>`<i>${notes[i].has(v)?v:''}</i>`).join('')+'</div>'}else c.textContent=''}
+ const cnt=Array(10).fill(0);val.forEach(v=>cnt[v]++);[...padEl.children].forEach((b,k)=>b.classList.toggle('done',cnt[k+1]>=9))}
+function input(v){if(done||given[sel])return;hist.push([sel,val[sel],new Set(notes[sel])]);
+ if(noteMode&&!val[sel]){notes[sel].has(v)?notes[sel].delete(v):notes[sel].add(v);tone(600,.04,'triangle',.03)}
+ else{val[sel]=val[sel]===v?0:v;notes[sel].clear();if(val[sel]){PEERS[sel].forEach(p=>notes[p].delete(v));tone(conflicts(sel)?180:440+v*30,.08,conflicts(sel)?'square':'sine',.05)}}
+ render();checkUnits(sel);if(val.every((x,i)=>x===sol[i]))win()}
+function checkUnits(i){if(!val[i])return;const r=i/9|0,c=i%9,cells=gridEl.children;const units=[[...Array(9)].map((_,k)=>r*9+k),[...Array(9)].map((_,k)=>k*9+c),[...Array(9)].map((_,k)=>((r-r%3)+(k/3|0))*9+(c-c%3)+k%3)];
+ units.forEach(u=>{if(u.every(j=>val[j]===sol[j])){u.forEach((j,k)=>setTimeout(()=>{cells[j].classList.remove('flash');void cells[j].offsetWidth;cells[j].classList.add('flash')},k*30));tone(880,.15,'triangle',.04)}})}
+function erase(){if(done||given[sel])return;hist.push([sel,val[sel],new Set(notes[sel])]);val[sel]=0;notes[sel].clear();render()}
+function undo(){const h=hist.pop();if(!h)return;[sel]=h;val[sel]=h[1];notes[sel]=h[2];render()}
+function hint(){if(done)return;let i=given[sel]||val[sel]===sol[sel]?val.findIndex((v,j)=>v!==sol[j]):sel;if(i<0)return;sel=i;hist.push([i,val[i],new Set(notes[i])]);val[i]=sol[i];notes[i].clear();hints++;tone(990,.2,'triangle',.05);render();checkUnits(i);if(val.every((x,j)=>x===sol[j]))win()}
+function win(){done=true;clearInterval(timer);const s=Math.floor((Date.now()-t0)/1000);const rec=hints===0&&(!best[lvl]||s<best[lvl]);if(rec){best[lvl]=s;ls.s(K,best)}hudBest();[523,659,784,1046,1318].forEach((f,k)=>setTimeout(()=>tone(f,.3,'sine',.05),k*110));
+ setTimeout(()=>{document.getElementById('op').innerHTML=`${lvl} solved in ${s/60|0}:${String(s%60).padStart(2,'0')}${hints?` · ${hints} hint${hints>1?'s':''}`:''}${rec?'<br><b>New best time</b>':''}`;document.getElementById('ov').classList.add('on')},700)}
+addEventListener('keydown',e=>{const k=e.key;if(document.getElementById('ov').classList.contains('on')){if(k==='Enter'||k===' '){e.preventDefault();generate()}return}
+ let r=sel/9|0,c=sel%9;if(k==='ArrowLeft'||k==='a')c=(c+8)%9;else if(k==='ArrowRight'||k==='d')c=(c+1)%9;else if(k==='ArrowUp'||k==='w')r=(r+8)%9;else if(k==='ArrowDown'||k==='s')r=(r+1)%9;
+ else if(/^[1-9]$/.test(k)){input(+k);return}else if(k==='Backspace'||k==='Delete'||k==='0'){e.preventDefault();erase();return}else if(k==='n'||k==='N'){toggleNotes();return}else if(k==='z'||k==='Z'){undo();return}else if(k==='h'||k==='H'){hint();return}else return;
+ e.preventDefault();sel=r*9+c;render()});
+function toggleNotes(){noteMode=!noteMode;document.getElementById('notes').classList.toggle('on',noteMode)}
+document.getElementById('notes').onclick=toggleNotes;document.getElementById('erase').onclick=erase;document.getElementById('undo').onclick=undo;document.getElementById('hint').onclick=hint;document.getElementById('go').onclick=generate;
+document.getElementById('lvl').onclick=e=>{const b=e.target.closest('button');if(!b)return;lvl=b.dataset.l;document.querySelectorAll('#lvl button').forEach(x=>x.classList.toggle('on',x===b));generate()};
+generate();
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Omnilens — One view across three CRMs</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{color-scheme:dark;--surface:#121212;--bg:#0a0a0a;--ink:#f1f0f6;--ink2:#b5b3c4;--ink3:#7b7889;--grid:#24232b;--s1:#9085e9;--s2:#d95926;--s3:#199e70;--s4:#3987e5;--s5:#d55181;--q1:#1f1b38;--q2:#2e2760;--q3:#4a3fa0;--q4:#6d61d6;--q5:#9085e9;--q6:#c3bcf5;--qhi:#0f0c1f;--qlo:#e6e2f6;--pos:#9085e9;--neg:#e66767;--good:#3ccf8e;--warn:#e0a63a;--bad:#ff6b6b;--cur:"$";--tipbg:#f1f0f6;--tipfg:#0a0a0a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Sora',sans-serif;font-weight:300}
+b,h1,h3{font-weight:600}.mono{font-family:'JetBrains Mono',monospace}
+header{padding:20px 30px 0;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.lg{font-weight:700;font-size:20px;display:flex;align-items:center;gap:10px}.lg span{display:flex}.lg span i{width:16px;height:16px;border-radius:50%;margin-left:-6px;border:2px solid var(--bg)}
+.crms{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}.crm{border:1px solid var(--grid);border-radius:10px;padding:6px 12px;font-size:12.5px;display:flex;gap:8px;align-items:center}.crm i{width:9px;height:9px;border-radius:50%}.crm small{font:400 11px 'JetBrains Mono';color:var(--ink3)}
+h1{font-size:30px;margin:20px 30px 4px;letter-spacing:-.02em}.lead{color:var(--ink3);margin:0 30px 16px}
+.tabs{display:flex;gap:2px;margin:0 30px;border-bottom:1px solid var(--grid);overflow-x:auto}.tabs button{border:0;background:none;color:var(--ink3);padding:10px 14px;font:400 13.5px 'Sora';cursor:pointer;box-shadow:inset 0 -2px 0 transparent;white-space:nowrap}.tabs button.on{color:var(--ink);box-shadow:inset 0 -2px 0 var(--s1);font-weight:600}
+.wrap{padding:16px 30px 70px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}.filters button{border:1px solid var(--grid);background:transparent;color:var(--ink2);border-radius:8px;padding:6px 11px;font:400 12.5px 'Sora';cursor:pointer}.filters button.on{background:var(--s1);border-color:var(--s1);color:#0a0a0a;font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
+.kpi{border:1px solid var(--grid);border-radius:12px;padding:14px;background:var(--surface)}.kpi .l{font-size:12px;color:var(--ink3)}.kpi .v{font-size:26px;font-weight:600;letter-spacing:-.02em}.kpi .d{font-size:12px}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border:1px solid var(--grid);border-radius:14px;padding:16px 18px;min-width:0}.card h3{margin:0;font-size:14.5px}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 12px}
+.map{width:100%;border-collapse:collapse;font-size:13px}.map th{text-align:left;font-weight:400;color:var(--ink3);font-size:11.5px;padding:8px;border-bottom:1px solid var(--grid)}.map td{padding:9px 8px;border-bottom:1px solid var(--grid)}.map code{font:400 12px 'JetBrains Mono';color:#c3bcf5}.map .ok{color:var(--good)}.map .w{color:var(--warn)}
+.cf{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--grid);font-size:13px}.cf .v{border:1px solid var(--grid);border-radius:8px;padding:6px 9px;cursor:pointer}.cf .v small{display:block;font:400 10.5px 'JetBrains Mono';color:var(--ink3)}.cf .v.pick{border-color:var(--s1);background:#1a1730}.cf button{border:0;background:var(--s1);color:#0a0a0a;border-radius:8px;padding:6px 11px;font:600 12px 'Sora';cursor:pointer}.cf.done{opacity:.55}.cf.done button{background:var(--good)}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}.crms{margin-left:0}}@media(max-width:640px){header,.wrap{padding-left:16px;padding-right:16px}h1,.lead,.tabs{margin-left:16px;margin-right:16px}.kpis{grid-template-columns:1fr 1fr}.cf{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="lg"><span><i style="background:#3987e5;margin-left:0"></i><i style="background:#d95926"></i><i style="background:#199e70"></i></span>Omnilens</div>
+ <div class="crms"><span class="crm"><i style="background:#3987e5"></i>Salesforce · Fernway US <small>214K records</small></span><span class="crm"><i style="background:#d95926"></i>HubSpot · marketing + EU <small>392K</small></span><span class="crm"><i style="background:#199e70"></i>Zoho · Calder (acquired) <small>61K</small></span></div></header>
+<h1 id="ttl">One pipeline, three CRMs</h1><p class="lead">Fernway acquired Calder Labs in May. Until the Zoho migration finishes, Omnilens matches, de-duplicates and maps all three systems into one reporting layer.</p>
+<nav class="tabs"><button data-sheet="pipe">Unified pipeline</button><button data-sheet="match">Match & merge</button><button data-sheet="fields">Field mapping</button><button data-sheet="stages">Stage mapping</button><button data-sheet="conf">Conflicts</button></nav>
+<div class="wrap"><div class="filters"><button data-f="range" data-v="90d" class="on">This quarter</button><button data-f="range" data-v="12m">12 months</button><span style="width:8px"></span><button data-f="view" data-v="unified" class="on">Unified (de-duplicated)</button><button data-f="view" data-v="raw">Raw sum (double-counted)</button></div>
+ <section data-panel="pipe"><div class="kpis" id="k1"></div><div class="g g21"><div class="card"><h3>Open pipeline by source system</h3><p class="sub">Monthly snapshot, unified stage model</p><div id="c_ps"></div></div><div class="card"><h3>Where the overlap is</h3><p class="sub">Accounts with opportunities in more than one CRM</p><div id="c_ov"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Unified pipeline by stage</h3><p class="sub">Each system’s stages mapped to one model</p><div id="c_st"></div></div></section>
+ <section data-panel="match" hidden><div class="kpis" id="k2"></div><div class="card"><h3>How 667K records became one dataset</h3><p class="sub">Source system → match outcome → unified object</p><div id="c_sk"></div></div></section>
+ <section data-panel="fields" hidden><div class="card"><h3>Field mapping</h3><p class="sub">Canonical field ← source fields, with coverage after mapping</p><table class="map" id="map"></table></div></section>
+ <section data-panel="stages" hidden><div class="g g2"><div class="card"><h3>Stage mapping</h3><p class="sub">Share of each source stage’s opportunities assigned to each unified stage</p><div id="c_hm"></div></div><div class="card"><h3>Win rate by source after mapping</h3><p class="sub">Same definitions, now comparable</p><div id="c_wr"></div></div></div></section>
+ <section data-panel="conf" hidden><div class="card"><h3>Conflicting values</h3><p class="sub">Same account, different answers. Pick the value to keep — Omnilens writes it back to all three systems.</p><div id="cf"></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const SYS=[['Salesforce','#3987e5'],['HubSpot','#d95926'],['Zoho','#199e70']];const PICK={},DONE=new Set();
+const TT={pipe:'One pipeline, three CRMs',match:'Matching records across systems',fields:'One schema',stages:'One stage model',conf:'Resolve the disagreements'};
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const m=F.range==='12m'?1.1:1;const dup=F.view==='raw'?1.19:1;return memo[k]={r,m,dup,L:K.periods(F.range==='12m'?'12m':'90d')}}
+const S={range:'90d',view:'unified'};
+const views={
+pipe(F){$('ttl').textContent=TT.pipe;const D=data(F);const tot=72.4e6*D.m*D.dup;
+ K.kpis($('k1'),[{label:'Open pipeline',value:K.money(tot),sub:F.view==='raw'?'⚠ includes '+K.money(tot-72.4e6*D.m)+' double-counted':'de-duplicated'},{label:'Accounts',value:K.num(48210*D.dup)},{label:'In 2+ CRMs',value:K.num(6120)},{label:'Duplicate opportunities',value:K.int(418)},{label:'Mapping coverage',value:'97.4%'}]);
+ const n=D.L.length;K.bars($('c_ps'),{labels:D.L,series:SYS.map(([s,c],i)=>({name:s,color:c,data:K.series(D.r,n,tot*[.62,.21,.17][i]/n*(n>12?3:1),{noise:.08,trend:[.05,.1,.3][i]})})),stacked:true,fmt:K.money,h:270});
+ K.donut($('c_ov'),{items:[{name:'Salesforce + HubSpot',value:4210},{name:'Salesforce + Zoho',value:1180},{name:'HubSpot + Zoho',value:420},{name:'All three',value:310}],fmt:K.int,center:{value:'6,120',label:'shared accounts'}});
+ K.bars($('c_st'),{labels:['Qualify','Discover','Evaluate','Propose','Negotiate','Commit'],series:SYS.map(([s,c],i)=>({name:s,color:c,data:[.26,.22,.18,.15,.11,.08].map(v=>v*tot*[.62,.21,.17][i])})),stacked:true,fmt:K.money,h:260})},
+match(F){$('ttl').textContent=TT.match;const D=data(F);K.kpis($('k2'),[{label:'Records ingested',value:'667K'},{label:'Matched automatically',value:'91.2%'},{label:'Sent to review',value:'3,840'},{label:'Merged',value:'58,900'},{label:'Match precision (audited)',value:'99.1%'}]);
+ K.sankey($('c_sk'),{nodes:[['sf','Salesforce',0,0],['hs','HubSpot',0,1],['zo','Zoho',0,2],['ex','Exact match (domain/ID)',1,0],['fz','Fuzzy match',1,3],['un','Unique',1,2],['rv','Needs review',1,4],['ac','Unified accounts',2,0],['ct','Unified contacts',2,1],['op','Unified opportunities',2,2]],links:[['sf','ex',92],['sf','un',96],['sf','fz',18],['sf','rv',8],['hs','ex',140],['hs','un',190],['hs','fz',48],['hs','rv',14],['zo','ex',21],['zo','un',27],['zo','fz',9],['zo','rv',4],['ex','ac',48],['ex','ct',190],['ex','op',15],['un','ac',36],['un','ct',260],['un','op',17],['fz','ac',14],['fz','ct',58],['fz','op',3]],h:340,fmt:v=>v+'K'})},
+fields(F){$('ttl').textContent=TT.fields;const R=[['account.industry','Industry','industry','Industry_Type','96%','ok'],['account.employees','NumberOfEmployees','numberofemployees','Employees','91%','ok'],['opportunity.amount_acv','ACV__c','amount (×12 if MRR)','Deal_Value','99%','ok'],['opportunity.close_date','CloseDate','closedate','Closing_Date','100%','ok'],['opportunity.stage','StageName','dealstage','Stage','100%','ok'],['opportunity.competitor','Competitor__c','—','Competitor','58%','w'],['contact.persona','Persona__c','hs_persona','—','64%','w'],['account.owner','OwnerId → User','hubspot_owner_id','Account_Owner','98%','ok']];
+ $('map').innerHTML='<tr><th>Canonical field</th><th>Salesforce</th><th>HubSpot</th><th>Zoho</th><th>Coverage</th></tr>'+R.map(x=>`<tr><td><code>${x[0]}</code></td><td>${x[1]}</td><td>${x[2]}</td><td>${x[3]}</td><td class="${x[5]}">${x[5]==='ok'?'✓':'⚠'} ${x[4]}</td></tr>`).join('')},
+stages(F){$('ttl').textContent=TT.stages;const D=data(F);const SRC=['SF: Discovery','SF: Solution','SF: Proposal','HS: Appointment set','HS: Decision maker in','HS: Contract sent','Zoho: Needs analysis','Zoho: Value prop','Zoho: Negotiation'];const U=['Qualify','Discover','Evaluate','Propose','Negotiate'];
+ const M=[[.1,.85,.05,0,0],[0,.1,.8,.1,0],[0,0,.05,.85,.1],[.75,.25,0,0,0],[0,.3,.6,.1,0],[0,0,0,.3,.7],[.2,.7,.1,0,0],[0,.2,.7,.1,0],[0,0,0,.15,.85]];
+ K.heat($('c_hm'),{rows:SRC,cols:U,data:M.map(r=>r.map(v=>v||null)),fmt:v=>K.pct(v,0),cell:28});
+ K.bars($('c_wr'),{labels:SYS.map(s=>s[0]),series:[{name:'Before mapping (own definitions)',data:[.24,.41,.33]},{name:'After mapping',data:[.24,.27,.22]}],fmt:v=>K.pct(v,0),h:280})},
+conf(F){$('ttl').textContent=TT.conf;const C=[['Halden Bank — Industry','Banking','Financial Services','Banks & Credit'],['Velo Mobility — Owner','Ana Ruiz','Ben Okafor','—'],['Ashgrove Health — Employees','3,100','2,400','3,050'],['Calder Labs — Customer since','—','Mar 2024','Jan 2023'],['Orbis Retail — Billing country','Germany','DE','Deutschland'],['Northbeam — Lifecycle','Customer','Opportunity','Customer']];
+ $('cf').innerHTML=C.map((c,i)=>`<div class="cf ${DONE.has(i)?'done':''}"><b>${c[0]}</b>${[1,2,3].map(j=>`<div class="v ${PICK[i]===j?'pick':''}" data-i="${i}" data-j="${j}">${c[j]}<small>${SYS[j-1][0]}</small></div>`).join('')}<button data-r="${i}">${DONE.has(i)?'✓ Resolved':'Keep selected'}</button></div>`).join('');
+ document.querySelectorAll('.cf .v').forEach(v=>v.onclick=()=>{PICK[+v.dataset.i]=+v.dataset.j;views.conf(F)});document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{const i=+b.dataset.r;if(!PICK[i])PICK[i]=1;DONE.add(i);views.conf(F)})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

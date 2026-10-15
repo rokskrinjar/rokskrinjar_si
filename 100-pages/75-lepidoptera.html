@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lepidoptera — A Cabinet of Wings</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Azeret+Mono:wght@300;500&display=swap" rel="stylesheet">
+<style>
+:root{--wood:#3a2618;--wood2:#23160c;--back:#f1ebdd;--ink:#221a12;--dim:#221a1299;--pin:#b8b8b8;--accent:#6a3a8a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--back);color:var(--ink);font-family:'Libre Caslon Text',serif}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;cursor:pointer;color:inherit}
+.mono{font-family:'Azeret Mono',monospace}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;padding:26px 5vw 16px;border-bottom:1px solid var(--ink)}
+.logo{font-size:34px;font-style:italic}
+.logo small{display:block;font-family:'Azeret Mono';font-style:normal;font-size:10px;letter-spacing:.3em;color:var(--dim)}
+nav{display:flex;gap:22px;flex-wrap:wrap;font-family:'Azeret Mono';font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+nav a{padding-bottom:4px;border-bottom:1px solid transparent;color:var(--dim)}nav a.on{border-color:var(--ink);color:var(--ink)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1260px;margin:0 auto;padding:30px 5vw 80px}
+h2{font-weight:400;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.05}
+h2 i{color:var(--accent)}
+.sub{max-width:60ch;line-height:1.7;margin:12px 0 26px;color:var(--dim)}
+/* hatchery */
+.hatch{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start}
+.spec{background:#fbf8f1;border:1px solid #221a1222;box-shadow:0 20px 40px -30px #0006;position:relative;padding:20px}
+.spec svg{display:block;width:100%;height:auto}
+.slabel{display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #221a1233;padding-top:10px;margin-top:6px;gap:10px;flex-wrap:wrap}
+.slabel b{font-style:italic;font-size:26px;font-weight:400}
+.ctl label{display:flex;justify-content:space-between;font-family:'Azeret Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin:14px 0 6px}
+.ctl input[type=range]{width:100%;accent-color:var(--accent)}
+.opts{display:flex;gap:6px;flex-wrap:wrap}
+.opts button{border:1px solid var(--ink);background:none;padding:5px 11px;font-size:13px}
+.opts button.on{background:var(--ink);color:var(--back)}
+.pal{display:flex;gap:6px;flex-wrap:wrap}
+.pal button{width:34px;height:34px;border-radius:50%;border:2px solid transparent}
+.pal button.on{border-color:var(--ink)}
+.btn{background:var(--ink);color:var(--back);border:0;padding:12px 18px;font-family:'Azeret Mono';font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.btn.alt{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+/* case */
+.case{background:linear-gradient(135deg,var(--wood),var(--wood2));padding:26px;border-radius:4px;box-shadow:0 30px 60px #0006}
+.case .glass{background:var(--back);padding:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px 14px;position:relative;box-shadow:inset 0 0 30px #0003}
+.case .glass::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,#fff6 0,transparent 30%,transparent 70%,#fff3 100%);pointer-events:none}
+.pinned{text-align:center;background:none;border:0;position:relative}
+.pinned svg{width:100%;height:auto}
+.pinned .tag{font-size:12px;font-style:italic;line-height:1.2}
+.pinned .tag small{display:block;font-family:'Azeret Mono';font-style:normal;font-size:9px;color:var(--dim)}
+.pinned .rm{position:absolute;right:0;top:0;background:none;border:0;opacity:0;font-size:16px}
+.pinned:hover .rm{opacity:.6}
+/* anatomy */
+.anat{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+.anat svg{width:100%;height:auto}
+.part{cursor:pointer;transition:opacity .2s}
+.lbl{font-family:'Azeret Mono';font-size:12px}
+.parts{display:grid;gap:8px}
+.parts button{text-align:left;border:0;border-bottom:1px solid #221a1222;background:none;padding:10px 0}
+.parts button b{font-weight:400;font-size:20px;display:block}
+.parts button span{font-size:14px;color:var(--dim);display:none;line-height:1.6;margin-top:4px}
+.parts button.on span{display:block}
+.parts button.on b{color:var(--accent)}
+/* life cycle */
+.life{text-align:center}
+.life svg{width:min(100%,760px);height:auto;margin:0 auto;display:block}
+.life input{width:min(100%,760px);accent-color:var(--accent)}
+.stages{display:flex;justify-content:space-between;max-width:760px;margin:6px auto 0;font-family:'Azeret Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.lt{max-width:58ch;margin:20px auto 0;line-height:1.7;font-size:18px;min-height:5em}
+@media(max-width:900px){.hatch,.anat{grid-template-columns:1fr}.case .glass{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">Lepidoptera<small>A CABINET OF WINGS · EST. 1904</small></div>
+ <nav><a href="#hatchery">The Hatchery</a><a href="#case">Specimen Case</a><a href="#anatomy">Anatomy</a><a href="#life">Metamorphosis</a><a href="index.html">Index ↗</a></nav>
+</header>
+
+<section data-view="hatchery"><div class="wrap">
+ <h2>Describe a <i>new species.</i></h2>
+ <p class="sub">Each butterfly is generated from a seed and a few genes. Adjust the wings, choose a pattern, name it, then pin it in the case. No real insects were harmed.</p>
+ <div class="hatch">
+  <div class="spec"><svg id="bf" viewBox="0 0 600 440"></svg><div class="slabel"><div><b id="latin"></b><div class="mono" style="font-size:11px;color:var(--dim)" id="meta"></div></div><div class="mono" style="font-size:11px">Nº <span id="num"></span></div></div></div>
+  <div class="ctl">
+   <label>Forewing reach <span id="v1"></span></label><input type="range" id="g1" min="0" max="100" value="55">
+   <label>Wing roundness <span id="v2"></span></label><input type="range" id="g2" min="0" max="100" value="40">
+   <label>Tails <span id="v3"></span></label><input type="range" id="g3" min="0" max="100" value="0">
+   <label>Pattern</label><div class="opts" id="pat"></div>
+   <label>Palette</label><div class="pal" id="pals"></div>
+   <div style="display:flex;gap:8px;margin-top:22px;flex-wrap:wrap"><button class="btn" id="rand">✦ Mutate</button><button class="btn alt" id="pinIt">Pin to case</button></div>
+  </div>
+ </div>
+</div></section>
+
+<section data-view="case" hidden><div class="wrap">
+ <h2>The specimen <i>case.</i></h2>
+ <p class="sub">Your pinned discoveries sit alongside the founder's originals. Click a specimen to take it back to the hatchery.</p>
+ <div class="case"><div class="glass" id="glass"></div></div>
+</div></section>
+
+<section data-view="anatomy" hidden><div class="wrap">
+ <h2>Anatomy of <i>a flutter.</i></h2>
+ <p class="sub">Hover or click a part.</p>
+ <div class="anat"><svg id="an" viewBox="0 0 600 440"></svg><div class="parts" id="parts"></div></div>
+</div></section>
+
+<section data-view="life" hidden><div class="wrap life">
+ <h2>Four lives <i>in one.</i></h2>
+ <p class="sub" style="margin:12px auto 26px">Drag the slider through a butterfly's life. It starts as an egg smaller than a pinhead and ends up about 30,000 times heavier as a caterpillar.</p>
+ <svg id="lc" viewBox="0 0 760 360"></svg>
+ <input type="range" id="lcr" min="0" max="100" value="0">
+ <div class="stages"><span>Egg</span><span>Larva</span><span>Pupa</span><span>Imago</span></div>
+ <div class="lt" id="lt"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'hatchery';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='case')caseUI()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+const PALS=[['#1e3a8a','#3aa0e6','#0b0b10','#e8f4ff'],['#e87a1e','#f2c040','#141010','#fff4d6'],['#6a1e7a','#e04aa0','#141010','#f7d8ec'],['#1a6a4a','#8ad06a','#101410','#e8f7d8'],['#8a1a1a','#e8483b','#1a1010','#ffe4d8'],['#e8e0cc','#c8a86a','#3a2a1a','#ffffff'],['#0b0b10','#2ad0c0','#050508','#9ff7ea']];
+const PAT=['Eyespots','Bands','Veins','Swallowtail','Glasswing','Speckled'];
+let G={s:1234,g1:55,g2:40,g3:0,pat:'Eyespots',pal:0};
+function rng(s){return()=>((s=(s*16807)%2147483647)/2147483647)}
+const GEN=['Papilio','Morpho','Heliconius','Vanessa','Parnassius','Ornithoptera','Caligo','Danaus','Lycaena','Graphium','Colias','Nymphalis'],EP=['aurelia','nocturna','pulchra','ignea','azurea','fantasma','regalis','umbrosa','crepuscula','vitrea','ferruginea','lunaris','magnifica','minor','occidentalis'];
+function wings(g){const r=rng(g.s),reach=.7+g.g1/100*.6,round=g.g2/100,tail=g.g3/100;
+ const fw=`M300 190 C${300+60*reach} ${120-60*reach} ${300+170*reach} ${40-20*reach} ${300+250*reach} ${60-30*reach} C${300+(270-60*round)*reach} ${100+40*round} ${300+(230-20*round)*reach} ${170+30*round} ${300+(150+30*round)*reach} ${205+10*round} C${300+80} 215 ${310} 205 300 200Z`;
+ const hw=`M302 210 C${360+40*round} 210 ${440+30*round} ${220+10*round} ${450+20*round} ${270+20*round} C${455+10*round} ${320+20*round} ${420} ${360+10*round} ${370-10*tail*0} ${365} ${tail>.05?`L${350} ${365+tail*90} L${335} ${360+tail*80}`:''} C${320} 340 ${305} 280 302 210Z`;
+ return{fw,hw}}
+function mirror(d){return d.replace(/(-?[\d.]+) (-?[\d.]+)/g,(m,x,y)=>`${(600-parseFloat(x)).toFixed(1)} ${y}`)}
+function butterfly(g,uid='b',label=true){const{fw,hw}=wings(g);const P=PALS[g.pal],r=rng(g.s+7);const id=uid+g.s;let pat='';
+ const wing=(d,side)=>d;
+ const clipF=`<clipPath id="${id}w"><path d="${fw}"/><path d="${hw}"/><path d="${mirror(fw)}"/><path d="${mirror(hw)}"/></clipPath>`;
+ let base=`<rect width="600" height="440" fill="url(#${id}g)"/>`;
+ if(g.pat==='Eyespots'){const n=2+(r()*2|0);for(let k=0;k<n;k++){const x=360+r()*120,y=150+r()*170,rr=14+r()*18;[x,600-x].forEach(xx=>pat+=`<circle cx="${xx}" cy="${y}" r="${rr}" fill="${P[2]}"/><circle cx="${xx}" cy="${y}" r="${rr*.72}" fill="${P[1]}"/><circle cx="${xx}" cy="${y}" r="${rr*.4}" fill="${P[2]}"/><circle cx="${xx-rr*.12}" cy="${y-rr*.14}" r="${rr*.12}" fill="${P[3]}"/>`)}}
+ if(g.pat==='Bands'){for(let k=0;k<3;k++){const a=-.4+k*.35+r()*.1,w=14+r()*20;pat+=`<path d="M300 200 L${300+Math.cos(a)*400} ${200+Math.sin(a)*400}" stroke="${k%2?P[3]:P[1]}" stroke-width="${w}"/><path d="M300 200 L${300-Math.cos(a)*400} ${200+Math.sin(a)*400}" stroke="${k%2?P[3]:P[1]}" stroke-width="${w}"/>`}}
+ if(g.pat==='Swallowtail'){pat+=`<rect x="0" y="0" width="600" height="440" fill="${P[1]}" opacity=".0"/>`;for(let k=0;k<6;k++){const a=-1.2+k*.32;pat+=`<path d="M300 200 L${300+Math.cos(a)*420} ${200+Math.sin(a)*420} M300 200 L${300-Math.cos(a)*420} ${200+Math.sin(a)*420}" stroke="${P[2]}" stroke-width="${k%2?4:16}"/>`}pat+=`<circle cx="${360}" cy="${330}" r="12" fill="${P[0]}"/><circle cx="${240}" cy="${330}" r="12" fill="${P[0]}"/>`}
+ if(g.pat==='Speckled')for(let k=0;k<160;k++){const x=300+(r()-.5)*560,y=40+r()*360;pat+=`<circle cx="${x}" cy="${y}" r="${1+r()*3}" fill="${r()<.5?P[3]:P[2]}" opacity=".8"/>`}
+ // veins always
+ let veins='';for(let k=0;k<9;k++){const a=-1.3+k*.33;veins+=`<path d="M300 200 Q${300+Math.cos(a)*120} ${200+Math.sin(a)*80} ${300+Math.cos(a)*330} ${200+Math.sin(a)*330} M300 200 Q${300-Math.cos(a)*120} ${200+Math.sin(a)*80} ${300-Math.cos(a)*330} ${200+Math.sin(a)*330}" stroke="${P[2]}" stroke-width="${g.pat==='Veins'?3.5:1.2}" fill="none" opacity="${g.pat==='Veins'?.9:.45}"/>`}
+ const glass=g.pat==='Glasswing';
+ let s=`<defs>${clipF}<radialGradient id="${id}g" cx="300" cy="200" r="330" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${glass?'#ffffff':P[0]}" stop-opacity="${glass?.15:1}"/><stop offset=".7" stop-color="${glass?'#ffffff':P[1]}" stop-opacity="${glass?.25:1}"/><stop offset="1" stop-color="${P[2]}"/></radialGradient></defs>`;
+ s+=`<g clip-path="url(#${id}w)">${base}${pat}${veins}<path d="${fw}" fill="none" stroke="${P[2]}" stroke-width="22"/><path d="${mirror(fw)}" fill="none" stroke="${P[2]}" stroke-width="22"/><path d="${hw}" fill="none" stroke="${P[2]}" stroke-width="18"/><path d="${mirror(hw)}" fill="none" stroke="${P[2]}" stroke-width="18"/>`;
+ // margin dots
+ const md=rng(g.s+3);for(let k=0;k<22;k++){const a=-1.4+k*.13;const x=300+Math.cos(a)*(200+md()*60),y=200+Math.sin(a)*(170+md()*60);s+=`<circle cx="${x}" cy="${y}" r="2.6" fill="${P[3]}"/><circle cx="${600-x}" cy="${y}" r="2.6" fill="${P[3]}"/>`}
+ s+=`</g>`;
+ s+=`<path d="${fw}" fill="none" stroke="${P[2]}" stroke-width="1.5"/><path d="${mirror(fw)}" fill="none" stroke="${P[2]}" stroke-width="1.5"/>`;
+ // body
+ s+=`<ellipse cx="300" cy="200" rx="9" ry="16" fill="#1a1410"/><ellipse cx="300" cy="248" rx="8" ry="44" fill="#231a12"/>${[...Array(6)].map((_,k)=>`<path d="M293 ${218+k*12} Q300 ${222+k*12} 307 ${218+k*12}" stroke="#4a3a2a" fill="none"/>`).join('')}<circle cx="300" cy="180" r="8" fill="#1a1410"/><path d="M297 174 Q280 120 262 108 M303 174 Q320 120 338 108" stroke="#1a1410" stroke-width="2" fill="none"/><circle cx="262" cy="108" r="4" fill="#1a1410"/><circle cx="338" cy="108" r="4" fill="#1a1410"/>`;
+ if(label)s+=`<line x1="300" y1="150" x2="300" y2="200" stroke="#b8b8b8" stroke-width="2"/><circle cx="300" cy="150" r="4" fill="#c8a040"/>`;
+ return s}
+function latin(g){const r=rng(g.s+11);return GEN[r()*GEN.length|0]+' '+EP[r()*EP.length|0]}
+function ui(){['g1','g2','g3'].forEach((k,i)=>{document.getElementById(k).value=G[k];document.getElementById('v'+(i+1)).textContent=G[k]});
+ document.getElementById('pat').innerHTML=PAT.map(p=>`<button class="${p===G.pat?'on':''}" data-p="${p}">${p}</button>`).join('');
+ document.getElementById('pals').innerHTML=PALS.map((p,i)=>`<button class="${i===G.pal?'on':''}" data-c="${i}" style="background:conic-gradient(${p[0]} 0 33%,${p[1]} 0 66%,${p[2]} 0)"></button>`).join('');
+ document.getElementById('bf').innerHTML=butterfly(G,'main');const r=rng(G.s+5);document.getElementById('latin').textContent=latin(G);document.getElementById('num').textContent=String(G.s%10000).padStart(4,'0');
+ document.getElementById('meta').textContent=`♂ · wingspan ${Math.round(60+G.g1*.6)} mm · coll. ${['Borneo','Peru','Madagascar','Queensland','Costa Rica','Sumatra'][r()*6|0]}, ${1904+Math.floor(r()*120)}`}
+['g1','g2','g3'].forEach(k=>document.getElementById(k).oninput=e=>{G[k]=+e.target.value;ui()});
+document.getElementById('pat').onclick=e=>{const p=e.target.dataset.p;if(p){G.pat=p;ui()}};
+document.getElementById('pals').onclick=e=>{const c=e.target.dataset.c;if(c!=null){G.pal=+c;ui()}};
+document.getElementById('rand').onclick=()=>{G={s:Math.floor(Math.random()*2e9)+1,g1:Math.round(20+Math.random()*80),g2:Math.round(Math.random()*100),g3:Math.random()<.35?Math.round(40+Math.random()*60):0,pat:PAT[Math.random()*PAT.length|0],pal:Math.random()*PALS.length|0};ui()};
+let MINE=store.get('lp-case',[]);
+document.getElementById('pinIt').onclick=e=>{MINE.unshift({...G});MINE=MINE.slice(0,10);store.set('lp-case',MINE);e.target.textContent='✓ Pinned';setTimeout(()=>e.target.textContent='Pin to case',1200)};
+ui();
+
+/* case */
+const HOUSE=[{s:777,g1:80,g2:30,g3:0,pat:'Eyespots',pal:0},{s:4242,g1:40,g2:70,g3:80,pat:'Swallowtail',pal:5},{s:31337,g1:60,g2:20,g3:0,pat:'Bands',pal:1},{s:9001,g1:70,g2:60,g3:0,pat:'Glasswing',pal:6},{s:1812,g1:30,g2:90,g3:0,pat:'Speckled',pal:3},{s:2024,g1:95,g2:10,g3:0,pat:'Veins',pal:2}];
+function caseUI(){const all=[...MINE.map(m=>[m,1]),...HOUSE.map(h=>[h,0])];document.getElementById('glass').innerHTML=all.map(([g,m],i)=>`<button class="pinned" data-i="${i}"><svg viewBox="140 40 320 360">${butterfly(g,'c'+i)}</svg><div class="tag">${latin(g)}<small>${m?'Your specimen':'Coll. H. Bates, 1904'}</small></div>${m?`<span class="rm" data-rm="${i}">×</span>`:''}</button>`).join('');document.getElementById('glass')._all=all}
+document.getElementById('glass').onclick=e=>{const rm=e.target.dataset.rm;if(rm!=null){MINE.splice(+rm,1);store.set('lp-case',MINE);caseUI();return}const b=e.target.closest('.pinned');if(!b)return;G={...document.getElementById('glass')._all[+b.dataset.i][0]};ui();go('hatchery')};
+
+/* anatomy */
+const PARTS=[['Forewing','fw','The larger front wings do most of the lifting. Butterflies beat them just 5–12 times a second, while a mosquito manages 500.'],['Hindwing','hw','They help with steering and gliding. On swallowtails they end in "tails", which may fool birds into attacking the wrong end.'],['Scales','sc','The name Lepidoptera means "scale wing". Each colourful tile is a flattened hair, and some make colour by bending light rather than using pigment.'],['Antennae','an','These are clubbed at the tip, which is how you tell a butterfly from a moth. They smell, balance and sense time of day.'],['Proboscis','pr','A drinking straw made of two halves zipped together. It stays coiled like a watch spring until the butterfly needs it.'],['Thorax','th','The engine room. It holds the flight muscles, with all six legs and all four wings attached here.'],['Abdomen','ab','This holds the digestive and reproductive organs. It is also where males carry scent scales for courtship.']];let part=null;
+function anat(){const g={s:777,g1:65,g2:40,g3:40,pat:'Eyespots',pal:1};let s=butterfly(g,'an',false);
+ s+=`<path d="M300 186 q-14 10 -4 24 q10 10 20 0" stroke="#1a1410" stroke-width="2" fill="none" transform="translate(-6 -4)"/>`;
+ const hot={fw:[470,90],hw:[430,320],sc:[160,150],an:[338,108],pr:[285,196],th:[300,200],ab:[300,270]},tx={fw:[520,60],hw:[500,380],sc:[40,80],an:[380,40],pr:[180,240],th:[80,210],ab:[160,330]};
+ PARTS.forEach(([n,k])=>{const on=part===k;const[a,b]=hot[k],[c,d]=tx[k];s+=`<g class="part" data-k="${k}" opacity="${part&&!on?.35:1}"><line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="${on?'#6a3a8a':'#221a12'}" stroke-width="${on?2:1}"/><circle cx="${a}" cy="${b}" r="${on?6:4}" fill="${on?'#6a3a8a':'#221a12'}"/><rect x="${c-4}" y="${d-14}" width="${n.length*8.4+8}" height="20" fill="#f1ebdd"/><text class="lbl" x="${c}" y="${d}" fill="${on?'#6a3a8a':'#221a12'}">${n.toUpperCase()}</text></g>`});
+ document.getElementById('an').innerHTML=s;document.getElementById('parts').innerHTML=PARTS.map(([n,k,t])=>`<button class="${part===k?'on':''}" data-k="${k}"><b>${n}</b><span>${t}</span></button>`).join('')}
+['an','parts'].forEach(id=>{const el=document.getElementById(id);el.addEventListener('click',e=>{const p=e.target.closest('[data-k]');if(p){part=part===p.dataset.k?null:p.dataset.k;anat()}});el.addEventListener('mouseover',e=>{const p=e.target.closest('.part');if(p&&part!==p.dataset.k){part=p.dataset.k;anat()}})});anat();
+
+/* life cycle */
+const LT=['<b>Egg.</b> Laid singly on the underside of exactly the right leaf. A monarch lays only on milkweed. It hatches after about four days.','<b>Larva.</b> The caterpillar eats its own eggshell and then eats almost nonstop. It moults five times and grows about 2,000-fold in two weeks.','<b>Pupa.</b> Inside the chrysalis, most of the caterpillar dissolves into a soup of cells. Small clusters called imaginal discs rebuild it as a butterfly.','<b>Imago.</b> The adult pumps fluid into its crumpled wings, waits an hour for them to harden, then flies off. Adults may live for only two weeks.'];
+function lc(){const v=+document.getElementById('lcr').value/100;const st=Math.min(3,Math.floor(v*4)),f=v*4-st;let s=`<path d="M0 300 Q380 260 760 300 L760 360 L0 360Z" fill="#c8d8a8"/><path d="M60 300 Q200 120 380 90 Q560 110 700 300" stroke="#5a7a3a" stroke-width="10" fill="none"/>`;
+ for(let k=0;k<5;k++)s+=`<path d="M${150+k*120} ${250-Math.sin(k)*40} q40 -60 90 -20 q-40 40 -90 20Z" fill="#7aa04a" opacity="${st===1?.6+.4*(1-f):1}"/>`;
+ if(st===0)s+=`<ellipse cx="380" cy="${230}" rx="${14+f*4}" ry="${18+f*4}" fill="#f0e6c8" stroke="#b8a878" stroke-width="2"/>${[...Array(8)].map((_,k)=>`<path d="M${370+k*2.6} 214 v32" stroke="#d8c8a0" stroke-width="1"/>`).join('')}`;
+ if(st===1){const L=40+f*140,cx=380;s+=[...Array(10)].map((_,k)=>`<circle cx="${cx-L/2+k*L/9}" cy="${230+Math.sin(k*.9+f*20)*4}" r="${8+f*10}" fill="${k%2?'#f2e6b0':'#1a1a1a'}" stroke="#1a1a1a" stroke-width="2"/>`).join('')+`<rect x="${cx-L/2-6}" y="${226}" width="${L+12}" height="${4+f*4}" fill="#e8c020" opacity=".7"/>`}
+ if(st===2)s+=`<path d="M380 110 L380 140" stroke="#5a7a3a" stroke-width="3"/><path d="M380 140 C${340-f*6} 160 ${340-f*6} 240 380 ${270} C${420+f*6} 240 ${420+f*6} 160 380 140Z" fill="${f>.7?'#3a3a4a':'#5aa06a'}" opacity="${.9}" stroke="#c8a040" stroke-width="2"/>${[...Array(5)].map((_,k)=>`<circle cx="${365+k*7}" cy="${170}" r="2" fill="#e8c040"/>`).join('')}${f>.6?`<path d="M360 190 q20 30 40 0" stroke="#e87a1e" stroke-width="${(f-.6)*20}" fill="none" opacity=".7"/>`:''}`;
+ if(st===3){const g={s:1929,g1:60,g2:40,g3:0,pat:'Veins',pal:1};const sc=.35+f*.35;s+=`<g transform="translate(${380-300*sc} ${200-200*sc-f*40}) scale(${sc})">${butterfly(g,'lc',false)}</g>`}
+ document.getElementById('lc').innerHTML=s;document.getElementById('lt').innerHTML=LT[st]}
+document.getElementById('lcr').oninput=lc;lc();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

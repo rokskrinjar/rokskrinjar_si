@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap');
+:root{--e-bg:#ffffff;--e-card:#fff;--e-ink:#161a33;--e-mu:#5b607a;--e-ln:#e6e8f2;--e-acc:#2340d8;--e-acc2:#ff8a3d;--e-acc-ink:#fff;--e-soft:#f1f3fd;--e-r:20px;--e-font:'DM Sans',system-ui,sans-serif;--e-head:'DM Serif Display',Georgia,serif;--e-hw:400;--e-hl:-.01em;--e-cta-bg:#2340d8;--e-cta-btn:#ff8a3d;--e-cta-btn-ink:#161a33}
+.e-hero.center{background:radial-gradient(60% 80% at 50% 0%,#e6eaff 0,transparent 70%)}
+.e-hero.center .e-por{width:200px;height:200px;border:6px solid #fff;box-shadow:0 0 0 3px var(--e-acc2),0 20px 40px rgba(35,64,216,.2)}
+.e-hero .e-name{font-size:clamp(44px,6.4vw,92px);max-width:16ch;margin-inline:auto}
+.e-hero .e-name::first-line{color:var(--e-ink)}
+.e-kick{color:var(--e-acc2);font-weight:700}
+.e-btn{border-radius:999px}
+.e-why.numbered .n{color:var(--e-acc2);font-family:var(--e-head)}
+.e-stats{border:0;background:var(--e-soft);border-radius:20px}.e-stats>div+div{border-color:#dfe3fa}
+.e-tl.cards>div{background:var(--e-soft);border:0}
+.e-sh h2{font-size:clamp(34px,4vw,56px)}

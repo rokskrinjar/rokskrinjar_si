@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rosa — the Cathedral of Light</title>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root { --stone:#1a1714; --stone2:#2a2521; --gold:#d8b25a; --parch:#e9dfc9; --ruby:#b3122e; --sap:#1b3fa0; --emer:#127a4a; --amber:#e8a019; --ame:#6a2a9a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--stone); color:var(--parch); font-family:'Cardo',serif; font-size:18px; overflow-x:hidden; }
+  body::before { content:''; position:fixed; inset:0; pointer-events:none; opacity:.25; z-index:0; background-image:repeating-linear-gradient(0deg,#0000 0 58px,#0006 58px 60px),repeating-linear-gradient(90deg,#0000 0 118px,#0004 118px 120px); }
+  a { color:inherit; text-decoration:none; }
+  .black { font-family:'Pirata One',cursive; }
+  header { position:relative; z-index:5; text-align:center; padding:26px 20px 6px; }
+  header h1 { font-family:'Pirata One'; font-weight:400; font-size:clamp(2.6rem,6vw,4.6rem); color:var(--gold); text-shadow:0 0 30px #d8b25a44; letter-spacing:.04em; }
+  nav { position:relative; z-index:5; display:flex; justify-content:center; gap:4px; flex-wrap:wrap; padding:10px; }
+  nav a { padding:9px 18px; font-size:15px; letter-spacing:.14em; text-transform:uppercase; border:1px solid #d8b25a44; border-radius:40px 40px 4px 4px; background:#0004; }
+  nav a.on { background:var(--gold); color:var(--stone); }
+  [data-view] { position:relative; z-index:2; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:fade 1s both; }
+  @keyframes fade { from { opacity:0; } }
+  /* nave */
+  .nave { display:grid; grid-template-columns:1.2fr 1fr; gap:4vw; align-items:center; padding:2vh 6vw 8vh; }
+  .windowWrap { position:relative; aspect-ratio:1; max-width:640px; width:100%; justify-self:center; }
+  .windowWrap svg { width:100%; height:100%; transition:filter 1s; }
+  .rays { position:absolute; left:10%; right:-40%; top:40%; height:160%; pointer-events:none; background:conic-gradient(from 200deg at 20% 0%,transparent 0 5deg,#ffd9a018 5deg 9deg,transparent 9deg 14deg,#b8d0ff14 14deg 18deg,transparent 18deg 24deg,#ffb0c014 24deg 27deg,transparent 27deg); filter:blur(6px); mix-blend-mode:screen; transition:opacity 1s, transform 1s; }
+  .nave h2 { font-family:'Pirata One'; font-weight:400; font-size:clamp(2.2rem,4vw,3.4rem); color:var(--gold); line-height:1; }
+  .nave p { line-height:1.8; margin:1.2rem 0; color:#d6ccb6; }
+  .sun label { display:block; font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+  .sun input { width:100%; accent-color:var(--gold); }
+  .sun .time { font-family:'Pirata One'; font-size:2rem; margin-top:6px; }
+  .floor { height:90px; margin-top:20px; border-radius:8px; background:#2a2521; position:relative; overflow:hidden; }
+  .floor i { position:absolute; width:90px; height:60px; border-radius:50%; filter:blur(14px); mix-blend-mode:screen; transition:all 1s; }
+  /* designer */
+  .design { display:grid; grid-template-columns:1fr 340px; gap:4vw; padding:2vh 6vw 8vh; align-items:start; }
+  .rose { aspect-ratio:1; max-width:680px; width:100%; justify-self:center; filter:drop-shadow(0 0 40px #d8b25a22); }
+  .rose .cell { cursor:pointer; transition:fill .3s, opacity .3s; stroke:#0d0b0a; stroke-width:3; }
+  .rose .cell:hover { opacity:.8; }
+  .panel { background:#0006; border:1px solid #d8b25a44; border-radius:14px; padding:22px; }
+  .panel h3 { font-family:'Pirata One'; font-weight:400; font-size:1.8rem; color:var(--gold); }
+  .glass { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:14px 0; }
+  .glass button { aspect-ratio:1; border-radius:50%; border:3px solid #0d0b0a; cursor:pointer; box-shadow:inset -4px -6px 10px #0006, inset 4px 4px 8px #fff4; }
+  .glass button.on { outline:3px solid var(--gold); outline-offset:3px; }
+  .panel label { display:block; margin:14px 0 6px; font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); }
+  .panel input[type=range] { width:100%; accent-color:var(--gold); }
+  .btn { font-family:'Cardo'; font-size:15px; letter-spacing:.1em; padding:10px 16px; border:1px solid var(--gold); background:transparent; color:var(--gold); cursor:pointer; border-radius:30px; margin:4px 4px 0 0; }
+  .btn:hover { background:var(--gold); color:var(--stone); }
+  /* windows gallery */
+  .wins { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:30px; padding:2vh 6vw 8vh; }
+  .win { text-align:center; cursor:pointer; }
+  .win .arch { aspect-ratio:1/1.8; border-radius:999px 999px 6px 6px; overflow:hidden; border:8px solid #3a332d; box-shadow:0 0 0 2px #0d0b0a, 0 20px 40px #000a; position:relative; }
+  .win .arch svg { width:100%; height:100%; display:block; transition:filter .6s; filter:brightness(.7) saturate(.8); }
+  .win:hover .arch svg { filter:brightness(1.25) saturate(1.2); }
+  .win h3 { font-family:'Pirata One'; font-weight:400; font-size:1.7rem; color:var(--gold); margin-top:14px; }
+  .win p { font-style:italic; font-size:15px; color:#bdb29a; }
+  .story { padding:0 6vw 8vh; max-width:900px; margin:0 auto; text-align:center; line-height:1.9; font-size:1.1rem; min-height:4em; }
+  /* carillon */
+  .bells { padding:2vh 6vw 8vh; text-align:center; }
+  .bells .row { display:flex; justify-content:center; gap:10px; align-items:flex-start; flex-wrap:wrap; margin:30px 0; }
+  .bell { cursor:pointer; transform-origin:50% 0; transition:transform .1s; display:flex; flex-direction:column; align-items:center; }
+  .bell svg { display:block; filter:drop-shadow(0 8px 12px #0008); }
+  .bell b { font-family:'Pirata One'; color:var(--gold); font-weight:400; margin-top:6px; }
+  .bell.ring { animation:swing .9s ease-out; }
+  @keyframes swing { 20% { transform:rotate(14deg); } 45% { transform:rotate(-10deg); } 70% { transform:rotate(5deg); } 100% { transform:none; } }
+  .tunes button { margin:4px; }
+  @media (max-width:900px){ .nave,.design { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header><div style="letter-spacing:.4em;font-size:12px;color:#bdb29a">✠ ANNO DOMINI MCCXLVIII ✠</div><h1>Cathedral of Light</h1></header>
+<nav><a href="#nave">The Nave</a><a href="#design">Glazier's Table</a><a href="#windows">The Windows</a><a href="#bells">The Carillon</a><a href="index.html">Depart ↩</a></nav>
+
+<section data-view="nave">
+  <div class="nave">
+    <div class="windowWrap"><svg viewBox="-300 -300 600 600" id="bigRose"></svg><div class="rays" id="rays"></div></div>
+    <div><h2>Where light becomes colour</h2><p>For seven hundred years, the great rose window has turned the morning into jewels. Slide the sun across the sky and watch the nave change — the glass is dull at dawn, blazing at noon, and softly burning at vespers.</p>
+      <div class="sun"><label>Hour of the day</label><input type="range" id="hour" min="5" max="21" step=".1" value="11"><div class="time" id="timeL"></div></div>
+      <div class="floor" id="floor"></div><p style="font-size:14px;font-style:italic;color:#9c927e;margin-top:8px">The stone floor, where the coloured light falls.</p></div>
+  </div>
+</section>
+
+<section data-view="design" hidden>
+  <div class="design">
+    <svg class="rose" viewBox="-300 -300 600 600" id="rose"></svg>
+    <div class="panel"><h3>The Glazier's Table</h3><p style="font-size:15px;color:#bdb29a;line-height:1.6">Choose a glass, then click any pane. The pattern repeats around the circle.</p>
+      <div class="glass" id="glass"></div>
+      <label>Symmetry · <span id="symV"></span>-fold</label><input type="range" id="sym" min="4" max="16" value="12">
+      <label>Rings · <span id="ringV"></span></label><input type="range" id="rings" min="2" max="5" value="4">
+      <button class="btn" id="randomize">✦ Inspire me</button><button class="btn" id="fill">Fill all</button><button class="btn" id="dlRose">⤓ Save SVG</button></div>
+  </div>
+</section>
+
+<section data-view="windows" hidden>
+  <div class="wins" id="wins"></div><div class="story" id="story"><i>Choose a window to hear its story.</i></div>
+</section>
+
+<section data-view="bells" hidden>
+  <div class="bells"><h2 class="black" style="font-size:3rem;color:var(--gold);font-weight:400">The Carillon</h2><p style="color:#bdb29a">Click a bell — or use the keys <b>A S D F G H J K</b>. Ring the old tunes below.</p>
+    <div class="row" id="bellRow"></div><div class="tunes"><button class="btn" data-tune="westminster">Westminster Quarters</button><button class="btn" data-tune="peal">Change-ringing peal</button><button class="btn" data-tune="joy">Ode to Joy</button></div></div>
+</section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'nave';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+const GL=['#b3122e','#1b3fa0','#127a4a','#e8a019','#6a2a9a','#2a8fb8','#e9dfc9','#d8b25a'];
+/* rose window geometry: rings of cells, N-fold */
+function roseCells(N,rings){const cells=[];const R=[40,95,150,205,260,290];for(let r=0;r<rings;r++){const r0=R[r],r1=R[r+1]-(r===rings-1?0:6);const n=r===0?N/2|0||2:N*(r>1?2:1);
+ for(let k=0;k<n;k++){const a0=k/n*2*Math.PI,a1=(k+1)/n*2*Math.PI,pad=.02;const P=(a,rr)=>[Math.cos(a)*rr,Math.sin(a)*rr];
+  let d;if(r===0){const [x1,y1]=P(a0,r0),[x2,y2]=P(a1,r0);d=`M0 0 L${x1} ${y1} A${r0} ${r0} 0 0 1 ${x2} ${y2}Z`}
+  else if(r%2){const am=(a0+a1)/2;const [x1,y1]=P(a0+pad,r0),[x2,y2]=P(a1-pad,r0),[x3,y3]=P(am,r1);d=`M${x1} ${y1} A${r0} ${r0} 0 0 1 ${x2} ${y2} Q${P(a1,r1*.92).join(' ')} ${x3} ${y3} Q${P(a0,r1*.92).join(' ')} ${x1} ${y1}Z`}
+  else{const [x1,y1]=P(a0+pad,r0),[x2,y2]=P(a1-pad,r0),[x3,y3]=P(a1-pad,r1),[x4,y4]=P(a0+pad,r1);d=`M${x1} ${y1} A${r0} ${r0} 0 0 1 ${x2} ${y2} L${x3} ${y3} A${r1} ${r1} 0 0 0 ${x4} ${y4}Z`}
+  cells.push({d,r,k,sym:k%(r===0?Math.max(1,N/2|0):N/(r>1?1:1)*1)})}}return cells}
+function roseSVG(N,rings,colorOf,id='g'){const cells=roseCells(N,rings);return `<defs><radialGradient id="${id}glow"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="${id}tex"><feTurbulence baseFrequency=".05" numOctaves="3" seed="7"/><feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .18 0"/><feComposite in2="SourceGraphic" operator="in"/></filter></defs>
+ <circle r="298" fill="#0d0b0a"/>${cells.map((c,i)=>`<path class="cell" data-i="${i}" d="${c.d}" fill="${colorOf(c,i)}"/>`).join('')}<g filter="url(#${id}tex)">${cells.map(c=>`<path d="${c.d}" fill="#fff"/>`).join('')}</g><circle r="298" fill="none" stroke="#3a332d" stroke-width="10"/><circle r="30" fill="${GL[7]}" stroke="#0d0b0a" stroke-width="4"/><circle r="298" fill="url(#${id}glow)" pointer-events="none"/>`}
+
+/* nave */
+const naveCol=(c,i)=>GL[[0,1,3,1,0,2,4,1][ (c.r*3+c.k)%8 ]];
+document.getElementById('bigRose').innerHTML=roseSVG(12,5,naveCol,'n');
+function sun(){const h=+hour.value;const noon=1-Math.abs(h-13)/8;const warm=h<8||h>18;const br=.35+noon*1.1;document.getElementById('bigRose').style.filter=`brightness(${br}) saturate(${.6+noon*.8}) ${warm?'sepia(.35)':''} drop-shadow(0 0 ${noon*50}px #ffd9a066)`;
+ const rays=document.getElementById('rays');rays.style.opacity=Math.max(0,noon);rays.style.transform=`rotate(${(h-13)*4}deg)`;
+ document.getElementById('timeL').textContent=`${Math.floor(h)}:${String(Math.round(h%1*60)).padStart(2,'0')} — ${h<7?'Lauds':h<9?'Prime':h<12?'Terce':h<15?'Sext':h<17?'None':h<19?'Vespers':'Compline'}`;
+ const fl=document.getElementById('floor');fl.innerHTML=GL.slice(0,6).map((c,i)=>`<i style="background:${c};left:${10+i*14+(h-13)*3}%;top:${20+Math.sin(i)*14}px;opacity:${Math.max(0,noon)*.9}"></i>`).join('')}
+hour.oninput=sun;sun();
+
+/* designer */
+let N=12,RINGS=4,paint=0;const cols={};
+document.getElementById('glass').innerHTML=GL.map((c,i)=>`<button data-g="${i}" style="background:radial-gradient(circle at 35% 30%,#fff6,${c} 50%)" class="${i?'':'on'}" title="glass"></button>`).join('');
+document.getElementById('glass').onclick=e=>{const g=e.target.dataset.g;if(g==null)return;paint=+g;document.querySelectorAll('#glass button').forEach(b=>b.classList.toggle('on',b===e.target))};
+const key=(c)=>c.r+':'+(c.k%(c.r===0?1:2));const defaultCol=c=>GL[[1,0,3,2,4][c.r%5]];
+function drawRose(){document.getElementById('symV').textContent=N;document.getElementById('ringV').textContent=RINGS;const cells=roseCells(N,RINGS);
+ document.getElementById('rose').innerHTML=roseSVG(N,RINGS,c=>cols[key(c)]!=null?GL[cols[key(c)]]:(c.r%2?defaultCol(c):GL[(c.k%2?1:0)+c.r*2%5]),'d')}
+document.getElementById('rose').addEventListener('click',e=>{const p=e.target.closest('.cell');if(!p)return;const c=roseCells(N,RINGS)[p.dataset.i];cols[key(c)]=paint;drawRose();chime(440*Math.pow(2,paint/12),.6)});
+sym.oninput=()=>{N=+sym.value;drawRose()};rings.oninput=()=>{RINGS=+rings.value;drawRose()};
+document.getElementById('randomize').onclick=()=>{for(let r=0;r<5;r++)for(let k=0;k<N;k++)cols[r+':'+k]=[0,1,2,3,4,5,7][Math.random()*7|0];drawRose()};
+document.getElementById('fill').onclick=()=>{for(let r=0;r<5;r++)for(let k=0;k<N;k++)cols[r+':'+k]=paint;drawRose()};
+document.getElementById('dlRose').onclick=()=>{const s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="-300 -300 600 600">${document.getElementById('rose').innerHTML}</svg>`;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'image/svg+xml'}));a.download='rose-window.svg';a.click()};
+drawRose();
+
+/* lancet windows */
+function lancet(seed,palette,motif){let r=seed;const rnd=()=>((r=(r*9301+49297)%233280)/233280);let s=`<rect width="200" height="360" fill="#0d0b0a"/>`;
+ for(let y=0;y<360;y+=30)for(let x=0;x<200;x+=25){const c=palette[(Math.floor(rnd()*palette.length))];s+=`<path d="M${x+1} ${y+1} L${x+24} ${y+1+rnd()*4} L${x+24} ${y+29} L${x+1} ${y+29-rnd()*4}Z" fill="${c}" stroke="#0d0b0a" stroke-width="2"/>`}
+ s+=motif;return `<svg viewBox="0 0 200 360" preserveAspectRatio="xMidYMid slice">${s}<rect width="200" height="360" fill="url(#lg${seed})"/><defs><linearGradient id="lg${seed}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".25"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs></svg>`}
+const WINS=[['The Tree of Jesse',['#1b3fa0','#2a5ac8','#b3122e','#127a4a'],`<path d="M100 340 L100 60" stroke="#e8a019" stroke-width="10"/>${[...Array(5)].map((_,i)=>`<circle cx="${i%2?135:65}" cy="${280-i*50}" r="22" fill="#e9dfc9" stroke="#0d0b0a" stroke-width="3"/>`).join('')}`,'Glazed in 1251 by a family of glassmakers from Chartres. The blue — made with cobalt from a mine now lost — has never been reproduced.'],
+['The Creation',['#6a2a9a','#1b3fa0','#e8a019','#2a8fb8'],`<circle cx="100" cy="110" r="46" fill="#e8a019" stroke="#0d0b0a" stroke-width="4"/><circle cx="100" cy="110" r="20" fill="#e9dfc9"/><path d="M20 280 Q100 220 180 280" stroke="#127a4a" stroke-width="16" fill="none"/>`,'Seven panels for seven days. The sun at the top catches the first light of every summer solstice, precisely at 6:12.'],
+['Saint Catherine\'s Wheel',['#b3122e','#8a0f24','#e8a019','#1b3fa0'],`<circle cx="100" cy="180" r="60" fill="none" stroke="#e9dfc9" stroke-width="8"/>${[...Array(8)].map((_,i)=>`<line x1="100" y1="180" x2="${100+Math.cos(i*.785)*60}" y2="${180+Math.sin(i*.785)*60}" stroke="#e9dfc9" stroke-width="5"/>`).join('')}`,'Shattered in a storm of 1703 and rebuilt from the fragments, which is why no two red panes quite match.'],
+['The Harvest',['#127a4a','#e8a019','#5a8a2a','#b3122e'],`${[...Array(6)].map((_,i)=>`<path d="M${40+i*24} 340 Q${40+i*24} 200 ${50+i*24} 150" stroke="#e8a019" stroke-width="5" fill="none"/><ellipse cx="${50+i*24}" cy="150" rx="7" ry="18" fill="#e8a019" stroke="#0d0b0a" stroke-width="2"/>`).join('')}`,'Donated by the bakers\' guild in exchange for the right to sell bread on the cathedral steps. They still do, on Saturdays.']];
+document.getElementById('wins').innerHTML=WINS.map(([n,p,m,s],i)=>`<div class="win" data-w="${i}"><div class="arch">${lancet(i*13+4,p,m)}</div><h3>${n}</h3><p>${['North aisle','Apse','South transept','West front'][i]}</p></div>`).join('');
+document.getElementById('wins').onclick=e=>{const w=e.target.closest('.win');if(!w)return;const s=document.getElementById('story');s.innerHTML=`<h3 class="black" style="font-size:2rem;color:var(--gold);font-weight:400">${WINS[w.dataset.w][0]}</h3>${WINS[w.dataset.w][3]}`;chime(330,1.5)};
+
+/* carillon */
+let AC;function chime(f,dur=3){try{AC=AC||new AudioContext();const t=AC.currentTime;const master=AC.createGain();master.gain.value=.22;master.connect(AC.destination);
+ [[1,1],[2.01,.5],[2.4,.35],[3,.25],[4.2,.18],[.5,.4]].forEach(([m,a])=>{const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f*m;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(a,t+.005);g.gain.exponentialRampToValueAtTime(.0001,t+dur*(1.2-m/6));o.connect(g);g.connect(master);o.start(t);o.stop(t+dur*1.3)})}catch(e){}}
+const NOTES=[['C',523.25],['D',587.33],['E',659.25],['F',698.46],['G',783.99],['A',880],['B',987.77],['C′',1046.5]].reverse();const KEYS='KJHGFDSA';
+document.getElementById('bellRow').innerHTML=NOTES.map(([n,f],i)=>{const s=1.5-i*.08;return `<div class="bell" data-i="${i}"><svg width="${80*s}" height="${96*s}" viewBox="0 0 80 96"><rect x="37" y="0" width="6" height="10" fill="#6b5530"/><path d="M40 8 C20 8 18 30 16 56 C14 72 6 78 4 84 L76 84 C74 78 66 72 64 56 C62 30 60 8 40 8Z" fill="url(#bg)" stroke="#5a4520" stroke-width="2"/><ellipse cx="40" cy="84" rx="36" ry="6" fill="#8a6a2a"/><circle cx="40" cy="90" r="6" fill="#5a4520"/><defs><linearGradient id="bg" x1="0" x2="1"><stop offset="0" stop-color="#8a6a2a"/><stop offset=".35" stop-color="#f1d489"/><stop offset=".7" stop-color="#c9a24a"/><stop offset="1" stop-color="#6b5530"/></linearGradient></defs></svg><b>${n}</b><small style="color:#9c927e">${KEYS[7-i]}</small></div>`}).join('');
+function ring(i){const b=document.querySelector(`.bell[data-i="${i}"]`);b.classList.remove('ring');void b.offsetWidth;b.classList.add('ring');chime(NOTES[i][1]/2)}
+document.getElementById('bellRow').onclick=e=>{const b=e.target.closest('.bell');if(b)ring(+b.dataset.i)};
+addEventListener('keydown',e=>{if(V[3].hidden)return;const k=KEYS.indexOf(e.key.toUpperCase());if(k>=0)ring(k)});
+const TUNES={westminster:[[4,5,6,1],[1,6,5,4],[4,6,5,1],[1,5,4,6]].flat().map(x=>7-x+0).map(x=>Math.max(0,Math.min(7,x))),peal:[0,1,2,3,4,5,6,7,1,0,3,2,5,4,7,6,1,3,0,5,2,7,4,6],joy:[2,2,3,4,4,3,2,1,0,0,1,2,2,1,1].map(x=>7-x)};
+let tuneT=[];document.querySelectorAll('[data-tune]').forEach(b=>b.onclick=()=>{tuneT.forEach(clearTimeout);tuneT=TUNES[b.dataset.tune].map((n,i)=>setTimeout(()=>ring(n),i*(b.dataset.tune==='peal'?260:520)))});
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Retentio — Revenue retention</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{color-scheme:dark;--surface:#17191f;--bg:#0f1115;--ink:#eef0f4;--ink2:#b4bac6;--ink3:#7f8796;--grid:#262a33;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--q1:#1a2a44;--q2:#1c3f6e;--q3:#1c5cab;--q4:#3987e5;--q5:#6da7ec;--q6:#9ec5f4;--qhi:#0b1220;--qlo:#dfe6f2;--pos:#3987e5;--neg:#e66767;--good:#3ccf8e;--warn:#e0a63a;--bad:#ff6b6b;--cur:"$";--tipbg:#eef0f4;--tipfg:#0f1115}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:13.5px/1.5 'Sora',sans-serif;min-height:100vh;display:flex;flex-direction:column}
+.mono{font-family:'IBM Plex Mono',monospace}
+header{display:flex;align-items:center;gap:16px;padding:14px 24px;border-bottom:1px solid var(--grid)}
+.lg{font-weight:700;font-size:18px;display:flex;align-items:center;gap:9px}.lg svg{width:22px}
+header .sp{flex:1}.chip{font:500 11.5px 'IBM Plex Mono';color:var(--ink2);border:1px solid var(--grid);border-radius:6px;padding:4px 8px}.chip b{color:var(--good);font-weight:500}
+.bar{display:flex;gap:8px;align-items:center;padding:12px 24px;border-bottom:1px solid var(--grid);flex-wrap:wrap}
+.seg{display:flex;border:1px solid var(--grid);border-radius:8px;overflow:hidden}.seg button{border:0;background:transparent;color:var(--ink2);padding:6px 12px;font:500 12.5px 'Sora';cursor:pointer}.seg button.on{background:var(--ink);color:var(--bg)}
+select{background:var(--surface);color:var(--ink);border:1px solid var(--grid);border-radius:8px;padding:6px 10px;font:500 12.5px 'Sora'}
+main{flex:1;padding:18px 24px 90px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--grid);border:1px solid var(--grid);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.kpi{background:var(--surface);padding:14px 16px}.kpi .l{font-size:11.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em}.kpi .v{font:500 26px 'IBM Plex Mono';letter-spacing:-.03em;margin:4px 0 2px}.kpi .d{font-size:12px}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1.3fr 1fr}.g2b{grid-template-columns:1fr 1fr}
+.card{background:var(--surface);border:1px solid var(--grid);border-radius:12px;padding:16px 18px;min-width:0}
+.card h3{margin:0;font-size:14px;font-weight:600}.card .sub{color:var(--ink3);font-size:12px;margin:2px 0 12px}
+.sheets{position:fixed;left:0;right:0;bottom:0;display:flex;align-items:flex-end;gap:2px;padding:0 24px;background:var(--bg);border-top:1px solid var(--grid);z-index:5;height:42px;overflow-x:auto}
+.sheets button{border:1px solid var(--grid);border-top:0;background:#14161b;color:var(--ink3);padding:9px 16px;border-radius:0 0 8px 8px;font:500 12.5px 'Sora';cursor:pointer;white-space:nowrap;margin-bottom:6px}
+.sheets button.on{background:var(--surface);color:var(--ink);border-color:#3a404c;box-shadow:inset 0 2px 0 var(--s1)}
+.sheets .add{color:var(--ink3);padding:9px 12px;font-size:16px;line-height:1;align-self:center;margin:0 0 6px 6px}
+.flag{font:500 11px 'IBM Plex Mono';padding:2px 7px;border-radius:5px;background:#2a1f22;color:#ff9b9b;margin-right:4px;white-space:nowrap}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g2b{grid-template-columns:1fr}}@media(max-width:640px){.kpis{grid-template-columns:1fr 1fr}main,header,.bar{padding-left:14px;padding-right:14px}.chip{display:none}}
+</style>
+</head>
+<body>
+<header><div class="lg"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="9" fill="none" stroke="#3987e5" stroke-width="2.5" stroke-dasharray="40 17" transform="rotate(-90 11 11)"/><circle cx="11" cy="11" r="3" fill="#3ccf8e"/></svg>Retentio</div><span style="color:var(--ink3)">Fernway · revenue retention</span><span class="sp"></span><span class="chip"><b>●</b> Stripe 3 min</span><span class="chip"><b>●</b> Salesforce 6 min</span><span class="chip"><b>●</b> Zendesk 12 min</span><span class="chip"><b>●</b> Product usage (Segment) 1 h</span></header>
+<div class="bar"><div class="seg"><button data-f="range" data-v="ytd">YTD</button><button data-f="range" data-v="12m" class="on">Trailing 12 months</button></div><select data-f="seg"><option value="all">All segments</option><option value="ent">Enterprise</option><option value="mm">Mid-market</option><option value="smb">SMB</option></select><select data-f="plan"><option value="all">All plans</option><option value="biz">Business</option><option value="pro">Pro</option></select><span style="margin-left:auto;color:var(--ink3);font-size:12px" class="mono">ARR = Σ active Stripe subscriptions × 12 · FX at month-end</span></div>
+<main>
+ <section data-panel="arr"><div class="kpis" id="k1"></div>
+  <div class="card"><h3>ARR bridge</h3><p class="sub">Where this period’s ARR came from and where it went</p><div id="c_br"></div></div>
+  <div class="g g2b" style="margin-top:14px"><div class="card"><h3>ARR by segment</h3><p class="sub">Month-end ARR, stacked</p><div id="c_seg"></div></div><div class="card"><h3>Net revenue retention, trailing 12 months</h3><p class="sub">Monthly reading, by segment</p><div id="c_nrr"></div></div></div></section>
+ <section data-panel="cohorts" hidden>
+  <div class="card"><h3>Revenue retained by signup cohort</h3><p class="sub">ARR today as % of ARR at month 0. Above 100% means expansion outgrew churn. <span id="ch_note"></span></p><div id="c_coh"></div></div>
+  <div class="g g2b" style="margin-top:14px"><div class="card"><h3>Logo retention by cohort</h3><p class="sub">Share of customers still paying</p><div id="c_logo"></div></div><div class="card"><h3>Month-12 NRR by acquisition channel</h3><p class="sub">Salesforce Lead Source, joined to the Stripe customer</p><div id="c_chn"></div></div></div></section>
+ <section data-panel="expansion" hidden><div class="kpis" id="k3"></div>
+  <div class="g g2"><div class="card"><h3>Expansion ARR by motion</h3><p class="sub">Classified from Stripe subscription item changes</p><div id="c_mot"></div></div><div class="card"><h3>What precedes expansion</h3><p class="sub">Share of expanding accounts showing each signal in the prior 60 days</p><div id="c_pre"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Accounts most likely to expand next</h3><p class="sub">Seat utilisation above 90% or feature limits hit, no open expansion opportunity yet</p><div id="t_exp"></div></div></section>
+ <section data-panel="churn" hidden><div class="kpis" id="k4"></div>
+  <div class="g g2b"><div class="card"><h3>Why customers left</h3><p class="sub">Stripe cancellation reason + CSM exit notes, normalised</p><div id="c_rsn"></div></div><div class="card"><h3>Churned ARR by segment</h3><p class="sub">Gross churn, by period</p><div id="c_cs"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Renewals at risk in the next 90 days</h3><p class="sub">Usage trend from product events · open Zendesk tickets · champion activity in Salesforce</p><div id="t_risk"></div></div></section>
+ <section data-panel="unit" hidden><div class="kpis" id="k5"></div>
+  <div class="g g2b"><div class="card"><h3>LTV : CAC by segment</h3><p class="sub">LTV from observed GRR and gross margin; CAC from fully loaded S&M spend</p><div id="c_ltv"></div></div><div class="card"><h3>CAC payback</h3><p class="sub">Months of gross margin to recover acquisition cost</p><div id="c_pb"></div></div></div></section>
+</main>
+<nav class="sheets"><button data-sheet="arr">ARR</button><button data-sheet="cohorts">Cohorts</button><button data-sheet="expansion">Expansion</button><button data-sheet="churn">Churn</button><button data-sheet="unit">Unit economics</button><span class="add">+</span></nav>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:52px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const SEG=['Enterprise','Mid-market','SMB'];const memo={};
+function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const L=K.periods(F.range);const f={all:1,ent:.55,mm:.3,smb:.15}[F.seg]*{all:1,biz:.7,pro:.3}[F.plan];
+ const arr0=41.8e6*f;const n=L.length;const segs=SEG.map((s,i)=>K.series(r,n,arr0*[.55,.3,.15][i]/(F.seg==='all'?1:[.55,.3,.15][i]/1)*(F.seg==='all'?1:(F.seg===['ent','mm','smb'][i]?1:0)),{trend:[.22,.3,.12][i],noise:.015}));
+ const nrr=SEG.map((s,i)=>K.series(r,n,[1.21,1.12,.98][i],{trend:[.03,.02,-.01][i],noise:.012}));
+ return memo[k]={L,n,f,arr0,segs,nrr,r}}
+const S={range:'12m',seg:'all',plan:'all'};
+const views={
+arr(F){const D=data(F);const start=D.arr0,nw=start*.19,ex=start*.17,re=start*.012,con=-start*.045,ch=-start*.08,end=start+nw+ex+re+con+ch;
+ K.kpis($('k1'),[{label:'ARR',value:K.money(end),delta:end/start-1,vs:'vs start'},{label:'Net revenue retention',value:K.pct((start+ex+con+ch)/start),delta:.024,deltaText:'2.4 pts'},{label:'Gross revenue retention',value:K.pct((start+con+ch)/start),delta:.006,deltaText:'0.6 pts'},{label:'Logo churn',value:'7.8%',delta:-.011,goodDown:true,deltaText:'1.1 pts'},{label:'Expansion ARR',value:K.money(ex),delta:.18},{label:'Churned ARR',value:K.money(-ch),delta:-.04,goodDown:true}]);
+ K.waterfall($('c_br'),{steps:[['Start ARR',start,1],['New logos',nw],['Expansion',ex],['Reactivation',re],['Contraction',con],['Churn',ch],['End ARR',end,1]],fmt:K.money,h:270});
+ K.line($('c_seg'),{labels:D.L,series:SEG.map((s,i)=>({name:s,data:D.segs[i]})).filter(s=>K.sum(s.data)>0),stacked:true,fmt:K.money,h:240});
+ K.line($('c_nrr'),{labels:D.L,series:SEG.map((s,i)=>({name:s,data:D.nrr[i]})),fmt:v=>K.pct(v,0),yMin:.9,h:240})},
+cohorts(F){const D=data(F);const r=K.rng(K.seed(F,'coh'));const Q=["Q1 '24","Q2 '24","Q3 '24","Q4 '24","Q1 '25","Q2 '25","Q3 '25","Q4 '25","Q1 '26","Q2 '26"];const M=['M0','M3','M6','M9','M12','M15','M18','M21','M24'];
+ $('ch_note').textContent='';const rev=Q.map((q,i)=>M.map((m,j)=>j>(Q.length-1-i)?null:j===0?1:1+j*(.035+(i>4?.012:0))+(r()-.5)*.05-(j===1?.06:0)));
+ K.heat($('c_coh'),{rows:Q,cols:M,data:rev,fmt:v=>K.pct(v,0),cell:30});
+ const logo=Q.map((q,i)=>M.map((m,j)=>j>(Q.length-1-i)?null:j===0?1:Math.max(.55,1-j*.035-(r()*.03)-(j>0?.04:0))));K.heat($('c_logo'),{rows:Q.slice(0,7),cols:M.slice(0,7),data:logo.slice(0,7).map(x=>x.slice(0,7)),fmt:v=>K.pct(v,0),cell:24});
+ K.bars($('c_chn'),{labels:['Partner referral','Inbound demo','Outbound SDR','Product sign-up','Events'],series:[{name:'Month-12 NRR',data:[1.27,1.16,1.09,1.21,1.05]}],fmt:v=>K.pct(v,0),horizontal:true,h:230})},
+expansion(F){const D=data(F);const ex=D.arr0*.17;
+ K.kpis($('k3'),[{label:'Expansion ARR',value:K.money(ex),delta:.18},{label:'Accounts expanded',value:K.int(212*D.f)},{label:'Avg expansion',value:K.money(ex/(212*D.f))},{label:'Expansion share of new ARR',value:'47%'},{label:'Seat utilisation (median)',value:'78%'},{label:'Open expansion pipeline',value:K.money(ex*.62)}]);
+ K.bars($('c_mot'),{labels:D.L,series:[{name:'Added seats',data:K.series(D.r,D.n,ex/D.n*.52,{noise:.25})},{name:'Plan upgrade',data:K.series(D.r,D.n,ex/D.n*.31,{noise:.3})},{name:'Add-on module',data:K.series(D.r,D.n,ex/D.n*.17,{noise:.3})}],stacked:true,fmt:K.money,h:260});
+ K.bars($('c_pre'),{labels:['Seats > 90% used','Hit API limit','New team invited','Admin viewed pricing','Exec sponsor on QBR','Support ticket: "limit"'],series:[{name:'Share of expanders',data:[.71,.44,.52,.38,.33,.21]}],fmt:v=>K.pct(v,0),horizontal:true,h:260});
+ const A=['Halden Bank','Velo Mobility','Ashgrove Health','Pellucid AI','Marlow Foods','Northbeam','Tessera Labs','Calder Labs','Oskar Freight','Mintworth'];const r=K.rng(K.seed(F,'ex'));
+ K.table($('t_exp'),{cols:[{k:'a',label:'Account'},{k:'arr',label:'ARR',align:'r',fmt:K.money},{k:'util',label:'Seat use',align:'r',fmt:v=>K.pct(v,0),bar:true},{k:'sig',label:'Signal'},{k:'pot',label:'Potential ARR',align:'r',fmt:K.money},{k:'owner',label:'CSM'}],rows:A.map((a,i)=>({a,arr:(40e3+r()*300e3)*Math.sqrt(D.f),util:.86+r()*.14,sig:K.pick(r,['Hit seat cap 3×','API limit 92%','2 new teams invited','Viewed Enterprise pricing']),pot:(15e3+r()*120e3)*Math.sqrt(D.f),owner:K.pick(r,['Maya','Joon','Lena','Dayo'])})),sort:'pot'})},
+churn(F){const D=data(F);const ch=D.arr0*.08;
+ K.kpis($('k4'),[{label:'Churned ARR',value:K.money(ch),delta:-.04,goodDown:true},{label:'Churned logos',value:K.int(96*D.f)},{label:'Contraction ARR',value:K.money(D.arr0*.045)},{label:'ARR renewing next 90d',value:K.money(D.arr0*.21)},{label:'…of which at risk',value:K.money(D.arr0*.032),delta:.08,goodDown:true},{label:'Save rate',value:'38%',delta:.05,deltaText:'5 pts'}]);
+ K.donut($('c_rsn'),{items:[{name:'Budget cut / company downsized',value:31},{name:'Switched to competitor',value:22},{name:'Low adoption',value:24},{name:'Missing feature',value:14},{name:'Acquired / merged',value:9}],fmt:v=>v+'%',center:{value:K.money(ch),label:'churned'}});
+ K.bars($('c_cs'),{labels:D.L,series:SEG.map((s,i)=>({name:s,data:K.series(D.r,D.n,ch/D.n*[.35,.35,.3][i],{noise:.45})})),stacked:true,fmt:K.money,h:240});
+ const r=K.rng(K.seed(F,'cr'));const A=['Kilnworks','Corvid Games','Orbis Retail','Stonebridge Law','Fjord Energy','Lumen Studio','Harrow & Vale','Quanta Geo','Mintworth'];
+ K.table($('t_risk'),{cols:[{k:'a',label:'Account'},{k:'arr',label:'ARR',align:'r',fmt:K.money,bar:true},{k:'ren',label:'Renews'},{k:'use',label:'Usage 30d',align:'r',render:v=>(v>0?'▲ ':'▼ ')+K.pct(Math.abs(v),0)},{k:'tix',label:'Open tickets',align:'r'},{k:'sig',label:'Signals',render:v=>{const w=document.createElement('span');v.forEach(x=>{const s=document.createElement('span');s.className='flag';s.textContent=x;w.appendChild(s)});return w}}],rows:A.map((a,i)=>({a,arr:(20e3+r()*180e3)*Math.sqrt(D.f),ren:['14 Oct','22 Oct','2 Nov','9 Nov','18 Nov','27 Nov','6 Dec','15 Dec','22 Dec'][i],use:-(.1+r()*.5),tix:Math.floor(r()*7),sig:[K.pick(r,['Champion left','Usage ↓ 40%','Exec not on QBR']),...(r()<.5?[K.pick(r,['Competitor in tickets','Downgrade asked','Late invoice'])]:[])]})),sort:'arr'})},
+unit(F){const D=data(F);
+ K.kpis($('k5'),[{label:'LTV : CAC (blended)',value:'4.1×',delta:.06,deltaText:'0.3×'},{label:'CAC payback',value:'17 mo',delta:-.08,goodDown:true,deltaText:'1.5 mo'},{label:'Gross margin',value:'81%'},{label:'Avg customer lifetime',value:'6.2 yrs'},{label:'Blended CAC',value:K.money(14800)},{label:'Magic number',value:'0.92'}]);
+ K.line($('c_ltv'),{labels:D.L,series:SEG.map((s,i)=>({name:s,data:K.series(D.r,D.n,[5.2,3.9,2.4][i],{trend:[.08,.1,-.05][i],noise:.04})})),fmt:v=>v.toFixed(1)+'×',h:240});
+ K.bars($('c_pb'),{labels:SEG,series:[{name:'Last year',data:[24,19,13]},{name:'This year',data:[21,17,14]}],fmt:v=>Math.round(v)+' mo',h:240})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

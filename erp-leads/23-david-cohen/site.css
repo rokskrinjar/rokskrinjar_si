@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Albert+Sans:wght@400;500;600;700&display=swap');
+:root{--e-bg:#fbfbfd;--e-card:#fff;--e-ink:#1f1a2b;--e-mu:#5f5a6e;--e-ln:#e5e2ec;--e-acc:#5b2a86;--e-acc2:#2f8f83;--e-acc-ink:#fff;--e-soft:#f1edf6;--e-r:10px;--e-font:'Albert Sans',system-ui,sans-serif;--e-head:'Literata',Georgia,serif;--e-hw:600;--e-hl:-.015em;--e-cta-bg:#1f1a2b;--e-cta-btn:#fff;--e-cta-btn-ink:#1f1a2b}
+.e-hero.portrait-left .e-por{border-radius:10px;box-shadow:0 0 0 1px #e5e2ec,-14px 14px 0 #f1edf6}
+.e-hero .e-name{font-size:clamp(30px,3.8vw,50px);line-height:1.1}
+.e-kick{color:#2f8f83}
+.e-stats b{color:#5b2a86;font-family:var(--e-head)}
+.e-why.numbered .n{color:#5b2a86;font-family:var(--e-head)}

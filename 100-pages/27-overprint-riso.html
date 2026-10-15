@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OVERPRINT — a risograph zine press</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Chivo:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root { --pink:#ff48b0; --blue:#0078bf; --yel:#ffe800; --teal:#00a95c; --paper:#f4f0e6; --ink:#222; --mx:3px; --my:-2px; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--paper); color:var(--ink); font-family:'Chivo',sans-serif; overflow-x:hidden; }
+  body::before { content:''; position:fixed; inset:0; z-index:90; pointer-events:none; opacity:.45; mix-blend-mode:multiply; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .45 0 0 0 0 .4 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  a { color:inherit; text-decoration:none; }
+  .mono { font-family:'Rubik Mono One',monospace; }
+  header { display:flex; justify-content:space-between; align-items:center; padding:16px 4vw; border-bottom:3px solid var(--ink); position:relative; z-index:20; background:var(--paper); flex-wrap:wrap; gap:10px; }
+  .logo { font-family:'Rubik Mono One'; font-size:20px; position:relative; }
+  .logo span { position:relative; z-index:1; color:var(--blue); mix-blend-mode:multiply; }
+  .logo::after { content:'OVERPRINT'; position:absolute; left:3px; top:-2px; color:var(--pink); mix-blend-mode:multiply; }
+  nav { display:flex; gap:6px; flex-wrap:wrap; }
+  nav a { padding:8px 14px; font-weight:700; font-size:14px; border:2px solid var(--ink); background:var(--paper); }
+  nav a.on { background:var(--yel); }
+  nav a:hover { background:var(--pink); color:#fff; }
+  [data-view][hidden] { display:none; }
+  /* overprint text effect */
+  .op { position:relative; display:inline-block; font-family:'Rubik Mono One'; line-height:.9; }
+  .op .l { mix-blend-mode:multiply; }
+  .op .l1 { color:var(--pink); }
+  .op .l2 { color:var(--blue); position:absolute; left:0; top:0; transform:translate(var(--mx),var(--my)); transition:transform .2s; }
+  .op .l3 { color:var(--yel); position:absolute; left:0; top:0; transform:translate(calc(var(--mx)*-1.5),calc(var(--my)*-1)); }
+  .halftone { background-image:radial-gradient(var(--c) 32%,transparent 34%); background-size:var(--s,10px) var(--s,10px); }
+  /* cover */
+  .cover { min-height:calc(100vh - 66px); display:grid; grid-template-columns:1.2fr 1fr; align-items:center; padding:4vh 4vw; gap:4vw; position:relative; overflow:hidden; }
+  .cover h1 { font-size:clamp(3.4rem,11vw,10rem); }
+  .cover p { font-size:1.25rem; line-height:1.5; max-width:30rem; margin-top:2rem; }
+  .cover .art { position:relative; aspect-ratio:3/4; max-width:520px; width:100%; justify-self:center; }
+  .cover .art > * { position:absolute; mix-blend-mode:multiply; }
+  .btn { display:inline-block; margin-top:1.8rem; padding:14px 22px; font-family:'Rubik Mono One'; font-size:14px; background:var(--blue); color:var(--paper); border:3px solid var(--ink); cursor:pointer; box-shadow:5px 5px 0 var(--pink); transition:transform .1s, box-shadow .1s; }
+  .btn:hover { transform:translate(-2px,-2px); box-shadow:7px 7px 0 var(--pink); }
+  .btn.y { background:var(--yel); color:var(--ink); box-shadow:5px 5px 0 var(--blue); }
+  .issues { display:flex; gap:2rem; margin-top:2.6rem; font-size:13px; }
+  .issues b { display:block; font-family:'Rubik Mono One'; font-size:2rem; color:var(--pink); }
+  /* reader */
+  .reader { padding:4vh 4vw 8vh; display:flex; flex-direction:column; align-items:center; }
+  .book { position:relative; width:min(900px,94vw); aspect-ratio:2/1.35; perspective:2400px; margin-top:2rem; }
+  .spine { position:absolute; left:50%; top:0; bottom:0; width:2px; background:#0002; z-index:50; }
+  .leaf { position:absolute; left:50%; top:0; width:50%; height:100%; transform-origin:left center; transform-style:preserve-3d; transition:transform 1s cubic-bezier(.6,.05,.3,1); cursor:pointer; }
+  .leaf.flipped { transform:rotateY(-180deg); }
+  .side { position:absolute; inset:0; backface-visibility:hidden; background:#fbf8f0; box-shadow:0 10px 30px #0002; overflow:hidden; padding:6%; }
+  .side.back { transform:rotateY(180deg); }
+  .side.front { box-shadow:inset 12px 0 20px -12px #0003, 0 10px 30px #0002; }
+  .side.back { box-shadow:inset -12px 0 20px -12px #0003, 0 10px 30px #0002; }
+  .side .pn { position:absolute; bottom:12px; font-family:'Rubik Mono One'; font-size:11px; }
+  .side.front .pn { right:16px; } .side.back .pn { left:16px; }
+  .side h3 { font-family:'Rubik Mono One'; font-size:clamp(1rem,2.6vw,2rem); line-height:1; }
+  .side p { font-size:clamp(.7rem,1.3vw,.95rem); line-height:1.5; margin-top:.8rem; }
+  .side svg { width:100%; height:auto; display:block; }
+  .ctl { display:flex; gap:1rem; align-items:center; margin-top:2rem; }
+  .ctl button { width:56px; height:56px; border:3px solid var(--ink); background:var(--yel); font-size:1.3rem; cursor:pointer; }
+  /* ink lab */
+  .lab { display:grid; grid-template-columns:360px 1fr; gap:4vw; padding:4vh 4vw 10vh; }
+  .inks { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .inkBtn { aspect-ratio:1; border:3px solid var(--ink); cursor:pointer; position:relative; display:flex; align-items:flex-end; padding:6px; font-size:10px; font-weight:700; color:#fff; text-shadow:0 1px 2px #0008; }
+  .inkBtn.on::after { content:attr(data-o); position:absolute; top:4px; right:6px; background:var(--ink); color:#fff; border-radius:50%; width:22px; height:22px; display:grid; place-items:center; font-size:11px; text-shadow:none; }
+  .lab label { display:block; font-weight:700; margin:1.4rem 0 .4rem; font-size:14px; }
+  .lab input[type=range] { width:100%; accent-color:var(--pink); }
+  .preview { border:3px solid var(--ink); background:#fbf8f0; padding:4%; position:relative; overflow:hidden; }
+  .preview svg { width:100%; display:block; }
+  .swatches { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px; margin-top:18px; }
+  .sw { border:2px solid var(--ink); background:#fbf8f0; }
+  .sw div { height:70px; position:relative; }
+  .sw div i { position:absolute; inset:0; mix-blend-mode:multiply; }
+  .sw small { display:block; padding:6px; font-size:11px; font-weight:700; }
+  /* shop */
+  .shop { padding:4vh 4vw 10vh; }
+  .shop h2 { font-size:clamp(2.4rem,7vw,5rem); margin-bottom:2rem; }
+  .prods { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:26px; }
+  .prod { border:3px solid var(--ink); background:#fbf8f0; }
+  .prod .img { aspect-ratio:4/5; position:relative; overflow:hidden; border-bottom:3px solid var(--ink); }
+  .prod .img > * { position:absolute; mix-blend-mode:multiply; }
+  .prod .info { padding:14px; }
+  .prod h3 { font-family:'Rubik Mono One'; font-size:1rem; }
+  .prod .ed { font-size:12px; margin:.4rem 0 .8rem; }
+  .prod .ed i { display:block; height:6px; background:#0001; margin-top:4px; }
+  .prod .ed i b { display:block; height:100%; background:var(--pink); }
+  .prod .row { display:flex; justify-content:space-between; align-items:center; }
+  .prod button { font-family:'Rubik Mono One'; font-size:11px; padding:8px 12px; border:2px solid var(--ink); background:var(--yel); cursor:pointer; }
+  .prod button:disabled { background:#ddd; cursor:not-allowed; }
+  .tote { position:fixed; right:20px; bottom:20px; z-index:60; background:var(--blue); color:var(--paper); border:3px solid var(--ink); padding:14px 18px; font-family:'Rubik Mono One'; font-size:13px; box-shadow:5px 5px 0 var(--pink); max-width:320px; }
+  .tote ul { list-style:none; font-family:'Chivo'; font-size:13px; margin-top:8px; max-height:150px; overflow:auto; }
+  @media (max-width:900px){ .cover,.lab { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header><div class="logo"><span>OVERPRINT</span></div><nav><a href="#cover">Cover</a><a href="#read">Read issue 12</a><a href="#lab">Ink lab</a><a href="#shop">Shop</a><a href="index.html">← Index</a></nav></header>
+
+<section data-view="cover">
+  <div class="cover" id="coverEl">
+    <div><div class="op" style="font-size:clamp(3.4rem,11vw,10rem)" id="bigOp"><span class="l l1">RISO<br>DREAMS</span><span class="l l2">RISO<br>DREAMS</span><span class="l l3" style="opacity:.6">RISO<br>DREAMS</span></div>
+      <p>A tiny press printing zines, posters and bad ideas in fluorescent pink, federal blue and a yellow so bright it hums. Every copy slightly misregistered. On purpose. Mostly.</p>
+      <a class="btn" href="#read">Read issue 12 →</a> <a class="btn y" href="#lab">Mix inks</a>
+      <div class="issues"><div><b>12</b>issues</div><div><b>3</b>drums</div><div><b>∞</b>paper jams</div></div></div>
+    <div class="art" id="coverArt"></div>
+  </div>
+</section>
+
+<section data-view="read" hidden>
+  <div class="reader"><div class="op" style="font-size:clamp(1.6rem,4vw,3rem)"><span class="l l1">ISSUE 12: NIGHT BUS</span><span class="l l2">ISSUE 12: NIGHT BUS</span></div>
+    <div class="book" id="book"><div class="spine"></div></div>
+    <div class="ctl"><button id="bPrev">←</button><span class="mono" id="bPos" style="font-size:13px"></span><button id="bNext">→</button></div></div>
+</section>
+
+<section data-view="lab" hidden>
+  <div class="lab">
+    <div><div class="op" style="font-size:2rem"><span class="l l1">INK LAB</span><span class="l l2">INK LAB</span></div>
+      <p style="margin:1rem 0;line-height:1.5">Pick up to three drums in print order. Riso inks are translucent — they multiply where they overlap.</p>
+      <div class="inks" id="inks"></div>
+      <label>Misregistration · <span id="misV"></span></label><input type="range" id="mis" min="0" max="12" value="3">
+      <label>Halftone dot size</label><input type="range" id="dot" min="4" max="20" value="9">
+      <button class="btn y" id="randInk" style="margin-top:1.4rem">Surprise me</button></div>
+    <div><div class="preview" id="preview"></div><div class="swatches" id="swatches"></div></div>
+  </div>
+</section>
+
+<section data-view="shop" hidden>
+  <div class="shop"><div class="op" style="font-size:clamp(2.4rem,7vw,5rem);margin-bottom:2rem"><span class="l l1">THE SHOP</span><span class="l l2">THE SHOP</span></div><div class="prods" id="prods"></div></div>
+</section>
+<div class="tote" id="tote" hidden></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'cover';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+/* misregistration follows the mouse */
+addEventListener('mousemove',e=>{const dx=(e.clientX/innerWidth-.5)*10,dy=(e.clientY/innerHeight-.5)*8;document.documentElement.style.setProperty('--mx',dx.toFixed(1)+'px');document.documentElement.style.setProperty('--my',dy.toFixed(1)+'px')});
+
+const INK={'Fluo Pink':'#ff48b0','Blue':'#0078bf','Yellow':'#ffe800','Teal':'#00838a','Red':'#ff665e','Green':'#00a95c','Orange':'#ff6c2f','Purple':'#765ba7','Black':'#222222'};
+/* layered riso illustration: each layer is one ink; offset by misregistration */
+function riso(inks,mis,dot,seed=1,w=400,h=500){const r=(()=>{let s=seed*9301+49297;return()=>((s=(s*9301+49297)%233280)/233280)})();const [a,b,c]=inks;let L=[];
+ L.push(`<g style="mix-blend-mode:multiply"><circle cx="${w*.62}" cy="${h*.3}" r="${w*.22}" fill="${a}"/><rect x="0" y="${h*.72}" width="${w}" height="${h*.28}" fill="${a}"/><path d="M${w*.1} ${h*.72} L${w*.3} ${h*.4} L${w*.5} ${h*.72}Z" fill="${a}"/></g>`);
+ if(b)L.push(`<g transform="translate(${mis} ${-mis*.7})" style="mix-blend-mode:multiply"><defs><pattern id="ht${seed}" width="${dot}" height="${dot}" patternUnits="userSpaceOnUse"><circle cx="${dot/2}" cy="${dot/2}" r="${dot*.36}" fill="${b}"/></pattern></defs><rect x="${w*.08}" y="${h*.08}" width="${w*.84}" height="${h*.55}" fill="url(#ht${seed})"/><path d="M${w*.35} ${h*.9} Q${w*.55} ${h*.5} ${w*.85} ${h*.65} L${w} ${h} L${w*.3} ${h}Z" fill="${b}"/><circle cx="${w*.3}" cy="${h*.25}" r="${w*.08}" fill="${b}"/></g>`);
+ if(c)L.push(`<g transform="translate(${-mis*.8} ${mis})" style="mix-blend-mode:multiply">${[...Array(7)].map((_,i)=>`<rect x="${w*.1+i*w*.12}" y="${h*(.45+r()*.2)}" width="${w*.05}" height="${h*.4}" fill="${c}"/>`).join('')}<path d="M${w*.2} ${h*.15} q${w*.1} ${-h*.08} ${w*.2} 0 t${w*.2} 0" stroke="${c}" stroke-width="${w*.03}" fill="none"/></g>`);
+ return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><rect width="${w}" height="${h}" fill="#fbf8f0"/>${L.join('')}</svg>`}
+document.getElementById('coverArt').innerHTML=riso([INK['Fluo Pink'],INK['Blue'],INK['Yellow']],5,10,3);document.getElementById('coverArt').firstChild.style.width='100%';
+
+/* zine reader */
+const PAGES=[
+ ['NIGHT BUS','an overprinted zine about the last ride home',['#ff48b0','#0078bf','#ffe800'],1],
+ ['01:12','The driver hums a song nobody on board recognises. It sounds like a lullaby played backwards on a kazoo.',['#0078bf','#ffe800'],2],
+ ['STOP 14','A man gets on carrying a potted fern. He apologises to it every time the bus brakes.',['#00a95c','#ff48b0'],3],
+ ['01:40','Condensation on the window. Someone has drawn a heart and then, thoughtfully, a smaller heart inside it.',['#ff48b0','#ffe800'],4],
+ ['THE LOOP','The route bends past the river. The streetlights double themselves in the water, like a misregistered print.',['#0078bf','#ff665e','#ffe800'],5],
+ ['STOP 22','Three teenagers share one pair of earbuds. One earbud each, the third one listens to the rain.',['#765ba7','#ffe800'],6],
+ ['02:03','The fern man gets off. The fern waves. Probably the wind. Probably.',['#00a95c','#0078bf'],7],
+ ['TERMINUS','Everyone gets off. The bus sighs, dims its lights, and dreams of daytime traffic.',['#ff48b0','#0078bf','#ffe800'],8],
+ ['FIN','Printed on a 1998 Riso MZ in three drums. Edition of 100. This is copy #43.',['#222222','#ff48b0'],9],
+ ['','',['#ffe800'],10]];
+const book=document.getElementById('book');const leaves=[];
+function pageHTML(p,n,side){const [t,txt,inks,s]=p;if(!t)return `<div class="side ${side}"><div class="op" style="font-size:3rem;position:absolute;inset:0;display:grid;place-items:center"><span class="l l1">★</span></div></div>`;
+ const art=riso(inks.map(x=>x),4,9,s,400,260);return `<div class="side ${side}">${n%3===0?art:''}<h3 style="color:${inks[0]};mix-blend-mode:multiply">${t}</h3><p>${txt}</p>${n%3!==0?art:''}<span class="pn">${n}</span></div>`}
+for(let i=0;i<PAGES.length;i+=2){const lf=document.createElement('div');lf.className='leaf';lf.innerHTML=pageHTML(PAGES[i],i+1,'front')+pageHTML(PAGES[i+1],i+2,'back');lf.style.zIndex=PAGES.length-i;book.appendChild(lf);leaves.push(lf);lf.onclick=()=>{lf.classList.contains('flipped')?flip(-1):flip(1)}}
+let cur=0;function flip(d){if(d>0&&cur<leaves.length){leaves[cur].classList.add('flipped');leaves[cur].style.zIndex=10+cur;cur++}else if(d<0&&cur>0){cur--;leaves[cur].classList.remove('flipped');const c=cur;setTimeout(()=>leaves[c].style.zIndex=PAGES.length-c*2,500)}document.getElementById('bPos').textContent=cur===0?'COVER':cur===leaves.length?'BACK':`PAGES ${cur*2}–${cur*2+1}`;book.style.transform=cur===0?'translateX(-25%)':cur===leaves.length?'translateX(25%)':'none'}
+book.style.transition='transform 1s';flip(0);
+document.getElementById('bPrev').onclick=()=>flip(-1);document.getElementById('bNext').onclick=()=>flip(1);addEventListener('keydown',e=>{if(V[1].hidden)return;if(e.key==='ArrowRight')flip(1);if(e.key==='ArrowLeft')flip(-1)});
+
+/* ink lab */
+let order=['Fluo Pink','Blue','Yellow'];
+function renderLab(){document.getElementById('inks').innerHTML=Object.entries(INK).map(([n,c])=>`<div class="inkBtn${order.includes(n)?' on':''}" data-n="${n}" data-o="${order.indexOf(n)+1}" style="background:${c}">${n}</div>`).join('');
+ const mis=+document.getElementById('mis').value,dot=+document.getElementById('dot').value;document.getElementById('misV').textContent=mis+' px';const cols=order.map(n=>INK[n]);
+ document.getElementById('preview').innerHTML=cols.length?riso(cols,mis,dot,11,600,420):'<p style="padding:3rem;text-align:center">Pick at least one drum.</p>';
+ const pairs=[];for(let i=0;i<order.length;i++)for(let j=i+1;j<order.length;j++)pairs.push([order[i],order[j]]);if(order.length===3)pairs.push(order);
+ document.getElementById('swatches').innerHTML=order.map(n=>`<div class="sw"><div><i style="background:${INK[n]}"></i></div><small>${n}</small></div>`).join('')+pairs.map(p=>`<div class="sw"><div>${p.map((n,k)=>`<i style="background:${INK[n]};${k?'':''}"></i>`).join('')}</div><small>${p.join(' × ')}</small></div>`).join('')}
+document.getElementById('inks').onclick=e=>{const b=e.target.closest('.inkBtn');if(!b)return;const n=b.dataset.n;if(order.includes(n))order=order.filter(x=>x!==n);else if(order.length<3)order.push(n);else{order.shift();order.push(n)}renderLab()};
+['mis','dot'].forEach(id=>document.getElementById(id).oninput=renderLab);
+document.getElementById('randInk').onclick=()=>{const k=Object.keys(INK).sort(()=>Math.random()-.5);order=k.slice(0,2+(Math.random()*2|0));renderLab()};renderLab();
+
+/* shop */
+const PR=[['Night Bus (zine)',8,43,100,['Fluo Pink','Blue','Yellow']],['Fern Poster A3',22,88,100,['Green','Fluo Pink']],['Heart Window Print',18,12,50,['Red','Yellow']],['Misregistered Tote',16,100,100,['Blue','Orange']],['Terminus Postcards (6)',10,31,200,['Purple','Yellow']],['Riso Sampler Pack',25,7,40,['Teal','Fluo Pink','Yellow']]];const tote=[];
+function renderShop(){document.getElementById('prods').innerHTML=PR.map(([n,p,sold,ed,inks],i)=>`<div class="prod"><div class="img">${riso(inks.map(x=>INK[x]),4,8,20+i,400,500)}</div><div class="info"><h3>${n}</h3><div class="ed">${sold>=ed?'SOLD OUT':`${ed-sold} of ${ed} left`}<i><b style="width:${sold/ed*100}%"></b></i></div><div class="row"><b>€${p}</b><button data-b="${i}" ${sold>=ed?'disabled':''}>${sold>=ed?'Gone':'Add to tote'}</button></div></div></div>`).join('');document.querySelectorAll('.prod .img svg').forEach(s=>{s.style.width='100%';s.style.height='100%'})}
+document.getElementById('prods').onclick=e=>{const b=e.target.closest('[data-b]');if(!b)return;const i=+b.dataset.b;PR[i][2]++;tote.push(i);renderShop();const t=document.getElementById('tote');t.hidden=false;t.innerHTML=`TOTE · ${tote.length} · €${tote.reduce((a,k)=>a+PR[k][1],0)}<ul>${tote.map(k=>`<li>· ${PR[k][0]}</li>`).join('')}</ul>`};renderShop();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

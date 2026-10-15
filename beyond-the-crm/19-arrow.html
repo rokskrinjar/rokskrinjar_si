@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arrow — ARR & bookings for finance</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Libre+Caslon+Text&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{color-scheme:dark;--surface:#1a1714;--bg:#141210;--ink:#f3ece2;--ink2:#c2b8aa;--ink3:#8b8174;--grid:#2c2723;--s1:#d95926;--s2:#3987e5;--s3:#c98500;--s4:#9085e9;--s5:#199e70;--q1:#2b2018;--q2:#4a2c1a;--q3:#7a3d1d;--q4:#b4511f;--q5:#d95926;--q6:#f0a47c;--qhi:#1b1210;--qlo:#f2e4d8;--pos:#3987e5;--neg:#e66767;--good:#3ccf8e;--warn:#e9b44c;--bad:#ff6b6b;--cur:"$";--tipbg:#f3ece2;--tipfg:#141210}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Libre Franklin',sans-serif}
+.mono{font-family:'DM Mono',monospace}
+header{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:16px 30px;border-bottom:1px solid var(--grid)}
+.lg{font:400 24px 'Libre Caslon Text',serif;display:flex;align-items:center;gap:8px}.lg i{font-style:normal;color:var(--s1);font-size:22px}
+.tabs{display:flex;gap:2px;justify-content:center;flex-wrap:wrap}.tabs button{border:0;background:none;color:var(--ink3);padding:8px 14px;font:600 13px 'Libre Franklin';cursor:pointer;border-radius:6px}.tabs button.on{background:var(--surface);color:var(--ink);box-shadow:inset 0 -2px 0 var(--s1)}
+.src{font:400 11px 'DM Mono';color:var(--ink3);text-align:right}
+.wrap{padding:18px 30px 70px;max-width:1440px;margin:0 auto}
+.filters{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}.filters span{font:400 11px 'DM Mono';color:var(--ink3);text-transform:uppercase}.filters select{background:var(--surface);color:var(--ink);border:1px solid var(--grid);border-radius:6px;padding:6px 10px;font:500 13px 'Libre Franklin'}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:2px solid var(--ink);border-bottom:1px solid var(--grid);margin-bottom:18px}
+.kpi{padding:14px 18px 16px 0}.kpi+.kpi{padding-left:18px;border-left:1px solid var(--grid)}.kpi .l{font:400 11px 'DM Mono';color:var(--ink3);text-transform:uppercase;letter-spacing:.06em}.kpi .v{font:400 32px 'Libre Caslon Text',serif;margin:2px 0}.kpi .d{font-size:12px}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:16px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border-radius:10px;padding:18px 20px;min-width:0}.card h3{margin:0;font:400 19px 'Libre Caslon Text',serif}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.recon{font:400 13px 'DM Mono';width:100%;border-collapse:collapse}.recon td{padding:8px 0;border-bottom:1px solid var(--grid)}.recon td:last-child{text-align:right}.recon tr.t td{border-top:2px solid var(--ink);font-weight:500;color:var(--ink)}.recon td{color:var(--ink2)}
+@media(max-width:1100px){header{grid-template-columns:1fr}.tabs{justify-content:flex-start}.src{text-align:left}.kpis{grid-template-columns:repeat(3,1fr)}.kpi:nth-child(4){border-left:0;padding-left:0}.g2,.g21{grid-template-columns:1fr}}@media(max-width:640px){.wrap,header{padding-left:16px;padding-right:16px}.kpis{grid-template-columns:1fr 1fr}.kpi{border-left:0!important;padding-left:0!important}}
+</style>
+</head>
+<body>
+<header><div class="lg"><i>➶</i>Arrow</div><nav class="tabs"><button data-sheet="arr">ARR</button><button data-sheet="book">Bookings vs. billings</button><button data-sheet="def">Deferred revenue</button><button data-sheet="ren">Renewals</button><button data-sheet="recon">CRM ↔ billing reconciliation</button></nav><div class="src">Salesforce · Stripe Billing · NetSuite GL<br>closed through 30 Sep 2026</div></header>
+<div class="wrap">
+ <div class="filters"><span>Fiscal year</span><select data-f="range"><option value="12m">Trailing 12 months</option><option value="ytd">FY26 to date</option></select><span>Entity</span><select data-f="ent"><option value="all">Consolidated</option><option value="us">Fernway Inc. (US)</option><option value="eu">Fernway B.V. (EU)</option></select></div>
+ <section data-panel="arr"><div class="kpis" id="k1"></div>
+  <div class="g g21"><div class="card"><h3>ARR, month-end</h3><p class="sub">From active subscriptions in Stripe, classified by product line</p><div id="c_arr"></div></div><div class="card"><h3>Net new ARR, by month</h3><p class="sub">New + expansion − contraction − churn</p><div id="c_nn"></div></div></div></section>
+ <section data-panel="book" hidden><div class="kpis" id="k2"></div>
+  <div class="card"><h3>Bookings, billings and recognised revenue</h3><p class="sub">Same dollars, three clocks: signed (Salesforce) · invoiced (Stripe) · earned (NetSuite)</p><div id="c_bbr"></div></div>
+  <div class="card" style="margin-top:16px"><h3>Billing terms on new bookings</h3><p class="sub">Share of ACV by invoicing frequency</p><div id="c_terms"></div></div></section>
+ <section data-panel="def" hidden><div class="kpis" id="k3"></div><div class="card"><h3>Deferred revenue roll-forward</h3><p class="sub">Opening balance → billings → recognised → closing balance, this quarter</p><div id="c_wf"></div></div>
+  <div class="card" style="margin-top:16px"><h3>Remaining performance obligations</h3><p class="sub">Contracted, not yet recognised · by when it will be recognised</p><div id="c_rpo"></div></div></section>
+ <section data-panel="ren" hidden><div class="kpis" id="k4"></div><div class="card"><h3>Renewals calendar</h3><p class="sub">ARR up for renewal by month, coloured by CSM risk call</p><div id="c_cal"></div></div>
+  <div class="card" style="margin-top:16px"><h3>Largest renewals this quarter</h3><p class="sub">Click a header to sort</p><div id="t_ren"></div></div></section>
+ <section data-panel="recon" hidden><div class="g g2"><div class="card"><h3>Closed-won ACV vs. invoiced, this quarter</h3><p class="sub">Every gap explained before the books close</p><table class="recon" id="recon"></table></div><div class="card"><h3>Mismatches by type</h3><p class="sub">Count of contracts</p><div id="c_mm"></div></div></div>
+  <div class="card" style="margin-top:16px"><h3>Open mismatches</h3><p class="sub">Salesforce Opportunity ↔ Stripe Subscription, matched on contract ID</p><div id="t_mm"></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const memo={};
+function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const f={all:1,us:.58,eu:.42}[F.ent];const L=K.periods(F.range);const n=L.length;const end=58.4e6*f;const start=end/(F.range==='12m'?1.31:1.21);
+ const arr=Array.from({length:n},(_,i)=>start+(end-start)*Math.pow((i+1)/n,1.05)*(1+(r()-.5)*.01));return memo[k]={r,f,L,n,arr,start,end}}
+const S={range:'12m',ent:'all'};
+const views={
+arr(F){const D=data(F);const nn=D.end-D.start;
+ K.kpis($('k1'),[{label:'ARR',value:K.money(D.end),delta:D.end/D.start-1,vs:'YoY'},{label:'Net new ARR',value:K.money(nn)},{label:'Net revenue retention',value:'116%'},{label:'Customers',value:K.int(1840*D.f)},{label:'ARR per customer',value:K.money(D.end/(1840*D.f))}]);
+ K.line($('c_arr'),{labels:D.L,series:[{name:'Platform',data:D.arr.map(v=>v*.71)},{name:'AI add-on',data:D.arr.map((v,i)=>v*(.08+i*.006))},{name:'Analytics',data:D.arr.map(v=>v*.14)},{name:'Services retainer',data:D.arr.map((v,i)=>v*(.07-i*.003))}],stacked:true,fmt:K.money,h:280});
+ const d=D.arr.map((v,i)=>i?v-D.arr[i-1]:nn/D.n);K.bars($('c_nn'),{labels:D.L,series:[{name:'New',data:d.map(v=>v*.62)},{name:'Expansion',data:d.map(v=>v*.58)}],stacked:true,fmt:K.money,h:280})},
+book(F){const D=data(F);const r=K.rng(K.seed(F,'b'));const bk=K.series(r,D.n,2.6e6*D.f,{noise:.35,season:.3,phase:2}),bl=bk.map((v,i)=>v*.86+(i%3===0?v*.4:0)*(r()*.6)),rv=D.arr.map(v=>v/12);
+ K.kpis($('k2'),[{label:'Bookings',value:K.money(K.sum(bk))},{label:'Billings',value:K.money(K.sum(bl))},{label:'Recognised revenue',value:K.money(K.sum(rv))},{label:'Billings ÷ bookings',value:K.pct(K.sum(bl)/K.sum(bk),0)},{label:'Annual upfront share',value:'64%'}]);
+ K.line($('c_bbr'),{labels:D.L,series:[{name:'Bookings (signed)',data:bk},{name:'Billings (invoiced)',data:bl},{name:'Revenue (recognised)',data:rv}],fmt:K.money,h:290});
+ K.bars($('c_terms'),{labels:['Annual upfront','Multi-year upfront','Quarterly','Monthly'],series:[{name:'Share of ACV',data:[.64,.09,.17,.1]}],fmt:v=>K.pct(v,0),horizontal:true,h:200})},
+def(F){const D=data(F);const open=D.end*.47,bill=D.end*.29,rec=-D.end*.25;
+ K.kpis($('k3'),[{label:'Opening deferred',value:K.money(open)},{label:'Billings',value:K.money(bill)},{label:'Recognised',value:K.money(-rec)},{label:'Closing deferred',value:K.money(open+bill+rec)},{label:'RPO total',value:K.money(D.end*1.36)}]);
+ K.waterfall($('c_wf'),{steps:[['Opening',open,1],['New billings',bill*.68],['Renewal billings',bill*.32],['Recognised',rec],['FX & credits',-D.end*.006],['Closing',open+bill+rec-D.end*.006,1]],fmt:K.money,h:280});
+ K.bars($('c_rpo'),{labels:['Next 3 months','3–6 months','6–12 months','12–24 months','24+ months'],series:[{name:'RPO',data:[.29,.24,.31,.12,.04].map(v=>v*D.end*1.36)}],fmt:K.money,h:240})},
+ren(F){const D=data(F);const M=['Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep'];const r=K.rng(K.seed(F,'r'));
+ K.kpis($('k4'),[{label:'Up for renewal next 12 mo',value:K.money(D.end*.86)},{label:'Next 90 days',value:K.money(D.end*.21)},{label:'Forecast GRR',value:'92%'},{label:'Renewals with uplift',value:'58%'},{label:'Auto-renew contracts',value:'71%'}]);
+ K.bars($('c_cal'),{labels:M,series:[{name:'Safe',data:M.map(()=>D.end*.86/12*(.6+r()*.3)),color:K.css('--good')},{name:'Watch',data:M.map(()=>D.end*.86/12*(.12+r()*.1)),color:K.css('--warn')},{name:'At risk',data:M.map(()=>D.end*.86/12*(.04+r()*.07)),color:K.css('--bad')}],stacked:true,fmt:K.money,h:280});
+ K.table($('t_ren'),{cols:[{k:'a',label:'Customer'},{k:'arr',label:'ARR',align:'r',fmt:K.money,bar:true},{k:'d',label:'Renews'},{k:'risk',label:'CSM call'},{k:'up',label:'Proposed uplift',align:'r',fmt:v=>'+'+K.pct(v,0)},{k:'term',label:'Term'}],rows:['Halden Bank','Velo Mobility','Ashgrove Health','Pellucid AI','Marlow Foods','Northbeam','Tessera Labs'].map(a=>({a,arr:(200e3+r()*1.4e6)*D.f,d:K.pick(r,['14 Oct','2 Nov','30 Nov','15 Dec','31 Dec']),risk:K.pick(r,['● Safe','● Safe','◐ Watch','▲ At risk']),up:r()*.12,term:K.pick(r,['1 yr','2 yr','3 yr'])})),sort:'arr'})},
+recon(F){const D=data(F);const won=6.42e6*D.f;$('recon').innerHTML=[['Closed-won ACV (Salesforce)',won],['− Start date next quarter',-won*.11],['− Multi-year: years 2–3 not yet billable',-won*.07],['+ Usage overage billed',won*.02],['− Credits & concessions',-won*.012],['− Not yet invoiced (ops backlog)',-won*.018]].map(x=>`<tr><td>${x[0]}</td><td>${K.money(x[1])}</td></tr>`).join('')+`<tr class="t"><td>Invoiced in Stripe</td><td>${K.money(won*(1-.11-.07+.02-.012-.018))}</td></tr>`;
+ K.bars($('c_mm'),{labels:['Amount differs','Start date differs','Missing in Stripe','Missing in Salesforce','Product mapping'],series:[{name:'Contracts',data:[14,9,4,2,6].map(v=>Math.max(1,Math.round(v*D.f)))}],fmt:K.int,horizontal:true,h:240});
+ const r=K.rng(K.seed(F,'m'));K.table($('t_mm'),{cols:[{k:'a',label:'Customer'},{k:'t',label:'Issue'},{k:'sf',label:'Salesforce',align:'r',fmt:K.money},{k:'st',label:'Stripe',align:'r',fmt:K.money},{k:'gap',label:'Gap',align:'r',fmt:K.money,bar:true},{k:'o',label:'Owner'}],rows:['Orbis Retail','Kilnworks','Fjord Energy','Calder Labs','Mintworth','Harrow & Vale'].map(a=>{const sf=30e3+r()*200e3;const st=sf*(.7+r()*.25);return{a,t:K.pick(r,['Amount differs','Start date differs','Missing in Stripe','Product mapping']),sf,st,gap:sf-st,o:K.pick(r,['RevOps — Lea','Billing — Tom'])}}),sort:'gap'})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

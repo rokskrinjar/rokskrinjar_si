@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Slide Quest</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none}
+body{background:#efe9df;font-family:Syne,sans-serif;color:#1e1b2e;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:44px 12px 14px}
+h1{font-weight:800;font-size:clamp(30px,8vw,48px);letter-spacing:-.03em;line-height:1}h1 span{color:#e4572e}
+.bar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center}
+.bar button{font:inherit;font-weight:800;border:2px solid #1e1b2e;background:none;color:#1e1b2e;padding:6px 12px;border-radius:30px;cursor:pointer;font-size:13px}.bar button.on{background:#1e1b2e;color:#efe9df}
+.stat{display:flex;gap:16px;font-weight:600;font-size:14px;font-variant-numeric:tabular-nums}.stat b{font-weight:800}
+.board{position:relative;width:var(--B);height:var(--B);border-radius:14px;background:#1e1b2e;box-shadow:0 18px 40px #1e1b2e44;overflow:hidden}
+.tile{position:absolute;width:calc(var(--B)/var(--n));height:calc(var(--B)/var(--n));padding:3px;transition:transform .12s ease-out;cursor:pointer}
+.tile i{display:block;width:100%;height:100%;border-radius:8px;background-image:var(--img);background-size:var(--B) var(--B);position:relative;box-shadow:inset 0 0 0 1px #fff3,inset 0 -4px 0 #0002}
+.tile b{position:absolute;left:8px;top:6px;font-size:calc(var(--B)/var(--n)*.2);color:#fff;text-shadow:0 1px 3px #0008;font-weight:800}
+.board.nonum .tile b{display:none}
+.board.done .tile i{border-radius:0;box-shadow:none}.board.done .tile{padding:0;transition:padding .4s,transform .12s}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#efe9dfdd}.ov.on{display:grid}
+.ov h2{font-size:clamp(40px,11vw,70px);font-weight:800;letter-spacing:-.04em;color:#e4572e}.ov p{margin:8px 0 20px;font-weight:600;line-height:1.6}
+.ov button{font:inherit;font-weight:800;border:0;background:#1e1b2e;color:#efe9df;padding:12px 30px;border-radius:30px;cursor:pointer;font-size:16px}
+.back{position:fixed;left:12px;top:12px;color:#1e1b2e;text-decoration:none;font-size:13px;font-weight:800;z-index:6}
+.tip{font-size:12px;opacity:.6;text-align:center}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="back" href="index.html">← games</a>
+<h1>Slide <span>Quest</span></h1>
+<div class="bar" id="sz"><button data-n="3">3×3</button><button data-n="4" class="on">4×4</button><button data-n="5">5×5</button><button id="num">#</button><button id="shuf">Shuffle</button></div>
+<div class="stat"><span>Moves <b id="mv">0</b></span><span>Time <b id="tm">0.0</b></span><span>Best <b id="bs">–</b></span></div>
+<div class="board" id="board"></div>
+<p class="tip">Tap a tile in the gap's row or column to slide · swipe or arrows move toward the gap</p>
+<div class="ov" id="ov"><div><h2>Solved.</h2><p id="op"></p><button id="go">New art</button></div></div>
+<script>
+const K='best-slide-quest';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const board=document.getElementById('board');let n=4,pos=[],els=[],moves=0,t0=0,timer,running=false,best=ls.g(K,{});if(typeof best!=='object'||!best)best={};
+let AC;function tone(f,d=.05,type='triangle',v=.04){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function art(){const h=Math.random()*360,h2=(h+40+Math.random()*80)%360,h3=(h+180)%360;const cx=20+Math.random()*60,cy=20+Math.random()*60;const k=Math.random()*3|0;
+ const layers=[`radial-gradient(circle at ${cx}% ${cy}%,hsl(${h3} 90% 70%) 0 8%,transparent 8.5%)`,`radial-gradient(circle at ${100-cx}% ${100-cy}%,hsl(${h2} 80% 60%/.9) 0 22%,transparent 22.5%)`,
+  k===0?`repeating-conic-gradient(from ${Math.random()*90}deg at ${cx}% ${cy}%,hsl(${h} 70% 55%) 0 15deg,hsl(${h2} 75% 45%) 15deg 30deg)`:k===1?`repeating-linear-gradient(${Math.random()*180}deg,hsl(${h} 70% 55%) 0 7%,hsl(${h2} 70% 45%) 7% 14%,hsl(${h3} 60% 80%) 14% 16%)`:`conic-gradient(from 0deg at ${cx}% ${cy}%,hsl(${h} 80% 55%),hsl(${h2} 80% 55%),hsl(${h3} 80% 60%),hsl(${h} 80% 55%))`];
+ board.style.setProperty('--img',layers.join(','))}
+function size(){const B=Math.floor(Math.min(innerWidth-32,innerHeight-260,520));board.style.setProperty('--B',B+'px');board.style.setProperty('--n',n)}
+addEventListener('resize',size);
+function place(){const cs=100;els.forEach((e,i)=>{if(!e)return;const p=pos.indexOf(i);e.style.transform=`translate(${(p%n)*cs}%,${(p/n|0)*cs}%)`})}
+function build(){board.innerHTML='';board.classList.remove('done');els=[];for(let i=0;i<n*n-1;i++){const e=document.createElement('div');e.className='tile';const c=i%n,r=i/n|0;e.innerHTML=`<i style="background-position:calc(var(--B)/var(--n)*${-c}) calc(var(--B)/var(--n)*${-r})"></i><b>${i+1}</b>`;e.dataset.i=i;board.appendChild(e);els.push(e)}els.push(null);size();hud()}
+function shuffle(){pos=[...Array(n*n).keys()];let blank=n*n-1,last=-1;for(let k=0;k<n*n*40;k++){const b=pos.indexOf(n*n-1),r=b/n|0,c=b%n;const opts=[];if(r>0)opts.push(b-n);if(r<n-1)opts.push(b+n);if(c>0)opts.push(b-1);if(c<n-1)opts.push(b+1);const o=opts.filter(v=>v!==last);const pick=o[Math.random()*o.length|0];[pos[b],pos[pick]]=[pos[pick],pos[b]];last=b}
+ if(pos.every((v,i)=>v===i))return shuffle();moves=0;running=false;clearInterval(timer);document.getElementById('tm').textContent='0.0';place();hud()}
+function hud(){document.getElementById('mv').textContent=moves;const b=best[n];document.getElementById('bs').textContent=b?b.t.toFixed(1)+'s':'–'}
+function slideFrom(p){const b=pos.indexOf(n*n-1);const br=b/n|0,bc=b%n,pr=p/n|0,pc=p%n;if(p===b)return false;
+ if(br!==pr&&bc!==pc)return false;const step=br===pr?(pc>bc?1:-1):(pr>br?n:-n);let cur=b;while(cur!==p){const nx=cur+step;[pos[cur],pos[nx]]=[pos[nx],pos[cur]];cur=nx;moves++}
+ if(!running){running=true;t0=performance.now();timer=setInterval(()=>document.getElementById('tm').textContent=((performance.now()-t0)/1000).toFixed(1),100)}
+ tone(300+Math.random()*80);place();hud();check();return true}
+function tapTile(i){if(document.getElementById('ov').classList.contains('on'))return;slideFrom(pos.indexOf(i))}
+function dirMove(d){const b=pos.indexOf(n*n-1),r=b/n|0,c=b%n;// tile moves in direction d into blank => source is opposite side
+ const m={L:[0,1],R:[0,-1],U:[1,0],D:[-1,0]}[d];const sr=r+m[0],sc=c+m[1];if(sr<0||sc<0||sr>=n||sc>=n)return;slideFrom(sr*n+sc)}
+function check(){if(!pos.every((v,i)=>v===i))return;running=false;clearInterval(timer);const tt=(performance.now()-t0)/1000;const b=best[n];const rec=!b||tt<b.t;if(rec){best[n]={t:tt,m:moves};ls.s(K,best)}hud();
+ board.classList.add('done');[523,659,784,1046].forEach((f,k)=>setTimeout(()=>tone(f,.25),k*100));
+ setTimeout(()=>{document.getElementById('op').innerHTML=`${n}×${n} in ${moves} moves · ${tt.toFixed(1)}s${rec?'<br><b>New best time!</b>':''}`;document.getElementById('ov').classList.add('on')},900)}
+addEventListener('keydown',e=>{const m={ArrowLeft:'L',ArrowRight:'R',ArrowUp:'U',ArrowDown:'D',a:'L',d:'R',w:'U',s:'D'}[e.key];if(document.getElementById('ov').classList.contains('on')){if(e.key===' '||e.key==='Enter'){e.preventDefault();newGame()}return}if(m){e.preventDefault();dirMove(m)}});
+let sw=null;board.addEventListener('pointerdown',e=>{const tl=e.target.closest('.tile');sw=[e.clientX,e.clientY,tl?+tl.dataset.i:-1]});addEventListener('pointerup',e=>{if(!sw)return;const dx=e.clientX-sw[0],dy=e.clientY-sw[1],ti=sw[2];sw=null;if(Math.max(Math.abs(dx),Math.abs(dy))<24){if(ti>=0)tapTile(ti);return}dirMove(Math.abs(dx)>Math.abs(dy)?(dx>0?'R':'L'):(dy>0?'D':'U'))});
+function newGame(){document.getElementById('ov').classList.remove('on');art();build();shuffle()}
+document.getElementById('sz').onclick=e=>{const b=e.target.closest('button[data-n]');if(!b)return;n=+b.dataset.n;document.querySelectorAll('#sz button[data-n]').forEach(x=>x.classList.toggle('on',x===b));newGame()};
+document.getElementById('num').onclick=()=>board.classList.toggle('nonum');document.getElementById('shuf').onclick=newGame;document.getElementById('go').onclick=newGame;
+newGame();
+</script>
+</body>
+</html>

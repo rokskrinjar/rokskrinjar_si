@@ -1,0 +1,173 @@
+T.trade({
+  id: 'chimney',
+  name: 'Chimney Sweep',
+  plural: 'Chimney Sweeps',
+  noun: 'chimney',
+  icon: 'chimney',
+  emergency: false,
+
+  nameParts: {
+    pre: ['Hearthside', 'Sootfree', 'Flueline', 'Blackbrush', 'Ember', 'Fireside', 'Chimneypot', 'Clearflue', 'Woodsmoke', 'Inglenook',
+      'Warmhearth', 'Brushwood', 'Stackline', 'Kindling', 'Firedog', 'Cowl & Brush', 'Smokeway', 'Ashdown', 'Glowing', 'Hearthstone',
+      'Old Flue', 'Tall Stack', 'Fireplace', 'Burnwell', 'Ironside', 'Lantern'],
+    post: ['Chimney Sweep', 'Chimney Sweeps', 'Sweep & Stoves', 'Stoves & Chimneys', 'Chimney Services', 'Stove Fitters', 'Flue Care', 'Chimney Co.'],
+  },
+
+  headlines: [
+    'Clean chimneys, safe fires, warm homes',
+    'Your local sweep in {town}, booked in minutes',
+    'Professional sweeping with no mess left behind',
+    'Wood burners fitted safely and certified',
+    'Get your chimney ready before the first fire',
+    'Traditional sweeping, modern standards',
+    'Stoves, liners and chimneys from one trusted sweep',
+    'Smoky fire or poor draw? We find out why',
+    'A clean flue is a safe flue',
+    'Dust-free sweeping with a certificate every time',
+    'Fireplaces brought back into use',
+    'Expert advice before you buy a stove',
+  ],
+
+  intros: [
+    'We sweep chimneys and flues for open fires, wood burners and multi-fuel stoves across {town}. Every sweep includes a smoke test and a certificate for your records and insurer.',
+    'Clean, careful chimney sweeping. Dust sheets down, sealed sweeping with industrial vacuum extraction, a smoke test at the end and your room left exactly as we found it.',
+    'Thinking about a wood burner? We survey your chimney, recommend a stove that suits the room, fit the liner and hearth, and certify the installation properly.',
+    'A sweep is about more than soot. We check for blockages, nests, cracked liners and poor draw, and tell you plainly if anything needs attention.',
+    'We have been keeping fires burning safely around {town} for years. Annual sweeps, stove servicing, cowls, bird guards and fireplace openings, all from one local firm.',
+    'Fires that smoke back into the room are miserable. We investigate draw problems properly, from liner condition to cowls and ventilation, and fix the actual cause.',
+    'Quality stove installations for people who want it done right: the correct liner, a proper hearth, a carbon monoxide alarm, clear operating advice and full certification.',
+    'No fuss, no mess, just a well-swept chimney and honest advice. Morning and evening slots available, and we send a reminder when your next sweep is due.',
+  ],
+
+  about: [
+    '{owner} has been sweeping chimneys for {years} years and fitting stoves for almost as long. {name} covers {town} and the villages around it, from cottage inglenooks to modern new-build flues. Many of our customers have booked the same annual sweep with us for years, and plenty of them now have a stove we fitted.',
+    'We are a small, local chimney and stove business. We do our own sweeping and installations, keep our vans and equipment clean, and leave your home tidy every time. There are no salespeople and no subcontractors, so the person who surveys your chimney is the person who sweeps it or fits your stove.',
+    'At {name} safety comes first. Every chimney gets a proper inspection as well as a sweep, and we will always tell you if we see something that needs fixing before you light another fire. Equally, if your chimney is in good order, we will say so and not invent work that is not needed.',
+    '{owner} started {name} after years working alongside builders and seeing too many stoves fitted without the right liner or hearth. We do it properly or we do not do it. That means correct sizing, a sealed flue, a compliant hearth, a carbon monoxide alarm and full paperwork every time.',
+    'Over {years} years we have swept thousands of chimneys in and around {town}. We know the old stacks, the quirky flues and the houses where the jackdaws always come back. That local knowledge means fewer surprises on the day and quicker answers when a fire is not behaving as it should.',
+    'We love a real fire, and we love helping people enjoy them safely. Whether it is a once-a-year sweep or a brand-new stove, you get the same care and straight talk, plus practical advice on fuel, lighting and running the stove so it burns cleanly and keeps the glass clear.',
+  ],
+
+  services: [
+    { n: 'Chimney sweeping', d: 'Sealed, vacuum-assisted sweeping of open fires and stoves, with a smoke test and certificate included.', from: 75, unit: 'per flue' },
+    { n: 'Stove installation', d: 'Wood burners and multi-fuel stoves supplied and fitted with liner, hearth and full certification.', from: 1800, unit: 'per job' },
+    { n: 'Flue liner installation', d: 'Stainless steel flexible liners fitted to suit your stove, with register plate, cowl and insulation where needed.', from: 650, unit: 'per job' },
+    { n: 'Stove servicing', d: 'Rope seals, glass, baffles and firebricks checked and replaced so your stove burns cleanly and efficiently.', from: 95, unit: 'per stove' },
+    { n: 'CCTV chimney inspection', d: 'Camera survey of the full flue to find cracks, blockages and liner damage before buying or lighting a fire.', from: 120, unit: 'per flue' },
+    { n: 'Bird guards & cowls', d: 'Pots capped with bird guards, rain cowls or anti-downdraught cowls to stop nests and smoke blow-back.', from: 110, unit: 'per pot' },
+    { n: 'Nest removal', d: 'Jackdaw and bird nests cleared from flues outside nesting season, followed by a sweep and guard.', from: 140, unit: 'per flue' },
+    { n: 'Smoke & draw testing', d: 'Smoke and draw tests to check your flue is sound and taking smoke away as it should.', from: 60, unit: 'per flue' },
+    { n: 'Fireplace opening', d: 'Blocked-up fireplaces opened, lintels checked, inside rendered and made ready for a stove or open fire.', from: 450, unit: 'per job' },
+    { n: 'Hearth fitting', d: 'Slate, granite or stone hearths cut and fitted to the correct size and thickness for your appliance.', from: 280, unit: 'per hearth' },
+    { n: 'Chimney capping', d: 'Unused chimneys capped and vented to keep rain and birds out while preventing damp.', from: 160, unit: 'per pot' },
+    { n: 'Stove glass & rope replacement', d: 'Cracked stove glass and worn door seals replaced with the correct parts for your model.', from: 65, unit: 'per job' },
+  ],
+
+  usps: [
+    ['Certificate with every sweep', 'You receive a sweep certificate noting the condition of the flue, useful for your records and your home insurer.'],
+    ['Clean, sealed sweeping', 'We seal the fireplace and use industrial vacuums, so soot stays in the chimney and out of your room.'],
+    ['Smoke test included', 'Every sweep finishes with a smoke test to make sure the flue is clear and drawing properly.'],
+    ['Certified installations', 'Stoves are fitted to current safety standards, with the paperwork you need and a carbon monoxide alarm fitted.'],
+    ['Honest stove advice', 'We size stoves to the room, not the brochure. Too big and it will smoulder; too small and you will be cold.'],
+    ['Camera inspections', 'Our flue camera shows exactly what is inside your chimney, so decisions are based on evidence, not guesswork.'],
+    ['Reminders when due', 'We send a reminder when your annual sweep is due, so it is booked before the busy autumn rush.'],
+    ['Morning and evening slots', 'Early starts and late afternoon appointments so you do not need to take a day off work.'],
+    ['Local and independent', 'We are not tied to one stove brand, so we recommend what suits your home and budget.'],
+    ['Tidy, respectful visits', 'Shoes covered, dust sheets down from the door to the fireplace, and the hearth wiped clean before we leave, so you would hardly know we had been.'],
+  ],
+
+  process: [
+    ['Book a visit', 'Choose a sweep slot or ask for a stove survey. Tell us what you burn and any problems you have noticed.'],
+    ['Inspect and protect', 'We sheet up the room, inspect the fireplace or stove and check the chimney from outside where possible.'],
+    ['Sweep or survey', 'We sweep and vacuum the flue, or survey for a new stove with measurements, camera checks and options.'],
+    ['Test and certify', 'Smoke and draw tests confirm the flue is working. You receive a certificate or a written stove quote.'],
+    ['Ongoing care', 'We note your next sweep date and send a reminder, plus advice on fuel and stove care.'],
+  ],
+
+  calc: {
+    title: 'Estimate your stove installation',
+    intro: 'A guide price for a wood burner or multi-fuel stove fitted into an existing chimney with a new liner. Sweeping starts from £75 per flue.',
+    base: 450,
+    inputs: [
+      { k: 'liner', l: 'Chimney height (liner length)', t: 'num', u: 'metres', min: 3, max: 15, v: 8, step: 1, rate: 70 },
+      { k: 'stove', l: 'Stove', t: 'sel', o: [
+        ['Mid-range 5 kW multi-fuel stove', { a: 1100 }],
+        ['Budget 4–5 kW wood burner', { a: 700 }],
+        ['Premium 5–8 kW stove', { a: 1900 }],
+        ['I am supplying my own stove', { a: 0 }],
+      ] },
+      { k: 'hearth', l: 'Hearth', t: 'sel', o: [
+        ['Existing hearth is suitable', { a: 0 }],
+        ['New slate or granite hearth', { a: 380 }],
+      ] },
+      { k: 'open', l: 'Open up and render a blocked fireplace', t: 'chk', e: { a: 480 } },
+      { k: 'access', l: 'Scaffold or tower for chimney access', t: 'chk', e: { a: 400 } },
+      { k: 'sweep', l: 'Sweep and camera survey first', t: 'chk', e: { a: 150 } },
+    ],
+    notes: ['Includes liner, register plate, cowl, carbon monoxide alarm and certification.', 'Final price confirmed after a free chimney survey.', 'Chimney repairs and repointing quoted separately.'],
+  },
+
+  faq: [
+    ['How often should my chimney be swept?', 'At least once a year for wood burners and open fires burning wood, and twice a year if you use the stove heavily or burn wood that is not fully seasoned. Smokeless fuel stoves usually need one sweep a year.'],
+    ['Is chimney sweeping messy?', 'Not when it is done properly. We seal the fireplace or stove opening, use a powerful vacuum and lay dust sheets throughout. Most customers say they cannot tell we have been.'],
+    ['What does a sweep certificate show?', 'It records the date, the appliance, the flue condition and the results of the smoke test. Many home insurers expect one, and it is useful when selling your home.'],
+    ['Do I need a liner for a wood burner?', 'In most older chimneys, yes. A liner gives the stove a sealed, correctly sized flue, improves draw and protects the masonry from tar and condensation. We will check during the survey.'],
+    ['What size stove do I need?', 'It depends on the room size, insulation and how warm you like it. Most living rooms need 4 to 6 kW. Oversized stoves run too low, smoke up the glass and cause tar build-up.'],
+    ['How long does a stove installation take?', 'Usually one to two days for a straightforward fit into an existing fireplace. Opening up a blocked fireplace or fitting a new hearth can add another day.'],
+    ['Why does my fire smoke back into the room?', 'Common causes are a cold or blocked flue, poor ventilation, a chimney that is too short, or wind downdraught. We test the draw and check the flue to find the real cause.'],
+    ['Can you remove a bird nest?', 'Yes, outside the nesting season when birds are not active. We clear the nest, sweep and test the flue, and fit a bird guard to stop it happening again.'],
+    ['What wood should I burn?', 'Dry, seasoned hardwood or kiln-dried logs with a moisture content below 20 percent. Wet wood produces little heat, blackens the glass and coats the flue in tar.'],
+    ['Should I cap a chimney I do not use?', 'Yes, but it must be ventilated. A capped and vented pot keeps out rain and birds while letting air move through, which prevents damp patches on chimney breasts.'],
+  ],
+
+  reviews: [
+    { t: 'Swept two chimneys in under an hour and genuinely left no mess. Smoke test on both and a certificate emailed the same day. Already booked for next year.', job: 'Chimney sweeping', s: 5 },
+    { t: 'Fitted a 5 kW stove in our living room with a new liner and slate hearth. Two days, very tidy, and they explained how to light and run it properly.', job: 'Stove installation', s: 5 },
+    { t: 'Our open fire kept smoking into the room. They did a draw test, found the flue was partly blocked by an old nest and fitted a cowl. Burns perfectly now.', job: 'Smoke problem', s: 5 },
+    { t: 'Camera inspection before we bought the house showed a cracked liner. Saved us a nasty surprise and helped us negotiate on price.', job: 'CCTV inspection', s: 5 },
+    { t: 'Opened up our boarded fireplace and fitted a wood burner. More dust than I expected from the opening up, but they cleaned thoroughly afterwards.', job: 'Fireplace opening & stove', s: 4 },
+    { t: 'Jackdaws had been nesting in our chimney for years. Nest out, chimney swept and a guard fitted. Very knowledgeable about the timing.', job: 'Nest removal', s: 5 },
+    { t: 'Annual service on our stove: new door rope and a cracked firebrick replaced. Arrived early, done in forty minutes, and the stove is burning much more steadily now.', job: 'Stove service', s: 5 },
+    { t: 'They talked us out of the big stove we had picked and fitted a smaller one. Glad they did, as the room is plenty warm and it burns cleanly.', job: 'Stove installation', s: 5 },
+    { t: 'Capped two unused chimneys with vented caps. The damp patch on the bedroom chimney breast has finally dried out after two winters of trying everything else.', job: 'Chimney capping', s: 5 },
+    { t: 'Very professional sweep. Explained that our logs were too wet and showed us the tar in the flue. Bought a moisture meter and the difference is huge.', job: 'Chimney sweeping', s: 5 },
+    { t: 'New flue liner and register plate for our existing stove. Quote was accurate and the job was done in a day despite a very tall chimney.', job: 'Liner installation', s: 5 },
+    { t: 'Easy to book, arrived on time, swept the inglenook and the stove flue. Slightly more expensive than the last sweep, but far cleaner and more thorough.', job: 'Chimney sweeping', s: 4 },
+    { t: 'Replaced the cracked glass on our stove with the correct part. Ordered it in two days and fitted it in ten minutes.', job: 'Stove glass', s: 5 },
+    { t: 'Fitted an anti-downdraught cowl on our hillside house where the wind used to blow smoke back. Has made a real difference this winter.', job: 'Cowl fitting', s: 5 },
+  ],
+
+  certs: ['Fully insured to £5m', 'Certified stove installer', 'Sweep certificate with every visit', 'Carbon monoxide alarm fitted as standard', 'CCTV flue inspection', '12-month installation guarantee'],
+
+  gallery: [
+    ['Sealed fireplace ready for sweeping', 'Sweeping'],
+    ['Wood burner on a new slate hearth', 'Stove installation'],
+    ['Stainless liner going down the stack', 'Flue liners'],
+    ['Bird guard fitted on a clay pot', 'Bird guards'],
+    ['Camera view inside a cracked flue', 'Inspections'],
+    ['Opened-up fireplace with new lintel', 'Fireplace opening'],
+    ['Inglenook stove with flue pipe', 'Stove installation'],
+    ['Jackdaw nest removed from a flue', 'Nest removal'],
+    ['Anti-downdraught cowl on a hillside home', 'Cowls'],
+    ['New door rope and glass on a stove', 'Stove servicing'],
+    ['Vented cap on an unused chimney', 'Capping'],
+    ['Granite hearth cut to size', 'Hearths'],
+  ],
+
+  jobs: ['Chimney sweep', 'Stove installation', 'Flue liner', 'Stove service', 'Camera inspection', 'Bird guard or cowl', 'Nest removal', 'Smoking fire investigation'],
+
+  urgent: ['Fire smoking into the room', 'Smell of smoke in another room', 'Birds nesting in the chimney', 'Stove glass cracked', 'Carbon monoxide alarm sounding'],
+
+  tips: [
+    ['Burn only dry wood', 'Logs should be below 20 percent moisture. A cheap moisture meter pays for itself quickly in better heat, cleaner glass and less tar in the flue.'],
+    ['Book your sweep in summer', 'Autumn is the busiest time for sweeps. Booking in late spring or summer means you get your preferred slot and are ready for the first cold evening.'],
+    ['Fit a carbon monoxide alarm', 'Every room with a solid fuel appliance needs a working carbon monoxide alarm. Test it monthly and replace it when it reaches its expiry date.'],
+    ['Do not burn household waste', 'Packaging, painted wood and household rubbish give off harmful fumes and build up deposits in the flue. Stick to logs, kindling and approved fuels for your stove.'],
+    ['Check door seals each year', 'Close the stove door on a strip of paper. If it pulls out easily, the rope seal is worn and the stove will burn too fast.'],
+    ['Run the stove hot, not slow', 'Smouldering a stove overnight on low air creates tar and blackened glass. Short, hot fires are cleaner and more efficient, and keep your flue in far better condition.'],
+    ['Keep the hearth clear', 'Keep logs, rugs and furniture a safe distance from the stove and hearth. Embers can roll out when you open the door, so a fireguard is wise with children around.'],
+    ['Watch for warning signs', 'Smoke escaping into the room, stains on the chimney breast or a fire that will not draw all mean it is time to get the flue checked.'],
+  ],
+
+  hours: { normal: 'Mon–Fri 7:30–18:00, Sat 8:00–14:00' },
+});

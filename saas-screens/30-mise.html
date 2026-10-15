@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mise — POS · Table 7</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#161412;--s:#211e1b;--s2:#2c2824;--ln:#3a3530;--tx:#f5efe6;--mu:#a69c90;--tom:#e8442e;--bas:#3fa060;--saf:#f2b33d;--paper:#fffaf2}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 'Mulish',sans-serif;display:grid;grid-template-rows:auto 1fr;height:100vh;user-select:none}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;background:var(--s);border-bottom:1px solid var(--ln)}
+.lg{font:400 30px/1 'Bebas Neue';letter-spacing:.04em;color:var(--saf)}
+.tbls{display:flex;gap:6px;overflow:auto}.tbls button{border:0;background:var(--s2);color:var(--mu);border-radius:10px;padding:8px 12px;font:800 13px 'Mulish';cursor:pointer;white-space:nowrap}.tbls button.on{background:var(--tx);color:var(--bg)}.tbls button.busy{box-shadow:inset 0 -3px 0 var(--tom)}
+header .sp{flex:1}.who{display:flex;align-items:center;gap:8px;color:var(--mu);font-weight:700}.who i{width:32px;height:32px;border-radius:50%;background:var(--bas);display:grid;place-items:center;color:#fff;font-style:normal}
+.lay{display:grid;grid-template-columns:120px 1fr 380px;min-height:0}
+.cats{background:var(--s);display:flex;flex-direction:column;gap:6px;padding:10px;overflow:auto}
+.cats button{border:0;border-radius:14px;padding:16px 8px;font:400 22px/1 'Bebas Neue';letter-spacing:.04em;cursor:pointer;color:#1b1714;text-align:left}
+.cats button.on{outline:3px solid var(--tx);outline-offset:2px}
+.menu{padding:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;align-content:start;overflow:auto}
+.it{background:var(--s);border:1px solid var(--ln);border-radius:16px;padding:14px;cursor:pointer;min-height:118px;display:flex;flex-direction:column;position:relative;transition:transform .08s}
+.it:active{transform:scale(.96)}.it b{font:400 24px/1 'Bebas Neue';letter-spacing:.03em}.it span{color:var(--mu);font-size:12.5px;margin-top:4px}
+.it .p{margin-top:auto;font-weight:800;font-size:17px}.it .bar{position:absolute;top:0;left:14px;right:14px;height:4px;border-radius:0 0 4px 4px}
+.it.out{opacity:.35;pointer-events:none}.it.out::after{content:'86’d';position:absolute;right:12px;bottom:14px;font:400 22px 'Bebas Neue';color:var(--tom)}
+.it .n{position:absolute;right:10px;top:10px;background:var(--saf);color:#1b1714;border-radius:999px;min-width:24px;height:24px;display:grid;place-items:center;font-weight:800;font-size:13px}
+.tk{background:var(--paper);color:#1b1714;display:flex;flex-direction:column;min-height:0}
+.tk .hd{padding:16px 18px;border-bottom:2px dashed #d8cfc2}.tk .hd b{font:400 34px/1 'Bebas Neue';letter-spacing:.03em}.tk .hd span{display:block;color:#7b7066;font-size:13px;font-weight:700}
+.lines{flex:1;overflow:auto;padding:6px 18px}
+.ln{display:grid;grid-template-columns:30px 1fr auto;gap:8px;padding:10px 0;border-bottom:1px solid #eee3d4;align-items:start}
+.ln .q{font-weight:800}.ln small{display:block;color:#9a5a2c;font-weight:700}.ln .x{border:0;background:none;color:#b2a597;cursor:pointer;font-size:14px;margin-left:6px}
+.course{font:400 16px 'Bebas Neue';letter-spacing:.12em;color:#9a8f83;margin-top:10px}
+.tot{padding:12px 18px;border-top:2px dashed #d8cfc2}.tot .r{display:flex;justify-content:space-between;padding:2px 0;color:#5f564d;font-weight:700}.tot .r.big{color:#1b1714;font:400 30px 'Bebas Neue';letter-spacing:.03em}
+.act{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:8px;padding:0 18px 16px}
+.act button{border:0;border-radius:14px;padding:16px 8px;font:400 22px/1 'Bebas Neue';letter-spacing:.06em;cursor:pointer}
+.fire{background:var(--tom);color:#fff}.split{background:#e9dfd2;color:#1b1714}.pay{background:var(--bas);color:#fff}
+.toast{position:fixed;left:50%;top:70px;transform:translateX(-50%) translateY(-20px);background:var(--saf);color:#1b1714;font:400 26px 'Bebas Neue';letter-spacing:.05em;padding:10px 22px;border-radius:14px;opacity:0;transition:.25s;z-index:10}.toast.on{opacity:1;transform:translateX(-50%)}
+@media(max-width:1000px){.lay{grid-template-columns:90px 1fr}.tk{grid-column:1/-1;min-height:60vh}body{height:auto}}
+</style>
+</head>
+<body>
+<header><div class="lg">MISE</div><div class="tbls" id="tbls"></div><span class="sp"></span><div class="who">19:42 · Server <i>LÉ</i></div></header>
+<div class="lay"><nav class="cats" id="cats"></nav><main class="menu" id="menu"></main>
+ <aside class="tk"><div class="hd"><b id="tt">TABLE 7</b><span>4 guests · opened 19:05 · Léa</span></div><div class="lines" id="lines"></div>
+  <div class="tot"><div class="r"><span>Subtotal</span><span id="sub"></span></div><div class="r"><span>Service 10%</span><span id="svc"></span></div><div class="r big"><span>Total</span><span id="tot"></span></div></div>
+  <div class="act"><button class="split">Split</button><button class="fire" id="fire">Fire</button><button class="pay" id="pay">Pay</button></div></aside></div>
+<div class="toast" id="toast"></div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;top:64px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 50 SaaS</a>
+<script>
+const C={Starters:'#f2b33d',Mains:'#e8442e',Pasta:'#f5d27a',Sides:'#8fd1a2',Desserts:'#f0a3c4',Drinks:'#8ec5ff'};
+const M={Starters:[['Burrata','heirloom tomato, basil oil',13],['Fried artichokes','lemon aioli',9],['Beef tartare','smoked yolk, rye',15],['Soup of the day','ask your server',8,1]],Mains:[['Hake','brown butter, capers',26],['Ribeye 300g','bone marrow jus',38],['Roast squash','farro, sage',19],['Duck leg','lentils, cherries',27]],Pasta:[['Cacio e pepe','tonnarelli',16],['Ragù','pappardelle, 8-hr beef',19],['Nduja','rigatoni, stracciatella',18]],Sides:[['Fries','rosemary salt',5],['Greens','garlic, chilli',6],['Potatoes','duck fat',6]],Desserts:[['Tiramisù','house mascarpone',9],['Olive oil cake','crème fraîche',8],['Affogato','vanilla gelato',6]],Drinks:[['House red','glass',7],['Negroni','',11],['Sparkling water','1L',5],['Espresso','',3]]};
+let cat='Mains',tbl=7;const O={7:[['Starters','Burrata',13,1,''],['Starters','Fried artichokes',9,1,''],['Mains','Ribeye 300g',38,1,'medium-rare'],['Pasta','Ragù',19,2,''],['Drinks','House red',7,3,'']]};
+const $=s=>document.getElementById(s);
+$('tbls').innerHTML=[1,2,3,4,5,6,7,8,9,10,11,12].map(n=>`<button class="${n===7?'on':''} ${[2,5,7,9].includes(n)?'busy':''}" data-t="${n}">T${n}</button>`).join('');
+function cats(){$('cats').innerHTML=Object.keys(M).map(k=>`<button class="${k===cat?'on':''}" style="background:${C[k]}" data-c="${k}">${k}</button>`).join('')}
+function menu(){const o=O[tbl]||[];$('menu').innerHTML=M[cat].map(m=>{const n=o.filter(l=>l[1]===m[0]).reduce((a,l)=>a+l[3],0);return`<div class="it ${m[3]?'out':''}" data-n="${m[0]}"><i class="bar" style="background:${C[cat]}"></i>${n?`<span class="n">${n}</span>`:''}<b>${m[0]}</b><span>${m[1]}</span><span class="p">€${m[2]}</span></div>`}).join('')}
+function ticket(){const o=O[tbl]||[];$('tt').textContent='TABLE '+tbl;let h='';Object.keys(M).forEach(k=>{const ls=o.filter(l=>l[0]===k);if(!ls.length)return;h+=`<div class="course">${k}</div>`+ls.map(l=>`<div class="ln"><span class="q">${l[3]}×</span><div>${l[1]}${l[4]?`<small>${l[4]}</small>`:''}</div><span>€${(l[2]*l[3]).toFixed(2)}<button class="x" data-x="${l[1]}">✕</button></span></div>`).join('')});
+ $('lines').innerHTML=h||'<p style="color:#9a8f83;padding:20px 0">Tap items to start an order.</p>';const s=o.reduce((a,l)=>a+l[2]*l[3],0);$('sub').textContent='€'+s.toFixed(2);$('svc').textContent='€'+(s*.1).toFixed(2);$('tot').textContent='€'+(s*1.1).toFixed(2)}
+function all(){cats();menu();ticket()}
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),1500)}
+document.addEventListener('click',e=>{const c=e.target.closest('[data-c]');if(c){cat=c.dataset.c;all();return}const t=e.target.closest('[data-t]');if(t){tbl=+t.dataset.t;document.querySelectorAll('#tbls button').forEach(b=>b.classList.toggle('on',b===t));all();return}
+ const x=e.target.closest('[data-x]');if(x){const o=O[tbl];const l=o.find(l=>l[1]===x.dataset.x);if(l){l[3]--;if(!l[3])o.splice(o.indexOf(l),1)}all();return}
+ const it=e.target.closest('.it');if(it){const m=M[cat].find(m=>m[0]===it.dataset.n);const o=O[tbl]=O[tbl]||[];const l=o.find(l=>l[1]===m[0]);l?l[3]++:o.push([cat,m[0],m[2],1,'']);all()}});
+$('fire').onclick=()=>toast('🔥 Mains fired to kitchen');$('pay').onclick=()=>{toast('💳 Tap card on reader');setTimeout(()=>{O[tbl]=[];all();toast('✓ Table '+tbl+' closed')},1600)};
+all();
+</script>
+</body>
+</html>

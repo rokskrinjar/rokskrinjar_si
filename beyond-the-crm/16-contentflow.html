@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contentflow — Content to pipeline</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#f3f4ef;--ink:#16191a;--ink2:#4b5254;--ink3:#80878a;--grid:#e8eae4;--s1:#0d9488;--s2:#9333ea;--s3:#ea580c;--s4:#2563eb;--s5:#ca8a04;--q1:#d5f1ee;--q2:#a8e3dc;--q3:#6ccdc1;--q4:#27b0a1;--q5:#0d9488;--q6:#0b6b62;--pos:#0d9488;--neg:#c93a39;--good:#0f7a52;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'DM Sans',sans-serif}
+.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+aside{padding:26px 22px;border-right:1px solid var(--grid);background:var(--surface);position:sticky;top:0;height:100vh}
+.lg{font:400 28px/1 'DM Serif Display',serif;margin-bottom:4px}.lg span{color:var(--s1)}
+aside p{color:var(--ink3);font-size:12.5px;margin:0 0 24px}
+aside nav{display:flex;flex-direction:column;gap:2px}aside nav button{text-align:left;border:0;background:transparent;padding:9px 12px;border-radius:10px;font:500 14px 'DM Sans';color:var(--ink2);cursor:pointer;display:flex;justify-content:space-between}aside nav button span{color:var(--ink3);font-size:12px}aside nav button.on{background:#e6f4f2;color:var(--ink);font-weight:700}
+aside h6{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:24px 0 8px}
+aside .seg{display:flex;flex-direction:column;gap:4px}aside .seg button{text-align:left;border:1px solid var(--grid);background:#fff;border-radius:8px;padding:7px 10px;font:500 13px 'DM Sans';cursor:pointer;color:var(--ink2)}aside .seg button.on{border-color:var(--s1);color:var(--ink);box-shadow:inset 3px 0 0 var(--s1)}
+.src{font-size:12px;color:var(--ink3);line-height:1.9;margin-top:24px}
+main{padding:28px 34px 70px;min-width:0}
+h1{font:400 40px/1.05 'DM Serif Display',serif;margin:0 0 4px;letter-spacing:-.01em}.lead{color:var(--ink3);margin:0 0 20px;max-width:60em}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--surface);border-radius:14px;padding:15px 16px}.kpi .l{font-size:12.5px;color:var(--ink3)}.kpi .v{font:400 30px 'DM Serif Display',serif}.kpi .d{font-size:12px;font-weight:600}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border-radius:16px;padding:18px 20px;min-width:0}.card h3{margin:0;font-size:15px;font-weight:700}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.type{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#eef1ec;color:var(--ink2)}
+@media(max-width:1100px){.shell{grid-template-columns:1fr}aside{position:static;height:auto;border-right:0;border-bottom:1px solid var(--grid)}aside nav{flex-direction:row;flex-wrap:wrap}.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}}@media(max-width:640px){main{padding:18px 16px}.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body><div class="shell">
+<aside><div class="lg">Content<span>flow</span></div><p>Every article, video and guide — followed from first read to closed revenue.</p>
+ <nav><button data-sheet="lib">Library <span>214</span></button><button data-sheet="topics">Topics</button><button data-sheet="journey">Journeys</button><button data-sheet="decay">Decay & refresh</button><button data-sheet="search">Search</button></nav>
+ <h6>Period</h6><div class="seg"><button data-f="range" data-v="90d">Last quarter</button><button data-f="range" data-v="12m" class="on">Last 12 months</button></div>
+ <h6>Format</h6><div class="seg"><button data-f="fmt" data-v="all" class="on">All formats</button><button data-f="fmt" data-v="blog">Articles</button><button data-f="fmt" data-v="guide">Guides & ebooks</button><button data-f="fmt" data-v="video">Video</button></div>
+ <div class="src">● Contentful · ● GA4<br>● Search Console · ● YouTube<br>● HubSpot forms · ● Salesforce</div></aside>
+<main>
+ <section data-panel="lib"><h1>What our content earns</h1><p class="lead">Influenced pipeline = an opportunity whose buying group consumed the asset in the 90 days before the opp was created.</p><div class="kpis" id="k1"></div>
+  <div class="card"><h3>Content library</h3><p class="sub">Sorted by influenced pipeline. Click a header to sort.</p><div id="t_lib"></div></div></section>
+ <section data-panel="topics" hidden><h1>Which topics pull their weight</h1><p class="lead">Traffic is easy to find. Pipeline is the point.</p>
+  <div class="card"><h3>Traffic vs. conversion, by topic cluster</h3><p class="sub">Bubble size = influenced pipeline</p><div id="c_tp"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Pipeline per 1,000 views</h3><p class="sub">By topic cluster</p><div id="c_ppk"></div></div></section>
+ <section data-panel="journey" hidden><h1>How readers become buyers</h1><p class="lead">Format of first content touch → conversion point → furthest stage reached.</p>
+  <div class="card"><h3>Content journeys</h3><p class="sub">Contacts, selected period</p><div id="c_sk"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Assets consumed before an opportunity</h3><p class="sub">Distribution across won deals</p><div id="c_cnt"></div></div></section>
+ <section data-panel="decay" hidden><h1>What’s fading</h1><p class="lead">Organic traffic to our top 4 evergreen pieces since publication.</p>
+  <div class="card"><h3>Monthly organic sessions</h3><p class="sub">GA4 landing-page sessions, organic search</p><div id="c_dec"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Refresh candidates</h3><p class="sub">Traffic down 30%+ in 6 months but still influencing pipeline</p><div id="t_ref"></div></div></section>
+ <section data-panel="search" hidden><h1>Where we rank</h1><p class="lead">Search Console positions for the 1,240 keywords we track.</p><div class="kpis" id="k5"></div>
+  <div class="g g2"><div class="card"><h3>Keywords by position</h3><p class="sub">Now vs. 6 months ago</p><div id="c_pos"></div></div><div class="card"><h3>Clicks from search</h3><p class="sub">Brand vs. non-brand</p><div id="c_clk"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Keywords that bring buyers</h3><p class="sub">Search Console query → landing page → HubSpot conversion</p><div id="t_kw"></div></div></section>
+</main></div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const C=[['The board-ready SaaS metrics guide','guide','Metrics'],['How to run month-end close in 2 days','blog','Finance ops'],['SOC 2 in 30 days (webinar recording)','video','Security'],['Revenue attribution, explained','blog','Analytics'],['State of RevOps 2026 report','guide','RevOps'],['Pipeline coverage calculator','guide','Forecasting'],['AI copilots for ops teams','video','AI'],['Why your forecast is wrong','blog','Forecasting'],['Churn early-warning playbook','guide','Retention'],['CRM hygiene checklist','blog','RevOps'],['Customer story: Calder Labs','video','Proof'],['Data governance for scale-ups','blog','Security']];
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const m=F.range==='90d'?.27:1;
+ const items=C.filter(c=>F.fmt==='all'||c[1]===F.fmt).map(([t,f,top])=>{const views=Math.round((2000+r()*38000)*m);const conv=f==='guide'?.04+r()*.04:.004+r()*.012;const leads=Math.round(views*conv);return{t,f,top,views,leads,pipe:leads*(f==='video'?1400:900)*(.5+r()),time:Math.round(60+r()*360),pub:K.pick(r,['Jan 2025','Apr 2025','Sep 2025','Feb 2026','May 2026'])}});
+ return memo[k]={r,m,items,L:K.periods(F.range)}}
+const S={range:'12m',fmt:'all'};const FM={blog:'Article',guide:'Guide',video:'Video'};
+const views={
+lib(F){const D=data(F);const it=D.items;K.kpis($('k1'),[{label:'Views',value:K.num(K.sum(it.map(i=>i.views))),delta:.14},{label:'Leads captured',value:K.num(K.sum(it.map(i=>i.leads))),delta:.21},{label:'Influenced pipeline',value:K.money(K.sum(it.map(i=>i.pipe))),delta:.18},{label:'Avg engaged time',value:Math.round(K.sum(it.map(i=>i.time))/it.length/60*10)/10+' min'},{label:'Published',value:K.int(it.length*18*D.m)}]);
+ K.table($('t_lib'),{cols:[{k:'t',label:'Asset'},{k:'f',label:'Format',render:v=>{const s=document.createElement('span');s.className='type';s.textContent=FM[v];return s}},{k:'top',label:'Topic'},{k:'views',label:'Views',align:'r',fmt:K.num},{k:'leads',label:'Leads',align:'r',fmt:K.int},{k:'pipe',label:'Influenced pipeline',align:'r',fmt:K.money,bar:true},{k:'time',label:'Engaged time',align:'r',fmt:v=>Math.floor(v/60)+'m '+String(v%60).padStart(2,'0')+'s'}],rows:it,sort:'pipe'})},
+topics(F){const D=data(F);const r=K.rng(K.seed(F,'t'));const T=['Metrics','Finance ops','Security','Analytics','RevOps','Forecasting','AI','Retention','Proof'];
+ const tp=T.map(t=>({t,views:(8e3+r()*90e3)*D.m,conv:.004+r()*.03,pipe:(80e3+r()*900e3)*D.m}));
+ K.scatter($('c_tp'),{points:tp.map(x=>({x:x.views,y:x.conv,r:x.pipe,label:x.t,tag:x.pipe>500e3*D.m,extra:[['Pipeline',K.money(x.pipe)]]})),xfmt:K.num,yfmt:v=>K.pct(v,1),xLabel:'Views',yLabel:'Visitor → lead',h:320});
+ const so=[...tp].sort((a,b)=>b.pipe/b.views-a.pipe/a.views);K.bars($('c_ppk'),{labels:so.map(x=>x.t),series:[{name:'Pipeline per 1,000 views',data:so.map(x=>x.pipe/x.views*1000)}],fmt:K.money,horizontal:true,h:280})},
+journey(F){const D=data(F);const s=v=>Math.round(v*D.m);
+ K.sankey($('c_sk'),{nodes:[['a','Articles',0,0],['g','Guides',0,1],['v','Video',0,2],['n','Newsletter sign-up',1,0],['d','Gated download',1,1],['r','Demo request',1,2],['l','Lead only',2,4],['m','MQL',2,3],['o','Opportunity',2,0]],links:[['a','n',s(2400)],['a','r',s(380)],['a','d',s(600)],['g','d',s(1900)],['g','r',s(260)],['v','r',s(310)],['v','n',s(700)],['n','l',s(2600)],['n','m',s(400)],['n','o',s(100)],['d','l',s(1500)],['d','m',s(820)],['d','o',s(180)],['r','m',s(470)],['r','o',s(480)]],h:320,fmt:K.int});
+ K.bars($('c_cnt'),{labels:['1','2','3–4','5–7','8–12','13+'],series:[{name:'Won deals',data:[6,9,21,28,24,12].map(s)}],fmt:K.int,h:220})},
+decay(F){const D=data(F);const M=['Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep'];const r=K.rng(K.seed(F,'d'));
+ K.line($('c_dec'),{labels:M,series:[{name:'Board-ready metrics guide',data:K.series(r,12,9800,{trend:-.42,noise:.06})},{name:'Month-end close in 2 days',data:K.series(r,12,7200,{trend:-.18,noise:.07})},{name:'Revenue attribution, explained',data:K.series(r,12,6100,{trend:.22,noise:.08})},{name:'Why your forecast is wrong',data:K.series(r,12,5100,{trend:-.51,noise:.06})}],fmt:K.num,h:290});
+ K.table($('t_ref'),{cols:[{k:'t',label:'Asset'},{k:'drop',label:'Traffic change (6 mo)',align:'r',fmt:v=>'▼ '+K.pct(v,0)},{k:'pipe',label:'Still influencing',align:'r',fmt:K.money,bar:true},{k:'why',label:'Likely cause'}],rows:[['The board-ready SaaS metrics guide',.42,410e3,'Lost featured snippet to competitor'],['Why your forecast is wrong',.51,180e3,'Content is 2 years old'],['CRM hygiene checklist',.33,95e3,'New Google AI overview'],['Data governance for scale-ups',.37,72e3,'Outdated regulations section']].map(x=>({t:x[0],drop:x[1],pipe:x[2]*D.m,why:x[3]})),sort:'pipe'})},
+search(F){const D=data(F);K.kpis($('k5'),[{label:'Keywords in top 3',value:'148',delta:.12},{label:'Keywords in top 10',value:'412',delta:.08},{label:'Organic clicks',value:K.num(312e3*D.m),delta:.09},{label:'Non-brand share',value:'64%'},{label:'Leads from organic',value:K.num(4100*D.m)}]);
+ K.bars($('c_pos'),{labels:['1–3','4–10','11–20','21–50','50+'],series:[{name:'6 months ago',data:[121,382,311,276,150]},{name:'Now',data:[148,412,298,251,131]}],fmt:K.int,h:250});
+ K.line($('c_clk'),{labels:D.L,series:[{name:'Non-brand',data:K.series(D.r,D.L.length,200e3*D.m/D.L.length,{trend:.2,noise:.06})},{name:'Brand',data:K.series(D.r,D.L.length,112e3*D.m/D.L.length,{trend:.1,noise:.05})}],stacked:true,fmt:K.num,h:250});
+ const r=K.rng(K.seed(F,'k'));K.table($('t_kw'),{cols:[{k:'q',label:'Query'},{k:'pos',label:'Position',align:'r',fmt:v=>v.toFixed(1)},{k:'clk',label:'Clicks',align:'r',fmt:K.int},{k:'leads',label:'Leads',align:'r'},{k:'pipe',label:'Pipeline',align:'r',fmt:K.money,bar:true}],rows:['saas metrics for board','month end close checklist','revenue attribution model','pipeline coverage ratio','soc 2 automation','churn prediction model','crm data quality'].map(q=>({q,pos:1+r()*9,clk:Math.round((400+r()*6000)*D.m),leads:Math.round((5+r()*90)*D.m),pipe:(20e3+r()*400e3)*D.m})),sort:'pipe'})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

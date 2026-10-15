@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Attribly — Marketing attribution</title>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#f6f5f1;--ink:#16181d;--ink2:#4b4f58;--ink3:#80848d;--grid:#ecebe6;--s1:#1d4ed8;--s2:#c2410c;--s3:#0e9f6e;--s4:#a21caf;--s5:#ca8a04;--q1:#dbe5fb;--q2:#b3c8f5;--q3:#7fa1ec;--q4:#4a77df;--q5:#1d4ed8;--q6:#163a9e;--pos:#1d4ed8;--neg:#c93a39;--good:#0f7a52;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Albert Sans',sans-serif}
+.mono{font-family:'DM Mono',monospace}
+header{background:var(--surface);border-bottom:1px solid #e6e4dd;padding:0 32px}
+.hd{display:flex;align-items:center;gap:18px;height:62px}
+.lg{font-weight:800;font-size:20px;letter-spacing:-.03em;display:flex;align-items:center;gap:8px}.lg i{width:22px;height:22px;border-radius:50%;background:conic-gradient(var(--s1) 0 40%,var(--s2) 0 65%,var(--s3) 0 85%,var(--s4) 0);font-style:normal}
+.hd .sp{flex:1}.conn{display:flex;gap:6px;flex-wrap:wrap}.conn span{font:500 11.5px 'DM Mono';border:1px solid #e6e4dd;border-radius:999px;padding:3px 9px;color:var(--ink2)}.conn span::before{content:'●';color:#0f7a52;margin-right:5px;font-size:9px}
+nav.tabs{display:flex;gap:26px}.tabs button{border:0;background:none;padding:12px 0;font:600 14px 'Albert Sans';color:var(--ink3);cursor:pointer;box-shadow:inset 0 -2px 0 transparent}.tabs button.on{color:var(--ink);box-shadow:inset 0 -2px 0 var(--ink)}
+main{max-width:1380px;margin:0 auto;padding:20px 32px 70px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.fl{font-size:12px;color:var(--ink3);margin-right:-4px}
+.seg{display:flex;gap:2px;background:#ebe9e2;border-radius:10px;padding:3px}.seg button{border:0;background:transparent;padding:6px 12px;border-radius:8px;font:600 12.5px 'Albert Sans';cursor:pointer;color:var(--ink2)}.seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.model{margin-left:auto}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid #e6e4dd;border-radius:16px;background:var(--surface);margin-bottom:16px;overflow:hidden}
+.kpi{padding:16px 18px;border-right:1px solid #eeece6}.kpi:last-child{border:0}.kpi .l{font-size:12.5px;color:var(--ink3)}.kpi .v{font-size:26px;font-weight:800;letter-spacing:-.03em}.kpi .d{font-size:12px;font-weight:600}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:16px}.g2{grid-template-columns:1.5fr 1fr}.g2b{grid-template-columns:1fr 1fr}
+.card{background:var(--surface);border:1px solid #e6e4dd;border-radius:16px;padding:18px 20px;min-width:0}
+.card h3{margin:0;font-size:15px;font-weight:700}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.note{font-size:13.5px;border-left:3px solid var(--s1);padding:6px 0 6px 14px;margin:0 0 16px;color:var(--ink2)}.note b{color:var(--ink)}
+.mtag{font:500 11px 'DM Mono';background:#eef2fd;color:#1d4ed8;padding:2px 8px;border-radius:6px}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.kpi{border-bottom:1px solid #eeece6}.g2,.g2b{grid-template-columns:1fr}.conn{display:none}}
+@media(max-width:700px){header,main{padding-left:16px;padding-right:16px}.tabs{overflow-x:auto;gap:18px}.kpis{grid-template-columns:1fr 1fr}.model{margin-left:0}}
+</style>
+</head>
+<body>
+<header><div class="hd"><div class="lg"><i></i>attribly</div><span style="color:var(--ink3)">Fernway · Marketing</span><span class="sp"></span><div class="conn"><span>HubSpot</span><span>Salesforce</span><span>Google Ads</span><span>LinkedIn Ads</span><span>Meta Ads</span><span>GA4</span></div></div>
+ <nav class="tabs"><button data-sheet="overview">Overview</button><button data-sheet="channels">Channels</button><button data-sheet="models">Model comparison</button><button data-sheet="journeys">Buyer journeys</button><button data-sheet="campaigns">Campaigns</button></nav></header>
+<main>
+ <div class="filters"><span class="fl">Period</span><div class="seg"><button data-f="range" data-v="30d">30 days</button><button data-f="range" data-v="90d" class="on">Quarter</button><button data-f="range" data-v="12m">12 months</button></div>
+  <span class="fl">Region</span><div class="seg"><button data-f="reg" data-v="all" class="on">All</button><button data-f="reg" data-v="na">NA</button><button data-f="reg" data-v="emea">EMEA</button></div>
+  <div class="model"><span class="fl">Credit model&nbsp;&nbsp;</span><select data-f="model" style="border:1px solid #dcd9d0;border-radius:10px;padding:7px 10px;font:600 13px 'Albert Sans';background:#fff"><option value="w">W-shaped</option><option value="lin">Linear</option><option value="ft">First touch</option><option value="lt">Last touch</option><option value="dd">Data-driven (Markov)</option></select></div></div>
+
+ <section data-panel="overview"><div class="kpis" id="k1"></div><p class="note" id="n1"></p>
+  <div class="g g2"><div class="card"><h3>Pipeline credited to each channel</h3><p class="sub">Opportunity ACV split across touches using the <span class="mtag" id="m1"></span> model</p><div id="c_ov"></div></div>
+   <div class="card"><h3>Where the budget went</h3><p class="sub">Ad platform spend + event & agency invoices</p><div id="c_sp"></div></div></div>
+  <div class="card" style="margin-top:16px"><h3>Return on spend by channel</h3><p class="sub">Credited pipeline ÷ spend. Organic has no media spend, so it’s left out.</p><div id="c_roi"></div></div></section>
+
+ <section data-panel="channels" hidden><div class="kpis" id="k2"></div>
+  <div class="card"><h3>Channel scorecard</h3><p class="sub">From click to closed-won, joined across ad platforms → HubSpot contacts → Salesforce opportunities</p><div id="t_ch"></div></div>
+  <div class="g g2b" style="margin-top:16px"><div class="card"><h3>Cost per SQL</h3><p class="sub">Lower is better</p><div id="c_cps"></div></div><div class="card"><h3>Lead → SQL conversion</h3><p class="sub">Share of leads that sales accepted</p><div id="c_conv"></div></div></div></section>
+
+ <section data-panel="models" hidden>
+  <p class="note"><b>Same deals, different stories.</b> Each model gives the same closed-won revenue different credit. If a channel looks great in one model and poor in the others, look closer before moving budget.</p>
+  <div class="card"><h3>Credited revenue by channel under five models</h3><p class="sub">Closed-won ACV, selected period</p><div id="c_mod"></div></div>
+  <div class="card" style="margin-top:16px"><h3>How much each channel’s credit swings</h3><p class="sub">Highest vs. lowest model credit, as a share of total revenue</p><div id="t_mod"></div></div></section>
+
+ <section data-panel="journeys" hidden><div class="kpis" id="k4"></div>
+  <div class="card"><h3>How won deals actually travelled</h3><p class="sub">First touch → most influential middle touch → conversion point, closed-won opportunities</p><div id="c_sk"></div></div>
+  <div class="g g2b" style="margin-top:16px"><div class="card"><h3>Touches before a deal is created</h3><p class="sub">Distinct marketing touches per contact on the buying committee</p><div id="c_tch"></div></div><div class="card"><h3>Most common paths</h3><p class="sub">Exact touch sequences of won deals</p><div id="t_path"></div></div></div></section>
+
+ <section data-panel="campaigns" hidden>
+  <div class="card"><h3>Spend vs. credited pipeline</h3><p class="sub">Bubble size = leads. Upper-left is efficient; lower-right needs a look.</p><div id="c_cs"></div></div>
+  <div class="card" style="margin-top:16px"><h3>All campaigns</h3><p class="sub">HubSpot campaigns matched to ad-platform campaign IDs via UTM</p><div id="t_cmp"></div></div></section>
+</main>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const CH=['Paid search','Paid social','Organic & SEO','Events','Email & nurture'];
+const MODELS={ft:'First touch',lt:'Last touch',lin:'Linear',w:'W-shaped',dd:'Data-driven'};
+const SHARE={ft:[.30,.24,.28,.10,.08],lt:[.22,.10,.18,.26,.24],lin:[.25,.18,.22,.17,.18],w:[.27,.17,.20,.19,.17],dd:[.24,.14,.24,.21,.17]};
+const SPEND=[.36,.31,.04,.21,.08];
+const memo={};
+function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const f={all:1,na:.56,emea:.44}[F.reg];const L=K.periods(F.range);const m=F.range==='12m'?4:F.range==='30d'?.34:1;
+ const spend=1.24e6*f*m,pipe=spend*7.8*(.9+r()*.2),rev=pipe*.27;const sh=SHARE[F.model];
+ const byP=CH.map((c,i)=>K.series(r,L.length,pipe/L.length*sh[i],{trend:.2,noise:.22,season:.08,phase:i}));
+ const chans=CH.map((c,i)=>{const sp=spend*SPEND[i];const leads=Math.round((i===2?2600:[1400,1900,0,900,1500][i])*f*m*(.85+r()*.3));const sql=Math.round(leads*[.11,.07,.14,.16,.09][i]);return{c,spend:sp,leads,mql:Math.round(leads*.38),sql,opps:Math.round(sql*.62),pipe:pipe*sh[i],won:rev*sh[i],cps:sp/Math.max(1,sql),conv:sql/Math.max(1,leads)}});
+ return memo[k]={L,spend,pipe,rev,byP,chans,f,m,r}}
+const S={range:'90d',reg:'all',model:'w'};
+const views={
+overview(F){const D=data(F);$('m1').textContent=MODELS[F.model];
+ K.kpis($('k1'),[{label:'Marketing spend',value:K.money(D.spend),delta:.06,goodDown:true},{label:'Credited pipeline',value:K.money(D.pipe),delta:.14},{label:'Credited revenue',value:K.money(D.rev),delta:.09},{label:'Pipeline ROI',value:K.x(D.pipe/D.spend),delta:.07,deltaText:'0.5×'},{label:'Blended CAC',value:K.money(D.spend/(K.sum(D.chans.map(c=>c.opps))*.27)),delta:-.05,goodDown:true},{label:'Leads',value:K.num(K.sum(D.chans.map(c=>c.leads))),delta:.11}]);
+ $('n1').innerHTML=`<b>Events punch above their spend.</b> They take ${K.pct(SPEND[3],0)} of budget but get ${K.pct(SHARE[F.model][3],0)} of pipeline credit under ${MODELS[F.model]}, and a field event touches 31% of deals over $100K.`;
+ K.bars($('c_ov'),{labels:D.L,series:CH.map((c,i)=>({name:c,data:D.byP[i]})),stacked:true,fmt:K.money,h:270});
+ K.donut($('c_sp'),{items:CH.map((c,i)=>({name:c,value:D.spend*SPEND[i]})),fmt:K.money,center:{value:K.money(D.spend),label:'spend'}});
+ const paid=D.chans.filter(c=>c.c!=='Organic & SEO');K.bars($('c_roi'),{labels:paid.map(c=>c.c),series:[{name:'Pipeline per $1 spent',data:paid.map(c=>c.pipe/c.spend)}],fmt:v=>K.x(v),horizontal:true,h:190,colorBy:i=>K.S(CH.indexOf(paid[i].c))})},
+channels(F){const D=data(F);const tot=K.sum(D.chans.map(c=>c.sql));
+ K.kpis($('k2'),[{label:'Leads',value:K.num(K.sum(D.chans.map(c=>c.leads)))},{label:'MQLs',value:K.num(K.sum(D.chans.map(c=>c.mql)))},{label:'SQLs',value:K.num(tot)},{label:'Opportunities',value:K.num(K.sum(D.chans.map(c=>c.opps)))},{label:'Cost per SQL',value:K.money(D.spend/tot)},{label:'Lead → SQL',value:K.pct(tot/K.sum(D.chans.map(c=>c.leads)))}]);
+ K.table($('t_ch'),{cols:[{k:'c',label:'Channel'},{k:'spend',label:'Spend',align:'r',fmt:K.money},{k:'leads',label:'Leads',align:'r',fmt:K.int},{k:'sql',label:'SQLs',align:'r',fmt:K.int},{k:'opps',label:'Opps',align:'r',fmt:K.int},{k:'pipe',label:'Pipeline',align:'r',fmt:K.money,bar:true},{k:'won',label:'Revenue',align:'r',fmt:K.money},{k:'roi',label:'Pipeline ROI',align:'r',fmt:v=>v?K.x(v):'—'}],rows:D.chans.map(c=>({...c,roi:c.c==='Organic & SEO'?0:c.pipe/c.spend})),sort:'pipe'});
+ const cs=D.chans.filter(c=>c.c!=='Organic & SEO');K.bars($('c_cps'),{labels:cs.map(c=>c.c),series:[{name:'Cost per SQL',data:cs.map(c=>c.cps)}],fmt:K.money,horizontal:true,h:200,colorBy:i=>K.S(CH.indexOf(cs[i].c))});
+ K.bars($('c_conv'),{labels:CH,series:[{name:'Lead → SQL',data:D.chans.map(c=>c.conv)}],fmt:v=>K.pct(v,0),h:220,colorBy:i=>K.S(i)})},
+models(F){const D=data(F);const ks=Object.keys(MODELS);
+ K.bars($('c_mod'),{labels:CH,series:ks.map((m,i)=>({name:MODELS[m],data:SHARE[m].map(s=>s*D.rev)})),fmt:K.money,h:290});
+ K.table($('t_mod'),{cols:[{k:'c',label:'Channel'},...ks.map(m=>({k:m,label:MODELS[m],align:'r',fmt:v=>K.pct(v,0)})),{k:'sw',label:'Swing',align:'r',fmt:v=>K.pct(v,0),bar:true},{k:'v',label:'Verdict',render:(v)=>v}],rows:CH.map((c,i)=>{const o={c};ks.forEach(m=>o[m]=SHARE[m][i]);o.sw=Math.max(...ks.map(m=>SHARE[m][i]))-Math.min(...ks.map(m=>SHARE[m][i]));o.v=o.sw>.12?'⚠ model-sensitive':'✓ consistent';return o}),sort:'sw'})},
+journeys(F){const D=data(F);const r=K.rng(K.seed(F,'j'));const won=Math.round(K.sum(D.chans.map(c=>c.opps))*.27);
+ K.kpis($('k4'),[{label:'Won deals analysed',value:K.int(won)},{label:'Avg touches before opp',value:'7.4'},{label:'Avg days first touch → won',value:'128'},{label:'Contacts per buying group',value:'4.1'},{label:'Deals with an event touch',value:'46%'},{label:'Deals with no paid touch',value:'19%'}]);
+ const n=[['a','Paid search',0,0],['b','Paid social',0,1],['c','Organic & SEO',0,2],['d','Webinar',1,3],['e','Case study',1,2],['f','Field event',1,4],['g','Demo request',2,0],['h','Sales outreach',2,1],['i','Partner intro',2,3]];
+ const l=[['a','e',90],['a','d',60],['a','f',30],['b','d',80],['b','e',40],['c','e',110],['c','d',50],['c','f',20],['d','g',95],['d','h',75],['e','g',120],['e','h',60],['e','i',40],['f','h',70],['f','i',30]].map(x=>[x[0],x[1],Math.round(x[2]*(.8+r()*.4)*D.f*D.m)]);
+ K.sankey($('c_sk'),{nodes:n,links:l,h:320,fmt:K.int});
+ K.bars($('c_tch'),{labels:['1–2','3–4','5–6','7–8','9–10','11–14','15+'],series:[{name:'Won deals',data:[4,11,19,24,18,15,9].map(v=>Math.round(v*D.f*D.m*(.8+r()*.4)))}],fmt:K.int,h:220});
+ K.table($('t_path'),{cols:[{k:'p',label:'Path'},{k:'n',label:'Deals',align:'r',bar:true},{k:'d',label:'Days',align:'r'}],rows:[['Search → Case study → Demo',41,96],['Organic → Webinar → Demo',33,118],['Social → Webinar → Sales',27,141],['Event → Sales',24,74],['Organic → Case study → Partner',15,152],['Search → Demo',12,58]].map(x=>({p:x[0],n:Math.round(x[1]*D.f*D.m),d:x[2]})),sort:'n'})},
+campaigns(F){const D=data(F);const r=K.rng(K.seed(F,'c'));const NM=[['Q3 brand search',0],['Competitor keywords',0],['LinkedIn ABM — banks',1],['LinkedIn thought leadership',1],['Meta retargeting',1],['SaaStr booth',3],['Lisbon roadshow',3],['Webinar: AI ops',4],['Nurture — trial users',4],['Newsletter',4],['SEO — templates hub',2],['G2 reviews',2]];
+ const rows=NM.map(([n,c])=>{const sp=c===2?r()*8e3:(8e3+r()*90e3)*D.f*D.m;const pi=sp*(c===3?9:c===2?60:3+r()*8)*(.6+r()*.8);return{n,c:CH[c],ci:c,spend:sp,pipe:pi,leads:Math.round(40+r()*600*D.f*D.m),roi:pi/Math.max(1,sp)}});
+ K.scatter($('c_cs'),{points:rows.map(x=>({x:x.spend,y:x.pipe,r:x.leads,g:Math.min(2,[0,1,2,1,2][x.ci]),label:x.n,tag:x.pipe===Math.max(...rows.map(z=>z.pipe)),extra:[['Channel',x.c],['Leads',K.int(x.leads)]]})),groups:['Search','Social & events','Owned (organic, email)'],xfmt:K.money,yfmt:K.money,xLabel:'Spend',yLabel:'Credited pipeline',h:300});
+ K.table($('t_cmp'),{cols:[{k:'n',label:'Campaign'},{k:'c',label:'Channel'},{k:'spend',label:'Spend',align:'r',fmt:K.money},{k:'leads',label:'Leads',align:'r',fmt:K.int},{k:'pipe',label:'Pipeline',align:'r',fmt:K.money,bar:true},{k:'roi',label:'ROI',align:'r',fmt:v=>K.x(v)}],rows,sort:'pipe'})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

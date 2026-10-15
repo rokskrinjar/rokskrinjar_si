@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operation Nightjar — Classified</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Black+Ops+One&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--desk:#2b2b27;--manila:#e3c98f;--manila2:#d4b673;--paper:#f3eee0;--ink:#1d1d1b;--red:#b3261e;--dim:#1d1d1b99}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--desk);color:var(--ink);font-family:'Courier Prime',monospace;background-image:radial-gradient(ellipse at 50% 0,#4a4a40,var(--desk) 70%)}
+a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 4vw;color:var(--paper)}
+.logo{font-family:'Black Ops One';font-size:24px;letter-spacing:.08em}
+.logo small{display:block;font-family:'Courier Prime';font-size:11px;letter-spacing:.3em;color:#f3eee088}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{background:var(--manila2);color:var(--ink);padding:8px 16px 12px;border-radius:8px 8px 0 0;font-family:'Special Elite';font-size:15px;transform:translateY(6px);transition:transform .2s}
+nav a.on,nav a:hover{transform:translateY(0);background:var(--manila)}
+nav a.out{background:#555;color:#ddd}
+[data-view][hidden]{display:none}
+.folder{background:var(--manila);max-width:1240px;margin:0 auto 60px;padding:34px 4vw 60px;border-radius:0 6px 6px 6px;box-shadow:0 30px 60px #000a;position:relative;min-height:70vh}
+.stamp{font-family:'Black Ops One';color:var(--red);border:4px solid var(--red);display:inline-block;padding:4px 14px;font-size:22px;letter-spacing:.1em;transform:rotate(-6deg);opacity:.85;mix-blend-mode:multiply}
+h2{font-family:'Special Elite';font-weight:400;font-size:clamp(1.8rem,4vw,3rem);margin:10px 0 6px}
+.sub{max-width:70ch;line-height:1.6;margin-bottom:22px}
+/* dossier */
+.clear{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--ink);color:var(--paper);padding:12px 16px;margin-bottom:20px}
+.clear input{flex:1;min-width:160px;accent-color:var(--red)}
+.clear b{font-family:'Black Ops One';letter-spacing:.1em;min-width:170px}
+.dgrid{display:grid;grid-template-columns:230px 1fr;gap:26px}
+.agents{display:grid;gap:8px;align-content:start}
+.ag{display:flex;gap:10px;align-items:center;text-align:left;background:var(--paper);border:0;padding:8px;box-shadow:2px 2px 0 #0003}
+.ag.on{outline:3px solid var(--ink)}
+.ag svg{width:44px;height:52px;flex:none;background:#bbb}
+.ag b{font-family:'Special Elite';font-size:18px;display:block}
+.file{background:var(--paper);padding:30px 34px;box-shadow:4px 4px 0 #0003;position:relative;min-height:520px;background-image:repeating-linear-gradient(#0000 0 27px,#1d1d1b0c 27px 28px)}
+.file .clip{position:absolute;top:-14px;left:40px;width:30px;height:60px;border:4px solid #888;border-radius:14px;border-bottom:0}
+.file .photo{float:right;width:150px;margin:0 0 14px 20px;transform:rotate(2deg);background:#fff;padding:8px 8px 26px;box-shadow:2px 3px 6px #0004;text-align:center;font-family:'Special Elite';font-size:13px}
+.file .photo svg{width:100%;height:auto;background:#999;filter:grayscale(1) contrast(1.1)}
+.file h3{font-family:'Special Elite';font-weight:400;font-size:30px}
+.file .row{display:grid;grid-template-columns:130px 1fr;gap:10px;padding:5px 0;font-size:15px;border-bottom:1px dotted #1d1d1b33}
+.file .row span:first-child{font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.1em;padding-top:2px}
+.file p{line-height:1.75;margin-top:14px;font-size:16px}
+.rd{background:var(--ink);color:transparent;padding:0 2px;user-select:none;transition:all .4s}
+.rd.open{background:#fff27a;color:var(--ink);user-select:text}
+.file .st2{position:absolute;right:30px;bottom:30px}
+/* cipher */
+.cgrid{display:grid;grid-template-columns:1fr 360px;gap:30px}
+textarea{width:100%;min-height:120px;padding:14px;background:var(--paper);border:2px solid var(--ink);font-family:'Courier Prime';font-size:18px;letter-spacing:.1em;text-transform:uppercase;resize:vertical}
+.cc{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.cc select,.cc input{padding:8px 10px;border:2px solid var(--ink);background:var(--paper)}
+.btn{background:var(--ink);color:var(--paper);border:0;padding:10px 18px;font-family:'Special Elite';font-size:16px}
+.btn.red{background:var(--red)}
+.out{background:var(--ink);color:#8af58a;padding:16px;font-size:20px;letter-spacing:.14em;min-height:80px;word-break:break-all;font-family:'Courier Prime'}
+.wheel svg{width:100%;height:auto;cursor:grab}
+/* map */
+.mgrid{display:grid;grid-template-columns:1fr 340px;gap:26px;align-items:start}
+.map{background:#e8e2cc;border:2px solid var(--ink);box-shadow:4px 4px 0 #0003}
+.map svg{display:block;width:100%;height:auto}
+.pin{cursor:pointer}
+.pin:hover circle{r:14}
+.note{background:var(--paper);padding:20px;box-shadow:4px 4px 0 #0003;transform:rotate(-1deg)}
+.note .ct{font-size:22px;letter-spacing:.2em;word-break:break-all;margin:12px 0;font-weight:700}
+/* mole */
+.suspects{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.sus{background:var(--paper);border:0;padding:10px;text-align:center;box-shadow:3px 3px 0 #0003;transition:transform .2s}
+.sus:hover{transform:rotate(-2deg) scale(1.03)}
+.sus svg{width:100%;height:auto;background:#aaa}
+.sus b{font-family:'Special Elite';font-size:18px;display:block;margin-top:6px}
+.sus.x{opacity:.35;text-decoration:line-through}
+.verdict{margin-top:24px;background:var(--ink);color:var(--paper);padding:24px;font-size:18px;line-height:1.6;display:none}
+.verdict.on{display:block}
+.checklist{background:var(--paper);padding:16px 20px;margin:0 0 20px;box-shadow:3px 3px 0 #0003}
+.checklist label{display:block;padding:4px 0}
+@media(max-width:900px){.dgrid,.cgrid,.mgrid{grid-template-columns:1fr}.suspects{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">OPERATION NIGHTJAR<small>EYES ONLY · DIRECTORATE S · 1963</small></div>
+ <nav><a href="#dossier">Dossiers</a><a href="#cipher">Cipher Desk</a><a href="#drops">Dead Drops</a><a href="#mole">The Mole</a><a class="out" href="index.html">Burn &amp; exit</a></nav>
+</header>
+
+<section data-view="dossier"><div class="folder">
+ <span class="stamp">TOP SECRET</span>
+ <h2>Personnel dossiers: Kessel Station</h2>
+ <p class="sub">One of our five agents in Kessel has been passing secrets to the other side. Read their files. Some lines stay blacked out until your clearance is high enough.</p>
+ <div class="clear"><span>CLEARANCE</span><input type="range" id="clr" min="0" max="3" value="1"><b id="clrT">CONFIDENTIAL</b></div>
+ <div class="dgrid"><div class="agents" id="agents"></div><div class="file" id="file"></div></div>
+</div></section>
+
+<section data-view="cipher" hidden><div class="folder">
+ <span class="stamp">CRYPTO</span>
+ <h2>Cipher desk</h2>
+ <p class="sub">Encode or decode messages with three field ciphers. For Caesar, drag the wheel to set the shift.</p>
+ <div class="cgrid">
+  <div>
+   <textarea id="cin">MEET AT THE THIRD BENCH AT DAWN</textarea>
+   <div class="cc"><select id="cm"><option value="caesar">Caesar shift</option><option value="atbash">Atbash (mirror)</option><option value="vig">Vigenère</option></select>
+    <label id="kwrap">Shift <input type="number" id="ck" value="3" min="1" max="25" style="width:70px"></label>
+    <button class="btn" id="enc">Encode →</button><button class="btn red" id="dec">← Decode</button></div>
+   <div class="out" id="cout"></div>
+   <p style="margin-top:12px;font-size:14px" id="chint"></p>
+  </div>
+  <div class="wheel"><svg id="wheel" viewBox="-160 -160 320 320"></svg></div>
+ </div>
+</div></section>
+
+<section data-view="drops" hidden><div class="folder">
+ <span class="stamp">FIELD</span>
+ <h2>Dead drops in Kessel</h2>
+ <p class="sub">Our courier collected three messages the mole left behind. Each one uses a different cipher. Decode all three.</p>
+ <div class="mgrid"><div class="map"><svg id="map" viewBox="0 0 900 640"></svg></div><div class="note" id="dnote"></div></div>
+</div></section>
+
+<section data-view="mole" hidden><div class="folder">
+ <span class="stamp">ACCUSE</span>
+ <h2>Who is the mole?</h2>
+ <p class="sub">Cross-check the decoded messages against the dossiers. Tick off what you've learned, cross out suspects, then make your accusation. You get one chance.</p>
+ <div class="checklist" id="clues"></div>
+ <div class="suspects" id="sus"></div>
+ <div class="verdict" id="verdict"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'dossier';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='mole')mole()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+function face(seed,hat){const r=(n=>()=>(n=(n*9301+49297)%233280)/233280)(seed);const sk=['#d9b99a','#c49a78','#e6c9ae','#a8826a'][seed%4];let s=`<rect width="100" height="120" fill="#8a8a8a"/><rect y="90" width="100" height="30" fill="#555"/><path d="M20 120 Q20 88 50 86 Q80 88 80 120Z" fill="#333"/><path d="M42 86 L50 100 L58 86Z" fill="#eee"/><ellipse cx="50" cy="56" rx="${20+r()*4}" ry="26" fill="${sk}"/><circle cx="42" cy="54" r="2.5"/><circle cx="58" cy="54" r="2.5"/><path d="M44 72 q6 ${r()<.5?3:-2} 12 0" stroke="#000" fill="none" stroke-width="1.5"/>`;
+ s+=hat===1?`<path d="M24 40 Q50 18 76 40Z" fill="#222"/><rect x="18" y="38" width="64" height="5" fill="#222"/>`:hat===2?`<path d="M28 50 Q26 22 50 24 Q76 22 72 60 Q70 36 50 34 Q32 36 28 50Z" fill="#3a2a1a"/>`:`<path d="M30 46 Q32 26 50 26 Q68 26 70 46 Q60 34 50 36 Q40 34 30 46Z" fill="${['#222','#6a4a2a','#999'][seed%3]}"/>`;
+ if(r()<.4)s+=`<rect x="36" y="50" width="12" height="8" fill="none" stroke="#000"/><rect x="52" y="50" width="12" height="8" fill="none" stroke="#000"/><path d="M48 54 h4" stroke="#000"/>`;if(r()<.4)s+=`<path d="M40 66 q10 4 20 0" stroke="#3a2a1a" stroke-width="3" fill="none"/>`;return s}
+// text with [[level|secret]]
+const AG=[['CARDINAL','Col. Rupert Vane','British · 51',1,'Station chief. Twenty years in the service and a war hero. Plays chess at the Café Mozart every [[1|Tuesday]] evening without fail. [[2|Drinks only tea, heavily sugared.]] Writes with his [[2|right]] hand. Signs everything in green ink. [[3|Suspected of an affair with the ambassador\'s secretary. Nothing proven.]]',2],
+ ['WREN','Anneliese Fuchs','Austrian · 29',2,'Translator and radio operator. Speaks seven languages. [[1|Free on Tuesdays]] and takes the tram out to the Prater. [[2|Left-handed; her typewriter ribbons wear unevenly.]] [[2|Never drinks coffee: "It makes my hands shake on the key."]] [[3|Her brother was arrested in the East in 1961.]]',0],
+ ['HERON','Dr. Julian Marsh','British · 38',3,'Economist attached to the trade delegation. Quiet, meticulous, well liked. [[1|Tuesdays are unaccounted for in the duty log.]] [[2|Writes with his left hand. Colleagues call him "Southpaw".]] [[2|Drinks tea, never coffee. Says it upsets his stomach.]] [[3|Bank records show 4,000 marks deposited in April.]]',1],
+ ['KESTREL','Maj. Tomasz Wolny','Polish exile · 44',4,'Former cavalry officer who handles couriers. [[1|Tuesdays: unaccounted, "family business".]] [[2|Left-handed. He fires a pistol off-hand.]] [[2|Lives on espresso, four cups before noon.]] [[3|Loud about hating the regime. Almost too loud?]]',2],
+ ['MAGPIE','Freddie Clough','British · 33',5,'Clerk and cipher-room assistant. Gambles. [[1|Tuesday nights at the dog track, apparently.]] [[2|Right-handed.]] [[2|Won\'t touch coffee. Drinks lager, lots of it.]] [[3|Owes money to a bookmaker on the Schwedenplatz.]]',1]];
+let agSel=0;
+const CL=['UNCLASSIFIED','CONFIDENTIAL','SECRET','TOP SECRET'];
+function dossier(){const L=+document.getElementById('clr').value;document.getElementById('clrT').textContent=CL[L];
+ document.getElementById('agents').innerHTML=AG.map((a,i)=>`<button class="ag ${i===agSel?'on':''}" data-i="${i}"><svg viewBox="0 0 100 120">${face(a[3],a[5])}</svg><span><b>${a[0]}</b><small>${a[1]}</small></span></button>`).join('');
+ const a=AG[agSel];const txt=a[4].replace(/\[\[(\d)\|([^\]]+)\]\]/g,(m,l,t)=>`<span class="rd ${+l<=L?'open':''}">${t}</span>`);
+ document.getElementById('file').innerHTML=`<div class="clip"></div><div class="photo"><svg viewBox="0 0 100 120">${face(a[3],a[5])}</svg>${a[0]}</div><div style="font-size:12px;letter-spacing:.2em">FILE K-${1960+a[3]}/${a[3]*37}</div><h3>${a[0]}</h3><div class="row"><span>True name</span><span>${L>=1?a[1]:'<span class="rd">xxxxxx xxxxxx</span>'}</span></div><div class="row"><span>Nationality</span><span>${a[2]}</span></div><div class="row"><span>Status</span><span>Active · Kessel Station</span></div><p>${txt}</p><div class="st2"><span class="stamp" style="font-size:16px">${CL[Math.max(L,1)]}</span></div>`}
+document.getElementById('agents').onclick=e=>{const b=e.target.closest('.ag');if(b){agSel=+b.dataset.i;dossier()}};
+document.getElementById('clr').oninput=dossier;dossier();
+
+/* cipher */
+const A='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const caesar=(t,k)=>t.toUpperCase().replace(/[A-Z]/g,c=>A[(A.indexOf(c)+k+26)%26]);
+const atbash=t=>t.toUpperCase().replace(/[A-Z]/g,c=>A[25-A.indexOf(c)]);
+function vig(t,key,d){key=key.toUpperCase().replace(/[^A-Z]/g,'')||'A';let j=0;return t.toUpperCase().replace(/[A-Z]/g,c=>{const k=A.indexOf(key[j++%key.length]);return A[(A.indexOf(c)+(d?-k:k)+26)%26]})}
+function run(dec){const m=document.getElementById('cm').value,t=document.getElementById('cin').value,k=document.getElementById('ck').value;let o;
+ if(m==='caesar')o=caesar(t,(dec?-1:1)*(+k||0));if(m==='atbash')o=atbash(t);if(m==='vig')o=vig(t,k,dec);
+ const out=document.getElementById('cout');out.textContent='';let i=0;clearInterval(out._t);out._t=setInterval(()=>{out.textContent=o.slice(0,++i)+(i<o.length?'█':'');if(i>=o.length){clearInterval(out._t);checkSolved(o)}},18)}
+function checkSolved(o){const plain=o.replace(/[^A-Z]/g,'');DROPS.forEach((d,i)=>{if(plain===d[4].replace(/[^A-Z]/g,'')&&!solved.has(i)){solved.add(i);store.set('nj-solved',[...solved]);document.getElementById('chint').innerHTML=`<b style="color:#b3261e">✓ Dead drop ${i+1} decoded.</b> It's been added to the case file.`;drawMap()}})}
+function cmUI(){const m=document.getElementById('cm').value,kw=document.getElementById('kwrap');kw.style.display=m==='atbash'?'none':'';kw.firstChild.textContent=m==='vig'?'Keyword ':'Shift ';const ck=document.getElementById('ck');ck.type=m==='vig'?'text':'number';if(m==='vig'&&/^\d+$/.test(ck.value))ck.value='';if(m==='caesar'&&!/^\d+$/.test(ck.value))ck.value=3;ck.style.width=m==='vig'?'140px':'70px';wheel()}
+document.getElementById('cm').onchange=cmUI;document.getElementById('ck').oninput=wheel;
+document.getElementById('enc').onclick=()=>run(false);document.getElementById('dec').onclick=()=>run(true);
+function wheel(){const m=document.getElementById('cm').value;const k=m==='caesar'?(+document.getElementById('ck').value||0):0;let s='<circle r="150" fill="#f3eee0" stroke="#1d1d1b" stroke-width="3"/><circle r="110" fill="#e3c98f" stroke="#1d1d1b" stroke-width="2"/><circle r="72" fill="#1d1d1b"/>';
+ for(let i=0;i<26;i++){const a=i/26*Math.PI*2-Math.PI/2;s+=`<text x="${Math.cos(a)*130}" y="${Math.sin(a)*130+6}" text-anchor="middle" font-family="Courier Prime" font-weight="700" font-size="16">${A[i]}</text><line x1="${Math.cos(a+Math.PI/26)*110}" y1="${Math.sin(a+Math.PI/26)*110}" x2="${Math.cos(a+Math.PI/26)*150}" y2="${Math.sin(a+Math.PI/26)*150}" stroke="#1d1d1b44"/>`}
+ s+=`<g id="inner" transform="rotate(${-k/26*360})">`;for(let i=0;i<26;i++){const a=i/26*Math.PI*2-Math.PI/2;s+=`<text x="${Math.cos(a)*92}" y="${Math.sin(a)*92+6}" text-anchor="middle" font-family="Courier Prime" font-weight="700" font-size="15" fill="#b3261e" transform="rotate(${k/26*360} ${Math.cos(a)*92} ${Math.sin(a)*92})">${A[i]}</text>`}s+='</g>';
+ s+=`<text y="-6" text-anchor="middle" fill="#f3eee0" font-family="Black Ops One" font-size="14">${m==='caesar'?'SHIFT':m==='atbash'?'MIRROR':'KEY'}</text><text y="22" text-anchor="middle" fill="#f3eee0" font-family="Black Ops One" font-size="26">${m==='caesar'?k:m==='atbash'?'A↔Z':'…'}</text>`;
+ document.getElementById('wheel').innerHTML=s}
+let wd=null;const wsvg=document.getElementById('wheel');
+wsvg.addEventListener('pointerdown',e=>{if(document.getElementById('cm').value!=='caesar')return;wd=true;wsvg.setPointerCapture(e.pointerId)});
+wsvg.addEventListener('pointermove',e=>{if(!wd)return;const r=wsvg.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;let a=Math.atan2(y,x)+Math.PI/2;let k=Math.round(-a/(Math.PI*2)*26);k=((k%26)+26)%26;document.getElementById('ck').value=k||26;wheel()});
+wsvg.addEventListener('pointerup',()=>wd=false);
+cmUI();run(false);
+
+/* drops */
+const DROPS=[['Loose brick, St. Rupert\'s Church',180,200,'caesar','THE MOLE MEETS HIS HANDLER ON TUESDAYS','Caesar, shift 3. "Standard issue," says the courier.'],['Hollow bench leg, Prater Wheel',640,160,'atbash','THE MOLE IS LEFT HANDED','The paper is folded in half, like a mirror.'],['Inside a cigarette tin, Hauptbahnhof locker 44',520,470,'vig','THE MOLE NEVER DRINKS COFFEE','Vigenère. The key is the name of this operation.']];
+DROPS.forEach(d=>d.push(d[3]==='caesar'?caesar(d[4],3):d[3]==='atbash'?atbash(d[4]):vig(d[4],'NIGHTJAR',false)));
+let solved=new Set(store.get('nj-solved',[])),dSel=0;
+function drawMap(){let s='<rect width="900" height="640" fill="#e8e2cc"/>';
+ for(let i=0;i<22;i++)s+=`<line x1="${i*44}" y1="0" x2="${i*44-80}" y2="640" stroke="#fff" stroke-width="${i%4?4:9}"/>`;for(let j=0;j<16;j++)s+=`<line x1="0" y1="${j*44}" x2="900" y2="${j*44+40}" stroke="#fff" stroke-width="${j%4?4:9}"/>`;
+ s+='<path d="M0 360 C150 330 250 420 400 380 S650 260 900 300 L900 350 C650 310 450 440 400 430 S150 390 0 410Z" fill="#9fb8c8" stroke="#6a8a9a"/><text x="720" y="330" font-family="Special Elite" font-size="18" fill="#3a5a6a" transform="rotate(-6 720 330)">Kessel river</text>';
+ s+='<rect x="600" y="100" width="180" height="120" fill="#b8c9a0"/><text x="610" y="118" font-family="Special Elite" font-size="13">PRATER</text><circle cx="640" cy="160" r="30" fill="none" stroke="#1d1d1b" stroke-width="2"/>';
+ s+='<rect x="120" y="150" width="120" height="100" fill="#d9cfb0"/><path d="M180 150 v-30 l8 10" stroke="#1d1d1b" fill="none" stroke-width="2"/><text x="126" y="244" font-family="Special Elite" font-size="12">ST. RUPERT</text>';
+ s+='<rect x="440" y="440" width="180" height="70" fill="#cfc6a8" stroke="#1d1d1b"/><text x="450" y="500" font-family="Special Elite" font-size="12">HAUPTBAHNHOF</text>';
+ s+='<rect x="700" y="480" width="150" height="120" fill="#c9c0a0" stroke="#1d1d1b" stroke-dasharray="6 4"/><text x="706" y="498" font-family="Special Elite" font-size="12" fill="#b3261e">SOVIET SECTOR</text>';
+ DROPS.forEach((d,i)=>{const on=i===dSel,ok=solved.has(i);s+=`<g class="pin" data-i="${i}"><circle cx="${d[1]}" cy="${d[2]}" r="${on?14:10}" fill="${ok?'#2e7d32':'#b3261e'}" stroke="#1d1d1b" stroke-width="2"/><text x="${d[1]}" y="${d[2]+5}" text-anchor="middle" fill="#fff" font-family="Black Ops One" font-size="13">${ok?'✓':i+1}</text></g>`});
+ s+='<g transform="translate(60 560)"><circle r="30" fill="none" stroke="#1d1d1b"/><path d="M0 -26 L6 0 L0 26 L-6 0Z" fill="#1d1d1b"/><text y="-34" text-anchor="middle" font-family="Special Elite">N</text></g>';
+ document.getElementById('map').innerHTML=s;const d=DROPS[dSel];
+ document.getElementById('dnote').innerHTML=`<div style="font-size:12px;letter-spacing:.2em">DROP ${dSel+1} OF 3 · ${solved.has(dSel)?'<span style="color:#2e7d32">DECODED</span>':'<span style="color:#b3261e">UNREAD</span>'}</div><h3 style="font-family:'Special Elite';font-weight:400;font-size:22px;margin-top:6px">${d[0]}</h3><div class="ct">${d[6]}</div><p style="font-style:italic">Courier's note: ${d[5]}</p>${solved.has(dSel)?`<p style="margin-top:10px;background:#fff27a;padding:6px">${d[4]}</p>`:`<button class="btn" id="toDesk" style="margin-top:12px">Take it to the cipher desk →</button>`}`;
+ const b=document.getElementById('toDesk');if(b)b.onclick=()=>{document.getElementById('cin').value=d[6];document.getElementById('cm').value=d[3];cmUI();document.getElementById('ck').value=d[3]==='caesar'?'':'';document.getElementById('chint').textContent='Set the right shift or key, then press Decode.';document.getElementById('cout').textContent='';go('cipher')}}
+document.getElementById('map').onclick=e=>{const p=e.target.closest('.pin');if(p){dSel=+p.dataset.i;drawMap()}};drawMap();
+
+/* mole */
+let crossed=new Set(),accused=store.get('nj-accused',null);
+function mole(){document.getElementById('clues').innerHTML=`<b>Evidence</b>${DROPS.map((d,i)=>`<label><input type="checkbox" ${solved.has(i)?'checked':''} disabled> ${solved.has(i)?d[4].toLowerCase().replace(/^./,c=>c.toUpperCase()):'Dead drop '+(i+1)+': not yet decoded'}</label>`).join('')}`;
+ document.getElementById('sus').innerHTML=AG.map((a,i)=>`<button class="sus ${crossed.has(i)?'x':''}" data-i="${i}"><svg viewBox="0 0 100 120">${face(a[3],a[5])}</svg><b>${a[0]}</b><small>${a[1]}</small><div style="margin-top:8px;display:flex;gap:4px;justify-content:center"><span class="btn" data-x="${i}" style="padding:4px 8px;font-size:12px">${crossed.has(i)?'restore':'cross out'}</span><span class="btn red" data-acc="${i}" style="padding:4px 8px;font-size:12px">accuse</span></div></button>`).join('');
+ if(accused!=null)verdict(accused)}
+function verdict(i){const v=document.getElementById('verdict');v.classList.add('on');v.innerHTML=i===2?`<span class="stamp" style="color:#8af58a;border-color:#8af58a">CASE CLOSED</span><p style="margin-top:14px">Dr. Julian Marsh (HERON) is arrested at Kessel Hauptbahnhof with microfilm in a hollow shaving brush. He is male, left-handed, drinks only tea and can't explain where he goes on Tuesdays. Well done, analyst.</p>`:`<span class="stamp">WRONG MAN</span><p style="margin-top:14px">You accused ${AG[i][0]}. ${i===1?'WREN fits two clues, but the message says <i>his</i> handler.':i===3?'KESTREL is left-handed, but he lives on espresso.':i===4?'MAGPIE avoids coffee, but he is right-handed.':'CARDINAL is right-handed and at chess every Tuesday.'} The real mole slipped over the border that night.</p><button class="btn" id="retry" style="margin-top:10px">Reopen the case</button>`;
+ const r=document.getElementById('retry');if(r)r.onclick=()=>{accused=null;store.set('nj-accused',null);v.classList.remove('on');mole()}}
+document.getElementById('sus').onclick=e=>{const x=e.target.dataset.x,a=e.target.dataset.acc;if(x!=null){const i=+x;crossed.has(i)?crossed.delete(i):crossed.add(i);mole()}if(a!=null&&accused==null){accused=+a;store.set('nj-accused',accused);verdict(accused)}};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

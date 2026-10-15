@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plot & Sow — Kitchen Garden Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--kraft:#e7d3b0;--kraft2:#d9c095;--soil:#5b3a24;--leaf:#3e6b35;--leaf2:#7fa35a;--tomato:#d4442a;--cream:#fbf5e8;--ink:#2d2418}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);font-family:'Nunito Sans',sans-serif}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 4vw;border-bottom:2px solid var(--ink)}
+.logo{font-family:'DM Serif Display';font-size:32px;display:flex;align-items:center;gap:10px}
+.logo em{color:var(--tomato)}
+nav{display:flex;gap:18px;font-weight:800;font-size:14px;flex-wrap:wrap}
+nav a{padding:4px 0;border-bottom:3px solid transparent}nav a.on{border-color:var(--leaf2)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1320px;margin:0 auto;padding:30px 4vw 70px}
+h2{font-family:'DM Serif Display';font-weight:400;font-size:clamp(2.4rem,5vw,4rem);line-height:1}
+h2 em{color:var(--leaf)}
+.sub{max-width:62ch;line-height:1.6;margin:10px 0 24px}
+/* planner */
+.pl{display:grid;grid-template-columns:260px 1fr 280px;gap:22px;align-items:start}
+.palette{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pp{background:#fff;border:2px solid var(--ink);border-radius:10px;padding:6px;text-align:center;font-size:12px;font-weight:800;touch-action:none;user-select:none}
+.pp.on{background:var(--kraft);box-shadow:inset 0 0 0 3px var(--leaf)}
+.pp span{font-size:26px;display:block}
+.pp small{display:block;font-weight:400;opacity:.6}
+.bed{background:#6b4428;border:10px solid #8a5a34;border-radius:6px;padding:6px;display:grid;grid-template-columns:repeat(8,1fr);gap:4px;box-shadow:0 20px 40px -20px #0008}
+.cell{aspect-ratio:1;background:radial-gradient(circle at 30% 30%,#7a5034,#5b3a24);border-radius:4px;position:relative;display:grid;place-items:center;border:0;overflow:hidden;transition:box-shadow .2s}
+.cell .ic{display:grid;gap:0;width:100%;height:100%;place-items:center;font-size:18px;line-height:1}
+.cell.good{box-shadow:inset 0 0 0 3px #9be07a}
+.cell.bad{box-shadow:inset 0 0 0 3px #ff6a4a}
+.cell:hover{filter:brightness(1.15)}
+.bedtools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.btn{background:var(--ink);color:var(--cream);border:0;border-radius:30px;padding:9px 16px;font-weight:800;font-size:13px}
+.btn.alt{background:none;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.side{background:var(--kraft);border-radius:10px;padding:18px;border:2px solid var(--ink)}
+.side h3{font-family:'DM Serif Display';font-weight:400;font-size:26px}
+.side ul{list-style:none;margin-top:8px;font-size:14px;line-height:1.5}
+.side li{padding:4px 0;border-bottom:1px dashed #2d241844}
+.tot{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.tot div{background:var(--cream);border-radius:8px;padding:8px}
+.tot b{font-family:'DM Serif Display';font-size:26px;font-weight:400;display:block}
+.tot small{font-size:11px;font-weight:800;text-transform:uppercase;opacity:.6}
+/* calendar */
+.cal{background:#fff;border:2px solid var(--ink);border-radius:10px;overflow-x:auto}
+.cal table{width:100%;border-collapse:collapse;min-width:820px}
+.cal th{font-size:12px;font-weight:800;padding:10px 4px;border-bottom:2px solid var(--ink);text-transform:uppercase}
+.cal td{padding:6px 4px;border-bottom:1px solid #2d241815;position:relative;height:40px}
+.cal td:first-child{font-weight:800;white-space:nowrap;padding-left:14px;width:160px}
+.bar{position:absolute;top:10px;height:20px;border-radius:10px;font-size:10px;font-weight:800;color:#fff;display:flex;align-items:center;padding-left:6px;overflow:hidden;white-space:nowrap}
+.now{position:absolute;top:0;bottom:0;width:2px;background:var(--tomato);z-index:2}
+.frost{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.frost select{padding:8px;border:2px solid var(--ink);border-radius:8px;background:#fff}
+.legend{display:flex;gap:16px;margin:10px 0;font-size:13px;font-weight:800;flex-wrap:wrap}
+.legend i{display:inline-block;width:18px;height:10px;border-radius:5px;margin-right:6px;vertical-align:middle}
+/* seed packets */
+.packets{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:22px}
+.packet{background:var(--kraft);border:2px solid var(--ink);border-radius:4px 4px 10px 10px;padding:0 0 14px;position:relative;box-shadow:4px 6px 0 #2d241822;transition:transform .25s;clip-path:polygon(0 12px,6% 0,12% 12px,18% 0,24% 12px,30% 0,36% 12px,42% 0,48% 12px,54% 0,60% 12px,66% 0,72% 12px,78% 0,84% 12px,90% 0,96% 12px,100% 0,100% 100%,0 100%)}
+.packet:hover{transform:rotate(-2deg) translateY(-4px)}
+.packet .art{height:170px;display:grid;place-items:center;border-bottom:2px solid var(--ink);margin-top:14px;background:var(--bg)}
+.packet .art svg{width:130px;height:130px}
+.packet h3{font-family:'DM Serif Display';font-weight:400;font-size:24px;padding:10px 14px 0}
+.packet .var{font-style:italic;padding:0 14px;font-size:14px}
+.packet dl{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;padding:8px 14px 0;font-size:12px}
+.packet dt{font-weight:800;text-transform:uppercase;letter-spacing:.06em;opacity:.7}
+/* harvest */
+.hv{display:grid;grid-template-columns:320px 1fr;gap:30px;align-items:start}
+.hv form{background:var(--kraft);border:2px solid var(--ink);border-radius:10px;padding:18px}
+.hv label{display:block;font-weight:800;font-size:12px;text-transform:uppercase;margin:10px 0 4px}
+.hv input,.hv select{width:100%;padding:9px;border:2px solid var(--ink);border-radius:8px;background:#fff}
+.chart svg{width:100%;height:auto;display:block}
+.big{font-family:'DM Serif Display';font-size:64px;line-height:1;color:var(--leaf)}
+@media(max-width:1000px){.pl,.hv{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">🌱 Plot <em>&</em> Sow</div>
+ <nav><a href="#plan">Bed Planner</a><a href="#calendar">Sowing Calendar</a><a href="#seeds">Seed Library</a><a href="#harvest">Harvest Log</a><a href="index.html">← Index</a></nav>
+</header>
+
+<section data-view="plan"><div class="wrap">
+ <h2>Plan a <em>square-foot</em> bed.</h2>
+ <p class="sub">A 4 × 8 ft raised bed split into 32 squares. Pick a plant, then click squares to plant it. Each square holds as many plants as that crop needs space for. Squares glow green next to good companions and red next to bad ones.</p>
+ <div class="pl">
+  <div class="palette" id="pal"></div>
+  <div><div class="bed" id="bed"></div><div class="bedtools"><button class="btn alt" id="erase">🧹 Eraser</button><button class="btn alt" id="clear">Clear bed</button><button class="btn alt" id="sample">Sample plan</button></div></div>
+  <div class="side" id="side"></div>
+ </div>
+</div></section>
+
+<section data-view="calendar" hidden><div class="wrap">
+ <h2>When to <em>sow.</em></h2>
+ <p class="sub">Every date counts from your last spring frost. Pick yours and the calendar moves with it. Crops in your bed plan are listed first.</p>
+ <div class="frost"><b>Last frost:</b><select id="frost"><option value="2.8">Late March (mild coast)</option><option value="3.5" selected>Mid April</option><option value="4.1">Early May</option><option value="4.7">Late May (upland)</option></select></div>
+ <div class="legend"><span><i style="background:#8a6a3a"></i>Sow indoors</span><span><i style="background:#3e6b35"></i>Sow / plant out</span><span><i style="background:#d4442a"></i>Harvest</span></div>
+ <div class="cal" id="cal"></div>
+</div></section>
+
+<section data-view="seeds" hidden><div class="wrap">
+ <h2>The seed <em>library.</em></h2>
+ <p class="sub">Heirloom varieties, saved and swapped by our members. Borrow a packet in spring and bring back seed in autumn.</p>
+ <div class="packets" id="packets"></div>
+</div></section>
+
+<section data-view="harvest" hidden><div class="wrap">
+ <h2>The harvest <em>log.</em></h2>
+ <p class="sub">Weigh what you pick. By September you'll know exactly how much the courgettes got out of hand.</p>
+ <div class="hv">
+  <form id="hform"><div class="big" id="hTot">0 kg</div><div style="font-weight:800;margin-bottom:10px">harvested this season</div>
+   <label>Crop</label><select id="hCrop"></select><label>Weight (g)</label><input type="number" id="hW" value="450" min="1"><label>Date</label><input type="date" id="hD"><button class="btn" style="margin-top:14px;width:100%">Add to basket 🧺</button></form>
+  <div class="chart"><svg id="hChart" viewBox="0 0 800 440"></svg></div>
+ </div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'plan';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='calendar')cal()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+// [key, name, emoji, per sq ft, friends, foes, indoor [start,end] weeks rel. frost, out [s,e], harvest [s,e], variety, days, colour]
+const P={
+ tomato:['Tomato','🍅',1,['basil','carrot','onion','marigold'],['potato','fennel'],[-8,-6],[1,3],[12,22],'Brandywine','85','#f7d9c9'],
+ basil:['Basil','🌿',4,['tomato','pepper'],['sage'],[-6,-4],[2,4],[8,20],'Genovese','60','#dcead0'],
+ carrot:['Carrot','🥕',16,['onion','lettuce','tomato'],['dill'],null,[-3,10],[8,26],'Chantenay Red','70','#fbe0c4'],
+ onion:['Onion','🧅',9,['carrot','lettuce','tomato','beet'],['bean','pea'],[-10,-8],[-2,1],[14,20],'Red Baron','110','#eadcef'],
+ lettuce:['Lettuce','🥬',4,['carrot','radish','onion'],[],[-6,-4],[-4,12],[3,20],'Merveille des Quatre Saisons','55','#e3f0d0'],
+ radish:['Radish','🔴',16,['lettuce','pea'],[],null,[-4,14],[0,18],'French Breakfast','25','#f7d4d8'],
+ bean:['Runner bean','🫛',8,['carrot','marigold'],['onion'],[-3,-1],[1,4],[10,20],'Scarlet Emperor','75','#d8ecc8'],
+ pea:['Pea','🟢',8,['radish','carrot'],['onion'],null,[-6,-2],[6,12],'Kelvedon Wonder','65','#d4ecd0'],
+ pepper:['Pepper','🌶️',1,['basil','onion'],['fennel'],[-10,-8],[2,4],[14,24],'Hungarian Wax','80','#fbd6c6'],
+ beet:['Beetroot','🟣',9,['onion','lettuce'],[],null,[-2,8],[8,20],'Chioggia','60','#ecd0e0'],
+ potato:['Potato','🥔',1,['bean','marigold'],['tomato'],null,[-4,0],[10,18],'Pink Fir Apple','100','#eadcc4'],
+ marigold:['Marigold','🌼',4,['tomato','bean','potato'],[],[-6,-4],[1,3],[6,24],'French Petite','50','#fbe9b8'],
+ squash:['Courgette','🥒',.5,['bean','marigold'],['potato'],[-4,-2],[2,4],[9,20],'Black Beauty','50','#d8e8c4'],
+ fennel:['Fennel','🌱',4,[],['tomato','pepper','bean'],[-4,-2],[2,6],[12,20],'Florence','80','#e8f0d8']};
+let bed=store.get('ps-bed',null)||Array(32).fill(null),brush='tomato';
+function sample(){bed=['tomato','basil','basil','tomato','marigold','pepper','basil','pepper','carrot','carrot','onion','onion','lettuce','lettuce','radish','radish','carrot','carrot','onion','onion','lettuce','beet','beet','radish','bean','bean','marigold','pea','pea','squash',null,'squash']}
+if(!store.get('ps-bed',null))sample();
+function pal(){document.getElementById('pal').innerHTML=Object.entries(P).map(([k,p])=>`<button class="pp ${k===brush?'on':''}" data-k="${k}"><span>${p[1]}</span>${p[0]}<small>${p[2]<1?'1 per 2 sq':p[2]+' / sq'}</small></button>`).join('')}
+const nb=i=>{const r=Math.floor(i/8),c=i%8;return[[r-1,c],[r+1,c],[r,c-1],[r,c+1]].filter(([a,b])=>a>=0&&a<4&&b>=0&&b<8).map(([a,b])=>a*8+b)};
+function render(){store.set('ps-bed',bed);document.getElementById('bed').innerHTML=bed.map((k,i)=>{if(!k)return`<button class="cell" data-i="${i}"></button>`;const p=P[k];const n=Math.max(1,Math.floor(p[2]));const cols=Math.ceil(Math.sqrt(n));const ns=nb(i).map(j=>bed[j]).filter(Boolean);const good=ns.some(x=>p[3].includes(x)),bad=ns.some(x=>p[4].includes(x));
+  return`<button class="cell ${bad?'bad':good?'good':''}" data-i="${i}" title="${p[0]}"><div class="ic" style="grid-template-columns:repeat(${cols},1fr);font-size:${Math.max(9,34/cols)}px">${Array(n).fill(`<span>${p[1]}</span>`).join('')}</div></button>`}).join('');
+ const counts={};bed.forEach(k=>{if(k)counts[k]=(counts[k]||0)+1});
+ let good=0,bad=0;bed.forEach((k,i)=>{if(!k)return;nb(i).forEach(j=>{const o=bed[j];if(!o)return;if(P[k][3].includes(o))good++;if(P[k][4].includes(o))bad++})});
+ const plants=Object.entries(counts).reduce((s,[k,v])=>s+Math.max(1,Math.floor(P[k][2]*v)),0);
+ document.getElementById('side').innerHTML=`<h3>This bed</h3><div class="tot"><div><b>${plants}</b><small>plants</small></div><div><b>${bed.filter(Boolean).length}/32</b><small>squares</small></div><div><b style="color:#3e6b35">${good/2|0}</b><small>happy pairs</small></div><div><b style="color:#d4442a">${bad/2|0}</b><small>conflicts</small></div></div>
+ <ul>${Object.entries(counts).map(([k,v])=>`<li>${P[k][1]} <b>${P[k][0]}</b> × ${Math.max(1,Math.floor(P[k][2]*v))} <span style="opacity:.6">(${v} sq)</span></li>`).join('')||'<li>Empty. Pick a plant!</li>'}</ul>
+ <div style="margin-top:12px;font-size:13px;line-height:1.5"><b>${P[brush]?P[brush][0]:'Eraser'}</b>${P[brush]?`: likes ${P[brush][3].map(x=>P[x][0].toLowerCase()).join(', ')||'anyone'}${P[brush][4].length?`; dislikes ${P[brush][4].map(x=>P[x][0].toLowerCase()).join(', ')}`:''}.`:''}</div>`}
+let painting=false;
+function paint(e){const c=e.target.closest('.cell');if(!c)return;bed[+c.dataset.i]=brush==='erase'?null:brush;render()}
+document.getElementById('bed').addEventListener('pointerdown',e=>{painting=true;paint(e)});
+document.getElementById('bed').addEventListener('pointerover',e=>{if(painting&&e.buttons)paint(e)});
+addEventListener('pointerup',()=>painting=false);
+document.getElementById('pal').onclick=e=>{const b=e.target.closest('.pp');if(!b)return;brush=b.dataset.k;pal();render()};
+document.getElementById('erase').onclick=()=>{brush='erase';pal();render()};
+document.getElementById('clear').onclick=()=>{bed=Array(32).fill(null);render()};
+document.getElementById('sample').onclick=()=>{sample();render()};
+pal();render();
+
+/* calendar */
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function cal(){const fm=+document.getElementById('frost').value;const wk2m=w=>fm+w/4.33;const pct=m=>Math.max(0,Math.min(100,m/12*100));
+ const inBed=new Set(bed.filter(Boolean));const keys=Object.keys(P).sort((a,b)=>(inBed.has(b)?1:0)-(inBed.has(a)?1:0));
+ const now=new Date(),nm=now.getMonth()+now.getDate()/31;
+ let h=`<table><thead><tr><th style="text-align:left;padding-left:14px">Crop</th><th colspan="12"><div style="display:grid;grid-template-columns:repeat(12,1fr)">${MON.map(m=>`<span>${m}</span>`).join('')}</div></th></tr></thead><tbody>`;
+ keys.forEach(k=>{const p=P[k];const bar=(r,c,l)=>r?`<div class="bar" style="left:${pct(wk2m(r[0]))}%;width:${Math.max(2,pct(wk2m(r[1]))-pct(wk2m(r[0])))}%;background:${c}">${l}</div>`:'';
+  h+=`<tr><td>${p[1]} ${p[0]}${inBed.has(k)?' <span style="color:#3e6b35">●</span>':''}</td><td colspan="12" style="position:relative"><div class="now" style="left:${nm/12*100}%"></div>${bar(p[5],'#8a6a3a','indoors')}${bar(p[6],'#3e6b35','sow')}${bar(p[7],'#d4442a','harvest')}</td></tr>`});
+ document.getElementById('cal').innerHTML=h+'</tbody></table>'}
+document.getElementById('frost').onchange=cal;
+
+/* seeds */
+function pk(k){const c={tomato:'#d4442a',basil:'#3e6b35',carrot:'#e87a2a',onion:'#8a3a7a',lettuce:'#7fa35a',radish:'#d4445a',bean:'#c8322a',pea:'#5a9a4a',pepper:'#e8b320',beet:'#8a1a4a',potato:'#b88a5a',marigold:'#f0a020',squash:'#3a6a2a',fennel:'#9ab86a'}[k];
+ return`<svg viewBox="0 0 130 130"><path d="M65 120 C60 90 70 60 64 30" stroke="#3e6b35" stroke-width="4" fill="none"/><path d="M64 70 q-30 -10 -40 -34 q30 4 40 34Z M66 56 q26 -12 40 -34 q-30 2 -40 34Z" fill="#7fa35a" stroke="#2d2418" stroke-width="1.5"/>${k==='carrot'||k==='radish'||k==='beet'?`<path d="M50 90 Q65 130 80 90Z" fill="${c}" stroke="#2d2418" stroke-width="2"/>`:k==='onion'?`<ellipse cx="65" cy="98" rx="22" ry="18" fill="${c}" stroke="#2d2418" stroke-width="2"/>`:k==='bean'||k==='pea'?`<path d="M40 90 q25 20 50 -10 q-20 30 -50 10Z" fill="${c}" stroke="#2d2418" stroke-width="2"/>`:k==='lettuce'||k==='basil'||k==='fennel'?`<circle cx="65" cy="95" r="22" fill="${c}" stroke="#2d2418" stroke-width="2"/><path d="M50 95 q15 -14 30 0" stroke="#2d2418" fill="none"/>`:`<circle cx="${k==='squash'?60:65}" cy="${k==='marigold'?34:92}" r="${k==='marigold'?16:20}" fill="${c}" stroke="#2d2418" stroke-width="2"/>`}</svg>`}
+document.getElementById('packets').innerHTML=Object.entries(P).map(([k,p])=>`<div class="packet" style="--bg:${p[10]}"><div class="art">${pk(k)}</div><h3>${p[0]}</h3><div class="var">'${p[8]}'</div><dl><dt>Days</dt><dd>${p[9]} to harvest</dd><dt>Spacing</dt><dd>${p[2]<1?'2 sq ft each':p[2]+' per sq ft'}</dd><dt>Friends</dt><dd>${p[3].map(x=>P[x][0]).join(', ')||'—'}</dd></dl></div>`).join('');
+
+/* harvest */
+document.getElementById('hCrop').innerHTML=Object.entries(P).map(([k,p])=>`<option value="${k}">${p[1]} ${p[0]}</option>`).join('');document.getElementById('hD').valueAsDate=new Date();
+let H=store.get('ps-harvest',[['squash',1800],['squash',2400],['tomato',950],['lettuce',400],['radish',300],['bean',1200],['squash',3100],['tomato',1600],['carrot',700],['pea',500]].map(([k,g],i)=>({k,g,d:`2026-0${6+Math.floor(i/4)}-${String(3+i*2).padStart(2,'0')}`})));
+function hRender(){store.set('ps-harvest',H);const by={};H.forEach(h=>by[h.k]=(by[h.k]||0)+h.g);const tot=H.reduce((s,h)=>s+h.g,0);document.getElementById('hTot').textContent=(tot/1000).toFixed(1)+' kg';
+ const E=Object.entries(by).sort((a,b)=>b[1]-a[1]);const mx=E[0]?E[0][1]:1;let s='';E.forEach(([k,g],i)=>{const y=20+i*42,w=g/mx*560;s+=`<text x="0" y="${y+24}" font-size="26">${P[k][1]}</text><text x="40" y="${y+23}" font-family="Nunito Sans" font-weight="800" font-size="14" fill="#2d2418">${P[k][0]}</text><rect x="170" y="${y+6}" width="${w}" height="26" rx="13" fill="${k==='squash'?'#d4442a':'#3e6b35'}"/><text x="${176+w}" y="${y+24}" font-family="DM Serif Display" font-size="17" fill="#2d2418">${(g/1000).toFixed(1)} kg</text>`});
+ if(by.squash&&by.squash===mx)s+=`<text x="170" y="${40+E.length*42}" font-family="DM Serif Display" font-style="italic" font-size="18" fill="#d4442a">The courgettes are winning. As usual.</text>`;
+ document.getElementById('hChart').setAttribute('viewBox',`0 0 800 ${Math.max(200,60+E.length*42)}`);document.getElementById('hChart').innerHTML=s}
+document.getElementById('hform').onsubmit=e=>{e.preventDefault();H.push({k:document.getElementById('hCrop').value,g:+document.getElementById('hW').value||0,d:document.getElementById('hD').value});hRender()};hRender();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

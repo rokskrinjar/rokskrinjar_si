@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARCANA — a tarot reading room</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Spectral:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#120c24; --bg2:#1d1438; --gold:#d9b86c; --gold2:#f4e2a8; --rose:#c07a9a; --txt:#e8e0f5; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:radial-gradient(ellipse at 50% -10%,#3a2766,var(--bg) 60%); background-attachment:fixed; color:var(--txt); font-family:'Spectral',serif; font-weight:300; min-height:100vh; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+  .sc { font-family:'Marcellus SC',serif; }
+  canvas#stars { position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+  header { position:relative; z-index:5; text-align:center; padding:28px 16px 6px; }
+  header h1 { font-family:'Marcellus SC'; font-weight:400; font-size:clamp(2.4rem,6vw,4.4rem); letter-spacing:.3em; padding-left:.3em; color:var(--gold); text-shadow:0 0 30px #d9b86c55; }
+  header .sub { font-style:italic; opacity:.75; }
+  nav { position:relative; z-index:5; display:flex; justify-content:center; gap:18px; padding:14px; flex-wrap:wrap; }
+  nav a { font-family:'Marcellus SC'; letter-spacing:.2em; font-size:14px; padding:6px 4px; border-bottom:1px solid transparent; opacity:.7; }
+  nav a.on { opacity:1; border-color:var(--gold); color:var(--gold2); }
+  nav a:hover { opacity:1; }
+  main { position:relative; z-index:2; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:fade 1s both; }
+  @keyframes fade { from { opacity:0; filter:blur(4px); } }
+  .page { max-width:1200px; margin:0 auto; padding:10px 4vw 80px; }
+  /* card */
+  .card { width:150px; aspect-ratio:1/1.72; perspective:1200px; cursor:pointer; flex-shrink:0; }
+  .card .in { position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform 1s cubic-bezier(.4,.1,.2,1); }
+  .card.up .in { transform:rotateY(180deg); }
+  .card.rev.up .in { transform:rotateY(180deg) rotateZ(180deg); }
+  .face { position:absolute; inset:0; backface-visibility:hidden; border-radius:12px; overflow:hidden; }
+  .back { background:var(--bg2); border:2px solid var(--gold); box-shadow:0 10px 30px #0008; }
+  .back svg, .front svg { width:100%; height:100%; display:block; }
+  .front { transform:rotateY(180deg); background:#1a1230; border:2px solid var(--gold); box-shadow:0 0 30px #d9b86c33, 0 10px 30px #0008; }
+  /* draw */
+  .spreads { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:8px 0 22px; }
+  .spreads button, .btn { font-family:'Marcellus SC'; letter-spacing:.14em; font-size:13px; padding:10px 18px; border:1px solid var(--gold); background:transparent; color:var(--gold2); border-radius:40px; cursor:pointer; transition:all .3s; }
+  .spreads button.on, .btn:hover { background:var(--gold); color:var(--bg); }
+  .table { min-height:360px; display:flex; justify-content:center; align-items:center; gap:22px; flex-wrap:wrap; position:relative; padding:20px 0; }
+  .table.cross { display:grid; grid-template-columns:repeat(3,150px); grid-template-areas:". a ." "b c d" ". e ."; justify-content:center; gap:18px; }
+  .slot { display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .slot small { font-family:'Marcellus SC'; letter-spacing:.2em; font-size:11px; color:var(--gold); }
+  .deck { position:relative; width:150px; aspect-ratio:1/1.72; margin:0 auto; cursor:pointer; }
+  .deck .card { position:absolute; inset:0; width:100%; transition:transform .5s; }
+  .deck.shuffle .card:nth-child(odd) { animation:shufL .5s ease-in-out 3; }
+  .deck.shuffle .card:nth-child(even) { animation:shufR .5s ease-in-out 3; }
+  @keyframes shufL { 50% { transform:translateX(-90px) rotate(-8deg); } }
+  @keyframes shufR { 50% { transform:translateX(90px) rotate(8deg); } }
+  .reading { max-width:760px; margin:30px auto 0; line-height:1.9; font-size:1.1rem; }
+  .reading h3 { font-family:'Marcellus SC'; font-weight:400; color:var(--gold2); letter-spacing:.1em; margin-top:1.2rem; }
+  .reading .kw { font-style:italic; color:var(--rose); }
+  .center { text-align:center; }
+  /* deck browser */
+  .browse { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:22px; justify-items:center; }
+  .browse .card .in { transform:rotateY(180deg); }
+  .browse .card:hover .in { transform:rotateY(180deg) translateZ(20px) scale(1.04); }
+  .search { display:block; margin:0 auto 26px; background:transparent; border:0; border-bottom:1px solid var(--gold); color:var(--txt); font-family:'Spectral'; font-style:italic; font-size:1.1rem; padding:8px; width:min(360px,100%); text-align:center; outline:none; }
+  .modal { position:fixed; inset:0; z-index:50; background:#0a0616e8; display:grid; place-items:center; padding:20px; }
+  .modal[hidden] { display:none; }
+  .modal .box { display:grid; grid-template-columns:240px 1fr; gap:36px; max-width:860px; align-items:center; }
+  .modal .card { width:240px; }
+  .modal h2 { font-family:'Marcellus SC'; font-weight:400; font-size:2.4rem; color:var(--gold2); }
+  .modal p { line-height:1.8; margin:.8rem 0; }
+  .modal .x { position:absolute; top:24px; right:32px; font-size:2rem; background:none; border:0; color:var(--gold); cursor:pointer; }
+  /* daily */
+  .daily { display:grid; grid-template-columns:auto 1fr; gap:50px; align-items:center; max-width:900px; margin:0 auto; }
+  .daily .card { width:260px; }
+  .moon { font-size:3rem; }
+  /* journal */
+  .jr { max-width:800px; margin:0 auto; }
+  .entry { border-top:1px solid #d9b86c44; padding:18px 0; display:grid; grid-template-columns:140px 1fr; gap:20px; }
+  .entry .d { font-family:'Marcellus SC'; color:var(--gold); font-size:13px; letter-spacing:.1em; }
+  .minis { display:flex; gap:6px; margin-top:8px; }
+  .minis .card { width:52px; }
+  .minis .card .in { transform:rotateY(180deg); }
+  @media (max-width:760px){ .card { width:110px; } .table.cross { grid-template-columns:repeat(3,100px); } .table.cross .card { width:100px; } .modal .box,.daily { grid-template-columns:1fr; justify-items:center; } }
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<header><div class="sc" style="letter-spacing:.5em;font-size:12px;color:var(--rose)">☾ THE READING ROOM ☽</div><h1>ARCANA</h1><div class="sub">twenty-two keys to the questions you haven't asked yet</div></header>
+<nav><a href="#draw">Draw</a><a href="#daily">Card of the day</a><a href="#deck">The deck</a><a href="#journal">Journal</a><a href="index.html">Leave ↩</a></nav>
+<main>
+<section data-view="draw" class="page">
+  <div class="spreads" id="spreads"><button data-s="one" class="on">One card</button><button data-s="three">Past · Present · Future</button><button data-s="cross">The Cross</button></div>
+  <div class="center"><div class="deck" id="deckPile" title="Click to shuffle & deal"></div><p style="margin-top:14px;font-style:italic;opacity:.8" id="prompt">Hold your question in mind. Click the deck to shuffle and deal.</p></div>
+  <div class="table" id="table"></div>
+  <div class="reading" id="reading"></div>
+</section>
+<section data-view="daily" class="page" hidden>
+  <div class="daily"><div id="dailyCard"></div><div id="dailyText"></div></div>
+</section>
+<section data-view="deck" class="page" hidden>
+  <input class="search" id="q" placeholder="search the major arcana…"><div class="browse" id="browse"></div>
+</section>
+<section data-view="journal" class="page" hidden><div class="jr" id="jr"></div></section>
+</main>
+<div class="modal" id="modal" hidden><button class="x" id="mx">×</button><div class="box" id="mbox"></div></div>
+
+<script>
+/* stars */
+const sc=document.getElementById('stars'),sg=sc.getContext('2d');let ST=[];function ss(){sc.width=innerWidth;sc.height=innerHeight;ST=Array.from({length:180},()=>({x:Math.random()*sc.width,y:Math.random()*sc.height,r:Math.random()*1.3,p:Math.random()*6}))}ss();addEventListener('resize',ss);
+(function tw(t){sg.clearRect(0,0,sc.width,sc.height);ST.forEach(s=>{sg.globalAlpha=.3+.7*Math.abs(Math.sin(t/1400+s.p));sg.fillStyle='#f4e2a8';sg.beginPath();sg.arc(s.x,s.y,s.r,0,7);sg.fill()});requestAnimationFrame(tw)})(0);
+
+/* major arcana: [numeral, name, upright keywords, reversed keywords, glyph, meaning] */
+const A=[['0','The Fool','beginnings · leap · innocence','recklessness · hesitation','fool','A step off the cliff edge with a small dog barking encouragement. Trust the air.'],
+['I','The Magician','will · skill · focus','trickery · scattered energy','magician','Everything you need is already on the table. Pick it up.'],
+['II','The High Priestess','intuition · mystery · stillness','secrets · disconnection','priestess','Between the two pillars, a veil. Listen to what isn\'t being said.'],
+['III','The Empress','abundance · nurture · creativity','dependence · stagnation','empress','A garden growing without being asked. Tend to what you love.'],
+['IV','The Emperor','structure · authority · stability','rigidity · control','emperor','Build the walls, then open a door in them.'],
+['V','The Hierophant','tradition · teaching · belief','rebellion · dogma','hierophant','Old wisdom offers a key. You decide which lock.'],
+['VI','The Lovers','union · choice · harmony','imbalance · misalignment','lovers','Two paths, one heart. The choice is the lesson.'],
+['VII','The Chariot','drive · victory · direction','aimlessness · aggression','chariot','Two horses pulling different ways. Hold the reins lightly but firmly.'],
+['VIII','Strength','courage · patience · compassion','self-doubt · weakness','strength','The lion is tamed not by force, but by a gentle hand.'],
+['IX','The Hermit','solitude · insight · searching','isolation · withdrawal','hermit','A lantern on the mountain. Go inward to find the way out.'],
+['X','Wheel of Fortune','cycles · luck · turning points','resistance · bad timing','wheel','What rises, falls; what falls, rises. Ride the turn.'],
+['XI','Justice','truth · fairness · cause & effect','dishonesty · avoidance','justice','The scales are patient. Every action is weighed.'],
+['XII','The Hanged One','pause · surrender · new view','stalling · martyrdom','hanged','Upside down, the world makes a different kind of sense.'],
+['XIII','Death','endings · transformation · release','fear of change · stagnation','death','Not an ending but a doorway. Something must be composted to bloom.'],
+['XIV','Temperance','balance · moderation · blending','excess · impatience','temperance','Water poured between two cups, never spilled. Mix slowly.'],
+['XV','The Devil','attachment · desire · shadow','release · awakening','devil','The chains are loose. You could slip them off whenever you choose.'],
+['XVI','The Tower','upheaval · revelation · sudden change','averted disaster · fear','tower','Lightning shows what was built on sand. Let it fall; build better.'],
+['XVII','The Star','hope · renewal · serenity','despair · disconnection','star','After the storm, a clear sky, and water that heals.'],
+['XVIII','The Moon','illusion · dreams · the unknown','clarity · confusion lifting','moon','The path runs between two towers into mist. Walk it anyway.'],
+['XIX','The Sun','joy · success · vitality','temporary clouds · ego','sun','Warmth without conditions. A child on a white horse, laughing.'],
+['XX','Judgement','awakening · reckoning · calling','self-doubt · ignoring the call','judgement','A trumpet sounds. Rise and answer to your truest self.'],
+['XXI','The World','completion · wholeness · travel','loose ends · delay','world','The dance at the end of one journey and the start of the next.']];
+const G='#d9b86c';
+const GLYPH={fool:`<circle cx="75" cy="60" r="22" fill="none" stroke="${G}" stroke-width="2"/><path d="M20 180 L130 180 M100 180 L120 140 L150 140" stroke="${G}" stroke-width="2" fill="none"/><path d="M75 90 L75 140 M75 105 L50 90 M75 105 L100 120 M75 140 L60 170 M75 140 L92 168" stroke="${G}" stroke-width="2"/><circle cx="105" cy="120" r="6" fill="${G}"/>`,
+magician:`<path d="M40 50 q20 -18 35 0 q15 18 35 0 q-20 -18 -35 0 q-15 18 -35 0" stroke="${G}" stroke-width="2" fill="none"/><rect x="35" y="150" width="80" height="12" fill="none" stroke="${G}" stroke-width="2"/><path d="M75 80 L75 140 M75 90 L55 70 M75 100 L100 120" stroke="${G}" stroke-width="2"/><circle cx="50" cy="146" r="4" fill="${G}"/><path d="M68 146 l6 -8 l6 8z" fill="${G}"/><rect x="92" y="140" width="8" height="8" fill="${G}"/>`,
+priestess:`<rect x="30" y="50" width="14" height="130" fill="none" stroke="${G}" stroke-width="2"/><rect x="106" y="50" width="14" height="130" fill="${G}" opacity=".6"/><path d="M60 70 Q75 60 90 70 L90 170 L60 170Z" fill="none" stroke="${G}" stroke-width="2"/><path d="M62 60 a13 13 0 1 0 26 0 a9 9 0 1 1 -26 0" fill="${G}"/>`,
+empress:`<circle cx="75" cy="70" r="20" fill="none" stroke="${G}" stroke-width="2"/>${[0,1,2,3,4,5,6].map(i=>`<circle cx="${40+i*12}" cy="${45-Math.abs(i-3)*4}" r="3" fill="${G}"/>`).join('')}<path d="M40 180 Q75 100 110 180" fill="none" stroke="${G}" stroke-width="2"/>${[0,1,2,3,4].map(i=>`<path d="M${25+i*25} 185 l0 -20 m-5 5 l5 -5 l5 5" stroke="${G}" stroke-width="1.5" fill="none"/>`).join('')}`,
+emperor:`<rect x="45" y="90" width="60" height="80" fill="none" stroke="${G}" stroke-width="2"/><path d="M45 90 L45 70 L55 80 L65 60 L75 80 L85 60 L95 80 L105 70 L105 90" fill="none" stroke="${G}" stroke-width="2"/><circle cx="75" cy="130" r="14" fill="none" stroke="${G}" stroke-width="2"/><path d="M30 170 L20 150 M120 170 L130 150" stroke="${G}" stroke-width="2"/>`,
+hierophant:`<path d="M75 30 L75 180 M55 60 L95 60 M60 85 L90 85 M65 110 L85 110" stroke="${G}" stroke-width="2.5"/><circle cx="55" cy="160" r="12" fill="none" stroke="${G}" stroke-width="2"/><circle cx="95" cy="160" r="12" fill="none" stroke="${G}" stroke-width="2"/><path d="M50 160 l10 0 m-5 -5 l0 10 M90 160 l10 0" stroke="${G}" stroke-width="2"/>`,
+lovers:`<circle cx="75" cy="45" r="18" fill="none" stroke="${G}" stroke-width="2"/>${[...Array(8)].map((_,i)=>`<line x1="${75+Math.cos(i*.785)*22}" y1="${45+Math.sin(i*.785)*22}" x2="${75+Math.cos(i*.785)*30}" y2="${45+Math.sin(i*.785)*30}" stroke="${G}" stroke-width="2"/>`).join('')}<circle cx="50" cy="110" r="10" fill="none" stroke="${G}" stroke-width="2"/><circle cx="100" cy="110" r="10" fill="none" stroke="${G}" stroke-width="2"/><path d="M50 120 L50 175 M100 120 L100 175 M50 140 Q75 125 100 140" stroke="${G}" stroke-width="2" fill="none"/>`,
+chariot:`<rect x="40" y="80" width="70" height="60" fill="none" stroke="${G}" stroke-width="2"/><path d="M40 80 L75 55 L110 80" fill="none" stroke="${G}" stroke-width="2"/><circle cx="50" cy="155" r="14" fill="none" stroke="${G}" stroke-width="2"/><circle cx="100" cy="155" r="14" fill="none" stroke="${G}" stroke-width="2"/>${[0,1,2,3,4].map(i=>`<circle cx="${50+i*12}" cy="40" r="2.5" fill="${G}"/>`).join('')}`,
+strength:`<path d="M50 50 q12 -16 25 0 q13 16 25 0 q-12 -16 -25 0 q-13 16 -25 0" stroke="${G}" stroke-width="2" fill="none"/><circle cx="75" cy="130" r="30" fill="none" stroke="${G}" stroke-width="2"/>${[...Array(12)].map((_,i)=>`<path d="M${75+Math.cos(i*.52)*30} ${130+Math.sin(i*.52)*30} l${Math.cos(i*.52)*10} ${Math.sin(i*.52)*10}" stroke="${G}" stroke-width="2"/>`).join('')}<circle cx="66" cy="125" r="3" fill="${G}"/><circle cx="84" cy="125" r="3" fill="${G}"/>`,
+hermit:`<path d="M30 185 L75 60 L120 185" fill="none" stroke="${G}" stroke-width="2"/><path d="M100 60 L100 180" stroke="${G}" stroke-width="2"/><path d="M92 60 L108 60 L104 80 L96 80Z" fill="none" stroke="${G}" stroke-width="2"/><path d="M100 64 l-4 8 l8 0z" fill="${G}"/><circle cx="100" cy="70" r="14" fill="${G}" opacity=".2"/>`,
+wheel:`<circle cx="75" cy="105" r="50" fill="none" stroke="${G}" stroke-width="2"/><circle cx="75" cy="105" r="34" fill="none" stroke="${G}" stroke-width="1.5"/><circle cx="75" cy="105" r="6" fill="${G}"/>${[...Array(8)].map((_,i)=>`<line x1="75" y1="105" x2="${75+Math.cos(i*.785)*50}" y2="${105+Math.sin(i*.785)*50}" stroke="${G}" stroke-width="1.5"/>`).join('')}`,
+justice:`<path d="M75 30 L75 170 M35 60 L115 60" stroke="${G}" stroke-width="2.5"/><path d="M35 60 L20 100 L50 100Z M115 60 L100 100 L130 100Z" fill="none" stroke="${G}" stroke-width="2"/><path d="M60 170 L90 170" stroke="${G}" stroke-width="3"/>`,
+hanged:`<path d="M20 40 L130 40 M40 40 L40 30 M110 40 L110 30" stroke="${G}" stroke-width="2.5"/><path d="M75 40 L75 90 M75 90 L75 140 M75 60 L60 80 M75 90 L90 70 M75 100 L55 125 M75 100 L95 125" stroke="${G}" stroke-width="2"/><circle cx="75" cy="155" r="14" fill="none" stroke="${G}" stroke-width="2"/><circle cx="75" cy="155" r="22" fill="${G}" opacity=".15"/>`,
+death:`<path d="M35 180 Q75 40 115 180" fill="none" stroke="${G}" stroke-width="2"/><circle cx="110" cy="50" r="18" fill="none" stroke="${G}" stroke-width="2"/><path d="M20 110 Q60 90 120 110" stroke="${G}" stroke-width="1.5" fill="none"/>${[0,1,2].map(i=>`<path d="M${45+i*25} 170 q-8 -12 0 -20 q8 8 0 20" fill="${G}" opacity=".6"/>`).join('')}`,
+temperance:`<path d="M40 70 L60 70 L56 100 L44 100Z M90 120 L110 120 L106 150 L94 150Z" fill="none" stroke="${G}" stroke-width="2"/><path d="M56 90 Q75 95 95 125" stroke="${G}" stroke-width="2" fill="none" stroke-dasharray="4 3"/><path d="M75 30 l-10 30 l10 -8 l10 8z" fill="${G}"/><path d="M20 180 Q75 160 130 180" stroke="${G}" stroke-width="2" fill="none"/>`,
+devil:`<path d="M40 50 L55 70 M110 50 L95 70" stroke="${G}" stroke-width="2.5"/><circle cx="75" cy="85" r="22" fill="none" stroke="${G}" stroke-width="2"/><path d="M75 60 l-18 30 l36 0z" fill="none" stroke="${G}" stroke-width="1.5"/><path d="M45 130 L45 180 M105 130 L105 180 M45 150 Q75 170 105 150" stroke="${G}" stroke-width="2" fill="none"/><circle cx="45" cy="130" r="6" fill="none" stroke="${G}" stroke-width="2"/><circle cx="105" cy="130" r="6" fill="none" stroke="${G}" stroke-width="2"/>`,
+tower:`<path d="M55 185 L60 70 L90 70 L95 185" fill="none" stroke="${G}" stroke-width="2"/><path d="M55 70 L55 55 L65 55 L65 62 L85 62 L85 55 L95 55 L95 70" fill="none" stroke="${G}" stroke-width="2"/><path d="M110 20 L85 60 L100 60 L78 100" stroke="${G}" stroke-width="3" fill="none"/>${[0,1,2,3].map(i=>`<circle cx="${30+i*30}" cy="${100+i*18}" r="3" fill="${G}"/>`).join('')}`,
+star:`<path d="M75 30 L82 62 L112 55 L88 76 L108 100 L78 88 L75 120 L70 88 L40 100 L62 76 L38 55 L68 62Z" fill="none" stroke="${G}" stroke-width="2"/>${[[30,40],[120,40],[25,90],[125,95],[40,130],[110,130],[75,140]].map(([x,y])=>`<path d="M${x} ${y-6} L${x+2} ${y} L${x} ${y+6} L${x-2} ${y}Z M${x-6} ${y} L${x+6} ${y}" stroke="${G}" stroke-width="1.2" fill="${G}"/>`).join('')}<path d="M20 175 Q45 165 75 175 T130 175" stroke="${G}" stroke-width="2" fill="none"/>`,
+moon:`<path d="M90 30 a35 35 0 1 0 0 70 a28 28 0 1 1 0 -70" fill="${G}"/><rect x="20" y="120" width="18" height="60" fill="none" stroke="${G}" stroke-width="2"/><rect x="112" y="120" width="18" height="60" fill="none" stroke="${G}" stroke-width="2"/><path d="M75 185 Q60 160 75 140 Q90 120 75 110" stroke="${G}" stroke-width="2" fill="none" stroke-dasharray="3 4"/>`,
+sun:`<circle cx="75" cy="85" r="30" fill="${G}" opacity=".85"/>${[...Array(16)].map((_,i)=>`<path d="M${75+Math.cos(i*.3927)*36} ${85+Math.sin(i*.3927)*36} L${75+Math.cos(i*.3927)*(i%2?48:56)} ${85+Math.sin(i*.3927)*(i%2?48:56)}" stroke="${G}" stroke-width="2"/>`).join('')}${[0,1,2,3].map(i=>`<path d="M${30+i*30} 185 L${30+i*30} 160 m-6 6 q6 -10 12 0" stroke="${G}" stroke-width="1.5" fill="none"/>`).join('')}`,
+judgement:`<path d="M40 50 L100 30 L100 60 L40 60Z" fill="none" stroke="${G}" stroke-width="2"/><path d="M100 30 L125 20 L125 70 L100 60" fill="none" stroke="${G}" stroke-width="2"/><path d="M20 150 L130 150" stroke="${G}" stroke-width="2"/>${[0,1,2].map(i=>`<rect x="${35+i*30}" y="150" width="20" height="30" fill="none" stroke="${G}" stroke-width="1.5"/><path d="M${45+i*30} 150 l0 -30 m-10 10 l10 -8 l10 8" stroke="${G}" stroke-width="1.5" fill="none"/>`).join('')}`,
+world:`<ellipse cx="75" cy="105" rx="42" ry="62" fill="none" stroke="${G}" stroke-width="2.5"/><ellipse cx="75" cy="105" rx="36" ry="56" fill="none" stroke="${G}" stroke-width="1" stroke-dasharray="3 3"/><path d="M75 70 L75 125 M75 85 L60 95 M75 85 L90 75 M75 125 L65 145 M75 125 L88 140" stroke="${G}" stroke-width="2"/><circle cx="75" cy="62" r="7" fill="none" stroke="${G}" stroke-width="2"/>${[[20,30],[130,30],[20,180],[130,180]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="8" fill="none" stroke="${G}" stroke-width="1.5"/>`).join('')}`};
+function front(i){const [n,name,,,g]=A[i];return `<svg viewBox="0 0 150 258"><rect x="6" y="6" width="138" height="246" rx="8" fill="none" stroke="${G}" stroke-width="1" opacity=".6"/><text x="75" y="28" text-anchor="middle" fill="${G}" font-family="Marcellus SC" font-size="14">${n}</text><g transform="translate(0 20)">${GLYPH[g]}</g><rect x="14" y="222" width="122" height="24" fill="none" stroke="${G}" stroke-width="1"/><text x="75" y="239" text-anchor="middle" fill="#f4e2a8" font-family="Marcellus SC" font-size="${name.length>14?10:12}" letter-spacing="1">${name.toUpperCase()}</text></svg>`}
+const BACK=`<svg viewBox="0 0 150 258"><rect width="150" height="258" fill="#1d1438"/><rect x="8" y="8" width="134" height="242" rx="8" fill="none" stroke="${G}" stroke-width="1.2"/>${[...Array(9)].map((_,i)=>`<circle cx="75" cy="129" r="${10+i*9}" fill="none" stroke="${G}" stroke-opacity="${.5-i*.04}"/>`).join('')}<path d="M75 60 L85 119 L144 129 L85 139 L75 198 L65 139 L6 129 L65 119Z" fill="${G}" opacity=".7"/><path d="M92 45 a18 18 0 1 0 0 36 a14 14 0 1 1 0 -36" fill="#f4e2a8" opacity=".6" transform="translate(-17 0)"/></svg>`;
+const cardEl=(i,rev=false,up=false)=>`<div class="card${rev?' rev':''}${up?' up':''}" data-i="${i}"><div class="in"><div class="face back">${BACK}</div><div class="face front">${front(i)}</div></div></div>`;
+
+/* router */
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'draw';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='journal')renderJ()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* chime */
+let AC;function chime(f=880){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.12,AC.currentTime);g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+2);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+2)}catch(e){}}
+
+/* draw */
+const SPREADS={one:['The message'],three:['Past','Present','Future'],cross:['What crowns you','What holds you back','The heart of it','What helps','Where it leads']};let spread='one',dealt=[];
+document.getElementById('spreads').onclick=e=>{const s=e.target.dataset.s;if(!s)return;spread=s;document.querySelectorAll('#spreads button').forEach(b=>b.classList.toggle('on',b===e.target));reset()};
+const pile=document.getElementById('deckPile');pile.innerHTML=[0,1,2,3,4,5].map(i=>`<div class="card" style="transform:translate(${i*1.5}px,${-i*1.5}px)"><div class="in"><div class="face back">${BACK}</div></div></div>`).join('');
+function reset(){dealt=[];document.getElementById('table').innerHTML='';document.getElementById('table').className='table';document.getElementById('reading').innerHTML='';document.getElementById('prompt').textContent='Hold your question in mind. Click the deck to shuffle and deal.';pile.style.display=''}
+pile.onclick=()=>{pile.classList.add('shuffle');chime(440);setTimeout(()=>{pile.classList.remove('shuffle');deal()},1500)};
+function deal(){const ids=[...Array(22).keys()].sort(()=>Math.random()-.5).slice(0,SPREADS[spread].length);dealt=ids.map(i=>({i,rev:Math.random()<.25,up:false}));const t=document.getElementById('table');t.className='table'+(spread==='cross'?' cross':'');
+ t.innerHTML=dealt.map((d,k)=>`<div class="slot" style="${spread==='cross'?`grid-area:${'abcde'[k]}`:''};opacity:0;transform:translateY(-40px);transition:all .6s ${k*.2}s"><small>${SPREADS[spread][k]}</small>${cardEl(d.i,d.rev)}</div>`).join('');
+ requestAnimationFrame(()=>t.querySelectorAll('.slot').forEach(s=>{s.style.opacity=1;s.style.transform='none'}));pile.style.display='none';document.getElementById('prompt').textContent='Turn the cards over, one by one.'}
+document.getElementById('table').onclick=e=>{const c=e.target.closest('.card');if(!c||c.classList.contains('up'))return;c.classList.add('up');const k=[...document.querySelectorAll('#table .card')].indexOf(c);dealt[k].up=true;chime(660+k*110);if(dealt.every(d=>d.up))setTimeout(read,900)};
+function read(){const pos=SPREADS[spread];document.getElementById('reading').innerHTML=dealt.map((d,k)=>{const c=A[d.i];return `<h3>${pos[k]} — ${c[1]}${d.rev?' (reversed)':''}</h3><p><span class="kw">${d.rev?c[3]:c[2]}</span>. ${c[5]}${d.rev?' Reversed, its energy is blocked or turned inward — ask what you are resisting.':''}</p>`}).join('')+`<p class="center" style="margin-top:1.6rem"><button class="btn" id="saveR">Save to journal</button> <button class="btn" id="again">Draw again</button></p>`;
+ document.getElementById('saveR').onclick=e=>{J.unshift({d:new Date().toISOString(),s:spread,c:dealt.map(x=>[x.i,x.rev])});try{localStorage.setItem('arcana-j',JSON.stringify(J.slice(0,40)))}catch(_){}e.target.textContent='✓ Saved'};document.getElementById('again').onclick=reset}
+
+/* daily */
+const today=new Date(),seed=today.getFullYear()*372+today.getMonth()*31+today.getDate();const di=seed%22,drev=seed%7===0;
+document.getElementById('dailyCard').innerHTML=cardEl(di,drev);setTimeout(()=>document.querySelector('#dailyCard .card').classList.add('up'),400);
+const phase=((((Date.now()-Date.UTC(2000,0,6,18,14))/864e5)/29.53)%1+1)%1;const moonIcon=['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'][Math.floor(phase*8+.5)%8];
+document.getElementById('dailyText').innerHTML=`<div class="sc" style="letter-spacing:.3em;color:var(--rose);font-size:13px">${today.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'}).toUpperCase()}</div><h2 class="sc" style="font-weight:400;font-size:2.6rem;color:var(--gold2);margin:.4rem 0">${A[di][1]}${drev?' <span style="font-size:1.2rem">(reversed)</span>':''}</h2><p style="font-style:italic;color:var(--rose)">${drev?A[di][3]:A[di][2]}</p><p style="line-height:1.9;margin:1rem 0">${A[di][5]}</p><p style="line-height:1.8">Today's moon <span class="moon">${moonIcon}</span> — ${phase<.5?'waxing: a time for beginning and gathering.':'waning: a time for releasing and resting.'}</p><p style="opacity:.7;font-style:italic;margin-top:1rem">Everyone who visits today draws the same card. Somewhere, a stranger is reading this too.</p>`;
+
+/* deck browser */
+const q=document.getElementById('q');function renderB(){const s=q.value.toLowerCase();document.getElementById('browse').innerHTML=A.map((c,i)=>[c,i]).filter(([c])=>(c[1]+c[2]+c[3]).toLowerCase().includes(s)).map(([c,i])=>cardEl(i,false,true)).join('')}
+q.oninput=renderB;renderB();
+document.getElementById('browse').onclick=e=>{const c=e.target.closest('.card');if(!c)return;const i=+c.dataset.i,a=A[i];document.getElementById('mbox').innerHTML=`${cardEl(i,false,true)}<div><div class="sc" style="color:var(--rose);letter-spacing:.3em">${a[0]}</div><h2>${a[1]}</h2><p><b class="sc" style="color:var(--gold)">Upright</b> — <i>${a[2]}</i></p><p><b class="sc" style="color:var(--gold)">Reversed</b> — <i>${a[3]}</i></p><p>${a[5]}</p></div>`;modal.hidden=false;chime(520)};
+const modal=document.getElementById('modal');document.getElementById('mx').onclick=()=>modal.hidden=true;modal.onclick=e=>{if(e.target===modal)modal.hidden=true};
+
+/* journal */
+let J=[];try{J=JSON.parse(localStorage.getItem('arcana-j'))||[]}catch(e){}
+function renderJ(){document.getElementById('jr').innerHTML=J.length?J.map(e=>`<div class="entry"><div class="d">${new Date(e.d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}).toUpperCase()}<br><span style="opacity:.7">${{one:'ONE CARD',three:'THREE CARDS',cross:'THE CROSS'}[e.s]}</span></div><div><div>${e.c.map(([i,r])=>A[i][1]+(r?' ⟲':'')).join(' · ')}</div><div class="minis">${e.c.map(([i,r])=>cardEl(i,r,true)).join('')}</div></div></div>`).join(''):'<p class="center" style="font-style:italic;opacity:.8;padding:4rem 0">Your journal is empty. Draw a spread and save it.</p>'}
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cleanslate — CRM data quality</title>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#f2f6f9;--ink:#0f1d2a;--ink2:#455565;--ink3:#7a8896;--grid:#e4eaef;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--q1:#cde2fb;--q2:#9ec5f4;--q3:#6da7ec;--q4:#3987e5;--q5:#256abf;--q6:#104281;--pos:#2a78d6;--neg:#e34948;--good:#12805c;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Readex Pro',sans-serif}
+header{display:flex;align-items:center;gap:16px;padding:16px 30px;background:var(--surface);border-bottom:1px solid var(--grid);flex-wrap:wrap}
+.lg{font-weight:600;font-size:19px;display:flex;align-items:center;gap:9px}.lg i{width:26px;height:26px;border-radius:50%;border:3px solid var(--s3);display:grid;place-items:center;font-style:normal;font-size:13px;color:var(--s3)}
+header nav{display:flex;gap:2px;margin-left:10px;flex-wrap:wrap}header nav button{border:0;background:transparent;padding:8px 12px;border-radius:8px;font:500 13.5px 'Readex Pro';color:var(--ink2);cursor:pointer}header nav button.on{background:#e7f0fc;color:var(--s1)}
+header .sp{flex:1}header select{border:1px solid var(--grid);border-radius:8px;padding:6px 9px;font:500 13px 'Readex Pro'}
+.wrap{padding:20px 30px 70px;max-width:1400px;margin:0 auto}
+.score{display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center;background:var(--surface);border-radius:20px;padding:24px 28px;margin-bottom:14px}
+.ring{width:150px;height:150px;position:relative}.ring svg{transform:rotate(-90deg)}.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:44px;font-weight:600}.ring small{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:12px;color:var(--ink3)}
+.sc h2{margin:0;font-weight:500;font-size:22px}.sc p{color:var(--ink2);margin:6px 0 14px;max-width:46em}
+.dims{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.dim{border:1px solid var(--grid);border-radius:12px;padding:10px 12px}.dim span{font-size:12px;color:var(--ink3)}.dim b{display:block;font-size:20px;font-weight:600}.dim .mt{height:5px;border-radius:3px;background:#e5edf6;margin-top:6px}.dim .mt i{display:block;height:100%;border-radius:3px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--surface);border-radius:14px;padding:14px 16px}.kpi .l{font-size:12.5px;color:var(--ink3)}.kpi .v{font-size:26px;font-weight:600}.kpi .d{font-size:12px;font-weight:600}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}
+.card{background:var(--surface);border-radius:16px;padding:18px 20px;min-width:0}.card h3{margin:0;font-size:15px;font-weight:600}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.fix{display:grid;grid-template-columns:28px 1fr auto auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--grid)}.fix .ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-weight:700}
+.fix b{font-weight:500}.fix small{display:block;color:var(--ink3)}.fix .imp{font-size:12.5px;color:var(--good);font-weight:600;white-space:nowrap}
+.fix button{border:0;background:var(--ink);color:#fff;border-radius:8px;padding:7px 12px;font:500 12.5px 'Readex Pro';cursor:pointer;white-space:nowrap}.fix.done{opacity:.5}.fix.done button{background:var(--good)}
+.dup{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--grid)}.dup div{background:#f7f9fb;border-radius:10px;padding:8px 10px;font-size:13px}.dup div small{display:block;color:var(--ink3)}.dup button{border:1px solid var(--s1);background:#fff;color:var(--s1);border-radius:8px;padding:6px 11px;font:500 12.5px 'Readex Pro';cursor:pointer}.dup.done button{border-color:var(--good);color:var(--good)}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr}.dims{grid-template-columns:1fr 1fr}.score{grid-template-columns:1fr}}@media(max-width:640px){.wrap,header{padding-left:16px;padding-right:16px}.kpis{grid-template-columns:1fr 1fr}.dup{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="lg"><i>✓</i>Cleanslate</div><nav><button data-sheet="health">Health</button><button data-sheet="fields">Completeness</button><button data-sheet="dupes">Duplicates</button><button data-sheet="stale">Stale records</button><button data-sheet="fixes">Fix queue</button></nav><span class="sp"></span><select data-f="crm"><option value="sf">Salesforce (prod)</option><option value="hs">HubSpot</option><option value="zo">Zoho CRM (EU acquisition)</option></select></header>
+<div class="wrap">
+ <section data-panel="health"><div class="score" id="sc"></div><div class="kpis" id="k1"></div>
+  <div class="g g2"><div class="card"><h3>Data health over time</h3><p class="sub">Weekly score by dimension</p><div id="c_tr"></div></div><div class="card"><h3>Who creates messy records</h3><p class="sub">Records failing validation, by source of creation</p><div id="c_src"></div></div></div></section>
+ <section data-panel="fields" hidden><div class="card"><h3>Field completeness by object</h3><p class="sub">Share of records with the field populated · lighter = more gaps</p><div id="c_hm"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Fields that break reporting</h3><p class="sub">Required by a dashboard or forecast, but often empty</p><div id="c_req"></div></div></section>
+ <section data-panel="dupes" hidden><div class="kpis" id="k3"></div><div class="card"><h3>Likely duplicates</h3><p class="sub">Fuzzy match on name + domain + phone. Merging keeps the older record and its opportunity history.</p><div id="dups"></div></div></section>
+ <section data-panel="stale" hidden><div class="kpis" id="k4"></div>
+  <div class="g g2"><div class="card"><h3>Opportunities with past close dates</h3><p class="sub">Open opps whose close date has already passed, by week</p><div id="c_past"></div></div><div class="card"><h3>Days since last activity, open opps</h3><p class="sub">Distribution</p><div id="c_age"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Stale opportunities inflating the forecast</h3><p class="sub">No activity in 45+ days but still in Commit or Best case</p><div id="t_st"></div></div></section>
+ <section data-panel="fixes" hidden><div class="card"><h3>Fix queue</h3><p class="sub">Ranked by impact on the health score. Each fix runs as a reviewed bulk update — you’ll see a diff before anything changes.</p><div id="fx"></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const DONE=new Set(),MERGED=new Set();
+const FIX=[['Fill missing Industry on 3,120 accounts from Clearbit','Accounts',3.1],['Merge 214 duplicate accounts','Accounts',2.6],['Close-lost 96 opps idle 120+ days','Opportunities',2.2],['Normalise 1,840 country values (“UK”, “U.K.”, “United Kingdom”)','Accounts',1.4],['Assign 312 orphaned contacts to account owners','Contacts',1.2],['Add Next Step to 140 Commit-stage opps','Opportunities',1.1],['Remove 2,600 bounced email addresses','Contacts',.8]];
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const base={sf:71,hs:78,zo:54}[F.crm];return memo[k]={r,base,recs:{sf:412e3,hs:186e3,zo:94e3}[F.crm]}}
+const S={crm:'sf'};const score=D=>Math.min(99,Math.round(D.base+[...DONE].reduce((a,i)=>a+FIX[i][2],0)+MERGED.size*.25));
+const views={
+health(F){const D=data(F);const s=score(D);const col=s>=80?'var(--good)':s>=65?'var(--s1)':'var(--bad)';
+ $('sc').innerHTML=`<div class="ring"><svg viewBox="0 0 36 36" width="150" height="150"><circle cx="18" cy="18" r="15" fill="none" stroke="#e5edf6" stroke-width="3.5"/><circle cx="18" cy="18" r="15" fill="none" stroke="${col}" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="${94.2*(1-s/100)}"/></svg><b>${s}</b><small>out of 100</small></div><div class="sc"><h2>${{sf:'Salesforce (prod)',hs:'HubSpot',zo:'Zoho CRM (EU acquisition)'}[F.crm]} is ${s>=80?'in good shape':s>=65?'usable, with gaps':'hurting your reporting'}.</h2><p>${K.num(D.recs)} records checked against 64 rules. The fix queue has ${FIX.length-DONE.size} actions that would add ${(FIX.filter((_,i)=>!DONE.has(i)).reduce((a,x)=>a+x[2],0)).toFixed(1)} points.</p><div class="dims">${[['Completeness',s+4],['Uniqueness',s-6],['Freshness',s-11],['Consistency',s+8]].map(([n,v])=>{v=Math.max(20,Math.min(99,v));return`<div class="dim"><span>${n}</span><b>${v}</b><div class="mt"><i style="width:${v}%;background:${v>=80?'var(--good)':v>=65?'var(--s1)':'var(--bad)'}"></i></div></div>`}).join('')}</div></div>`;
+ K.kpis($('k1'),[{label:'Records checked',value:K.num(D.recs)},{label:'Failing a rule',value:K.pct((100-s)/100*.6,0)},{label:'Duplicates',value:K.num(D.recs*.021)},{label:'Stale open opps',value:K.int(D.recs*.0009)},{label:'Forecast at risk from bad data',value:K.money(D.recs*9.5)}]);
+ const W=Array.from({length:12},(_,i)=>'W'+(28+i));K.line($('c_tr'),{labels:W,series:[{name:'Completeness',data:K.series(D.r,12,s,{trend:.06,noise:.01})},{name:'Uniqueness',data:K.series(D.r,12,s-8,{trend:.08,noise:.015})},{name:'Freshness',data:K.series(D.r,12,s-12,{trend:-.02,noise:.02})}],fmt:v=>Math.round(v),h:250,yMin:30});
+ K.bars($('c_src'),{labels:['Manual entry','Web forms','List imports','Integrations','Enrichment'],series:[{name:'Records failing',data:[.38,.12,.31,.11,.08].map(v=>v*D.recs*.12)}],fmt:K.num,horizontal:true,h:250})},
+fields(F){const D=data(F);const r=K.rng(K.seed(F,'f'));const O=['Account','Contact','Lead','Opportunity'];const FL=['Owner','Industry','Employees','Country','Phone','Email','Next step','Close date','Amount','Lead source'];
+ K.heat($('c_hm'),{rows:O,cols:FL,data:O.map((o,i)=>FL.map((f,j)=>{const na=(o==='Opportunity'&&['Phone','Email','Employees'].includes(f))||(o!=='Opportunity'&&['Next step','Close date','Amount'].includes(f));return na?null:Math.min(1,(D.base/100)*(.75+r()*.35)+(f==='Owner'?.25:0))})),fmt:v=>K.pct(v,0),cell:30});
+ K.bars($('c_req'),{labels:['Opportunity.Next_Step','Account.Industry','Opportunity.Competitor__c','Lead.Lead_Source','Account.Employees','Contact.Title'],series:[{name:'Empty',data:[.38,.29,.61,.22,.33,.18].map(v=>v*(100-D.base)/29)}],fmt:v=>K.pct(v,0),horizontal:true,h:250})},
+dupes(F){const D=data(F);K.kpis($('k3'),[{label:'Duplicate clusters',value:K.num(D.recs*.021)},{label:'Merged this session',value:String(MERGED.size)},{label:'Accounts',value:K.num(D.recs*.006)},{label:'Contacts',value:K.num(D.recs*.012)},{label:'Leads matching a contact',value:K.num(D.recs*.003)}]);
+ const P=[['Halden Bank ASA','halden.no · 214 contacts · Owner: Ana R.','Halden Bank','halden.no · 6 contacts · Owner: unassigned',.98],['Velo Mobility B.V.','velo.nl · 2 opps','VeloMobility','velomobility.com · 0 opps',.91],['Ashgrove Health NHS','ashgrove.nhs.uk','Ashgrove Health Trust','ashgrove.nhs.uk',.96],['Mara Lindqvist','mara@fernway.example · Contact','Mara Lindqvist','mlindqvist@example.com · Lead',.88],['Orbis Retail GmbH','orbis.de · DACH','Orbis Retail','orbis.de · UK&I',.94]];
+ $('dups').innerHTML=P.map((p,i)=>`<div class="dup ${MERGED.has(i)?'done':''}"><div><b>${p[0]}</b><small>${p[1]}</small></div><div><b>${p[2]}</b><small>${p[3]} · match ${K.pct(p[4],0)}</small></div><button data-m="${i}">${MERGED.has(i)?'✓ Merged':'Merge →'}</button></div>`).join('');
+ document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{MERGED.add(+b.dataset.m);views.dupes(F)})},
+stale(F){const D=data(F);K.kpis($('k4'),[{label:'Open opps past close date',value:K.int(D.recs*.0011)},{label:'Idle 45+ days',value:K.int(D.recs*.0009)},{label:'…in Commit / Best case',value:K.int(D.recs*.00021)},{label:'Pipeline value affected',value:K.money(D.recs*9.5)},{label:'Avg pushes per opp',value:'1.8'}]);
+ const W=Array.from({length:12},(_,i)=>'W'+(28+i));K.bars($('c_past'),{labels:W,series:[{name:'Past close date',data:K.series(D.r,12,D.recs*.0011/3,{noise:.15,trend:-.2})}],fmt:K.int,h:240});
+ K.bars($('c_age'),{labels:['0–7','8–14','15–30','31–45','46–90','90+'],series:[{name:'Open opps',data:[.31,.22,.19,.1,.11,.07].map(v=>Math.round(v*D.recs*.004))}],fmt:K.int,h:240});
+ const r=K.rng(K.seed(F,'s'));K.table($('t_st'),{cols:[{k:'o',label:'Opportunity'},{k:'cat',label:'Forecast category'},{k:'amt',label:'Amount',align:'r',fmt:K.money,bar:true},{k:'idle',label:'Days idle',align:'r'},{k:'cd',label:'Close date'},{k:'own',label:'Owner'}],rows:['Kilnworks — platform','Corvid Games — expansion','Stonebridge Law — renewal','Quanta Geo — new','Mintworth — AI add-on','Lumen Studio — new'].map(o=>({o,cat:K.pick(r,['Commit','Best case']),amt:20e3+r()*180e3,idle:Math.round(45+r()*90),cd:K.pick(r,['30 Sep','15 Sep','31 Aug']),own:K.pick(r,['Ana R.','Ben O.','Grace K.'])})),sort:'amt'})},
+fixes(F){const D=data(F);$('fx').innerHTML=FIX.map((f,i)=>`<div class="fix ${DONE.has(i)?'done':''}"><span class="ic" style="background:${['#e7f0fc','#fdeee6','#e6f6ef','#fff4d6'][i%4]}">${i+1}</span><div><b>${f[0]}</b><small>${f[1]} · ${F.crm==='zo'?'Zoho':F.crm==='hs'?'HubSpot':'Salesforce'}</small></div><span class="imp">+${f[2]} pts</span><button data-x="${i}">${DONE.has(i)?'✓ Applied':'Review & apply'}</button></div>`).join('');
+ document.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>{DONE.add(+b.dataset.x);views.fixes(F)})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

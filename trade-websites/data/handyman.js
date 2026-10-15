@@ -1,0 +1,163 @@
+T.trade({
+  id: 'handyman',
+  name: 'Handyman',
+  plural: 'Handymen',
+  noun: 'odd jobs',
+  icon: 'toolbox',
+  emergency: false,
+
+  nameParts: {
+    pre: ['Odd Job', 'Handy', 'Toolbag', 'Fixit', 'Sorted', 'Ready Hands', 'Fettle', 'Allsorts', 'Spanner', 'Two Hands', 'Wingnut', 'Brass Tacks',
+      'Nuts & Bolts', 'Homemend', 'Tick List', 'Rawlplug', 'Little Jobs', 'Neighbourly', 'Driftwood', 'Steady Hand', 'Housemate', 'Busy Bee', 'Pocket Rule', 'Honest Hands', 'Swift', 'Doorstep'],
+    post: ['Handyman', 'Handyman Services', 'Property Maintenance', 'Home Repairs', 'Odd Jobs', 'Maintenance', 'Home Services', 'Handyman & Maintenance', 'Property Care'],
+  },
+
+  headlines: [
+    'Your to-do list, done',
+    'No job too small in {town}',
+    'Shelves up, flat-pack built, TV on the wall',
+    'One call for all the little jobs',
+    'Reliable help around the house, by the hour',
+    'The handyman who actually turns up',
+    'Small repairs, done properly and tidily',
+    'Save the list. Book a half day.',
+    'Practical help for busy homes and landlords',
+    'Friendly, fully insured and fairly priced',
+    'Those jobs you keep meaning to get round to',
+    'Handy help for {town} homes and businesses',
+  ],
+
+  intros: [
+    'Shelves, curtain poles, flat-pack, TV brackets, sticking doors, dripping taps and the dozens of other small jobs that pile up. Book us by the hour or half day and we will work through your list.',
+    'We are a local handyman service in {town} for the jobs too small for a builder but too fiddly to do yourself. Clear hourly rates, tidy work and no fuss.',
+    'Make a list, send it over, and we will tell you roughly how long it will take. Most households get a whole list sorted in a single visit.',
+    'Moving in, moving out, or just catching up? We put things up, take things down, fix what is broken and leave everything clean and working.',
+    'Reliable, friendly and fully insured. We turn up on time with the right tools and fixings, and we do not leave until each job is properly finished.',
+    'From hanging a mirror on a tricky wall to building a wardrobe that arrived in twelve boxes, we take care with every job, however small.',
+    'We help homeowners, older residents, landlords and small businesses keep their properties in good order, without the hassle of chasing several different trades for a handful of small jobs.',
+    'Straightforward hourly pricing with a short minimum visit. You know what you are paying before we start, and we plan the visit and work efficiently so your money goes further.',
+  ],
+
+  about: [
+    '{owner} worked in building and property maintenance for years before starting {name} in {town}. After {years} years of odd jobs, there are not many problems around the house we have not seen, fixed, assembled or put back on the wall, and we still enjoy ticking off a long list in a single visit.',
+    'We started {name} because so many people struggled to find someone reliable for the small jobs that builders do not want. We return calls, give honest estimates of how long things will take, turn up when we say and treat every home with the same respect we would want in our own.',
+    'We are generalists by design: some carpentry, some basic plumbing, a bit of decorating and lots of assembly, fixing and fitting. For bigger or specialist work, like gas, rewiring or roofing, we will tell you straight away and point you to a trade we trust rather than having a go.',
+    'Many of our customers are older residents, busy families and landlords who need someone they can trust in their home. {owner} is patient, careful and happy to explain what has been done. Family members who live further away can book on someone’s behalf and get photos when the work is finished.',
+    'Over {years} years we have built, hung and fixed thousands of things around {town}. Most of our work now comes from repeat customers who keep a list on the fridge for our next visit, and from their friends and neighbours who asked who put their shelves up.',
+    'We carry a well-stocked van with fixings, fillers, sealants, wall plugs, washers and common spares, so we rarely need to stop a job and drive to the shops. That saves you time and money, and it means a job that should take twenty minutes actually takes twenty minutes.',
+  ],
+
+  services: [
+    { n: 'Odd jobs by the hour', d: 'Work through your list of small jobs around the home, garden or workplace, charged by the hour with a short minimum.', from: 42, unit: 'per hour' },
+    { n: 'Half-day and full-day bookings', d: 'Book a block of time for longer lists or bigger tasks at a lower effective rate than hourly.', from: 140, unit: 'per half day' },
+    { n: 'Flat-pack assembly', d: 'Wardrobes, beds, desks, cabinets and garden furniture built square, secured to walls where needed, and packaging taken away.', from: 45, unit: 'per item' },
+    { n: 'TV wall mounting', d: 'TVs mounted securely on brick or plasterboard with level brackets and cables neatly hidden in trunking or the wall.', from: 85, unit: 'per TV' },
+    { n: 'Shelves, mirrors & pictures', d: 'Shelving, mirrors, picture rails and artwork hung level with the right fixings for your walls.', from: 40, unit: 'per job' },
+    { n: 'Curtain poles & blinds', d: 'Curtain poles, tracks and blinds fitted level and secure, including awkward bay windows and plasterboard walls.', from: 35, unit: 'per window' },
+    { n: 'Door adjustments & repairs', d: 'Sticking doors eased, hinges and handles replaced, door stops and closers fitted, and latches adjusted to close properly.', from: 45, unit: 'per door' },
+    { n: 'Minor plumbing', d: 'Dripping taps, running toilets, new washers, toilet seats, radiator bleeding and replacing silicone round baths and sinks.', from: 50, unit: 'per job' },
+    { n: 'Small decorating jobs', d: 'Filling cracks, touching up walls and woodwork, painting a single room or freshening up between tenants.', from: 160, unit: 'per room' },
+    { n: 'Garden odd jobs', d: 'Fence panel replacement, gate repairs, shed felt, jet washing paths and clearing gutters on single-storey buildings.', from: 45, unit: 'per hour' },
+    { n: 'Landlord & tenancy repairs', d: 'Repairs between tenancies, inventory fixes and small maintenance jobs, with photos and invoices sent straight to you.', from: 45, unit: 'per hour' },
+    { n: 'Childproofing & safety fittings', d: 'Stair gates, cupboard locks, furniture anchors, grab rails and smoke alarm fitting for safer homes.', from: 45, unit: 'per hour' },
+  ],
+
+  usps: [
+    ['Clear hourly pricing', 'One simple hourly rate with a short minimum visit. You know the cost up front, with no hidden extras.'],
+    ['We actually turn up', 'Agreed time slots and a call if we are running late. Reliability is the whole point of a good handyman.'],
+    ['Well-stocked van', 'Plugs, screws, sealants, fillers and common spares on board, so we rarely need to leave to buy something.'],
+    ['One visit, many jobs', 'Send us your list in advance and we will plan the visit so we can get through as much as possible.'],
+    ['Honest about limits', 'We will not touch gas or major electrics. If a job needs a specialist, we tell you and recommend someone.'],
+    ['Fully insured', 'Our public liability insurance covers every job, from hanging a picture to building a wardrobe.'],
+    ['Respectful in your home', 'Dust sheets down, shoes off where you prefer, and every job finished with a tidy-up.'],
+    ['Trusted by older residents', 'Patient, polite and happy to explain what we have done. Family members can book and pay on someone’s behalf.'],
+    ['Landlords and agents welcome', 'We can collect keys, meet tenants, send before and after photos and invoice you or your agent directly, so you do not need to be there.'],
+    ['Work guaranteed', 'If something we fitted or fixed is not right, we come back and put it right at no charge.'],
+  ],
+
+  process: [
+    ['Send your list', 'Call, text or message us your list of jobs, with photos if helpful, and we will estimate how long it should take.'],
+    ['Book a slot', 'We agree a date and time, hourly or half day, and let you know if we need you to buy anything specific.'],
+    ['Arrive prepared', 'We turn up on time with tools, fixings and common materials, and run through the list with you first.'],
+    ['Work through the list', 'We complete each job carefully, check it with you and keep you posted if anything takes longer than expected.'],
+    ['Tidy up and invoice', 'We clean up, take away packaging and send a clear invoice showing the time spent and any materials.'],
+  ],
+
+  calc: {
+    title: 'Estimate your handyman visit',
+    intro: 'A guide price for a visit charged by the hour, based on how long your list of jobs is likely to take.',
+    base: 30,
+    inputs: [
+      { k: 'hours', l: 'Estimated time needed', t: 'num', u: 'hours', min: 1, max: 16, v: 3, step: 0.5, rate: 42 },
+      { k: 'materials', l: 'Materials', t: 'sel', o: [['I have everything needed', { m: 1 }], ['Use your standard fixings and sealants', { a: 15 }], ['Please buy and collect materials', { a: 45 }]] },
+      { k: 'tv', l: 'TVs to wall-mount', t: 'num', u: 'TVs', min: 0, max: 4, v: 0, step: 1, rate: 55 },
+      { k: 'weekend', l: 'Saturday or evening visit', t: 'chk', e: { m: 1.15 } },
+      { k: 'waste', l: 'Take away packaging and old items', t: 'chk', e: { a: 30 } },
+    ],
+    notes: ['Includes a visit charge; the minimum visit is one hour.', 'Materials you ask us to buy are charged at cost on top.', 'Half-day and full-day bookings work out cheaper for long lists.'],
+  },
+
+  faq: [
+    ['What is your minimum charge?', 'We have a short minimum visit to cover travel and setting up. After that we charge by the hour or offer half-day and full-day rates, which work out cheaper for longer lists.'],
+    ['What jobs do you not do?', 'We do not work on gas appliances, rewire circuits or do major structural or roofing work. Those need specialists, and we are happy to recommend reliable local trades.'],
+    ['Can you mount a TV on a plasterboard wall?', 'Yes, using heavy-duty plasterboard fixings or by fixing into the studs behind. For larger TVs or full-motion brackets, we may suggest a backing board for extra strength.'],
+    ['Do I need to buy materials?', 'Not usually. We carry common fixings, sealants and fillers. For items like shelves, poles or taps, you can buy your preferred choice or we can collect them and charge at cost.'],
+    ['How long does flat-pack take?', 'A bedside table might take 20 minutes; a large wardrobe with sliding doors can take two to four hours. Let us know the item names and we will estimate before booking.'],
+    ['Can I book you for a whole day?', 'Yes. Day bookings are popular before moving in, between tenancies or when you have a long list. A full day works out cheaper per hour than separate visits.'],
+    ['Do you work for landlords and letting agents?', 'Yes. We collect keys, meet tenants, carry out repairs and small refurbishments between tenancies, send photos when finished and invoice landlords or agents directly. Many landlords keep us on call for regular maintenance.'],
+    ['Are you insured?', 'Yes, we carry public liability insurance for all our work, from hanging pictures to garden jobs. We are happy to show proof of cover before starting, which some landlords and businesses ask for.'],
+    ['Can you help an elderly relative?', 'Absolutely. Many of our customers are older residents. Family members can book and pay remotely, and we will keep them updated with photos and notes after each visit.'],
+    ['How soon can you come?', 'Usually within a week for standard visits, often sooner for smaller jobs. If you have a deadline, such as moving day or a tenant arriving, let us know.'],
+  ],
+
+  reviews: [
+    { t: 'Sent a list of eleven jobs and he got through all of them in one day: curtain poles, two shelves, a sticking door, new toilet seat and a wardrobe. Tidy, quick and cheerful.', job: 'Full-day booking', s: 5 },
+    { t: 'Mounted our 65 inch TV on a plasterboard wall and hid every cable inside the wall. Took about two hours and it is completely solid.', job: 'TV mounting', s: 5 },
+    { t: 'Built a huge flat-pack wardrobe that had been sitting in boxes for a month. Fixed it to the wall for safety and took all the packaging away.', job: 'Flat-pack assembly', s: 5 },
+    { t: 'He fixed a dripping tap, resealed our bath and bled every radiator. Turned up exactly when he said and charged just over two hours.', job: 'Small plumbing jobs', s: 5 },
+    { t: 'I live four hours away from my mum, so it is reassuring to have someone we trust. He fitted grab rails and texted me photos when finished.', job: 'Grab rails', s: 5 },
+    { t: 'Replaced three fence panels after a storm, made a new gate latch and cleared the shed gutter. Good value and very polite.', job: 'Garden jobs', s: 5 },
+    { t: 'Used them between tenants: filled holes, painted the hallway, fixed cupboard doors and replaced a broken blind. Invoice and photos sent the same day.', job: 'Tenancy turnaround', s: 5 },
+    { t: 'Our hallway mirror is very heavy and the wall is old lath and plaster. He found the right fixings and it is not going anywhere.', job: 'Mirror hanging', s: 5 },
+    { t: 'Came for a half day and finished a bit early, so he only charged for the time used. Honest and efficient.', job: 'Half-day booking', s: 5 },
+    { t: 'Doors that had stuck for years now close properly. He planed two, adjusted hinges on the rest and put new handles on.', job: 'Door repairs', s: 5 },
+    { t: 'Good work putting up nursery shelves and stair gates. Had to rebook once because of illness, but he gave plenty of notice.', job: 'Childproofing', s: 4 },
+    { t: 'Fitted blinds in our five-sided bay window, which every other company had said would be awkward. Neat brackets, perfectly level, and done in under two hours.', job: 'Blinds', s: 5 },
+    { t: 'Assembled a garden bench, a storage box and a trampoline in one afternoon. Kids were thrilled and he cleared everything up.', job: 'Garden assembly', s: 5 },
+    { t: 'Painting was tidy and well priced, though the second coat took a day longer to dry than expected. Still very happy overall.', job: 'Small decorating job', s: 4 },
+  ],
+
+  certs: ['Fully insured to £2m', 'Background-checked and trusted', 'Clear hourly rates', 'Work guaranteed', 'Experienced in property maintenance', 'Free advice on job times'],
+
+  gallery: [
+    ['TV mounted with cables hidden', 'TV mounting'],
+    ['Large wardrobe assembled and secured', 'Flat-pack'],
+    ['Floating shelves in an alcove', 'Shelves'],
+    ['Curtain pole in a bay window', 'Curtain poles'],
+    ['Heavy mirror hung on old plaster', 'Mirrors'],
+    ['Bath resealed with fresh silicone', 'Minor plumbing'],
+    ['Sticking door planed and rehung', 'Doors'],
+    ['Replacement fence panels after a storm', 'Garden jobs'],
+    ['Hallway freshened up between tenants', 'Decorating'],
+    ['Grab rails beside steps', 'Safety fittings'],
+    ['Nursery shelves and stair gate', 'Childproofing'],
+    ['Garden bench and storage built', 'Flat-pack'],
+  ],
+
+  jobs: ['General odd jobs', 'Flat-pack assembly', 'TV mounting', 'Shelves or pictures', 'Curtain poles or blinds', 'Door repairs', 'Minor plumbing', 'Garden jobs'],
+
+  urgent: ['Door that will not close or lock', 'Dripping tap or running toilet', 'Broken fence panel after wind', 'Flat-pack you cannot face building', 'Loose shelf or curtain pole'],
+
+  tips: [
+    ['Keep a running list', 'Write down small jobs as you notice them. When the list gets to five or six items, book a single visit; it costs far less than calling someone for each job.'],
+    ['Know what is in your walls', 'Before drilling, check for pipes and cables, especially directly above and below sockets and switches where they usually run. A simple detector is cheap and can prevent expensive or dangerous accidents.'],
+    ['Use the right wall plugs', 'Plasterboard, brick and old plaster need different fixings. A heavy mirror on the wrong plug can pull out. If unsure, find a stud or ask for advice.'],
+    ['Anchor tall furniture', 'Wardrobes, bookcases and chests of drawers can tip if climbed on. Fix them to the wall with anti-tip straps or brackets, especially in children’s rooms.'],
+    ['Reseal before leaks start', 'Mouldy or cracked silicone around baths and showers lets water into walls and floors. Cut it out and replace it every few years, before you notice stains on the ceiling below.'],
+    ['Bleed radiators each autumn', 'If radiators are cold at the top, trapped air is reducing heat. Bleed them with a radiator key and a cloth to catch drips, then check your boiler pressure and top it up if needed.'],
+    ['Keep spare parts and paint', 'Label leftover paint with the room it was used in, and keep spare tiles, flat-pack fittings and instruction booklets together. They make future repairs quicker and help you match finishes exactly.'],
+    ['Measure before you buy', 'For blinds, curtain poles and shelves, measure recesses and wall widths at the top, middle and bottom. Older houses are rarely square, and a few millimetres can decide whether a blind fits.'],
+  ],
+
+  hours: { normal: 'Mon–Fri 8:00–18:00, Sat 9:00–14:00' },
+});

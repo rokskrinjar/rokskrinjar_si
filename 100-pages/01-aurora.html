@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora — Tromsø Sky Observatory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#e9f4ff; --dim:#8fa6c4; --green:#6bffb8; --violet:#b58cff; --line:rgba(160,200,255,.14); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { background:#02030a; color:var(--ink); font-family:'Jost',sans-serif; overflow-x:hidden; }
+  canvas#sky { position:fixed; inset:0; width:100%; height:100%; z-index:0; }
+  a { color:inherit; }
+  nav { position:fixed; top:0; left:0; right:0; z-index:20; display:flex; align-items:center; gap:2.2rem; padding:22px 6vw; font-size:11px; letter-spacing:.3em; text-transform:uppercase; background:linear-gradient(#02030acc,transparent); }
+  nav .logo { font-family:'Cormorant Garamond',serif; font-size:22px; letter-spacing:.12em; text-transform:none; margin-right:auto; }
+  nav a { text-decoration:none; color:var(--dim); transition:color .3s; position:relative; }
+  nav a.on, nav a:hover { color:var(--ink); }
+  nav a.on::after { content:''; position:absolute; left:0; right:0; bottom:-8px; height:1px; background:var(--green); box-shadow:0 0 8px var(--green); }
+  nav .home { color:var(--green); }
+  main { position:relative; z-index:2; }
+  [data-view] { animation:in .8s ease both; }
+  [data-view][hidden] { display:none; }
+  @keyframes in { from { opacity:0; transform:translateY(20px); } }
+  .wrap { padding:130px 6vw 12vh; max-width:1400px; margin:0 auto; }
+  .eyebrow { font-size:11px; letter-spacing:.5em; color:var(--dim); text-transform:uppercase; margin-bottom:1.5rem; }
+  h1 { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(5rem,17vw,16rem); line-height:.8; letter-spacing:-.03em; background:linear-gradient(180deg,#fff 20%,#9dffd6 60%,#b58cff 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  h2 { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(2.8rem,6vw,5.5rem); line-height:.95; margin-bottom:2rem; }
+  h2 i { color:var(--green); }
+  .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:0 6vw 10vh; }
+  .lede { max-width:32rem; margin-top:2rem; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.6rem; line-height:1.4; color:#cfe0f5; }
+  .panel { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); backdrop-filter:blur(8px); }
+  .cell { padding:2rem; background:rgba(2,3,10,.6); }
+  .cell small { display:block; font-size:11px; letter-spacing:.35em; text-transform:uppercase; color:var(--dim); margin-bottom:1rem; }
+  .cell b { font-family:'Cormorant Garamond',serif; font-weight:500; font-size:3.2rem; line-height:1; }
+  .cell b em { font-size:1.1rem; font-style:normal; color:var(--dim); margin-left:.3rem; }
+  .cell p { margin-top:.8rem; color:var(--dim); font-size:.9rem; line-height:1.6; }
+  .controls { margin-top:1px; display:flex; flex-wrap:wrap; gap:2rem; align-items:center; padding:1.6rem 2rem; background:rgba(2,3,10,.6); border:1px solid var(--line); border-top:0; backdrop-filter:blur(8px); }
+  .controls label { font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--dim); display:flex; align-items:center; gap:1rem; }
+  input[type=range] { -webkit-appearance:none; appearance:none; width:180px; height:2px; background:var(--line); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:var(--green); box-shadow:0 0 12px var(--green); cursor:pointer; }
+  input[type=range]::-moz-range-thumb { width:16px; height:16px; border-radius:50%; background:var(--green); border:0; }
+  .swatches button { width:26px; height:26px; border-radius:50%; border:2px solid transparent; cursor:pointer; margin-left:6px; }
+  .swatches button.on { border-color:#fff; }
+  /* forecast */
+  .chart { position:relative; height:320px; border-bottom:1px solid var(--line); display:flex; align-items:flex-end; gap:6px; padding-top:30px; }
+  .chart .bar { flex:1; border-radius:3px 3px 0 0; background:linear-gradient(to top,rgba(107,255,184,.15),var(--green)); position:relative; cursor:pointer; transition:filter .2s, opacity .2s; opacity:.75; }
+  .chart .bar:hover, .chart .bar.sel { opacity:1; filter:drop-shadow(0 0 10px var(--green)); }
+  .chart .bar.storm { background:linear-gradient(to top,rgba(181,140,255,.2),var(--violet)); }
+  .hours { display:flex; gap:6px; margin-top:8px; font-size:10px; color:var(--dim); }
+  .hours span { flex:1; text-align:center; }
+  .tip { margin-top:2rem; display:grid; grid-template-columns:auto 1fr; gap:2rem; align-items:center; padding:2rem; border:1px solid var(--line); background:rgba(2,3,10,.6); }
+  .tip b { font-family:'Cormorant Garamond'; font-size:4rem; font-weight:300; color:var(--green); }
+  .days { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); margin-bottom:3rem; }
+  .days button { background:rgba(2,3,10,.7); color:var(--dim); border:0; padding:1.4rem; font:inherit; text-align:left; cursor:pointer; }
+  .days button.on { color:var(--ink); background:rgba(107,255,184,.08); }
+  .days button b { display:block; font-family:'Cormorant Garamond'; font-size:2rem; font-weight:500; color:var(--ink); }
+  /* gallery */
+  .gallery { columns:3 280px; column-gap:14px; }
+  .shot { break-inside:avoid; margin-bottom:14px; border-radius:4px; overflow:hidden; cursor:zoom-in; position:relative; }
+  .shot .art { transition:transform .8s; }
+  .shot:hover .art { transform:scale(1.05); }
+  .shot figcaption { position:absolute; left:0; right:0; bottom:0; padding:1rem; font-size:12px; letter-spacing:.1em; background:linear-gradient(transparent,#000c); opacity:0; transition:opacity .4s; }
+  .shot:hover figcaption { opacity:1; }
+  .art { width:100%; display:block; }
+  .lightbox { position:fixed; inset:0; z-index:50; background:#000e; display:grid; place-items:center; padding:5vw; cursor:zoom-out; }
+  .lightbox[hidden] { display:none; }
+  .lightbox .art { max-width:1100px; border-radius:6px; }
+  .lightbox p { position:absolute; bottom:4vh; left:0; right:0; text-align:center; font-family:'Cormorant Garamond'; font-style:italic; font-size:1.4rem; }
+  /* tours */
+  .tours { display:grid; grid-template-columns:1.2fr 1fr; gap:4vw; align-items:start; }
+  .tour { display:flex; justify-content:space-between; gap:1rem; padding:1.6rem 0; border-top:1px solid var(--line); cursor:pointer; transition:padding .3s; }
+  .tour:hover, .tour.on { padding-left:1rem; }
+  .tour.on { color:var(--green); }
+  .tour h3 { font-family:'Cormorant Garamond'; font-weight:500; font-size:1.8rem; }
+  .tour p { color:var(--dim); font-size:.9rem; margin-top:.3rem; }
+  .tour .price { font-family:'Cormorant Garamond'; font-size:1.6rem; white-space:nowrap; }
+  form.book { padding:2.4rem; border:1px solid var(--line); background:rgba(2,3,10,.7); backdrop-filter:blur(10px); display:grid; gap:1.2rem; position:sticky; top:110px; }
+  form.book label { font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--dim); display:grid; gap:.5rem; }
+  form.book input, form.book select { background:transparent; border:0; border-bottom:1px solid var(--line); color:var(--ink); font:inherit; font-size:1rem; padding:.5rem 0; letter-spacing:0; text-transform:none; }
+  form.book select option { background:#02030a; }
+  .stepper { display:flex; align-items:center; gap:1rem; }
+  .stepper button { width:34px; height:34px; border-radius:50%; border:1px solid var(--line); background:none; color:var(--ink); font-size:1.1rem; cursor:pointer; }
+  .stepper output { font-family:'Cormorant Garamond'; font-size:1.8rem; min-width:2ch; text-align:center; }
+  .total { display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--line); padding-top:1.2rem; }
+  .total b { font-family:'Cormorant Garamond'; font-size:2.6rem; font-weight:500; }
+  .cta { background:var(--green); color:#02030a; border:0; padding:1.1rem; font:500 12px 'Jost'; letter-spacing:.3em; text-transform:uppercase; cursor:pointer; transition:box-shadow .3s; }
+  .cta:hover { box-shadow:0 0 30px var(--green); }
+  .confirm { color:var(--green); font-family:'Cormorant Garamond'; font-style:italic; font-size:1.3rem; }
+  /* journal */
+  .entry { border-top:1px solid var(--line); }
+  .entry summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:8rem 1fr auto; gap:2rem; padding:2rem 0; align-items:baseline; }
+  .entry summary::-webkit-details-marker { display:none; }
+  .entry summary span { font-size:11px; letter-spacing:.3em; color:var(--dim); }
+  .entry summary h3 { font-family:'Cormorant Garamond'; font-weight:300; font-size:clamp(1.6rem,3vw,2.6rem); }
+  .entry summary i { font-style:normal; font-size:1.6rem; color:var(--green); transition:transform .4s; }
+  .entry[open] summary i { transform:rotate(45deg); }
+  .entry .body { padding:0 0 2.4rem 10rem; max-width:52rem; color:#cfe0f5; line-height:1.9; font-size:1.02rem; }
+  .quote { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4.5vw,4rem); font-weight:300; line-height:1.15; max-width:1100px; margin-top:10vh; }
+  .quote span { color:var(--green); font-style:italic; }
+  footer { position:relative; z-index:2; padding:2.4rem 6vw; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--dim); border-top:1px solid var(--line); display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; background:#02030acc; }
+  @media (max-width:860px){ nav { gap:1rem; flex-wrap:wrap; } .tours { grid-template-columns:1fr; } .entry summary { grid-template-columns:1fr auto; } .entry summary span { grid-column:1/-1; } .entry .body { padding-left:0; } .tip { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<nav>
+  <span class="logo">Aurora</span>
+  <a href="#tonight">Tonight</a><a href="#forecast">Forecast</a><a href="#gallery">Gallery</a><a href="#tours">Tours</a><a href="#journal">Journal</a>
+  <a class="home" href="index.html">↩ Index</a>
+</nav>
+<main>
+  <section data-view="tonight">
+    <div class="hero">
+      <div class="eyebrow">69.6492° N · 18.9553° E · Tromsø Sky Observatory</div>
+      <h1>Aurora</h1>
+      <p class="lede">Solar wind, sixty million kilometres from home, arrives tonight as a slow green whisper over the fjord.</p>
+    </div>
+    <div class="wrap" style="padding-top:0">
+      <div class="panel">
+        <div class="cell"><small>Kp Index</small><b id="kpVal">6.3<em>/ 9</em></b><p id="kpNote">Strong activity. Visible overhead.</p></div>
+        <div class="cell"><small>Solar Wind</small><b>612<em>km/s</em></b><p>Elevated stream from a coronal hole on the Sun's western limb.</p></div>
+        <div class="cell"><small>Cloud Cover</small><b>8<em>%</em></b><p>Clear skies until 03:40. Dress for −14 °C.</p></div>
+        <div class="cell"><small>Best Window</small><b>23:10</b><p>Face north-northwest. Let your eyes adjust for twenty minutes.</p></div>
+      </div>
+      <div class="controls">
+        <label>Intensity <input type="range" id="intensity" min="1" max="9" step=".1" value="6.3"></label>
+        <label>Speed <input type="range" id="speed" min=".2" max="3" step=".1" value="1"></label>
+        <label class="swatches">Spectrum
+          <button data-p="0" class="on" style="background:linear-gradient(135deg,#6bffb8,#b58cff)" aria-label="Classic"></button>
+          <button data-p="1" style="background:linear-gradient(135deg,#ff5a7a,#ffb86b)" aria-label="Crimson"></button>
+          <button data-p="2" style="background:linear-gradient(135deg,#6fd6ff,#3b5bff)" aria-label="Glacial"></button>
+        </label>
+      </div>
+      <p class="quote">The Sámi say you must never whistle at the lights — <span>they might hear you, and come down to answer.</span></p>
+    </div>
+  </section>
+
+  <section data-view="forecast" hidden>
+    <div class="wrap">
+      <div class="eyebrow">72-hour geomagnetic outlook</div>
+      <h2>When the sky <i>opens</i></h2>
+      <div class="days" id="days"></div>
+      <div class="chart" id="chart"></div>
+      <div class="hours" id="hours"></div>
+      <div class="tip"><b id="tipKp">—</b><div><div class="eyebrow" id="tipTime" style="margin-bottom:.6rem">Select an hour</div><p id="tipText" style="color:#cfe0f5;line-height:1.7">Tap any bar to see viewing conditions for that hour. Violet bars mark storm-level activity (Kp ≥ 6).</p></div></div>
+    </div>
+  </section>
+
+  <section data-view="gallery" hidden>
+    <div class="wrap">
+      <div class="eyebrow">Captured from the observatory roof</div>
+      <h2>Nights we <i>remember</i></h2>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <section data-view="tours" hidden>
+    <div class="wrap">
+      <div class="eyebrow">Small groups · Warm suits included</div>
+      <h2>Chase the <i>light</i></h2>
+      <div class="tours">
+        <div id="tourList"></div>
+        <form class="book" id="book">
+          <label>Experience<select id="tourSel"></select></label>
+          <label>Night<input type="date" id="date" required></label>
+          <label>Guests<div class="stepper"><button type="button" data-d="-1">−</button><output id="guests">2</output><button type="button" data-d="1">+</button></div></label>
+          <label style="flex-direction:row;display:flex;gap:.8rem;align-items:center;letter-spacing:.1em;text-transform:none;font-size:.9rem"><input type="checkbox" id="photo" style="width:auto"> Add a portrait under the aurora (+1 200 kr)</label>
+          <div class="total"><span class="eyebrow" style="margin:0">Total</span><b id="total">—</b></div>
+          <button class="cta">Reserve seats</button>
+          <p class="confirm" id="confirm" hidden></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section data-view="journal" hidden>
+    <div class="wrap">
+      <div class="eyebrow">Field notes</div>
+      <h2>The observer's <i>journal</i></h2>
+      <details class="entry" open><summary><span>12 FEB</span><h3>The night the sky turned red</h3><i>+</i></summary><div class="body">Oxygen at three hundred kilometres glows crimson only when the storm is strong enough to reach it. We saw it for eleven minutes — a pulsing rose curtain above the green — and then it was gone, as if someone had closed a door upstairs.</div></details>
+      <details class="entry"><summary><span>28 JAN</span><h3>How to read a corona</h3><i>+</i></summary><div class="body">When the aurora is directly overhead, perspective folds the curtains into a crown of rays converging on a single point. Lie on your back in the snow. Do not blink. It will last less than a minute.</div></details>
+      <details class="entry"><summary><span>09 JAN</span><h3>Camera settings for beginners</h3><i>+</i></summary><div class="body">Wide lens, widest aperture, ISO 1600–3200, four to eight seconds. Focus manually on a bright star. Keep a spare battery inside your jacket — the cold drains them in twenty minutes.</div></details>
+      <details class="entry"><summary><span>22 DEC</span><h3>Solstice, and no sun at all</h3><i>+</i></summary><div class="body">Polar night: the sun stays below the horizon for six weeks. At noon the sky is a deep, luminous blue, and the aurora sometimes appears in daytime, faint as a thought.</div></details>
+    </div>
+  </section>
+</main>
+<div class="lightbox" id="lb" hidden><div id="lbArt"></div><p id="lbCap"></p></div>
+<footer><span>Northern Sky Observatory</span><span id="clock"></span></footer>
+<script>
+/* ---------- router ---------- */
+const views=[...document.querySelectorAll('[data-view]')];
+function go(id){const v=views.some(s=>s.dataset.view===id)?id:'tonight';views.forEach(s=>s.hidden=s.dataset.view!==v);document.querySelectorAll('nav a[href^="#"]').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+v));scrollTo(0,0);try{history.replaceState(null,'','#'+v)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+go(location.hash.slice(1));
+
+/* ---------- aurora canvas ---------- */
+const c=document.getElementById('sky'),x=c.getContext('2d');let W,H,dpr=Math.min(devicePixelRatio,2),stars=[];
+const palettes=[[['#6bffb8','#1ee39a'],['#b58cff','#6d5bff'],['#7fffe0','#38c9ff']],[['#ff5a7a','#ff2d55'],['#ffb86b','#ff7a3c'],['#ff8fb1','#c03aff']],[['#6fd6ff','#2f8bff'],['#9fb4ff','#3b5bff'],['#bff6ff','#48e0ff']]];
+let strips=[],intensity=6.3,speed=1;
+function mkStrips(p){strips=palettes[p].map(([a,b])=>{const s=document.createElement('canvas');s.width=1;s.height=256;const g=s.getContext('2d'),gr=g.createLinearGradient(0,0,0,256);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(.15,a);gr.addColorStop(.45,b+'88');gr.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=gr;g.fillRect(0,0,1,256);return s})}
+mkStrips(0);
+function size(){W=c.width=innerWidth*dpr;H=c.height=innerHeight*dpr;stars=Array.from({length:260},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3*dpr,p:Math.random()*6}))}
+size();addEventListener('resize',size);
+const ribbons=[{s:0,base:.22,amp:.08,f:.0016,sp:.25,h:.42,a:.55},{s:1,base:.3,amp:.06,f:.0022,sp:-.18,h:.3,a:.35},{s:2,base:.18,amp:.1,f:.0011,sp:.12,h:.5,a:.4}];
+let T=0,last=0;
+function draw(now){const dt=(now-last)/1000||0;last=now;T+=dt*speed;const t=T;x.globalCompositeOperation='source-over';x.fillStyle='#02030a';x.fillRect(0,0,W,H);
+  for(const s of stars){x.globalAlpha=.4+.6*Math.abs(Math.sin(t*.8+s.p));x.fillStyle='#fff';x.fillRect(s.x,s.y,s.r,s.r)}
+  x.globalCompositeOperation='lighter';const step=3*dpr,k=intensity/6.3;
+  for(const r of ribbons){for(let i=0;i<W;i+=step){const n=i/dpr;
+    const y=H*r.base+Math.sin(n*r.f+t*r.sp)*H*r.amp+Math.sin(n*r.f*2.7-t*r.sp*1.6)*H*r.amp*.4;
+    const flick=.55+.45*Math.sin(n*.03+t*2.2+r.s)*Math.sin(n*.011-t*.9);
+    x.globalAlpha=Math.min(1,Math.max(0,r.a*flick*k));x.drawImage(strips[r.s],i,y,step+1,H*r.h*(.7+.3*flick)*Math.min(1.5,.5+k*.5))}}
+  x.globalAlpha=1;requestAnimationFrame(draw)}
+requestAnimationFrame(draw);
+const note=k=>k<3?'Quiet. Faint glow on the northern horizon.':k<5?'Active. Arcs visible low in the north.':k<7?'Strong activity. Visible overhead.':'Severe storm. Coronas and red auroras likely.';
+document.getElementById('intensity').oninput=e=>{intensity=+e.target.value;document.getElementById('kpVal').innerHTML=intensity.toFixed(1)+'<em>/ 9</em>';document.getElementById('kpNote').textContent=note(intensity)};
+document.getElementById('speed').oninput=e=>speed=+e.target.value;
+document.querySelectorAll('.swatches button').forEach(b=>b.onclick=e=>{e.preventDefault();document.querySelectorAll('.swatches button').forEach(o=>o.classList.remove('on'));b.classList.add('on');mkStrips(+b.dataset.p)});
+
+/* ---------- forecast ---------- */
+const dayNames=['Tonight','Tomorrow','Friday'];const data=[0,1,2].map(d=>Array.from({length:12},(_,h)=>Math.max(1,Math.min(9,+(3+d*.8+Math.sin(h/2+d)*2.6+Math.random()*1.4).toFixed(1)))));
+let day=0;const chart=document.getElementById('chart'),hours=document.getElementById('hours'),daysEl=document.getElementById('days');
+dayNames.forEach((n,i)=>{const b=document.createElement('button');b.innerHTML=`${n}<b>Kp ${Math.max(...data[i]).toFixed(1)}</b>peak`;b.onclick=()=>{day=i;drawChart()};daysEl.appendChild(b)});
+function drawChart(){[...daysEl.children].forEach((b,i)=>b.classList.toggle('on',i===day));chart.innerHTML='';hours.innerHTML='';
+  data[day].forEach((v,h)=>{const b=document.createElement('div');b.className='bar'+(v>=6?' storm':'');b.style.height=v/9*100+'%';
+    b.onclick=()=>{chart.querySelectorAll('.bar').forEach(o=>o.classList.remove('sel'));b.classList.add('sel');const hr=(18+h)%24;
+      document.getElementById('tipKp').textContent=v.toFixed(1);document.getElementById('tipTime').textContent=`${dayNames[day]} · ${String(hr).padStart(2,'0')}:00`;
+      document.getElementById('tipText').textContent=note(v)+(v>=5?' Head out of town, away from streetlights — Ersfjordbotn or Kvaløya.':' Stay warm indoors and check back in an hour.');intensity=v;};
+    chart.appendChild(b);const s=document.createElement('span');s.textContent=String((18+h)%24).padStart(2,'0');hours.appendChild(s)})}
+drawChart();
+
+/* ---------- gallery ---------- */
+const shots=[['Ersfjord, −18°C','#6bffb8','#0a2a3a',1.3],['Corona over Kvaløya','#b58cff','#1a0b33',1],['Red storm, 2024','#ff5a7a','#200a14',1.5],['Lyngen Alps','#7fffe0','#062028',.8],['Mirror lake','#6bffb8','#051a14',1.2],['Midnight arcs','#6fd6ff','#07102a',1.4],['Fishing village','#9dffd6','#0a1f22',.9],['The spiral','#c7a4ff','#120826',1.1],['Last light','#ffb86b','#1a1008',1.3]];
+const svgArt=(c1,bg,r,seed)=>{let p='';for(let i=0;i<5;i++){const y=30+i*9+seed%7;p+=`<path d="M0 ${y} C 30 ${y-20-i*3}, 60 ${y+18}, 100 ${y-8+i*2}" stroke="${c1}" stroke-width="${6-i}" fill="none" opacity="${.9-i*.15}" filter="url(#b${seed})"/>`}
+  return `<svg class="art" viewBox="0 0 100 ${100*r}" preserveAspectRatio="xMidYMid slice"><defs><filter id="b${seed}"><feGaussianBlur stdDeviation="2.2"/></filter><linearGradient id="g${seed}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${bg}"/><stop offset="1" stop-color="#000"/></linearGradient></defs><rect width="100" height="${100*r}" fill="url(#g${seed})"/>${p}${Array.from({length:30},(_,i)=>`<circle cx="${(i*37+seed*13)%100}" cy="${(i*23+seed*7)%(60*r)}" r=".35" fill="#fff" opacity=".7"/>`).join('')}<path d="M0 ${100*r} L0 ${88*r} L20 ${80*r} L35 ${86*r} L55 ${74*r} L72 ${84*r} L100 ${78*r} L100 ${100*r}Z" fill="#000"/></svg>`};
+const gal=document.getElementById('gallery');
+shots.forEach(([cap,c1,bg,r],i)=>{const f=document.createElement('figure');f.className='shot';f.innerHTML=svgArt(c1,bg,r,i)+`<figcaption>${cap}</figcaption>`;f.onclick=()=>{document.getElementById('lbArt').innerHTML=svgArt(c1,bg,.6,i+50);document.getElementById('lbCap').textContent=cap;lb.hidden=false};gal.appendChild(f)});
+const lb=document.getElementById('lb');lb.onclick=()=>lb.hidden=true;addEventListener('keydown',e=>{if(e.key==='Escape')lb.hidden=true});
+
+/* ---------- tours ---------- */
+const tours=[['Fjord Chase by Minibus','6 hours · hot soup · max 8 guests',1690],['Sámi Camp & Reindeer','Lavvu tent, campfire, joik stories',2150],['Arctic Sail','Night catamaran on the open fjord',2490],['Glass Igloo Overnight','Sleep under the lights, breakfast included',5900]];
+const list=document.getElementById('tourList'),sel=document.getElementById('tourSel');let g=2;
+tours.forEach(([n,d,p],i)=>{const el=document.createElement('div');el.className='tour';el.innerHTML=`<div><h3>${n}</h3><p>${d}</p></div><div class="price">${p.toLocaleString('nb')} kr</div>`;el.onclick=()=>{sel.value=i;calc()};list.appendChild(el);sel.add(new Option(n,i))});
+const date=document.getElementById('date');const d0=new Date();d0.setDate(d0.getDate()+3);date.value=d0.toISOString().slice(0,10);date.min=new Date().toISOString().slice(0,10);
+function calc(){const t=tours[sel.value];[...list.children].forEach((e,i)=>e.classList.toggle('on',i==sel.value));const tot=t[2]*g+(document.getElementById('photo').checked?1200:0);document.getElementById('total').textContent=tot.toLocaleString('nb')+' kr';document.getElementById('guests').textContent=g}
+document.querySelectorAll('.stepper button').forEach(b=>b.onclick=()=>{g=Math.max(1,Math.min(8,g+ +b.dataset.d));calc()});
+sel.onchange=calc;document.getElementById('photo').onchange=calc;calc();
+document.getElementById('book').onsubmit=e=>{e.preventDefault();const cf=document.getElementById('confirm');cf.hidden=false;cf.textContent=`Held for you: ${g} seat${g>1?'s':''} on ${new Date(date.value).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})}. We'll text you by 18:00 if the sky cooperates.`};
+
+/* ---------- clock ---------- */
+const tick=()=>document.getElementById('clock').textContent='Tromsø '+new Date().toLocaleTimeString('en-GB',{timeZone:'Europe/Oslo'});tick();setInterval(tick,1000);
+</script>
+</body>
+</html>

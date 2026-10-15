@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spendlens — Marketing spend & CAC</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#fffdf8;--bg:#f5f2ea;--ink:#1b1a17;--ink2:#4c4a44;--ink3:#86827a;--grid:#ebe6da;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--q1:#cde2fb;--q2:#9ec5f4;--q3:#6da7ec;--q4:#3987e5;--q5:#256abf;--q6:#104281;--pos:#2a78d6;--neg:#e34948;--good:#12805c;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'IBM Plex Sans',sans-serif}
+.mono{font-family:'IBM Plex Mono',monospace}
+.mast{padding:20px 36px 0;border-bottom:3px double var(--ink);background:var(--surface)}
+.mrow{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;font:500 11.5px 'IBM Plex Mono';color:var(--ink3);text-transform:uppercase;letter-spacing:.08em}
+.lg{font:600 40px/1 'Newsreader',serif;letter-spacing:-.02em;margin:10px 0 4px;text-transform:none;color:var(--ink)}
+.tabs{display:flex;gap:0;margin-top:14px;border-top:1px solid var(--ink)}.tabs button{border:0;border-right:1px solid var(--grid);background:transparent;padding:10px 18px;font:600 13px 'IBM Plex Sans';color:var(--ink3);cursor:pointer}.tabs button.on{color:var(--ink);background:var(--bg);box-shadow:inset 0 3px 0 var(--ink)}
+.wrap{padding:18px 36px 70px;max-width:1440px;margin:0 auto}
+.filters{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:16px;font-size:13px}
+.filters b{font:500 11px 'IBM Plex Mono';color:var(--ink3);text-transform:uppercase;letter-spacing:.08em}
+.seg button{border:1px solid var(--ink);background:transparent;padding:5px 11px;font:600 12.5px 'IBM Plex Sans';cursor:pointer;margin-right:-1px}.seg button.on{background:var(--ink);color:var(--surface)}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--ink);background:var(--surface);margin-bottom:16px}
+.kpi{padding:14px 16px;border-right:1px solid var(--grid)}.kpi:last-child{border:0}.kpi .l{font:500 11px 'IBM Plex Mono';text-transform:uppercase;color:var(--ink3);letter-spacing:.06em}.kpi .v{font:600 30px 'Newsreader',serif}.kpi .d{font-size:12px;font-weight:600}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:16px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border:1px solid var(--grid);padding:16px 18px;min-width:0}.card h3{margin:0;font:600 19px 'Newsreader',serif}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 12px}
+.sl{display:grid;grid-template-columns:150px 1fr 90px 90px;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--grid)}.sl input{accent-color:var(--ink);width:100%}.sl .m{font:500 13px 'IBM Plex Mono';text-align:right}
+.res{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.res div{border:1px solid var(--ink);padding:12px}.res span{font:500 11px 'IBM Plex Mono';color:var(--ink3);text-transform:uppercase}.res b{display:block;font:600 26px 'Newsreader'}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--surface);padding:7px 12px;font:600 12.5px 'IBM Plex Sans';cursor:pointer}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}}@media(max-width:640px){.wrap,.mast{padding-left:16px;padding-right:16px}.kpis{grid-template-columns:1fr 1fr}.tabs{overflow-x:auto}.sl{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="mast"><div class="mrow"><span>Spendlens · Fernway marketing finance</span><span>Ledger joined: Google Ads · LinkedIn Ads · Meta · NetSuite invoices · HubSpot · Salesforce</span></div><div class="lg">Every marketing dollar, followed to revenue.</div>
+ <nav class="tabs"><button data-sheet="budget">Budget & pacing</button><button data-sheet="cac">CAC</button><button data-sheet="payback">Payback</button><button data-sheet="roas">Return by channel</button><button data-sheet="plan">Reallocation planner</button></nav></div>
+<div class="wrap">
+ <div class="filters"><b>Fiscal view</b><span class="seg"><button data-f="range" data-v="ytd" class="on">FY26 to date</button><button data-f="range" data-v="12m">Trailing 12 months</button></span><b>Segment</b><span class="seg"><button data-f="seg" data-v="all" class="on">All</button><button data-f="seg" data-v="smb">SMB</button><button data-f="seg" data-v="mm">Mid-market</button><button data-f="seg" data-v="ent">Enterprise</button></span></div>
+ <section data-panel="budget"><div class="kpis" id="k1"></div>
+  <div class="g g21"><div class="card"><h3>Budget vs. actual spend</h3><p class="sub">Monthly. Actuals from ad-platform billing + NetSuite AP for events, agencies and tools.</p><div id="c_ba"></div></div><div class="card"><h3>Pacing by line item</h3><p class="sub">Spend to date vs. year-to-date budget (tick)</p><div id="c_pace"></div></div></div></section>
+ <section data-panel="cac" hidden><div class="kpis" id="k2"></div>
+  <div class="g g2"><div class="card"><h3>Customer acquisition cost by channel</h3><p class="sub">Fully loaded: media + allocated team cost, ÷ new customers</p><div id="c_cac"></div></div><div class="card"><h3>Blended CAC trend</h3><p class="sub">Monthly, by segment</p><div id="c_ct"></div></div></div></section>
+ <section data-panel="payback" hidden><div class="kpis" id="k3"></div>
+  <div class="card"><h3>Gross-margin payback by quarterly cohort</h3><p class="sub">Cumulative gross margin recovered ÷ CAC, by months since acquisition. 100% = paid back.</p><div id="c_pb"></div></div>
+  <div class="card" style="margin-top:16px"><h3>Months to payback, by channel</h3><p class="sub">Median, customers acquired in FY25</p><div id="c_pbc"></div></div></section>
+ <section data-panel="roas" hidden>
+  <div class="card"><h3>Pipeline per dollar, by channel</h3><p class="sub">Monthly. Pipeline credited with the W-shaped model, ÷ channel spend.</p><div id="c_roas"></div></div>
+  <div class="card" style="margin-top:16px"><h3>Channel ledger</h3><p class="sub">Spend, results and efficiency side by side</p><div id="t_led"></div></div></section>
+ <section data-panel="plan" hidden>
+  <div class="g g21"><div class="card"><h3>What if we moved the money?</h3><p class="sub">Drag to reallocate next quarter’s $<span id="tb"></span>. Forecast uses each channel’s diminishing-returns curve fitted to the last 18 months.</p><div id="sliders"></div><div class="res" id="res"></div><div style="margin-top:12px;display:flex;gap:8px"><button class="btn" id="opt">Suggest an optimal mix</button><button class="btn" id="rst" style="background:transparent;color:var(--ink)">Reset to plan</button></div></div>
+   <div class="card"><h3>Projected pipeline by channel</h3><p class="sub">Current plan vs. your scenario</p><div id="c_sc"></div></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const CH=['Paid search','LinkedIn','Meta','Events','Content & SEO'];const memo={};
+function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const L=K.periods(F.range);const f={all:1,smb:.25,mm:.35,ent:.4}[F.seg];const n=L.length;
+ const budget=K.series(r,n,610e3*f,{noise:.06,trend:.12}),actual=budget.map((b,i)=>i===n-1?b*.62:b*(.9+r()*.22));return memo[k]={r,L,n,f,budget,actual}}
+const S={range:'ytd',seg:'all'};let PLAN=null;
+const views={
+budget(F){const D=data(F);const tb=K.sum(D.budget),ta=K.sum(D.actual);
+ K.kpis($('k1'),[{label:'Budget to date',value:K.money(tb)},{label:'Actual spend',value:K.money(ta)},{label:'Variance',value:K.pct(ta/tb-1),delta:ta/tb-1,goodDown:true},{label:'Committed, not yet billed',value:K.money(tb*.06)},{label:'Forecast at year end',value:K.money(ta/D.n*12*.99)}]);
+ K.bars($('c_ba'),{labels:D.L,series:[{name:'Budget',data:D.budget,color:'#c9c3b4'},{name:'Actual',data:D.actual}],fmt:K.money,h:280});
+ K.bullet($('c_pace'),{rows:[['Paid search',tb*.31,tb*.3],['LinkedIn',tb*.24,tb*.22],['Meta',tb*.07,tb*.09],['Events',tb*.19,tb*.23],['Content & SEO',tb*.06,tb*.07],['Agencies',tb*.08,tb*.06],['Tools',tb*.05,tb*.05]],fmt:K.money,neutral:true})},
+cac(F){const D=data(F);const r=K.rng(K.seed(F,'cac'));const base={all:9800,smb:3100,mm:11800,ent:41000}[F.seg];
+ K.kpis($('k2'),[{label:'Blended CAC',value:K.money(base),delta:-.06,goodDown:true},{label:'Paid CAC',value:K.money(base*1.42)},{label:'New customers',value:K.int(K.sum(D.actual)/base)},{label:'Marketing share of CAC',value:'58%'},{label:'CAC ratio',value:'1.21',sub:'S&M ÷ net new ARR'}]);
+ K.bars($('c_cac'),{labels:CH,series:[{name:'CAC',data:[1.1,1.9,1.4,1.6,.45].map(m=>base*m*(.9+r()*.2))}],fmt:K.money,h:260,colorBy:i=>K.S(i)});
+ K.line($('c_ct'),{labels:D.L,series:[{name:'SMB',data:K.series(r,D.n,3100,{trend:-.08,noise:.06})},{name:'Mid-market',data:K.series(r,D.n,11800,{trend:-.05,noise:.05})},{name:'Enterprise',data:K.series(r,D.n,41000,{trend:.04,noise:.05})}].filter(s=>F.seg==='all'||s.name.toLowerCase().startsWith({smb:'smb',mm:'mid',ent:'ent'}[F.seg])),fmt:K.money,h:260})},
+payback(F){const D=data(F);const r=K.rng(K.seed(F,'pb'));const Q=["Q1 '25","Q2 '25","Q3 '25","Q4 '25","Q1 '26","Q2 '26"],M=['M3','M6','M9','M12','M15','M18','M21','M24'];
+ K.kpis($('k3'),[{label:'Median payback',value:'16.8 mo',delta:-.07,goodDown:true,deltaText:'1.3 mo'},{label:'Gross margin',value:'81%'},{label:'Paid back within 12 mo',value:'38%'},{label:'Never paid back (churned)',value:'9%'},{label:'Best channel',value:'Content & SEO'}]);
+ K.heat($('c_pb'),{rows:Q,cols:M,data:Q.map((q,i)=>M.map((m,j)=>j>(Q.length-1-i)*1.4+1?null:Math.min(1.9,(j+1)*.19*(1+i*.03)*(.92+r()*.16)))),fmt:v=>K.pct(v,0),cell:30});
+ K.bars($('c_pbc'),{labels:CH,series:[{name:'Months to payback',data:[15,22,18,19,7]}],fmt:v=>v+' mo',horizontal:true,h:220,colorBy:i=>K.S(i)})},
+roas(F){const D=data(F);const r=K.rng(K.seed(F,'ro'));
+ K.line($('c_roas'),{labels:D.L,series:CH.map((c,i)=>({name:c,data:K.series(r,D.n,[5.6,4.1,3.2,6.8,14][i],{noise:.12,trend:[.05,.1,-.15,.08,.2][i]})})),fmt:v=>K.x(v),h:290});
+ const tot=K.sum(D.actual);K.table($('t_led'),{cols:[{k:'c',label:'Channel'},{k:'sp',label:'Spend',align:'r',fmt:K.money,bar:true},{k:'leads',label:'Leads',align:'r',fmt:K.int},{k:'pipe',label:'Pipeline',align:'r',fmt:K.money},{k:'won',label:'Won ARR',align:'r',fmt:K.money},{k:'roas',label:'Pipeline / $',align:'r',fmt:v=>K.x(v)},{k:'cac',label:'CAC',align:'r',fmt:K.money}],rows:CH.map((c,i)=>{const sp=tot*[.34,.27,.08,.24,.07][i];const roas=[5.6,4.1,3.2,6.8,14][i];return{c,sp,leads:sp/[95,140,60,210,30][i],pipe:sp*roas,won:sp*roas*.24,roas,cac:[1.1,1.9,1.4,1.6,.45][i]*9800}}),sort:'sp'})},
+plan(F){const D=data(F);const total=Math.round(K.sum(D.budget)/D.n*3/1000)*1000;$('tb').textContent=K.money(total).replace('$','');
+ const base=[.34,.27,.08,.24,.07],eff=[5.6,4.1,3.2,6.8,14],cap=[.45,.4,.15,.35,.12];if(!PLAN||PLAN.t!==total)PLAN={t:total,w:base.slice()};
+ const proj=w=>w.map((x,i)=>{const s=total*x;const sat=total*cap[i];return eff[i]*sat*(1-Math.exp(-s/sat))});
+ const draw=()=>{const sum=K.sum(PLAN.w);const w=PLAN.w.map(x=>x/sum);const p=proj(w),p0=proj(base);
+  $('sliders').innerHTML=CH.map((c,i)=>`<div class="sl"><span>${c}</span><input type="range" min="0" max="60" value="${Math.round(w[i]*100)}" data-i="${i}"><span class="m">${K.pct(w[i],0)}</span><span class="m">${K.money(total*w[i])}</span></div>`).join('');
+  const dp=K.sum(p)-K.sum(p0);$('res').innerHTML=`<div><span>Projected pipeline</span><b>${K.money(K.sum(p))}</b></div><div><span>vs. current plan</span><b style="color:${dp>=0?'var(--good)':'var(--bad)'}">${dp>=0?'▲ +':'▼ '}${K.money(dp)}</b></div><div><span>Pipeline per $</span><b>${K.x(K.sum(p)/total)}</b></div>`;
+  K.bars($('c_sc'),{labels:CH,series:[{name:'Current plan',data:p0,color:'#c9c3b4'},{name:'Your scenario',data:p}],fmt:K.money,h:320});
+  document.querySelectorAll('#sliders input').forEach(inp=>inp.oninput=e=>{PLAN.w[+e.target.dataset.i]=+e.target.value/100;const s2=K.sum(PLAN.w);const m=PLAN.w.map(x=>x/s2);document.querySelectorAll('#sliders .sl').forEach((row,j)=>{row.querySelectorAll('.m')[0].textContent=K.pct(m[j],0);row.querySelectorAll('.m')[1].textContent=K.money(total*m[j])});clearTimeout(window._t);window._t=setTimeout(draw,120)})};
+ $('opt').onclick=()=>{let w=base.slice();for(let it=0;it<400;it++){const g=w.map((x,i)=>eff[i]*Math.exp(-(total*x)/(total*cap[i])));const hi=g.indexOf(Math.max(...g)),lo=g.indexOf(Math.min(...g.map((v,i)=>w[i]>.02?v:Infinity)));if(hi===lo)break;w[hi]+=.005;w[lo]-=.005}PLAN.w=w;draw()};$('rst').onclick=()=>{PLAN.w=base.slice();draw()};draw()}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

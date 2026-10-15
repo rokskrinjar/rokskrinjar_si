@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Tides 2048</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none}
+body{background:linear-gradient(160deg,#0b3a53,#0f5c6e 55%,#f2b880);font-family:'Baloo 2',sans-serif;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px}
+.top{width:min(92vw,440px);display:flex;justify-content:space-between;align-items:center}
+h1{font-size:38px;line-height:1;letter-spacing:-.02em}h1 span{color:#ffd9a8}
+.sc{display:flex;gap:8px}.sc div{background:#ffffff22;border-radius:12px;padding:4px 12px;text-align:center;min-width:70px}.sc small{display:block;font-size:11px;opacity:.7;letter-spacing:.1em}.sc b{font-size:20px}
+.board{position:relative;width:min(92vw,440px);aspect-ratio:1;background:#ffffff1f;border-radius:18px;padding:3%;backdrop-filter:blur(6px);box-shadow:0 20px 50px #0005}
+.cell,.tile{position:absolute;width:21.5%;height:21.5%;border-radius:12px}
+.cell{background:#ffffff14}
+.tile{display:grid;place-items:center;font-weight:800;transition:transform .12s ease,left .12s ease,top .12s ease;font-size:clamp(20px,7vw,38px);color:#fff;text-shadow:0 2px 6px #0003}
+.tile.new{animation:pop .18s}.tile.merged{animation:bump .18s}
+@keyframes pop{from{transform:scale(0)}}@keyframes bump{50%{transform:scale(1.18)}}
+.bar{display:flex;gap:10px}
+button{font:inherit;border:0;border-radius:30px;padding:8px 18px;background:#fff;color:#0b3a53;font-weight:800;cursor:pointer}
+.over{position:absolute;inset:0;border-radius:18px;background:#0b3a53cc;display:none;place-items:center;text-align:center;z-index:5}
+.over.on{display:grid}.over h2{font-size:40px}
+.hint{font-size:13px;opacity:.75;text-align:center}
+a{color:#fff;opacity:.8;font-size:14px}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<div class="top"><h1>Tides <span>2048</span></h1><div class="sc"><div><small>SCORE</small><b id="s">0</b></div><div><small>BEST</small><b id="b">0</b></div></div></div>
+<div class="board" id="board"><div class="over" id="over"><div><h2 id="ot">Tide's out!</h2><p id="op"></p><br><button id="again">Play again</button></div></div></div>
+<div class="bar"><button id="new">New game</button><button id="undo">Undo</button></div>
+<p class="hint">Arrow keys / WASD or swipe. Merge matching tiles to reach 2048.</p>
+<a class="back" href="index.html">← All games</a>
+<script>
+const K='best-tides-2048';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const COL={2:'#5fb3c7',4:'#4aa3b8',8:'#f0a36b',16:'#ee8a5a',32:'#e8704f',64:'#e2553f',128:'#f2c35b',256:'#f0b43d',512:'#eda22a',1024:'#8fd18a',2048:'#ff6fa3',4096:'#b58cff'};
+const board=document.getElementById('board');let grid,score,best=ls.g(K,0),prev=null,won=false,id=0;
+for(let i=0;i<16;i++){const c=document.createElement('div');c.className='cell';pos(c,i%4,i>>2);board.appendChild(c)}
+function pos(el,c,r){el.style.left=(3+c*24.25)+'%';el.style.top=(3+r*24.25)+'%'}
+function empty(){const e=[];grid.forEach((row,r)=>row.forEach((t,c)=>{if(!t)e.push([r,c])}));return e}
+function add(){const e=empty();if(!e.length)return;const[r,c]=e[Math.random()*e.length|0];grid[r][c]={v:Math.random()<.9?2:4,id:++id,n:1}}
+function start(){grid=[...Array(4)].map(()=>Array(4).fill(null));score=0;won=false;prev=null;add();add();draw();document.getElementById('over').classList.remove('on')}
+function draw(){board.querySelectorAll('.tile').forEach(t=>t.dataset.keep='0');
+ grid.forEach((row,r)=>row.forEach((t,c)=>{if(!t)return;let el=board.querySelector(`.tile[data-id="${t.id}"]`);if(!el){el=document.createElement('div');el.className='tile new';el.dataset.id=t.id;board.appendChild(el)}el.dataset.keep='1';pos(el,c,r);el.textContent=t.v;el.style.background=COL[t.v]||'#333';el.style.fontSize=t.v>=1000?'clamp(16px,5.5vw,30px)':'';if(t.m){el.classList.remove('merged');void el.offsetWidth;el.classList.add('merged');t.m=0}if(t.n){t.n=0}else el.classList.remove('new')}));
+ board.querySelectorAll('.tile[data-keep="0"]').forEach(t=>t.remove());
+ document.getElementById('s').textContent=score;if(score>best){best=score;ls.s(K,best)}document.getElementById('b').textContent=best}
+function move(dir){const snap=JSON.stringify(grid),sc=score;let moved=false;
+ const get=(i,j)=>dir==='L'?[i,j]:dir==='R'?[i,3-j]:dir==='U'?[j,i]:[3-j,i];
+ for(let i=0;i<4;i++){const line=[];for(let j=0;j<4;j++){const[r,c]=get(i,j);if(grid[r][c])line.push(grid[r][c])}
+  const out=[];for(let k=0;k<line.length;k++){if(k<line.length-1&&line[k].v===line[k+1].v){const t={v:line[k].v*2,id:line[k+1].id,m:1};score+=t.v;if(t.v===2048&&!won){won=true;setTimeout(()=>over(true),300)}out.push(t);board.querySelector(`.tile[data-id="${line[k].id}"]`)?.remove();k++}else out.push(line[k])}
+  for(let j=0;j<4;j++){const[r,c]=get(i,j);const nv=out[j]||null;if((grid[r][c]&&grid[r][c].id)!==(nv&&nv.id))moved=true;grid[r][c]=nv}}
+ if(moved){prev=[snap,sc];add();draw();if(!canMove())setTimeout(()=>over(false),300)}}
+function canMove(){if(empty().length)return true;for(let r=0;r<4;r++)for(let c=0;c<4;c++){const v=grid[r][c].v;if((c<3&&grid[r][c+1].v===v)||(r<3&&grid[r+1][c].v===v))return true}return false}
+function over(w){document.getElementById('ot').textContent=w?'You made 2048! 🌊':'Tide\'s out!';document.getElementById('op').textContent=`Score ${score} · Best ${best}`;document.getElementById('again').textContent=w?'Keep going':'Play again';document.getElementById('again').onclick=w?()=>document.getElementById('over').classList.remove('on'):start;document.getElementById('over').classList.add('on')}
+addEventListener('keydown',e=>{const m={ArrowLeft:'L',ArrowRight:'R',ArrowUp:'U',ArrowDown:'D',a:'L',d:'R',w:'U',s:'D',A:'L',D:'R',W:'U',S:'D'}[e.key];if(m){e.preventDefault();if(!document.getElementById('over').classList.contains('on'))move(m)}});
+let t0=null;addEventListener('touchstart',e=>{t0=[e.touches[0].clientX,e.touches[0].clientY]},{passive:true});
+addEventListener('touchend',e=>{if(!t0)return;const dx=e.changedTouches[0].clientX-t0[0],dy=e.changedTouches[0].clientY-t0[1];t0=null;if(Math.max(Math.abs(dx),Math.abs(dy))<24)return;if(document.getElementById('over').classList.contains('on'))return;move(Math.abs(dx)>Math.abs(dy)?(dx>0?'R':'L'):(dy>0?'D':'U'))});
+document.getElementById('new').onclick=start;document.getElementById('undo').onclick=()=>{if(!prev)return;grid=JSON.parse(prev[0]);score=prev[1];prev=null;board.querySelectorAll('.tile').forEach(t=>t.remove());draw()};
+start();
+</script>
+</body>
+</html>

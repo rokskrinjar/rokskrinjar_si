@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conduit — Pipeline: daily_revenue</title>
+<link href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,MONO@-15..0,300..800,0..1,0..1&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#f7f8fb;--tx:#1b2030;--mu:#737b90;--ln:#e1e4ec;--src:#dff1ff;--srcb:#3b8fd9;--tr:#fff1d6;--trb:#d99a1c;--ml:#efe4ff;--mlb:#8a5bd8;--out:#dcf5e6;--outb:#2c9a5c}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--tx);font:13.5px/1.45 'Recursive',sans-serif;font-variation-settings:'CASL' .3;display:grid;grid-template-rows:auto 1fr}
+.mono{font-variation-settings:'MONO' 1,'CASL' 0}
+header{display:flex;align-items:center;gap:14px;padding:12px 20px;background:#fff;border-bottom:1px solid var(--ln)}
+.lg{font-weight:800;font-size:17px;display:flex;align-items:center;gap:8px}.lg svg{width:24px}
+.pn{font-variation-settings:'MONO' 1;background:var(--bg);border:1px solid var(--ln);border-radius:6px;padding:4px 9px}
+header .sp{flex:1}.b{border:1px solid var(--ln);background:#fff;border-radius:8px;padding:7px 12px;font:600 13px 'Recursive';cursor:pointer}.b.p{background:var(--tx);color:#fff;border-color:var(--tx)}
+.lay{display:grid;grid-template-columns:1fr 320px;min-height:0}
+.cv{position:relative;overflow:hidden;background-image:radial-gradient(#d3d8e4 1px,transparent 1px);background-size:22px 22px}
+.cv svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.nd{position:absolute;width:190px;background:#fff;border:1.5px solid var(--ln);border-radius:12px;box-shadow:0 6px 16px rgba(27,32,48,.06);cursor:grab;user-select:none}
+.nd.sel{border-color:var(--tx);box-shadow:0 0 0 3px rgba(27,32,48,.1)}
+.nd .h{padding:9px 12px;border-radius:10px 10px 0 0;font-weight:700;display:flex;gap:8px;align-items:center;font-size:13px}
+.nd .h i{font-style:normal;font-size:15px}.nd .bd{padding:8px 12px;color:var(--mu);font-size:12px;font-variation-settings:'MONO' 1}
+.nd .st{display:flex;align-items:center;gap:6px;padding:6px 12px 9px;font-size:11.5px;color:var(--mu)}.nd .st b{width:8px;height:8px;border-radius:50%;background:#c7ccd8}
+.nd.run .st b{background:var(--trb);animation:pu 1s infinite}.nd.ok .st b{background:var(--outb)}@keyframes pu{50%{opacity:.3}}
+.port{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--mu);transform:translateY(-50%)}.port.in{left:-7px}.port.out{right:-7px}
+.side{background:#fff;border-left:1px solid var(--ln);padding:18px;overflow:auto}
+.side h3{margin:0;font-size:16px}.side .k{color:var(--mu);font-size:12px}
+.side h4{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin:20px 0 8px}
+pre{margin:0;background:#141824;color:#d7def0;border-radius:10px;padding:12px;font:12px/1.6 'Recursive';font-variation-settings:'MONO' 1;overflow:auto}
+.kw{color:#ff9ac1}.fn{color:#7fd3ff}.st2{color:#a5e3a1}
+.sch{border:1px solid var(--ln);border-radius:10px;overflow:hidden}.sch div{display:flex;justify-content:space-between;padding:7px 10px;border-bottom:1px solid var(--ln);font-variation-settings:'MONO' 1;font-size:12px}.sch div:last-child{border:0}.sch span{color:var(--mu)}
+.runs{display:flex;gap:3px;align-items:flex-end;height:46px}.runs i{flex:1;background:var(--outb);border-radius:2px;opacity:.8}.runs i.f{background:#d9534f}
+.log{font:11.5px/1.7 'Recursive';font-variation-settings:'MONO' 1;color:var(--mu);margin-top:8px;max-height:140px;overflow:auto}.log b{color:var(--outb);font-weight:500}
+.mini{position:absolute;right:14px;bottom:14px;width:170px;height:100px;background:rgba(255,255,255,.9);border:1px solid var(--ln);border-radius:10px}
+@media(max-width:1000px){.lay{grid-template-columns:1fr}.side{border-left:0;border-top:1px solid var(--ln)}.cv{min-height:560px;overflow:auto}}
+</style>
+</head>
+<body>
+<header><div class="lg"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="3" fill="#3b8fd9"/><circle cx="5" cy="18" r="3" fill="#3b8fd9"/><circle cx="19" cy="12" r="3" fill="#2c9a5c"/><path d="M8 6 C 13 6, 12 12, 16 12 M8 18 C 13 18, 12 12, 16 12" stroke="#1b2030" stroke-width="1.6" fill="none"/></svg>Conduit</div><span class="pn">daily_revenue.pipeline</span><span style="color:var(--mu)">· last run 06:00 · 4m 12s</span><span class="sp"></span><button class="b">Schedule: daily 06:00 ▾</button><button class="b p" id="run">▶ Run now</button></header>
+<div class="lay"><div class="cv" id="cv"><svg id="edges"></svg><div class="mini"><svg viewBox="0 0 170 100" id="mm"></svg></div></div>
+ <aside class="side" id="side"></aside></div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const T={src:['var(--src)','var(--srcb)'],tr:['var(--tr)','var(--trb)'],ml:['var(--ml)','var(--mlb)'],out:['var(--out)','var(--outb)']};
+const N=[['stripe','src','💳','Stripe charges','incremental · 18,204 rows',40,60],['pg','src','🐘','Postgres · orders','replica · 9,812 rows',40,230],['fx','src','💱','ECB FX rates','api · 32 rows',40,400],['join','tr','⋈','Join orders ↔ charges','on order_id',300,140],['conv','tr','€','Convert to EUR','rate at charge date',300,330],['agg','tr','Σ','Daily revenue','group by day, plan, country',560,230],['fc','ml','✦','Forecast 30 days','Prophet · weekly seasonality',800,110],['wh','out','❄','Snowflake','ANALYTICS.REVENUE_DAILY',820,290],['sl','out','#','Slack digest','#finance at 06:15',820,430]];
+const E=[['stripe','join'],['pg','join'],['join','conv'],['fx','conv'],['conv','agg'],['agg','fc'],['agg','wh'],['fc','wh'],['agg','sl']];
+let sel='agg';const cv=document.getElementById('cv');const st={};
+N.forEach(n=>{const d=document.createElement('div');d.className='nd';d.id='n-'+n[0];d.style.left=n[5]+'px';d.style.top=n[6]+'px';d.innerHTML=`<div class="h" style="background:${T[n[1]][0]};color:${T[n[1]][1]}"><i>${n[2]}</i><span style="color:var(--tx)">${n[3]}</span></div><div class="bd">${n[4]}</div><div class="st"><b></b><span>idle</span></div>${n[1]!=='src'?'<span class="port in"></span>':''}${n[1]!=='out'?'<span class="port out"></span>':''}`;cv.appendChild(d);
+ d.onpointerdown=e=>{sel=n[0];side();mark();d.setPointerCapture(e.pointerId);const ox=e.clientX-d.offsetLeft,oy=e.clientY-d.offsetTop;d.onpointermove=m=>{d.style.left=(m.clientX-ox)+'px';d.style.top=(m.clientY-oy)+'px';edges()};d.onpointerup=()=>d.onpointermove=null}});
+function pt(id,side){const d=document.getElementById('n-'+id);return[d.offsetLeft+(side==='out'?d.offsetWidth:0),d.offsetTop+d.offsetHeight/2]}
+function edges(){let h='';E.forEach(([a,b],k)=>{const[x1,y1]=pt(a,'out'),[x2,y2]=pt(b,'in');const dx=Math.max(60,(x2-x1)/2);const live=st[a]==='ok'&&st[b]==='run';h+=`<path d="M${x1} ${y1} C ${x1+dx} ${y1}, ${x2-dx} ${y2}, ${x2} ${y2}" stroke="${st[a]==='ok'?'#2c9a5c':'#b9c0cf'}" stroke-width="2" fill="none" ${live?'stroke-dasharray="6 6" style="animation:da .5s linear infinite"':''}/>`});document.getElementById('edges').innerHTML='<style>@keyframes da{to{stroke-dashoffset:-12}}</style>'+h;
+ document.getElementById('mm').innerHTML=N.map(n=>{const d=document.getElementById('n-'+n[0]);return`<rect x="${d.offsetLeft/6+6}" y="${d.offsetTop/6+6}" width="30" height="12" rx="3" fill="${T[n[1]][1]}" opacity=".6"/>`}).join('')}
+function mark(){N.forEach(n=>{const d=document.getElementById('n-'+n[0]);d.classList.toggle('sel',n[0]===sel);d.classList.toggle('run',st[n[0]]==='run');d.classList.toggle('ok',st[n[0]]==='ok');d.querySelector('.st span').textContent=st[n[0]]==='run'?'running…':st[n[0]]==='ok'?'✓ done · '+(1+n[0].length%4)+'.'+(n[0].length*7%10)+'s':'idle'});edges()}
+function side(){const n=N.find(x=>x[0]===sel);document.getElementById('side').innerHTML=`<div class="k">${{src:'Source',tr:'Transform',ml:'Model',out:'Destination'}[n[1]]}</div><h3>${n[3]}</h3><h4>${n[1]==='tr'?'SQL':'Config'}</h4><pre>${n[0]==='agg'?`<span class="kw">select</span> <span class="fn">date_trunc</span>(<span class="st2">'day'</span>, charged_at) <span class="kw">as</span> day,
+       plan, country,
+       <span class="fn">sum</span>(amount_eur) <span class="kw">as</span> revenue,
+       <span class="fn">count</span>(<span class="kw">distinct</span> customer_id) <span class="kw">as</span> payers
+<span class="kw">from</span> {{ ref(<span class="st2">'convert_to_eur'</span>) }}
+<span class="kw">group by</span> 1, 2, 3`:`source: ${n[0]}\nmode: ${n[4]}\nretries: 3\ntimeout: 10m`}</pre>
+ <h4>Output schema</h4><div class="sch"><div>day<span>date</span></div><div>plan<span>varchar</span></div><div>country<span>char(2)</span></div><div>revenue<span>numeric(14,2)</span></div><div>payers<span>int</span></div></div>
+ <h4>Last 30 runs</h4><div class="runs">${Array.from({length:30},(_,i)=>`<i class="${i===17?'f':''}" style="height:${40+((i*37)%50)}%"></i>`).join('')}</div>
+ <h4>Run log</h4><div class="log" id="log">06:00:02 queued<br>06:03:51 <b>✓</b> 2,184 rows written<br>06:04:12 <b>✓</b> tests passed (not_null, unique day+plan+country)</div>`}
+const order=[['stripe','pg','fx'],['join'],['conv'],['agg'],['fc','sl'],['wh']];
+document.getElementById('run').onclick=()=>{N.forEach(n=>st[n[0]]='idle');mark();let k=0;(function step(){if(k>0)order[k-1].forEach(id=>st[id]='ok');if(k<order.length){order[k].forEach(id=>st[id]='run');k++;mark();setTimeout(step,900)}else mark()})()};
+side();mark();setTimeout(()=>document.getElementById('run').click(),700);addEventListener('resize',edges);
+</script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 Pages — an index</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0d0d0f; --bg2:#151518; --fg:#f2f0ea; --dim:#8b8a86; --line:#ffffff14; --acc:#ffcf5c; }
+  :root[data-theme="light"] { --bg:#f4f2ec; --bg2:#fff; --fg:#141414; --dim:#6f6e69; --line:#0000001a; --acc:#e0461f; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--fg); font-family:'Geist',sans-serif; font-weight:300; min-height:100vh; transition:background .5s, color .5s; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+  .serif { font-family:'Instrument Serif',serif; font-weight:400; }
+  .mono { font-family:'Geist Mono',monospace; }
+  canvas#bgfx { position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:.55; }
+  .wrap { position:relative; z-index:2; max-width:1500px; margin:0 auto; padding:0 3vw; }
+  /* top bar */
+  .bar { display:flex; justify-content:space-between; align-items:center; padding:22px 0; font-size:13px; }
+  .bar .brand { font-family:'Geist Mono'; letter-spacing:.2em; }
+  .bar .right { display:flex; gap:10px; align-items:center; }
+  .iconBtn { background:var(--bg2); border:1px solid var(--line); color:var(--fg); border-radius:30px; padding:8px 14px; font-family:inherit; font-size:13px; cursor:pointer; transition:transform .2s; }
+  .iconBtn:hover { transform:translateY(-2px); }
+  /* hero */
+  .hero { padding:8vh 0 6vh; display:grid; grid-template-columns:1.3fr 1fr; gap:4vw; align-items:end; }
+  .hero h1 { font-family:'Instrument Serif'; font-weight:400; font-size:clamp(4.4rem,13vw,13rem); line-height:.82; letter-spacing:-.03em; }
+  .hero h1 i { color:var(--acc); }
+  .hero .count { display:inline-block; min-width:2ch; font-variant-numeric:tabular-nums; }
+  .hero p { font-size:clamp(1.05rem,1.4vw,1.25rem); line-height:1.6; color:var(--dim); max-width:32rem; }
+  .hero p b { color:var(--fg); font-weight:500; }
+  .progress { margin-top:22px; }
+  .cells { display:grid; grid-template-columns:repeat(50,1fr); gap:3px; }
+  .cells i { aspect-ratio:1; border-radius:2px; background:var(--line); transition:background .4s, transform .3s; }
+  .cells i.on { background:var(--c,var(--acc)); }
+  .cells i.on:hover { transform:scale(1.8); }
+  .progress .lbl { display:flex; justify-content:space-between; font-family:'Geist Mono'; font-size:12px; color:var(--dim); margin-top:8px; }
+  /* controls */
+  .controls { position:sticky; top:0; z-index:20; display:flex; gap:10px; align-items:center; flex-wrap:wrap; padding:14px 0; background:color-mix(in srgb,var(--bg) 85%,transparent); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+  .search { flex:1; min-width:220px; display:flex; align-items:center; gap:8px; background:var(--bg2); border:1px solid var(--line); border-radius:40px; padding:0 16px; }
+  .search input { flex:1; background:none; border:0; color:var(--fg); font-family:inherit; font-size:15px; padding:11px 0; outline:none; }
+  .search kbd { font-family:'Geist Mono'; font-size:11px; border:1px solid var(--line); border-radius:6px; padding:2px 6px; color:var(--dim); }
+  .chips { display:flex; gap:6px; flex-wrap:wrap; }
+  .chip { background:none; border:1px solid var(--line); color:var(--dim); border-radius:30px; padding:8px 13px; font-family:inherit; font-size:13px; cursor:pointer; transition:all .2s; }
+  .chip:hover { color:var(--fg); }
+  .chip.on { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+  .seg { display:flex; background:var(--bg2); border:1px solid var(--line); border-radius:30px; padding:3px; }
+  .seg button { background:none; border:0; color:var(--dim); padding:7px 12px; border-radius:26px; font-family:inherit; font-size:13px; cursor:pointer; }
+  .seg button.on { background:var(--fg); color:var(--bg); }
+  .surprise { background:var(--acc); color:#111; border:0; border-radius:30px; padding:10px 18px; font-family:inherit; font-weight:500; font-size:14px; cursor:pointer; transition:transform .2s; }
+  .surprise:hover { transform:rotate(-3deg) scale(1.05); }
+  .meta { display:flex; justify-content:space-between; padding:18px 0 8px; font-family:'Geist Mono'; font-size:12px; color:var(--dim); }
+  /* grid */
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:18px; padding:10px 0 60px; }
+  .tile { position:relative; border-radius:22px; overflow:hidden; background:var(--bg2); border:1px solid var(--line); display:flex; flex-direction:column; transition:transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s; opacity:0; transform:translateY(20px); animation:tileIn .7s cubic-bezier(.2,.8,.2,1) forwards; }
+  @keyframes tileIn { to { opacity:1; transform:none; } }
+  .tile:hover { transform:translateY(-6px); box-shadow:0 24px 50px -20px var(--glow,#0008); }
+  .tile .art { aspect-ratio:1.35; position:relative; overflow:hidden; }
+  .tile .art svg { width:100%; height:100%; display:block; transition:transform 1.2s cubic-bezier(.2,.8,.2,1); }
+  .tile:hover .art svg { transform:scale(1.08) rotate(-1deg); }
+  .tile .num { position:absolute; left:14px; top:12px; font-family:'Instrument Serif'; font-size:2.6rem; line-height:1; color:#fff; mix-blend-mode:difference; }
+  .tile .seen { position:absolute; right:12px; top:12px; font-family:'Geist Mono'; font-size:10px; letter-spacing:.1em; background:#000a; color:#fff; padding:4px 8px; border-radius:20px; backdrop-filter:blur(6px); }
+  .tile .body { padding:14px 16px 16px; }
+  .tile h3 { font-family:'Instrument Serif'; font-weight:400; font-size:1.55rem; line-height:1.05; }
+  .tile p { color:var(--dim); font-size:13.5px; line-height:1.45; margin-top:4px; min-height:2.9em; }
+  .tile .tags { display:flex; gap:5px; flex-wrap:wrap; margin-top:10px; }
+  .tile .tags span { font-family:'Geist Mono'; font-size:10.5px; border:1px solid var(--line); color:var(--dim); border-radius:20px; padding:3px 8px; }
+  .tile .go { position:absolute; right:14px; bottom:16px; width:34px; height:34px; border-radius:50%; background:var(--fg); color:var(--bg); display:grid; place-items:center; transform:scale(0) rotate(-90deg); transition:transform .4s cubic-bezier(.3,1.6,.5,1); }
+  .tile:hover .go { transform:scale(1) rotate(0); }
+  .tile.soon { border-style:dashed; background:transparent; pointer-events:none; }
+  .tile.soon .art { display:grid; place-items:center; }
+  .tile.soon .num { color:var(--dim); mix-blend-mode:normal; opacity:.5; }
+  .tile.soon h3, .tile.soon p { color:var(--dim); opacity:.6; }
+  /* list view */
+  .list { padding:10px 0 60px; }
+  .row { display:grid; grid-template-columns:70px 44px 1.3fr 2fr 1.2fr 40px; gap:18px; align-items:center; padding:14px 8px; border-bottom:1px solid var(--line); transition:background .2s, padding .3s; }
+  .row:hover { background:var(--bg2); padding-left:18px; }
+  .row .n { font-family:'Instrument Serif'; font-size:2rem; color:var(--dim); }
+  .row .sw { width:44px; height:44px; border-radius:12px; overflow:hidden; }
+  .row .sw svg { width:100%; height:100%; }
+  .row h3 { font-family:'Instrument Serif'; font-weight:400; font-size:1.6rem; }
+  .row p { color:var(--dim); font-size:14px; }
+  .row .tg { font-family:'Geist Mono'; font-size:11px; color:var(--dim); }
+  .row.soon { opacity:.35; pointer-events:none; }
+  /* mosaic view */
+  .mosaic { display:grid; grid-template-columns:repeat(10,1fr); gap:6px; padding:10px 0 60px; }
+  .mosaic a { aspect-ratio:1; border-radius:10px; overflow:hidden; position:relative; transition:transform .3s cubic-bezier(.3,1.6,.5,1); }
+  .mosaic a:hover { transform:scale(1.15); z-index:3; box-shadow:0 10px 30px #0008; }
+  .mosaic a svg { width:100%; height:100%; }
+  .mosaic a span { position:absolute; left:6px; top:4px; font-family:'Instrument Serif'; font-size:1.3rem; color:#fff; mix-blend-mode:difference; }
+  .mosaic .soon { border:1px dashed var(--line); border-radius:10px; aspect-ratio:1; display:grid; place-items:center; font-family:'Geist Mono'; font-size:11px; color:var(--dim); opacity:.5; }
+  /* live preview */
+  .preview { position:fixed; z-index:50; width:480px; height:300px; border-radius:18px; overflow:hidden; pointer-events:none; opacity:0; transform:scale(.92); transition:opacity .25s, transform .25s; box-shadow:0 30px 80px #000a; border:1px solid var(--line); background:var(--bg2); }
+  .preview.on { opacity:1; transform:none; }
+  .preview iframe { width:1440px; height:900px; border:0; transform:scale(.3333); transform-origin:0 0; }
+  .preview .cap { position:absolute; left:0; right:0; bottom:0; padding:10px 14px; background:linear-gradient(transparent,#000c); color:#fff; font-family:'Geist Mono'; font-size:11px; letter-spacing:.08em; }
+  .empty { text-align:center; padding:12vh 0; color:var(--dim); font-family:'Instrument Serif'; font-size:2rem; }
+  footer { border-top:1px solid var(--line); padding:30px 0 50px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:13px; color:var(--dim); }
+  @media (max-width:900px){ .hero { grid-template-columns:1fr; } .row { grid-template-columns:44px 1fr 32px; } .row .sw, .row p, .row .tg { display:none; } .mosaic { grid-template-columns:repeat(5,1fr); } .preview { display:none; } .cells { grid-template-columns:repeat(25,1fr); } }
+  /* collections */
+  .cols { margin:0 0 5vh; }
+  .cols .hd { display:flex; justify-content:space-between; align-items:baseline; gap:12px; border-top:1px solid var(--line); padding:18px 0 14px; font-size:13px; color:var(--dim); }
+  .cols .hd b { font-family:'Geist Mono'; letter-spacing:.2em; font-weight:400; color:var(--fg); font-size:12px; }
+  .colgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .col { position:relative; display:grid; grid-template-columns:auto 1fr; gap:4px 16px; align-items:baseline; background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:16px 44px 16px 18px; transition:transform .2s, border-color .2s; }
+  .col:hover { transform:translateY(-2px); border-color:var(--acc); }
+  .col .n { grid-row:span 2; font-family:'Instrument Serif'; font-size:3rem; line-height:.9; color:var(--acc); min-width:1.6ch; font-variant-numeric:tabular-nums; }
+  .col h3 { font-family:'Instrument Serif'; font-weight:400; font-size:1.55rem; line-height:1.1; }
+  .col p { font-size:13.5px; line-height:1.45; color:var(--dim); }
+  .col .ar { position:absolute; right:16px; top:16px; color:var(--dim); }
+  .col:hover .ar { color:var(--acc); }
+  @media (max-width:1100px){ .colgrid { grid-template-columns:1fr 1fr; } }
+  @media (max-width:640px){ .colgrid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<canvas id="bgfx"></canvas>
+<div class="wrap">
+  <div class="bar"><span class="brand">INDEX · 100 PAGES</span><div class="right"><span class="mono" style="color:var(--dim)" id="visitedCount"></span><button class="iconBtn" id="themeBtn">◐ Theme</button></div></div>
+
+  <section class="hero">
+    <div><h1><span class="count" id="count">0</span> <i>of</i><br>100 pages.</h1></div>
+    <div><p>One hundred hand-built, self-contained web pages — <b>each one a tiny world</b> with its own look, typography and working features: games, tools, shops, instruments and stories. No frameworks, no two alike. <b>Start anywhere, or end with the fireworks on page 100.</b></p>
+      <div class="progress"><div class="cells" id="cells"></div><div class="lbl"><span id="pct"></span><span>complete ✦</span></div></div></div>
+  </section>
+
+
+  <section class="cols" aria-label="More collections"><div class="hd"><b>MORE COLLECTIONS</b><span>5 sets beyond the hundred</span></div><div class="colgrid"><a class="col" href="/trade-websites/"><span class="n">1000</span><h3>Trade Websites</h3><p>Forty complete website designs for each of 25 trades, with estimates and booking.</p><span class="ar">↗</span></a><a class="col" href="/pocket-arcade/"><span class="n">50</span><h3>Pocket Arcade</h3><p>Fifty small browser games, each with its own rules and look.</p><span class="ar">↗</span></a><a class="col" href="/saas-screens/"><span class="n">50</span><h3>Fifty SaaS Screens</h3><p>Product screens for fifty fictional software tools.</p><span class="ar">↗</span></a><a class="col" href="/beyond-the-crm/"><span class="n">25</span><h3>Beyond the CRM</h3><p>Twenty-five working dashboards for sales and operations.</p><span class="ar">↗</span></a><a class="col" href="/erp-leads/"><span class="n">25</span><h3>ERP Leads</h3><p>Twenty-five ERP experts, each with a six-page site and fit tools.</p><span class="ar">↗</span></a></div></section>
+  <div class="controls">
+    <label class="search"><span>⌕</span><input id="q" placeholder="Search pages, moods, features…" autocomplete="off"><kbd>/</kbd></label>
+    <div class="chips" id="chips"></div>
+    <div class="seg" id="viewSeg"><button data-v="grid" class="on">Grid</button><button data-v="list">List</button><button data-v="mosaic">Mosaic</button></div>
+    <button class="surprise" id="surprise">✦ Surprise me</button>
+  </div>
+  <div class="meta"><span id="resultCount"></span><span>hover a card for a live preview · press <b>R</b> for a random page</span></div>
+  <main id="out"></main>
+  <footer><span>100 Pages · built with plain HTML, CSS & JavaScript</span><span id="year"></span></footer>
+</div>
+<div class="preview" id="preview"><iframe id="pframe" title="preview" loading="lazy" tabindex="-1"></iframe><div class="cap" id="pcap"></div></div>
+
+<script>
+/* ============ the catalogue — add pages 51–100 here ============ */
+const PAGES=[
+['01-aurora','Aurora Observatory','Northern lights forecast, gallery & tour booking under a living sky.',['space','booking','canvas'],['#02030a','#6bffb8','#b58cff']],
+['02-daily-concrete','The Daily Concrete','A brutalist newspaper with a playable crossword and live classifieds.',['story','game','editorial'],['#ecebe4','#111111','#ff3b00']],
+['03-swiss-jazz','Jazz Zürich 1968','Swiss-style festival poster with seat booking and a poster machine.',['music','design','booking'],['#f2efe8','#e3120b','#1c3fd1']],
+['04-phosphor-terminal','PHOSPHOR/OS','A green-screen computer with a file system, mail, Snake and a text adventure.',['game','retro','tool'],['#050805','#33ff66','#1c9a3e']],
+['05-vaporwave','Plaza 95','A vaporwave mall desktop — draggable windows, muzak synth, food court.',['retro','music','shop'],['#3b0a6b','#ff3cac','#00ffff']],
+['06-zen-tea','Shizuka Tea House','Seasonal menu, the seven movements of tea, and a rakeable sand garden.',['calm','nature','booking'],['#f4efe6','#1d1a16','#b33a26']],
+['07-art-deco-hotel','The Meridian','A 1927 grand hotel with a cocktail mixer, dance card and concierge chat.',['luxury','game','booking'],['#0b1714','#d4af37','#f1e7cf']],
+['08-celestial-atlas','Atlas Coelestis','An engraved star atlas: rotating planisphere, moon phases, quiz, star certificate.',['space','data','game'],['#f1e6cc','#1b2a4a','#9b2d20']],
+['09-bauhaus','Staatliches Bauhaus','Kandinsky\'s colour questionnaire and a drag-and-drop composition table.',['design','art','tool'],['#efe9dc','#d8302a','#1f4fa3']],
+['10-neumorphic-home','Halo Smart Home','Soft-UI home control: thermostat dial, lights, energy charts, cameras.',['dashboard','tool'],['#e3e8ef','#3a4555','#ff7a45']],
+['11-glass-weather','Nimbus Weather','Glassmorphic weather with live particles, radar loop and air quality.',['data','dashboard','nature'],['#6a5cff','#ff6ab0','#35d0ff']],
+['12-pixel-quest','Pixel Quest','An 8-bit game studio with a playable platformer and hi-score table.',['game','retro'],['#5c94fc','#c84c0c','#fcbc3c']],
+['13-herbarium','Herbarium Botanicum','Procedurally drawn pressed plants, a flower press and a field journal.',['nature','art','generative'],['#efeedf','#2f3a22','#a4502b']],
+['14-neon-noodle','Neon Noodle','Cyberpunk ramen: build a bowl, track the drone, hack the loyalty terminal.',['game','shop','cyber'],['#07060d','#ff2a6d','#05d9e8']],
+['15-maison-editorial','MAISON','A fashion magazine with a horizontal lookbook, feature story and bag.',['editorial','shop'],['#f5f1ea','#0e0e0e','#b3001b']],
+['16-blueprint-rocket','Project Kestrel','A rocket blueprint with clickable parts, launch sim and Δv calculator.',['space','sim','tool'],['#0f3d7a','#cfe3ff','#ffd23c']],
+['17-abyss','ABYSS','Scroll 10,994 m into the ocean. Bestiary, sonar game and dive planner.',['nature','scroll','game'],['#06202d','#5ff5e4','#000000']],
+['18-tiny-metropolis','Tiny Metropolis','An isometric city builder with roads, zoning, traffic and goals.',['game','sim'],['#bfe6ff','#8fd46a','#ff7b54']],
+['19-kinetic-type','MOTION/TYPE','Kinetic typography: cursor-repelled letters, playground, specimen, sequences.',['type','art','tool'],['#0a0a0a','#d4ff3a','#ff4fd8']],
+['20-memphis-studio','Squiggle & Co.','A Memphis design studio with a pattern generator and a confetti contact form.',['design','generative'],['#fff6e8','#ff9ecf','#3cd6c2']],
+['21-brass-orrery','The Brass Orrery','A Victorian orrery with real planet positions, weights and voyage times.',['space','tool','retro'],['#2a1a10','#c9a24a','#23392e']],
+['22-ember-oak-coffee','Ember & Oak','Coffee roasters: shop, a guided brew timer and a roast-curve explorer.',['shop','tool','food'],['#f3e9dc','#2b1a12','#c8864b']],
+['23-periodic-feelings','Periodic Table of Feelings','Emotions as elements, a reaction lab and a mood journal.',['data','game','calm'],['#f4f4f0','#ffc93c','#5b8def']],
+['24-flow-field','FIELD','A generative flow-field studio with presets, gallery and PNG export.',['generative','art','tool'],['#08080b','#ff6b6b','#6bcbef']],
+['25-musee-nocturne','Musée Nocturne','A dark museum lit by your cursor, with a loupe and spoken audio guide.',['art','story'],['#0c0b0b','#b89a5b','#ece4d4']],
+['26-receipt-poetry','THERMAL','A thermal printer for poems and itemised receipts of your day.',['story','tool','retro'],['#f7d9c4','#232323','#e84f2a']],
+['27-overprint-riso','OVERPRINT','A risograph zine press with a page-turning reader and ink lab.',['editorial','design','shop'],['#f4f0e6','#ff48b0','#0078bf']],
+['28-mission-control','Orbital Ops','Space-station mission control: telemetry, ground track, crew and comms.',['space','dashboard','sim'],['#060b14','#ffb020','#3fd0ff']],
+['29-sketchbook','My Sketchbook','Graph-paper doodle pad, a draggable sticky wall and a to-do that blooms.',['tool','calm'],['#fdfcf7','#2b2f3a','#fff27a']],
+['30-rose-window','Cathedral of Light','Design a rose window, watch light move, and ring a playable carillon.',['art','music','design'],['#1a1714','#d8b25a','#b3122e']],
+['31-crate-diggers','Crate Diggers','Flip through vinyl crates and spin procedurally generated grooves.',['music','shop','retro'],['#f3e3c3','#e2622b','#4a2a18']],
+['32-synthesizer','MONOTRON-7','A playable mono synth with knobs, sequencer, patches and scope.',['music','tool'],['#1e1f22','#ff6a2a','#6b3f22']],
+['33-arcana-tarot','ARCANA','A tarot reading room: spreads, card of the day, deck and journal.',['story','game','calm'],['#120c24','#d9b86c','#c07a9a']],
+['34-domaine-vineyard','Domaine de Vervane','Seasonal estate, tasting radars, parcel map and a pairing guide.',['luxury','food','data'],['#f6f1e7','#6d1a2a','#7c8b6a']],
+['35-contour-trails','CONTOUR','A topographic trail atlas with elevation profiles, gear list and logbook.',['nature','data','tool'],['#f1ead8','#a0703f','#c8452e']],
+['36-lava-lab','Lava Lab','Design goo-physics lava lamps, then drift away in chill mode.',['calm','art','shop'],['#140a1f','#ff5e3a','#3a0ca3']],
+['37-card-catalog','Oakhollow Library','Open card-catalog drawers, borrow books and stamp the date slip.',['story','retro'],['#2f4a3a','#6e4524','#f5eedb']],
+['38-rain-city-noir','Rain City','A noir mystery: evidence board with red string, interviews, accusation.',['game','story'],['#0b0d10','#ff3b5c','#e8b04a']],
+['39-origami-fold','FOLD','An origami studio with fold-by-fold diagrams and a paper fortune teller.',['game','design','calm'],['#f4efe9','#e56b5d','#4aa3a2']],
+['40-cyberbabe-2000','CyberBabe2000','A Y2K profile page: top 8, blog, quiz and glitter text generator.',['retro','game'],['#ffd6f5','#ff5fc8','#5fd4ff']],
+['41-typewriter-desk','Correspondence','Type a letter on a clacking typewriter, then seal it with wax.',['story','tool','retro'],['#3b2416','#fbf6ea','#8e1b2a']],
+['42-novaport-metro','Novaport Metro','A transit map with a real route planner, line status and fares.',['data','tool'],['#f7f7f4','#e4002b','#0072ce']],
+['43-firefly-meadow','Firefly Meadow','Catch fireflies, learn their flash codes, release wish lanterns.',['nature','game','calm'],['#070b1a','#e9ff7a','#0c1430']],
+['44-quant-terminal','QUANT//TERM','A fictional-market terminal with candles and paper trading.',['data','sim','dashboard'],['#000000','#ff9d00','#26d07c']],
+['45-studio-orn','Studio Örn','A minimal architecture portfolio with generated axonometric drawings.',['design','editorial'],['#fafaf8','#111111','#c84b2f']],
+['46-kapow-comics','KAPOW! Comics','A comic with guided panel view, hero stats and a panel maker.',['story','game','art'],['#ffd400','#e8232a','#1f5fd6']],
+['47-dolce-gelato','Dolce Vita','Stack a wobbly gelato cone, find a shop, fill a stamp card.',['food','shop','game'],['#fff7ec','#e2456d','#bfeee0']],
+['48-tempus-clocks','TEMPUS','A word clock, six clock faces, stopwatch, timer and world clock.',['tool','type'],['#101113','#ff6a3d','#f1efe9']],
+['49-erg-expedition','ERG','A Sahara crossing: day-night dunes, caravan route and water calculator.',['nature','travel','tool'],['#e8b97a','#b8733c','#fbf1e2']],
+['50-aura-buds','AURA Buds','A product launch: bento features, ANC demo, compare and configurator.',['shop','product'],['#000000','#2997ff','#a86bff']],
+['51-gambit-club','The Gambit Club','A members\' chess club: play the bot, solve mate-in-one, study openings.',['game','retro'],['#123829','#c9a45c','#e9d4a7']],
+['52-warp-weft','Warp & Weft','A handweaving studio: edit a real four-shaft draft and watch the cloth appear.',['design','tool','generative'],['#ece4d3','#1f2f5c','#b5402f']],
+['53-pan-aero','Pan Aero 1962','A jet-age airline: book a flight, pick a seat, print a boarding pass.',['travel','booking','retro'],['#8ec5e0','#e8622c','#17304f']],
+['54-hochalm-ski','Hochalm','An alpine resort with a clickable piste map, snow report and live cams.',['travel','dashboard','nature'],['#f6f8fb','#d7263d','#12372a']],
+['55-spore-print','Spore Print','A fungi field guide with an identification key and spore-print maker.',['nature','data','generative'],['#1c1612','#d8913a','#6f7d3a']],
+['56-ekiben-bento','Ekiben-ya','Drag food into a station bento, then ride the Tōkaidō and collect stamps.',['food','game','travel'],['#fff8ec','#e03a2f','#ffcc33']],
+['57-anchor-rose-tattoo','Anchor & Rose','A tattoo parlour: flash wall, try it on your arm, book, aftercare.',['art','booking','retro'],['#efe2c4','#c3261f','#161210']],
+['58-locked-study','The Locked Study','A point-and-click escape room with a notebook, hints and records.',['game','story'],['#0e0b09','#c9a45c','#8c1c13']],
+['59-hexworth-apiary','Hexworth Apiary','Open a hive frame, decode the waggle dance, keep a log, buy honey.',['nature','sim','shop'],['#fff6df','#f2a900','#2b1d0e']],
+['60-apex-telemetry','APEX','Live race timing with a moving field, tyre strategy and telemetry traces.',['sim','dashboard','data'],['#eef0f3','#e10600','#a020f0']],
+['61-sea-areas','Sea Areas','A coastal forecast chart, a read-aloud broadcast, Beaufort scale and tides.',['data','nature','calm'],['#0f2a3d','#c8d86a','#e0532b']],
+['62-sillage-perfume','Sillage','Compose a perfume pyramid, design the flacon, explore the scent wheel.',['luxury','design','shop'],['#f7f1ea','#3d1f33','#b08d57']],
+['63-marble-machine','Marble Machine','A marble-run physics sandbox with challenges and a gallery.',['game','sim','tool'],['#f3e2c3','#e8483b','#2f7fd8']],
+['64-hale-apothecary','Wm. Hale & Sons','A Victorian chemist: poison shelves, a mortar and pestle, a label press.',['retro','story','design'],['#153b36','#d4af6a','#f4ead3']],
+['65-house-of-scribes','Per-Ankh','Write your name in hieroglyphs, count like an Egyptian, train as a scribe.',['type','game','story'],['#e9d9a8','#1d3d8f','#b5412a']],
+['66-operation-nightjar','Operation Nightjar','A Cold War case: redacted dossiers, a cipher desk, dead drops, find the mole.',['game','story','retro'],['#e3c98f','#b3261e','#1d1d1b']],
+['67-swell-season','Swell Season','A surf shack with swell forecasts, a live surf cam and a board finder.',['nature','data','shop'],['#fff1dc','#ff6f59','#1a8a8a']],
+['68-circo-magnifico','Circo Magnifico','A big-top circus: animated acts, ring seating and a juggling game.',['game','booking','retro'],['#1b2a4a','#c8102e','#e6a93a']],
+['69-plot-and-sow','Plot & Sow','Plan a square-foot garden bed with companions, sowing calendar, harvest log.',['nature','tool','data'],['#fbf5e8','#3e6b35','#d4442a']],
+['70-rainy-window','Rainy Window','A lo-fi study room with generated music, pomodoro and ambience mixer.',['calm','music','tool'],['#1e1b2e','#ffb38a','#b7a6e8']],
+['71-lapidary-cabinet','The Lapidary Cabinet','Rotating 3D crystals, a Mohs scratch test and the seven crystal systems.',['nature','data','art'],['#141117','#b89a5a','#efe7d4']],
+['72-isla-calavera','Isla Calavera','Generated treasure maps, a dig-for-gold game and nautical signal flags.',['game','generative','story'],['#ead7ab','#3a2412','#9a2a1a']],
+['73-agitprop-workshop','AGITPROP','A constructivist poster workshop, gallery wall, manifesto and type lab.',['design','type','generative'],['#efe4cc','#d7261e','#141210']],
+['74-kiln-and-clay','Kiln & Clay','Throw a pot by drawing its profile, glaze it, then fire the kiln.',['art','tool','sim'],['#e6ebe4','#c98a64','#3b3530']],
+['75-lepidoptera','Lepidoptera','Breed new butterfly species, pin them in a case, watch metamorphosis.',['nature','generative','art'],['#f1ebdd','#6a3a8a','#3a2618']],
+['76-starlite-drive-in','Starlite Drive-In','Change the marquee letters, pick a B-movie, order snacks, park the car.',['retro','booking','food'],['#0d1030','#ff4fa0','#35e0d0']],
+['77-folio-reader','Folio','A slow e-reader with an original short story, highlights and reading stats.',['story','calm','tool'],['#f3f0e8','#6b5b3e','#2b2925']],
+['78-stol-furniture','STOL','Nordic furniture: a chair configurator and a drag-and-drop room planner.',['shop','design','tool'],['#f4f3ef','#1f2320','#a9b8a4']],
+['79-hopfield-brewery','Hopfield Brewing','A real beer recipe calculator, can label studio, tap list and hop radar.',['food','tool','data'],['#d8c3a0','#5a7a2a','#d98a1e']],
+['80-cloud-chamber','Cloud Chamber','Watch particle tracks form, bend them with a magnet, meet the Standard Model.',['space','sim','data'],['#050608','#6fe3ff','#ffb45c']],
+['81-jade-garden-mahjong','Jade Garden','Mahjong solitaire with guaranteed-solvable deals, a tile guide and scores.',['game','calm'],['#0f3b33','#d4aa50','#f6f0e0']],
+['82-sumi-ink','Sumi','A pressure-free ink brush, stroke practice with scoring, and a seal carver.',['art','tool','calm'],['#f3eee3','#141312','#c8321f']],
+['83-hypeform-drop','HYPEFORM','A sneaker drop: raffle entry, a shoe customiser, resale ticker and archive.',['shop','product','design'],['#f2f2ef','#ff5a1f','#0d0d0d']],
+['84-iron-temple','Iron Temple','Barbell plate maths, 1RM tables, a workout log and a rest timer.',['tool','dashboard'],['#1b1b1a','#c2412d','#1f5fcf']],
+['85-tremor-observatory','TREMOR','A live helicorder drum, the magnitude scale, great quakes and a safety drill.',['data','sim','nature'],['#f4f1e8','#c62a1f','#2b2e33']],
+['86-desk-84','Desk 84','A one-bit 1984 desktop with Paint, Write, Calculator and a sliding puzzle.',['retro','tool','game'],['#ffffff','#000000','#8a8678']],
+['87-maison-macaron','Maison Macaron','Fill a macaron gift box, build a layer cake, practise macaronage.',['food','shop','game'],['#fbf7f9','#f3b8c8','#cfe3a4']],
+['88-picross-zine','Grid Lock','A nonogram zine: picture puzzles, an editor with share codes, stickers.',['game','design'],['#f4f2ea','#ff5fa2','#fff04d']],
+['89-harmonia-chord-lab','Harmonia','A colourful circle of fifths, chord finder, progression looper and modes.',['music','tool','data'],['#f1efe9','#5b3df5','#ff5a5a']],
+['90-serengeti-field-notes','Serengeti Field Notes','A safari notebook: sightings map, sunset camera game, tracks and migration.',['nature','travel','game'],['#e4d2ad','#c9812e','#2e2418']],
+['91-crayon-town','Crayon Town','A crayon picture book, a colouring page, a monster maker and sticker town.',['story','art','game'],['#fffdf6','#e8392e','#2d6fe0']],
+['92-scriptorium','Scriptorium','Illuminated initials, a coat of arms with blazon, a bestiary and hours.',['art','type','story'],['#f1e4c3','#a3221c','#d4a531']],
+['93-glitch-studio','SIGNAL/LOSS','A glitch-art studio: pixel sorting, datamosh, RGB shift and glitch text.',['art','tool','generative'],['#0d0b2e','#ff2bd6','#00e5ff']],
+['94-dot-journal','Dot Journal','A bullet journal with rapid logging, habit tracker and a year in pixels.',['tool','calm'],['#fbfaf6','#9fdcc6','#23252b']],
+['95-formicarium','Formicarium','An ant foraging simulation, a glass ant farm, castes and species.',['nature','sim','generative'],['#e7cf9f','#6a4a2e','#b8452e']],
+['96-up-and-away','Up & Away','Steer a hot-air balloon with the winds, design one, watch the night glow.',['game','travel','design'],['#bfe3fb','#ff6b5a','#ffd23f']],
+['97-velvet-door','The Velvet Door','Knock the secret rhythm, then tend bar and bring in the jazz band.',['game','music','retro'],['#2a060c','#c9a04a','#f2e6cc']],
+['98-keepers-log','The Keeper\'s Log','Lighthouse characteristics, a read-the-light quiz, an atlas and a log.',['nature','story','data'],['#0a1424','#ffe7a0','#c8382a']],
+['99-shortwave','Shortwave','Tune a receiver through the static, key Morse, collect QSL cards.',['music','retro','tool'],['#15100c','#ffb13b','#7cff9a']],
+['100-centennial','The Hundredth','The finale: a fireworks show composer, a guestbook and all 100 pages in one wall.',['art','generative','game'],['#07061a','#ffd166','#ff5d8f']],
+];
+const GOAL=100;
+
+/* ============ generative thumbnails ============ */
+function art(i,[a,b,c]){const r=(()=>{let s=i*9301+49297;return()=>((s=(s*9301+49297)%233280)/233280)})();const W=400,H=296;let s=`<rect width="${W}" height="${H}" fill="${a}"/>`;
+ switch(i%10){
+  case 0: for(let k=0;k<5;k++)s+=`<circle cx="${80+r()*240}" cy="${60+r()*180}" r="${30+r()*90}" fill="${k%2?b:c}" opacity=".75" style="mix-blend-mode:screen"/>`;break;
+  case 1: for(let k=0;k<14;k++)s+=`<rect x="${k*30}" y="0" width="14" height="${H}" fill="${k%3?b:c}" transform="skewX(-20)" opacity=".85"/>`;break;
+  case 2: for(let k=0;k<6;k++)s+=`<polygon points="${r()*W},${r()*H} ${r()*W},${r()*H} ${r()*W},${r()*H}" fill="${k%2?b:c}" opacity=".8"/>`;break;
+  case 3: for(let k=0;k<9;k++)s+=`<circle cx="200" cy="300" r="${40+k*32}" fill="none" stroke="${k%2?b:c}" stroke-width="12"/>`;break;
+  case 4: for(let x=0;x<12;x++)for(let y=0;y<9;y++)s+=`<circle cx="${18+x*34}" cy="${18+y*34}" r="${4+((x*y+i)%5)*2}" fill="${(x+y)%3?b:c}"/>`;break;
+  case 5: for(let k=0;k<8;k++)s+=`<path d="M0 ${40+k*34} Q100 ${10+k*34} 200 ${40+k*34} T400 ${40+k*34}" stroke="${k%2?b:c}" stroke-width="10" fill="none"/>`;break;
+  case 6: for(let k=0;k<7;k++){const sz=40+r()*110;s+=`<rect x="${r()*300}" y="${r()*200}" width="${sz}" height="${sz}" fill="${k%2?b:c}" transform="rotate(${r()*40-20} 200 148)" opacity=".85"/>`}break;
+  case 7: for(let k=0;k<24;k++)s+=`<path d="M200 148 L${200+Math.cos(k*.2618)*500} ${148+Math.sin(k*.2618)*500} L${200+Math.cos(k*.2618+.13)*500} ${148+Math.sin(k*.2618+.13)*500}Z" fill="${k%2?b:c}" opacity=".7"/>`;break;
+  case 8: s+=`<circle cx="${140+r()*120}" cy="130" r="80" fill="${b}"/><rect x="0" y="210" width="${W}" height="86" fill="${c}"/>`;for(let k=0;k<6;k++)s+=`<rect x="0" y="${214+k*14}" width="${W}" height="4" fill="${a}" opacity=".6"/>`;break;
+  case 9: for(let k=0;k<30;k++){const x=r()*W,y=r()*H;s+=`<line x1="${x}" y1="${y}" x2="${x+r()*80-40}" y2="${y+r()*80-40}" stroke="${k%2?b:c}" stroke-width="${2+r()*6}" stroke-linecap="round"/>`}break}
+ return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${s}</svg>`}
+
+/* ============ state ============ */
+const store={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let visited=new Set(store.get('idx-visited',[])),view=store.get('idx-view','grid'),tag='all',q='';
+const tagsAll=['all',...Object.entries(PAGES.flatMap(p=>p[3]).reduce((m,t)=>(m[t]=(m[t]||0)+1,m),{})).sort((a,b)=>b[1]-a[1]).slice(0,11).map(x=>x[0])];
+const out=document.getElementById('out'),pre=document.getElementById('preview'),pframe=document.getElementById('pframe');
+const href=f=>`${f}.html`;
+
+/* hero counter + cells */
+const cells=document.getElementById('cells');cells.innerHTML=[...Array(GOAL)].map((_,i)=>`<i style="--c:${PAGES[i]?PAGES[i][4][1]:''}" title="${PAGES[i]?PAGES[i][1]:'#'+(i+1)+' · coming soon'}"></i>`).join('');
+let n=0;const cnt=setInterval(()=>{n++;document.getElementById('count').textContent=n;cells.children[n-1]?.classList.add('on');if(n>=PAGES.length)clearInterval(cnt)},28);
+document.getElementById('pct').textContent=`${PAGES.length} built · ${Math.round(PAGES.length/GOAL*100)}%`;
+document.getElementById('visitedCount').textContent=visited.size?`${visited.size}/${PAGES.length} explored`:'';
+document.getElementById('year').textContent='Updated '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+
+/* chips & view */
+document.getElementById('chips').innerHTML=tagsAll.map(t=>`<button class="chip${t==='all'?' on':''}" data-t="${t}">${t}</button>`).join('');
+document.getElementById('chips').onclick=e=>{const t=e.target.dataset.t;if(!t)return;tag=t;document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===e.target));render()};
+document.querySelectorAll('#viewSeg button').forEach(b=>{b.classList.toggle('on',b.dataset.v===view);b.onclick=()=>{view=b.dataset.v;store.set('idx-view',view);document.querySelectorAll('#viewSeg button').forEach(o=>o.classList.toggle('on',o===b));render()}});
+const qi=document.getElementById('q');qi.oninput=()=>{q=qi.value.toLowerCase().trim();render()};
+
+function matches(p){return(tag==='all'||p[3].includes(tag))&&(!q||(p[1]+' '+p[2]+' '+p[3].join(' ')+' '+p[0]).toLowerCase().includes(q))}
+function render(){const list=PAGES.map((p,i)=>[p,i]).filter(([p])=>matches(p));const showSoon=tag==='all'&&!q;const soon=showSoon?[...Array(GOAL-PAGES.length)].map((_,k)=>PAGES.length+k):[];
+ document.getElementById('resultCount').textContent=`${list.length} page${list.length===1?'':'s'}${showSoon&&soon.length?` · ${soon.length} slots waiting`:''}`;
+ if(!list.length){out.innerHTML='<div class="empty">Nothing matches… yet. <i>Maybe in pages 51–100.</i></div>';return}
+ if(view==='grid')out.innerHTML=`<div class="grid">${list.map(([p,i],k)=>`<a class="tile" href="${href(p[0])}" data-i="${i}" style="animation-delay:${Math.min(k,24)*.03}s;--glow:${p[4][1]}55"><div class="art">${art(i,p[4])}<span class="num">${String(i+1).padStart(2,'0')}</span>${visited.has(p[0])?'<span class="seen">VISITED ✓</span>':''}</div><div class="body"><h3>${p[1]}</h3><p>${p[2]}</p><div class="tags">${p[3].map(t=>`<span>${t}</span>`).join('')}</div></div><span class="go">↗</span></a>`).join('')}${soon.map(i=>`<div class="tile soon" style="animation-delay:${Math.min(list.length,24)*.03}s"><div class="art"><span class="num">${i+1}</span><span class="mono" style="color:var(--dim);font-size:12px;letter-spacing:.2em">COMING SOON</span></div><div class="body"><h3>Page ${i+1}</h3><p>Reserved for something that doesn't exist yet.</p></div></div>`).join('')}</div>`;
+ else if(view==='list')out.innerHTML=`<div class="list">${list.map(([p,i])=>`<a class="row" href="${href(p[0])}" data-i="${i}"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="sw">${art(i,p[4])}</span><h3>${p[1]}${visited.has(p[0])?' <span class="mono" style="font-size:11px;color:var(--dim)">✓</span>':''}</h3><p>${p[2]}</p><span class="tg">${p[3].join(' · ')}</span><span>↗</span></a>`).join('')}${soon.slice(0,10).map(i=>`<div class="row soon"><span class="n">${i+1}</span><span class="sw" style="border:1px dashed var(--line)"></span><h3>Coming soon</h3><p>—</p><span class="tg"></span><span></span></div>`).join('')}</div>`;
+ else out.innerHTML=`<div class="mosaic">${list.map(([p,i])=>`<a href="${href(p[0])}" data-i="${i}" title="${p[1]}">${art(i,p[4])}<span>${i+1}</span></a>`).join('')}${soon.map(i=>`<div class="soon">${i+1}</div>`).join('')}</div>`}
+render();
+
+/* track visits */
+out.addEventListener('click',e=>{const a=e.target.closest('a[data-i]');if(!a)return;visited.add(PAGES[a.dataset.i][0]);store.set('idx-visited',[...visited])});
+
+/* live preview on hover (desktop) */
+let hoverT=null,curI=null;
+out.addEventListener('mouseover',e=>{const a=e.target.closest('a[data-i]');if(!a||matchMedia('(pointer:coarse)').matches)return;const i=+a.dataset.i;if(i===curI)return;curI=i;clearTimeout(hoverT);pre.classList.remove('on');
+ hoverT=setTimeout(()=>{pframe.src=href(PAGES[i][0]);document.getElementById('pcap').textContent=`${String(i+1).padStart(2,'0')} · ${PAGES[i][1].toUpperCase()} · LIVE PREVIEW`;pre.classList.add('on')},650)});
+out.addEventListener('mouseout',e=>{const to=e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest('a[data-i]');if(to)return;clearTimeout(hoverT);curI=null;pre.classList.remove('on');setTimeout(()=>{if(!pre.classList.contains('on'))pframe.src='about:blank'},300)});
+addEventListener('mousemove',e=>{const w=480,h=300;let x=e.clientX+24,y=e.clientY+24;if(x+w>innerWidth-10)x=e.clientX-w-24;if(y+h>innerHeight-10)y=innerHeight-h-10;pre.style.left=x+'px';pre.style.top=y+'px'});
+
+/* surprise & keys */
+function surprise(){const pool=PAGES.filter(p=>!visited.has(p[0]));const pick=(pool.length?pool:PAGES)[Math.random()*(pool.length||PAGES.length)|0];visited.add(pick[0]);store.set('idx-visited',[...visited]);document.body.style.transition='opacity .4s';document.body.style.opacity=0;setTimeout(()=>location.href=href(pick[0]),350)}
+document.getElementById('surprise').onclick=surprise;
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT'){if(e.key==='Escape'){qi.value='';q='';render();qi.blur()}return}if(e.key==='/'){e.preventDefault();qi.focus()}if(e.key.toLowerCase()==='r')surprise()});
+addEventListener('pageshow',()=>{document.body.style.opacity=1});
+
+/* theme */
+const root=document.documentElement;const th=store.get('idx-theme',null);if(th)root.dataset.theme=th;
+document.getElementById('themeBtn').onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';store.set('idx-theme',root.dataset.theme)};
+
+/* ambient background: drifting palette orbs from all pages */
+const bg=document.getElementById('bgfx'),g=bg.getContext('2d');let orbs=[];function bs(){bg.width=innerWidth;bg.height=innerHeight;orbs=PAGES.slice(0,18).map((p,i)=>({x:Math.random()*bg.width,y:Math.random()*bg.height,r:120+Math.random()*220,c:p[4][1],vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25}))}bs();addEventListener('resize',bs);
+(function orb(){g.clearRect(0,0,bg.width,bg.height);g.globalCompositeOperation=root.dataset.theme==='light'?'multiply':'screen';orbs.forEach(o=>{o.x+=o.vx;o.y+=o.vy;if(o.x<-o.r)o.x=bg.width+o.r;if(o.x>bg.width+o.r)o.x=-o.r;if(o.y<-o.r)o.y=bg.height+o.r;if(o.y>bg.height+o.r)o.y=-o.r;const gr=g.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r);gr.addColorStop(0,o.c+'22');gr.addColorStop(1,o.c+'00');g.fillStyle=gr;g.beginPath();g.arc(o.x,o.y,o.r,0,7);g.fill()});requestAnimationFrame(orb)})();
+</script>
+</body>
+</html>

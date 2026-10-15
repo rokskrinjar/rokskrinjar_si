@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eventful — Event & webinar ROI</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#fdf3ea;--ink:#20140f;--ink2:#5a4a40;--ink3:#8d7c70;--grid:#f1e6dc;--s1:#7c3aed;--s2:#ea580c;--s3:#0891b2;--s4:#db2777;--s5:#65a30d;--q1:#ede5fd;--q2:#d6c4fb;--q3:#b393f6;--q4:#9061f0;--q5:#7c3aed;--q6:#5b21b6;--pos:#7c3aed;--neg:#c93a39;--good:#0f7a52;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Bricolage Grotesque',sans-serif}
+.top{display:flex;align-items:center;gap:18px;padding:18px 30px;flex-wrap:wrap}
+.lg{font-weight:800;font-size:22px;letter-spacing:-.03em;display:flex;gap:8px;align-items:center}.lg i{font-style:normal;background:var(--s2);color:#fff;border-radius:8px;padding:2px 8px;font-size:15px;transform:rotate(-4deg)}
+.top .sp{flex:1}.src{display:flex;gap:6px;flex-wrap:wrap}.src span{background:#fff;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;color:var(--ink2)}
+.tabs{display:flex;gap:8px;padding:0 30px 4px;flex-wrap:wrap}.tabs button{border:2px solid var(--ink);background:#fff;border-radius:999px;padding:7px 15px;font:600 13.5px 'Bricolage Grotesque';cursor:pointer}.tabs button.on{background:var(--ink);color:#fff}
+.wrap{padding:14px 30px 70px;max-width:1440px;margin:0 auto}
+.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}.filters select{border:0;background:#fff;border-radius:10px;padding:8px 12px;font:600 13px 'Bricolage Grotesque'}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--surface);border-radius:20px;padding:16px 18px}.kpi .l{font-size:13px;color:var(--ink3);font-weight:600}.kpi .v{font-size:30px;font-weight:800;letter-spacing:-.03em}.kpi .d{font-size:12px;font-weight:700}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border-radius:22px;padding:20px 22px;min-width:0}.card h3{margin:0;font-size:16px;font-weight:800;letter-spacing:-.01em}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.ev{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}.evc{background:var(--surface);border-radius:20px;padding:16px;cursor:pointer;border:2px solid transparent}.evc.on{border-color:var(--ink)}
+.evc .t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--s2)}.evc b{display:block;font-size:17px;margin:2px 0}.evc .m{display:flex;gap:14px;font-size:12.5px;color:var(--ink2);margin-top:8px}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21,.ev{grid-template-columns:1fr}.src{display:none}}@media(max-width:640px){.wrap,.top,.tabs{padding-left:16px;padding-right:16px}.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="top"><div class="lg">Event<i>ful</i></div><span class="sp"></span><div class="src"><span>● Cvent</span><span>● ON24</span><span>● Zoom Webinars</span><span>● HubSpot</span><span>● Salesforce</span><span>● Badge scans (Popl)</span></div></div>
+<nav class="tabs"><button data-sheet="portfolio">Event portfolio</button><button data-sheet="one">Single event</button><button data-sheet="influence">Pipeline influence</button><button data-sheet="follow">Follow-up</button><button data-sheet="webinars">Webinars</button></nav>
+<div class="wrap"><div class="filters"><select data-f="range"><option value="12m">Last 12 months</option><option value="ytd">This year</option></select><select data-f="type"><option value="all">All event types</option><option value="field">Field events & roadshows</option><option value="conf">Conferences & booths</option><option value="web">Webinars</option></select></div>
+ <section data-panel="portfolio"><div class="kpis" id="k1"></div>
+  <div class="g g21"><div class="card"><h3>Cost vs. pipeline influenced</h3><p class="sub">Each bubble is an event; size = attendees. Influenced = an attendee on the opp’s buying group within 90 days.</p><div id="c_sc"></div></div><div class="card"><h3>Pipeline per $1 by event type</h3><p class="sub">Influenced pipeline ÷ total cost (venue, travel, sponsorship, swag)</p><div id="c_type"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>All events</h3><p class="sub">Click a row to open it in “Single event”</p><div id="t_ev"></div></div></section>
+ <section data-panel="one" hidden><div class="ev" id="pick"></div><div class="kpis" id="k2"></div>
+  <div class="g g2"><div class="card"><h3>From invite to pipeline</h3><p class="sub" id="evsub"></p><div id="c_ef"></div></div><div class="card"><h3>Who showed up</h3><p class="sub">Attendees by role (Clearbit + HubSpot job title)</p><div id="c_role"></div></div></div></section>
+ <section data-panel="influence" hidden><div class="kpis" id="k3"></div>
+  <div class="card"><h3>Pipeline touched by events, by month</h3><p class="sub">Sourced = event was the first touch · Accelerated = an existing opp moved forward within 30 days of the event</p><div id="c_inf"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Win rate: deals with vs. without an event touch</h3><p class="sub">Closed opportunities by segment</p><div id="c_wr"></div></div></section>
+ <section data-panel="follow" hidden><div class="kpis" id="k4"></div>
+  <div class="g g2"><div class="card"><h3>How fast sales followed up</h3><p class="sub">Hours from badge scan to first sales touch (Outreach)</p><div id="c_fu"></div></div><div class="card"><h3>Meeting rate by follow-up speed</h3><p class="sub">Share of scanned leads that booked a meeting</p><div id="c_mr"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Hot attendees still waiting</h3><p class="sub">Talked to a rep at the booth or attended 2+ sessions, no follow-up yet</p><div id="t_wait"></div></div></section>
+ <section data-panel="webinars" hidden><div class="kpis" id="k5"></div>
+  <div class="g g2"><div class="card"><h3>Registrations vs. live attendance</h3><p class="sub">Per webinar</p><div id="c_reg"></div></div><div class="card"><h3>When people drop off</h3><p class="sub">Share of live audience still watching, by minute (ON24)</p><div id="c_drop"></div></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const EV=[['SaaStr Annual','conf','Sep 10–12',182e3],['Lisbon Exec Dinner','field','Sep 18',14e3],['AI Ops Summit booth','conf','Jun 4–5',96e3],['London roadshow','field','May 21',41e3],['Webinar: AI ops in practice','web','Aug 27',6e3],['Gartner Data & Analytics','conf','Mar 18–20',140e3],['Nordics customer day','field','Apr 9',28e3],['Webinar: SOC 2 in 30 days','web','Jul 15',5e3],['Berlin breakfast series','field','Jun 19',19e3],['Webinar: Board metrics','web','Jun 3',4e3]];
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const evs=EV.filter(e=>F.type==='all'||e[1]===F.type).map(([n,t,d,c])=>{const att=t==='web'?Math.round(300+r()*500):t==='conf'?Math.round(400+r()*900):Math.round(20+r()*60);const eff=t==='field'?14+r()*10:t==='web'?20+r()*30:4+r()*5;return{n,t,d,cost:c*(F.range==='ytd'?.85:1),att,pipe:c*eff,opps:Math.round(c*eff/90e3)+1,won:c*eff*.27}});return memo[k]={r,evs,L:K.periods(F.range)}}
+const S={range:'12m',type:'all'};let SEL=0;const TN={field:'Field event',conf:'Conference',web:'Webinar'};
+const views={
+portfolio(F){const D=data(F);const c=K.sum(D.evs.map(e=>e.cost)),p=K.sum(D.evs.map(e=>e.pipe));
+ K.kpis($('k1'),[{label:'Event spend',value:K.money(c)},{label:'Pipeline influenced',value:K.money(p),delta:.17},{label:'Pipeline per $1',value:K.x(p/c)},{label:'Attendees',value:K.num(K.sum(D.evs.map(e=>e.att)))},{label:'Closed-won influenced',value:K.money(K.sum(D.evs.map(e=>e.won)))}]);
+ const TT=['field','conf','web'];K.scatter($('c_sc'),{points:D.evs.map(e=>({x:e.cost,y:e.pipe,r:e.att,g:TT.indexOf(e.t),label:e.n,tag:e.pipe===Math.max(...D.evs.map(z=>z.pipe)),extra:[['Attendees',K.int(e.att)],['Date',e.d]]})),groups:['Field events','Conferences','Webinars'],xfmt:K.money,yfmt:K.money,xLabel:'Total cost',yLabel:'Pipeline influenced',h:300});
+ const by=TT.map(t=>{const es=D.evs.filter(e=>e.t===t);return es.length?K.sum(es.map(e=>e.pipe))/K.sum(es.map(e=>e.cost)):0});K.bars($('c_type'),{labels:['Field events','Conferences','Webinars'],series:[{name:'Pipeline per $1',data:by}],fmt:v=>K.x(v),h:300,colorBy:i=>K.S(i)});
+ K.table($('t_ev'),{cols:[{k:'n',label:'Event'},{k:'tt',label:'Type'},{k:'d',label:'Date'},{k:'cost',label:'Cost',align:'r',fmt:K.money},{k:'att',label:'Attendees',align:'r',fmt:K.int},{k:'opps',label:'Opps',align:'r'},{k:'pipe',label:'Pipeline',align:'r',fmt:K.money,bar:true},{k:'roi',label:'Per $1',align:'r',fmt:v=>K.x(v)}],rows:D.evs.map((e,i)=>({...e,i,tt:TN[e.t],roi:e.pipe/e.cost})),sort:'pipe',onRow:row=>{SEL=row.i;app.go('one')}})},
+one(F){const D=data(F);if(SEL>=D.evs.length)SEL=0;const e=D.evs[SEL];
+ $('pick').innerHTML=D.evs.slice(0,6).map((x,i)=>`<div class="evc ${i===SEL?'on':''}" data-i="${i}"><span class="t">${TN[x.t]} · ${x.d}</span><b>${x.n}</b><div class="m"><span>${K.money(x.cost)} cost</span><span>${K.int(x.att)} attendees</span><span>${K.money(x.pipe)} pipeline</span></div></div>`).join('');document.querySelectorAll('#pick .evc').forEach(c=>c.onclick=()=>{SEL=+c.dataset.i;views.one(F)});
+ K.kpis($('k2'),[{label:'Invited',value:K.int(e.att*3.4)},{label:'Attended',value:K.int(e.att)},{label:'Meetings booked',value:K.int(e.att*.11)},{label:'Opportunities',value:K.int(e.opps)},{label:'Pipeline / cost',value:K.x(e.pipe/e.cost)}]);
+ $('evsub').textContent=e.n+' · '+e.d;K.funnel($('c_ef'),{steps:[['Invited',e.att*3.4],['Registered',e.att*1.6],['Attended',e.att],['Engaged at booth / Q&A',e.att*.38],['Meeting booked',e.att*.11],['Opportunity',e.opps]].map(x=>[x[0],Math.round(x[1])])});
+ K.donut($('c_role'),{items:[{name:'Executive (VP+)',value:.18},{name:'Director',value:.27},{name:'Manager',value:.31},{name:'Practitioner',value:.24}],fmt:v=>K.pct(v,0)})},
+influence(F){const D=data(F);const r=K.rng(K.seed(F,'inf'));const n=D.L.length;const sc=K.sum(D.evs.map(e=>e.pipe))/n;
+ K.kpis($('k3'),[{label:'Event-sourced pipeline',value:K.money(sc*n*.38)},{label:'Accelerated pipeline',value:K.money(sc*n*.62)},{label:'Opps with any event touch',value:'41%'},{label:'Win rate lift',value:'+11 pts'},{label:'Cycle with event touch',value:'−18 days'}]);
+ K.bars($('c_inf'),{labels:D.L,series:[{name:'Sourced',data:K.series(r,n,sc*.38,{noise:.5})},{name:'Accelerated',data:K.series(r,n,sc*.62,{noise:.4})}],stacked:true,fmt:K.money,h:270});
+ K.bars($('c_wr'),{labels:['SMB','Mid-market','Enterprise'],series:[{name:'No event touch',data:[.21,.19,.14]},{name:'Event touch',data:[.27,.31,.29]}],fmt:v=>K.pct(v,0),h:240})},
+follow(F){const D=data(F);K.kpis($('k4'),[{label:'Leads scanned',value:K.int(K.sum(D.evs.filter(e=>e.t!=='web').map(e=>e.att)))},{label:'Followed up < 24 h',value:'54%',delta:.12,deltaText:'12 pts'},{label:'Median time to follow-up',value:'19 h'},{label:'Never followed up',value:'9%',delta:-.05,goodDown:true,deltaText:'5 pts'},{label:'Meetings booked',value:K.int(K.sum(D.evs.map(e=>e.att))*.09)}]);
+ K.bars($('c_fu'),{labels:['< 4 h','4–24 h','1–3 days','3–7 days','> 7 days','Never'],series:[{name:'Share of leads',data:[.21,.33,.22,.1,.05,.09]}],fmt:v=>K.pct(v,0),h:250});
+ K.bars($('c_mr'),{labels:['< 4 h','4–24 h','1–3 days','3–7 days','> 7 days'],series:[{name:'Meeting rate',data:[.24,.17,.1,.05,.02]}],fmt:v=>K.pct(v,0),h:250});
+ const r=K.rng(K.seed(F,'w'));K.table($('t_wait'),{cols:[{k:'n',label:'Attendee'},{k:'c',label:'Company'},{k:'t',label:'Title'},{k:'ev',label:'Event'},{k:'sig',label:'Signal'},{k:'h',label:'Hours waiting',align:'r',bar:true}],rows:[['Ingrid S.','Halden Bank','CFO'],['Marco T.','Brightline Insurance','CISO'],['Lea V.','Velo Mobility','Head of RevOps'],['Tom H.','Arden Mutual','VP Finance'],['Priya N.','Fernway','Director Sales Ops']].map((x,i)=>({n:x[0],c:x[1],t:x[2],ev:D.evs[i%D.evs.length].n,sig:K.pick(r,['Booth conversation','2 sessions','Asked for pricing','Scanned at demo']),h:Math.round(20+r()*90)})),sort:'h'})},
+webinars(F){const D=data(F);const W=EV.filter(e=>e[1]==='web');const r=K.rng(K.seed(F,'wb'));
+ K.kpis($('k5'),[{label:'Webinars',value:String(W.length)},{label:'Registrations',value:K.int(3100)},{label:'Live attendance rate',value:'38%'},{label:'On-demand views',value:K.int(2240)},{label:'Avg watch time',value:'31 min'}]);
+ K.bars($('c_reg'),{labels:W.map(w=>w[0].replace('Webinar: ','')),series:[{name:'Registered',data:[1240,980,880]},{name:'Attended live',data:[470,395,301]}],fmt:K.int,h:260});
+ K.line($('c_drop'),{labels:Array.from({length:13},(_,i)=>i*5+' min'),series:W.map((w,j)=>({name:w[0].replace('Webinar: ',''),data:Array.from({length:13},(_,i)=>Math.max(.15,1-i*(.045+j*.01)-(i>9?.12:0)*r()))})),fmt:v=>K.pct(v,0),h:260})}};
+const app=K.app({views,state:S});
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Partnerly — Partner & channel revenue</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#f4f6fb;--ink:#101828;--ink2:#475467;--ink3:#7d8799;--grid:#e8ebf2;--s1:#1d4ed8;--s2:#c2410c;--s3:#0e9f6e;--s4:#a21caf;--s5:#ca8a04;--q1:#dbe5fb;--q2:#b3c8f5;--q3:#7fa1ec;--q4:#4a77df;--q5:#1d4ed8;--q6:#163a9e;--pos:#1d4ed8;--neg:#c93a39;--good:#0f7a52;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Plus Jakarta Sans',sans-serif}
+.hero{background:linear-gradient(120deg,#0b1b4d,#1d4ed8);color:#fff;padding:22px 32px 70px}
+.hrow{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.lg{font-weight:800;font-size:20px;display:flex;align-items:center;gap:9px}.lg svg{width:26px}.hrow .sp{flex:1}.hrow small{opacity:.75}
+.hero h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:18px 0 4px}.hero p{margin:0;opacity:.8}
+.tabs{display:flex;gap:6px;margin-top:18px;flex-wrap:wrap}.tabs button{border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;border-radius:999px;padding:7px 14px;font:600 13px 'Plus Jakarta Sans';cursor:pointer}.tabs button.on{background:#fff;color:#0b1b4d}
+.wrap{padding:0 32px 70px;margin-top:-50px;max-width:1440px;margin-left:auto;margin-right:auto}
+.filters{display:flex;gap:8px;flex-wrap:wrap;background:var(--surface);border-radius:14px;padding:10px;box-shadow:0 8px 24px rgba(16,24,40,.08);margin-bottom:16px;align-items:center}
+.filters select{border:1px solid var(--grid);border-radius:9px;padding:7px 10px;font:600 13px 'Plus Jakarta Sans';background:#fff}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--surface);border-radius:16px;padding:16px;box-shadow:0 2px 8px rgba(16,24,40,.04)}.kpi .l{font-size:12.5px;color:var(--ink3);font-weight:600}.kpi .v{font-size:26px;font-weight:800;letter-spacing:-.02em}.kpi .d{font-size:12px;font-weight:700}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border-radius:18px;padding:18px 20px;box-shadow:0 2px 8px rgba(16,24,40,.04);min-width:0}.card h3{margin:0;font-size:15px;font-weight:800}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.tier{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}.t-p{background:#1d4ed8;color:#fff}.t-g{background:#e7edfd;color:#1d4ed8}.t-s{background:#f2f4f7;color:var(--ink2)}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}}@media(max-width:640px){.wrap,.hero{padding-left:16px;padding-right:16px}.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hrow"><div class="lg"><svg viewBox="0 0 26 26"><circle cx="9" cy="13" r="7" fill="none" stroke="#fff" stroke-width="2.5"/><circle cx="17" cy="13" r="7" fill="none" stroke="#7fa1ec" stroke-width="2.5"/></svg>Partnerly</div><span class="sp"></span><small>Salesforce · PartnerStack · Crossbeam account overlaps · AWS & Azure Marketplace · HubSpot</small></div>
+ <h1 id="ttl">Partner ecosystem</h1><p id="sub">How much revenue our partners source, influence and resell</p>
+ <nav class="tabs"><button data-sheet="eco">Ecosystem</button><button data-sheet="partners">Partner scorecard</button><button data-sheet="overlap">Account overlaps</button><button data-sheet="market">Marketplaces</button><button data-sheet="payouts">Payouts</button></nav></div>
+<div class="wrap"><div class="filters"><select data-f="range"><option value="90d">This quarter</option><option value="12m" selected>Last 12 months</option></select><select data-f="type"><option value="all">All partner types</option><option value="si">Systems integrators</option><option value="tech">Technology partners</option><option value="res">Resellers</option></select><select data-f="region"><option value="all">Global</option><option value="na">North America</option><option value="emea">EMEA</option></select></div>
+ <section data-panel="eco"><div class="kpis" id="k1"></div>
+  <div class="g g21"><div class="card"><h3>Partner-sourced vs. partner-influenced revenue</h3><p class="sub">Sourced = partner registered the deal · Influenced = partner touched an existing opp (Crossbeam + PartnerStack)</p><div id="c_si"></div></div><div class="card"><h3>Win rate with vs. without a partner</h3><p class="sub">Closed opportunities</p><div id="c_wr"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Deal journey through partners</h3><p class="sub">Partner type → how they helped → outcome (deal count)</p><div id="c_sk"></div></div></section>
+ <section data-panel="partners" hidden><div class="card"><h3>Partner scorecard</h3><p class="sub">Sorted by revenue sourced. Tier from the partner programme in PartnerStack.</p><div id="t_p"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Tier targets</h3><p class="sub">Revenue sourced vs. annual tier commitment</p><div id="c_bul"></div></div></section>
+ <section data-panel="overlap" hidden><div class="kpis" id="k3"></div>
+  <div class="g g2"><div class="card"><h3>Shared accounts by partner</h3><p class="sub">Crossbeam: their customers that are our open opps or targets</p><div id="c_ov"></div></div><div class="card"><h3>Overlap → opportunity conversion</h3><p class="sub">Shared accounts where we requested an intro</p><div id="c_ovf"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Intros worth asking for this week</h3><p class="sub">Target account is the partner’s active customer, and the partner rep has a relationship with the buyer</p><div id="t_intro"></div></div></section>
+ <section data-panel="market" hidden><div class="kpis" id="k4"></div>
+  <div class="g g2"><div class="card"><h3>Marketplace bookings</h3><p class="sub">Private offers + public listings, by month</p><div id="c_mk"></div></div><div class="card"><h3>Committed-spend draw-down</h3><p class="sub">Share of deals paid from customers’ cloud commitments</p><div id="c_cs"></div></div></div></section>
+ <section data-panel="payouts" hidden><div class="kpis" id="k5"></div>
+  <div class="card"><h3>Commissions and MDF paid</h3><p class="sub">PartnerStack payouts, by month</p><div id="c_pay"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Return on partner spend</h3><p class="sub">Sourced revenue per $1 paid (commission + MDF), by partner type</p><div id="c_ret"></div></div></section>
+</div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const TT={eco:['Partner ecosystem','How much revenue partners source, influence and resell'],partners:['Partner scorecard','Who delivers, by programme tier'],overlap:['Account overlaps','Where our pipeline meets their customer base'],market:['Cloud marketplaces','Bookings through AWS & Azure'],payouts:['Payouts','What partners cost us, and what they return']};
+const P=[['Northstar Consulting','si','Platinum'],['Brightpath Digital','si','Gold'],['Kova Systems','si','Silver'],['Snowfield (tech)','tech','Platinum'],['Ledgerline (tech)','tech','Gold'],['Relay (tech)','tech','Silver'],['CloudWorks Resale','res','Gold'],['Nordic IT Partners','res','Silver'],['Iberia Cloud','res','Silver']];
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const m=F.range==='90d'?.27:1;const f={all:1,na:.55,emea:.45}[F.region];const L=K.periods(F.range);
+ const ps=P.filter(p=>F.type==='all'||p[1]===F.type).map(([n,t,tier])=>({n,t,tier,src:(tier==='Platinum'?1.6e6:tier==='Gold'?800e3:300e3)*(.6+r()*.8)*m*f,inf:(tier==='Platinum'?2.4e6:1e6)*(.5+r()*.9)*m*f,deals:Math.round((tier==='Platinum'?24:12)*(.6+r()*.8)*m*f+1),wr:.25+r()*.25,commit:(tier==='Platinum'?1.8e6:tier==='Gold'?900e3:350e3)*m*f}));
+ return memo[k]={r,m,f,L,ps}}
+const S={range:'12m',type:'all',region:'all'};const set=s=>{$('ttl').textContent=TT[s][0];$('sub').textContent=TT[s][1]};
+const tierEl=v=>{const s=document.createElement('span');s.className='tier '+(v==='Platinum'?'t-p':v==='Gold'?'t-g':'t-s');s.textContent=v;return s};
+const views={
+eco(F){set('eco');const D=data(F);const src=K.sum(D.ps.map(p=>p.src)),inf=K.sum(D.ps.map(p=>p.inf));
+ K.kpis($('k1'),[{label:'Partner-sourced revenue',value:K.money(src),delta:.24},{label:'Partner-influenced revenue',value:K.money(inf),delta:.18},{label:'Share of total bookings',value:'31%',delta:.04,deltaText:'4 pts'},{label:'Active partners',value:K.int(D.ps.length*7)},{label:'Avg deal size with partner',value:K.money(src/K.sum(D.ps.map(p=>p.deals)))}]);
+ const n=D.L.length;K.bars($('c_si'),{labels:D.L,series:[{name:'Sourced',data:K.series(D.r,n,src/n,{noise:.3,trend:.3})},{name:'Influenced',data:K.series(D.r,n,inf/n,{noise:.25,trend:.2})}],stacked:true,fmt:K.money,h:260});
+ K.bars($('c_wr'),{labels:['No partner','Tech partner','Systems integrator','Reseller'],series:[{name:'Win rate',data:[.21,.29,.34,.27]}],fmt:v=>K.pct(v,0),h:260});
+ const s=v=>Math.round(v*D.m*D.f);K.sankey($('c_sk'),{nodes:[['si','Systems integrators',0,0],['te','Tech partners',0,1],['re','Resellers',0,2],['so','Sourced the deal',1,0],['in','Intro to buyer',1,1],['co','Co-sell on call',1,3],['im','Implementation',1,4],['w','Won',2,2],['l','Lost / open',2,1]],links:[['si','so',s(40)],['si','im',s(55)],['si','co',s(25)],['te','in',s(70)],['te','co',s(35)],['re','so',s(45)],['re','in',s(15)],['so','w',s(36)],['so','l',s(49)],['in','w',s(31)],['in','l',s(54)],['co','w',s(26)],['co','l',s(34)],['im','w',s(30)],['im','l',s(25)]],h:300,fmt:K.int})},
+partners(F){set('partners');const D=data(F);
+ K.table($('t_p'),{cols:[{k:'n',label:'Partner'},{k:'tier',label:'Tier',render:tierEl},{k:'tt',label:'Type'},{k:'deals',label:'Deals',align:'r'},{k:'src',label:'Sourced',align:'r',fmt:K.money,bar:true},{k:'inf',label:'Influenced',align:'r',fmt:K.money},{k:'wr',label:'Win rate',align:'r',fmt:v=>K.pct(v,0)}],rows:D.ps.map(p=>({...p,tt:{si:'Systems integrator',tech:'Technology',res:'Reseller'}[p.t]})),sort:'src'});
+ K.bullet($('c_bul'),{rows:D.ps.map(p=>[p.n,p.src,p.commit]),fmt:K.money})},
+overlap(F){set('overlap');const D=data(F);const r=K.rng(K.seed(F,'o'));
+ K.kpis($('k3'),[{label:'Shared accounts',value:K.int(1840*D.f)},{label:'…that are our open opps',value:K.int(212*D.f)},{label:'Intros requested',value:K.int(96*D.f*D.m+4)},{label:'Intro → opp rate',value:'38%'},{label:'Win rate with intro',value:'36%'}]);
+ K.bars($('c_ov'),{labels:D.ps.map(p=>p.n),series:[{name:'Their customers in our pipeline',data:D.ps.map(()=>Math.round((10+r()*60)*D.f))},{name:'Their customers in our target list',data:D.ps.map(()=>Math.round((30+r()*160)*D.f))}],stacked:true,horizontal:true,fmt:K.int,h:320});
+ K.funnel($('c_ovf'),{steps:[['Shared accounts',Math.round(1840*D.f)],['Intro requested',Math.round(260*D.f)],['Intro made',Math.round(190*D.f)],['Opportunity',Math.round(72*D.f)],['Won',Math.round(26*D.f)]]});
+ K.table($('t_intro'),{cols:[{k:'a',label:'Target account'},{k:'p',label:'Partner'},{k:'rel',label:'Their contact'},{k:'pot',label:'Potential ACV',align:'r',fmt:K.money,bar:true},{k:'st',label:'Our status'}],rows:['Brightline Insurance','Norra Pensions','Cobalt Payments','Arden Mutual','Helix Pharma','Vesta Logistics'].map((a,i)=>({a,p:D.ps[i%D.ps.length].n,rel:K.pick(r,['CIO — strong','VP Ops — medium','CFO — strong','Head of IT — weak']),pot:(60e3+r()*300e3),st:K.pick(r,['Target, no contact','Cold outreach','Lost 2025'])})),sort:'pot'})},
+market(F){set('market');const D=data(F);const n=D.L.length;
+ K.kpis($('k4'),[{label:'Marketplace bookings',value:K.money(3.1e6*D.m*D.f),delta:.42},{label:'Private offers',value:K.int(38*D.m*D.f+2)},{label:'Avg private-offer size',value:K.money(81e3)},{label:'Paid from cloud commits',value:'64%'},{label:'Marketplace fees',value:K.money(3.1e6*D.m*D.f*.03)}]);
+ K.bars($('c_mk'),{labels:D.L,series:[{name:'AWS Marketplace',data:K.series(D.r,n,3.1e6*D.m*D.f*.66/n,{trend:.6,noise:.35})},{name:'Azure Marketplace',data:K.series(D.r,n,3.1e6*D.m*D.f*.34/n,{trend:.9,noise:.4})}],stacked:true,fmt:K.money,h:260});
+ K.donut($('c_cs'),{items:[{name:'Drew down cloud commit',value:64},{name:'New budget',value:27},{name:'Mixed',value:9}],fmt:v=>v+'%'})},
+payouts(F){set('payouts');const D=data(F);const n=D.L.length;const src=K.sum(D.ps.map(p=>p.src));
+ K.kpis($('k5'),[{label:'Commissions paid',value:K.money(src*.15)},{label:'MDF paid',value:K.money(src*.04)},{label:'Pending payouts',value:K.money(src*.03)},{label:'Revenue per $1 paid',value:K.x(1/.19)},{label:'Clawbacks',value:K.money(src*.004)}]);
+ K.bars($('c_pay'),{labels:D.L,series:[{name:'Commission',data:K.series(D.r,n,src*.15/n,{noise:.3})},{name:'MDF',data:K.series(D.r,n,src*.04/n,{noise:.5})}],stacked:true,fmt:K.money,h:260});
+ K.bars($('c_ret'),{labels:['Systems integrators','Technology partners','Resellers'],series:[{name:'Revenue per $1 paid',data:[6.1,9.4,3.8]}],fmt:v=>K.x(v),horizontal:true,h:200})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Pixel Picross</title>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none}
+body{background:#8b956d;font-family:Silkscreen,monospace;color:#0f380f;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:40px 8px 10px}
+.shell{background:#c4cfa1;border-radius:14px 14px 40px 14px;padding:14px;box-shadow:inset 0 -6px 0 #9aa57a,0 10px 30px #0004}
+h1{font-size:clamp(20px,6vw,30px);text-align:center;letter-spacing:.05em}h1 span{color:#306230}
+.bar{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;font-size:11px;margin:6px 0}.bar button{font:inherit;font-size:11px;border:2px solid #0f380f;background:#9bbc0f;color:#0f380f;padding:4px 8px;cursor:pointer}.bar button.on{background:#0f380f;color:#9bbc0f}
+.info{font-size:11px;text-align:center}
+.screen{background:#9bbc0f;padding:8px;border:4px solid #306230;display:inline-block}
+.wrap{display:grid;grid-template-columns:auto auto;grid-template-rows:auto auto}
+.colc{display:grid;grid-template-columns:repeat(var(--n),var(--s));grid-column:2;align-items:end}
+.colc div{display:flex;flex-direction:column;align-items:center;font-size:calc(var(--s)*.42);line-height:1.15;padding-bottom:3px}.colc div.ok,.rowc div.ok{color:#8bac0f}
+.rowc{display:grid;grid-template-rows:repeat(var(--n),var(--s));grid-row:2}.rowc div{display:flex;align-items:center;justify-content:flex-end;gap:4px;font-size:calc(var(--s)*.42);padding-right:4px}
+.grid{display:grid;grid-template-columns:repeat(var(--n),var(--s));grid-template-rows:repeat(var(--n),var(--s));grid-column:2;grid-row:2;border:2px solid #0f380f;background:#8bac0f}
+.cl{border:1px solid #30623055;display:grid;place-items:center;font-size:calc(var(--s)*.5);cursor:pointer}.cl.f{background:#0f380f}.cl.x::after{content:'×';color:#306230}.cl.kb{outline:2px solid #e0f8d0;outline-offset:-3px}
+.cl.b5r{border-bottom:2px solid #0f380f}.cl.b5c{border-right:2px solid #0f380f}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#8b956dee}.ov.on{display:grid}
+.ov h2{font-size:clamp(28px,9vw,48px)}.ov p{margin:10px 0 18px;font-size:12px;line-height:1.8}
+.ov button{font:inherit;font-size:14px;border:3px solid #0f380f;background:#9bbc0f;color:#0f380f;padding:10px 20px;cursor:pointer}
+.prev{display:grid;margin:10px auto;border:3px solid #0f380f;width:max-content}
+.back{position:fixed;left:12px;top:12px;color:#0f380f;text-decoration:none;font-size:11px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="back" href="index.html">← games</a>
+<div class="shell">
+<h1>PIXEL <span>PICROSS</span></h1>
+<div class="bar" id="sz"><button data-n="5">5×5</button><button data-n="10" class="on">10×10</button><button data-n="15">15×15</button><button id="mode">▣ FILL</button></div>
+<div class="info" id="info">TIME 0:00 · BEST –</div>
+<div class="screen"><div class="wrap" id="wrap"><div></div><div class="colc" id="colc"></div><div class="rowc" id="rowc"></div><div class="grid" id="grid"></div></div></div>
+</div>
+<div class="info">Tap fills · long-press / X-mode marks ×. Drag to paint.<br>Keys: arrows · Space fill · X mark</div>
+<div class="ov" id="ov"><div><h2>CLEAR!</h2><div class="prev" id="prev"></div><p id="op"></p><button id="go">NEXT PUZZLE</button></div></div>
+<script>
+const K='best-pixel-picross';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let n=10,sol,cur,xMode=false,sel=0,t0,timer,done=false,best=ls.g(K,{});if(typeof best!=='object'||!best)best={};
+const gridEl=document.getElementById('grid'),colc=document.getElementById('colc'),rowc=document.getElementById('rowc');
+let AC;function tone(f,d=.05,type='square',v=.03){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function clue(a){const o=[];let r=0;a.forEach(v=>{if(v)r++;else if(r){o.push(r);r=0}});if(r)o.push(r);return o.length?o:[0]}
+function row(g,i){return g.slice(i*n,i*n+n)}function col(g,j){return[...Array(n)].map((_,i)=>g[i*n+j])}
+function genImg(){let g=[...Array(n*n)].map(()=>Math.random()<.5?1:0);// smooth once for shapes
+ const s=g.slice();for(let i=0;i<n;i++)for(let j=0;j<n;j++){let c=0;for(let di=-1;di<=1;di++)for(let dj=-1;dj<=1;dj++){const a=i+di,b=j+dj;if(a>=0&&b>=0&&a<n&&b<n)c+=g[a*n+b]}s[i*n+j]=c>=7?1:c<=2?0:g[i*n+j]}
+ if(s.every(v=>!v)||s.every(v=>v))return genImg();for(let i=0;i<n;i++){if(!row(s,i).some(Boolean))s[i*n+(Math.random()*n|0)]=1}return s}
+function newPuzzle(){sol=genImg();cur=Array(n*n).fill(0);done=false;sel=0;build();t0=Date.now();clearInterval(timer);timer=setInterval(info,1000);info();document.getElementById('ov').classList.remove('on')}
+function size(){const s=Math.floor(Math.min((innerWidth-60)/(n*1.45),(innerHeight-290)/(n*1.45),40));document.getElementById('wrap').style.setProperty('--s',s+'px');document.getElementById('wrap').style.setProperty('--n',n)}
+addEventListener('resize',size);
+function build(){size();colc.innerHTML='';rowc.innerHTML='';gridEl.innerHTML='';for(let j=0;j<n;j++){const d=document.createElement('div');d.innerHTML=clue(col(sol,j)).map(v=>`<span>${v}</span>`).join('');colc.appendChild(d)}
+ for(let i=0;i<n;i++){const d=document.createElement('div');d.innerHTML=clue(row(sol,i)).map(v=>`<span>${v}</span>`).join('');rowc.appendChild(d)}
+ for(let k=0;k<n*n;k++){const c=document.createElement('div');c.className='cl'+((k/n|0)%5===4&&(k/n|0)<n-1?' b5r':'')+(k%5===4&&k%n<n-1?' b5c':'');c.dataset.k=k;gridEl.appendChild(c)}paint()}
+function paint(){const cells=gridEl.children;for(let k=0;k<n*n;k++){cells[k].classList.toggle('f',cur[k]===1);cells[k].classList.toggle('x',cur[k]===2);cells[k].classList.toggle('kb',k===sel&&kbOn)}
+ for(let i=0;i<n;i++)rowc.children[i].classList.toggle('ok',clue(row(cur,i).map(v=>v===1)).join()===clue(row(sol,i)).join());for(let j=0;j<n;j++)colc.children[j].classList.toggle('ok',clue(col(cur,j).map(v=>v===1)).join()===clue(col(sol,j)).join())}
+function info(){if(done)return;const s=Math.floor((Date.now()-t0)/1000);const b=best[n];document.getElementById('info').textContent=`TIME ${s/60|0}:${String(s%60).padStart(2,'0')} · BEST ${b?`${b/60|0}:${String(b%60).padStart(2,'0')}`:'–'}`}
+function setCell(k,v){if(done||cur[k]===v)return;cur[k]=v;tone(v===1?440:v===2?220:330);paint();check()}
+function check(){for(let i=0;i<n;i++)if(clue(row(cur,i).map(v=>v===1)).join()!==clue(row(sol,i)).join())return;for(let j=0;j<n;j++)if(clue(col(cur,j).map(v=>v===1)).join()!==clue(col(sol,j)).join())return;
+ done=true;clearInterval(timer);const s=Math.floor((Date.now()-t0)/1000);const rec=!best[n]||s<best[n];if(rec){best[n]=s;ls.s(K,best)}[523,659,784,1046].forEach((f,i)=>setTimeout(()=>tone(f,.15,'square',.04),i*100));
+ const pv=document.getElementById('prev');const px=Math.max(4,Math.floor(120/n));pv.style.gridTemplateColumns=`repeat(${n},${px}px)`;pv.innerHTML=cur.map(v=>`<i style="width:${px}px;height:${px}px;background:${v===1?'#0f380f':'#9bbc0f'}"></i>`).join('');
+ document.getElementById('op').innerHTML=`${n}×${n} SOLVED IN ${s/60|0}:${String(s%60).padStart(2,'0')}${rec?'<br>NEW BEST!':''}`;setTimeout(()=>document.getElementById('ov').classList.add('on'),500)}
+// pointer painting
+let paintV=null,lp=null,lpDone=false,downK=-1;
+gridEl.addEventListener('pointerdown',e=>{const c=e.target.closest('.cl');if(!c)return;gridEl.setPointerCapture(e.pointerId);const k=+c.dataset.k;downK=k;lpDone=false;const want=xMode?2:1;paintV=cur[k]===want?0:want;
+ if(e.pointerType==='touch'&&!xMode){lp=setTimeout(()=>{lpDone=true;paintV=cur[k]===2?0:2;setCell(k,paintV);if(navigator.vibrate)try{navigator.vibrate(15)}catch(er){}},350)}else setCell(k,paintV)});
+gridEl.addEventListener('pointermove',e=>{if(paintV===null)return;const el=document.elementFromPoint(e.clientX,e.clientY);const c=el&&el.closest&&el.closest('.cl');if(!c)return;const k=+c.dataset.k;if(k!==downK){if(lp){clearTimeout(lp);lp=null;if(!lpDone)setCell(downK,paintV)}downK=k;setCell(k,paintV)}});
+addEventListener('pointerup',()=>{if(lp){clearTimeout(lp);lp=null;if(!lpDone&&downK>=0)setCell(downK,paintV)}paintV=null;downK=-1});
+gridEl.addEventListener('contextmenu',e=>{e.preventDefault();const c=e.target.closest('.cl');if(c){const k=+c.dataset.k;setCell(k,cur[k]===2?0:2)}});
+let kbOn=false;
+addEventListener('keydown',e=>{const k=e.key;if(document.getElementById('ov').classList.contains('on')){if(k===' '||k==='Enter'){e.preventDefault();newPuzzle()}return}
+ let r=sel/n|0,c=sel%n;if(k==='ArrowLeft'||k==='a')c=(c-1+n)%n;else if(k==='ArrowRight'||k==='d')c=(c+1)%n;else if(k==='ArrowUp'||k==='w')r=(r-1+n)%n;else if(k==='ArrowDown'||k==='s')r=(r+1)%n;
+ else if(k===' '||k==='z'||k==='Z'||k==='Enter'){e.preventDefault();kbOn=true;setCell(sel,cur[sel]===1?0:1);return}else if(k==='x'||k==='X'){kbOn=true;setCell(sel,cur[sel]===2?0:2);return}else return;
+ e.preventDefault();kbOn=true;sel=r*n+c;paint()});
+document.getElementById('mode').onclick=()=>{xMode=!xMode;const m=document.getElementById('mode');m.classList.toggle('on',xMode);m.textContent=xMode?'× MARK':'▣ FILL'};
+document.getElementById('sz').onclick=e=>{const b=e.target.closest('button[data-n]');if(!b)return;n=+b.dataset.n;document.querySelectorAll('#sz button[data-n]').forEach(x=>x.classList.toggle('on',x===b));newPuzzle()};
+document.getElementById('go').onclick=newPuzzle;
+newPuzzle();
+</script>
+</body>
+</html>

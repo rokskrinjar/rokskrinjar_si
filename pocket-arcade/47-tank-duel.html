@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Tank Duel</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow:wght@500;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none;background:#2a1636;font-family:Barlow,sans-serif;color:#fff1dd}
+canvas{display:block;position:fixed;inset:0}
+.hud{position:fixed;top:8px;left:0;right:0;display:flex;justify-content:space-between;padding:0 14px 0 90px;pointer-events:none;font-size:12px;letter-spacing:.1em}
+.hp{width:min(30vw,160px)}.hp i{display:block;height:8px;border-radius:4px;background:#ffffff22;margin-top:4px;overflow:hidden}.hp i b{display:block;height:100%;background:#ffb347;transition:width .3s}.hp.ai i b{background:#ff5f7a}
+.mid{text-align:center;font-size:12px}.mid b{font-family:'Black Ops One',cursive;font-size:20px;display:block}
+.aim{position:fixed;bottom:12px;left:0;right:0;text-align:center;font-size:13px;letter-spacing:.08em;pointer-events:none;font-weight:800;text-shadow:0 1px 3px #000}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#2a1636cc}.ov.on{display:grid}
+.ov h1{font-family:'Black Ops One',cursive;font-weight:400;font-size:clamp(46px,13vw,90px);color:#ffb347;text-shadow:0 5px 0 #7a2e4a}
+.ov p{margin:14px auto 22px;line-height:1.7;max-width:340px}
+button{font-family:'Black Ops One',cursive;font-size:22px;border:0;background:#ffb347;color:#2a1636;padding:10px 32px;border-radius:6px;cursor:pointer;box-shadow:0 5px 0 #7a2e4a}
+.back{position:fixed;left:12px;top:10px;color:#fff1ddaa;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud"><div class="hp">YOU<i><b id="hp1" style="width:100%"></b></i></div><div class="mid">ROUND <b id="rd">1</b><span id="wind">WIND 0</span></div><div class="hp ai" style="text-align:right">CPU<i><b id="hp2" style="width:100%"></b></i></div></div>
+<div class="aim" id="aim"></div>
+<div class="ov on" id="ov"><div><h1 id="t">TANK DUEL</h1><p id="m">Lob shells over the dunes. Mind the wind.<br>← → angle · ↑ ↓ power · Space fire<br>Touch: drag back from your tank and release.</p><button id="go">ROLL OUT</button></div></div>
+<a class="back" href="index.html">← games</a>
+<script>
+const K='best-tank-duel';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const cv=document.getElementById('c'),x=cv.getContext('2d');let W,H,S;
+function fit(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);S=Math.max(.6,Math.min(1.3,Math.min(W/800,H/500)))}fit();
+let terr,tanks,turn,shell,wind,round=1,wins=0,best=ls.g(K,0),st='menu',parts=[],drag=null,keys={},t=0,msgT=0,msgS='';
+let AC;function tone(f,d=.1,type='sine',v=.06,to){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;if(to)o.frequency.exponentialRampToValueAtTime(to,AC.currentTime+d);g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function boomSnd(){try{AC=AC||new AudioContext();const n=AC.createBufferSource(),b=AC.createBuffer(1,AC.sampleRate*.6,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2);n.buffer=b;const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=600;const g=AC.createGain();g.gain.value=.25;n.connect(f).connect(g).connect(AC.destination);n.start()}catch(e){}}
+function genTerrain(){terr=new Float32Array(Math.ceil(W)+2);const a=[Math.random()*6,Math.random()*6,Math.random()*6];for(let i=0;i<terr.length;i++){const u=i/W;terr[i]=H*(.62+Math.sin(u*3+a[0])*.08+Math.sin(u*7+a[1])*.04+Math.sin(u*13+a[2])*.015)}
+ [.12,.88].forEach(p=>{const cx=Math.round(W*p);for(let i=cx-30;i<=cx+30;i++)if(terr[i])terr[i]=terr[cx]})}
+function gy(px){px=Math.max(0,Math.min(terr.length-1,Math.round(px)));return terr[px]}
+function newRound(){genTerrain();tanks=[{x:W*.12,y:0,ang:-Math.PI/4,pow:.6,hp:100,col:'#ffb347'},{x:W*.88,y:0,ang:-Math.PI*3/4,pow:.6,hp:100,col:'#ff5f7a'}];tanks.forEach(tk=>tk.y=gy(tk.x));turn=0;wind=(Math.random()-.5)*(.02+round*.006);shell=null;st='aim';hud();say('ROUND '+round)}
+function start(){round=1;wins=0;newRound();document.getElementById('ov').classList.remove('on')}
+function say(s){msgS=s;msgT=90}
+function hud(){document.getElementById('hp1').style.width=Math.max(0,tanks[0].hp)+'%';document.getElementById('hp2').style.width=Math.max(0,tanks[1].hp)+'%';document.getElementById('rd').textContent=round;document.getElementById('wind').textContent='WIND '+(wind>0?'→':'←')+' '+Math.abs(wind*1000|0);
+ const tk=tanks[0];document.getElementById('aim').textContent=turn===0&&st==='aim'?`ANGLE ${Math.round(-tk.ang*180/Math.PI)}° · POWER ${Math.round(tk.pow*100)}`:turn===1?'CPU AIMING…':''}
+const G=.12;function vel(tk){const sp=(4+tk.pow*9)*S;return[Math.cos(tk.ang)*sp,Math.sin(tk.ang)*sp]}
+function muzzle(tk){return[tk.x+Math.cos(tk.ang)*22*S,tk.y-12*S+Math.sin(tk.ang)*22*S]}
+function fire(){const tk=tanks[turn];const[vx,vy]=vel(tk);const[mx,my]=muzzle(tk);shell={x:mx,y:my,vx,vy,trail:[]};st='fly';tone(160,.25,'sawtooth',.06,60);hud()}
+function simulate(tk,ang,pow){const sp=(4+pow*9)*S;let px=tk.x+Math.cos(ang)*22*S,py=tk.y-12*S+Math.sin(ang)*22*S,vx=Math.cos(ang)*sp,vy=Math.sin(ang)*sp;for(let i=0;i<2000;i++){vx+=wind;vy+=G*S;px+=vx;py+=vy;if(px<0||px>W)return{x:px,miss:true};if(py>=gy(px))return{x:px,y:py}}return{x:px,miss:true}}
+function aiAim(){const me=tanks[1],tg=tanks[0];let bestE=1e9,ba=me.ang,bp=me.pow;for(let a=-Math.PI*.95;a<-Math.PI*.52;a+=.03)for(let p=.2;p<=1;p+=.04){const r=simulate(me,a,p);if(r.miss)continue;const e=Math.abs(r.x-tg.x);if(e<bestE){bestE=e;ba=a;bp=p}}
+ const err=Math.max(.0,.12-round*.02)+.02;me.ang=ba+(Math.random()-.5)*err;me.pow=Math.max(.15,Math.min(1,bp+(Math.random()-.5)*err*1.5))}
+function explode(px,py){boomSnd();const R=38*S;for(let i=Math.floor(px-R);i<=px+R;i++){if(i<0||i>=terr.length)continue;const dy=Math.sqrt(Math.max(0,R*R-(i-px)**2));if(terr[i]<py+dy)terr[i]=Math.max(terr[i],py+dy)}
+ for(let i=0;i<40;i++){const a=Math.random()*6.28,s=Math.random()*5;parts.push({x:px,y:py,vx:Math.cos(a)*s,vy:Math.sin(a)*s-2,l:1,c:['#ffb347','#ff5f7a','#fff1dd'][i%3]})}
+ tanks.forEach(tk=>{const d=Math.hypot(tk.x-px,tk.y-8*S-py);if(d<R*1.6){const dmg=Math.round(55*(1-d/(R*1.6)));tk.hp-=dmg;if(dmg>0)say((tk===tanks[0]?'YOU ':'CPU ')+'-'+dmg)}})}
+function update(){t++;if(msgT>0)msgT--;if(!tanks)return;
+ tanks.forEach(tk=>{const g=gy(tk.x);if(tk.y<g)tk.y=Math.min(g,tk.y+3);else tk.y=g});
+ if(st==='aim'&&turn===0){const tk=tanks[0];if(keys.L)tk.ang=Math.max(-Math.PI+.05,tk.ang-.015);if(keys.R)tk.ang=Math.min(-.05,tk.ang+.015);if(keys.U)tk.pow=Math.min(1,tk.pow+.008);if(keys.D)tk.pow=Math.max(.05,tk.pow-.008);if(t%6===0)hud()}
+ if(st==='fly'&&shell){for(let s=0;s<2;s++){shell.vx+=wind/2;shell.vy+=G*S/2;shell.x+=shell.vx/2;shell.y+=shell.vy/2;shell.trail.push([shell.x,shell.y]);
+   const hitTank=tanks.find(tk=>Math.hypot(tk.x-shell.x,tk.y-8*S-shell.y)<14*S);
+   if(shell.x<-50||shell.x>W+50||shell.y>H){shell=null;endTurn();break}
+   if(shell.y>=gy(shell.x)||hitTank){explode(shell.x,shell.y);shell=null;hud();setTimeout(endTurn,700);st='boom';break}}}}
+function endTurn(){if(tanks[1].hp<=0){wins++;round++;if(wins>best){best=wins;ls.s(K,best)}say('ENEMY DOWN!');[523,659,784].forEach((f,i)=>setTimeout(()=>tone(f,.2,'triangle',.06),i*110));st='won';setTimeout(newRound,1800);return}
+ if(tanks[0].hp<=0){st='over';setTimeout(()=>{document.getElementById('t').textContent=wins>=best&&wins>0?'NEW RECORD':'DESTROYED';document.getElementById('m').innerHTML=`You won ${wins} duel${wins===1?'':'s'}. Best ${best}.`;document.getElementById('go').textContent='AGAIN';document.getElementById('ov').classList.add('on')},900);return}
+ turn=1-turn;st='aim';if(Math.random()<.5)wind=Math.max(-.06,Math.min(.06,wind+(Math.random()-.5)*.01));hud();if(turn===1){setTimeout(()=>{aiAim();hud();setTimeout(fire,500)},700)}}
+function tankDraw(tk,i){const X=tk.x,Y=tk.y;x.fillStyle='#1a0d22';x.beginPath();x.roundRect(X-16*S,Y-10*S,32*S,10*S,4*S);x.fill();x.beginPath();x.arc(X,Y-10*S,9*S,Math.PI,0);x.fill();x.strokeStyle='#1a0d22';x.lineWidth=5*S;x.beginPath();x.moveTo(X,Y-12*S);x.lineTo(X+Math.cos(tk.ang)*22*S,Y-12*S+Math.sin(tk.ang)*22*S);x.stroke();
+ x.fillStyle=tk.col;x.fillRect(X-12*S,Y-7*S,24*S,2*S);if(turn===i&&st==='aim'){x.fillStyle=tk.col;x.beginPath();x.moveTo(X,Y-34*S);x.lineTo(X-6*S,Y-42*S);x.lineTo(X+6*S,Y-42*S);x.fill()}}
+function draw(){const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#2a1636');g.addColorStop(.45,'#7a2e4a');g.addColorStop(.7,'#e0704a');g.addColorStop(1,'#ffc27a');x.fillStyle=g;x.fillRect(0,0,W,H);
+ x.fillStyle='#ffe2a8';x.globalAlpha=.9;x.beginPath();x.arc(W*.5,H*.58,Math.min(W,H)*.14,0,7);x.fill();x.globalAlpha=1;
+ x.fillStyle='#5a2440';x.beginPath();x.moveTo(0,H);for(let i=0;i<=W;i+=20)x.lineTo(i,H*.55+Math.sin(i*.006+1)*H*.05);x.lineTo(W,H);x.fill();
+ if(!terr)return;x.fillStyle='#3b1a33';x.beginPath();x.moveTo(0,H);for(let i=0;i<terr.length;i+=2)x.lineTo(i,terr[i]);x.lineTo(W,H);x.fill();x.strokeStyle='#ff8a5c';x.lineWidth=2;x.beginPath();for(let i=0;i<terr.length;i+=2)i?x.lineTo(i,terr[i]):x.moveTo(i,terr[i]);x.stroke();
+ tanks.forEach(tankDraw);
+ if(st==='aim'&&turn===0){const tk=tanks[0];let[vx,vy]=vel(tk);let[px,py]=muzzle(tk);x.fillStyle='#fff1dd99';for(let i=0;i<22;i++){for(let k=0;k<3;k++){vx+=wind;vy+=G*S;px+=vx;py+=vy}x.beginPath();x.arc(px,py,2,0,7);x.fill()}}
+ if(shell){x.strokeStyle='#fff1dd88';x.lineWidth=2;x.beginPath();shell.trail.slice(-40).forEach(([a,b],i)=>i?x.lineTo(a,b):x.moveTo(a,b));x.stroke();x.fillStyle='#fff';x.beginPath();x.arc(shell.x,shell.y,4*S,0,7);x.fill()}
+ parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.l-=.02;x.globalAlpha=Math.max(0,p.l);x.fillStyle=p.c;x.fillRect(p.x,p.y,3,3)});x.globalAlpha=1;parts=parts.filter(p=>p.l>0);
+ x.strokeStyle='#fff1dd66';x.lineWidth=2;const wx=W/2,wy=64;x.beginPath();x.moveTo(wx,wy);x.lineTo(wx+wind*1500,wy);x.stroke();
+ if(msgT>0){x.globalAlpha=Math.min(1,msgT/30);x.fillStyle='#fff1dd';x.font=`400 ${Math.min(40,W*.08)}px 'Black Ops One'`;x.textAlign='center';x.fillText(msgS,W/2,H*.3);x.globalAlpha=1}}
+function loop(){update();draw();requestAnimationFrame(loop)}requestAnimationFrame(loop);
+addEventListener('resize',()=>{fit();if(tanks){genTerrain();tanks[0].x=W*.12;tanks[1].x=W*.88}});
+const KM={ArrowLeft:'L',a:'L',ArrowRight:'R',d:'R',ArrowUp:'U',w:'U',ArrowDown:'D',s:'D'};
+addEventListener('keydown',e=>{if(KM[e.key]){e.preventDefault();keys[KM[e.key]]=true}if(e.key===' '||e.key==='Enter'){e.preventDefault();if(document.getElementById('ov').classList.contains('on'))start();else if(st==='aim'&&turn===0)fire()}});
+addEventListener('keyup',e=>{if(KM[e.key])keys[KM[e.key]]=false});
+cv.addEventListener('pointerdown',e=>{if(st==='aim'&&turn===0)drag={x:e.clientX,y:e.clientY}});
+cv.addEventListener('pointermove',e=>{if(!drag)return;const dx=drag.x-e.clientX,dy=drag.y-e.clientY;const L=Math.hypot(dx,dy);if(L<10)return;const tk=tanks[0];let a=Math.atan2(dy,dx);if(a>-.05)a=a>Math.PI/2?-Math.PI+.05:-.05;tk.ang=a;tk.pow=Math.min(1,L/(Math.min(W,H)*.45));hud()});
+addEventListener('pointerup',e=>{if(!drag)return;const L=Math.hypot(drag.x-e.clientX,drag.y-e.clientY);drag=null;if(L>24&&st==='aim'&&turn===0)fire()});
+document.getElementById('go').onclick=start;
+</script>
+</body>
+</html>

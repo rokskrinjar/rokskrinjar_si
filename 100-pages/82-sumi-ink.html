@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sumi — Ink & Brush</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Yuji+Syuku&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--washi:#f3eee3;--washi2:#e9e1cf;--sumi:#141312;--shu:#c8321f;--dim:#14131288;--line:#1413121c}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--washi);color:var(--sumi);font-family:'Zen Kaku Gothic New',sans-serif}
+a{color:inherit;text-decoration:none}button,input{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:22px 5vw}
+.logo{display:flex;align-items:center;gap:14px;font-family:'Shippori Mincho';font-size:24px;font-weight:700;letter-spacing:.2em}
+.seal{width:40px;height:40px;background:var(--shu);color:#f3eee3;display:grid;place-items:center;font-family:'Yuji Syuku';font-size:24px;border-radius:4px}
+nav{display:flex;gap:26px;font-size:14px;letter-spacing:.14em;flex-wrap:wrap}
+nav a{color:var(--dim);padding-bottom:4px}nav a.on{color:var(--sumi);border-bottom:2px solid var(--shu)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1260px;margin:0 auto;padding:10px 5vw 70px}
+h2{font-family:'Shippori Mincho';font-weight:400;font-size:clamp(2rem,4.5vw,3.4rem);letter-spacing:.06em}
+.sub{color:var(--dim);max-width:58ch;line-height:1.8;margin:10px 0 24px}
+/* studio */
+.studio{display:grid;grid-template-columns:1fr 240px;gap:26px;align-items:start}
+.paper{background:var(--washi);box-shadow:0 30px 60px -30px #0006,0 0 0 1px var(--line);position:relative}
+.paper canvas{display:block;width:100%;height:auto;touch-action:none;cursor:crosshair}
+.tools{display:grid;gap:16px}
+.tools h4{font-size:11px;letter-spacing:.24em;color:var(--dim);margin-bottom:8px}
+.ink{height:12px;border-radius:6px;background:var(--line);overflow:hidden}
+.ink i{display:block;height:100%;background:var(--sumi);transition:width .2s}
+.stone{width:100%;aspect-ratio:2/1;border-radius:40%;background:radial-gradient(ellipse at 50% 60%,#2a2826,#0a0908 60%,#3a3634 62%,#1a1816);border:0;position:relative;color:#f3eee3;font-size:12px;letter-spacing:.2em}
+.stone:active{transform:scale(.98)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{border:1px solid var(--line);background:none;padding:7px 12px;font-size:13px}
+.chips button.on{background:var(--sumi);color:var(--washi)}
+.btn{background:var(--sumi);color:var(--washi);border:0;padding:10px 16px;font-size:13px;letter-spacing:.14em}
+.btn.shu{background:var(--shu)}
+.btn.alt{background:none;color:var(--sumi);box-shadow:inset 0 0 0 1px var(--sumi)}
+/* practice */
+.prac{display:grid;grid-template-columns:1fr 320px;gap:30px;align-items:start}
+.grid9{position:relative;background:var(--washi);box-shadow:0 0 0 2px var(--shu)}
+.grid9 canvas{display:block;width:100%;height:auto;touch-action:none}
+.chars{display:flex;gap:8px;flex-wrap:wrap}
+.chars button{width:60px;height:60px;border:1px solid var(--line);background:none;font-family:'Shippori Mincho';font-size:30px}
+.chars button.on{background:var(--sumi);color:var(--washi)}
+.score{font-family:'Shippori Mincho';font-size:72px;line-height:1;color:var(--shu)}
+.eight{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.eight div{border:1px solid var(--line);padding:8px 4px;text-align:center;font-size:11px;line-height:1.3}
+.eight svg{width:44px;height:44px;display:block;margin:0 auto 4px}
+/* seal */
+.sealgrid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.sealbox{display:grid;place-items:center;min-height:420px;background:radial-gradient(circle,var(--washi2),var(--washi) 70%)}
+.sealbox svg{width:min(340px,80%);height:auto;filter:drop-shadow(0 2px 0 #0001)}
+.sin input{width:100%;padding:12px;font-family:'Shippori Mincho';font-size:30px;border:0;border-bottom:2px solid var(--sumi);background:none;outline:0;letter-spacing:.2em}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:24px}
+.scroll{background:linear-gradient(90deg,#6a5238,#8a6a48 6%,var(--washi) 6%,var(--washi) 94%,#8a6a48 94%,#6a5238);padding:18px 16px;box-shadow:0 20px 30px -20px #0008}
+.scroll img{width:100%;display:block;background:var(--washi)}
+.scroll small{display:block;text-align:center;font-size:11px;color:var(--dim);margin-top:8px;letter-spacing:.1em}
+@media(max-width:900px){.studio,.prac,.sealgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="logo"><span class="seal">墨</span>SUMI</div><nav><a href="#brush">筆 Brush</a><a href="#practice">永 Practice</a><a href="#seal">印 Seal</a><a href="#gallery">展 Gallery</a><a href="index.html">← Index</a></nav></header>
+
+<section data-view="brush"><div class="wrap">
+ <h2>Ink, water, a single breath.</h2>
+ <p class="sub">The brush gets thinner the faster you move, and it runs dry as you paint. Grind more ink on the stone when it fades. Paint slowly for full, wet strokes.</p>
+ <div class="studio">
+  <div class="paper"><canvas id="cv" width="1200" height="800"></canvas></div>
+  <div class="tools">
+   <div><h4>INK IN BRUSH</h4><div class="ink"><i id="inkBar" style="width:100%"></i></div></div>
+   <button class="stone" id="grind">GRIND INK · 磨</button>
+   <div><h4>BRUSH SIZE</h4><div class="chips" id="size"><button data-v="10">Fine</button><button data-v="22" class="on">Medium</button><button data-v="40">Large</button></div></div>
+   <div><h4>INK TONE</h4><div class="chips" id="tone"><button data-v="1" class="on">濃 Dark</button><button data-v=".45">中 Mid</button><button data-v=".18">淡 Wash</button></div></div>
+   <div><h4>PAPER</h4><div class="chips" id="paperT"><button data-v="washi" class="on">Washi</button><button data-v="grid">Grid</button><button data-v="gold">Gold fleck</button></div></div>
+   <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn alt" id="undo">Undo</button><button class="btn alt" id="clear">New sheet</button><button class="btn shu" id="stamp">Stamp seal</button><button class="btn" id="keep">Hang in gallery</button></div>
+  </div>
+ </div>
+</div></section>
+
+<section data-view="practice" hidden><div class="wrap">
+ <h2>The eight principles of 永.</h2>
+ <p class="sub">The character 永 (ei, "eternity") contains all eight basic strokes, and students have practised it for over a thousand years. Trace over the faint character. We score how much of it you covered and how little ink landed outside it.</p>
+ <div class="prac">
+  <div class="grid9"><canvas id="pc" width="700" height="700"></canvas></div>
+  <div><div class="chars" id="chars"></div><div style="margin:18px 0 6px;font-size:12px;letter-spacing:.2em;color:var(--dim)">SCORE</div><div class="score" id="score">—</div><div id="grade" style="margin:6px 0 14px;font-family:'Shippori Mincho';font-size:18px"></div>
+   <div style="display:flex;gap:6px"><button class="btn" id="check">Judge</button><button class="btn alt" id="pclear">Try again</button></div>
+   <div class="eight" id="eight"></div></div>
+ </div>
+</div></section>
+
+<section data-view="seal" hidden><div class="wrap">
+ <h2>Carve a seal.</h2>
+ <p class="sub">A hanko or chop is pressed in vermilion paste to sign a work. Type up to four characters, in kanji or Latin letters.</p>
+ <div class="sealgrid">
+  <div class="sealbox"><svg id="sealSvg" viewBox="0 0 300 300"></svg></div>
+  <div class="sin"><input id="sealIn" value="墨人" maxlength="4"><div style="margin:18px 0 8px;font-size:12px;letter-spacing:.2em;color:var(--dim)">STYLE</div><div class="chips" id="sealSt"><button data-v="yin" class="on">白文 Carved text (white)</button><button data-v="yang">朱文 Raised text (red)</button></div>
+   <div style="margin:18px 0 8px;font-size:12px;letter-spacing:.2em;color:var(--dim)">SHAPE</div><div class="chips" id="sealSh"><button data-v="sq" class="on">Square</button><button data-v="round">Round</button><button data-v="oval">Oval</button></div>
+   <p class="sub" style="margin-top:20px">Your seal is used when you press "Stamp seal" in the brush studio.</p></div>
+ </div>
+</div></section>
+
+<section data-view="gallery" hidden><div class="wrap">
+ <h2>Hanging scrolls.</h2>
+ <p class="sub">Works you've hung, kept in this browser. The first ones are by the house master.</p>
+ <div class="gal" id="gal"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'brush';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='gallery')gal();if(id==='seal')seal()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- brush engine ---------- */
+function Brush(canvas,opts){const x=canvas.getContext('2d');let ink=1,down=false,last=null,lw=0,bristles=[];const o=Object.assign({size:22,tone:1,onInk:()=>{}},opts);
+ function start(p){down=true;last=p;lw=0;bristles=[...Array(14)].map(()=>({ox:(Math.random()-.5),oy:(Math.random()-.5),a:.5+Math.random()*.5,dry:Math.random()}))}
+ function move(p,t){if(!down)return;const dx=p[0]-last[0],dy=p[1]-last[1],d=Math.hypot(dx,dy);if(d<.5)return;const speed=Math.min(1,d/30);const target=o.size*(1.1-speed*.8)*(.35+ink*.65);lw=lw?lw+(target-lw)*.25:target*.6;
+  const steps=Math.ceil(d/1.5);for(let s=0;s<steps;s++){const px=last[0]+dx*s/steps,py=last[1]+dy*s/steps;const nx=-dy/d,ny=dx/d;
+   bristles.forEach(b=>{if(ink<.35&&b.dry>ink*2.2)return;const off=b.ox*lw;const bx=px+nx*off+b.oy*lw*.2,by=py+ny*off;x.fillStyle=`rgba(20,19,18,${Math.min(1,(.08+ink*.1)*b.a*o.tone*(1.2-speed*.5))})`;x.beginPath();x.arc(bx,by,Math.max(.6,lw*.27),0,7);x.fill()})}
+  ink=Math.max(0,ink-d*.00035*(o.size/22));o.onInk(ink);last=p}
+ function end(){if(!down)return;down=false;
+  // tail flick
+ }
+ return{x,start,move,end,refill(){ink=1;o.onInk(1)},set(k,v){o[k]=v},get ink(){return ink}}}
+function paperTex(ctx,W,H,type){ctx.fillStyle='#f3eee3';ctx.fillRect(0,0,W,H);const r=(n=>()=>(n=(n*9301+49297)%233280)/233280)(5);
+ for(let i=0;i<1400;i++){ctx.strokeStyle=`rgba(120,100,70,${.03+r()*.05})`;ctx.lineWidth=.6;ctx.beginPath();const x=r()*W,y=r()*H,a=r()*6.28,l=6+r()*24;ctx.moveTo(x,y);ctx.quadraticCurveTo(x+Math.cos(a)*l/2+3,y+Math.sin(a)*l/2,x+Math.cos(a)*l,y+Math.sin(a)*l);ctx.stroke()}
+ if(type==='grid'){ctx.strokeStyle='rgba(200,50,31,.25)';ctx.lineWidth=1.5;for(let i=1;i<3;i++){ctx.beginPath();ctx.moveTo(W*i/3,0);ctx.lineTo(W*i/3,H);ctx.stroke()}ctx.beginPath();ctx.moveTo(0,H/2);ctx.lineTo(W,H/2);ctx.stroke()}
+ if(type==='gold')for(let i=0;i<220;i++){ctx.fillStyle=`rgba(${190+r()*40},${150+r()*40},60,${.4+r()*.5})`;ctx.fillRect(r()*W,r()*H,1+r()*4,1+r()*3)}}
+const cv=document.getElementById('cv');let paper='washi',snaps=[];
+const B=Brush(cv,{onInk:v=>document.getElementById('inkBar').style.width=v*100+'%'});
+function fresh(){paperTex(B.x,1200,800,paper);snaps=[]}
+const pos=(c,e,W,H)=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)/r.width*W,(e.clientY-r.top)/r.height*H]};
+cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);snaps.push(B.x.getImageData(0,0,1200,800));if(snaps.length>15)snaps.shift();B.start(pos(cv,e,1200,800))});
+cv.addEventListener('pointermove',e=>B.move(pos(cv,e,1200,800)));cv.addEventListener('pointerup',()=>B.end());
+document.getElementById('grind').onclick=()=>{B.refill();try{const a=window._a||(window._a=new AudioContext());const n=a.createBufferSource(),bf=a.createBuffer(1,a.sampleRate*.6,a.sampleRate),d=bf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*.2*Math.sin(i/d.length*Math.PI);n.buffer=bf;const f=a.createBiquadFilter();f.type='lowpass';f.frequency.value=900;n.connect(f).connect(a.destination);n.start()}catch(e){}};
+const chips=(id,cb)=>document.getElementById(id).onclick=e=>{const v=e.target.dataset.v;if(v==null)return;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));cb(v)};
+chips('size',v=>B.set('size',+v));chips('tone',v=>B.set('tone',+v));chips('paperT',v=>{paper=v;fresh()});
+document.getElementById('undo').onclick=()=>{const s=snaps.pop();if(s)B.x.putImageData(s,0,0)};
+document.getElementById('clear').onclick=fresh;
+document.getElementById('stamp').onclick=()=>{snaps.push(B.x.getImageData(0,0,1200,800));const img=new Image();img.onload=()=>{B.x.globalAlpha=.92;B.x.drawImage(img,1040,620,110,110);B.x.globalAlpha=1};img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(sealSVG(true))};
+document.getElementById('keep').onclick=e=>{try{const t=document.createElement('canvas');t.width=300;t.height=200;t.getContext('2d').drawImage(cv,0,0,300,200);const G=store.get('sumi-gal',[]);G.unshift([t.toDataURL('image/jpeg',.7),Date.now()]);store.set('sumi-gal',G.slice(0,8));e.target.textContent='✓ Hung';setTimeout(()=>e.target.textContent='Hang in gallery',1200)}catch(err){}};
+fresh();
+// demo stroke so page isn't empty
+(function demo(){const pts=[];for(let i=0;i<=60;i++){const t=i/60;pts.push([300+t*600,420+Math.sin(t*3.1)*-90])}B.start(pts[0]);pts.forEach((p,i)=>B.move(p));B.end();B.refill();const p2=[];for(let i=0;i<=30;i++){const t=i/30;p2.push([620+Math.sin(t*2)*14,220+t*420])}B.set('size',30);B.start(p2[0]);p2.forEach(p=>B.move(p));B.end();B.set('size',22);B.refill();snaps=[]})();
+
+/* ---------- practice ---------- */
+const CH=['永','山','心','水','人','夢'];let pch='永';const pc=document.getElementById('pc');const P=Brush(pc,{size:34});
+function guide(){const x=P.x;x.fillStyle='#f3eee3';x.fillRect(0,0,700,700);x.strokeStyle='rgba(200,50,31,.35)';x.lineWidth=1.5;x.setLineDash([8,8]);[[350,0,350,700],[0,350,700,350],[0,0,700,700],[700,0,0,700]].forEach(l=>{x.beginPath();x.moveTo(l[0],l[1]);x.lineTo(l[2],l[3]);x.stroke()});x.setLineDash([]);x.fillStyle='rgba(20,19,18,.12)';x.font='560px "Shippori Mincho"';x.textAlign='center';x.textBaseline='middle';x.fillText(pch,350,380)}
+function mask(){const c=document.createElement('canvas');c.width=c.height=700;const m=c.getContext('2d');m.fillStyle='#000';m.font='560px "Shippori Mincho"';m.textAlign='center';m.textBaseline='middle';m.fillText(pch,350,380);return m.getImageData(0,0,700,700).data}
+function judge(){const g=mask(),d=P.x.getImageData(0,0,700,700).data;let inG=0,cov=0,out=0;for(let i=0;i<g.length;i+=16){const isG=g[i+3]>128;const dark=d[i]<120;if(isG){inG++;if(dark)cov++}else if(dark)out++}
+ const c=cov/Math.max(1,inG),o=out/Math.max(1,inG);const s=Math.max(0,Math.round((c*100-o*40)));document.getElementById('score').textContent=s;document.getElementById('grade').textContent=s>80?'師範 · Master\'s hand':s>60?'上手 · Skilled':s>35?'進歩 · Improving':'初心 · Beginner\'s mind';}
+document.getElementById('chars').innerHTML=CH.map(c=>`<button class="${c===pch?'on':''}" data-c="${c}">${c}</button>`).join('');
+document.getElementById('chars').onclick=e=>{const c=e.target.dataset.c;if(!c)return;pch=c;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));guide();document.getElementById('score').textContent='—';document.getElementById('grade').textContent=''};
+pc.addEventListener('pointerdown',e=>{pc.setPointerCapture(e.pointerId);P.refill();P.start(pos(pc,e,700,700))});pc.addEventListener('pointermove',e=>P.move(pos(pc,e,700,700)));pc.addEventListener('pointerup',()=>P.end());
+document.getElementById('check').onclick=judge;document.getElementById('pclear').onclick=()=>{guide();document.getElementById('score').textContent='—'};
+const EIGHT=[['側 Dot','M20 14 q10 6 6 18'],['勒 Horizontal','M8 24 q18 -4 30 -2'],['努 Vertical','M22 6 q2 18 0 34'],['趯 Hook','M22 6 v28 l-8 -6'],['策 Rising','M10 34 l24 -14'],['掠 Sweep left','M30 8 q-6 20 -22 30'],['啄 Peck','M32 10 l-18 12'],['磔 Sweep right','M10 10 q12 18 28 26']];
+document.getElementById('eight').innerHTML=EIGHT.map(e=>`<div><svg viewBox="0 0 44 44"><path d="${e[1]}" stroke="#141312" stroke-width="5" stroke-linecap="round" fill="none"/></svg>${e[0]}</div>`).join('');
+try{document.fonts.ready.then(guide)}catch(e){}guide();
+
+/* ---------- seal ---------- */
+let sst='yin',ssh='sq';
+function sealSVG(forCanvas){const t=(document.getElementById('sealIn').value||'墨').slice(0,4);const chars=[...t];const n=chars.length;const red='#c8321f';
+ const pos=n===1?[[150,150,190]]:n===2?[[150,95,110],[150,205,110]]:n===3?[[205,150,120],[95,95,100],[95,205,100]]:[[205,95,105],[205,205,105],[95,95,105],[95,205,105]];
+ const order=n===4?[0,1,2,3]:[...Array(n).keys()];
+ let shape=ssh==='sq'?`<rect x="20" y="20" width="260" height="260" rx="10"`:ssh==='round'?`<circle cx="150" cy="150" r="130"`:`<ellipse cx="150" cy="150" rx="105" ry="135"`;
+ const rough=`<filter id="r"><feTurbulence baseFrequency=".9" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter>`;
+ let s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs>${rough}<mask id="m"><rect width="300" height="300" fill="#fff"/>${[...Array(90)].map((_,i)=>`<circle cx="${(i*67)%300}" cy="${(i*41)%300}" r="${.6+(i%4)*.6}" fill="#000"/>`).join('')}</mask></defs><g filter="url(#r)" mask="url(#m)">`;
+ if(sst==='yin'){s+=`${shape} fill="${red}"/>`;order.forEach((k,i)=>{const[x,y,sz]=pos[k];s+=`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-family="Shippori Mincho, serif" font-weight="700" font-size="${sz}" fill="#f3eee3">${chars[i]}</text>`})}
+ else{s+=`${shape} fill="none" stroke="${red}" stroke-width="14"/>`;order.forEach((k,i)=>{const[x,y,sz]=pos[k];s+=`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-family="Shippori Mincho, serif" font-weight="700" font-size="${sz*.9}" fill="${red}">${chars[i]}</text>`})}
+ return s+'</g></svg>'}
+function seal(){document.getElementById('sealSvg').outerHTML=sealSVG().replace('<svg ','<svg id="sealSvg" ');}
+document.getElementById('sealIn').oninput=seal;chips('sealSt',v=>{sst=v;seal()});chips('sealSh',v=>{ssh=v;seal()});seal();
+
+/* ---------- gallery ---------- */
+function houseArt(i){const c=document.createElement('canvas');c.width=300;c.height=200;const x=c.getContext('2d');paperTex(x,300,200,'washi');x.fillStyle='#141312';x.font=`${[120,110,130][i]}px "Yuji Syuku","Shippori Mincho"`;x.textAlign='center';x.textBaseline='middle';x.fillText(['夢','和','空'][i],150,104);x.fillStyle='#c8321f';x.fillRect(250,150,28,28);return c.toDataURL('image/jpeg',.8)}
+function gal(){const G=store.get('sumi-gal',[]);const H=[0,1,2].map(i=>[houseArt(i),0,['Dream','Harmony','Emptiness'][i]]);document.getElementById('gal').innerHTML=[...G,...H].map(g=>`<div class="scroll"><img src="${g[0]}" alt="ink work"><small>${g[1]?new Date(g[1]).toLocaleDateString():'Master Kōun · '+g[2]}</small></div>`).join('')}
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

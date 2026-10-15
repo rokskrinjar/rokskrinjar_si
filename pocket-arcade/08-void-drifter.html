@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Void Drifter</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Michroma&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none;background:#02030a;font-family:'Share Tech Mono',monospace;color:#bff6ff}
+canvas{display:block;position:fixed;inset:0}
+.hud{position:fixed;top:12px;left:0;right:0;display:flex;justify-content:center;gap:28px;font-size:15px;letter-spacing:.15em;pointer-events:none;text-shadow:0 0 8px #3be8ff}
+.hud b{color:#fff}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#02030acc}.ov.on{display:grid}
+.ov h1{font-family:Michroma,sans-serif;font-size:clamp(30px,8vw,58px);letter-spacing:.2em;color:#fff;text-shadow:0 0 20px #3be8ff,0 0 50px #3be8ff88}
+.ov p{margin:16px 0 24px;line-height:1.8;font-size:14px;opacity:.85}
+button{font:inherit;font-size:16px;letter-spacing:.3em;border:1px solid #3be8ff;background:transparent;color:#bff6ff;padding:12px 30px;cursor:pointer;box-shadow:0 0 18px #3be8ff55 inset}
+.back{position:fixed;left:12px;top:10px;color:#bff6ff99;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud"><span>SCORE <b id="s">0</b></span><span>WAVE <b id="w">1</b></span><span id="l">▲▲▲</span><span>HI <b id="b">0</b></span></div>
+<div class="ov on" id="ov"><div><h1 id="t">VOID DRIFTER</h1><p id="m">← → rotate · ↑ thrust · SPACE fire<br>TOUCH: left thumb steers &amp; thrusts · right thumb fires</p><button id="go">LAUNCH</button></div></div>
+<a class="back" href="index.html">← games</a>
+<script>
+const K='best-void-drifter';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const cv=document.getElementById('c'),x=cv.getContext('2d');let W,H,SC;
+function fit(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);SC=Math.max(.7,Math.min(1.2,Math.min(W,H)/650))}fit();addEventListener('resize',fit);
+let st='menu',ship=null,rocks=[],shots=[],parts=[],score=0,lives=3,wave=1,inv=0,cool=0,respawn=0,best=ls.g(K,0),nextLife=10000,t=0,keys={},joy=null,fireTouch=null,shake=0;
+const stars=[...Array(160)].map(()=>({x:Math.random(),y:Math.random(),z:Math.random()}));
+document.getElementById('b').textContent=best;
+let AC;function tone(f,d=.08,type='square',v=.03,slide){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;if(slide)o.frequency.exponentialRampToValueAtTime(slide,AC.currentTime+d);g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function mkRock(px,py,s){const n=9+(Math.random()*5|0);const pts=[...Array(n)].map((_,i)=>[i/n*Math.PI*2,.72+Math.random()*.33]);const sp=(2.4-s*.5)*(.5+Math.random()*.7)*(1+wave*.06);const a=Math.random()*6.283;return{x:px,y:py,s,r:[0,13,25,44][s]*SC,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,rot:Math.random()*6,vr:(Math.random()-.5)*.04,pts,h:180+Math.random()*60}}
+function newShip(){ship={x:W/2,y:H/2,vx:0,vy:0,a:-Math.PI/2,th:false};inv=160}
+function newWave(){for(let i=0;i<2+wave;i++){let px,py;do{px=Math.random()*W;py=Math.random()*H}while(Math.hypot(px-W/2,py-H/2)<200*SC);rocks.push(mkRock(px,py,3))}document.getElementById('w').textContent=wave}
+function start(){score=0;lives=3;wave=1;rocks=[];shots=[];parts=[];nextLife=10000;newShip();newWave();st='play';document.getElementById('ov').classList.remove('on');hud()}
+function hud(){document.getElementById('s').textContent=score;document.getElementById('l').textContent='▲'.repeat(Math.max(0,lives));if(score>best){best=score;ls.s(K,best)}document.getElementById('b').textContent=best}
+function boom(px,py,n,col,sp=4){for(let i=0;i<n;i++){const a=Math.random()*6.283,s=Math.random()*sp;parts.push({x:px,y:py,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:1,c:col,d:.015+Math.random()*.02})}}
+function fire(){if(!ship||cool>0)return;cool=9;const c=Math.cos(ship.a),s=Math.sin(ship.a);shots.push({x:ship.x+c*16*SC,y:ship.y+s*16*SC,vx:c*10+ship.vx,vy:s*10+ship.vy,l:55});tone(880,.07,'square',.02,300)}
+function wrap(o,m=0){if(o.x<-m)o.x+=W+m*2;if(o.x>W+m)o.x-=W+m*2;if(o.y<-m)o.y+=H+m*2;if(o.y>H+m)o.y-=H+m*2}
+function split(r,i){rocks.splice(i,1);score+=[0,100,50,20][r.s];boom(r.x,r.y,r.s*10,`hsl(${r.h},90%,70%)`,r.s*1.6);tone([0,700,400,200][r.s],.18,'sawtooth',.04,60);shake=r.s*3;
+ if(r.s>1)for(let k=0;k<2;k++){const n=mkRock(r.x,r.y,r.s-1);rocks.push(n)}
+ if(score>=nextLife){lives++;nextLife+=10000;tone(1200,.3,'sine',.05)}hud()}
+function crash(){boom(ship.x,ship.y,60,'#ffd27a',6);boom(ship.x,ship.y,30,'#3be8ff',3);tone(90,.6,'sawtooth',.08,30);shake=16;ship=null;lives--;hud();
+ if(lives<=0){st='over';setTimeout(()=>{document.getElementById('t').textContent=score>=best&&score>0?'NEW HIGH SCORE':'SIGNAL LOST';document.getElementById('m').innerHTML=`SCORE ${score} · WAVE ${wave}<br>BEST ${best}`;document.getElementById('go').textContent='RELAUNCH';document.getElementById('ov').classList.add('on')},1200)}else respawn=100}
+function update(){if(cool>0)cool--;if(inv>0)inv--;
+ if(ship){let th=keys.U;if(keys.L)ship.a-=.075;if(keys.R)ship.a+=.075;
+  if(joy&&Math.hypot(joy.dx,joy.dy)>12){const ta=Math.atan2(joy.dy,joy.dx);let d=ta-ship.a;d=Math.atan2(Math.sin(d),Math.cos(d));ship.a+=Math.max(-.14,Math.min(.14,d));if(Math.hypot(joy.dx,joy.dy)>34)th=true}
+  ship.th=th;if(th){ship.vx+=Math.cos(ship.a)*.13;ship.vy+=Math.sin(ship.a)*.13;if(t%2===0)parts.push({x:ship.x-Math.cos(ship.a)*12*SC,y:ship.y-Math.sin(ship.a)*12*SC,vx:-Math.cos(ship.a+(Math.random()-.5)*.6)*3+ship.vx,vy:-Math.sin(ship.a+(Math.random()-.5)*.6)*3+ship.vy,l:.8,c:'#ff9d4a',d:.05})}
+  const sp=Math.hypot(ship.vx,ship.vy);if(sp>7){ship.vx*=7/sp;ship.vy*=7/sp}ship.vx*=.992;ship.vy*=.992;ship.x+=ship.vx;ship.y+=ship.vy;wrap(ship);
+  if(keys.F||fireTouch!==null)fire()}
+ else if(st==='play'&&--respawn<=0&&!rocks.some(r=>Math.hypot(r.x-W/2,r.y-H/2)<r.r+90))newShip();
+ shots.forEach(s=>{s.x+=s.vx;s.y+=s.vy;s.l--;wrap(s)});shots=shots.filter(s=>s.l>0);
+ rocks.forEach(r=>{r.x+=r.vx;r.y+=r.vy;r.rot+=r.vr;wrap(r,r.r)});
+ for(let i=rocks.length-1;i>=0;i--){const r=rocks[i];for(let j=shots.length-1;j>=0;j--){const s=shots[j];if(Math.hypot(s.x-r.x,s.y-r.y)<r.r){shots.splice(j,1);split(r,i);break}}}
+ if(ship&&inv<=0)for(const r of rocks)if(Math.hypot(ship.x-r.x,ship.y-r.y)<r.r+9*SC){crash();break}
+ if(st==='play'&&!rocks.length){wave++;newWave();tone(600,.3,'triangle',.05,1200)}}
+function draw(){const bg=x.createRadialGradient(W*.7,H*.3,0,W*.7,H*.3,Math.max(W,H));bg.addColorStop(0,'#141238');bg.addColorStop(.5,'#070720');bg.addColorStop(1,'#02030a');x.fillStyle=bg;x.fillRect(0,0,W,H);
+ x.save();if(shake>0){x.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);shake*=.88}
+ const ox=ship?ship.x:W/2,oy=ship?ship.y:H/2;stars.forEach(s=>{const px=((s.x*W-ox*s.z*.05)%W+W)%W,py=((s.y*H-oy*s.z*.05)%H+H)%H;x.fillStyle=`rgba(200,230,255,${.3+s.z*.6})`;x.fillRect(px,py,s.z*1.8,s.z*1.8)});
+ x.lineWidth=1.6;x.shadowBlur=12;
+ rocks.forEach(r=>{x.strokeStyle=`hsl(${r.h},90%,72%)`;x.shadowColor=x.strokeStyle;x.fillStyle=`hsla(${r.h},80%,50%,.07)`;x.beginPath();r.pts.forEach(([a,m],i)=>{const px=r.x+Math.cos(a+r.rot)*r.r*m,py=r.y+Math.sin(a+r.rot)*r.r*m;i?x.lineTo(px,py):x.moveTo(px,py)});x.closePath();x.fill();x.stroke()});
+ x.fillStyle='#ffd27a';x.shadowColor='#ffd27a';shots.forEach(s=>{x.beginPath();x.arc(s.x,s.y,2.2,0,7);x.fill()});
+ if(ship&&!(inv>0&&t%10<5)){x.save();x.translate(ship.x,ship.y);x.rotate(ship.a);x.scale(SC,SC);x.strokeStyle='#e9fdff';x.shadowColor='#3be8ff';x.lineWidth=2;x.beginPath();x.moveTo(16,0);x.lineTo(-11,-10);x.lineTo(-6,0);x.lineTo(-11,10);x.closePath();x.stroke();
+  if(ship.th){x.strokeStyle='#ff9d4a';x.shadowColor='#ff9d4a';x.beginPath();x.moveTo(-7,-5);x.lineTo(-14-Math.random()*10,0);x.lineTo(-7,5);x.stroke()}x.restore()}
+ x.shadowBlur=0;parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vx*=.98;p.vy*=.98;p.l-=p.d;x.globalAlpha=Math.max(0,p.l);x.fillStyle=p.c;x.fillRect(p.x-1.5,p.y-1.5,3,3)});x.globalAlpha=1;parts=parts.filter(p=>p.l>0);
+ x.restore();
+ if(joy){x.strokeStyle='#3be8ff55';x.lineWidth=2;x.beginPath();x.arc(joy.ox,joy.oy,50,0,7);x.stroke();const l=Math.min(50,Math.hypot(joy.dx,joy.dy)),a=Math.atan2(joy.dy,joy.dx);x.fillStyle='#3be8ff44';x.beginPath();x.arc(joy.ox+Math.cos(a)*l,joy.oy+Math.sin(a)*l,20,0,7);x.fill()}
+ if(fireTouch!==null){x.fillStyle='#ffd27a22';x.beginPath();x.arc(fireTouch.x,fireTouch.y,34,0,7);x.fill()}}
+function loop(){t++;if(st==='play'||st==='over')update();else{rocks.forEach(r=>{r.x+=r.vx;r.y+=r.vy;r.rot+=r.vr;wrap(r,r.r)})}draw();requestAnimationFrame(loop)}
+wave=1;for(let i=0;i<6;i++)rocks.push(mkRock(Math.random()*W,Math.random()*H,1+(i%3)));
+requestAnimationFrame(loop);
+const KM={ArrowLeft:'L',a:'L',A:'L',ArrowRight:'R',d:'R',D:'R',ArrowUp:'U',w:'U',W:'U',' ':'F',k:'F'};
+addEventListener('keydown',e=>{if(KM[e.key]){e.preventDefault();keys[KM[e.key]]=true}if((e.key==='Enter'||e.key===' ')&&st!=='play'&&document.getElementById('ov').classList.contains('on')){e.preventDefault();start()}});
+addEventListener('keyup',e=>{if(KM[e.key])keys[KM[e.key]]=false});
+cv.addEventListener('touchstart',e=>{e.preventDefault();for(const tc of e.changedTouches){if(tc.clientX<W/2&&!joy)joy={id:tc.identifier,ox:tc.clientX,oy:tc.clientY,dx:0,dy:0};else if(fireTouch===null)fireTouch={id:tc.identifier,x:tc.clientX,y:tc.clientY}}},{passive:false});
+cv.addEventListener('touchmove',e=>{e.preventDefault();for(const tc of e.changedTouches){if(joy&&tc.identifier===joy.id){joy.dx=tc.clientX-joy.ox;joy.dy=tc.clientY-joy.oy}}},{passive:false});
+function tend(e){for(const tc of e.changedTouches){if(joy&&tc.identifier===joy.id)joy=null;if(fireTouch&&tc.identifier===fireTouch.id)fireTouch=null}}
+cv.addEventListener('touchend',tend);cv.addEventListener('touchcancel',tend);
+document.getElementById('go').onclick=start;
+</script>
+</body>
+</html>

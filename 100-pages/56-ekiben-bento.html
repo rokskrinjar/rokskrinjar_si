@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ekiben-ya — Station Bento</title>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fff8ec;--red:#e03a2f;--ink:#241c15;--wood:#c98b4e;--wood2:#8a5a2b;--green:#3f8f4a;--yellow:#ffcc33;--teal:#2aa198}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'M PLUS Rounded 1c',sans-serif;
+ background-image:radial-gradient(#e03a2f14 2px,transparent 2.5px);background-size:22px 22px}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:16px 4vw;background:var(--red);color:#fff;border-bottom:6px solid var(--ink)}
+.logo{font-family:'Dela Gothic One';font-size:28px;display:flex;align-items:center;gap:12px}
+.logo span{background:#fff;color:var(--red);border-radius:50%;width:46px;height:46px;display:grid;place-items:center;font-size:24px}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav a{padding:8px 14px;border-radius:30px;font-weight:800;font-size:14px;border:2px solid transparent}
+nav a.on{background:#fff;color:var(--red);border-color:var(--ink)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1260px;margin:0 auto;padding:36px 4vw 80px}
+h2{font-family:'Dela Gothic One';font-weight:400;font-size:clamp(2.2rem,5vw,4rem);line-height:1.05}
+h2 small{display:block;font-family:'M PLUS Rounded 1c';font-size:14px;font-weight:800;letter-spacing:.3em;color:var(--red)}
+.lede{max-width:60ch;line-height:1.7;margin:12px 0 28px;font-size:16px}
+/* builder */
+.build{display:grid;grid-template-columns:1fr 1.1fr 300px;gap:26px;align-items:start}
+.pantry{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.item{background:#fff;border:3px solid var(--ink);border-radius:14px;padding:8px 6px;text-align:center;font-size:12px;font-weight:800;box-shadow:0 4px 0 var(--ink);transition:transform .1s;touch-action:none;user-select:none}
+.item:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.item svg{width:56px;height:56px;display:block;margin:0 auto 2px}
+.item small{display:block;font-weight:400;opacity:.6}
+.cat{font-family:'Dela Gothic One';font-size:15px;margin:14px 0 8px}
+.box{background:linear-gradient(135deg,var(--wood),var(--wood2));border-radius:18px;padding:16px;box-shadow:0 20px 0 -8px #0002,inset 0 0 0 3px #0002;position:sticky;top:20px}
+.lid{font-family:'Dela Gothic One';color:#fff;text-align:center;margin-bottom:10px;letter-spacing:.1em;font-size:14px}
+.tray{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,150px);gap:8px;background:#6b3f1a;padding:8px;border-radius:10px}
+.cell{background:#2b1a0d;border-radius:6px;position:relative;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:2px;overflow:hidden;transition:background .2s}
+.cell.rice{grid-row:span 2;background:#fdfbf4}
+.cell.over{background:#4a2f18;outline:3px dashed var(--yellow)}
+.cell svg{width:50px;height:50px;cursor:pointer;animation:pop .3s}
+.cell.rice svg{width:58px;height:58px}
+@keyframes pop{from{transform:scale(0) rotate(-40deg)}}
+.cell .hint{position:absolute;inset:0;display:grid;place-items:center;color:#ffffff44;font-size:12px;font-weight:800;pointer-events:none;text-align:center}
+.cell.rice .hint{color:#0003}
+.ghost{position:fixed;pointer-events:none;z-index:50;width:64px;height:64px;transform:translate(-50%,-50%) rotate(-8deg)}
+.receipt{background:#fff;border:3px solid var(--ink);border-radius:14px;padding:18px;box-shadow:6px 6px 0 var(--ink)}
+.receipt h3{font-family:'Dela Gothic One';font-weight:400;font-size:20px}
+.meter{margin:12px 0}
+.meter label{display:flex;justify-content:space-between;font-size:12px;font-weight:800}
+.meter .bar{height:12px;border:2px solid var(--ink);border-radius:10px;overflow:hidden;margin-top:4px;background:#fff}
+.meter .bar i{display:block;height:100%;transition:width .4s}
+.total{font-family:'Dela Gothic One';font-size:40px;margin-top:10px}
+.stamp{display:inline-block;border:3px solid var(--red);color:var(--red);font-weight:800;padding:4px 10px;border-radius:8px;transform:rotate(-6deg);margin-top:8px;font-size:13px}
+.btn{display:inline-block;background:var(--red);color:#fff;border:3px solid var(--ink);border-radius:30px;padding:10px 18px;font-weight:800;box-shadow:0 4px 0 var(--ink);margin-top:10px}
+.btn.alt{background:#fff;color:var(--ink)}
+/* menu */
+.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:22px}
+.bm{background:#fff;border:3px solid var(--ink);border-radius:20px;overflow:hidden;box-shadow:0 8px 0 var(--ink)}
+.bm .top{height:180px;display:grid;place-items:center;position:relative}
+.bm .top svg{width:220px;height:160px}
+.bm .reg{position:absolute;left:12px;top:12px;background:var(--ink);color:#fff;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:800}
+.bm .b{padding:16px 18px;border-top:3px solid var(--ink)}
+.bm h3{font-family:'Dela Gothic One';font-weight:400;font-size:22px}
+.bm .jp{font-size:13px;opacity:.6}
+.bm p{font-size:14px;line-height:1.55;margin:8px 0}
+.bm .row{display:flex;justify-content:space-between;align-items:center}
+.bm .yen{font-family:'Dela Gothic One';font-size:24px;color:var(--red)}
+/* map */
+.line{position:relative;margin:40px 0;overflow-x:auto;padding-bottom:20px}
+.line svg{min-width:900px;width:100%;height:auto}
+.stn{cursor:pointer}
+.stninfo{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;background:#fff;border:3px solid var(--ink);border-radius:20px;padding:22px;box-shadow:6px 6px 0 var(--ink)}
+.stninfo .circle{width:120px;height:120px;border-radius:50%;border:6px solid var(--ink);display:grid;place-items:center;font-family:'Dela Gothic One';font-size:40px;background:var(--yellow)}
+/* stamps */
+.stamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px}
+.stp{aspect-ratio:1;border-radius:50%;border:3px dashed #241c1533;display:grid;place-items:center;text-align:center;font-size:12px;font-weight:800;position:relative;background:#fff;cursor:pointer}
+.stp.got{border:4px solid;color:var(--c);border-color:var(--c);animation:stampin .4s}
+.stp.got b{font-family:'Dela Gothic One';font-weight:400;font-size:18px;display:block}
+@keyframes stampin{from{transform:scale(1.6) rotate(20deg);opacity:0}}
+@media(max-width:1000px){.build{grid-template-columns:1fr}.box{position:static}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo"><span>駅</span>EKIBEN-YA</div>
+ <nav><a href="#build">Build a Bento</a><a href="#menu">Regional Menu</a><a href="#line">Along the Line</a><a href="#stamps">Stamp Rally</a><a href="index.html">← Index</a></nav>
+</header>
+
+<section data-view="build"><div class="wrap">
+ <h2><small>自分の弁当</small>Pack your own bento.</h2>
+ <p class="lede">Drag (or tap) food from the counter into your box. Rice goes in the big compartment. A good bento balances colour, taste and nutrition, and the meters will tell you how you're doing.</p>
+ <div class="build">
+  <div id="pantry"></div>
+  <div class="box"><div class="lid">★ NOZOMI 21 · CAR 7 · SEAT 12A ★</div><div class="tray" id="tray"></div>
+   <div style="display:flex;gap:10px;justify-content:center"><button class="btn alt" id="clear">Empty box</button><button class="btn alt" id="rand">Chef's choice</button></div></div>
+  <div class="receipt" id="receipt"></div>
+ </div>
+</div></section>
+
+<section data-view="menu" hidden><div class="wrap">
+ <h2><small>名物駅弁</small>Famous ekiben of Japan.</h2>
+ <p class="lede">Every station has a speciality. Some come in ceramic pots, some in boxes that heat themselves, and one comes in a Daruma doll.</p>
+ <div class="menu" id="menuG"></div>
+</div></section>
+
+<section data-view="line" hidden><div class="wrap">
+ <h2><small>東海道線</small>Along the Tōkaidō.</h2>
+ <p class="lede">Tokyo to Hakata on the Shinkansen, a 5-hour ride with a new bento at every stop. Click a station.</p>
+ <div class="line"><svg id="lineSvg" viewBox="0 0 1100 260"></svg></div>
+ <div class="stninfo" id="stninfo"></div>
+</div></section>
+
+<section data-view="stamps" hidden><div class="wrap">
+ <h2><small>スタンプラリー</small>Station stamp rally.</h2>
+ <p class="lede">Japanese stations keep free rubber stamps near the gates. Tap a circle to "visit" the station and ink your book. Collect all eight for a prize.</p>
+ <div class="stamps" id="stampG"></div>
+ <p id="prize" style="margin-top:24px;font-family:'Dela Gothic One';font-size:22px"></p>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'build';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* food icons (svg) */
+const F={
+ onigiri:['Onigiri','rice ball',180,'carb','#fff','<path d="M28 6 L52 48 Q28 56 4 48Z" fill="#fff" stroke="#241c15" stroke-width="2.5" stroke-linejoin="round"/><rect x="16" y="34" width="24" height="16" rx="2" fill="#1f2a1f"/>'],
+ rice:['White rice','with umeboshi',120,'carb','#fff','<ellipse cx="28" cy="32" rx="24" ry="18" fill="#fff" stroke="#241c15" stroke-width="2.5"/>'+[...Array(10)].map((_,i)=>`<ellipse cx="${12+(i*7)%32}" cy="${24+(i*5)%16}" rx="3" ry="1.6" fill="#e9e3d2"/>`).join('')+'<circle cx="28" cy="30" r="6" fill="#d7263d"/>'],
+ tamago:['Tamagoyaki','rolled omelette',60,'protein','#ffcc33','<rect x="6" y="14" width="44" height="28" rx="6" fill="#ffcc33" stroke="#241c15" stroke-width="2.5"/><path d="M14 20 q6 8 0 16 M24 20 q6 8 0 16 M34 20 q6 8 0 16" stroke="#e0a800" stroke-width="2" fill="none"/>'],
+ karaage:['Karaage','fried chicken',110,'protein','#c7772d','<g stroke="#241c15" stroke-width="2.5"><circle cx="20" cy="30" r="13" fill="#c7772d"/><circle cx="36" cy="24" r="12" fill="#d98a3a"/><circle cx="34" cy="40" r="10" fill="#b8651f"/></g>'],
+ salmon:['Grilled salmon','shio-jake',90,'protein','#ff8a65','<path d="M6 30 Q12 12 40 16 L50 28 L40 40 Q12 46 6 30Z" fill="#ff8a65" stroke="#241c15" stroke-width="2.5"/><path d="M16 22 l4 16 M26 20 l4 18 M36 20 l3 16" stroke="#fff" stroke-width="2"/>'],
+ ebi:['Ebi fry','panko shrimp',95,'protein','#e9a23b','<path d="M8 38 Q10 16 34 12 Q46 12 46 22 Q40 36 16 44Z" fill="#e9a23b" stroke="#241c15" stroke-width="2.5"/><path d="M40 14 l10 -8 l0 12Z" fill="#e03a2f" stroke="#241c15" stroke-width="2"/>'],
+ brocc:['Broccoli','blanched',25,'veg','#3f8f4a','<g stroke="#241c15" stroke-width="2.5"><rect x="24" y="30" width="8" height="18" fill="#a5d36b"/><circle cx="18" cy="24" r="10" fill="#3f8f4a"/><circle cx="36" cy="22" r="11" fill="#357a3e"/><circle cx="28" cy="16" r="9" fill="#4aa356"/></g>'],
+ tomato:['Mini tomato','cherry',15,'veg','#e03a2f','<circle cx="28" cy="32" r="18" fill="#e03a2f" stroke="#241c15" stroke-width="2.5"/><path d="M28 14 l-8 -4 M28 14 l8 -4 M28 14 l0 -6" stroke="#3f8f4a" stroke-width="3" stroke-linecap="round"/><ellipse cx="22" cy="26" rx="4" ry="3" fill="#fff8"/>'],
+ pickle:['Tsukemono','pickled daikon',10,'veg','#ffe45c','<path d="M8 20 h40 v10 h-40z M8 34 h40 v10 h-40z" fill="#ffe45c" stroke="#241c15" stroke-width="2.5"/>'],
+ edamame:['Edamame','salted',60,'veg','#7cc36b','<g stroke="#241c15" stroke-width="2.5"><path d="M8 40 Q14 10 44 12 Q30 22 30 30 Q26 40 8 40Z" fill="#7cc36b"/></g><circle cx="20" cy="32" r="4" fill="#a5d36b"/><circle cx="28" cy="24" r="4" fill="#a5d36b"/><circle cx="36" cy="18" r="3.5" fill="#a5d36b"/>'],
+ kamaboko:['Kamaboko','fish cake',40,'protein','#ff9ec4','<path d="M6 44 Q6 14 28 14 Q50 14 50 44Z" fill="#fff" stroke="#241c15" stroke-width="2.5"/><path d="M10 44 Q10 20 28 20 Q46 20 46 44" fill="none" stroke="#ff6fa8" stroke-width="5"/>'],
+ octo:['Octopus sausage','tako-san',70,'protein','#e03a2f','<path d="M12 28 Q12 8 28 8 Q44 8 44 28 L46 46 L40 38 L36 48 L30 38 L26 48 L20 38 L14 46Z" fill="#e8543f" stroke="#241c15" stroke-width="2.5" stroke-linejoin="round"/><circle cx="23" cy="22" r="2" fill="#241c15"/><circle cx="33" cy="22" r="2" fill="#241c15"/>'],
+ mochi:['Sakura mochi','dessert',110,'sweet','#ffb3c7','<ellipse cx="28" cy="32" rx="20" ry="16" fill="#ffb3c7" stroke="#241c15" stroke-width="2.5"/><path d="M14 22 Q28 4 44 24 Q30 18 14 22Z" fill="#6aa84f" stroke="#241c15" stroke-width="2"/>'],
+ dango:['Hanami dango','three colours',90,'sweet','#fff','<path d="M8 48 L48 8" stroke="#c98b4e" stroke-width="3"/><circle cx="16" cy="40" r="8" fill="#6aa84f" stroke="#241c15" stroke-width="2.5"/><circle cx="28" cy="28" r="8" fill="#fff" stroke="#241c15" stroke-width="2.5"/><circle cx="40" cy="16" r="8" fill="#ff9ec4" stroke="#241c15" stroke-width="2.5"/>']};
+const ico=k=>`<svg viewBox="0 0 56 56">${F[k][5]}</svg>`;
+const CATS=[['Rice','carb'],['Mains','protein'],['Vegetables','veg'],['Something sweet','sweet']];
+document.getElementById('pantry').innerHTML=CATS.map(([n,c])=>`<div class="cat">${n}</div><div class="pantry">${Object.entries(F).filter(([,v])=>v[3]===c).map(([k,v])=>`<div class="item" data-k="${k}">${ico(k)}${v[0]}<small>${v[1]}</small></div>`).join('')}</div>`).join('');
+let box=store.get('ekiben-box',[['rice','onigiri'],['karaage'],['tamago'],['brocc','tomato'],['pickle']]);
+const HINT=['ご飯 RICE','おかず MAIN','卵 EGG','野菜 VEG','甘味 TREAT'];
+function renderTray(){document.getElementById('tray').innerHTML=box.map((c,i)=>`<div class="cell ${i===0?'rice':''}" data-c="${i}">${c.length?'':`<div class="hint">${HINT[i]}</div>`}${c.map((k,j)=>`<svg viewBox="0 0 56 56" data-j="${j}" title="remove">${F[k][5]}</svg>`).join('')}</div>`).join('');renderReceipt();store.set('ekiben-box',box)}
+function renderReceipt(){const all=box.flat();const kcal=all.reduce((s,k)=>s+F[k][2],0);const cats=['carb','protein','veg','sweet'].map(c=>all.filter(k=>F[k][3]===c).length);const colours=new Set(all.map(k=>F[k][4])).size;
+ const price=all.length*160+380;const score=Math.min(100,colours*14+(cats.every((n,i)=>i===3||n>0)?30:0)+(all.length>=6?12:0));
+ const bar=(l,v,c)=>`<div class="meter"><label><span>${l}</span><span>${Math.round(v)}%</span></label><div class="bar"><i style="width:${Math.min(100,v)}%;background:${c}"></i></div></div>`;
+ document.getElementById('receipt').innerHTML=`<h3>お会計 · The bill</h3><div style="font-size:13px;opacity:.7;margin-top:4px">${all.length} items · ${kcal} kcal</div>${bar('Colour harmony · 彩り',colours/7*100,'#e03a2f')}${bar('Balance · 栄養',(cats.filter(Boolean).length/4)*100,'#3f8f4a')}${bar('Fullness · 満腹',kcal/800*100,'#ffcc33')}<div class="total">¥${price.toLocaleString()}</div>${score>=80?'<div class="stamp">駅長おすすめ · Station-master approved</div>':score>=50?'<div class="stamp" style="color:#2aa198;border-color:#2aa198">Good box!</div>':'<div style="font-size:13px;margin-top:8px">Add more colours and some vegetables.</div>'}<br><button class="btn" id="buy">Buy & board the train</button>`;
+ document.getElementById('buy').onclick=()=>{document.getElementById('buy').textContent='いただきます! 🚄';}}
+function add(k,ci){if(ci==null){const t=F[k][3];ci=t==='carb'?0:t==='protein'?(box[1].length<=box[2].length?1:2):t==='veg'?3:4;if(t==='protein'&&box[1].length>=3&&box[2].length>=3)ci=4}if(ci===0&&F[k][3]!=='carb'&&box[0].length>=4)return;if(box[ci].length>=(ci===0?6:4))return;box[ci].push(k);renderTray()}
+// drag with pointer
+let drag=null;
+document.getElementById('pantry').addEventListener('pointerdown',e=>{const it=e.target.closest('.item');if(!it)return;e.preventDefault();drag={k:it.dataset.k,sx:e.clientX,sy:e.clientY,g:null}});
+addEventListener('pointermove',e=>{if(!drag)return;if(!drag.g&&Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)>6){drag.g=document.createElement('div');drag.g.className='ghost';drag.g.innerHTML=ico(drag.k);document.body.appendChild(drag.g)}if(drag.g){drag.g.style.left=e.clientX+'px';drag.g.style.top=e.clientY+'px';document.querySelectorAll('.cell').forEach(c=>c.classList.remove('over'));const c=document.elementFromPoint(e.clientX,e.clientY)?.closest('.cell');if(c)c.classList.add('over')}});
+addEventListener('pointerup',e=>{if(!drag)return;if(drag.g){drag.g.remove();const c=document.elementFromPoint(e.clientX,e.clientY)?.closest('.cell');document.querySelectorAll('.cell').forEach(c=>c.classList.remove('over'));if(c)add(drag.k,+c.dataset.c)}else add(drag.k);drag=null});
+document.getElementById('tray').onclick=e=>{const s=e.target.closest('svg[data-j]');if(!s)return;const c=+s.closest('.cell').dataset.c;box[c].splice(+s.dataset.j,1);renderTray()};
+document.getElementById('clear').onclick=()=>{box=[[],[],[],[],[]];renderTray()};
+document.getElementById('rand').onclick=()=>{const pick=t=>{const o=Object.keys(F).filter(k=>F[k][3]===t);return o[Math.random()*o.length|0]};box=[[pick('carb'),pick('carb')],[pick('protein'),pick('protein')],[pick('protein')],[pick('veg'),pick('veg'),pick('veg')],[pick('sweet')]];renderTray()};
+renderTray();
+
+/* menu */
+const MENU=[['Tōge no Kamameshi','峠の釜めし','Yokokawa, Gunma',1300,'Rice with chicken, quail egg and chestnut, cooked and served in a real Mashiko clay pot. Many people keep the pot afterwards.','#8a5a2b','pot'],['Daruma Bentō','だるま弁当','Takasaki, Gunma',1200,'Comes in a red plastic Daruma doll that turns into a piggy bank once it\'s empty.','#e03a2f','daruma'],['Ikameshi','いかめし','Mori, Hokkaido',980,'Two whole squid stuffed with sticky rice and simmered in sweet soy. The recipe dates from 1941.','#b86a36','squid'],['Gyūtan Bentō','牛たん弁当','Sendai, Miyagi',1600,'Pull a string and the box steams itself hot in minutes. Inside is grilled beef tongue.','#3a2a20','steam'],['Masu no Sushi','ますのすし','Toyama',1500,'Pressed trout sushi wrapped in bamboo leaves inside a round wooden tub, with a rubber band holding the lid on.','#ff8a65','round'],['Kobe Beef Bentō','神戸牛弁当','Shin-Kobe, Hyōgo',1800,'Sukiyaki-style wagyu over rice. The box is shaped like a vintage steam engine.','#6b2a1a','train']];
+function menuArt(t,c){if(t==='pot')return`<ellipse cx="110" cy="120" rx="80" ry="22" fill="#5a3a1a"/><path d="M40 70 h140 v50 q-70 30 -140 0z" fill="${c}" stroke="#241c15" stroke-width="3"/><ellipse cx="110" cy="70" rx="70" ry="16" fill="#fff8ec" stroke="#241c15" stroke-width="3"/><circle cx="90" cy="66" r="8" fill="#ffcc33"/><circle cx="120" cy="70" r="7" fill="#c7772d"/><path d="M130 62 q10 -6 18 2" stroke="#3f8f4a" stroke-width="4" fill="none"/>`;
+ if(t==='daruma')return`<ellipse cx="110" cy="84" rx="62" ry="66" fill="#e03a2f" stroke="#241c15" stroke-width="3"/><ellipse cx="110" cy="74" rx="36" ry="30" fill="#fff8ec" stroke="#241c15" stroke-width="3"/><circle cx="98" cy="70" r="7" fill="#fff" stroke="#241c15" stroke-width="3"/><circle cx="122" cy="70" r="7" fill="#241c15"/><path d="M100 88 q10 6 20 0" stroke="#241c15" stroke-width="3" fill="none"/>`;
+ if(t==='squid')return[0,1].map(i=>`<g transform="translate(${60+i*70} ${20+i*10}) rotate(${i?20:-10})"><path d="M20 0 Q40 0 40 20 V80 Q20 100 0 80 V20 Q0 0 20 0Z" fill="${c}" stroke="#241c15" stroke-width="3"/><path d="M5 40 h30 M5 55 h30" stroke="#fff8ec" stroke-width="4"/></g>`).join('');
+ if(t==='steam')return`<rect x="40" y="50" width="140" height="80" rx="6" fill="#fff8ec" stroke="#241c15" stroke-width="3"/><rect x="50" y="60" width="120" height="30" fill="${c}"/><path d="M180 70 q20 0 20 30" stroke="#e03a2f" stroke-width="3" fill="none"/><path d="M80 44 q-10 -14 0 -26 M110 44 q-10 -14 0 -30 M140 44 q-10 -14 0 -26" stroke="#241c1566" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+ if(t==='round')return`<ellipse cx="110" cy="100" rx="90" ry="34" fill="#c98b4e" stroke="#241c15" stroke-width="3"/><ellipse cx="110" cy="88" rx="84" ry="30" fill="#6aa84f" stroke="#241c15" stroke-width="3"/><ellipse cx="110" cy="88" rx="60" ry="20" fill="${c}"/><path d="M20 90 Q110 140 200 90" stroke="#e03a2f" stroke-width="4" fill="none"/>`;
+ return`<rect x="40" y="60" width="130" height="60" rx="8" fill="${c}" stroke="#241c15" stroke-width="3"/><rect x="150" y="40" width="30" height="40" fill="#241c15"/><circle cx="70" cy="128" r="14" fill="#241c15"/><circle cx="130" cy="128" r="14" fill="#241c15"/><rect x="60" y="72" width="70" height="24" fill="#ffcc33"/>`}
+document.getElementById('menuG').innerHTML=MENU.map(m=>`<div class="bm"><div class="top" style="background:${m[5]}22"><span class="reg">${m[2]}</span><svg viewBox="0 0 220 160">${menuArt(m[6],m[5])}</svg></div><div class="b"><h3>${m[0]}</h3><div class="jp">${m[1]}</div><p>${m[4]}</p><div class="row"><span class="yen">¥${m[3].toLocaleString()}</span><button class="btn alt" style="margin:0" onclick="this.textContent='✓ Reserved'">Reserve</button></div></div></div>`).join('');
+
+/* line */
+const ST=[['Tokyo','東京','Makunouchi bentō, the classic of classics',0],['Shinagawa','品川','Anago (eel) sushi',6.8],['Shin-Yokohama','新横浜','Shūmai bentō, sold since 1954',28.8],['Nagoya','名古屋','Miso-katsu with red miso',366],['Kyoto','京都','Seasonal kyō-ryōri in a lacquer box',513.6],['Shin-Osaka','新大阪','Takoyaki bentō',552.6],['Shin-Kobe','新神戸','Kobe beef in a steam-engine box',589.5],['Okayama','岡山','Matsuri-zushi with Seto Inland Sea fish',732.9],['Hiroshima','広島','Grilled oysters on rice',894.2],['Hakata','博多','Mentaiko (spicy cod roe) bentō',1174.9]];
+let stSel=4;
+function drawLine(){let s='<path d="M40 150 C200 150 260 110 400 120 S640 180 760 150 S980 90 1060 120" fill="none" stroke="#241c15" stroke-width="14" stroke-linecap="round"/><path d="M40 150 C200 150 260 110 400 120 S640 180 760 150 S980 90 1060 120" fill="none" stroke="#fff" stroke-width="6" stroke-dasharray="18 12" stroke-linecap="round"/>';
+ const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d','M40 150 C200 150 260 110 400 120 S640 180 760 150 S980 90 1060 120');const L=path.getTotalLength();
+ ST.forEach((st,i)=>{const p=path.getPointAtLength(st[3]/1174.9*L);const on=i===stSel;s+=`<g class="stn" data-i="${i}"><circle cx="${p.x}" cy="${p.y}" r="${on?20:13}" fill="${on?'#ffcc33':'#fff'}" stroke="#241c15" stroke-width="4"/><text x="${p.x}" y="${p.y+(i%2?46:-30)}" text-anchor="middle" font-family="Dela Gothic One" font-size="${on?20:15}" fill="#241c15">${st[0]}</text><text x="${p.x}" y="${p.y+(i%2?64:-50)}" text-anchor="middle" font-size="12" fill="#e03a2f" font-weight="800">${st[1]}</text></g>`});
+ const tp=path.getPointAtLength(ST[stSel][3]/1174.9*L);s+=`<g transform="translate(${tp.x-30} ${tp.y-60})"><path d="M0 30 Q10 10 40 12 L60 16 L60 30Z" fill="#fff" stroke="#241c15" stroke-width="3"/><path d="M4 26 L60 26" stroke="#1f6fd1" stroke-width="3"/></g>`;
+ document.getElementById('lineSvg').innerHTML=s;const st=ST[stSel];const mins=Math.round(st[3]/1174.9*297);
+ document.getElementById('stninfo').innerHTML=`<div class="circle">${st[1][0]}</div><div><div style="font-size:12px;font-weight:800;letter-spacing:.2em;color:#e03a2f">STATION ${stSel+1} / 10 · ${st[3]} KM FROM TOKYO</div><h3 style="font-family:'Dela Gothic One';font-weight:400;font-size:34px">${st[0]} <span style="font-size:20px;opacity:.5">${st[1]}</span></h3><p style="margin:6px 0">Local ekiben: <b>${st[2]}</b></p><p style="font-size:14px;opacity:.7">${Math.floor(mins/60)}h ${mins%60}m by Nozomi from Tokyo</p></div>`}
+document.getElementById('lineSvg').onclick=e=>{const g=e.target.closest('.stn');if(g){stSel=+g.dataset.i;drawLine()}};
+new MutationObserver(()=>{if(!document.querySelector('[data-view=line]').hidden)drawLine()}).observe(document.querySelector('[data-view=line]'),{attributes:true});drawLine();
+
+/* stamps */
+const SC=['#e03a2f','#1f6fd1','#3f8f4a','#8e2448','#e0a800','#2aa198','#6b4a2e','#7a3fc2'];
+let got=new Set(store.get('ekiben-stamps',[]));
+function drawStamps(){document.getElementById('stampG').innerHTML=ST.slice(0,8).map((s,i)=>`<div class="stp ${got.has(i)?'got':''}" data-i="${i}" style="--c:${SC[i]}">${got.has(i)?`<div><b>${s[1]}</b>${s[0].toUpperCase()}<br><span style="font-size:10px">★ 2026 ★</span></div>`:`<span style="opacity:.4">${s[0]}</span>`}</div>`).join('');
+ document.getElementById('prize').textContent=got.size===8?'🎉 Complete! Show this screen at any station for a free Daruma bentō.':`${got.size} / 8 stamps`}
+document.getElementById('stampG').onclick=e=>{const d=e.target.closest('.stp');if(!d)return;const i=+d.dataset.i;got.has(i)?got.delete(i):got.add(i);store.set('ekiben-stamps',[...got]);drawStamps()};drawStamps();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

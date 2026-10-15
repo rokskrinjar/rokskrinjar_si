@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Echo Bloom</title>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:manipulation;user-select:none}
+body{background:radial-gradient(circle at 50% 45%,#3b1840,#1c0b22 60%,#0f0614);font-family:Jost,sans-serif;color:#f5e6f0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:40px 16px 16px}
+h1{font-family:Italiana,serif;font-size:clamp(34px,9vw,54px);font-weight:400;letter-spacing:.12em}
+.sub{font-weight:300;letter-spacing:.3em;font-size:12px;opacity:.7;text-transform:uppercase;min-height:1.2em}
+.flower{--S:min(80vw,54vh,420px);width:var(--S);height:var(--S);position:relative;animation:sway 8s ease-in-out infinite}
+@keyframes sway{50%{transform:rotate(3deg)}}
+.p{position:absolute;width:calc(var(--S)*.37);height:calc(var(--S)*.37);left:50%;top:50%;cursor:pointer;transition:filter .12s,transform .12s;filter:saturate(.55) brightness(.62)}
+.p i{position:absolute;inset:0;background:var(--c);transform:rotate(45deg);box-shadow:inset 0 0 30px #0004,inset 8px 8px 30px #fff3}
+.p[data-i="0"]{transform:translate(-50%,-50%) translateY(calc(var(--S)*-.27))}.p[data-i="0"] i{border-radius:50% 50% 0 50%}
+.p[data-i="1"]{transform:translate(-50%,-50%) translateX(calc(var(--S)*.27))}.p[data-i="1"] i{border-radius:50% 50% 50% 0}
+.p[data-i="2"]{transform:translate(-50%,-50%) translateY(calc(var(--S)*.27))}.p[data-i="2"] i{border-radius:0 50% 50% 50%}
+.p[data-i="3"]{transform:translate(-50%,-50%) translateX(calc(var(--S)*-.27))}.p[data-i="3"] i{border-radius:50% 0 50% 50%}
+.p.lit{filter:saturate(1.2) brightness(1.25) drop-shadow(0 0 28px var(--c))}
+.p.lit[data-i="0"]{transform:translate(-50%,-50%) translateY(calc(var(--S)*-.3)) scale(1.06)}.p.lit[data-i="1"]{transform:translate(-50%,-50%) translateX(calc(var(--S)*.3)) scale(1.06)}.p.lit[data-i="2"]{transform:translate(-50%,-50%) translateY(calc(var(--S)*.3)) scale(1.06)}.p.lit[data-i="3"]{transform:translate(-50%,-50%) translateX(calc(var(--S)*-.3)) scale(1.06)}
+.p span{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;opacity:.55;font-weight:500;pointer-events:none}
+.core{position:absolute;left:50%;top:50%;width:calc(var(--S)*.27);height:calc(var(--S)*.27);transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 40% 35%,#ffe9a8,#e0a43a 60%,#9a5f14);display:grid;place-items:center;box-shadow:0 0 40px #e0a43a66,inset 0 -6px 14px #0003;z-index:2;cursor:pointer;color:#4a2a05}
+.core b{font-family:Italiana,serif;font-size:calc(var(--S)*.1);line-height:1}.core small{font-size:10px;letter-spacing:.2em;display:block;text-align:center}
+.core.bad{animation:bad .4s}@keyframes bad{25%,75%{transform:translate(-50%,-50%) scale(.9);background:#c0392b}}
+.stats{display:flex;gap:24px;font-weight:300;letter-spacing:.15em;font-size:13px}.stats b{font-weight:500}
+.back{position:fixed;left:12px;top:10px;color:#f5e6f0aa;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="back" href="index.html">← games</a>
+<h1>Echo Bloom</h1>
+<div class="sub" id="sub">Tap the heart to begin</div>
+<div class="flower" id="fl">
+ <div class="p" data-i="0" style="--c:#ff6f91"><i></i><span>↑ 1</span></div>
+ <div class="p" data-i="1" style="--c:#ffc75f"><i></i><span>→ 2</span></div>
+ <div class="p" data-i="2" style="--c:#35d0ba"><i></i><span>↓ 3</span></div>
+ <div class="p" data-i="3" style="--c:#a178ff"><i></i><span>← 4</span></div>
+ <div class="core" id="core"><div><b id="n">▶</b><small id="cs">PLAY</small></div></div>
+</div>
+<div class="stats"><span>ROUND <b id="rd">0</b></span><span>BEST <b id="bs">0</b></span></div>
+<script>
+const K='best-echo-bloom';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const NOTES=[329.63,415.3,493.88,659.25];const P=[...document.querySelectorAll('.p')];
+let seq=[],pos=0,state='idle',best=ls.g(K,0),AC;document.getElementById('bs').textContent=best;
+function tone(f,d=.35,type='sine',v=.12){try{AC=AC||new AudioContext();const t=AC.currentTime;const o=AC.createOscillator(),o2=AC.createOscillator(),g=AC.createGain();o.type=type;o2.type='triangle';o.frequency.value=f;o2.frequency.value=f*2;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);o2.connect(g);g.connect(AC.destination);o.start();o2.start();o.stop(t+d);o2.stop(t+d)}catch(e){}}
+function light(i,ms){P[i].classList.add('lit');tone(NOTES[i],Math.max(.2,ms/1000+.1));setTimeout(()=>P[i].classList.remove('lit'),ms)}
+function set(n,s,sub){document.getElementById('n').textContent=n;document.getElementById('cs').textContent=s;if(sub!==undefined)document.getElementById('sub').textContent=sub}
+function start(){seq=[];state='show';document.getElementById('rd').textContent=0;next()}
+function next(){seq.push(Math.random()*4|0);pos=0;state='show';document.getElementById('rd').textContent=seq.length-1;set(seq.length,'LISTEN','Watch the petals…');
+ const gap=Math.max(230,620-seq.length*22),on=gap*.7;seq.forEach((p,k)=>setTimeout(()=>light(p,on),500+k*gap));setTimeout(()=>{state='input';set(seq.length,'ECHO','Your turn')},500+seq.length*gap)}
+function press(i){if(state!=='input')return;light(i,220);
+ if(i!==seq[pos]){state='over';fail();return}
+ pos++;if(pos===seq.length){state='show';const r=seq.length;if(r>best){best=r;ls.s(K,best);document.getElementById('bs').textContent=best}document.getElementById('rd').textContent=r;set('✓','BLOOM');setTimeout(next,700)}}
+function fail(){const c=document.getElementById('core');c.classList.remove('bad');void c.offsetWidth;c.classList.add('bad');tone(110,.7,'sawtooth',.08);const r=seq.length-1;
+ set(r,'WILTED',r>=best&&r>0?'New best — tap the heart to bloom again':`Reached ${r} · tap the heart to retry`);
+ let k=0;const iv=setInterval(()=>{P[seq[pos]].classList.toggle('lit');if(++k>5){clearInterval(iv);P[seq[pos]].classList.remove('lit');state='idle'}},160)}
+P.forEach((p,i)=>p.addEventListener('pointerdown',e=>{e.preventDefault();press(i)}));
+document.getElementById('core').addEventListener('click',()=>{if(state==='idle')start()});
+const KM={ArrowUp:0,w:0,W:0,'1':0,ArrowRight:1,d:1,D:1,'2':1,ArrowDown:2,s:2,S:2,'3':2,ArrowLeft:3,a:3,A:3,'4':3};
+addEventListener('keydown',e=>{if(e.repeat)return;if(e.key in KM){e.preventDefault();press(KM[e.key])}if((e.key===' '||e.key==='Enter')&&state==='idle'){e.preventDefault();start()}});
+</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hopfield Brewing Co.</title>
+<link href="https://fonts.googleapis.com/css2?family=Staatliches&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{--kraft:#d8c3a0;--kraft2:#c9b08a;--hop:#5a7a2a;--hop2:#a8c860;--amber:#d98a1e;--stout:#1e1410;--cream:#f7efe0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--kraft);color:var(--stout);font-family:'Source Serif 4',serif;background-image:radial-gradient(#0000000a 1px,transparent 1px);background-size:6px 6px}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;cursor:pointer;color:inherit}
+header{background:var(--stout);color:var(--cream);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 4vw}
+.logo{font-family:Staatliches;font-size:34px;letter-spacing:.04em;display:flex;align-items:center;gap:10px}
+.logo svg{width:36px;height:36px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{font-family:Staatliches;font-size:19px;padding:6px 14px;letter-spacing:.06em;color:#f7efe0aa}
+nav a.on{background:var(--hop2);color:var(--stout);border-radius:4px}
+[data-view][hidden]{display:none}
+.wrap{max-width:1300px;margin:0 auto;padding:30px 4vw 70px}
+h2{font-family:Staatliches;font-weight:400;font-size:clamp(2.8rem,6vw,5rem);line-height:.9;letter-spacing:.01em}
+h2 span{color:var(--hop)}
+.sub{max-width:62ch;line-height:1.6;margin:10px 0 24px;font-size:17px}
+/* lab */
+.lab{display:grid;grid-template-columns:1fr 1fr 300px;gap:22px;align-items:start}
+.card{background:var(--cream);border:3px solid var(--stout);border-radius:6px;padding:18px;box-shadow:5px 5px 0 var(--stout)}
+.card h3{font-family:Staatliches;font-weight:400;font-size:26px;letter-spacing:.04em;margin-bottom:8px}
+.ing{display:grid;grid-template-columns:110px 1fr 58px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px dashed #1e141033;font-size:15px}
+.ing i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px;border:1px solid #0003}
+.ing input[type=range]{width:100%;accent-color:var(--amber)}
+.ing b{font-family:Staatliches;font-size:18px;text-align:right}
+.hopline{display:grid;grid-template-columns:1fr 70px 70px 26px;gap:6px;align-items:center;margin-bottom:6px}
+.hopline select,.hopline input{padding:6px;border:2px solid var(--stout);border-radius:4px;background:#fff;font-size:14px;width:100%}
+.hopline button{border:0;background:none;font-size:18px}
+.btn{font-family:Staatliches;letter-spacing:.06em;background:var(--stout);color:var(--cream);border:0;border-radius:4px;padding:8px 16px;font-size:18px}
+.btn.hop{background:var(--hop);color:var(--cream)}
+.glass{text-align:center}
+.glass svg{width:200px;height:280px}
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.nums div{background:#fff;border:2px solid var(--stout);border-radius:4px;padding:8px;text-align:center}
+.nums b{font-family:Staatliches;font-size:30px;display:block;line-height:1}
+.nums small{font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.style{margin-top:12px;padding:10px;border-radius:4px;background:var(--hop2);font-size:14px;line-height:1.45}
+.bar{height:10px;background:#1e141022;border-radius:5px;position:relative;margin:4px 0 10px}
+.bar i{position:absolute;top:-3px;width:4px;height:16px;background:var(--stout);border-radius:2px}
+.bar span{position:absolute;top:0;bottom:0;background:var(--hop);opacity:.5;border-radius:5px}
+/* label */
+.lbl{display:grid;grid-template-columns:1fr 340px;gap:30px;align-items:center}
+.can{text-align:center}
+.can svg{width:min(100%,380px);height:auto;filter:drop-shadow(10px 14px 0 #1e141033)}
+.lctrl label{display:block;font-family:Staatliches;font-size:18px;letter-spacing:.06em;margin:14px 0 6px}
+.lctrl input[type=text]{width:100%;padding:10px;border:3px solid var(--stout);border-radius:4px;font-family:Staatliches;font-size:24px;background:var(--cream)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{border:2px solid var(--stout);background:var(--cream);border-radius:4px;padding:5px 10px;font-family:Staatliches;font-size:16px;letter-spacing:.04em}
+.chips button.on{background:var(--stout);color:var(--cream)}
+/* taps */
+.board{background:#1a1a18;color:#f2f0e8;border:10px solid #5a3a22;border-radius:6px;padding:26px;font-family:Staatliches;box-shadow:0 20px 40px #0006}
+.tap{display:grid;grid-template-columns:40px 1fr 90px 80px 60px;gap:12px;align-items:center;padding:10px 0;border-bottom:2px dashed #ffffff22;font-size:22px;letter-spacing:.04em;cursor:pointer}
+.tap:hover{background:#ffffff08}
+.tap.on{color:var(--hop2)}
+.tap .d{font-family:'Source Serif 4';font-size:14px;letter-spacing:0;opacity:.75}
+.tap .dot{width:26px;height:26px;border-radius:50%;border:2px solid #fff4}
+.paddle{margin-top:24px;background:linear-gradient(#a8743a,#8a5a28);border-radius:60px 60px 12px 12px/30px 30px 12px 12px;padding:30px 40px;display:flex;justify-content:space-around;align-items:flex-end;min-height:170px;gap:10px;box-shadow:0 14px 0 #5a3a18}
+.paddle .tg{text-align:center;font-family:Staatliches;color:var(--cream)}
+.paddle svg{width:70px;height:110px}
+/* hops */
+.hops{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.hc{background:var(--cream);border:3px solid var(--stout);border-radius:6px;padding:16px;box-shadow:5px 5px 0 var(--stout)}
+.hc h3{font-family:Staatliches;font-weight:400;font-size:28px}
+.hc .o{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--hop)}
+.hc svg{width:100%;height:170px}
+.hc p{font-size:14px;line-height:1.5}
+@media(max-width:1100px){.lab,.lbl{grid-template-columns:1fr}.tap{grid-template-columns:30px 1fr 70px 60px;font-size:18px}.tap .dot{display:none}}
+</style>
+</head>
+<body>
+<header><div class="logo"><svg viewBox="0 0 36 36"><path d="M18 2 C26 8 28 18 18 34 C8 18 10 8 18 2Z" fill="#a8c860"/><path d="M18 6 L18 30 M12 12 Q18 16 24 12 M11 19 Q18 23 25 19 M13 26 Q18 29 23 26" stroke="#5a7a2a" stroke-width="1.6" fill="none"/></svg>HOPFIELD BREWING CO.</div>
+ <nav><a href="#lab">Recipe Lab</a><a href="#label">Label Studio</a><a href="#taps">On Tap</a><a href="#hops">Hop Library</a><a href="index.html">Index</a></nav></header>
+
+<section data-view="lab"><div class="wrap">
+ <h2>Brew it <span>yourself.</span></h2>
+ <p class="sub">A 20-litre batch calculator using the same formulas homebrewers use: Tinseth for bitterness and Morey for colour. Move the grains, add some hops, and see how close you get to a style.</p>
+ <div class="lab">
+  <div class="card"><h3>Grain bill</h3><div id="grains"></div><h3 style="margin-top:16px">Yeast</h3><div class="chips" id="yeast"></div></div>
+  <div class="card"><h3>Hop schedule</h3><div style="display:grid;grid-template-columns:1fr 70px 70px 26px;gap:6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px"><span>Hop</span><span>Grams</span><span>Minutes</span><span></span></div><div id="hopL"></div><button class="btn hop" id="addHop">+ Add hop</button>
+   <h3 style="margin-top:18px">Target style</h3><div class="chips" id="styles"></div><div id="ranges" style="margin-top:12px;font-size:13px"></div></div>
+  <div class="card glass"><svg id="pint" viewBox="0 0 200 280"></svg><div class="nums" id="nums"></div><div class="style" id="verdict"></div><button class="btn" style="margin-top:12px;width:100%" onclick="go('label')">Design the label →</button></div>
+ </div>
+</div></section>
+
+<section data-view="label" hidden><div class="wrap">
+ <h2>Label <span>studio.</span></h2>
+ <p class="sub">Every beer needs a can. Your recipe's colour and numbers fill in automatically.</p>
+ <div class="lbl"><div class="can"><svg id="canSvg" viewBox="0 0 360 560"></svg></div>
+  <div class="lctrl"><label>Beer name</label><input type="text" id="bname" value="Field Notes" maxlength="18"><label>Art</label><div class="chips" id="art"></div><label>Colourway</label><div class="chips" id="cway"></div></div></div>
+</div></section>
+
+<section data-view="taps" hidden><div class="wrap">
+ <h2>On <span>tap.</span></h2>
+ <p class="sub">Eight lines, pouring now at the taproom. Tap four to build a tasting flight.</p>
+ <div class="board" id="board"></div>
+ <div class="paddle" id="paddle"></div>
+</div></section>
+
+<section data-view="hops" hidden><div class="wrap">
+ <h2>The hop <span>library.</span></h2>
+ <p class="sub">Hops are the cone-shaped flowers of a climbing plant related to cannabis. Their oils give a beer its aroma, from grapefruit to pine to cut grass.</p>
+ <div class="hops" id="hopG"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'lab';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='label')can()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+// [name, ppg, lovibond, colour, max kg]
+const GR=[['Pale malt',37,3,'#e8c880',8],['Munich',35,9,'#d9a050',4],['Crystal 60',34,60,'#b86a20',1.5],['Chocolate',28,350,'#4a2a18',1],['Roasted barley',25,500,'#1e1410',1],['Wheat',38,2,'#f0e0a0',4],['Oats',33,1,'#f4ecd0',2]];
+const HOPS=[['Cascade',6,'USA','grapefruit, floral',[8,4,2,6,3]],['Citra',12,'USA','mango, lime, passionfruit',[10,9,2,3,1]],['Saaz',3.5,'Czechia','spicy, herbal, soft',[2,1,3,8,7]],['Fuggle',4.5,'England','earthy, woody, mint',[1,1,4,6,9]],['Simcoe',13,'USA','pine, passionfruit, dank',[6,7,9,3,4]],['Nelson Sauvin',12,'New Zealand','white wine, gooseberry',[7,8,2,5,2]],['Hallertau',4,'Germany','floral, spice, hay',[3,2,2,8,6]]];
+const YEAST={'US Ale':[.78,'Clean and crisp'],'English Ale':[.72,'Fruity, a bit malty'],'Belgian':[.84,'Spicy, dry, banana'],'Lager':[.8,'Very clean, needs to be cold']};
+const STY=[['Pale Ale',[1.045,1.060],[30,50],[5,10],[4.5,6.2]],['IPA',[1.056,1.070],[40,70],[6,14],[5.5,7.5]],['Stout',[1.052,1.075],[30,50],[30,40],[5,7]],['Pilsner',[1.044,1.050],[25,45],[2,5],[4.2,5.4]],['Wheat Beer',[1.044,1.052],[8,15],[2,6],[4.3,5.6]],['Porter',[1.048,1.065],[20,40],[20,30],[4.8,6.5]]];
+let R={g:[4.0,.6,.3,0,0,0,.3],h:[['Cascade',35,60],['Citra',30,10],['Citra',40,0]],y:'US Ale',s:0};
+const SRMC=[[0,'#FFE699'],[2,'#FFE699'],[3,'#FFD878'],[4,'#FFCA5A'],[5,'#FFBF42'],[6,'#FBB123'],[8,'#F39C00'],[10,'#E58500'],[13,'#CF6900'],[17,'#B54C00'],[20,'#A63E00'],[24,'#8D2900'],[29,'#701400'],[35,'#4A0505'],[40,'#260100'],[60,'#0F0100']];
+const srmCol=s=>{for(let i=SRMC.length-1;i>=0;i--)if(s>=SRMC[i][0])return SRMC[i][1];return SRMC[0][1]};
+function calc(r){const L=20,gal=L/3.785;let pts=0,mcu=0;r.g.forEach((kg,i)=>{const lb=kg*2.2046;pts+=lb*GR[i][1];mcu+=lb*GR[i][2]});const OG=1+pts*.72/gal/1000;const att=YEAST[r.y][0];const FG=1+(OG-1)*(1-att);const ABV=(OG-FG)*131.25;
+ let ibu=0;r.h.forEach(([n,g,t])=>{const aa=HOPS.find(h=>h[0]===n)[1];const u=1.65*Math.pow(.000125,OG-1)*(1-Math.exp(-.04*t))/4.15;ibu+=u*(aa/100*g*1000)/L});const srm=1.4922*Math.pow(mcu/gal,.6859);return{OG,FG,ABV,IBU:ibu,SRM:srm,col:srmCol(srm)}}
+let M=calc(R);
+function lab(){document.getElementById('grains').innerHTML=GR.map((g,i)=>`<div class="ing"><span><i style="background:${g[3]}"></i>${g[0]}</span><input type="range" min="0" max="${g[4]}" step=".1" value="${R.g[i]}" data-g="${i}"><b>${R.g[i].toFixed(1)} kg</b></div>`).join('');
+ document.getElementById('yeast').innerHTML=Object.keys(YEAST).map(y=>`<button class="${y===R.y?'on':''}" data-y="${y}">${y}</button>`).join('');
+ document.getElementById('hopL').innerHTML=R.h.map(([n,g,t],i)=>`<div class="hopline"><select data-h="${i}" data-f="0">${HOPS.map(h=>`<option ${h[0]===n?'selected':''}>${h[0]}</option>`).join('')}</select><input type="number" min="0" max="200" value="${g}" data-h="${i}" data-f="1"><input type="number" min="0" max="90" value="${t}" data-h="${i}" data-f="2"><button data-rm="${i}">×</button></div>`).join('');
+ document.getElementById('styles').innerHTML=STY.map((s,i)=>`<button class="${i===R.s?'on':''}" data-s="${i}">${s[0]}</button>`).join('');update()}
+function update(){M=calc(R);const S=STY[R.s];
+ document.getElementById('pint').innerHTML=`<defs><linearGradient id="beer" x1="0" x2="1"><stop offset="0" stop-color="${M.col}" stop-opacity=".85"/><stop offset=".4" stop-color="${M.col}"/><stop offset="1" stop-color="${M.col}" stop-opacity=".75"/></linearGradient></defs><path d="M40 30 L160 30 L148 262 Q100 272 52 262Z" fill="#ffffff66" stroke="#1e1410" stroke-width="3"/><path d="M44 70 L156 70 L148 258 Q100 268 52 258Z" fill="url(#beer)"/><path d="M42 40 Q60 20 80 38 Q100 18 120 36 Q140 20 158 40 L156 72 L44 72Z" fill="${M.SRM>25?'#d8b890':'#fff8ea'}"/>${[...Array(10)].map((_,i)=>`<circle cx="${60+i*9}" cy="${240-i*14}" r="1.6" fill="#fff" opacity=".6"><animate attributeName="cy" values="${250-i*5};80" dur="${2+i%3}s" repeatCount="indefinite"/></circle>`).join('')}<path d="M52 80 L60 250" stroke="#fff" stroke-width="5" opacity=".3" stroke-linecap="round"/>`;
+ document.getElementById('nums').innerHTML=`<div><b>${M.OG.toFixed(3)}</b><small>Original gravity</small></div><div><b>${M.ABV.toFixed(1)}%</b><small>ABV</small></div><div><b>${Math.round(M.IBU)}</b><small>IBU</small></div><div><b>${M.SRM.toFixed(0)}</b><small>SRM colour</small></div>`;
+ const inR=(v,[a,b])=>v>=a&&v<=b;const checks=[inR(M.OG,S[1]),inR(M.IBU,S[2]),inR(M.SRM,S[3]),inR(M.ABV,S[4])];const ok=checks.filter(Boolean).length;
+ document.getElementById('verdict').innerHTML=`<b>${ok===4?'🏆 Spot on for a':ok>=2?'Close to a':'Not much like a'} ${S[0]}.</b> ${ok<4?(o=>{const t=o.join(' and ');return t[0].toUpperCase()+t.slice(1)+(o.length>1?' are':' is')+' out of range.'})(['OG','bitterness','colour','strength'].filter((_,i)=>!checks[i])):'Brew it!'} Yeast: ${YEAST[R.y][1]}.`;
+ const bar=(l,v,[a,b],mn,mx,f)=>`<div>${l}: <b>${f(v)}</b> (${f(a)}–${f(b)})</div><div class="bar"><span style="left:${(a-mn)/(mx-mn)*100}%;width:${(b-a)/(mx-mn)*100}%"></span><i style="left:${Math.max(0,Math.min(100,(v-mn)/(mx-mn)*100))}%"></i></div>`;
+ document.getElementById('ranges').innerHTML=bar('OG',M.OG,S[1],1.03,1.09,v=>v.toFixed(3))+bar('IBU',M.IBU,S[2],0,100,v=>Math.round(v))+bar('SRM',M.SRM,S[3],0,45,v=>Math.round(v))+bar('ABV',M.ABV,S[4],3,9,v=>v.toFixed(1)+'%')}
+document.getElementById('grains').oninput=e=>{const i=e.target.dataset.g;if(i==null)return;R.g[i]=+e.target.value;e.target.nextElementSibling.textContent=R.g[i].toFixed(1)+' kg';update()};
+document.getElementById('hopL').oninput=e=>{const{h,f}=e.target.dataset;if(h==null)return;R.h[h][f]=f==='0'?e.target.value:+e.target.value;update()};
+document.getElementById('hopL').onchange=document.getElementById('hopL').oninput;
+document.getElementById('hopL').onclick=e=>{const r=e.target.dataset.rm;if(r!=null){R.h.splice(+r,1);lab()}};
+document.getElementById('addHop').onclick=()=>{if(R.h.length<6){R.h.push(['Saaz',15,15]);lab()}};
+document.getElementById('yeast').onclick=e=>{const y=e.target.dataset.y;if(y){R.y=y;lab()}};
+document.getElementById('styles').onclick=e=>{const s=e.target.dataset.s;if(s!=null){R.s=+s;lab()}};
+lab();
+
+/* label */
+const ARTS=['Hop','Barn','Wave','Sun','Fox'],CW=[['#f7efe0','#1e1410','#5a7a2a'],['#1e1410','#f7efe0','#d98a1e'],['#a8c860','#1e1410','#f7efe0'],['#d98a1e','#1e1410','#f7efe0'],['#2a4a6a','#f7efe0','#a8c860']];let art='Hop',cw=0;
+function artSVG(a,c){if(a==='Hop')return`<g transform="translate(180 250)"><path d="M0 -90 C60 -50 70 20 0 100 C-70 20 -60 -50 0 -90Z" fill="${c[2]}"/>${[...Array(6)].map((_,i)=>`<path d="M${-40+i*4} ${-50+i*28} Q0 ${-30+i*28} ${40-i*4} ${-50+i*28}" stroke="${c[1]}" stroke-width="4" fill="none"/>`).join('')}<path d="M0 -90 q30 -30 60 -20" stroke="${c[1]}" stroke-width="4" fill="none"/></g>`;
+ if(a==='Barn')return`<path d="M80 330 L80 230 L180 160 L280 230 L280 330Z" fill="${c[2]}"/><path d="M150 330 V270 H210 V330 M150 270 L210 330 M210 270 L150 330" stroke="${c[1]}" stroke-width="4" fill="none"/><circle cx="180" cy="215" r="14" fill="${c[1]}"/><path d="M40 330 H320" stroke="${c[1]}" stroke-width="5"/>${[...Array(6)].map((_,i)=>`<path d="M${50+i*50} 360 v-24 m-8 8 l8 -8 l8 8" stroke="${c[2]}" stroke-width="3" fill="none"/>`).join('')}`;
+ if(a==='Wave')return[...Array(6)].map((_,i)=>`<path d="M40 ${200+i*26} Q90 ${170+i*26} 140 ${200+i*26} T240 ${200+i*26} T340 ${200+i*26}" stroke="${i%2?c[2]:c[1]}" stroke-width="10" fill="none" stroke-linecap="round"/>`).join('');
+ if(a==='Sun')return`<circle cx="180" cy="260" r="70" fill="${c[2]}"/>${[...Array(16)].map((_,i)=>{const t=i/16*6.283;return`<line x1="${180+Math.cos(t)*84}" y1="${260+Math.sin(t)*84}" x2="${180+Math.cos(t)*120}" y2="${260+Math.sin(t)*120}" stroke="${c[2]}" stroke-width="7" stroke-linecap="round"/>`}).join('')}<path d="M60 330 H300" stroke="${c[1]}" stroke-width="6"/>`;
+ return`<g transform="translate(180 260)"><path d="M-70 -20 L-50 -90 L-20 -40 L20 -40 L50 -90 L70 -20 L0 80Z" fill="${c[2]}"/><path d="M-70 -20 L0 80 L0 20Z" fill="${c[1]}" opacity=".25"/><circle cx="-24" cy="-6" r="7" fill="${c[1]}"/><circle cx="24" cy="-6" r="7" fill="${c[1]}"/><path d="M-8 50 L0 62 L8 50Z" fill="${c[1]}"/></g>`}
+function can(){const c=CW[cw],n=document.getElementById('bname').value.replace(/[<>&]/g,'').toUpperCase(),S=STY[R.s][0].toUpperCase();
+ document.getElementById('canSvg').innerHTML=`<defs><linearGradient id="met" x1="0" x2="1"><stop offset="0" stop-color="#8a8a8a"/><stop offset=".3" stop-color="#e8e8e8"/><stop offset=".6" stop-color="#b8b8b8"/><stop offset="1" stop-color="#6a6a6a"/></linearGradient><linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset=".25" stop-color="#fff" stop-opacity=".25"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient><clipPath id="body"><rect x="40" y="60" width="280" height="460" rx="16"/></clipPath></defs>
+ <ellipse cx="180" cy="44" rx="130" ry="20" fill="url(#met)"/><rect x="50" y="40" width="260" height="30" fill="url(#met)"/><ellipse cx="180" cy="40" rx="118" ry="16" fill="#c8c8c8"/><rect x="160" y="30" width="40" height="14" rx="6" fill="#9a9a9a"/>
+ <g clip-path="url(#body)"><rect x="40" y="60" width="280" height="460" fill="${c[0]}"/>${artSVG(art,c)}<text x="180" y="130" text-anchor="middle" font-family="Staatliches" font-size="${Math.min(62,560/Math.max(4,n.length))}" fill="${c[1]}">${n}</text><text x="180" y="160" text-anchor="middle" font-family="Staatliches" font-size="20" letter-spacing="5" fill="${c[2]===c[0]?c[1]:c[2]}">HOPFIELD · ${S}</text>
+ <rect x="40" y="410" width="280" height="110" fill="${c[1]}"/><text x="70" y="450" font-family="Staatliches" font-size="30" fill="${c[0]}">${M.ABV.toFixed(1)}% ABV</text><text x="70" y="480" font-family="Staatliches" font-size="20" fill="${c[0]}" opacity=".8">${Math.round(M.IBU)} IBU · ${M.SRM.toFixed(0)} SRM · 440 ML</text><circle cx="280" cy="460" r="22" fill="${M.col}" stroke="${c[0]}" stroke-width="3"/>
+ <rect x="40" y="60" width="280" height="460" fill="url(#shade)"/></g><rect x="40" y="515" width="280" height="14" fill="url(#met)"/><ellipse cx="180" cy="530" rx="140" ry="16" fill="url(#met)"/>`;
+ document.getElementById('art').innerHTML=ARTS.map(a=>`<button class="${a===art?'on':''}" data-a="${a}">${a}</button>`).join('');document.getElementById('cway').innerHTML=CW.map((x,i)=>`<button class="${i===cw?'on':''}" data-c="${i}" style="background:linear-gradient(90deg,${x[0]} 50%,${x[2]} 50%);width:40px;height:32px"></button>`).join('')}
+document.querySelector('.lctrl').addEventListener('click',e=>{const{a,c}=e.target.dataset;if(a)art=a;if(c!=null)cw=+c;if(a||c!=null)can()});document.getElementById('bname').oninput=can;
+
+/* taps */
+const TAPS=[['Field Notes','Pale Ale','Cascade and Citra, bright and bitter',5.4,7],['Night Shift','Oatmeal Stout','Coffee, cocoa, silky oats',6.2,38],['Little Weiss','Hefeweizen','Banana, clove, cloudy as a meadow',4.8,4],['Hayloft','Pilsner','Crisp, grassy Saaz, cold',4.6,3],['Dank Tank','Double IPA','Simcoe and Nelson, resinous',8.1,9],['Old Barn','Porter','Toffee, chocolate, woodsmoke',5.6,26],['Orchard Sour','Fruit Sour','Plum and damson, very tart',4.2,14],['Harvest Ale','ESB','Fuggle, biscuit, amber',5.2,13]];let flight=[];
+function taps(){document.getElementById('board').innerHTML=`<div style="display:flex;justify-content:space-between;font-size:30px;margin-bottom:10px"><span>ON TAP TODAY</span><span style="color:#a8c860">½ PINT £3 · PINT £5.50</span></div>`+TAPS.map((t,i)=>`<div class="tap ${flight.includes(i)?'on':''}" data-t="${i}"><span>${i+1}</span><span>${t[0].toUpperCase()}<div class="d">${t[1]} · ${t[2]}</div></span><span>${t[3]}%</span><span>${flight.includes(i)?'✓ FLIGHT':''}</span><span class="dot" style="background:${srmCol(t[4])}"></span></div>`).join('');
+ document.getElementById('paddle').innerHTML=[0,1,2,3].map(k=>{const t=TAPS[flight[k]];return`<div class="tg"><svg viewBox="0 0 70 110"><path d="M10 10 L60 10 L54 104 L16 104Z" fill="#ffffff44" stroke="#1e1410" stroke-width="2"/>${t?`<path d="M12 30 L58 30 L54 102 L16 102Z" fill="${srmCol(t[4])}"/><path d="M11 16 L59 16 L58 32 L12 32Z" fill="#fff8ea"/>`:''}</svg><div>${t?t[0].toUpperCase():'—'}</div></div>`}).join('')}
+document.getElementById('board').onclick=e=>{const r=e.target.closest('.tap');if(!r)return;const i=+r.dataset.t;flight=flight.includes(i)?flight.filter(x=>x!==i):[...flight,i].slice(-4);taps()};taps();
+
+/* hops */
+const AX=['Citrus','Tropical','Pine','Floral','Earthy'];
+document.getElementById('hopG').innerHTML=HOPS.map(h=>{const pts=h[4].map((v,i)=>{const a=i/5*Math.PI*2-Math.PI/2,r=v*7;return[150+Math.cos(a)*r,85+Math.sin(a)*r]});return`<div class="hc"><div class="o">${h[2]} · ${h[1]}% alpha</div><h3>${h[0]}</h3><svg viewBox="0 0 300 170">${[2,4,6,8,10].map(r=>`<polygon points="${AX.map((_,i)=>{const a=i/5*Math.PI*2-Math.PI/2;return(150+Math.cos(a)*r*7)+','+(85+Math.sin(a)*r*7)}).join(' ')}" fill="none" stroke="#1e141022"/>`).join('')}<polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="#a8c86099" stroke="#5a7a2a" stroke-width="2.5"/>${AX.map((l,i)=>{const a=i/5*Math.PI*2-Math.PI/2;return`<text x="${150+Math.cos(a)*84}" y="${89+Math.sin(a)*80}" text-anchor="middle" font-family="Staatliches" font-size="13" fill="#1e1410">${l}</text>`}).join('')}</svg><p>${h[3]}</p></div>`}).join('');
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

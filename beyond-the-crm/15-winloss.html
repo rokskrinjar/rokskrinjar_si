@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Winloss — Why we win and lose</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#f2efe9;--ink:#1d1a16;--ink2:#514a40;--ink3:#8a8174;--grid:#ebe6dd;--s1:#7c3aed;--s2:#ea580c;--s3:#0891b2;--s4:#db2777;--s5:#65a30d;--q1:#ede5fd;--q2:#d6c4fb;--q3:#b393f6;--q4:#9061f0;--q5:#7c3aed;--q6:#5b21b6;--pos:#7c3aed;--neg:#c93a39;--good:#0f7a52;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 'Inter Tight',sans-serif}
+.serif{font-family:'Fraunces',serif}
+header{max-width:1340px;margin:0 auto;padding:28px 32px 0;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.lg{font:700 15px 'Inter Tight';letter-spacing:.18em;text-transform:uppercase;display:flex;gap:8px;align-items:center}.lg i{font-style:normal;color:var(--s1);font-size:20px}
+h1{font:600 clamp(32px,4vw,52px)/1.05 'Fraunces',serif;margin:10px 0 0;letter-spacing:-.02em;max-width:18ch}h1 em{color:var(--s1)}
+.src{font-size:12px;color:var(--ink3);max-width:340px;text-align:right}
+.tabs{max-width:1340px;margin:18px auto 0;padding:0 32px;display:flex;gap:2px;flex-wrap:wrap}.tabs button{border:0;background:#e6e1d7;padding:10px 16px;font:600 13px 'Inter Tight';cursor:pointer;color:var(--ink2);border-radius:10px 10px 0 0}.tabs button.on{background:var(--surface);color:var(--ink)}
+.page{max-width:1340px;margin:0 auto;padding:0 32px 70px}.sheet{background:var(--surface);border-radius:0 14px 14px 14px;padding:22px 24px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--grid)}.filters select{border:1px solid #ddd6c9;border-radius:8px;padding:7px 10px;font:600 13px 'Inter Tight';background:#fff}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px}
+.kpi .l{font-size:12.5px;color:var(--ink3)}.kpi .v{font:600 34px 'Fraunces',serif;letter-spacing:-.02em}.kpi .d{font-size:12px;font-weight:600}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:22px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.blk h3{margin:0;font:600 19px 'Fraunces',serif}.blk .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 14px}
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.qt{background:#faf8f4;border-radius:12px;padding:16px;font:400 17px/1.4 'Fraunces',serif}.qt small{display:block;font:500 12px 'Inter Tight';color:var(--ink3);margin-top:10px}.qt .tag{display:inline-block;font:600 11px 'Inter Tight';padding:2px 8px;border-radius:999px;margin-bottom:8px}.qt .w{background:#e7f5ee;color:var(--good)}.qt .l{background:#fbe9e9;color:var(--bad)}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21,.quotes{grid-template-columns:1fr}.src{text-align:left}}@media(max-width:640px){header,.tabs,.page{padding-left:14px;padding-right:14px}.sheet{padding:16px}.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div><div class="lg"><i>⚖</i>Winloss</div><h1 id="ttl">Why we <em>win</em>, and why we don’t.</h1></div><div class="src">Salesforce closed opportunities · buyer interviews (Clozd) · Gong call snippets · G2 reviews · competitor mentions</div></header>
+<nav class="tabs"><button data-sheet="out">Outcomes</button><button data-sheet="reasons">Reasons</button><button data-sheet="comp">Competitors</button><button data-sheet="seg">By segment</button><button data-sheet="voice">Buyer voice</button></nav>
+<div class="page"><div class="sheet">
+ <div class="filters"><select data-f="range"><option value="90d">Last quarter</option><option value="12m" selected>Last 12 months</option></select><select data-f="seg"><option value="all">All segments</option><option value="ent">Enterprise</option><option value="mm">Mid-market</option><option value="smb">SMB</option></select><select data-f="src"><option value="all">CRM reason + interviews</option><option value="crm">CRM reason only</option><option value="int">Interviews only</option></select></div>
+ <section data-panel="out"><div class="kpis" id="k1"></div>
+  <div class="g g21"><div class="blk"><h3>Outcomes by quarter</h3><p class="sub">Closed opportunities by result</p><div id="c_out"></div></div><div class="blk"><h3>How deals ended</h3><p class="sub">Selected period</p><div id="c_do"></div></div></div></section>
+ <section data-panel="reasons" hidden><p style="margin:0 0 16px;color:var(--ink2);max-width:62em" id="rnote"></p>
+  <div class="g g2"><div class="blk"><h3>Why we won</h3><p class="sub">Primary reason, share of won deals</p><div id="c_win"></div></div><div class="blk"><h3>Why we lost</h3><p class="sub">Primary reason, share of lost deals</p><div id="c_loss"></div></div></div>
+  <div class="blk" style="margin-top:22px"><h3>What reps said vs. what buyers said</h3><p class="sub">Lost deals where we have both a CRM reason and a buyer interview</p><div id="c_gap"></div></div></section>
+ <section data-panel="comp" hidden><div class="g g2"><div class="blk"><h3>Win rate against each competitor</h3><p class="sub">Competitive deals, by quarter</p><div id="c_ct"></div></div><div class="blk"><h3>Where each competitor beats us</h3><p class="sub">Primary loss reason when that competitor won</p><div id="c_cb"></div></div></div></section>
+ <section data-panel="seg" hidden><div class="blk"><h3>Win rate by segment and product</h3><p class="sub">Darker = higher win rate</p><div id="c_hm"></div></div>
+  <div class="g g2" style="margin-top:22px"><div class="blk"><h3>Win rate by deal size</h3><p class="sub">ACV band</p><div id="c_sz"></div></div><div class="blk"><h3>Win rate by sales cycle length</h3><p class="sub">Days from creation to close</p><div id="c_cy"></div></div></div></section>
+ <section data-panel="voice" hidden><div class="quotes" id="q"></div>
+  <div class="blk" style="margin-top:22px"><h3>Themes in buyer interviews</h3><p class="sub">Mentions per 10 interviews</p><div id="c_th"></div></div></section>
+</div></div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const TT={out:'Why we <em>win</em>, and why we don’t.',reasons:'The real <em>reasons</em>, not the dropdown.',comp:'Who we lose to, <em>and how.</em>',seg:'Where we’re <em>strongest.</em>',voice:'In the buyer’s <em>own words.</em>'};
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const m=F.range==='90d'?.27:1;const f={all:1,ent:.35,mm:.4,smb:.25}[F.seg];const wr={all:.27,ent:.22,mm:.28,smb:.31}[F.seg];return memo[k]={r,m,f,wr,n:Math.round(820*m*f)}}
+const S={range:'12m',seg:'all',src:'all'};
+const views={
+out(F){$('ttl').innerHTML=TT.out;const D=data(F);const won=Math.round(D.n*D.wr),nd=Math.round(D.n*.24),lost=D.n-won-nd;
+ K.kpis($('k1'),[{label:'Win rate',value:K.pct(D.wr,0),delta:.02,deltaText:'2 pts'},{label:'Won',value:K.int(won)},{label:'Lost to a competitor',value:K.int(lost*.55)},{label:'No decision',value:K.int(nd),delta:.04,goodDown:true,deltaText:'4 pts'},{label:'Interviews completed',value:K.int(D.n*.18)}]);
+ const Q=["Q4 '25","Q1 '26","Q2 '26","Q3 '26"];K.bars($('c_out'),{labels:Q,series:[{name:'Won',data:Q.map(()=>won/4*(.85+D.r()*.3))},{name:'Lost to competitor',data:Q.map(()=>lost*.55/4*(.85+D.r()*.3))},{name:'Lost — no decision',data:Q.map(()=>nd/4*(.85+D.r()*.3))},{name:'Lost — other',data:Q.map(()=>lost*.45/4*(.85+D.r()*.3))}],stacked:true,fmt:K.int,h:280});
+ K.donut($('c_do'),{items:[{name:'Won',value:won},{name:'Lost to competitor',value:lost*.55},{name:'No decision',value:nd},{name:'Lost — other',value:lost*.45}],fmt:K.int,center:{value:K.int(D.n),label:'closed'}})},
+reasons(F){$('ttl').innerHTML=TT.reasons;const D=data(F);$('rnote').textContent=F.src==='crm'?'Showing the reason reps picked in Salesforce. Switch to interviews to see what buyers said.':'Buyer interviews tell a different story from the CRM dropdown: “price” is the top CRM loss reason, but buyers mostly cite implementation risk and missing proof.';
+ K.bars($('c_win'),{labels:['Ease of use','Time to value','Integrations','Analytics depth','Support quality','Price'],series:[{name:'Share of wins',data:[.27,.22,.17,.15,.11,.08]}],fmt:v=>K.pct(v,0),horizontal:true,h:270});
+ const lossI=[.14,.24,.19,.17,.15,.11],lossC=[.38,.09,.12,.21,.07,.13];K.bars($('c_loss'),{labels:['Price','Implementation risk','Missing feature','Chose incumbent','No exec sponsor','Security review'],series:[{name:'Share of losses',data:F.src==='crm'?lossC:lossI}],fmt:v=>K.pct(v,0),horizontal:true,h:270});
+ K.bars($('c_gap'),{labels:['Price','Implementation risk','Missing feature','Chose incumbent','No exec sponsor','Security review'],series:[{name:'Rep said (CRM)',data:lossC},{name:'Buyer said (interview)',data:lossI}],fmt:v=>K.pct(v,0),h:260})},
+comp(F){$('ttl').innerHTML=TT.comp;const D=data(F);const Q=["Q4 '25","Q1 '26","Q2 '26","Q3 '26"];
+ K.line($('c_ct'),{labels:Q,series:[{name:'Rivalry',data:[.29,.31,.33,.36]},{name:'Ledgerly',data:[.44,.46,.43,.48]},{name:'Mosaic Data',data:[.41,.37,.35,.33]}],fmt:v=>K.pct(v,0),h:270,yMin:.2});
+ K.bars($('c_cb'),{labels:['Rivalry','Ledgerly','Mosaic Data'],series:[{name:'Price',data:[.42,.18,.51]},{name:'Feature',data:[.21,.47,.12]},{name:'Relationship',data:[.37,.35,.37]}],stacked:true,fmt:v=>K.pct(v,0),h:270})},
+seg(F){$('ttl').innerHTML=TT.seg;const D=data(F);const r=K.rng(K.seed(F,'s'));
+ K.heat($('c_hm'),{rows:['SMB','Mid-market','Enterprise'],cols:['Core platform','+ AI add-on','+ Analytics','Platform + services'],data:[[.31,.36,.29,.22],[.27,.33,.31,.29],[.19,.25,.27,.31]].map(x=>x.map(v=>v*(.92+r()*.16))),fmt:v=>K.pct(v,0),cell:40});
+ K.bars($('c_sz'),{labels:['< $20K','$20–50K','$50–100K','$100–250K','$250K+'],series:[{name:'Win rate',data:[.33,.29,.25,.21,.17]}],fmt:v=>K.pct(v,0),h:240});
+ K.line($('c_cy'),{labels:['< 30d','30–60','60–90','90–120','120–180','180+'],series:[{name:'Win rate',data:[.38,.34,.28,.22,.16,.11]}],fmt:v=>K.pct(v,0),h:240})},
+voice(F){$('ttl').innerHTML=TT.voice;$('q').innerHTML=[['w','“You were the only vendor who showed us our own data in the demo.”','VP Ops · Velo Mobility · won'],['l','“Nobody could tell us how long the migration would take.”','CIO · Kilnworks · lost to Rivalry'],['w','“Your CSM answered on a Sunday. That told us everything.”','Head of RevOps · Northbeam · won'],['l','“The champion left halfway through and we just stopped.”','Director · Orbis Retail · no decision'],['l','“We needed SOC 2 Type II — you had Type I.”','CISO · Brightline · lost'],['w','“The ROI model was conservative and still won the CFO.”','CFO · Halden Bank · won']].map(x=>`<div class="qt"><span class="tag ${x[0]}">${x[0]==='w'?'Won':'Lost'}</span><br>${x[1]}<small>${x[2]}</small></div>`).join('');
+ K.bars($('c_th'),{labels:['Demo with their data','Migration clarity','Responsiveness','Security proof','Champion strength','Pricing clarity'],series:[{name:'In wins',data:[6.1,3.2,5.4,2.1,4.8,2.9]},{name:'In losses',data:[1.4,6.8,2.2,5.1,1.9,3.7]}],fmt:v=>v.toFixed(1),horizontal:true,h:280})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jazz Zürich — 1968</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --red:#e3120b; --blue:#1c3fd1; --ink:#111; --paper:#f2efe8; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--paper); font-family:'Inter Tight','Helvetica Neue',Helvetica,sans-serif; color:var(--ink); }
+  a { color:inherit; text-decoration:none; }
+  nav { position:sticky; top:0; z-index:30; display:grid; grid-template-columns:repeat(7,1fr); background:var(--paper); border-bottom:2px solid var(--ink); }
+  nav a { padding:14px 3vw 12px; font-size:13px; font-weight:700; border-right:1px solid var(--ink); display:flex; gap:.8rem; transition:background .2s; }
+  nav a:last-child { border-right:0; justify-content:flex-end; }
+  nav a span { font-weight:400; }
+  nav a:hover { background:#e6e2d8; }
+  nav a.on { background:var(--ink); color:var(--paper); }
+  [data-view][hidden] { display:none !important; }
+  /* poster */
+  .poster { position:relative; min-height:calc(100vh - 44px); display:grid; grid-template-columns:repeat(12,1fr); grid-template-rows:repeat(12,minmax(48px,1fr)); padding:3vw; gap:0 1.2vw; overflow:hidden; }
+  .red { position:absolute; width:62vmin; height:62vmin; background:var(--red); border-radius:50%; right:-8vmin; top:14vh; mix-blend-mode:multiply; animation:pulse 4s ease-in-out infinite; }
+  .bar { position:absolute; background:var(--ink); transform-origin:left center; }
+  .b1 { left:0; top:52%; width:120vw; height:22px; transform:rotate(-24deg); animation:slide 6s ease-in-out infinite alternate; }
+  .b2 { left:10vw; top:30%; width:80vw; height:6px; transform:rotate(-24deg); }
+  .b3 { left:20vw; top:90%; width:90vw; height:40px; transform:rotate(-24deg); background:var(--blue); mix-blend-mode:multiply; animation:slide 7s ease-in-out infinite alternate-reverse; }
+  .b4 { left:30vw; top:70%; width:60vw; height:3px; transform:rotate(-24deg); }
+  @keyframes pulse { 50% { transform:scale(1.06); } }
+  @keyframes slide { from { translate:-6vw 0; } to { translate:6vw 0; } }
+  h1 { grid-column:1/13; grid-row:1/5; font-weight:900; font-size:clamp(4rem,15vw,15rem); line-height:.78; letter-spacing:-.06em; z-index:2; }
+  .meta { grid-column:1/4; grid-row:7/10; z-index:2; font-size:14px; line-height:1.35; }
+  .meta b { display:block; font-weight:900; }
+  .num { grid-column:1/5; grid-row:10/13; z-index:2; font-weight:900; font-size:clamp(5rem,14vw,13rem); line-height:.8; letter-spacing:-.07em; align-self:end; color:var(--blue); mix-blend-mode:multiply; }
+  .countdown { grid-column:7/13; grid-row:10/13; z-index:2; align-self:end; display:grid; grid-template-columns:repeat(4,1fr); border-top:2px solid var(--ink); }
+  .countdown div { padding-top:.6rem; font-size:12px; }
+  .countdown b { display:block; font-size:clamp(2rem,4vw,3.6rem); font-weight:900; letter-spacing:-.04em; }
+  .page { padding:6vw 3vw; }
+  .page h2 { font-weight:900; font-size:clamp(3rem,9vw,8rem); letter-spacing:-.06em; line-height:.85; margin-bottom:4vw; }
+  .page h2 em { font-style:normal; color:var(--red); }
+  .cols { display:grid; grid-template-columns:repeat(12,1fr); gap:1.2vw; }
+  /* program */
+  .days { grid-column:1/4; display:flex; flex-direction:column; border-top:2px solid var(--ink); }
+  .days button { font:inherit; font-weight:700; font-size:clamp(1.2rem,2vw,1.8rem); letter-spacing:-.03em; text-align:left; padding:.8rem 0; background:none; border:0; border-bottom:1px solid var(--ink); cursor:pointer; display:flex; justify-content:space-between; }
+  .days button.on { color:var(--red); }
+  .days button span { font-weight:400; font-size:.6em; align-self:center; }
+  .act { grid-column:5/13; border-top:14px solid var(--ink); padding-top:2rem; display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+  .act .big { font-weight:900; font-size:clamp(2.4rem,5vw,4.8rem); letter-spacing:-.05em; line-height:.9; grid-column:1/-1; }
+  .act dl { display:grid; grid-template-columns:auto 1fr; gap:.5rem 1.4rem; font-size:15px; }
+  .act dt { font-weight:700; }
+  .act p { font-size:17px; line-height:1.45; }
+  .shape { grid-column:1/-1; height:180px; position:relative; overflow:hidden; background:var(--ink); }
+  .shape i { position:absolute; display:block; mix-blend-mode:screen; transition:all .8s cubic-bezier(.7,0,.2,1); }
+  /* artists */
+  .artists { display:grid; grid-template-columns:repeat(4,1fr); border-top:2px solid var(--ink); }
+  .artist { border-right:1px solid var(--ink); border-bottom:1px solid var(--ink); padding:1.4rem 1rem 1rem; min-height:260px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; cursor:default; }
+  .artist:nth-child(4n) { border-right:0; }
+  .artist::before { content:''; position:absolute; inset:0; background:var(--c); transform:translateY(100%); transition:transform .5s cubic-bezier(.7,0,.2,1); z-index:0; }
+  .artist:hover::before { transform:none; }
+  .artist:hover { color:var(--paper); }
+  .artist > * { position:relative; z-index:1; }
+  .artist h3 { font-weight:900; font-size:1.8rem; letter-spacing:-.04em; line-height:.95; }
+  .artist small { font-size:12px; }
+  .artist .ins { font-size:13px; line-height:1.4; }
+  /* tickets */
+  .stage { grid-column:1/9; }
+  .stagebar { background:var(--ink); color:var(--paper); text-align:center; font-weight:900; letter-spacing:.4em; padding:.6rem; font-size:12px; margin-bottom:2rem; }
+  .seats { display:grid; grid-template-columns:repeat(16,1fr); gap:6px; }
+  .seat { aspect-ratio:1; border-radius:50%; border:2px solid var(--ink); background:none; cursor:pointer; transition:transform .15s; }
+  .seat:hover { transform:scale(1.25); }
+  .seat.vip { border-color:var(--blue); }
+  .seat.taken { background:#c9c4b8; border-color:#c9c4b8; cursor:not-allowed; }
+  .seat.sel { background:var(--red); border-color:var(--red); }
+  .gap { visibility:hidden; }
+  .legend { display:flex; gap:1.6rem; margin-top:1.4rem; font-size:13px; align-items:center; flex-wrap:wrap; }
+  .legend i { display:inline-block; width:14px; height:14px; border-radius:50%; border:2px solid var(--ink); vertical-align:-3px; margin-right:.4rem; }
+  .cart { grid-column:10/13; border-top:14px solid var(--ink); padding-top:1.2rem; }
+  .cart select { width:100%; font:inherit; font-weight:700; font-size:1rem; padding:.6rem 0; background:none; border:0; border-bottom:1px solid var(--ink); margin-bottom:1rem; }
+  .cart ul { list-style:none; min-height:120px; font-size:14px; }
+  .cart li { display:flex; justify-content:space-between; padding:.4rem 0; border-bottom:1px solid #0002; }
+  .cart .sum { font-weight:900; font-size:3rem; letter-spacing:-.05em; margin:1rem 0; }
+  .btn { font:inherit; font-weight:700; background:var(--ink); color:var(--paper); border:0; padding:1rem 1.4rem; cursor:pointer; width:100%; text-align:left; display:flex; justify-content:space-between; }
+  .btn:hover { background:var(--red); }
+  .btn:disabled { opacity:.3; cursor:not-allowed; background:var(--ink); }
+  .ticket { margin-top:1.2rem; border:2px dashed var(--ink); padding:1rem; font-size:13px; line-height:1.5; }
+  /* archive */
+  .archive { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.2vw; }
+  .mini { aspect-ratio:3/4.2; position:relative; overflow:hidden; cursor:pointer; transition:transform .3s; box-shadow:0 1px 2px #0003,0 12px 30px #0001; }
+  .mini:hover { transform:translateY(-6px) rotate(-1deg); }
+  .mini svg { width:100%; height:100%; display:block; }
+  .maker { display:grid; grid-template-columns:1fr 320px; gap:3vw; margin-top:6vw; border-top:14px solid var(--ink); padding-top:2rem; }
+  .maker .canvas { aspect-ratio:3/4.2; max-height:78vh; }
+  .maker label { display:block; font-size:13px; font-weight:700; margin:1.2rem 0 .4rem; }
+  .maker input[type=range] { width:100%; accent-color:var(--red); }
+  .maker input[type=text] { width:100%; font:inherit; font-weight:900; font-size:1.6rem; border:0; border-bottom:2px solid var(--ink); background:none; letter-spacing:-.04em; }
+  .dlg { position:fixed; inset:0; background:#111e; z-index:40; display:grid; place-items:center; cursor:zoom-out; }
+  .dlg[hidden] { display:none; }
+  .dlg div { height:88vh; aspect-ratio:3/4.2; }
+  /* info */
+  .info { display:grid; grid-template-columns:repeat(4,1fr); border-top:14px solid var(--ink); }
+  .info div { padding:2vw 1.4vw 3vw 0; border-right:1px solid var(--ink); font-size:15px; line-height:1.45; margin-right:1.4vw; }
+  .info div:last-child { border-right:0; }
+  .info h4 { font-size:12px; text-transform:uppercase; letter-spacing:.12em; margin-bottom:1rem; }
+  .faq details { border-bottom:1px solid var(--ink); padding:1.2rem 0; }
+  .faq summary { font-weight:900; font-size:1.6rem; letter-spacing:-.03em; cursor:pointer; list-style:none; display:flex; justify-content:space-between; }
+  .faq summary::after { content:'+'; color:var(--red); }
+  .faq details[open] summary::after { content:'−'; }
+  .faq p { margin-top:.8rem; max-width:44rem; line-height:1.5; }
+  @media (max-width:860px){ nav { grid-template-columns:repeat(4,1fr); } .days,.act,.stage,.cart { grid-column:1/13; } .artists { grid-template-columns:1fr 1fr; } .info { grid-template-columns:1fr 1fr; } .maker { grid-template-columns:1fr; } .seats { gap:3px; } .countdown { grid-column:1/13; grid-row:8/10; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#plakat"><span>01</span>Plakat</a><a href="#programm"><span>02</span>Programm</a><a href="#kuenstler"><span>03</span>Künstler</a><a href="#tickets"><span>04</span>Tickets</a><a href="#archiv"><span>05</span>Archiv</a><a href="#info"><span>06</span>Info</a><a href="index.html">Index ↗</a>
+</nav>
+
+<section data-view="plakat" class="poster">
+  <div class="red"></div><div class="bar b1"></div><div class="bar b2"></div><div class="bar b3"></div><div class="bar b4"></div>
+  <h1>Jazz<br>Zürich</h1>
+  <div class="meta"><b>Internationales Jazzfestival</b>Kongresshaus Zürich<br>Gotthardstrasse 5<br><br><b>14.–19. Oktober</b>Jeweils 20.30 Uhr</div>
+  <div class="num">68</div>
+  <div class="countdown" id="cd"></div>
+</section>
+
+<section data-view="programm" class="page" hidden>
+  <h2>Programm<em>.</em></h2>
+  <div class="cols"><div class="days" id="days"></div><div class="act" id="act"></div></div>
+</section>
+
+<section data-view="kuenstler" class="page" hidden>
+  <h2>Künstler<em>.</em></h2>
+  <div class="artists" id="artists"></div>
+</section>
+
+<section data-view="tickets" class="page" hidden>
+  <h2>Tickets<em>.</em></h2>
+  <div class="cols">
+    <div class="stage"><div class="stagebar">BÜHNE</div><div class="seats" id="seats"></div>
+      <div class="legend"><span><i></i>Parkett Fr. 12</span><span><i style="border-color:var(--blue)"></i>Loge Fr. 24</span><span><i style="background:var(--red);border-color:var(--red)"></i>Ihre Wahl</span><span><i style="background:#c9c4b8;border-color:#c9c4b8"></i>Belegt</span></div></div>
+    <div class="cart"><select id="night"></select><ul id="cartList"></ul><div class="sum" id="sum">Fr. 0.—</div><button class="btn" id="buy" disabled><span>Reservieren</span><span>→</span></button><div id="tix"></div></div>
+  </div>
+</section>
+
+<section data-view="archiv" class="page" hidden>
+  <h2>Archiv<em>.</em></h2>
+  <div class="archive" id="archive"></div>
+  <div class="maker">
+    <div class="canvas" id="makerOut"></div>
+    <div>
+      <h3 style="font-weight:900;font-size:2rem;letter-spacing:-.04em">Plakat&shy;maschine</h3>
+      <p style="font-size:14px;margin-top:.6rem;line-height:1.4">Gestalten Sie Ihr eigenes Festivalplakat. Raster bleibt Raster.</p>
+      <label>Titel</label><input type="text" id="mt" value="Jazz" maxlength="10">
+      <label>Winkel <output id="ma_o">−24°</output></label><input type="range" id="ma" min="-60" max="60" value="-24">
+      <label>Kreis</label><input type="range" id="mr" min="10" max="90" value="55">
+      <label>Balken</label><input type="range" id="mb" min="1" max="9" value="4">
+      <label>Seed</label><input type="range" id="ms" min="1" max="99" value="7">
+    </div>
+  </div>
+</section>
+
+<section data-view="info" class="page" hidden>
+  <h2>Info<em>.</em></h2>
+  <div class="info">
+    <div><h4>Vorverkauf</h4>Musikhaus Hug, Limmatquai 28. Tageskarte Fr. 12.—, Festivalpass Fr. 48.—</div>
+    <div><h4>Grid</h4>12 Spalten. 12 Zeilen. Keine Dekoration, die nicht Struktur ist.</div>
+    <div><h4>Typografie</h4>Eine Schrift. Drei Gewichte. Linksbündig, Flattersatz.</div>
+    <div><h4>Farbe</h4>Rot für den Klang. Blau für die Nacht. Schwarz für den Rhythmus.</div>
+  </div>
+  <div class="faq" style="margin-top:4vw">
+    <details><summary>Gibt es eine Garderobe?</summary><p>Ja, im Foyer. Hüte werden separat und mit grösster Sorgfalt behandelt.</p></details>
+    <details><summary>Darf man tanzen?</summary><p>In den Gängen ausdrücklich erwünscht. In der Loge nur mit Zurückhaltung.</p></details>
+    <details><summary>Wann endet die Nachtsession?</summary><p>Wenn der letzte Musiker nach Hause geht. Historisch: 04.12 Uhr.</p></details>
+  </div>
+</section>
+
+<div class="dlg" id="dlg" hidden><div id="dlgIn"></div></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'plakat';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+/* nav extra: info tab via poster meta */
+document.querySelector('.meta').style.cursor='pointer';document.querySelector('.meta').onclick=()=>go('info');
+
+/* countdown to next Oct 14 */
+function cd(){const n=new Date();let t=new Date(n.getFullYear(),9,14,20,30);if(t<n)t=new Date(n.getFullYear()+1,9,14,20,30);let s=(t-n)/1000|0;const d=s/86400|0;s%=86400;const h=s/3600|0;s%=3600;const m=s/60|0;s%=60;
+ document.getElementById('cd').innerHTML=[[d,'Tage'],[h,'Stunden'],[m,'Minuten'],[s,'Sekunden']].map(([v,l])=>`<div><b>${String(v).padStart(2,'0')}</b>${l}</div>`).join('')}
+cd();setInterval(cd,1000);
+
+/* program */
+const prog=[['Mo','Quartett Hallberg','20.30','Hard Bop','Sven Hallberg (ts), Ruth Imhof (p), Ole Dahl (b), Kurt Frei (dr)','Vier Männer aus Malmö, die seit 1961 dieselbe Ballade spielen — jedes Mal anders.','#e3120b'],
+['Di','The Blue Meridian Trio','20.30','Modal','Ana Ferreira (p), Luc Moreau (b), Jo Park (dr)','Ein Klaviertrio, das Stille wie ein viertes Instrument behandelt.','#1c3fd1'],
+['Mi','Orchester Nord-Süd','21.00','Big Band','24 Musiker aus Zürich und Mailand','Zwei Städte, ein Tunnel, eine Bläsersektion so laut wie der Gotthard.','#111'],
+['Do','Elsa Brandt & Gäste','20.30','Vocal','Elsa Brandt (voc) mit wechselnden Gästen','Die Stimme, die 1965 die Tonhalle zum Schweigen brachte, kehrt zurück.','#e3120b'],
+['Fr','Kontrapunkt Big Band','22.00','Avantgarde','Leitung: Hans Egli','Bach trifft Coltrane in einer Hinterhofwerkstatt in Oerlikon.','#1c3fd1'],
+['Sa','Nachtsession','23.00','Open Stage','Alle. Bringen Sie Ihr Instrument.','Die Bühne gehört allen, bis der Hauswart das Licht löscht.','#111']];
+const daysEl=document.getElementById('days'),act=document.getElementById('act');
+prog.forEach((p,i)=>{const b=document.createElement('button');b.innerHTML=`${p[0]} ${14+i}.10.<span>${p[2]}</span>`;b.onclick=()=>showAct(i);daysEl.appendChild(b)});
+function showAct(i){[...daysEl.children].forEach((b,j)=>b.classList.toggle('on',i===j));const p=prog[i];
+ act.innerHTML=`<div class="big">${p[1]}</div><div class="shape" id="shape"></div><dl><dt>Datum</dt><dd>${p[0]} ${14+i}. Oktober</dd><dt>Beginn</dt><dd>${p[2]} Uhr</dd><dt>Stil</dt><dd>${p[3]}</dd><dt>Besetzung</dt><dd>${p[4]}</dd></dl><p>${p[5]}</p>`;
+ const sh=document.getElementById('shape');for(let k=0;k<6;k++){const e=document.createElement('i');sh.appendChild(e);const r=(i*7+k*13)%10;const circle=k%2===0;
+  Object.assign(e.style,{left:(r*10)+'%',top:(k*17%80)+'%',width:circle?(40+r*8)+'px':(120+r*30)+'px',height:circle?(40+r*8)+'px':(6+r*2)+'px',borderRadius:circle?'50%':'0',background:[p[6]==='#111'?'#f2efe8':p[6],'#f2efe8','#e3120b','#1c3fd1'][k%4],transform:`rotate(${circle?0:-24}deg) scale(.2)`,opacity:0});
+  setTimeout(()=>{e.style.transform=`rotate(${circle?0:-24}deg) scale(1)`;e.style.opacity=1},40+k*60)}}
+showAct(0);
+
+/* artists */
+const arts=[['Sven Hallberg','Tenorsaxophon','Malmö','#e3120b'],['Ruth Imhof','Klavier','Basel','#1c3fd1'],['Ana Ferreira','Klavier','Lissabon','#111'],['Luc Moreau','Kontrabass','Lyon','#e3120b'],['Elsa Brandt','Gesang','Wien','#1c3fd1'],['Hans Egli','Leitung','Oerlikon','#111'],['Jo Park','Schlagzeug','Seoul','#e3120b'],['Kurt Frei','Schlagzeug','Bern','#1c3fd1']];
+document.getElementById('artists').innerHTML=arts.map(([n,i,c,col],k)=>`<div class="artist" style="--c:${col}"><small>${String(k+1).padStart(2,'0')} / ${c}</small><h3>${n.replace(' ','<br>')}</h3><span class="ins">${i}</span></div>`).join('');
+
+/* tickets */
+const nightSel=document.getElementById('night');prog.forEach((p,i)=>nightSel.add(new Option(`${p[0]} ${14+i}.10. — ${p[1]}`,i)));
+const seatsEl=document.getElementById('seats');let sel=new Set();
+function seed(n){let s=n*9301+49297;return()=>((s=(s*9301+49297)%233280)/233280)}
+function renderSeats(){seatsEl.innerHTML='';sel.clear();const rnd=seed(+nightSel.value+3);
+ for(let r=0;r<9;r++)for(let c=0;c<16;c++){const b=document.createElement('button');b.className='seat';if(c===7||c===8&&r<0){}
+  if(c===7){b.className='seat gap';seatsEl.appendChild(b);continue}
+  if(r>=7)b.classList.add('vip');if(rnd()<.28)b.classList.add('taken');const id=String.fromCharCode(65+r)+(c<7?c+1:c);b.title='Reihe '+id;b.dataset.id=id;
+  b.onclick=()=>{if(b.classList.contains('taken'))return;b.classList.toggle('sel');b.classList.contains('sel')?sel.add(b):sel.delete(b);cart()};seatsEl.appendChild(b)}
+ cart()}
+function cart(){const items=[...sel];document.getElementById('cartList').innerHTML=items.length?items.map(b=>`<li><span>Platz ${b.dataset.id}${b.classList.contains('vip')?' · Loge':''}</span><span>Fr. ${b.classList.contains('vip')?24:12}.—</span></li>`).join(''):'<li><span>Wählen Sie Plätze im Saalplan.</span></li>';
+ const s=items.reduce((a,b)=>a+(b.classList.contains('vip')?24:12),0);document.getElementById('sum').textContent=`Fr. ${s}.—`;document.getElementById('buy').disabled=!items.length}
+nightSel.onchange=()=>{document.getElementById('tix').innerHTML='';renderSeats()};renderSeats();
+document.getElementById('buy').onclick=()=>{const p=prog[nightSel.value];const code=Math.random().toString(36).slice(2,8).toUpperCase();
+ document.getElementById('tix').innerHTML=`<div class="ticket"><b>RESERVIERT · ${code}</b><br>${p[1]}<br>${p[0]} ${14+ +nightSel.value}.10.1968, ${p[2]} Uhr<br>Plätze: ${[...sel].map(b=>b.dataset.id).join(', ')}</div>`;
+ sel.forEach(b=>{b.classList.remove('sel');b.classList.add('taken')});sel.clear();cart()};
+
+/* poster generator */
+function poster(title,year,ang,rad,bars,s){const r=seed(s);const cols=['#e3120b','#1c3fd1','#111','#f2c200'];let out=`<svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="420" fill="#f2efe8"/>`;
+ out+=`<circle cx="${80+r()*160}" cy="${120+r()*180}" r="${rad*1.6}" fill="${cols[s%2]}" style="mix-blend-mode:multiply"/>`;
+ for(let i=0;i<bars;i++){const y=60+r()*320,h=[2,4,10,18][r()*4|0];out+=`<rect x="-100" y="${y}" width="520" height="${h}" fill="${cols[(r()*3)|0]}" transform="rotate(${ang} 150 ${y})" style="mix-blend-mode:multiply"/>`}
+ out+=`<text x="16" y="72" font-family="Inter Tight,Helvetica" font-weight="900" font-size="${Math.min(78,560/Math.max(3,title.length))}" letter-spacing="-4" fill="#111">${title.replace(/[<&]/g,'')}</text><text x="16" y="404" font-family="Inter Tight,Helvetica" font-weight="900" font-size="64" letter-spacing="-4" fill="#111">${year}</text><text x="190" y="400" font-family="Inter Tight,Helvetica" font-size="9" fill="#111">Kongresshaus Zürich</text></svg>`;return out}
+const arch=document.getElementById('archive'),dlg=document.getElementById('dlg');
+for(let y=1967;y>=1956;y--){const d=document.createElement('div');d.className='mini';const svg=poster(['Jazz','Swing','Bop','Blues','Jazz','Soul'][y%6],y,[-24,0,45,-60,12,30][y%6],20+(y*7)%60,2+y%7,y);d.innerHTML=svg;d.onclick=()=>{document.getElementById('dlgIn').innerHTML=svg;dlg.hidden=false};arch.appendChild(d)}
+dlg.onclick=()=>dlg.hidden=true;
+const mk=()=>{const a=+ma.value;document.getElementById('ma_o').textContent=(a<0?'−':'')+Math.abs(a)+'°';document.getElementById('makerOut').innerHTML=poster(mt.value||'Jazz','69',a,+mr.value,+mb.value,+ms.value)};
+['mt','ma','mr','mb','ms'].forEach(id=>document.getElementById(id).oninput=mk);mk();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

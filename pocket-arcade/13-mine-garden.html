@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Mine Garden</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Karla:wght@500;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+body{background:radial-gradient(circle at 20% 10%,#e8f0d0,#c6d9a8 60%,#9fbe84);font-family:Karla,sans-serif;color:#2f3b23;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:44px 12px 16px}
+h1{font-family:Fraunces,serif;font-weight:900;font-size:clamp(28px,7vw,40px);line-height:1;color:#3d5a2a}h1 i{font-style:normal;color:#d9534f}
+.bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
+.seg{display:flex;background:#ffffff66;border-radius:30px;padding:3px}.seg button{border:0;background:none;font:inherit;font-weight:800;padding:6px 12px;border-radius:30px;color:#3d5a2a;cursor:pointer;font-size:13px}.seg button.on{background:#3d5a2a;color:#f3f7e6}
+.pill{background:#ffffff88;border-radius:30px;padding:6px 12px;font-weight:800;font-size:14px;min-width:64px;text-align:center;font-variant-numeric:tabular-nums}
+#mode{border:0;font:inherit;font-weight:800;border-radius:30px;padding:6px 12px;background:#fff;cursor:pointer;font-size:14px}#mode.flag{background:#d9534f;color:#fff}
+.board{display:grid;grid-template-columns:repeat(var(--c),var(--s));gap:0;border-radius:14px;overflow:hidden;box-shadow:0 14px 40px #3d5a2a55,0 0 0 6px #6b8f4e}
+.cell{width:var(--s);height:var(--s);display:grid;place-items:center;font-weight:800;font-size:calc(var(--s)*.55);cursor:pointer;position:relative}
+.cell.h{background:#7fbf4d}.cell.h.alt{background:#74b544}.cell.h:hover{filter:brightness(1.08)}
+.cell.h::after{content:'';position:absolute;inset:0;box-shadow:inset 0 3px 0 #ffffff33,inset 0 -3px 0 #00000018}
+.cell.o{background:#ecd9b6;animation:dig .25s}.cell.o.alt{background:#e3cda4}
+@keyframes dig{from{transform:scale(.6);opacity:.3}}
+.cell.cur{outline:3px solid #fff;outline-offset:-3px;z-index:2}
+.n1{color:#2b6cb0}.n2{color:#2f855a}.n3{color:#c53030}.n4{color:#6b46c1}.n5{color:#b7791f}.n6{color:#0f766e}.n7{color:#222}.n8{color:#777}
+.cell.boom{background:#f56565!important}
+.cell .fx{animation:pop .3s}@keyframes pop{from{transform:scale(0) rotate(-40deg)}}
+.ov{position:fixed;inset:0;display:none;place-items:center;background:#2f3b2366;z-index:5;text-align:center}.ov.on{display:grid}
+.card{background:#f7f3e3;padding:26px 32px;border-radius:20px;box-shadow:0 20px 50px #0004;max-width:88vw}
+.card h2{font-family:Fraunces,serif;font-size:36px;color:#3d5a2a}.card p{margin:10px 0 16px;line-height:1.5}
+.card button{font:inherit;font-weight:800;border:0;background:#3d5a2a;color:#fff;padding:11px 26px;border-radius:30px;cursor:pointer;font-size:16px}
+.hint{font-size:12px;opacity:.7;text-align:center;max-width:420px}
+.back{position:fixed;left:12px;top:12px;color:#3d5a2a;text-decoration:none;font-size:14px;font-weight:800;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="back" href="index.html">← games</a>
+<h1>Mine <i>Garden</i></h1>
+<div class="bar"><div class="seg" id="lv"><button data-l="easy" class="on">Easy</button><button data-l="normal">Normal</button><button data-l="hard">Hard</button></div></div>
+<div class="bar"><span class="pill" id="fl">🌷 10</span><span class="pill" id="tm">⏱ 0</span><button id="mode">⛏ Dig</button><span class="pill" id="bt">Best –</span></div>
+<div class="board" id="board"></div>
+<p class="hint">Dig the whole garden without waking a bee. Tap to dig · long-press / right-click to plant a tulip · tap a number to chord.<br>Keys: arrows move · Space dig · F tulip · N new</p>
+<div class="ov" id="ov"><div class="card"><h2 id="ot">Bloom!</h2><p id="op"></p><button id="again">Plant again</button></div></div>
+<script>
+const K='best-mine-garden';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const LV={easy:[8,10,10],normal:[10,14,22],hard:[12,18,40]};
+const board=document.getElementById('board');let lv='easy',C,R,M,cells,started,done,timer,secs,cur=0,flagMode=false,best=ls.g(K,{});if(typeof best!=='object'||!best)best={};
+let AC;function tone(f,d=.06,type='triangle',v=.05){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function size(){const s=Math.floor(Math.min((innerWidth-28)/C,(innerHeight-250)/R,46));board.style.setProperty('--s',Math.max(22,s)+'px');board.style.setProperty('--c',C)}
+addEventListener('resize',()=>C&&size());
+function nb(i){const c=i%C,r=i/C|0,o=[];for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){if(!dr&&!dc)continue;const cc=c+dc,rr=r+dr;if(cc>=0&&rr>=0&&cc<C&&rr<R)o.push(rr*C+cc)}return o}
+function build(){[C,R,M]=LV[lv];clearInterval(timer);secs=0;started=false;done=false;cur=Math.floor(R/2)*C+Math.floor(C/2);board.innerHTML='';cells=[];
+ for(let i=0;i<C*R;i++){const el=document.createElement('div');el.className='cell h'+(((i%C)+(i/C|0))%2?' alt':'');el.dataset.i=i;board.appendChild(el);cells.push({mine:false,n:0,open:false,flag:false,el})}
+ size();hud();paintCur();document.getElementById('ov').classList.remove('on')}
+function hud(){const f=cells.filter(c=>c.flag).length;document.getElementById('fl').textContent='🌷 '+(M-f);document.getElementById('tm').textContent='⏱ '+secs;document.getElementById('bt').textContent='Best '+(best[lv]?best[lv]+'s':'–')}
+function place(safe){const bad=new Set([safe,...nb(safe)]);let n=0;while(n<M){const i=Math.random()*C*R|0;if(cells[i].mine||bad.has(i))continue;cells[i].mine=true;n++}cells.forEach((c,i)=>c.n=nb(i).filter(j=>cells[j].mine).length)}
+function paint(i){const c=cells[i],el=c.el;const alt=((i%C)+(i/C|0))%2?' alt':'';if(c.open){el.className='cell o'+alt+(c.n?' n'+c.n:'');el.textContent=c.mine?'🐝':c.n||''}else{el.className='cell h'+alt;el.innerHTML=c.flag?'<span class="fx">🌷</span>':''}if(i===cur)el.classList.add('cur')}
+function paintCur(){board.querySelectorAll('.cur').forEach(e=>e.classList.remove('cur'));cells[cur].el.classList.add('cur')}
+function reveal(i){if(done)return;if(!started){started=true;place(i);timer=setInterval(()=>{secs++;hud()},1000)}
+ const c=cells[i];if(c.open||c.flag)return;if(c.mine){lose(i);return}
+ const q=[i];let n=0;while(q.length){const j=q.pop(),d=cells[j];if(d.open||d.flag)continue;d.open=true;n++;paint(j);if(d.n===0)nb(j).forEach(k=>{if(!cells[k].open)q.push(k)})}
+ tone(n>1?520:380,.05);if(cells.every(c=>c.mine||c.open))win()}
+function chord(i){const c=cells[i];if(!c.open||!c.n)return;const ns=nb(i);if(ns.filter(j=>cells[j].flag).length===c.n)ns.forEach(j=>{if(!cells[j].open&&!cells[j].flag)reveal(j)})}
+function flag(i){if(done)return;const c=cells[i];if(c.open)return;c.flag=!c.flag;paint(i);hud();tone(c.flag?760:300,.05,'sine');if(navigator.vibrate)try{navigator.vibrate(15)}catch(e){}}
+function act(i){if(done)return;const c=cells[i];if(c.open)chord(i);else if(flagMode)flag(i);else reveal(i)}
+function lose(i){done=true;clearInterval(timer);cells[i].open=true;paint(i);cells[i].el.classList.add('boom');tone(110,.5,'sawtooth',.06);
+ const ms=cells.map((c,j)=>j).filter(j=>cells[j].mine&&j!==i);ms.forEach((j,k)=>setTimeout(()=>{if(!cells[j].flag){cells[j].open=true;paint(j)}},80+k*40));
+ setTimeout(()=>{document.getElementById('ot').textContent='Buzzed! 🐝';document.getElementById('op').textContent=`You woke a bee after ${secs}s.`;document.getElementById('ov').classList.add('on')},600+ms.length*40)}
+function win(){done=true;clearInterval(timer);const rec=!best[lv]||secs<best[lv];if(rec){best[lv]=secs;ls.s(K,best)}hud();[523,659,784,1046].forEach((f,k)=>setTimeout(()=>tone(f,.15),k*90));
+ cells.forEach((c,j)=>{if(c.mine&&!c.flag){c.flag=true;paint(j)}});
+ setTimeout(()=>{document.getElementById('ot').textContent=rec?'New record! 🌼':'In full bloom! 🌼';document.getElementById('op').textContent=`${lv[0].toUpperCase()+lv.slice(1)} garden cleared in ${secs}s. Best ${best[lv]}s.`;document.getElementById('ov').classList.add('on')},500)}
+let lp=null,lpFired=false;
+board.addEventListener('pointerdown',e=>{const el=e.target.closest('.cell');if(!el)return;const i=+el.dataset.i;lpFired=false;if(e.button===2)return;lp=setTimeout(()=>{lpFired=true;flag(i)},380)});
+board.addEventListener('pointerup',e=>{clearTimeout(lp);const el=e.target.closest('.cell');if(!el||e.button===2)return;if(lpFired)return;const i=+el.dataset.i;cur=i;paintCur();act(i)});
+board.addEventListener('pointerleave',()=>clearTimeout(lp));board.addEventListener('pointercancel',()=>clearTimeout(lp));
+board.addEventListener('contextmenu',e=>{e.preventDefault();const el=e.target.closest('.cell');if(el)flag(+el.dataset.i)});
+addEventListener('keydown',e=>{const k=e.key;let c=cur%C,r=cur/C|0;
+ if(document.getElementById('ov').classList.contains('on')){if(k===' '||k==='Enter'){e.preventDefault();build()}return}
+ if(k==='ArrowLeft'||k==='a'||k==='A')c=Math.max(0,c-1);else if(k==='ArrowRight'||k==='d'||k==='D')c=Math.min(C-1,c+1);else if(k==='ArrowUp'||k==='w'||k==='W')r=Math.max(0,r-1);else if(k==='ArrowDown'||k==='s'||k==='S')r=Math.min(R-1,r+1);
+ else if(k===' '||k==='Enter'){e.preventDefault();const cc=cells[cur];cc.open?chord(cur):reveal(cur);return}else if(k==='f'||k==='F'||k==='x'||k==='X'){flag(cur);return}else if(k==='n'||k==='N'){build();return}else return;
+ e.preventDefault();cur=r*C+c;paintCur()});
+document.getElementById('lv').onclick=e=>{const b=e.target.closest('button');if(!b)return;lv=b.dataset.l;document.querySelectorAll('#lv button').forEach(x=>x.classList.toggle('on',x===b));build()};
+document.getElementById('mode').onclick=()=>{flagMode=!flagMode;const m=document.getElementById('mode');m.classList.toggle('flag',flagMode);m.textContent=flagMode?'🌷 Plant':'⛏ Dig'};
+document.getElementById('again').onclick=build;
+build();
+</script>
+</body>
+</html>

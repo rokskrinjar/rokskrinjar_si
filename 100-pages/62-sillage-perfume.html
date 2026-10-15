@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sillage — Atelier de Parfum</title>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#f7f1ea;--blush:#ecd5cc;--plum:#3d1f33;--gold:#b08d57;--ink:#2a1a24;--dim:#2a1a2499}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ivory);color:var(--ink);font-family:Manrope,sans-serif;font-weight:300}
+a{color:inherit;text-decoration:none}button,input{font:inherit;cursor:pointer;color:inherit}
+header{text-align:center;padding:30px 5vw 0}
+.logo{font-family:Italiana;font-size:clamp(2.6rem,6vw,4.2rem);letter-spacing:.34em;padding-left:.34em}
+.logo small{display:block;font-family:Manrope;font-size:10px;letter-spacing:.6em;font-weight:600;color:var(--gold);margin-top:4px}
+nav{display:flex;justify-content:center;gap:34px;padding:22px 0;border-bottom:1px solid #2a1a2418;font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;flex-wrap:wrap}
+nav a{color:var(--dim)}nav a.on{color:var(--ink);text-decoration:underline;text-underline-offset:8px;text-decoration-color:var(--gold)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1240px;margin:0 auto;padding:44px 5vw 90px}
+h2{font-family:Italiana;font-weight:400;font-size:clamp(2.4rem,5vw,4rem);line-height:1.05;text-align:center}
+.lede{text-align:center;max-width:52ch;margin:14px auto 40px;line-height:1.8;color:var(--dim)}
+/* compose */
+.comp{display:grid;grid-template-columns:1fr 380px 1fr;gap:36px;align-items:start}
+.tier h3{font-family:Italiana;font-weight:400;font-size:28px}
+.tier small{display:block;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:800;margin-bottom:10px}
+.notes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:26px}
+.note{border:1px solid #2a1a2433;background:none;border-radius:30px;padding:7px 13px;font-size:13px;display:flex;align-items:center;gap:6px;transition:.2s}
+.note i{width:10px;height:10px;border-radius:50%}
+.note.on{background:var(--plum);color:var(--ivory);border-color:var(--plum)}
+.note:disabled{opacity:.3;cursor:not-allowed}
+.pyr{position:sticky;top:20px;text-align:center}
+.pyr svg{width:100%;height:auto}
+.fname{font-family:Italiana;font-size:36px;border:0;border-bottom:1px solid #2a1a2433;background:none;text-align:center;width:100%;padding:6px;outline:0}
+.desc{font-size:15px;line-height:1.8;margin-top:16px;color:var(--dim);font-style:italic}
+.meters{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.meters div{border-top:1px solid var(--ink);padding-top:8px;text-align:left}
+.meters b{font-family:Italiana;font-size:26px;font-weight:400;display:block}
+.meters small{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--dim)}
+.btn{display:inline-block;background:var(--plum);color:var(--ivory);border:0;padding:15px 30px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:800;margin-top:20px}
+.btn.ghost{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+/* bottle */
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.stage{background:radial-gradient(ellipse at 50% 80%,var(--blush),var(--ivory) 70%);border-radius:50% 50% 0 0/30% 30% 0 0;padding:30px;text-align:center}
+.stage svg{width:min(100%,420px);height:auto;filter:drop-shadow(0 30px 30px #3d1f3333)}
+.opt h4{font-size:10px;letter-spacing:.3em;text-transform:uppercase;font-weight:800;color:var(--gold);margin:22px 0 10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{border:1px solid #2a1a2433;background:none;padding:9px 16px;font-size:13px}
+.chips button.on{background:var(--ink);color:var(--ivory)}
+.opt input[type=text]{width:100%;border:0;border-bottom:1px solid var(--ink);background:none;padding:8px 0;font-family:Italiana;font-size:26px;outline:0}
+/* wheel */
+.wgrid{display:grid;grid-template-columns:minmax(300px,560px) 1fr;gap:50px;align-items:center}
+.wheel svg{width:100%;height:auto}
+.wheel .seg{cursor:pointer;transition:opacity .2s}
+.wheel .seg:hover{opacity:.85}
+.card{border-top:1px solid var(--ink);padding-top:20px}
+.card h3{font-family:Italiana;font-weight:400;font-size:44px}
+.card p{line-height:1.8;margin:12px 0;color:var(--dim)}
+.card .nl{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.card .nl span{border:1px solid #2a1a2433;border-radius:30px;padding:6px 12px;font-size:13px}
+/* quiz */
+.quiz{max-width:760px;margin:0 auto;text-align:center}
+.qstep{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.qq{font-family:Italiana;font-size:clamp(1.8rem,4vw,3rem);margin:14px 0 28px;line-height:1.15}
+.qa{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.qa button{border:1px solid #2a1a2433;background:#fff6;padding:26px 18px;font-size:15px;line-height:1.5;transition:.25s;text-align:left}
+.qa button:hover{background:var(--plum);color:var(--ivory)}
+.qa button b{display:block;font-family:Italiana;font-weight:400;font-size:24px;margin-bottom:4px}
+.dots{display:flex;justify-content:center;gap:8px;margin-top:30px}
+.dots i{width:8px;height:8px;border-radius:50%;background:#2a1a2422}.dots i.on{background:var(--plum)}
+@media(max-width:1000px){.comp,.bgrid,.wgrid{grid-template-columns:1fr}.pyr{position:static}.qa{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">SILLAGE<small>ATELIER DE PARFUM · GRASSE</small></div>
+</header>
+<nav><a href="#compose">Compose</a><a href="#bottle">The Flacon</a><a href="#wheel">Olfactive Wheel</a><a href="#quiz">Find Your Scent</a><a href="index.html">Index</a></nav>
+
+<section data-view="compose"><div class="wrap">
+ <h2>Compose a fragrance</h2>
+ <p class="lede">A perfume unfolds in three movements. The top notes are the first impression and last minutes. The heart is the character and lasts hours. The base is the memory and can last a whole day. Choose up to three notes for each.</p>
+ <div class="comp">
+  <div id="colL"></div>
+  <div class="pyr"><svg id="pyr" viewBox="0 0 380 340"></svg><input class="fname" id="fname" value="Nuit à Grasse" maxlength="24"><div class="desc" id="desc"></div>
+   <div class="meters"><div><b id="mL">6h</b><small>Longevity</small></div><div><b id="mS">Moderate</b><small>Sillage</small></div><div><b id="mF">Floral</b><small>Family</small></div></div>
+   <button class="btn" onclick="go('bottle')">Design the flacon →</button></div>
+  <div id="colR"></div>
+ </div>
+</div></section>
+
+<section data-view="bottle" hidden><div class="wrap">
+ <h2>The flacon</h2>
+ <p class="lede">The liquid is tinted by your composition. Choose the shape, cap and label, and it gets hand-engraved with your name.</p>
+ <div class="bgrid">
+  <div class="stage"><svg id="flacon" viewBox="0 0 400 520"></svg></div>
+  <div class="opt">
+   <h4>Silhouette</h4><div class="chips" id="shape"></div>
+   <h4>Cap</h4><div class="chips" id="cap"></div>
+   <h4>Engraving</h4><input type="text" id="engr" value="Nuit à Grasse" maxlength="22">
+   <h4>Concentration</h4><div class="chips" id="conc"></div>
+   <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:30px;border-top:1px solid var(--ink);padding-top:16px"><span style="font-size:11px;letter-spacing:.3em;font-weight:800">50 ML</span><span style="font-family:Italiana;font-size:40px" id="price">€180</span></div>
+   <button class="btn" id="order">Commission this bottle</button>
+  </div>
+ </div>
+</div></section>
+
+<section data-view="wheel" hidden><div class="wrap">
+ <h2>The olfactive wheel</h2>
+ <p class="lede">Perfumers sort scents into families that blend into each other around a wheel. Neighbours sit well together and opposites create tension.</p>
+ <div class="wgrid"><div class="wheel"><svg id="whl" viewBox="-260 -260 520 520"></svg></div><div class="card" id="wcard"></div></div>
+</div></section>
+
+<section data-view="quiz" hidden><div class="wrap quiz" id="quizBox"></div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'compose';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='bottle')drawBottle()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+// note: [name, tier, family, colour, adjective]
+const N=[['Bergamot','top','citrus','#e8e27a','sparkling'],['Pink pepper','top','spicy','#e89aa8','prickling'],['Neroli','top','floral','#f4e7b8','luminous'],['Mandarin','top','citrus','#f2a24a','juicy'],['Blackcurrant','top','fruity','#6b2a5a','tart'],['Cardamom','top','spicy','#b8c98a','cool'],['Sea salt','top','fresh','#bcd8dc','breezy'],
+ ['Rose de Mai','heart','floral','#e07a8f','velvety'],['Jasmine','heart','floral','#f7efd2','heady'],['Iris','heart','powdery','#b6a6d6','powdery'],['Fig leaf','heart','green','#7a9a5a','milky-green'],['Orange blossom','heart','floral','#f5dcb0','honeyed'],['Violet','heart','powdery','#8a6bb0','shy'],['Lavender','heart','aromatic','#9c8cd0','herbal'],
+ ['Sandalwood','base','woody','#c79a6a','creamy'],['Vanilla','base','amber','#e8c996','warm'],['Oud','base','woody','#4a2a1a','smoky'],['Vetiver','base','woody','#6b6a3a','earthy'],['Musk','base','musky','#e8dcd2','skin-close'],['Amber','base','amber','#c7772d','resinous'],['Tonka bean','base','amber','#8a5a2b','almondy']];
+let sel=new Set(['Bergamot','Pink pepper','Rose de Mai','Iris','Sandalwood','Vanilla']);
+const tierN={top:'Top notes',heart:'Heart notes',base:'Base notes'},tierS={top:'0 – 30 minutes',heart:'30 minutes – 4 hours',base:'4 hours – a day'};
+function tierHTML(t){const cnt=N.filter(n=>n[1]===t&&sel.has(n[0])).length;return`<div class="tier"><small>${tierS[t]}</small><h3>${tierN[t]}</h3><div class="notes">${N.filter(n=>n[1]===t).map(n=>`<button class="note ${sel.has(n[0])?'on':''}" data-n="${n[0]}" ${!sel.has(n[0])&&cnt>=3?'disabled':''}><i style="background:${n[3]}"></i>${n[0]}</button>`).join('')}</div></div>`}
+function mix(cols){if(!cols.length)return'#e8dcd2';const c=cols.map(h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)));return'#'+[0,1,2].map(k=>Math.round(c.reduce((s,x)=>s+x[k],0)/c.length).toString(16).padStart(2,'0')).join('')}
+const picked=()=>N.filter(n=>sel.has(n[0]));
+function family(){const f={};picked().forEach(n=>f[n[2]]=(f[n[2]]||0)+(n[1]==='heart'?1.5:1));return Object.entries(f).sort((a,b)=>b[1]-a[1])[0]?.[0]||'—'}
+function render(){document.getElementById('colL').innerHTML=tierHTML('top')+tierHTML('base');document.getElementById('colR').innerHTML=tierHTML('heart');
+ const T=['top','heart','base'].map(t=>picked().filter(n=>n[1]===t));let s='<defs>'+T.map((arr,i)=>`<linearGradient id="t${i}" x1="0" x2="1">${(arr.length?arr:[[0,0,0,'#efe6de']]).map((n,k,a)=>`<stop offset="${a.length>1?k/(a.length-1):0}" stop-color="${n[3]}"/>`).join('')}</linearGradient>`).join('')+'</defs>';
+ const rows=[[190,20,120,110],[120,110,260,210],[60,210,320,320]];// apex, y0 ... we draw trapezoids
+ s+=`<path d="M190 20 L240 110 L140 110Z" fill="url(#t0)" stroke="#2a1a24" stroke-width="1"/><path d="M140 114 L240 114 L296 214 L84 214Z" fill="url(#t1)" stroke="#2a1a24" stroke-width="1"/><path d="M82 218 L298 218 L354 320 L26 320Z" fill="url(#t2)" stroke="#2a1a24" stroke-width="1"/>`;
+ [[80,'TOP'],[170,'HEART'],[274,'BASE']].forEach(([y,l],i)=>{const names=T[i].map(n=>n[0]);s+=`<text x="190" y="${y-(names.length?6:0)}" text-anchor="middle" font-family="Manrope" font-size="9" letter-spacing="3" font-weight="800" fill="#2a1a24aa">${l}</text><text x="190" y="${y+10}" text-anchor="middle" font-family="Italiana" font-size="${i?17:13}" fill="#2a1a24">${names.join(' · ')||'—'}</text>`});
+ document.getElementById('pyr').innerHTML=s;
+ const adj=picked().map(n=>n[4]);const nm=document.getElementById('fname').value;
+ document.getElementById('desc').textContent=picked().length?`${nm} opens ${adj[0]||'softly'} with ${T[0].map(n=>n[0].toLowerCase()).join(' and ')||'a hush'}, then settles into a ${adj.find((a,i)=>picked()[i][1]==='heart')||'quiet'} heart of ${T[1].map(n=>n[0].toLowerCase()).join(' and ')||'nothing at all'}, before drying down to ${T[2].map(n=>n[0].toLowerCase()).join(' and ')||'bare skin'}.`:'Choose your notes.';
+ const base=T[2].length,heavy=T[2].filter(n=>['Oud','Amber','Vanilla','Tonka bean'].includes(n[0])).length;
+ document.getElementById('mL').textContent=(3+base*2+heavy)+'h';document.getElementById('mS').textContent=['Intimate','Soft','Moderate','Strong','Enormous'][Math.min(4,heavy+Math.floor(T[1].length/2)+(T[0].length>2?1:0))];document.getElementById('mF').textContent=family()[0].toUpperCase()+family().slice(1)}
+['colL','colR'].forEach(id=>document.getElementById(id).onclick=e=>{const b=e.target.closest('.note');if(!b||b.disabled)return;const n=b.dataset.n;sel.has(n)?sel.delete(n):sel.add(n);render()});
+document.getElementById('fname').oninput=()=>{render();document.getElementById('engr').value=document.getElementById('fname').value};
+render();
+
+/* bottle */
+const SH=['Column','Orb','Flask','Faceted'],CAP=['Gold dome','Crystal stopper','Black cube','Tassel'],CONC=[['Eau de Toilette',120],['Eau de Parfum',180],['Extrait',260]];
+let bs={shape:0,cap:1,conc:1};
+const chips=(id,arr,key)=>document.getElementById(id).innerHTML=arr.map((a,i)=>`<button class="${bs[key]===i?'on':''}" data-k="${key}" data-i="${i}">${Array.isArray(a)?a[0]:a}</button>`).join('');
+function drawBottle(){chips('shape',SH,'shape');chips('cap',CAP,'cap');chips('conc',CONC,'conc');const juice=mix(picked().map(n=>n[3])),eng=document.getElementById('engr').value;
+ let body,neckY;const cx=200;
+ if(bs.shape===0){body=`M130 180 H270 V470 Q270 490 250 490 H150 Q130 490 130 470Z`;neckY=180}
+ if(bs.shape===1){body=`M200 170 C300 170 320 260 320 330 C320 430 270 490 200 490 C130 490 80 430 80 330 C80 260 100 170 200 170Z`;neckY=170}
+ if(bs.shape===2){body=`M170 170 H230 V230 C300 250 310 330 310 400 Q310 490 200 490 Q90 490 90 400 C90 330 100 250 170 230Z`;neckY=170}
+ if(bs.shape===3){body=`M200 170 L300 220 L300 440 L200 490 L100 440 L100 220Z`;neckY=170}
+ let s=`<defs><linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".7"/><stop offset=".25" stop-color="#fff" stop-opacity=".05"/><stop offset=".8" stop-color="#fff" stop-opacity=".0"/><stop offset="1" stop-color="#fff" stop-opacity=".4"/></linearGradient><linearGradient id="jc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${juice}" stop-opacity=".55"/><stop offset="1" stop-color="${juice}" stop-opacity=".95"/></linearGradient><clipPath id="bc"><path d="${body}"/></clipPath><linearGradient id="gold" x1="0" x2="1"><stop offset="0" stop-color="#8a6a3a"/><stop offset=".5" stop-color="#f0d9a0"/><stop offset="1" stop-color="#8a6a3a"/></linearGradient></defs>`;
+ s+=`<ellipse cx="200" cy="500" rx="130" ry="12" fill="#3d1f3322"/><path d="${body}" fill="#ffffff55" stroke="#3d1f3344" stroke-width="2"/><rect x="0" y="${neckY+40}" width="400" height="400" fill="url(#jc)" clip-path="url(#bc)"/><path d="${body}" fill="url(#gl)"/>`;
+ if(bs.shape===3)s+=`<path d="M200 170 V490 M100 220 L200 260 L300 220" stroke="#fff" stroke-opacity=".4" fill="none"/>`;
+ s+=`<rect x="180" y="${neckY-26}" width="40" height="30" fill="url(#gold)"/>`;
+ const cy=neckY-26;if(bs.cap===0)s+=`<path d="M150 ${cy} Q150 ${cy-90} 200 ${cy-90} Q250 ${cy-90} 250 ${cy}Z" fill="url(#gold)"/>`;
+ if(bs.cap===1)s+=`<path d="M200 ${cy-110} L250 ${cy-50} L200 ${cy} L150 ${cy-50}Z" fill="#ffffff88" stroke="#3d1f3344" stroke-width="2"/><path d="M200 ${cy-110} L200 ${cy} M150 ${cy-50} L250 ${cy-50}" stroke="#fff" stroke-opacity=".6"/>`;
+ if(bs.cap===2)s+=`<rect x="160" y="${cy-80}" width="80" height="80" fill="#1a1016"/><rect x="164" y="${cy-76}" width="10" height="72" fill="#ffffff22"/>`;
+ if(bs.cap===3)s+=`<ellipse cx="200" cy="${cy-30}" rx="36" ry="32" fill="${juice}" stroke="#3d1f3344" stroke-width="2"/><path d="M210 ${cy-4} q30 40 10 120" stroke="#b08d57" stroke-width="3" fill="none"/>${[...Array(9)].map((_,i)=>`<path d="M220 ${cy+116} l${i*3-12} 40" stroke="#b08d57" stroke-width="2"/>`).join('')}`;
+ s+=`<rect x="140" y="330" width="120" height="80" fill="#f7f1ea" opacity=".92"/><rect x="146" y="336" width="108" height="68" fill="none" stroke="#b08d57"/><text x="200" y="362" text-anchor="middle" font-family="Italiana" font-size="15" letter-spacing="3" fill="#2a1a24">SILLAGE</text><text x="200" y="382" text-anchor="middle" font-family="Italiana" font-size="${eng.length>14?11:14}" fill="#2a1a24">${eng.replace(/[<>&]/g,'')}</text><text x="200" y="397" text-anchor="middle" font-family="Manrope" font-size="6" letter-spacing="2" font-weight="800" fill="#b08d57">${CONC[bs.conc][0].toUpperCase()}</text>`;
+ document.getElementById('flacon').innerHTML=s;document.getElementById('price').textContent='€'+(CONC[bs.conc][1]+(bs.cap===3?30:bs.cap===1?20:0)+(bs.shape===3?25:0))}
+document.querySelector('.opt').addEventListener('click',e=>{const{k,i}=e.target.dataset;if(k){bs[k]=+i;drawBottle()}});
+document.getElementById('engr').oninput=drawBottle;
+document.getElementById('order').onclick=e=>{e.target.textContent='Merci. Your flacon is being poured.';e.target.disabled=true};
+
+/* wheel */
+const FAM=[['Fresh','#bcd8dc','Sea air, cut cucumber, cold water. The scent of clean skin and open windows.',['Sea salt','Cucumber','Ozone','Mint']],['Citrus','#e8e27a','Bright and fleeting. Squeezed peel and first light. Colognes started here.',['Bergamot','Mandarin','Yuzu','Grapefruit']],['Green','#7a9a5a','Snapped stems and torn leaves: galbanum, fig leaf, tomato vine.',['Fig leaf','Galbanum','Violet leaf','Petitgrain']],['Floral','#e07a8f','The heart of perfumery. Rose, jasmine and tuberose are still harvested by hand at dawn.',['Rose de Mai','Jasmine','Tuberose','Orange blossom']],['Powdery','#b6a6d6','Soft-focus and nostalgic, like a grandmother\'s vanity table. Iris root is aged three years before it\'s used.',['Iris','Violet','Heliotrope','Rice powder']],['Amber','#c7772d','Warm resins and sweet balsams: vanilla, labdanum, benzoin. What people used to call "oriental".',['Amber','Vanilla','Tonka bean','Benzoin']],['Spicy','#c9563a','Pepper, clove, cardamom. It crackles, like a spice market carried in on a coat.',['Pink pepper','Cardamom','Clove','Saffron']],['Woody','#8a5a2b','Dry cedar, creamy sandalwood, smoky oud. These give the fragrance its structure.',['Sandalwood','Cedar','Vetiver','Oud']],['Musky','#e8dcd2','Skin, only better. Clean musks make a fragrance that smells like you, just closer.',['White musk','Ambrette','Cashmeran','Iso E Super']]];
+let fam=3;
+function wheel(){let s='';const n=FAM.length;FAM.forEach((f,i)=>{const a0=i/n*Math.PI*2-Math.PI/2,a1=(i+1)/n*Math.PI*2-Math.PI/2,r0=90,r1=i===fam?250:230;const P=(r,a)=>`${Math.cos(a)*r} ${Math.sin(a)*r}`;
+  s+=`<path class="seg" data-f="${i}" d="M${P(r0,a0)} L${P(r1,a0)} A${r1} ${r1} 0 0 1 ${P(r1,a1)} L${P(r0,a1)} A${r0} ${r0} 0 0 0 ${P(r0,a0)}Z" fill="${f[1]}" stroke="#f7f1ea" stroke-width="3"/>`;const am=(a0+a1)/2;s+=`<text x="${Math.cos(am)*165}" y="${Math.sin(am)*165+5}" text-anchor="middle" font-family="Italiana" font-size="20" fill="#2a1a24" pointer-events="none">${f[0]}</text>`});
+ s+=`<circle r="80" fill="#f7f1ea"/><text y="-6" text-anchor="middle" font-family="Italiana" font-size="22" fill="#2a1a24">${FAM[fam][0]}</text><text y="16" text-anchor="middle" font-family="Manrope" font-size="9" letter-spacing="3" font-weight="800" fill="#b08d57">FAMILY ${fam+1}/9</text>`;
+ document.getElementById('whl').innerHTML=s;const f=FAM[fam],nb=[FAM[(fam+8)%9][0],FAM[(fam+1)%9][0]],op=FAM[(fam+4)%9][0];
+ document.getElementById('wcard').innerHTML=`<h3>${f[0]}</h3><p>${f[2]}</p><div style="font-size:10px;letter-spacing:.3em;font-weight:800;color:#b08d57;margin-top:20px">KEY MATERIALS</div><div class="nl">${f[3].map(x=>`<span>${x}</span>`).join('')}</div><p style="margin-top:22px">Blends easily with <b>${nb.join('</b> and <b>')}</b>. Try it against <b>${op}</b> for contrast.</p>`}
+document.getElementById('whl').onclick=e=>{const s=e.target.closest('.seg');if(s){fam=+s.dataset.f;wheel()}};wheel();
+
+/* quiz */
+const Q=[['Where do you feel most yourself?',[['A salt-bleached pier','sea wind and rope',['Sea salt','Bergamot','Vetiver']],['A candle-lit library','old paper and leather',['Oud','Tonka bean','Iris']],['A garden after rain','wet earth and petals',['Fig leaf','Rose de Mai','Musk']],['A spice souk at dusk','warm, crowded, golden',['Cardamom','Amber','Pink pepper']]]],
+ ['Pick a fabric.',[['Crisp linen','',['Neroli','Musk']],['Cashmere','',['Sandalwood','Vanilla']],['Velvet','',['Rose de Mai','Violet']],['Raw silk','',['Iris','Jasmine']]]],
+ ['What time is your scent for?',[['Morning','',['Mandarin','Lavender']],['Afternoon','',['Orange blossom','Fig leaf']],['Evening','',['Jasmine','Amber']],['3 a.m.','',['Oud','Blackcurrant']]]],
+ ['How should people notice it?',[['Only when they lean in','',['Musk','Iris']],['A soft trail as I pass','',['Sandalwood','Orange blossom']],['From across the room','',['Amber','Oud']],['They shouldn\'t. It\'s mine.','',['Vetiver','Sea salt']]]]];
+let qi=0,score={};
+function quiz(){const box=document.getElementById('quizBox');if(qi>=Q.length){const top=Object.entries(score).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);const pick={top:[],heart:[],base:[]};top.forEach(n=>{const t=N.find(x=>x[0]===n)[1];if(pick[t].length<2)pick[t].push(n)});['top','heart','base'].forEach(t=>{if(!pick[t].length)pick[t].push(N.find(x=>x[1]===t)[0])});
+  const all=[...pick.top,...pick.heart,...pick.base];const nm=['Heure Bleue Nº','Fumée Nº','Jardin Nº','Sel Nº','Minuit Nº'][Object.keys(score).length%5]+' '+(Object.values(score).reduce((a,b)=>a+b,0)*7%97);
+  box.innerHTML=`<div class="qstep">Your signature</div><div class="qq">${nm}</div><p class="lede" style="margin-bottom:10px">${all.join(' · ')}</p><button class="btn" id="useQ">Open in the composer</button> <button class="btn ghost" id="reQ">Start over</button>`;
+  document.getElementById('useQ').onclick=()=>{sel=new Set(all);document.getElementById('fname').value=nm;document.getElementById('engr').value=nm;render();go('compose')};document.getElementById('reQ').onclick=()=>{qi=0;score={};quiz()};return}
+ const[q,ans]=Q[qi];box.innerHTML=`<div class="qstep">Question ${qi+1} of ${Q.length}</div><div class="qq">${q}</div><div class="qa">${ans.map((a,i)=>`<button data-a="${i}"><b>${a[0]}</b>${a[1]}</button>`).join('')}</div><div class="dots">${Q.map((_,i)=>`<i class="${i<=qi?'on':''}"></i>`).join('')}</div>`}
+document.getElementById('quizBox').addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;Q[qi][1][+b.dataset.a][2].forEach(n=>score[n]=(score[n]||0)+1);qi++;quiz()});quiz();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

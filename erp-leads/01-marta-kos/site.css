@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+:root{--e-bg:#f6f8fb;--e-card:#fff;--e-ink:#0b1a33;--e-mu:#56627a;--e-ln:#dfe4ec;--e-acc:#0a49b8;--e-acc2:#ff6a13;--e-acc-ink:#fff;--e-soft:#eaf0f8;--e-r:6px;--e-font:'Archivo',system-ui,sans-serif;--e-head:'Archivo',system-ui,sans-serif;--e-mono:'JetBrains Mono',monospace;--e-hw:800;--e-hl:-.025em;--e-maxw:1220px;--e-cta-bg:#0b1a33;--e-cta-btn:#ff6a13}
+.e-hero{background:linear-gradient(#e3e9f3 1px,transparent 1px) 0 0/40px 40px,linear-gradient(90deg,#e3e9f3 1px,transparent 1px) 0 0/40px 40px;border-bottom:1px solid var(--e-ln)}
+.e-hero .e-name{font-size:clamp(38px,4.6vw,64px);line-height:1.02}
+.e-hero .e-por{border-radius:6px;box-shadow:14px 14px 0 var(--e-acc2)}
+.e-kick{color:var(--e-acc2)}
+.e-stats b{color:var(--e-acc)}
+.e-why.numbered .n{color:var(--e-acc2);font-family:var(--e-mono)}
+.e-mini>div{border-top-color:var(--e-acc2)}
+.e-btn{border-radius:4px;font-weight:700}
+.e-tl .y,.e-ph .wk,.e-cases .tag{color:var(--e-acc2)}
+.e-head{backdrop-filter:blur(8px);background:rgba(246,248,251,.92)}

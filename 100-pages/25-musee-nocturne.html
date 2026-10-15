@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musée Nocturne</title>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root { --wall:#1c1a19; --gold:#b89a5b; --cream:#ece4d4; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#0c0b0b; color:var(--cream); font-family:'Lora',serif; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+  .italiana { font-family:'Italiana',serif; }
+  header { position:fixed; top:0; left:0; right:0; z-index:40; display:flex; justify-content:space-between; align-items:center; padding:22px 4vw; }
+  header .brand { font-family:'Italiana'; font-size:24px; letter-spacing:.3em; }
+  header nav { display:flex; gap:26px; font-size:13px; letter-spacing:.2em; text-transform:uppercase; }
+  header nav a { opacity:.55; transition:opacity .3s; }
+  header nav a.on, header nav a:hover { opacity:1; }
+  [data-view][hidden] { display:none; }
+  /* gallery */
+  .gallery { height:100vh; position:relative; overflow:hidden; cursor:none; }
+  .wall { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 30%,#2a2624,#161413 70%); }
+  .wall::after { content:''; position:absolute; left:0; right:0; bottom:0; height:16vh; background:linear-gradient(#0000,#0b0a09 30%); border-top:1px solid #ffffff08; }
+  .track { position:absolute; top:0; bottom:0; left:0; display:flex; align-items:center; gap:14vw; padding:0 20vw; transition:transform 1.2s cubic-bezier(.6,0,.2,1); }
+  .work { position:relative; flex:0 0 auto; cursor:none; }
+  .frame { padding:18px; background:linear-gradient(135deg,#6b5530,#c9a766 30%,#7a5e2c 60%,#d8b777 80%,#5e4a28); box-shadow:0 30px 60px #000c, inset 0 0 0 2px #3a2c14; }
+  .frame.black { background:#0d0d0d; box-shadow:0 30px 60px #000c, inset 0 0 0 2px #333; padding:10px; }
+  .frame .mat { background:#f3eee4; padding:22px; }
+  .frame.black .mat { padding:0; }
+  .frame svg { display:block; }
+  .label { position:absolute; left:calc(100% + 26px); bottom:10%; width:180px; font-size:12px; line-height:1.6; opacity:.8; }
+  .label b { display:block; font-family:'Italiana'; font-size:1.2rem; letter-spacing:.05em; font-weight:400; }
+  .dark { position:absolute; inset:0; pointer-events:none; z-index:10; background:radial-gradient(circle var(--r,220px) at var(--x,50%) var(--y,50%),transparent 0,#000000d0 70%,#000f 100%); transition:--r .3s; }
+  .dark.lit { background:radial-gradient(circle 900px at 50% 40%,transparent 0,#0006 80%); }
+  .roomTitle { position:absolute; left:4vw; bottom:6vh; z-index:20; }
+  .roomTitle small { font-size:12px; letter-spacing:.3em; color:var(--gold); }
+  .roomTitle h2 { font-family:'Italiana'; font-weight:400; font-size:clamp(2rem,5vw,4rem); }
+  .navArrows { position:absolute; right:4vw; bottom:6vh; z-index:20; display:flex; gap:12px; align-items:center; }
+  .navArrows button { width:54px; height:54px; border-radius:50%; border:1px solid #ece4d455; background:#0006; color:var(--cream); font-size:1.2rem; cursor:pointer; }
+  .navArrows button:hover { border-color:var(--gold); color:var(--gold); }
+  .navArrows span { font-size:12px; letter-spacing:.2em; margin:0 8px; }
+  .lamp { position:absolute; right:4vw; top:12vh; z-index:20; font-size:12px; letter-spacing:.2em; background:none; border:1px solid #ece4d433; color:var(--cream); padding:8px 14px; border-radius:30px; cursor:pointer; }
+  .pointer { position:fixed; width:12px; height:12px; border-radius:50%; background:var(--gold); pointer-events:none; z-index:50; transform:translate(-50%,-50%); mix-blend-mode:difference; }
+  /* detail */
+  .detail { position:fixed; inset:0; z-index:60; background:#0c0b0bf2; display:grid; grid-template-columns:1.2fr 1fr; align-items:center; gap:4vw; padding:6vh 6vw; }
+  .detail[hidden] { display:none; }
+  .zoomBox { position:relative; justify-self:center; cursor:zoom-in; }
+  .zoomBox svg { display:block; max-height:80vh; max-width:100%; width:auto; box-shadow:0 30px 80px #000; }
+  .loupe { position:absolute; width:200px; height:200px; border-radius:50%; border:3px solid var(--gold); pointer-events:none; overflow:hidden; box-shadow:0 10px 30px #000a; display:none; background:#000; }
+  .loupe svg { position:absolute; max-height:none !important; max-width:none !important; box-shadow:none !important; }
+  .detail h3 { font-family:'Italiana'; font-weight:400; font-size:clamp(2.2rem,4vw,3.6rem); line-height:1; }
+  .detail .artist { font-style:italic; color:var(--gold); margin:.6rem 0 1.4rem; }
+  .detail p { line-height:1.9; color:#cfc6b4; }
+  .detail dl { display:grid; grid-template-columns:auto 1fr; gap:6px 18px; margin:1.4rem 0; font-size:14px; }
+  .detail dt { letter-spacing:.15em; font-size:11px; text-transform:uppercase; color:#8f8676; align-self:center; }
+  .btn { background:none; border:1px solid var(--gold); color:var(--gold); padding:12px 20px; font-family:inherit; letter-spacing:.15em; font-size:12px; text-transform:uppercase; cursor:pointer; margin-right:8px; }
+  .btn:hover { background:var(--gold); color:#0c0b0b; }
+  .close { position:absolute; top:24px; right:4vw; font-size:2rem; background:none; border:0; color:var(--cream); cursor:pointer; }
+  .wave { display:inline-flex; gap:3px; align-items:center; height:20px; vertical-align:middle; margin-left:8px; }
+  .wave i { width:3px; background:var(--gold); height:30%; animation:wv .8s ease-in-out infinite; }
+  .wave i:nth-child(2) { animation-delay:.1s; } .wave i:nth-child(3) { animation-delay:.2s; } .wave i:nth-child(4) { animation-delay:.3s; }
+  @keyframes wv { 50% { height:100%; } }
+  /* plan */
+  .page { min-height:100vh; padding:120px 6vw 60px; }
+  .page h2 { font-family:'Italiana'; font-weight:400; font-size:clamp(2.6rem,6vw,5rem); }
+  .plan { display:grid; grid-template-columns:1.3fr 1fr; gap:4vw; margin-top:3rem; align-items:start; }
+  .plan svg { width:100%; }
+  .plan .room { cursor:pointer; transition:fill .3s; }
+  .plan .room:hover { fill:#b89a5b33; }
+  .plan .room.cur { fill:#b89a5b55; }
+  .roomList li { list-style:none; padding:1.2rem 0; border-bottom:1px solid #ece4d422; cursor:pointer; display:flex; justify-content:space-between; align-items:baseline; transition:padding .3s; }
+  .roomList li:hover { padding-left:1rem; color:var(--gold); }
+  .roomList b { font-family:'Italiana'; font-weight:400; font-size:1.8rem; }
+  /* collection */
+  .coll { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:28px; margin-top:2.4rem; }
+  .ci { cursor:pointer; }
+  .ci .thumb { background:#1a1817; padding:14px; aspect-ratio:1; display:grid; place-items:center; transition:background .3s; }
+  .ci:hover .thumb { background:#24211f; }
+  .ci svg { max-width:100%; max-height:100%; width:auto; height:auto; box-shadow:0 10px 30px #000; }
+  .ci b { font-family:'Italiana'; font-weight:400; font-size:1.3rem; display:block; margin-top:.8rem; }
+  .ci small { font-style:italic; color:#8f8676; }
+  .search { margin-top:1.4rem; background:none; border:0; border-bottom:1px solid #ece4d444; color:var(--cream); font-family:'Lora'; font-style:italic; font-size:1.2rem; padding:.6rem 0; width:min(420px,100%); outline:none; }
+  @media (max-width:900px){ .detail,.plan { grid-template-columns:1fr; overflow:auto; } .label { position:static; width:auto; margin-top:10px; } .gallery { cursor:auto; } .pointer { display:none; } header nav { gap:12px; font-size:11px; } }
+</style>
+</head>
+<body>
+<header><div class="brand">MUSÉE NOCTURNE</div><nav><a href="#gallery">Galleries</a><a href="#plan">Floor plan</a><a href="#collection">Collection</a><a href="index.html">Exit ↗</a></nav></header>
+<div class="pointer" id="ptr"></div>
+
+<section data-view="gallery" class="gallery" id="gal">
+  <div class="wall"></div>
+  <div class="track" id="track"></div>
+  <div class="dark" id="dark"></div>
+  <button class="lamp" id="lamp">☀ Lights on</button>
+  <div class="roomTitle"><small id="roomNo"></small><h2 id="roomName"></h2></div>
+  <div class="navArrows"><button id="prev">←</button><span id="pos"></span><button id="next">→</button></div>
+</section>
+
+<section data-view="plan" class="page" hidden>
+  <h2>Floor plan</h2><p style="font-style:italic;color:#8f8676">Ground floor · Aile Nord. Choose a room to walk there.</p>
+  <div class="plan"><svg viewBox="0 0 600 420" id="planSvg"></svg><ul class="roomList" id="roomList"></ul></div>
+</section>
+
+<section data-view="collection" class="page" hidden>
+  <h2>The collection</h2><input class="search" id="q" placeholder="Search by title, artist or year…"><div class="coll" id="coll"></div>
+</section>
+
+<div class="detail" id="detail" hidden><button class="close" id="dClose">×</button><div class="zoomBox" id="zoomBox"></div><div id="dText"></div></div>
+
+<script>
+/* ---------- generative paintings ---------- */
+function R(s){return()=>((s=(s*9301+49297)%233280)/233280)}
+const ART={
+ rothko:(w,h,s)=>{const r=R(s),c=[['#8a1c1c','#d2502a','#3a0e0e'],['#1e2a5a','#5a7ab8','#0c1030'],['#c96a1c','#f2c14a','#5a2a0e']][s%3];return `<rect width="${w}" height="${h}" fill="${c[2]}"/><filter id="bl${s}"><feGaussianBlur stdDeviation="${w/60}"/><feTurbulence baseFrequency=".02" numOctaves="2" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="10"/></filter><g filter="url(#bl${s})"><rect x="${w*.08}" y="${h*.06}" width="${w*.84}" height="${h*.52}" fill="${c[0]}" opacity=".95"/><rect x="${w*.08}" y="${h*.64}" width="${w*.84}" height="${h*.3}" fill="${c[1]}" opacity=".9"/></g>`},
+ mondrian:(w,h,s)=>{const r=R(s);let o=`<rect width="${w}" height="${h}" fill="#f4f1e8"/>`;const xs=[0,w*(.2+r()*.2),w*(.55+r()*.2),w],ys=[0,h*(.25+r()*.2),h*(.6+r()*.2),h];const cols=['#d62718','#1d4ea8','#f2c230'];for(let i=0;i<3;i++)for(let j=0;j<3;j++)if(r()<.35)o+=`<rect x="${xs[i]}" y="${ys[j]}" width="${xs[i+1]-xs[i]}" height="${ys[j+1]-ys[j]}" fill="${cols[(i+j+s)%3]}"/>`;xs.slice(1,3).forEach(x=>o+=`<rect x="${x-5}" y="0" width="10" height="${h}" fill="#111"/>`);ys.slice(1,3).forEach(y=>o+=`<rect x="0" y="${y-5}" width="${w}" height="10" fill="#111"/>`);return o},
+ wave:(w,h,s)=>{let o=`<rect width="${w}" height="${h}" fill="#efe4c9"/><circle cx="${w*.78}" cy="${h*.25}" r="${w*.08}" fill="#c8452e" opacity=".85"/><path d="M${w*.6} ${h*.62} L${w*.72} ${h*.42} L${w*.84} ${h*.62}Z" fill="#8aa0b3"/><path d="M${w*.68} ${h*.5} L${w*.72} ${h*.42} L${w*.76} ${h*.5}Z" fill="#fff"/>`;o+=`<path d="M0 ${h} L0 ${h*.55} Q${w*.15} ${h*.2} ${w*.38} ${h*.15} Q${w*.55} ${h*.12} ${w*.5} ${h*.28} Q${w*.42} ${h*.36} ${w*.46} ${h*.46} Q${w*.6} ${h*.7} ${w} ${h*.72} L${w} ${h}Z" fill="#1d3a6b"/><path d="M${w*.05} ${h*.6} Q${w*.2} ${h*.3} ${w*.38} ${h*.24} Q${w*.48} ${h*.22} ${w*.46} ${h*.3}" stroke="#e8eef4" stroke-width="${w*.02}" fill="none"/>`;for(let i=0;i<22;i++){const a=i/22*Math.PI*.9;o+=`<circle cx="${w*.42+Math.cos(a+3.6)*w*.1}" cy="${h*.24+Math.sin(a+3.6)*h*.08}" r="${w*.012}" fill="#fff"/>`}for(let i=0;i<6;i++)o+=`<path d="M0 ${h*(.78+i*.04)} Q${w*.25} ${h*(.74+i*.04)} ${w*.5} ${h*(.78+i*.04)} T${w} ${h*(.78+i*.04)}" stroke="#6f8fb8" stroke-width="2" fill="none"/>`;return o},
+ swirl:(w,h,s)=>{let o=`<rect width="${w}" height="${h}" fill="#10204a"/>`;const r=R(s);for(let k=0;k<60;k++){const cx=r()*w,cy=r()*h*.7;o+=`<path d="M${cx} ${cy} q${w*.05} ${-h*.03} ${w*.1} 0 t${w*.1} 0" stroke="${['#3a5fb0','#6f93d8','#f2d66a','#1a3a8a'][k%4]}" stroke-width="${3+r()*4}" fill="none" stroke-linecap="round" opacity=".8"/>`}[[.2,.2],[.5,.12],[.8,.3],[.35,.4]].forEach(([x,y],i)=>{for(let q=4;q>0;q--)o+=`<circle cx="${w*x}" cy="${h*y}" r="${q*w*.018}" fill="none" stroke="${q%2?'#f7e27a':'#fff6c8'}" stroke-width="3"/>`});o+=`<circle cx="${w*.85}" cy="${h*.12}" r="${w*.06}" fill="#f7c948"/><path d="M${w*.1} ${h} Q${w*.14} ${h*.4} ${w*.2} ${h*.3} Q${w*.24} ${h*.5} ${w*.26} ${h}Z" fill="#0b1a14"/><path d="M0 ${h*.85} Q${w*.3} ${h*.75} ${w*.6} ${h*.82} T${w} ${h*.8} L${w} ${h} L0 ${h}Z" fill="#1a2a3a"/>`;return o},
+ gold:(w,h,s)=>{const r=R(s);let o=`<rect width="${w}" height="${h}" fill="#b48a2e"/>`;for(let i=0;i<220;i++){const x=r()*w,y=r()*h,z=4+r()*14;o+=r()<.5?`<rect x="${x}" y="${y}" width="${z}" height="${z}" fill="${['#f2d27a','#8a5a1e','#d9b44a','#3a2a1a','#fff3c4'][i%5]}" opacity=".9"/>`:`<circle cx="${x}" cy="${y}" r="${z/2}" fill="none" stroke="${['#f2d27a','#6b3a1e','#c9372c'][i%3]}" stroke-width="2"/>`}o+=`<ellipse cx="${w*.5}" cy="${h*.35}" rx="${w*.12}" ry="${h*.1}" fill="#f3d9c0"/><path d="M${w*.38} ${h*.35} Q${w*.5} ${h*.15} ${w*.62} ${h*.35}" fill="#2a1a10"/><path d="M${w*.3} ${h} Q${w*.35} ${h*.5} ${w*.5} ${h*.45} Q${w*.65} ${h*.5} ${w*.7} ${h}Z" fill="#e8c35a" stroke="#6b4a1a" stroke-width="2"/>`;return o},
+ dots:(w,h,s)=>{const r=R(s);let o=`<rect width="${w}" height="${h}" fill="#f1ead8"/>`;for(let i=0;i<1400;i++){const x=r()*w,y=r()*h;const col=y<h*.45?['#9cc3e6','#c9e0f2','#f2e6a0'][i%3]:y<h*.6?['#3a7ab8','#6fa0d8','#2a5a9a'][i%3]:['#6a9a3a','#a0c060','#3a6a2a','#e8d070'][i%4];o+=`<circle cx="${x}" cy="${y}" r="${w*.007}" fill="${col}"/>`}for(let i=0;i<60;i++)o+=`<circle cx="${w*.7+r()*w*.05}" cy="${h*.55+r()*h*.2}" r="${w*.007}" fill="#c8452e"/>`;return o},
+ supremat:(w,h,s)=>{const r=R(s);let o=`<rect width="${w}" height="${h}" fill="#efeadf"/>`;const sh=[['#111',.5,.45,.34,.22,-20],['#c8302a',.3,.25,.12,.5,30],['#1d4ea8',.7,.7,.25,.06,-35],['#f2c230',.65,.3,.08,.08,10],['#111',.2,.75,.3,.03,-35]];sh.forEach(([c,x,y,sw,sh2,rot],i)=>{if(s%2&&i===2)return;o+=`<rect x="${w*(x-sw/2)}" y="${h*(y-sh2/2)}" width="${w*sw}" height="${h*sh2}" fill="${c}" transform="rotate(${rot} ${w*x} ${h*y})"/>`});o+=`<circle cx="${w*.78}" cy="${h*.18}" r="${w*.05}" fill="#111"/>`;return o},
+ turner:(w,h,s)=>{return `<defs><radialGradient id="tg${s}" cx=".6" cy=".45"><stop offset="0" stop-color="#fff6d0"/><stop offset=".2" stop-color="#f4c86a"/><stop offset=".55" stop-color="#c88a4a"/><stop offset="1" stop-color="#4a3a38"/></radialGradient><filter id="tb${s}"><feTurbulence baseFrequency=".012" numOctaves="3" seed="${s}"/><feDisplacementMap in="SourceGraphic" scale="40"/><feGaussianBlur stdDeviation="3"/></filter></defs><rect width="${w}" height="${h}" fill="url(#tg${s})"/><g filter="url(#tb${s})" opacity=".7"><path d="M0 ${h*.7} Q${w*.4} ${h*.6} ${w} ${h*.72} L${w} ${h} L0 ${h}Z" fill="#6a5a4a"/><path d="M${w*.2} ${h*.68} L${w*.22} ${h*.42} L${w*.26} ${h*.68}Z" fill="#3a2a22"/><ellipse cx="${w*.6}" cy="${h*.45}" rx="${w*.3}" ry="${h*.12}" fill="#fff3c8" opacity=".5"/></g>`},
+ pears:(w,h,s)=>{return `<rect width="${w}" height="${h}" fill="#2a2420"/><rect y="${h*.62}" width="${w}" height="${h*.38}" fill="#5a3a24"/><rect y="${h*.62}" width="${w}" height="4" fill="#7a5436"/>${[[.35,'#b8a23a'],[.6,'#9a8a2a']].map(([x,c])=>`<path d="M${w*x} ${h*.3} Q${w*(x+.06)} ${h*.4} ${w*(x+.1)} ${h*.52} Q${w*(x+.12)} ${h*.66} ${w*x} ${h*.66} Q${w*(x-.12)} ${h*.66} ${w*(x-.1)} ${h*.52} Q${w*(x-.06)} ${h*.4} ${w*x} ${h*.3}Z" fill="${c}"/><ellipse cx="${w*(x-.04)}" cy="${h*.5}" rx="${w*.02}" ry="${h*.05}" fill="#fff" opacity=".25"/><path d="M${w*x} ${h*.3} l${w*.01} ${-h*.05}" stroke="#3a2a1a" stroke-width="3"/>`).join('')}<ellipse cx="${w*.8}" cy="${h*.62}" rx="${w*.08}" ry="${h*.03}" fill="#0004"/><circle cx="${w*.8}" cy="${h*.57}" r="${w*.055}" fill="#8a1c24"/>`}};
+const W=[['Red over Ochre','rothko','Marek Hollis',1958,'Oil on canvas','Two fields of colour breathe against each other. Stand close — closer than feels polite — and the edges begin to hum.',260,340,0],
+['Composition No. 7','mondrian','Pieter Brandsma',1929,'Oil on canvas','A grid that refuses symmetry. Every black line is a decision; every white field, a pause.',300,300,1],
+['Under the Great Wave','wave','Studio of Katsu',1831,'Woodblock print','The wave\'s claws reach for three tiny boats, while the mountain, unbothered, watches from the distance.',380,260,2],
+['Night over the Village','swirl','Vincent Aurel',1889,'Oil on canvas','The sky does not sit still; it turns like water around a drain, and the stars are small suns burning holes in it.',340,270,3],
+['Lady in Gold Leaf','gold','Gustav Lehner',1907,'Oil and gold leaf','Painted in the artist\'s "golden period." The figure dissolves into ornament until she is almost pure pattern.',280,340,4],
+['Sunday on the Island','dots','Georges Pellier',1884,'Oil on canvas','Ten thousand dots of pure colour, mixed not on the palette but in your eye.',360,240,5],
+['Suprematist Flight','supremat','Kazimir Voronov',1915,'Oil on canvas','Shapes set free from gravity. The black rectangle is not a thing — it is the feeling of a thing.',280,340,6],
+['Rain, Steam and Speed','turner','J. M. Whitcombe',1844,'Oil on canvas','A locomotive appears out of weather. Everything solid has become light and vapour.',380,260,7],
+['Two Pears and a Plum','pears','Anna Kovač',1911,'Oil on panel','Quiet, heavy, perfectly still. The plum is the only thing in the room that is not waiting for something.',300,300,8],
+['Blue over Night','rothko','Marek Hollis',1962,'Oil on canvas','Painted in the last years; the colours grow darker and closer, as if the canvas is holding its breath.',260,340,9],
+['Composition in Yellow','mondrian','Pieter Brandsma',1932,'Oil on canvas','A late work. Yellow takes the lead; the grid loosens its collar.',300,300,10],
+['Suprematist Rest','supremat','Kazimir Voronov',1916,'Oil on canvas','A companion to "Flight" — the same shapes, one less, and the whole composition exhales.',280,340,11]];
+const svgArt=(k,w,h,scale=1)=>`<svg width="${w*scale}" height="${h*scale}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">${ART[W[k][1]](w,h,W[k][8]+1)}</svg>`;
+const ROOMS=[['Salle I','Colour & Silence',[0,9,1]],['Salle II','The Floating World',[2,5,7]],['Salle III','Gold & Night',[3,4,8]],['Salle IV','Pure Form',[6,10,11]]];
+
+/* ---------- router ---------- */
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'gallery';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('header nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}document.getElementById('ptr').style.display=id==='gallery'?'':'none';if(id==='plan')drawPlan()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* ---------- gallery ---------- */
+let room=0,pos=0;const track=document.getElementById('track');
+function buildRoom(){const [no,name,ws]=ROOMS[room];document.getElementById('roomNo').textContent=no.toUpperCase();document.getElementById('roomName').textContent=name;
+ track.innerHTML=ws.map((k,i)=>{const [t,,a,y]=W[k];const blk=W[k][1]==='rothko'||W[k][1]==='supremat';return `<div class="work" data-k="${k}"><div class="frame${blk?' black':''}"><div class="mat">${svgArt(k,W[k][6],W[k][7])}</div></div><div class="label"><b>${t}</b>${a}, ${y}<br><i>${W[k][4]}</i><br><span style="color:var(--gold)">Click to look closer</span></div></div>`}).join('');pos=0;moveTo()}
+function moveTo(){const works=[...track.children];const w=works[pos];if(!w)return;const off=w.offsetLeft+w.offsetWidth/2-innerWidth/2;track.style.transform=`translateX(${-off}px)`;document.getElementById('pos').textContent=`${pos+1} / ${works.length} · ${ROOMS[room][0]}`}
+document.getElementById('next').onclick=()=>{if(pos<track.children.length-1)pos++;else{room=(room+1)%ROOMS.length;buildRoom();return}moveTo()};
+document.getElementById('prev').onclick=()=>{if(pos>0)pos--;else{room=(room-1+ROOMS.length)%ROOMS.length;buildRoom();pos=track.children.length-1}moveTo()};
+addEventListener('keydown',e=>{if(!document.getElementById('detail').hidden){if(e.key==='Escape')closeD();return}if(V[0].hidden)return;if(e.key==='ArrowRight')document.getElementById('next').click();if(e.key==='ArrowLeft')document.getElementById('prev').click()});
+const dark=document.getElementById('dark'),ptr=document.getElementById('ptr');
+addEventListener('mousemove',e=>{dark.style.setProperty('--x',e.clientX+'px');dark.style.setProperty('--y',e.clientY+'px');ptr.style.left=e.clientX+'px';ptr.style.top=e.clientY+'px';const over=e.target.closest('.work');dark.style.setProperty('--r',over?'320px':'220px')});
+document.getElementById('lamp').onclick=e=>{dark.classList.toggle('lit');e.target.textContent=dark.classList.contains('lit')?'☾ Lights off':'☀ Lights on'};
+track.addEventListener('click',e=>{const w=e.target.closest('.work');if(w)openD(+w.dataset.k)});
+addEventListener('resize',moveTo);
+
+/* ---------- detail + loupe + audio guide ---------- */
+const det=document.getElementById('detail');let speaking=false;
+function openD(k){const [t,,a,y,m,d,w,h]=W[k];const zb=document.getElementById('zoomBox');zb.innerHTML=svgArt(k,w,h)+`<div class="loupe" id="loupe">${svgArt(k,w,h,3)}</div>`;const big=zb.querySelector('svg');big.style.height='70vh';big.style.width='auto';
+ document.getElementById('dText').innerHTML=`<h3>${t}</h3><div class="artist">${a}, ${y}</div><p>${d}</p><dl><dt>Medium</dt><dd>${m}</dd><dt>Dimensions</dt><dd>${Math.round(w*.4)} × ${Math.round(h*.4)} cm</dd><dt>Accession</dt><dd>MN.${y}.${String(k+1).padStart(3,'0')}</dd><dt>Location</dt><dd>${ROOMS.find(r=>r[2].includes(k))[0]}</dd></dl><button class="btn" id="audio">▶ Audio guide</button><button class="btn" id="goRoom">Find in gallery</button>`;
+ det.hidden=false;document.getElementById('ptr').style.display='none';
+ const loupe=document.getElementById('loupe'),inner=loupe.querySelector('svg');
+ zb.onmousemove=e=>{const r=big.getBoundingClientRect();const x=e.clientX-r.left,y2=e.clientY-r.top;if(x<0||y2<0||x>r.width||y2>r.height){loupe.style.display='none';return}loupe.style.display='block';loupe.style.left=x-100+(r.left-zb.getBoundingClientRect().left)+'px';loupe.style.top=y2-100+'px';const sx=inner.width.baseVal.value/r.width;inner.style.left=-(x*sx-100)+'px';inner.style.top=-(y2*sx-100)+'px'};
+ zb.onmouseleave=()=>loupe.style.display='none';
+ document.getElementById('audio').onclick=e=>{if(!('speechSynthesis' in window)){e.target.textContent='Audio unavailable';return}if(speaking){speechSynthesis.cancel();speaking=false;e.target.innerHTML='▶ Audio guide';return}const u=new SpeechSynthesisUtterance(`${t}. By ${a}, ${y}. ${d}`);u.rate=.92;u.pitch=.95;u.onend=()=>{speaking=false;e.target.innerHTML='▶ Audio guide'};speechSynthesis.speak(u);speaking=true;e.target.innerHTML='■ Stop <span class="wave"><i></i><i></i><i></i><i></i></span>'};
+ document.getElementById('goRoom').onclick=()=>{room=ROOMS.findIndex(r=>r[2].includes(k));buildRoom();pos=ROOMS[room][2].indexOf(k);moveTo();closeD();go('gallery')}}
+function closeD(){det.hidden=true;if(speaking){speechSynthesis.cancel();speaking=false}if(!V[0].hidden)document.getElementById('ptr').style.display=''}
+document.getElementById('dClose').onclick=closeD;
+
+/* ---------- plan ---------- */
+const RR=[[40,40,240,160],[300,40,260,160],[40,220,170,160],[230,220,330,160]];
+function drawPlan(){let s=`<rect x="20" y="20" width="560" height="380" fill="none" stroke="#ece4d4" stroke-width="3"/>`;RR.forEach(([x,y,w,h],i)=>{s+=`<rect class="room${i===room?' cur':''}" data-r="${i}" x="${x}" y="${y}" width="${w}" height="${h}" fill="#ece4d40a" stroke="#ece4d488" stroke-width="1.5"/><text x="${x+14}" y="${y+28}" fill="#b89a5b" font-family="Italiana" font-size="20" pointer-events="none">${ROOMS[i][0]}</text><text x="${x+14}" y="${y+50}" fill="#ece4d4aa" font-family="Lora" font-style="italic" font-size="13" pointer-events="none">${ROOMS[i][1]}</text>`;ROOMS[i][2].forEach((k,j)=>s+=`<rect x="${x+20+j*(w-40)/3}" y="${y+h-26}" width="${(w-40)/3-12}" height="6" fill="#b89a5b" pointer-events="none"/>`)});
+ s+=`<path d="M270 400 L270 380 M330 400 L330 380" stroke="#ece4d4" stroke-width="3"/><text x="300" y="414" text-anchor="middle" fill="#ece4d4aa" font-size="11" font-family="Lora">ENTRANCE</text><circle cx="${RR[room][0]+RR[room][2]/2}" cy="${RR[room][1]+RR[room][3]/2}" r="8" fill="#b89a5b"><animate attributeName="r" values="6;11;6" dur="1.6s" repeatCount="indefinite"/></circle>`;
+ document.getElementById('planSvg').innerHTML=s;document.getElementById('roomList').innerHTML=ROOMS.map(([n,t,ws],i)=>`<li data-r="${i}"><span><b>${n}</b><br><i style="color:#8f8676">${t}</i></span><span style="font-size:13px">${ws.length} works →</span></li>`).join('')}
+document.addEventListener('click',e=>{const r=e.target.closest('[data-r]');if(r&&!V[1].hidden){room=+r.dataset.r;buildRoom();go('gallery')}});
+
+/* ---------- collection ---------- */
+const q=document.getElementById('q');function renderColl(){const s=q.value.toLowerCase();document.getElementById('coll').innerHTML=W.map((w,k)=>[w,k]).filter(([w])=>(w[0]+w[2]+w[3]).toLowerCase().includes(s)).map(([w,k])=>`<div class="ci" data-k="${k}"><div class="thumb">${svgArt(k,w[6],w[7],.7)}</div><b>${w[0]}</b><small>${w[2]}, ${w[3]}</small></div>`).join('')}
+q.oninput=renderColl;renderColl();document.getElementById('coll').onclick=e=>{const c=e.target.closest('.ci');if(c)openD(+c.dataset.k)};
+
+buildRoom();go(location.hash.slice(1));
+</script>
+</body>
+</html>

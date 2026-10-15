@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Correspondence — a writing desk</title>
+<link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400&family=Italianno&family=Libre+Bodoni:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root { --desk:#3b2416; --desk2:#5a3620; --paper:#fbf6ea; --ink:#1f1b18; --wax:#8e1b2a; --brass:#c9a24a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--desk); color:var(--paper); font-family:'Libre Bodoni',serif; min-height:100vh; overflow-x:hidden;
+    background-image:repeating-linear-gradient(90deg,#ffffff05 0 3px,transparent 3px 11px),repeating-linear-gradient(88deg,#0000001a 0 1px,transparent 1px 31px),radial-gradient(ellipse at 50% 0%,#7a4a28,var(--desk) 70%); }
+  a { color:inherit; text-decoration:none; }
+  .lamp { position:fixed; inset:0; pointer-events:none; background:radial-gradient(ellipse at 70% 10%,#ffd9a022,transparent 55%); z-index:0; }
+  header { position:relative; z-index:5; display:flex; justify-content:space-between; align-items:center; padding:18px 4vw; flex-wrap:wrap; gap:10px; }
+  .logo { font-family:'Italianno'; font-size:44px; line-height:1; color:#f1d489; }
+  nav { display:flex; gap:18px; font-size:14px; letter-spacing:.2em; text-transform:uppercase; }
+  nav a { opacity:.6; border-bottom:1px solid transparent; padding-bottom:3px; }
+  nav a.on, nav a:hover { opacity:1; border-color:var(--brass); }
+  main { position:relative; z-index:2; }
+  [data-view][hidden] { display:none; }
+  /* typewriter */
+  .machine { width:min(820px,96vw); margin:0 auto; position:relative; padding-top:10px; }
+  .sheetWrap { position:relative; height:430px; overflow:hidden; margin:0 60px; }
+  .sheet { position:absolute; left:50%; width:560px; margin-left:-280px; min-height:720px; background:var(--paper); color:var(--ink); padding:50px 56px; font-family:'Anonymous Pro',monospace; font-size:17px; line-height:26px; white-space:pre-wrap; word-break:break-word; box-shadow:0 0 30px #0006; transition:transform .25s ease-out, top .25s; background-image:repeating-linear-gradient(transparent 0 25px,#9ab2d522 25px 26px); background-position:0 50px; }
+  .sheet.cream { background-color:#f6ecd4; } .sheet.blue { background-color:#e8eef8; } .sheet.rose { background-color:#f8e8e8; }
+  .sheet .caret { display:inline-block; width:10px; height:20px; background:var(--wax); vertical-align:-4px; animation:bl 1s steps(1) infinite; }
+  @keyframes bl { 50% { opacity:0; } }
+  .sheet .ch { animation:strike .12s ease-out; }
+  @keyframes strike { from { color:#000; text-shadow:0 0 1px #000; transform:translateY(-2px); } }
+  .carriage { position:relative; height:52px; margin:-20px 20px 0; background:linear-gradient(180deg,#3a3a3a,#161616); border-radius:26px; box-shadow:0 6px 14px #0008, inset 0 2px 0 #ffffff22; z-index:3; display:flex; align-items:center; justify-content:space-between; padding:0 16px; }
+  .knob { width:44px; height:44px; border-radius:50%; background:radial-gradient(circle at 35% 35%,#555,#111); border:2px solid #000; }
+  .lever { position:absolute; left:-30px; top:6px; width:60px; height:10px; background:linear-gradient(#ddd,#888); border-radius:6px; transform-origin:right center; cursor:pointer; transition:transform .15s; }
+  .lever:active { transform:rotate(-20deg); }
+  .body { background:linear-gradient(180deg,#2b3a33,#1a2520); border-radius:20px 20px 30px 30px; padding:22px 26px 30px; margin-top:-8px; box-shadow:0 30px 60px #000a, inset 0 2px 0 #ffffff1a; }
+  .brand { text-align:center; font-family:'Italianno'; font-size:34px; color:#f1d489; margin-bottom:10px; text-shadow:0 1px 0 #000; }
+  .keys { display:flex; flex-direction:column; gap:8px; align-items:center; }
+  .row { display:flex; gap:8px; }
+  .row:nth-child(2) { margin-left:22px; } .row:nth-child(3) { margin-left:44px; }
+  .k { width:44px; height:44px; border-radius:50%; background:radial-gradient(circle at 40% 35%,#fdfaf2,#d8d0bc); border:3px solid #111; box-shadow:0 4px 0 #0a0a0a, 0 6px 8px #0008; color:#111; font-family:'Anonymous Pro'; font-weight:700; font-size:15px; display:grid; place-items:center; cursor:pointer; user-select:none; transition:transform .05s, box-shadow .05s; }
+  .k.down { transform:translateY(4px); box-shadow:0 0 0 #0a0a0a; }
+  .space { width:320px; height:30px; border-radius:15px; margin-top:6px; }
+  .tools { display:flex; justify-content:center; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .btn { font-family:'Libre Bodoni'; font-size:14px; letter-spacing:.12em; text-transform:uppercase; padding:10px 18px; background:transparent; border:1px solid var(--brass); color:#f1d489; cursor:pointer; }
+  .btn:hover { background:var(--brass); color:var(--desk); }
+  .btn.sel { background:var(--brass); color:var(--desk); }
+  .hint { text-align:center; font-style:italic; opacity:.7; margin:10px 0 40px; font-size:14px; }
+  /* envelope */
+  .envStage { display:grid; grid-template-columns:1fr 360px; gap:4vw; padding:2vh 5vw 8vh; align-items:center; }
+  .envelope { position:relative; width:min(560px,90vw); aspect-ratio:1.6; margin:0 auto; background:#e9dcc0; box-shadow:0 30px 50px #0009; border-radius:4px; }
+  .envelope .flap { position:absolute; left:0; right:0; top:0; height:58%; background:#dfd0b0; clip-path:polygon(0 0,100% 0,50% 100%); transform-origin:top; transition:transform .8s cubic-bezier(.4,0,.2,1); z-index:3; filter:drop-shadow(0 2px 2px #0003); }
+  .envelope.open .flap { transform:rotateX(180deg); z-index:1; }
+  .envelope .letter { position:absolute; left:6%; right:6%; top:8%; height:84%; background:var(--paper); z-index:2; transition:transform .8s .2s cubic-bezier(.4,0,.2,1); padding:14px; font-family:'Anonymous Pro'; font-size:10px; color:var(--ink); overflow:hidden; white-space:pre-wrap; line-height:1.4; }
+  .envelope.open .letter { transform:translateY(-55%); }
+  .envelope .front { position:absolute; inset:0; z-index:2; pointer-events:none; clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%); background:#e9dcc0; }
+  .addr { position:absolute; left:42%; top:56%; z-index:4; font-family:'Italianno'; font-size:clamp(1.4rem,3vw,2.2rem); color:#1f2a5a; line-height:1; }
+  .stamp { position:absolute; right:5%; top:8%; width:70px; height:86px; z-index:4; background:#fff; padding:5px; clip-path:polygon(0 4%,4% 0,8% 4%,12% 0,16% 4%,20% 0,24% 4%,28% 0,32% 4%,36% 0,40% 4%,44% 0,48% 4%,52% 0,56% 4%,60% 0,64% 4%,68% 0,72% 4%,76% 0,80% 4%,84% 0,88% 4%,92% 0,96% 4%,100% 0,100% 100%,0 100%); }
+  .stamp div { width:100%; height:100%; display:grid; place-items:center; font-size:28px; }
+  .seal { position:absolute; left:50%; top:52%; width:84px; height:84px; margin:-42px; z-index:5; border-radius:47% 53% 50% 50%/52% 48% 52% 48%; background:radial-gradient(circle at 40% 35%,color-mix(in srgb,var(--wax) 70%,#fff),var(--wax) 60%,color-mix(in srgb,var(--wax) 70%,#000)); display:grid; place-items:center; font-family:'Italianno'; font-size:44px; color:color-mix(in srgb,var(--wax) 60%,#000); text-shadow:1px 1px 0 #fff4; box-shadow:0 4px 8px #0006; transform:scale(0); transition:transform .5s cubic-bezier(.3,1.8,.5,1); }
+  .envelope.sealed .seal { transform:scale(1) rotate(-8deg); }
+  .panel label { display:block; font-size:12px; letter-spacing:.2em; text-transform:uppercase; margin:16px 0 6px; color:#f1d489; }
+  .panel input { width:100%; background:transparent; border:0; border-bottom:1px solid var(--brass); color:var(--paper); font-family:'Italianno'; font-size:2rem; outline:none; }
+  .waxes, .stamps { display:flex; gap:8px; flex-wrap:wrap; }
+  .waxes button { width:34px; height:34px; border-radius:50%; border:2px solid #0005; cursor:pointer; }
+  .waxes button.on { outline:2px solid #f1d489; outline-offset:2px; }
+  .stamps button { width:44px; height:52px; background:#fff; border:0; font-size:22px; cursor:pointer; }
+  .stamps button.on { outline:2px solid #f1d489; }
+  /* letterbox */
+  .box { max-width:1000px; margin:0 auto; padding:2vh 5vw 8vh; }
+  .letters { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:24px; }
+  .lt { background:#e9dcc0; color:var(--ink); padding:18px; aspect-ratio:1.6; position:relative; cursor:pointer; box-shadow:0 14px 26px #0008; transition:transform .3s; }
+  .lt:hover { transform:rotate(-1.5deg) translateY(-4px); }
+  .lt .to { font-family:'Italianno'; font-size:1.8rem; color:#1f2a5a; position:absolute; left:40%; top:50%; }
+  .lt .date { font-family:'Anonymous Pro'; font-size:12px; opacity:.7; }
+  .lt .from { font-size:12px; font-style:italic; }
+  .lt .ms { position:absolute; right:10px; top:10px; font-size:26px; }
+  .lt .ws { position:absolute; left:14px; bottom:14px; width:34px; height:34px; border-radius:50%; }
+  .reader { position:fixed; inset:0; z-index:40; background:#0009; display:grid; place-items:center; padding:20px; }
+  .reader[hidden] { display:none; }
+  .reader .pg { background:var(--paper); color:var(--ink); max-width:560px; width:100%; max-height:86vh; overflow:auto; padding:44px 50px; font-family:'Anonymous Pro'; font-size:16px; line-height:1.7; white-space:pre-wrap; box-shadow:0 30px 60px #000; transform:rotate(-1deg); }
+  .reader .sig { font-family:'Italianno'; font-size:2.4rem; margin-top:1rem; }
+  @media (max-width:860px){ .sheetWrap { margin:0; } .sheet { width:94%; margin-left:-47%; padding:30px; font-size:14px; } .k { width:30px; height:30px; font-size:12px; } .row { gap:4px; } .space { width:200px; } .envStage { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="lamp"></div>
+<header><div class="logo">Correspondence</div><nav><a href="#type">The typewriter</a><a href="#envelope">Seal & send</a><a href="#box">Letterbox</a><a href="index.html">Leave the desk</a></nav></header>
+<main>
+<section data-view="type">
+  <div class="machine">
+    <div class="sheetWrap"><div class="sheet" id="sheet"></div></div>
+    <div class="carriage"><div class="lever" id="lever" title="Carriage return"></div><div class="knob"></div><span style="font-family:'Anonymous Pro';font-size:12px;color:#aaa;letter-spacing:.2em" id="count">0 words</span><div class="knob"></div></div>
+    <div class="body"><div class="brand">Olivetta Lettera 22</div><div class="keys" id="keys"></div>
+      <div class="tools"><button class="btn sel" data-p="">White</button><button class="btn" data-p="cream">Cream</button><button class="btn" data-p="blue">Airmail</button><button class="btn" data-p="rose">Rose</button><button class="btn" id="sound">Sound: on</button><button class="btn" id="clear">New sheet</button><button class="btn" id="toEnv">Fold into envelope →</button></div></div>
+    <p class="hint">Just start typing on your keyboard. Enter returns the carriage (ding!). Backspace works — this is a modern antique.</p>
+  </div>
+</section>
+
+<section data-view="envelope" hidden>
+  <div class="envStage">
+    <div class="envelope" id="env"><div class="letter" id="envLetter"></div><div class="front"></div><div class="flap"></div><div class="addr" id="addrT">To whom it may concern</div><div class="stamp"><div id="stampT">🕊️</div></div><div class="seal" id="seal">R</div></div>
+    <div class="panel"><label>Addressed to</label><input id="to" value="My dearest friend" maxlength="28"><label>Signed</label><input id="from" value="Rosalind" maxlength="20">
+      <label>Wax</label><div class="waxes" id="waxes"></div><label>Stamp</label><div class="stamps" id="stamps"></div>
+      <div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn" id="openEnv">Open / close</button><button class="btn" id="sealBtn">Seal with wax</button><button class="btn" id="post">Post it ✉</button></div><p id="postMsg" style="font-style:italic;margin-top:12px;min-height:1.4em"></p></div>
+  </div>
+</section>
+
+<section data-view="box" hidden><div class="box"><h2 style="font-family:'Italianno';font-weight:400;font-size:4rem;color:#f1d489">The letterbox</h2><p style="font-style:italic;opacity:.8;margin-bottom:24px">Letters you've sent, and a few that arrived for you.</p><div class="letters" id="letters"></div></div></section>
+</main>
+<div class="reader" id="reader" hidden><div class="pg" id="rpg"></div></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'type';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='envelope')prepEnv();if(id==='box')renderBox()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* typewriter sounds */
+let AC,soundOn=true;function ac(){return AC=AC||new AudioContext()}
+function clack(){if(!soundOn)return;try{const a=ac(),t=a.currentTime;const b=a.createBuffer(1,a.sampleRate*.05,a.sampleRate),c=b.getChannelData(0);for(let i=0;i<c.length;i++)c[i]=(Math.random()*2-1)*Math.pow(1-i/c.length,4);const s=a.createBufferSource(),f=a.createBiquadFilter(),g=a.createGain();s.buffer=b;f.type='bandpass';f.frequency.value=1800+Math.random()*800;f.Q.value=1.5;g.gain.value=.9;s.connect(f);f.connect(g);g.connect(a.destination);s.start(t);
+ const o=a.createOscillator(),og=a.createGain();o.frequency.value=120;og.gain.setValueAtTime(.25,t);og.gain.exponentialRampToValueAtTime(.001,t+.04);o.connect(og);og.connect(a.destination);o.start(t);o.stop(t+.05)}catch(e){}}
+function ding(){if(!soundOn)return;try{const a=ac(),t=a.currentTime;[2093,4186].forEach((f,i)=>{const o=a.createOscillator(),g=a.createGain();o.frequency.value=f;g.gain.setValueAtTime(i?.05:.15,t);g.gain.exponentialRampToValueAtTime(.001,t+1.2);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+1.3)});
+ const b=a.createBuffer(1,a.sampleRate*.25,a.sampleRate),c=b.getChannelData(0);for(let i=0;i<c.length;i++)c[i]=(Math.random()*2-1)*.2*(1-i/c.length);const s=a.createBufferSource();s.buffer=b;s.connect(a.destination);s.start(t+.1)}catch(e){}}
+
+/* sheet state */
+const sheet=document.getElementById('sheet');let text=store.get('tw-draft',`Dear friend,\n\nThe rain has kept me indoors all afternoon, so I have dragged out the old typewriter to write to you properly. `);
+function col(){const lines=text.split('\n');return lines.at(-1).length}
+function render(lastNew=false){const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');sheet.innerHTML=esc(text.slice(0,-1))+(text.length?`<span class="${lastNew?'ch':''}">${esc(text.slice(-1))}</span>`:'')+'<span class="caret"></span>';
+ const lines=Math.ceil(sheet.scrollHeight/26);const lineIdx=(text.match(/\n/g)||[]).length+Math.floor(col()/52);sheet.style.top=Math.min(0,200-lineIdx*26-50)+'px';sheet.style.transform=`translateX(${-Math.min(col(),52)*4+100}px)`;
+ document.getElementById('count').textContent=(text.trim().split(/\s+/).filter(Boolean).length)+' words';store.set('tw-draft',text)}
+render();
+/* on-screen keys */
+const ROWS=['QWERTYUIOP','ASDFGHJKL','ZXCVBNM,.'];const keysEl=document.getElementById('keys');
+keysEl.innerHTML=ROWS.map(r=>`<div class="row">${[...r].map(k=>`<div class="k" data-k="${k}">${k}</div>`).join('')}</div>`).join('')+`<div class="k space" data-k=" "></div>`;
+function press(k){const el=keysEl.querySelector(`[data-k="${k.toUpperCase()==='  '?' ':CSS.escape(k.toUpperCase())}"]`)||(k===' '?keysEl.querySelector('.space'):null);if(el){el.classList.add('down');setTimeout(()=>el.classList.remove('down'),90)}}
+function type(ch){if(V[0].hidden)return;if(col()>=52&&ch!=='\n'){ding();text+='\n'}text+=ch;clack();press(ch);render(true)}
+keysEl.addEventListener('mousedown',e=>{const k=e.target.closest('.k');if(!k)return;e.preventDefault();type(k.dataset.k===' '?' ':k.dataset.k.toLowerCase())});
+addEventListener('keydown',e=>{if(V[0].hidden||e.ctrlKey||e.metaKey||e.altKey)return;if(e.target.tagName==='INPUT')return;
+ if(e.key==='Enter'){e.preventDefault();text+='\n';ding();render();const l=document.getElementById('lever');l.style.transform='rotate(-25deg)';setTimeout(()=>l.style.transform='',160)}
+ else if(e.key==='Backspace'){e.preventDefault();text=text.slice(0,-1);clack();render()}
+ else if(e.key.length===1){e.preventDefault();type(e.key)}});
+document.getElementById('lever').onclick=()=>{text+='\n';ding();render()};
+document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{sheet.className='sheet '+b.dataset.p;document.querySelectorAll('[data-p]').forEach(o=>o.classList.toggle('sel',o===b))});
+document.getElementById('sound').onclick=e=>{soundOn=!soundOn;e.target.textContent='Sound: '+(soundOn?'on':'off')};
+document.getElementById('clear').onclick=()=>{text='';render()};
+document.getElementById('toEnv').onclick=()=>go('envelope');
+
+/* envelope */
+const WAX=['#8e1b2a','#1f3a6b','#2f5a3a','#c9a24a','#3a1f4a','#111'],STAMPS=['🕊️','🌹','⛵','🏔️','🐝','🌙'];let wax=0,stamp=0;
+document.getElementById('waxes').innerHTML=WAX.map((c,i)=>`<button style="background:${c}" data-w="${i}" class="${i?'':'on'}"></button>`).join('');
+document.getElementById('stamps').innerHTML=STAMPS.map((s,i)=>`<button data-s="${i}" class="${i?'':'on'}">${s}</button>`).join('');
+document.getElementById('waxes').onclick=e=>{const w=e.target.dataset.w;if(w==null)return;wax=+w;document.documentElement.style.setProperty('--wax',WAX[wax]);document.querySelectorAll('#waxes button').forEach(b=>b.classList.toggle('on',b===e.target))};
+document.getElementById('stamps').onclick=e=>{const s=e.target.dataset.s;if(s==null)return;stamp=+s;document.getElementById('stampT').textContent=STAMPS[stamp];document.querySelectorAll('#stamps button').forEach(b=>b.classList.toggle('on',b===e.target))};
+const env=document.getElementById('env');
+function prepEnv(){document.getElementById('envLetter').textContent=text||'(a blank page, which says a great deal)';env.classList.add('open');env.classList.remove('sealed');document.getElementById('postMsg').textContent='';updAddr()}
+function updAddr(){document.getElementById('addrT').textContent=document.getElementById('to').value||'—';document.getElementById('seal').textContent=(document.getElementById('from').value||'R')[0].toUpperCase()}
+['to','from'].forEach(id=>document.getElementById(id).oninput=updAddr);
+document.getElementById('openEnv').onclick=()=>{env.classList.toggle('open');if(env.classList.contains('open'))env.classList.remove('sealed')};
+document.getElementById('sealBtn').onclick=()=>{env.classList.remove('open');setTimeout(()=>{env.classList.add('sealed');try{const a=ac(),o=a.createOscillator(),g=a.createGain();o.frequency.value=90;g.gain.setValueAtTime(.4,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.2);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.2)}catch(e){}},700)};
+document.getElementById('post').onclick=()=>{if(!env.classList.contains('sealed')){document.getElementById('postMsg').textContent='Seal it first — we are not barbarians.';return}
+ const L=store.get('tw-sent',[]);L.unshift({to:document.getElementById('to').value,from:document.getElementById('from').value,text,wax,stamp,date:new Date().toISOString()});store.set('tw-sent',L.slice(0,30));
+ env.style.transition='transform 1s cubic-bezier(.6,0,.4,1), opacity 1s';env.style.transform='translateX(120vw) rotate(20deg)';env.style.opacity=0;setTimeout(()=>{env.style.transition='none';env.style.transform='';env.style.opacity=1;document.getElementById('postMsg').textContent='Posted. It will arrive by Tuesday, weather permitting.';env.classList.remove('sealed')},1100)};
+
+/* letterbox */
+const INBOX=[{to:'You',from:'Aunt Margaret',text:'Dearest,\n\nThe hydrangeas have turned blue again, which means either the soil is acidic or the garden is sad. I choose to believe the former.\n\nCome for tea in spring. Bring the dog.\n\nAll my love,',wax:1,stamp:1,date:'2026-03-02',in:1},{to:'You',from:'Captain Ines Duarte',text:'Friend —\n\nWe crossed the equator this morning. The crew held the usual ceremony; I was made to wear a crown of seaweed. The stars here are strangers. I think of home and of your terrible jokes.\n\nFair winds,',wax:2,stamp:2,date:'2026-05-18',in:1},{to:'You',from:'The Lighthouse Keeper',text:'To whoever finds this,\n\nThe lamp is lit. The fog is thick. I have counted forty-two ships this week and waved at all of them. None waved back, but I am confident they meant to.\n\nYours, from the rock,',wax:4,stamp:3,date:'2026-08-09',in:1}];
+function renderBox(){const L=[...store.get('tw-sent',[]),...INBOX];document.getElementById('letters').innerHTML=L.map((l,i)=>`<div class="lt" data-i="${i}"><div class="date">${new Date(l.date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</div><div class="from">${l.in?'from '+l.from:'sent · from '+(l.from||'me')}</div><div class="to">${(l.in?'You':l.to||'—').replace(/</g,'')}</div><div class="ms">${STAMPS[l.stamp]}</div><div class="ws" style="background:radial-gradient(circle at 40% 35%,#fff5,${WAX[l.wax]} 60%)"></div></div>`).join('');
+ document.querySelectorAll('.lt').forEach(el=>el.onclick=()=>{const l=L[el.dataset.i];document.getElementById('rpg').innerHTML=`${(l.text||'').replace(/</g,'&lt;')}<div class="sig">${(l.from||'').replace(/</g,'')}</div>`;document.getElementById('reader').hidden=false})}
+document.getElementById('reader').onclick=()=>document.getElementById('reader').hidden=true;
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

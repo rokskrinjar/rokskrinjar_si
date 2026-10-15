@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scriptorium — An Illuminated Workshop</title>
+<link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;600;800&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--vellum:#f1e4c3;--vellum2:#e6d3a6;--ink:#2a1c12;--gules:#a3221c;--azure:#1d3f8c;--vert:#2f6b3a;--or:#d4a531;--purp:#6a2a6a;--dim:#2a1c1299}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#3a2a1e;color:var(--ink);font-family:'Crimson Text',serif;font-size:19px}
+a{color:inherit;text-decoration:none}button,input{font:inherit;cursor:pointer;color:inherit}
+.bl{font-family:'Grenze Gotisch',serif}
+header{text-align:center;padding:20px 4vw 0;color:var(--vellum)}
+header h1{font-family:'Grenze Gotisch';font-weight:600;font-size:clamp(2.4rem,6vw,4rem);line-height:1}
+header h1 span{color:var(--or)}
+nav{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;margin:12px 0 16px}
+nav a{font-family:'Grenze Gotisch';font-size:22px;padding:4px 16px;color:#f1e4c3aa}
+nav a.on{color:var(--or);border-bottom:2px solid var(--or)}
+[data-view][hidden]{display:none}
+.folio{max-width:1180px;margin:0 auto 60px;background:var(--vellum);padding:40px 5vw 60px;box-shadow:0 30px 60px #000a;position:relative;background-image:radial-gradient(ellipse at 30% 20%,#fff5,transparent 60%),radial-gradient(ellipse at 80% 90%,#b8904a33,transparent 50%)}
+.folio::before{content:"";position:absolute;inset:14px;border:3px double var(--gules);pointer-events:none}
+h2{font-family:'Grenze Gotisch';font-weight:600;font-size:clamp(2rem,4.5vw,3.2rem);color:var(--gules);line-height:1}
+.rubric{color:var(--gules);font-style:italic}
+.sub{max-width:62ch;line-height:1.6;margin:8px 0 22px}
+/* initials */
+.ini{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:34px;align-items:start}
+.ini svg{width:100%;height:auto;filter:drop-shadow(2px 3px 0 #2a1c1233)}
+.ctl label{display:block;font-family:'Grenze Gotisch';font-size:22px;margin:12px 0 6px;color:var(--gules)}
+.ctl input[type=text]{font-family:'Grenze Gotisch';font-size:40px;width:90px;text-align:center;border:2px solid var(--ink);background:#fff8;text-transform:uppercase}
+.row{display:flex;gap:6px;flex-wrap:wrap}
+.tinc{width:40px;height:40px;border:2px solid var(--ink);border-radius:4px}
+.tinc.on{outline:3px solid var(--or);outline-offset:2px}
+.chip{border:2px solid var(--ink);background:#fff6;padding:4px 12px;font-family:'Crimson Text';font-size:16px}
+.chip.on{background:var(--ink);color:var(--vellum)}
+.page{margin-top:16px;line-height:1.7;font-size:20px}
+.page .dc{float:left;width:130px;margin:0 14px 4px 0}
+/* heraldry */
+.her{display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:34px;align-items:start}
+.blazon{margin-top:16px;padding:14px 18px;border-left:4px solid var(--gules);font-style:italic;font-size:22px;background:#fff5}
+.warn{color:var(--gules);font-size:16px;margin-top:8px;min-height:1.4em}
+/* bestiary */
+.best{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.beast{background:#fff4;border:2px solid var(--ink);padding:14px;position:relative}
+.beast svg{width:100%;height:170px;border-bottom:2px solid var(--ink);margin-bottom:10px}
+.beast h3{font-family:'Grenze Gotisch';font-weight:600;font-size:28px;color:var(--azure)}
+.beast p{font-size:16px;line-height:1.5}
+.beast .moral{color:var(--gules);font-style:italic;font-size:15px;margin-top:6px}
+/* hours */
+.hours{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.mon{border:2px solid var(--ink);background:#fff4;padding:0 0 12px;text-align:center}
+.mon.now{outline:4px solid var(--or);outline-offset:3px}
+.mon svg{width:100%;height:auto;display:block;border-bottom:2px solid var(--ink)}
+.mon h3{font-family:'Grenze Gotisch';font-weight:600;font-size:26px;color:var(--gules);margin-top:6px}
+.mon p{font-size:15px;padding:0 12px}
+@media(max-width:900px){.ini,.her{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><h1>Scriptorium <span>✠</span></h1>
+<nav><a href="#initial">Illuminated Initial</a><a href="#arms">Coat of Arms</a><a href="#bestiary">Bestiary</a><a href="#hours">Book of Hours</a><a href="index.html">Leave the Abbey</a></nav></header>
+
+<section data-view="initial"><div class="folio">
+ <h2>An illuminated initial</h2>
+ <p class="sub"><span class="rubric">Incipit.</span> Monks spent weeks on a single capital letter, laying gold leaf over gesso so it would catch the candlelight. Choose a letter and its colours, and the scribe does the rest in an instant.</p>
+ <div class="ini">
+  <svg id="dcap" viewBox="0 0 400 400"></svg>
+  <div class="ctl">
+   <label>Letter</label><input type="text" id="letter" maxlength="1" value="R">
+   <label>Field</label><div class="row" id="field"></div>
+   <label>Ornament</label><div class="row" id="orn"><button class="chip on" data-o="vine">Vinescroll</button><button class="chip" data-o="knot">Interlace</button><button class="chip" data-o="dots">Diaper</button></div>
+   <div class="page" id="pageTxt"></div>
+  </div>
+ </div>
+</div></section>
+
+<section data-view="arms" hidden><div class="folio">
+ <h2>Devise your arms</h2>
+ <p class="sub">Heraldry has its own language, called blazon. Build a shield and we'll write it out as a herald would. Mind the <i>rule of tincture</i>: don't put a colour on a colour, or a metal on a metal.</p>
+ <div class="her"><div><svg id="shield" viewBox="0 0 300 360"></svg><div class="blazon" id="blazon"></div><div class="warn" id="warn"></div></div>
+  <div class="ctl"><label>Division</label><div class="row" id="div"></div><label>First tincture</label><div class="row" id="t1"></div><label>Second tincture</label><div class="row" id="t2"></div><label>Charge</label><div class="row" id="chg"></div><label>Charge tincture</label><div class="row" id="t3"></div><label>Motto</label><input type="text" id="motto" value="FORTIS ET LIBER" maxlength="24" style="font-family:'Grenze Gotisch';font-size:22px;width:100%;text-align:left;text-transform:uppercase"></div></div>
+</div></section>
+
+<section data-view="bestiary" hidden><div class="folio">
+ <h2>The bestiary</h2>
+ <p class="sub">Medieval bestiaries mixed real animals with marvels, and gave each one a moral lesson. Nobody had seen a unicorn, but everybody knew what it meant.</p>
+ <div class="best" id="best"></div>
+</div></section>
+
+<section data-view="hours" hidden><div class="folio">
+ <h2>The labours of the months</h2>
+ <p class="sub">Every Book of Hours opened with a calendar showing the work of each month. The current month is framed in gold.</p>
+ <div class="hours" id="hoursG"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'initial';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const T={or:['Or','#d4a531','metal'],argent:['Argent','#f4f1ea','metal'],gules:['Gules','#a3221c','colour'],azure:['Azure','#1d3f8c','colour'],vert:['Vert','#2f6b3a','colour'],sable:['Sable','#1e1814','colour'],purpure:['Purpure','#6a2a6a','colour']};
+const goldGrad=id=>`<linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7de8a"/><stop offset=".35" stop-color="#d4a531"/><stop offset=".55" stop-color="#fff2b8"/><stop offset=".8" stop-color="#b8861e"/><stop offset="1" stop-color="#e8c060"/></linearGradient>`;
+const fill=k=>k==='or'?'url(#gold)':T[k][1];
+
+/* initial */
+let field='azure',orn='vine';
+function dcap(){const L=(document.getElementById('letter').value||'A').toUpperCase().replace(/[^A-Z]/,'A');let s=`<defs>${goldGrad('gold')}<pattern id="diaper" width="30" height="30" patternUnits="userSpaceOnUse"><rect width="30" height="30" fill="${T[field][1]}"/><path d="M15 0 L30 15 L15 30 L0 15Z" fill="none" stroke="#ffffff44" stroke-width="2"/><circle cx="15" cy="15" r="3" fill="url(#gold)"/></pattern></defs>`;
+ s+=`<rect x="20" y="20" width="360" height="360" fill="url(#gold)"/><rect x="34" y="34" width="332" height="332" fill="${orn==='dots'?'url(#diaper)':T[field][1]}"/>`;
+ if(orn==='vine'){for(let i=0;i<8;i++){const a=i/8*Math.PI*2;s+=`<path d="M200 200 Q${200+Math.cos(a)*140} ${200+Math.sin(a+1)*140} ${200+Math.cos(a+.6)*150} ${200+Math.sin(a+.6)*150}" stroke="#ffffff55" stroke-width="3" fill="none"/><path d="M${200+Math.cos(a+.6)*150} ${200+Math.sin(a+.6)*150} q10 -18 24 -6 q-10 18 -24 6Z" fill="#3a8a4a"/><circle cx="${200+Math.cos(a+.3)*110}" cy="${200+Math.sin(a+.3)*110}" r="7" fill="${T.gules[1]}" stroke="#fff" stroke-width="2"/>`}}
+ if(orn==='knot'){for(let i=0;i<6;i++)s+=`<path d="M40 ${60+i*56} Q120 ${30+i*56} 200 ${60+i*56} T360 ${60+i*56}" stroke="url(#gold)" stroke-width="6" fill="none" opacity=".7"/><path d="M40 ${60+i*56} Q120 ${90+i*56} 200 ${60+i*56} T360 ${60+i*56}" stroke="#fff" stroke-width="3" fill="none" opacity=".35"/>`}
+ s+=`<text x="202" y="316" text-anchor="middle" font-family="Grenze Gotisch" font-weight="800" font-size="300" fill="#2a1c12" opacity=".35">${L}</text><text x="200" y="312" text-anchor="middle" font-family="Grenze Gotisch" font-weight="800" font-size="300" fill="url(#gold)" stroke="#6a4a10" stroke-width="3">${L}</text>`;
+ s+=[[20,20],[380,20],[20,380],[380,380]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="14" fill="${T.gules[1]}" stroke="url(#gold)" stroke-width="4"/>`).join('');
+ document.getElementById('dcap').innerHTML=s;
+ document.getElementById('field').innerHTML=Object.keys(T).filter(k=>k!=='or').map(k=>`<button class="tinc ${k===field?'on':''}" data-f="${k}" style="background:${T[k][1]}" title="${T[k][0]}"></button>`).join('');
+ const txt={A:'nno Domini',B:'eatus vir qui non abiit',C:'antate Domino canticum novum',D:'ominus illuminatio mea',E:'t in terra pax',F:'iat lux',G:'loria in excelsis',H:'ic incipit liber',I:'n principio erat verbum',L:'audate pueri',M:'agnificat anima mea',N:'unc dimittis',O:' sapientia',P:'ater noster',Q:'uam dilecta',R:'egina caeli laetare',S:'alve regina',T:'e deum laudamus',U:'nam petii',V:'eni creator spiritus'}[L]||'…hic incipit';
+ document.getElementById('pageTxt').innerHTML=`<svg class="dc" viewBox="0 0 400 400">${s}</svg><span class="bl" style="font-size:28px">${txt}</span>, the scribe wrote, and then the rest of the page in a steady brown ink made from oak galls. The rubricator came later with red headings, and the illuminator came last of all, with gold leaf and a very steady breath.<br style="clear:both">`}
+document.getElementById('letter').oninput=dcap;document.getElementById('field').onclick=e=>{const f=e.target.dataset.f;if(f){field=f;dcap()}};
+document.getElementById('orn').onclick=e=>{const o=e.target.dataset.o;if(o){orn=o;[...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));dcap()}};dcap();
+
+/* heraldry */
+const DIV={plain:'Plain',pale:'Per pale',fess:'Per fess',bend:'Per bend',quarterly:'Quarterly',chevron:'Per chevron',bendy:'Bendy'};
+const CHG={none:'None',cross:'a cross',mullet:'a mullet',crescent:'a crescent',fleur:'a fleur-de-lis',roundels:'three roundels',chevron:'a chevron',lion:'a lion rampant'};
+let A={div:'quarterly',t1:'azure',t2:'or',chg:'fleur',t3:'argent'};
+const SH='M20 20 H280 V160 Q280 300 150 344 Q20 300 20 160Z';
+function shield(){let s=`<defs>${goldGrad('gold')}<clipPath id="sc"><path d="${SH}"/></clipPath></defs><g clip-path="url(#sc)"><rect width="300" height="360" fill="${fill(A.t1)}"/>`;const f2=fill(A.t2);
+ if(A.div==='pale')s+=`<rect x="150" width="150" height="360" fill="${f2}"/>`;if(A.div==='fess')s+=`<rect y="170" width="300" height="200" fill="${f2}"/>`;if(A.div==='bend')s+=`<path d="M0 0 L300 360 L0 360Z" fill="${f2}"/>`;
+ if(A.div==='quarterly')s+=`<rect x="150" width="150" height="170" fill="${f2}"/><rect y="170" width="150" height="200" fill="${f2}"/>`;if(A.div==='chevron')s+=`<path d="M0 360 L0 300 L150 140 L300 300 L300 360Z" fill="${f2}"/>`;
+ if(A.div==='bendy')for(let i=-4;i<8;i+=2)s+=`<path d="M${i*50} 0 L${i*50+50} 0 L${i*50+350} 360 L${i*50+300} 360Z" fill="${f2}"/>`;
+ const c=fill(A.t3);
+ if(A.chg==='cross')s+=`<rect x="125" width="50" height="360" fill="${c}"/><rect y="130" width="300" height="50" fill="${c}"/>`;
+ if(A.chg==='chevron')s+=`<path d="M20 290 L150 150 L280 290 L280 240 L150 100 L20 240Z" fill="${c}"/>`;
+ if(A.chg==='mullet')s+=`<path d="${[...Array(10)].map((_,i)=>{const a=i*Math.PI/5-Math.PI/2,r=i%2?30:75;return(i?'L':'M')+(150+Math.cos(a)*r).toFixed(1)+' '+(170+Math.sin(a)*r).toFixed(1)}).join(' ')}Z" fill="${c}" stroke="#2a1c12" stroke-width="2"/>`;
+ if(A.chg==='crescent')s+=`<path d="M100 150 A60 60 0 1 0 200 150 A50 50 0 1 1 100 150Z" fill="${c}" stroke="#2a1c12" stroke-width="2" transform="translate(0 10)"/>`;
+ if(A.chg==='fleur')s+=`<g transform="translate(150 170) scale(1.1)" fill="${c}" stroke="#2a1c12" stroke-width="2"><path d="M0 -90 Q22 -50 10 -10 L-10 -10 Q-22 -50 0 -90Z"/><path d="M-10 -10 Q-70 -40 -60 10 Q-40 -10 -14 14Z"/><path d="M10 -10 Q70 -40 60 10 Q40 -10 14 14Z"/><rect x="-40" y="10" width="80" height="14" rx="3"/><path d="M-8 24 L8 24 L4 70 L-4 70Z"/><path d="M-4 30 Q-40 40 -30 70 Q-16 50 -4 50Z M4 30 Q40 40 30 70 Q16 50 4 50Z"/></g>`;
+ if(A.chg==='roundels')[[95,110],[205,110],[150,220]].forEach(([x,y])=>s+=`<circle cx="${x}" cy="${y}" r="36" fill="${c}" stroke="#2a1c12" stroke-width="2"/>`);
+ if(A.chg==='lion')s+=`<g transform="translate(60 60) scale(1.8)" fill="${c}" stroke="#2a1c12" stroke-width="1.5"><path d="M40 120 L50 90 Q30 80 38 56 Q30 40 44 30 Q46 14 62 16 Q74 8 80 20 L92 18 L86 30 Q96 40 84 52 L94 60 L84 66 Q90 90 70 96 L80 120 L66 120 L60 100 L52 102 L54 120Z"/><path d="M36 60 L14 44 L20 56 L8 56 L34 70Z M86 40 L104 22 L100 36 L112 32 L92 50Z M44 100 Q20 110 16 88 Q30 96 40 90Z"/><circle cx="72" cy="26" r="2" fill="#2a1c12"/></g>`;
+ s+=`</g><path d="${SH}" fill="none" stroke="#2a1c12" stroke-width="5"/><path d="M40 20 H260" stroke="url(#gold)" stroke-width="0"/>`;
+ const m=(document.getElementById('motto').value||'').toUpperCase().replace(/[<>&]/g,'');s+=`<path d="M10 330 Q150 380 290 330 L290 352 Q150 400 10 352Z" fill="#f4f1ea" stroke="#2a1c12" stroke-width="2"/><path id="mp" d="M20 346 Q150 392 280 346" fill="none"/><text font-family="Grenze Gotisch" font-size="18" fill="#a3221c"><textPath href="#mp" startOffset="50%" text-anchor="middle">${m}</textPath></text>`;
+ document.getElementById('shield').innerHTML=s;
+ const t=k=>T[k][0];let bl=A.div==='plain'?t(A.t1):A.div==='bendy'?`Bendy ${t(A.t1)} and ${t(A.t2)}`:`${DIV[A.div]} ${t(A.t1)} and ${t(A.t2)}`;if(A.chg!=='none')bl+=`, ${CHG[A.chg]} ${t(A.t3)}`;document.getElementById('blazon').textContent=bl+'.';
+ let w='';if(A.div!=='plain'&&T[A.t1][2]===T[A.t2][2])w='';const ground=A.div==='plain'?[A.t1]:[A.t1,A.t2];if(A.chg!=='none'&&A.div==='plain'&&T[A.t3][2]===T[A.t1][2])w=`⚠ The rule of tincture is broken: ${T[A.t3][2]} on ${T[A.t1][2]}. The heralds frown. (Only the Kingdom of Jerusalem, gold on silver, ever got away with it.)`;document.getElementById('warn').textContent=w;
+ const tb=(id,key)=>document.getElementById(id).innerHTML=Object.keys(T).map(k=>`<button class="tinc ${A[key]===k?'on':''}" data-k="${key}" data-v="${k}" style="background:${k==='or'?'linear-gradient(135deg,#f7de8a,#d4a531,#fff2b8,#b8861e)':T[k][1]}" title="${T[k][0]}"></button>`).join('');tb('t1','t1');tb('t2','t2');tb('t3','t3');
+ document.getElementById('div').innerHTML=Object.entries(DIV).map(([k,v])=>`<button class="chip ${A.div===k?'on':''}" data-k="div" data-v="${k}">${v}</button>`).join('');document.getElementById('chg').innerHTML=Object.entries(CHG).map(([k,v])=>`<button class="chip ${A.chg===k?'on':''}" data-k="chg" data-v="${k}">${v.replace(/^a |^three /,'')}</button>`).join('')}
+document.querySelector('.her .ctl').addEventListener('click',e=>{const{k,v}=e.target.dataset;if(k){A[k]=v;shield()}});document.getElementById('motto').oninput=shield;shield();
+
+/* bestiary */
+const BE=[['Unicorn','Fierce and untameable, except by a maiden sitting alone in the woods, where it lays its head in her lap. Its horn cleans poisoned water.','Purity tames what force cannot.','uni'],['Pelican','When its chicks die, the mother pierces her own breast and revives them with her blood.','Love that gives everything.','pel'],['Basilisk','The king of serpents. Its glance kills and its breath scorches grass. Only the weasel does not fear it.','Beware what poisons with a look.','bas'],['Barnacle Goose','Grows on driftwood like fruit and drops into the sea when ripe. Monks were therefore allowed to eat it on fast days, being "not quite meat".','A convenient belief is still a belief.','goo'],['Phoenix','Only one lives at a time. After 500 years it builds a pyre of spices, burns, and rises from its own ashes.','What ends may begin again.','pho'],['Manticore','Face of a man, body of a lion, a scorpion\'s tail and three rows of teeth. It delights in human flesh.','Not everything with a human face is kind.','man']];
+function beast(k){const g='#d4a531',r='#a3221c',b='#1d3f8c',v='#2f6b3a',k2='#2a1c12';const bg=`<rect width="300" height="170" fill="${[b,v,r,b,r,v][BE.findIndex(x=>x[3]===k)]}"/>${[...Array(20)].map((_,i)=>`<circle cx="${(i*67)%300}" cy="${(i*37)%170}" r="2" fill="${g}"/>`).join('')}`;
+ const body={uni:`<path d="M80 130 L90 90 Q80 70 110 70 L190 70 Q200 50 214 50 L240 20 L226 56 Q236 70 224 80 L210 84 L204 130 L194 130 L190 100 L120 100 L112 130 L102 130 L100 104Z" fill="#f4f1ea" stroke="${k2}" stroke-width="2"/>`,pel:`<path d="M120 150 Q100 80 150 60 Q190 50 200 90 L240 96 L200 104 Q200 140 170 150Z" fill="#f4f1ea" stroke="${k2}" stroke-width="2"/><path d="M150 120 l0 30" stroke="${r}" stroke-width="5"/><circle cx="110" cy="150" r="10" fill="#f4f1ea" stroke="${k2}"/><circle cx="130" cy="156" r="10" fill="#f4f1ea" stroke="${k2}"/>`,bas:`<path d="M60 140 Q100 100 140 130 Q180 160 220 110 Q240 80 220 60 L250 50 L236 70 Q260 90 230 130 Q190 180 140 150 Q100 120 70 150Z" fill="${v}" stroke="${k2}" stroke-width="2"/><path d="M222 60 l-6 -16 l10 6 l4 -12 l4 14" fill="${r}"/>`,goo:`<rect x="40" y="130" width="220" height="16" fill="#8a5a2a"/>${[70,130,190].map(x=>`<path d="M${x} 130 q-10 -40 10 -60 q30 -10 20 20 q-10 20 -30 40Z" fill="#f4f1ea" stroke="${k2}" stroke-width="2"/>`).join('')}`,pho:`<path d="M90 150 Q140 110 150 60 Q170 90 170 130 Q200 70 240 60 Q210 110 200 150Z" fill="${g}" stroke="${k2}" stroke-width="2"/>${[...Array(7)].map((_,i)=>`<path d="M${90+i*20} 160 q6 -20 12 0" fill="#ff6a1a"/>`).join('')}`,man:`<path d="M60 130 L70 90 Q70 70 100 70 L180 70 Q190 50 214 56 Q232 64 222 86 L206 90 L200 130 L190 130 L186 100 L110 100 L102 130 L92 130 L90 104Z" fill="#c9812e" stroke="${k2}" stroke-width="2"/><path d="M70 90 Q30 60 50 30 Q70 50 60 60" stroke="${k2}" stroke-width="5" fill="none"/><path d="M50 30 l-8 -10 l14 4" fill="${r}"/><circle cx="212" cy="70" r="10" fill="#f2c9a0" stroke="${k2}"/>`}[k];
+ return`<svg viewBox="0 0 300 170">${bg}<rect x="6" y="6" width="288" height="158" fill="none" stroke="${g}" stroke-width="4"/>${body}</svg>`}
+document.getElementById('best').innerHTML=BE.map(b=>`<div class="beast">${beast(b[3])}<h3>${b[0]}</h3><p>${b[1]}</p><div class="moral">Moralitas: ${b[2]}</div></div>`).join('');
+
+/* hours */
+const MO=[['Januarius','Feasting by the fire','#a3221c'],['Februarius','Warming by the hearth','#1d3f8c'],['Martius','Pruning the vines','#2f6b3a'],['Aprilis','Picking flowers','#2f6b3a'],['Maius','Riding out with falcons','#2f6b3a'],['Junius','Mowing the hay','#d4a531'],['Julius','Reaping the wheat','#d4a531'],['Augustus','Threshing the grain','#c9812e'],['September','Treading the grapes','#6a2a6a'],['October','Sowing the winter wheat','#8a5a2a'],['November','Fattening the pigs on acorns','#8a5a2a'],['December','Slaughtering and baking','#1d3f8c']];
+function mini(i,c){const g='#d4a531';let s=`<rect width="240" height="150" fill="#bcd4e8"/><path d="M0 60 Q120 40 240 70 V150 H0Z" fill="${i<2||i>10?'#e8eef2':'#8ab06a'}"/><path d="M0 0 H240 V26 Q120 50 0 26Z" fill="${'#1d3f8c'}"/>${[...Array(8)].map((_,k)=>`<circle cx="${20+k*28}" cy="12" r="2.5" fill="${g}"/>`).join('')}<text x="120" y="20" text-anchor="middle" font-family="Grenze Gotisch" font-size="14" fill="${g}">${['♒','♓','♈','♉','♊','♋','♌','♍','♎','♏','♐','♑'][i]}</text>`;
+ const fig=(x,y,col)=>`<circle cx="${x}" cy="${y-40}" r="7" fill="#f2c9a0"/><path d="M${x-9} ${y-32} L${x+9} ${y-32} L${x+12} ${y} L${x-12} ${y}Z" fill="${col}"/>`;
+ s+=[fig(90,130,c),fig(150,128,'#2a1c12')].join('');
+ if(i===0||i===1||i===11)s+=`<rect x="170" y="80" width="50" height="50" fill="#8a5a2a"/><path d="M180 128 q10 -30 20 0" fill="#ff8a1a"/>`;if(i>=5&&i<=7)s+=[...Array(8)].map((_,k)=>`<path d="M${10+k*12} 130 v-40" stroke="#d4a531" stroke-width="4"/>`).join('');if(i===8)s+=`<rect x="170" y="100" width="50" height="30" fill="#6a2a6a"/>`;if(i===4)s+=`<path d="M190 60 l14 6 l-14 6 l-4 -6Z" fill="#2a1c12"/>`;if(i===2||i===3)s+=[...Array(6)].map((_,k)=>`<circle cx="${180+(k%3)*14}" cy="${110+Math.floor(k/3)*14}" r="5" fill="${i===3?'#ff7ab8':'#2f6b3a'}"/>`).join('');if(i===10)s+=`<ellipse cx="200" cy="120" rx="22" ry="12" fill="#f0a0a0"/>`;
+ return`<svg viewBox="0 0 240 150">${s}<rect x="2" y="2" width="236" height="146" fill="none" stroke="${g}" stroke-width="4"/></svg>`}
+const now=new Date().getMonth();document.getElementById('hoursG').innerHTML=MO.map((m,i)=>`<div class="mon ${i===now?'now':''}">${mini(i,m[2])}<h3>${m[0]}</h3><p>${m[1]}</p></div>`).join('');
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

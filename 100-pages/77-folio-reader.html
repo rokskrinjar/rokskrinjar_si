@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Folio — A Slow Reader</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Atkinson+Hyperlegible:wght@400;700&family=Crimson+Pro:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f3f0e8;--ink:#2b2925;--dim:#2b292588;--line:#2b29251a;--mark:#ffe58a;--acc:#6b5b3e}
+body.sepia{--paper:#f1e3c8;--ink:#4a3620;--dim:#4a362088;--line:#4a36201a;--mark:#f0c070}
+body.night{--paper:#1b1a18;--ink:#d8d2c4;--dim:#d8d2c477;--line:#d8d2c41a;--mark:#6a5a20;--acc:#c8b890}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Atkinson Hyperlegible',sans-serif;transition:background .4s,color .4s}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 5vw;border-bottom:1px solid var(--line)}
+.logo{font-family:Literata;font-size:22px;font-style:italic}
+nav{display:flex;gap:18px;font-size:14px;flex-wrap:wrap}
+nav a{color:var(--dim)}nav a.on{color:var(--ink);font-weight:700}
+[data-view][hidden]{display:none}
+.wrap{max-width:1100px;margin:0 auto;padding:30px 5vw 60px}
+h2{font-family:Literata;font-weight:400;font-size:clamp(2rem,4vw,3rem)}
+.sub{color:var(--dim);margin:6px 0 26px;line-height:1.6;max-width:56ch}
+/* library */
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:30px 24px;align-items:end}
+.book{background:none;border:0;text-align:left}
+.cover{aspect-ratio:2/3;border-radius:2px 6px 6px 2px;box-shadow:inset 6px 0 8px -4px #0006,0 12px 20px -10px #0008;position:relative;overflow:hidden;transition:transform .3s;display:flex;flex-direction:column;justify-content:space-between;padding:16px 14px}
+.book:hover .cover{transform:translateY(-8px) rotate(-1deg)}
+.cover svg{position:absolute;inset:0;width:100%;height:100%}
+.cover b,.cover small{position:relative;z-index:1}
+.cover b{font-family:Literata;font-weight:600;font-size:19px;line-height:1.15}
+.cover small{font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.book .meta{font-size:13px;color:var(--dim);margin-top:8px}
+.prog{height:3px;background:var(--line);margin-top:6px;border-radius:2px}
+.prog i{display:block;height:100%;background:var(--acc)}
+/* reader */
+.reader{max-width:760px;margin:0 auto;padding:10px 5vw 20px;position:relative}
+.rbar{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim);margin-bottom:10px;gap:10px;flex-wrap:wrap}
+.pageview{height:min(66vh,620px);overflow:hidden;position:relative}
+.flow{height:100%;column-gap:60px;column-fill:auto;transition:transform .45s cubic-bezier(.3,.7,.2,1);font-family:Literata;hyphens:auto;text-align:justify}
+.flow h1{font-weight:400;font-size:1.9em;line-height:1.15;margin-bottom:.2em;text-align:left;font-style:italic}
+.flow h3{font-weight:600;font-size:.8em;letter-spacing:.2em;text-transform:uppercase;margin:1.6em 0 .6em;text-align:center;color:var(--acc)}
+.flow p{margin-bottom:.9em;text-indent:1.4em}
+.flow p.first{text-indent:0}
+.flow p.first::first-letter{font-size:3.3em;float:left;line-height:.85;margin:.06em .08em 0 0;font-weight:600}
+.flow mark{background:var(--mark);color:inherit;border-radius:2px;cursor:pointer}
+.flow .def{border-bottom:1px dotted var(--acc);cursor:help}
+.tap{position:absolute;top:0;bottom:0;width:22%;z-index:2;background:none;border:0}
+.tap.l{left:-8%}.tap.r{right:-8%}
+.foot{display:flex;align-items:center;gap:14px;margin-top:14px;font-size:13px;color:var(--dim)}
+.foot input{flex:1;accent-color:var(--acc)}
+.settings{position:fixed;right:20px;top:70px;background:var(--paper);border:1px solid var(--line);box-shadow:0 20px 40px #0003;border-radius:12px;padding:18px;width:280px;z-index:10;display:none}
+.settings.on{display:block}
+.settings label{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:12px 0 6px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{flex:1;padding:8px 0;border:0;background:none;font-size:14px}
+.seg button.on{background:var(--ink);color:var(--paper)}
+.ibtn{border:1px solid var(--line);background:none;border-radius:8px;padding:6px 12px;font-size:13px}
+.pop{position:fixed;z-index:20;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:10px;font-size:14px;max-width:280px;line-height:1.45;display:none;box-shadow:0 10px 30px #0004}
+.pop.on{display:block}
+.pop button{background:var(--paper);color:var(--ink);border:0;border-radius:6px;padding:4px 10px;margin-top:6px;font-size:13px}
+/* notes */
+.notes{display:grid;gap:14px;max-width:760px}
+.note{border-left:4px solid var(--mark);padding:10px 16px;font-family:Literata;font-size:18px;line-height:1.55;background:var(--line)}
+.note small{display:block;font-family:'Atkinson Hyperlegible';font-size:12px;color:var(--dim);margin-top:6px}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.stat{border:1px solid var(--line);border-radius:14px;padding:20px}
+.stat b{font-family:Literata;font-size:44px;font-weight:400;display:block;line-height:1}
+.stat small{color:var(--dim);font-size:13px}
+.week{display:flex;gap:10px;align-items:flex-end;height:160px;margin-top:26px;border-bottom:1px solid var(--line)}
+.week div{flex:1;background:var(--acc);border-radius:4px 4px 0 0;position:relative;opacity:.8}
+.week div span{position:absolute;bottom:-22px;left:0;right:0;text-align:center;font-size:12px;color:var(--dim)}
+</style>
+</head>
+<body>
+<header><div class="logo">Folio</div><nav><a href="#library">Library</a><a href="#read">Reading</a><a href="#notes">Highlights</a><a href="#stats">Reading Stats</a><a href="index.html">← Index</a></nav></header>
+
+<section data-view="library"><div class="wrap">
+ <h2>Your shelf</h2>
+ <p class="sub">A slow reader for short, quiet stories. No notifications, no infinite scroll. Just pages.</p>
+ <div class="shelf" id="shelf"></div>
+</div></section>
+
+<section data-view="read" hidden><div class="reader">
+ <div class="rbar"><span id="rTitle"></span><span><button class="ibtn" id="hlBtn">✎ Highlight selection</button> <button class="ibtn" id="setBtn">Aa</button></span></div>
+ <div class="pageview" id="pv"><button class="tap l" id="prev" aria-label="Previous page"></button><div class="flow" id="flow"></div><button class="tap r" id="next" aria-label="Next page"></button></div>
+ <div class="foot"><span id="pg">1 / 1</span><input type="range" id="scrub" min="0" max="0" value="0"><span id="left"></span></div>
+</div></section>
+
+<section data-view="notes" hidden><div class="wrap">
+ <h2>Highlights</h2><p class="sub">Select text while reading and press ✎ to keep it here. Click a highlight to jump back to its page.</p>
+ <div class="notes" id="notesL"></div>
+</div></section>
+
+<section data-view="stats" hidden><div class="wrap">
+ <h2>Reading stats</h2><p class="sub">Counted quietly, just for you. Nothing leaves this browser.</p>
+ <div class="stats" id="statG"></div>
+ <div class="week" id="week"></div>
+</div></section>
+
+<div class="settings" id="settings">
+ <label>Theme</label><div class="seg" id="theme"><button data-v="">Paper</button><button data-v="sepia">Sepia</button><button data-v="night">Night</button></div>
+ <label>Typeface</label><div class="seg" id="face"><button data-v="Literata">Literata</button><button data-v="Crimson Pro">Crimson</button><button data-v="Atkinson Hyperlegible">Atkinson</button></div>
+ <label>Size</label><div class="seg" id="size"><button data-v="16">A</button><button data-v="19">A</button><button data-v="22" style="font-size:18px">A</button><button data-v="26" style="font-size:22px">A</button></div>
+ <label>Spacing</label><div class="seg" id="lh"><button data-v="1.45">Tight</button><button data-v="1.65">Normal</button><button data-v="1.9">Airy</button></div>
+</div>
+<div class="pop" id="pop"></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'library';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='read')layout();if(id==='notes')notesUI();if(id==='stats')statsUI();if(id==='library')shelf()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+const BOOKS=[
+ {id:'carto',t:'The Cartographer of Small Things',a:'A. Winslow',c:['#2f4a5a','#e8d8a8'],art:'map',text:`<h1>The Cartographer of Small Things</h1><p style="text-indent:0;font-style:italic;color:var(--dim)">a short story</p>
+<h3>I</h3><p class="first">Oriel Tamsin made maps of things nobody else thought needed mapping. She had drawn the crumbs on a café table after the lunch rush, the cracks in the pavement outside the post office, and the migration of dust across her grandmother's piano over a single winter. She drew them in ink on thin paper, with a compass rose in the corner, because every map deserved one.</p>
+<p>"What's it for?" people asked, and she never had a good answer. The best she could manage was that the world was already mapped at the large scale. Somebody had to look after the small one.</p>
+<h3>II</h3><p class="first">The commission came in an envelope with no return address. Inside was a single key, a brass one, warm as if it had just been held, and a note in careful handwriting: <i>Please map the garden at 14 Alder Row before the first frost. I will know if it is accurate.</i></p>
+<p>There was no garden at 14 Alder Row. Oriel checked. There was a narrow house with its curtains drawn and, behind it, a rectangle of <span class="def" data-d="Ground that has been left uncultivated and allowed to grow wild.">fallow</span> earth no bigger than a tablecloth, fenced with wire and grown over with bindweed.</p>
+<p>She let herself in through the side gate and knelt in the wet grass, and began.</p>
+<h3>III</h3><p class="first">It took her a week to understand that the garden was larger than it looked. Not physically: she measured it twice and it was two and a half metres by three. But every time she finished drawing one part, another part appeared that she had not seen before. There was a snail's silver road that crossed and recrossed itself like handwriting. There was a colony of lichen on the fence post in seven distinct shades of green, and a hollow under a stone where a toad kept very still and very dignified.</p>
+<p>She drew all of it. She added a legend: <i>toad, sovereign</i>. She added contour lines to the molehill. On the ninth day she found a path.</p>
+<h3>IV</h3><p class="first">It was only a trace, a line of flattened grass a little narrower than a hand, but it ran with such purpose from the gate to the far corner that she followed it on her knees with her pen in her teeth. At the corner, under the bindweed, was a second fence, and in it a gate the size of a book, and in the gate a keyhole.</p>
+<p>The brass key fitted. Of course it did.</p>
+<p>Beyond the little gate was another garden, exactly the size of the first. It was not fallow. It was planted in the old way, in beds edged with shells, with a <span class="def" data-d="A small arbour or shelter in a garden, often covered with climbing plants.">bower</span> of runner beans and a birdbath made from a saucer. It was so perfectly kept that Oriel felt she ought to wipe her feet.</p>
+<h3>V</h3><p class="first">She mapped the second garden too. It took longer, because in the second garden everything had been named already, on tiny wooden labels in the same careful handwriting as the note. <i>Rosemary, for remembering. Marigold, for Tuesdays. The stone where Arthur sat.</i></p>
+<p>By the time she had finished the frost was two days away. She walked to the front door of number 14 and knocked, holding the map rolled under her arm, and after a long time the door was opened by a very old woman in a gardening apron.</p>
+<p>"You found it," the woman said. It wasn't a question.</p>
+<h3>VI</h3><p class="first">They spread the map on the kitchen table and weighed the corners with teacups. The old woman looked at it for a long time. She traced the snail roads with a fingertip, and when she got to the stone where Arthur sat, she stopped.</p>
+<p>"He used to say the garden was the only thing he ever finished," she said. "I've been keeping it the way he left it. But my eyes aren't what they were, and I wanted to know it was still there. That it still added up."</p>
+<p>"It does," Oriel said. "It adds up to more than it should."</p>
+<p>The woman laughed, and it was the kind of laugh that had been saved for a long while.</p>
+<h3>VII</h3><p class="first">Oriel went home in the dark with the frost already beginning to <span class="def" data-d="(Of frost) to form a thin glittering coating on a surface.">rime</span> the car windows. She did not have a good answer for what the map was for, but for the first time she did not mind. She took out a fresh sheet of paper and sat down to map the kitchen table, where two teacups had left rings on the wood, overlapping, like a small Venn diagram of an afternoon.</p>
+<p>In the corner she drew a compass rose. Every map deserves one.</p><p style="text-align:center;text-indent:0;margin-top:2em">❧</p>`},
+ {id:'fog',t:'Notes from a Fog Station',a:'M. Okonkwo-Hale',c:['#8a9aa0','#1a2226'],art:'fog',text:`<h1>Notes from a Fog Station</h1><h3>Sample chapter</h3><p class="first">The foghorn at Skerry Point sounds twice every sixty seconds, a low note and then a lower one, and after three weeks I have started to dream in that rhythm. The keeper who trained me said you stop hearing it after a month. He was lying, or he was deaf, and I suspect both.</p><p>My job is to watch the weather arrive. It comes from the west in long grey sleeves, and when it swallows the second buoy I switch on the horn and write the time in the book. The book goes back to 1871. Most of the entries say only <i>fog</i>, but somebody in 1903 wrote <i>fog, and a whale, and I was not afraid</i>, and I think about them often.</p><p style="text-align:center;margin-top:2em;color:var(--dim);text-indent:0">— End of sample —</p>`},
+ {id:'bees',t:'A Brief History of Tuesday',a:'Lin Hoshino',c:['#e8a93a','#3a2210'],art:'sun',text:`<h1>A Brief History of Tuesday</h1><h3>Sample chapter</h3><p class="first">Tuesday has never had a good reputation. It lacks the dread of Monday and the relief of Friday, and it doesn't even have the midweek swagger of Wednesday. And yet, as this book argues, most of the great quiet discoveries in history happened on a Tuesday: penicillin (probably), the first sourdough (almost certainly) and the moment somebody realised you could put a cup of tea on a saucer.</p><p style="text-align:center;margin-top:2em;color:var(--dim);text-indent:0">— End of sample —</p>`},
+ {id:'moth',t:'The Moth Collector\'s Daughter',a:'R. Ferreira',c:['#3a2a4a','#e8d8f0'],art:'moth',text:`<h1>The Moth Collector's Daughter</h1><h3>Sample chapter</h3><p class="first">My father kept moths the way other men kept debts: carefully, secretly and in the dark. He had four thousand of them in shallow drawers that smelled of camphor and cedar. When he died he left me the drawers, the house, and a letter that began, <i>Do not let them out all at once.</i></p><p style="text-align:center;margin-top:2em;color:var(--dim);text-indent:0">— End of sample —</p>`}];
+let S=store.get('folio',{book:'carto',page:{},theme:'',face:'Literata',size:19,lh:1.65,hl:[],time:{},pagesRead:0,started:Date.now()});
+function art(b){const[c1,c2]=b.c;if(b.art==='map')return`<svg viewBox="0 0 200 300"><rect width="200" height="300" fill="${c1}"/><g stroke="${c2}" fill="none" opacity=".5">${[...Array(8)].map((_,i)=>`<path d="M${-20+i*10} ${300} Q${60+i*14} ${180-i*10} ${220} ${90+i*22}"/>`).join('')}</g><g transform="translate(150 230)" stroke="${c2}" fill="none"><circle r="22"/><path d="M0 -30 L5 0 L0 30 L-5 0Z" fill="${c2}"/></g></svg>`;
+ if(b.art==='fog')return`<svg viewBox="0 0 200 300"><rect width="200" height="300" fill="${c1}"/>${[...Array(6)].map((_,i)=>`<rect x="-10" y="${80+i*30}" width="220" height="18" rx="9" fill="#fff" opacity="${.12+i*.05}"/>`).join('')}<path d="M130 300 L140 170 L152 170 L162 300Z" fill="${c2}"/><rect x="136" y="150" width="20" height="22" fill="#ffd87a"/></svg>`;
+ if(b.art==='sun')return`<svg viewBox="0 0 200 300"><rect width="200" height="300" fill="${c1}"/><circle cx="100" cy="190" r="60" fill="${c2}"/>${[...Array(12)].map((_,i)=>`<line x1="100" y1="190" x2="${100+Math.cos(i/12*6.28)*95}" y2="${190+Math.sin(i/12*6.28)*95}" stroke="${c2}" stroke-width="3"/>`).join('')}</svg>`;
+ return`<svg viewBox="0 0 200 300"><rect width="200" height="300" fill="${c1}"/><g transform="translate(100 200)" fill="${c2}" opacity=".85"><path d="M0 0 Q-60 -50 -70 -10 Q-60 20 0 10Z"/><path d="M0 0 Q60 -50 70 -10 Q60 20 0 10Z"/><path d="M0 10 Q-40 40 -30 60 Q-10 50 0 14Z"/><path d="M0 10 Q40 40 30 60 Q10 50 0 14Z"/><rect x="-3" y="-14" width="6" height="40" rx="3" fill="${c1}"/></g></svg>`}
+function shelf(){document.getElementById('shelf').innerHTML=BOOKS.map(b=>{const p=S.page[b.id]||0,tot=S['tot_'+b.id]||1;return`<button class="book" data-b="${b.id}"><div class="cover" style="color:${b.c[1]}">${art(b)}<small>${b.a}</small><b>${b.t}</b></div><div class="meta">${b.id==='carto'?'Short story · 12 min':'Free sample'}</div><div class="prog"><i style="width:${Math.min(100,Math.round((p+1)/tot*100))}%"></i></div></button>`}).join('')}
+document.getElementById('shelf').onclick=e=>{const b=e.target.closest('.book');if(!b)return;S.book=b.dataset.b;save();go('read')};
+const save=()=>store.set('folio',S);
+/* reader */
+const flow=document.getElementById('flow'),pv=document.getElementById('pv');let pages=1;
+function applyStyle(){document.body.className=S.theme;flow.style.fontFamily=`'${S.face}',serif`;flow.style.fontSize=S.size+'px';flow.style.lineHeight=S.lh;
+ [['theme','theme'],['face','face'],['size','size'],['lh','lh']].forEach(([id,k])=>document.querySelectorAll('#'+id+' button').forEach(b=>b.classList.toggle('on',String(S[k])===b.dataset.v)))}
+function render(){const b=BOOKS.find(x=>x.id===S.book);let html=b.text;S.hl.filter(h=>h.b===b.id).forEach(h=>{html=html.replace(h.t,`<mark data-h="${h.t.slice(0,30).replace(/"/g,'')}">${h.t}</mark>`)});flow.innerHTML=html;document.getElementById('rTitle').textContent=b.t}
+function layout(){applyStyle();render();const w=pv.clientWidth;flow.style.columnWidth=w+'px';paginate()}
+function paginate(){const w=pv.clientWidth;pages=Math.max(1,Math.round((flow.scrollWidth+60)/(w+60)));S['tot_'+S.book]=pages;const sc=document.getElementById('scrub');sc.max=pages-1;turn(Math.min(S.page[S.book]||0,pages-1),true)}
+try{document.fonts.ready.then(()=>{if(!document.querySelector('[data-view=read]').hidden)paginate()})}catch(e){}
+function turn(p,instant){p=Math.max(0,Math.min(pages-1,p));const w=pv.clientWidth;if(!instant&&p>(S.page[S.book]||0))S.pagesRead++;S.page[S.book]=p;flow.style.transition=instant?'none':'';flow.style.transform=`translateX(${-p*(w+60)}px)`;document.getElementById('pg').textContent=`${p+1} / ${pages}`;document.getElementById('scrub').value=p;const left=(pages-p-1)*1.4;document.getElementById('left').textContent=left<1?'end of story':`~${Math.ceil(left)} min left`;save()}
+document.getElementById('next').onclick=()=>turn((S.page[S.book]||0)+1);document.getElementById('prev').onclick=()=>turn((S.page[S.book]||0)-1);
+document.getElementById('scrub').oninput=e=>turn(+e.target.value);
+addEventListener('keydown',e=>{if(document.querySelector('[data-view=read]').hidden)return;if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();turn((S.page[S.book]||0)+1)}if(e.key==='ArrowLeft')turn((S.page[S.book]||0)-1)});
+let tx=null;pv.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});pv.addEventListener('touchend',e=>{if(tx==null)return;const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>40)turn((S.page[S.book]||0)+(d<0?1:-1));tx=null});
+addEventListener('resize',()=>{if(!document.querySelector('[data-view=read]').hidden)layout()});
+document.getElementById('setBtn').onclick=()=>document.getElementById('settings').classList.toggle('on');
+document.getElementById('settings').onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.parentElement.id;S[k]=k==='size'||k==='lh'?+b.dataset.v:b.dataset.v;save();layout()};
+document.addEventListener('click',e=>{if(!e.target.closest('#settings,#setBtn'))document.getElementById('settings').classList.remove('on');if(!e.target.closest('.def,#pop,mark'))document.getElementById('pop').classList.remove('on')});
+function pop(x,y,html){const p=document.getElementById('pop');p.innerHTML=html;p.style.left=Math.min(innerWidth-300,x)+'px';p.style.top=(y+14)+'px';p.classList.add('on')}
+flow.addEventListener('click',e=>{const d=e.target.closest('.def');if(d){pop(e.clientX,e.clientY,`<b>${d.textContent}</b><br>${d.dataset.d}`);return}const m=e.target.closest('mark');if(m){pop(e.clientX,e.clientY,`Highlighted passage<br><button id="unhl">Remove highlight</button>`);document.getElementById('unhl').onclick=()=>{S.hl=S.hl.filter(h=>!(h.b===S.book&&m.textContent===h.t));save();document.getElementById('pop').classList.remove('on');layout()}}});
+document.getElementById('hlBtn').onclick=()=>{const sel=getSelection();const t=sel.toString().trim();if(t.length<3||!flow.contains(sel.anchorNode)){pop(innerWidth/2-140,90,'Select some text on the page first, then press ✎.');return}
+ const b=BOOKS.find(x=>x.id===S.book);const plain=b.text;if(!plain.includes(t)){pop(innerWidth/2-140,90,'Try selecting within a single paragraph.');return}S.hl.push({b:S.book,t,p:S.page[S.book]||0,d:Date.now()});save();sel.removeAllRanges();layout()};
+/* notes */
+function notesUI(){const L=S.hl.slice().reverse();document.getElementById('notesL').innerHTML=L.length?L.map((h,i)=>`<div class="note" data-i="${S.hl.length-1-i}" style="cursor:pointer">"${h.t}"<small>${BOOKS.find(b=>b.id===h.b).t} · page ${h.p+1} · ${new Date(h.d).toLocaleDateString()}</small></div>`).join(''):`<div class="note">"She did not have a good answer for what the map was for, but for the first time she did not mind."<small>Example highlight. Make your own while reading.</small></div>`}
+document.getElementById('notesL').onclick=e=>{const n=e.target.closest('[data-i]');if(!n)return;const h=S.hl[+n.dataset.i];S.book=h.b;S.page[h.b]=h.p;save();go('read')};
+/* stats */
+let t0=Date.now();setInterval(()=>{if(!document.querySelector('[data-view=read]').hidden&&!document.hidden){const d=new Date().toDateString();S.time[d]=(S.time[d]||0)+5;save()}},5000);
+function statsUI(){const tot=Object.values(S.time).reduce((a,b)=>a+b,0);const words=Math.round(S.pagesRead*230);document.getElementById('statG').innerHTML=`<div class="stat"><b>${Math.round(tot/60)}</b><small>minutes reading (all time)</small></div><div class="stat"><b>${S.pagesRead}</b><small>pages turned</small></div><div class="stat"><b>${S.hl.length}</b><small>passages highlighted</small></div><div class="stat"><b>${tot>60?Math.round(words/(tot/60)):'—'}</b><small>words per minute (estimate)</small></div>`;
+ const days=[...Array(7)].map((_,i)=>{const d=new Date(Date.now()-(6-i)*864e5);return[d.toLocaleDateString('en',{weekday:'short'}),S.time[d.toDateString()]||0]});const mx=Math.max(60,...days.map(d=>d[1]));document.getElementById('week').innerHTML=days.map(([n,v])=>`<div style="height:${Math.max(2,v/mx*100)}%"><span>${n}</span></div>`).join('')}
+
+shelf();
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

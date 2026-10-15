@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clinic OS — Today at Riverside Family Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#f4f8f8;--card:#fff;--tx:#17323a;--mu:#6c858c;--ln:#dfe9ea;--teal:#0e8c8c;--tealbg:#e1f2f1;--coral:#f0806c;--sky:#cfe6f7;--sun:#fff0c8;--lil:#e6e0f8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 'Nunito Sans',sans-serif}
+header{display:flex;align-items:center;gap:16px;padding:14px 26px;background:var(--card);border-bottom:1px solid var(--ln)}
+.lg{font-weight:800;font-size:18px;display:flex;align-items:center;gap:9px}.lg i{width:26px;height:26px;border-radius:8px;background:var(--teal);color:#fff;display:grid;place-items:center;font-style:normal;font-size:16px}
+.day{display:flex;align-items:center;gap:8px;margin-left:16px;font-weight:700}.day button{border:1px solid var(--ln);background:#fff;border-radius:8px;width:30px;height:30px;cursor:pointer}
+header .sp{flex:1}.new{background:var(--teal);color:#fff;border:0;border-radius:10px;padding:9px 14px;font:700 14px 'Nunito Sans';cursor:pointer}
+.lay{display:grid;grid-template-columns:1fr 320px;gap:18px;padding:18px 26px}
+.cal{background:var(--card);border:1px solid var(--ln);border-radius:18px;overflow:hidden}
+.cols{display:grid;grid-template-columns:60px repeat(4,1fr)}
+.ch{padding:12px;border-bottom:1px solid var(--ln);border-left:1px solid var(--ln);display:flex;align-items:center;gap:10px;position:sticky;top:0;background:#fff;z-index:2}
+.ch .av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff}.ch b{display:block}.ch span{font-size:12px;color:var(--mu)}
+.body{display:grid;grid-template-columns:60px repeat(4,1fr);position:relative;height:640px;overflow:auto}
+.tl{position:relative}.tl span{position:absolute;right:8px;font-size:11px;color:var(--mu);transform:translateY(-50%)}
+.col{position:relative;border-left:1px solid var(--ln);background:repeating-linear-gradient(to bottom,transparent 0 59px,var(--ln) 59px 60px)}
+.ap{position:absolute;left:5px;right:5px;border-radius:10px;padding:6px 9px;font-size:12.5px;cursor:pointer;overflow:hidden;border-left:4px solid;transition:transform .15s}
+.ap:hover{transform:scale(1.02)}.ap b{display:block;font-size:13px}.ap span{color:#4d666c}
+.ap.chk{box-shadow:0 0 0 2px var(--teal)}
+.now{position:absolute;left:60px;right:0;height:2px;background:var(--coral);z-index:3}.now::before{content:'';position:absolute;left:-6px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--coral)}
+.side{display:flex;flex-direction:column;gap:14px}
+.box{background:var(--card);border:1px solid var(--ln);border-radius:18px;padding:18px}
+.box h3{margin:0 0 12px;font-size:15px;display:flex;justify-content:space-between}.box h3 span{color:var(--mu);font-weight:600;font-size:13px}
+.q{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--ln)}.q:last-child{border:0}
+.q i{width:36px;height:36px;border-radius:12px;background:var(--tealbg);display:grid;place-items:center;font-style:normal;font-weight:800;color:var(--teal)}
+.q div{flex:1}.q small{display:block;color:var(--mu)}.wait{font-weight:800;font-size:13px}.wait.hi{color:var(--coral)}
+.q button{border:0;background:var(--teal);color:#fff;border-radius:8px;padding:6px 10px;font:700 12px 'Nunito Sans';cursor:pointer}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stats div{background:var(--bg);border-radius:12px;padding:12px}.stats b{display:block;font-size:24px;font-weight:800}.stats span{font-size:12px;color:var(--mu)}
+.det b{font-size:18px}.det .tags{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.det .tags span{background:var(--bg);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700}
+.alert{background:#fff2ef;color:#b4432f;border-radius:10px;padding:8px 10px;font-weight:700;font-size:13px}
+@media(max-width:1000px){.lay{grid-template-columns:1fr}.cols,.body{grid-template-columns:44px repeat(4,minmax(150px,1fr))}.cal{overflow-x:auto}}
+</style>
+</head>
+<body>
+<header><div class="lg"><i>+</i>Clinic OS</div><span style="color:var(--mu)">Riverside Family Practice</span><div class="day"><button>‹</button>Wednesday, 1 October<button>›</button></div><span class="sp"></span><button class="new">+ Book appointment</button></header>
+<div class="lay">
+ <div class="cal"><div class="cols" id="heads"></div><div class="body" id="body"></div></div>
+ <aside class="side">
+  <div class="box"><h3>Waiting room <span id="wc"></span></h3><div id="queue"></div></div>
+  <div class="box det" id="det"></div>
+  <div class="box"><h3>Today</h3><div class="stats"><div><b>46</b><span>appointments</span></div><div><b>3</b><span>no-shows</span></div><div><b>11 min</b><span>avg wait</span></div><div><b>92%</b><span>notes signed</span></div></div></div>
+ </aside>
+</div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const DR=[['Dr. Amara Osei','GP','#0e8c8c'],['Dr. Liam Byrne','GP','#5a7bd6'],['Nurse Kate Lim','Practice nurse','#d9825e'],['Dr. Sofia Ruiz','Paediatrics','#8a6fd1']];
+const TY={check:['#e1f2f1','#0e8c8c'],vac:['#fff0c8','#c9930a'],new:['#cfe6f7','#2f7ec7'],tele:['#e6e0f8','#7a5cc4'],urg:['#ffe1da','#e05d45']};
+const A=[[0,8,30,'Maria Kowalski','Diabetes review','check'],[0,9,30,'Tom Ellis','New patient','new'],[0,10,30,'Rina Patel','Video · rash','tele'],[0,11,30,'George Hall','Chest pain','urg'],[1,8,0,'Lucy Chen','Asthma review','check'],[1,8,45,'Ahmed Saleh','Back pain','new'],[1,10,30,'Joanna Price','Video · results','tele'],[1,11,0,'Peter Novak','BP check','check'],[2,8,15,'Ella Moore','Flu vaccine','vac'],[2,8,45,'Sam Okoro','Flu vaccine','vac'],[2,9,15,'Grace Kim','Wound dressing','check'],[2,10,0,'Leo Martin','Bloods','check'],[2,11,15,'Ivy Turner','Flu vaccine','vac'],[3,9,0,'Mia Fischer (4)','6-month check','check'],[3,9,45,'Noah Walsh (2)','Fever','urg'],[3,10,45,'Zoe Brown (8)','New patient','new'],[3,11,30,'Ben Ali (11)','Video · ADHD f/u','tele']];
+const S=8,PX=60;let sel=3;const chk=new Set([0,4,8,9]);
+document.getElementById('heads').innerHTML='<div></div>'+DR.map(d=>`<div class="ch"><span class="av" style="background:${d[2]}">${d[0].split(' ').slice(-1)[0][0]}</span><div><b>${d[0]}</b><span>${d[1]}</span></div></div>`).join('');
+function cal(){let tl='<div class="tl">';for(let h=S;h<=18;h++)tl+=`<span style="top:${(h-S)*PX}px">${String(h).padStart(2,'0')}:00</span>`;tl+='</div>';
+ const cols=DR.map((_,c)=>`<div class="col" style="height:${11*PX}px">${A.map((a,i)=>a[0]!==c?'':`<div class="ap ${chk.has(i)?'chk':''}" data-i="${i}" style="top:${(a[1]-S+a[2]/60)*PX+2}px;height:${(a[5]==='vac'?25:a[5]==='new'?50:28)}px;background:${TY[a[5]][0]};border-color:${TY[a[5]][1]}"><b>${a[3]}</b><span>${String(a[1]).padStart(2,'0')}:${String(a[2]).padStart(2,'0')} · ${a[4]}</span></div>`).join('')}</div>`).join('');
+ document.getElementById('body').innerHTML=tl+cols+`<div class="now" style="top:${(10.4-S)*PX}px"></div>`}
+function det(){const a=A[sel];document.getElementById('det').innerHTML=`<h3>Appointment <span>${String(a[1]).padStart(2,'0')}:${String(a[2]).padStart(2,'0')}</span></h3><b>${a[3]}</b><div style="color:var(--mu)">${a[4]} · with ${DR[a[0]][0]}</div><div class="tags"><span>DOB 14/03/1961</span><span>NHS 943 476 5919</span><span>${a[5]==='tele'?'Video link sent':'In person'}</span></div>${a[5]==='urg'?'<div class="alert">⚠ Triaged urgent — see before 12:00</div>':'<div style="color:var(--mu);font-size:13px">Last visit 12 Jun · Metformin 500mg · No known allergies</div>'}<div style="display:flex;gap:8px;margin-top:12px"><button class="new" id="ci" style="flex:1">${chk.has(sel)?'✓ Checked in':'Check in'}</button><button class="new" style="background:#fff;color:var(--tx);border:1px solid var(--ln)">Open record</button></div>`;
+ document.getElementById('ci').onclick=()=>{chk.add(sel);cal();det();queue()}}
+function queue(){const q=[...chk].map(i=>A[i]);document.getElementById('wc').textContent=q.length+' waiting';document.getElementById('queue').innerHTML=q.map((a,k)=>`<div class="q"><i>${a[3][0]}</i><div><b>${a[3]}</b><small>${DR[a[0]][0]}</small></div><span class="wait ${k===0?'hi':''}">${[24,12,7,3,1][k]||1} min</span></div>`).join('')}
+document.getElementById('body').onclick=e=>{const ap=e.target.closest('.ap');if(ap){sel=+ap.dataset.i;det()}};
+cal();det();queue();
+</script>
+</body>
+</html>

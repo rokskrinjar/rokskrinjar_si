@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Ivory Rush</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Jost:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none;background:#0d0b09;font-family:Jost,sans-serif;color:#f4ecd8}
+canvas{display:block;position:fixed;inset:0}
+.hud{position:fixed;top:12px;left:0;right:0;text-align:center;pointer-events:none}.hud b{font-family:'Playfair Display',serif;font-size:44px;color:#d9b36a;display:block;line-height:1;text-shadow:0 2px 10px #000}.hud small{font-size:12px;letter-spacing:.25em}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#0d0b09dd}.ov.on{display:grid}
+.ov h1{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(46px,13vw,86px);color:#f4ecd8;line-height:1}.ov h1 span{color:#d9b36a;font-style:normal}
+.ov p{margin:14px auto 24px;line-height:1.8;max-width:330px;opacity:.85}
+.songs{display:flex;gap:6px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}.songs button{font:inherit;font-size:12px;border:1px solid #d9b36a66;background:none;color:#f4ecd8;padding:6px 12px;border-radius:30px;cursor:pointer}.songs button.on{background:#d9b36a;color:#0d0b09}
+.go{font-family:'Playfair Display',serif;font-size:20px;border:1px solid #d9b36a;background:#d9b36a22;color:#f4ecd8;padding:10px 36px;border-radius:40px;cursor:pointer}
+.back{position:fixed;left:12px;top:12px;color:#f4ecd8aa;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud"><b id="s">0</b><small id="bs">BEST 0</small></div>
+<div class="ov on" id="ov"><div><h1 id="t">Ivory <span>Rush</span></h1><p id="m">Tap the black keys from the bottom up — never the ivory.<br>Keys <b>D F J K</b> play the four lanes.</p><div class="songs" id="songs"><button data-s="0" class="on">Ode to Joy</button><button data-s="1">Twinkle</button><button data-s="2">Canon</button></div><button class="go" id="go">Play</button></div></div>
+<a class="back" href="index.html">← games</a>
+<script>
+const K='best-ivory-rush';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const cv=document.getElementById('c'),x=cv.getContext('2d');let W,H,CW,RH,OX;
+function fit(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);CW=Math.min(W/4,130);OX=(W-CW*4)/2;RH=H/4.2}fit();addEventListener('resize',fit);
+const NT={C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392,A4:440,B4:493.88,C5:523.25,D5:587.33,E5:659.25,F5:698.46,G5:783.99,A5:880,Fs4:369.99,Cs5:554.37,B3:246.94,A3:220,G3:196,Fs3:185};
+const SONGS=[
+'E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4 D4 D4 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4 C4 C4 D4 D4 E4 C4 D4 E4 F4 E4 C4 D4 E4 F4 E4 D4 C4 D4 G3 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4 C4 C4',
+'C4 C4 G4 G4 A4 A4 G4 F4 F4 E4 E4 D4 D4 C4 G4 G4 F4 F4 E4 E4 D4 G4 G4 F4 F4 E4 E4 D4 C4 C4 G4 G4 A4 A4 G4 F4 F4 E4 E4 D4 D4 C4',
+'Fs4 E4 D4 Cs5 B3 A3 B3 Cs5 D5 Cs5 B4 A4 G4 Fs4 G4 E4 D4 Fs4 A4 G4 Fs4 D4 Fs4 E4 D4 B3 D4 A4 G4 B4 A4 G4 Fs4 D4 E4 Cs5 D5 Fs4 A4 A4 B4 G4 A4 Fs4 D4 D5 Cs5'].map(s=>s.split(' ').map(n=>NT[n]||440));
+let song=0,st='menu',rows=[],idx=0,scroll=0,spd=0,score=0,best=ls.g(K,0),t=0,flash=null,fx=[],noteI=0;
+document.getElementById('bs').textContent='BEST '+best;
+let AC;function piano(f){try{AC=AC||new AudioContext();const t0=AC.currentTime;[1,2,3].forEach((h,i)=>{const o=AC.createOscillator(),g=AC.createGain();o.type=i?'sine':'triangle';o.frequency.value=f*h;g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime([.16,.05,.02][i],t0+.005);g.gain.exponentialRampToValueAtTime(.001,t0+1.2/(h));o.connect(g).connect(AC.destination);o.start(t0);o.stop(t0+1.3)})}catch(e){}}
+function buzz(){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type='sawtooth';o.frequency.value=90;g.gain.setValueAtTime(.08,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+.5);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+.5)}catch(e){}}
+function addRow(){const prev=rows.length?rows[rows.length-1].c:-1;let c;do{c=Math.random()*4|0}while(c===prev&&Math.random()<.7);rows.push({c,hit:false})}
+function start(){rows=[];for(let i=0;i<8;i++)addRow();idx=0;scroll=0;spd=0;score=0;noteI=0;flash=null;fx=[];st='ready';document.getElementById('ov').classList.remove('on');document.getElementById('s').textContent=0}
+// row i sits at bottom-y = H - (i+1)*RH + scroll ... row 0 initially just above the bottom edge
+function rowY(i){return H-(i+1)*RH-RH*.1+scroll}
+function tap(c){if(st==='ready'){if(rows[0].c!==c){fail(0,c);return}st='play';spd=4.2*H/800}if(st!=='play')return;
+ const r=rows[idx];if(r.c!==c){fail(idx,c);return}r.hit=true;idx++;score++;const f=SONGS[song][noteI%SONGS[song].length];noteI++;piano(f);fx.push({c,y:rowY(idx-1),l:1});document.getElementById('s').textContent=score;
+ while(rows.length<idx+8)addRow();spd=Math.min(13*H/800,(4.2+score*.035)*H/800)}
+function fail(i,c){st='dead';flash={i,c,t:0};buzz();if(score>best){best=score;ls.s(K,best)}document.getElementById('bs').textContent='BEST '+best;
+ setTimeout(()=>{st='over';document.getElementById('t').innerHTML=score>=best&&score>0?'<span>Bravo!</span>':'Fin.';document.getElementById('m').innerHTML=`${score} notes · best ${best}`;document.getElementById('go').textContent='Encore';document.getElementById('ov').classList.add('on')},1100)}
+function update(){t++;if(st==='play'){scroll+=spd;if(rowY(idx)>H){st='dead';flash={i:idx,c:rows[idx].c,t:0,miss:1};buzz();if(score>best){best=score;ls.s(K,best)}setTimeout(()=>{st='over';document.getElementById('t').innerHTML='Missed a note';document.getElementById('m').innerHTML=`${score} notes · best ${best}`;document.getElementById('go').textContent='Encore';document.getElementById('ov').classList.add('on')},1100)}}
+ if(st==='dead'&&flash&&flash.miss){const over=rowY(flash.i)+RH-H;if(over>0)scroll-=Math.min(8,over)}}
+function draw(){x.fillStyle='#f4ecd8';x.fillRect(0,0,W,H);x.fillStyle='#0d0b09';x.fillRect(0,0,OX,H);x.fillRect(OX+CW*4,0,W,H);
+ x.strokeStyle='#cbbf9f';x.lineWidth=1;for(let i=1;i<4;i++){x.beginPath();x.moveTo(OX+i*CW,0);x.lineTo(OX+i*CW,H);x.stroke()}
+ rows.forEach((r,i)=>{const y=rowY(i);if(y>H||y+RH<0)return;const X=OX+r.c*CW;
+  if(r.hit){x.fillStyle='#e7dcc1';x.fillRect(X+1,y+1,CW-2,RH-2)}else{const g=x.createLinearGradient(0,y,0,y+RH);g.addColorStop(0,'#2a241c');g.addColorStop(1,'#0d0b09');x.fillStyle=g;x.fillRect(X+1,y+1,CW-2,RH-2);x.fillStyle='#d9b36a';x.fillRect(X+CW*.3,y+RH-6,CW*.4,2)}
+  if(i===0&&st==='ready'){x.fillStyle='#d9b36a';x.font=`700 ${CW*.2}px 'Playfair Display'`;x.textAlign='center';x.fillText('START',X+CW/2,y+RH/2+CW*.07)}});
+ fx.forEach(f=>{f.l-=.05;x.strokeStyle=`rgba(217,179,106,${f.l})`;x.lineWidth=3;x.strokeRect(OX+f.c*CW+(1-f.l)*-10,f.y+(1-f.l)*-10,CW+(1-f.l)*20,RH+(1-f.l)*20)});fx=fx.filter(f=>f.l>0);
+ if(flash){flash.t++;const y=rowY(flash.i);x.fillStyle=flash.t%16<8?'#c0392b':'#e74c3c';x.fillRect(OX+flash.c*CW+1,y+1,CW-2,RH-2)}
+ x.fillStyle='#0d0b0988';x.font='600 13px Jost';x.textAlign='center';['D','F','J','K'].forEach((k,i)=>x.fillText(k,OX+(i+.5)*CW,H-10))}
+function loop(){update();draw();requestAnimationFrame(loop)}requestAnimationFrame(loop);
+const KM={d:0,f:1,j:2,k:3,D:0,F:1,J:2,K:3,'1':0,'2':1,'3':2,'4':3};
+addEventListener('keydown',e=>{if(e.repeat)return;if(e.key in KM){e.preventDefault();tap(KM[e.key])}else if((e.key===' '||e.key==='Enter')&&document.getElementById('ov').classList.contains('on')){e.preventDefault();start()}});
+cv.addEventListener('pointerdown',e=>{const c=Math.floor((e.clientX-OX)/CW);if(c>=0&&c<4)tap(c)});
+document.getElementById('songs').onclick=e=>{const b=e.target.closest('button');if(!b)return;song=+b.dataset.s;document.querySelectorAll('#songs button').forEach(x=>x.classList.toggle('on',x===b))};
+document.getElementById('go').onclick=start;start();st='menu';document.getElementById('ov').classList.add('on');
+</script>
+</body>
+</html>

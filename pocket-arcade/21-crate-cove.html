@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Crate Cove</title>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none;background:#1b8fb3;font-family:Nunito,sans-serif;color:#fff}
+canvas{display:block;position:fixed;inset:0}
+.top{position:fixed;top:8px;left:0;right:0;text-align:center;pointer-events:none}
+.top h1{font-family:'Pirata One',cursive;font-weight:400;font-size:30px;text-shadow:0 2px 0 #0b4d66;line-height:1}
+.top div{font-size:13px;opacity:.95;margin-top:2px;font-variant-numeric:tabular-nums}
+.bar{position:fixed;bottom:12px;left:0;right:0;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 8px}
+.bar button{font:inherit;font-weight:900;font-size:14px;border:0;background:#fff3d6;color:#7a4a1a;padding:9px 14px;border-radius:12px;box-shadow:0 4px 0 #c79a5a;cursor:pointer}.bar button:disabled{opacity:.4}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#0b4d66aa}.ov.on{display:grid}
+.card{background:#fff3d6;color:#6b3e14;padding:24px 30px;border-radius:18px;box-shadow:0 10px 0 #c79a5a,0 20px 40px #0005;max-width:88vw;transform:rotate(-1deg)}
+.card h2{font-family:'Pirata One',cursive;font-weight:400;font-size:44px;color:#c0392b}.card p{margin:8px 0 16px;line-height:1.5}
+.card button{font:inherit;font-weight:900;border:0;background:#c0392b;color:#fff;padding:11px 26px;border-radius:12px;cursor:pointer;font-size:16px;box-shadow:0 4px 0 #7d241b}
+.back{position:fixed;left:10px;top:10px;color:#fff;text-decoration:none;font-size:13px;font-weight:700;z-index:6;text-shadow:0 1px 2px #0006}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="top"><h1>Crate Cove</h1><div id="info">Cove 1 · moves 0 · pushes 0</div></div>
+<div class="bar"><button id="prev">◀</button><button id="undo">↶ Undo</button><button id="rs">⟲ Reset</button><button id="next">▶</button></div>
+<div class="ov" id="ov"><div class="card"><h2 id="ot">Treasure stowed!</h2><p id="op"></p><button id="go">Next cove ▶</button></div></div>
+<a class="back" href="index.html">← games</a>
+<script>
+const K='best-crate-cove';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const LV=[
+`#####
+#@  #
+# $ #
+#  .#
+#####`,
+`######
+#    #
+# $$ #
+#@.. #
+######`,
+`  ######
+  #    #
+### $$ #
+#  .#. #
+# @    #
+########`,
+` ######
+ #    #
+ # ## #
+##  $ #
+#  $. #
+# .@###
+#####`,
+` #####
+ #   #
+##$# #
+# $  #
+#.. @#
+######`,
+`#######
+#.  ..#
+# $$$ #
+#  @  #
+#######`,
+`########
+#......#
+#$$$$$$#
+#  @   #
+#      #
+########`,
+`#########
+#   #   #
+# $ $ $ #
+#  ...  #
+### @ ###
+  #####`,
+` #######
+##  .  #
+#  $#$ #
+# .@ . #
+#  $#$ #
+##  .  #
+ #######`,
+`#######
+#.   .#
+# $#$ #
+#  @  #
+# $#$ #
+#.   .#
+#######`,
+`########
+#  .   #
+# $ $$ #
+#.##  .#
+#  @ ###
+# $ .#
+######`,
+`#########
+#.  #  .#
+# $ # $ #
+#   @   #
+## $$$ ##
+ #  .  #
+ # . . #
+ #######`,
+`##########
+#   ##   #
+# $    $ #
+#  #..#  #
+## #..# ##
+#  $  $  #
+#   @    #
+##########`];
+const cv=document.getElementById('c'),x=cv.getContext('2d');let W,H,T,OX,OY;
+let lv=0,Wd,Hd,wall,goal,floor,boxes,pl,face=1,moves=0,pushes=0,hist=[],anim=null,solved=false,queue=[],t=0,unlocked=Math.max(1,ls.g(K,0)+1),rec=ls.g('crate-cove-moves',{});
+if(typeof rec!=='object'||!rec)rec={};
+function fit(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);if(Wd){T=Math.floor(Math.min((W-24)/Wd,(H-150)/Hd,64));OX=Math.floor((W-Wd*T)/2);OY=Math.floor(70+(H-140-Hd*T)/2)}}addEventListener('resize',fit);
+let AC;function tone(f,d=.06,type='triangle',v=.05,to){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;if(to)o.frequency.exponentialRampToValueAtTime(to,AC.currentTime+d);g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function load(n){lv=n;const rows=LV[n].split('\n');Hd=rows.length;Wd=Math.max(...rows.map(r=>r.length));wall=new Set();goal=new Set();boxes=[];
+ rows.forEach((r,y)=>{for(let c=0;c<Wd;c++){const ch=r[c]||' ',i=y*Wd+c;if(ch==='#')wall.add(i);if('.*+'.includes(ch))goal.add(i);if('$*'.includes(ch))boxes.push(i);if('@+'.includes(ch))pl=i}});
+ floor=new Set([pl]);const q=[pl];while(q.length){const c=q.pop();for(const d of[1,-1,Wd,-Wd]){const n=c+d;if(n>=0&&n<Wd*Hd&&!wall.has(n)&&!floor.has(n)&&Math.abs((n%Wd)-(c%Wd))<=1){floor.add(n);q.push(n)}}}
+ moves=0;pushes=0;hist=[];anim=null;queue=[];solved=false;fit();hud();document.getElementById('ov').classList.remove('on')}
+function hud(){document.getElementById('info').textContent=`Cove ${lv+1}/${LV.length} · moves ${moves} · pushes ${pushes}`+(rec[lv]?` · best ${rec[lv]}`:'');document.getElementById('prev').disabled=lv===0;document.getElementById('next').disabled=!(lv+1<unlocked&&lv<LV.length-1);document.getElementById('undo').disabled=!hist.length}
+const DV={R:[1,0],L:[-1,0],D:[0,1],U:[0,-1]};
+function step(dir){if(solved||anim)return false;const[dx,dy]=DV[dir];const px=pl%Wd,py=pl/Wd|0;const n=pl+dx+dy*Wd;if(px+dx<0||px+dx>=Wd||wall.has(n))return false;if(dx)face=dx;
+ const bi=boxes.indexOf(n);if(bi>=0){const nn=n+dx+dy*Wd;if(wall.has(nn)||boxes.includes(nn)||px+2*dx<0||px+2*dx>=Wd)return false;hist.push([pl,boxes.slice(),moves,pushes]);anim={from:pl,to:n,box:bi,bfrom:n,bto:nn,t:0};boxes[bi]=nn;pushes++;tone(goal.has(nn)?660:180,.08,goal.has(nn)?'triangle':'square',.04)}
+ else{hist.push([pl,boxes.slice(),moves,pushes]);anim={from:pl,to:n,t:0};tone(320+Math.random()*40,.03,'sine',.02)}
+ pl=n;moves++;hud();if(boxes.every(b=>goal.has(b)))win();return true}
+function win(){solved=true;queue=[];const first=!rec[lv]||moves<rec[lv];if(first){rec[lv]=moves;ls.s('crate-cove-moves',rec)}const solvedCount=Math.max(ls.g(K,0),lv+1);ls.s(K,solvedCount);unlocked=Math.max(unlocked,lv+2);hud();
+ [523,659,784,1046,1318].forEach((f,i)=>setTimeout(()=>tone(f,.18,'triangle',.05),i*90));
+ setTimeout(()=>{const last=lv===LV.length-1;document.getElementById('ot').textContent=last?'All coves plundered! 🏴‍☠️':'Treasure stowed!';document.getElementById('op').innerHTML=`${moves} moves · ${pushes} pushes${first?'<br><b>New personal best!</b>':''}`;document.getElementById('go').textContent=last?'Play again':'Next cove ▶';document.getElementById('ov').classList.add('on')},650)}
+function undo(){if(!hist.length||anim)return;const h=hist.pop();[pl,boxes,moves,pushes]=[h[0],h[1],h[2],h[3]];solved=false;queue=[];tone(240,.05,'sine',.03);hud()}
+function path(to){if(!floor.has(to)||boxes.includes(to))return null;const prev={[pl]:-1};const q=[pl];while(q.length){const c=q.shift();if(c===to)break;for(const[k,[dx,dy]]of Object.entries(DV)){const n=c+dx+dy*Wd;if(n in prev||wall.has(n)||boxes.includes(n)||!floor.has(n))continue;if(Math.abs((n%Wd)-(c%Wd))>1)continue;prev[n]=c;q.push(n)}}if(!(to in prev))return null;const out=[];let c=to;while(prev[c]!==-1){const p=prev[c],d=c-p;out.unshift(d===1?'R':d===-1?'L':d===Wd?'D':'U');c=p}return out}
+function rock(X,Y,s,seed){x.fillStyle='#7d6b5d';x.beginPath();x.roundRect(X+1,Y+1,s-2,s-2,s*.28);x.fill();x.fillStyle='#978473';x.beginPath();x.roundRect(X+3,Y+2,s-6,s*.62,s*.25);x.fill();x.fillStyle='#6fa34a';if(seed%3===0){x.beginPath();x.ellipse(X+s*.3,Y+s*.18,s*.18,s*.08,0,0,7);x.fill()}}
+function crate(X,Y,s,on){x.fillStyle=on?'#e8b04a':'#b9773a';x.beginPath();x.roundRect(X+s*.08,Y+s*.08,s*.84,s*.84,s*.1);x.fill();x.strokeStyle=on?'#8a5a10':'#6b3e14';x.lineWidth=Math.max(2,s*.06);x.strokeRect(X+s*.16,Y+s*.16,s*.68,s*.68);x.beginPath();x.moveTo(X+s*.18,Y+s*.18);x.lineTo(X+s*.82,Y+s*.82);x.moveTo(X+s*.82,Y+s*.18);x.lineTo(X+s*.18,Y+s*.82);x.stroke();
+ if(on){x.shadowColor='#ffe28a';x.shadowBlur=18;x.strokeStyle='#ffe28a';x.lineWidth=2;x.strokeRect(X+s*.08,Y+s*.08,s*.84,s*.84);x.shadowBlur=0}}
+function crab(X,Y,s){const b=Math.sin(t*.15)*s*.02;x.save();x.translate(X+s/2,Y+s/2+b);x.scale(face,1);x.fillStyle='#e94b3c';
+ x.strokeStyle='#b8322a';x.lineWidth=s*.05;for(let i=-1;i<=1;i++){x.beginPath();x.moveTo(-s*.2,s*.05+i*s*.1);x.lineTo(-s*.42,s*.15+i*s*.12);x.moveTo(s*.2,s*.05+i*s*.1);x.lineTo(s*.42,s*.15+i*s*.12);x.stroke()}
+ x.beginPath();x.ellipse(0,s*.06,s*.28,s*.2,0,0,7);x.fill();x.beginPath();x.arc(s*.34,-s*.16,s*.1,0,7);x.arc(-s*.34,-s*.16,s*.1,0,7);x.fill();
+ x.fillStyle='#fff';x.beginPath();x.arc(-s*.08,-s*.16,s*.07,0,7);x.arc(s*.1,-s*.16,s*.07,0,7);x.fill();x.fillStyle='#222';x.beginPath();x.arc(-s*.06,-s*.16,s*.035,0,7);x.arc(s*.12,-s*.16,s*.035,0,7);x.fill();x.restore()}
+function draw(){t++;const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#27a9c9');g.addColorStop(1,'#0e6f93');x.fillStyle=g;x.fillRect(0,0,W,H);
+ x.strokeStyle='#ffffff22';x.lineWidth=2;for(let i=0;i<14;i++){const y=(i*67+t*.3)%H;x.beginPath();for(let k=0;k<=W;k+=20)x.lineTo(k,y+Math.sin(k*.03+t*.03+i)*4);x.stroke()}
+ if(!Wd)return;if(anim){anim.t+=.22;if(anim.t>=1){anim=null;if(queue.length)step(queue.shift())}}
+ floor.forEach(i=>{const X=OX+(i%Wd)*T,Y=OY+(i/Wd|0)*T;x.fillStyle=((i%Wd)+(i/Wd|0))%2?'#f3d9a4':'#efd29a';x.fillRect(X-.5,Y-.5,T+1,T+1)});
+ floor.forEach(i=>{for(const d of[1,-1,Wd,-Wd]){const n=i+d;if(!floor.has(n)&&!wall.has(n)){}}});
+ wall.forEach(i=>{const X=OX+(i%Wd)*T,Y=OY+(i/Wd|0)*T;const adj=[1,-1,Wd,-Wd].some(d=>floor.has(i+d))||[Wd+1,Wd-1,-Wd+1,-Wd-1].some(d=>floor.has(i+d));if(adj)rock(X,Y,T,i)});
+ goal.forEach(i=>{const X=OX+(i%Wd+.5)*T,Y=OY+((i/Wd|0)+.5)*T;x.strokeStyle='#c0392b';x.lineWidth=T*.09;x.lineCap='round';x.beginPath();x.moveTo(X-T*.2,Y-T*.2);x.lineTo(X+T*.2,Y+T*.2);x.moveTo(X+T*.2,Y-T*.2);x.lineTo(X-T*.2,Y+T*.2);x.stroke()});
+ const e=anim?1-Math.pow(1-Math.min(1,anim.t),2):1;
+ boxes.forEach((b,i)=>{let bx=b%Wd,by=b/Wd|0;if(anim&&anim.box===i){const fx=anim.bfrom%Wd,fy=anim.bfrom/Wd|0;bx=fx+(bx-fx)*e;by=fy+(by-fy)*e}crate(OX+bx*T,OY+by*T,T,goal.has(b)&&!(anim&&anim.box===i&&e<1))});
+ let px=pl%Wd,py=pl/Wd|0;if(anim){const fx=anim.from%Wd,fy=anim.from/Wd|0;px=fx+(px-fx)*e;py=fy+(py-fy)*e}crab(OX+px*T,OY+py*T,T)}
+function loop(){draw();requestAnimationFrame(loop)}fit();load(Math.min(unlocked-1,LV.length-1));requestAnimationFrame(loop);
+const KM={ArrowRight:'R',d:'R',D:'R',ArrowLeft:'L',a:'L',A:'L',ArrowUp:'U',w:'U',W:'U',ArrowDown:'D',s:'D',S:'D'};
+addEventListener('keydown',e=>{if(document.getElementById('ov').classList.contains('on')){if(e.key===' '||e.key==='Enter'){e.preventDefault();document.getElementById('go').click()}return}
+ if(KM[e.key]){e.preventDefault();queue=[];if(anim)queue.push(KM[e.key]);else step(KM[e.key])}else if('zZuU'.includes(e.key)||e.key==='Backspace'){e.preventDefault();undo()}else if(e.key==='r'||e.key==='R')load(lv)});
+let t0=null;cv.addEventListener('pointerdown',e=>{t0=[e.clientX,e.clientY]});
+cv.addEventListener('pointerup',e=>{if(!t0)return;const dx=e.clientX-t0[0],dy=e.clientY-t0[1];t0=null;if(solved)return;
+ if(Math.max(Math.abs(dx),Math.abs(dy))>24){queue=[];const d=Math.abs(dx)>Math.abs(dy)?(dx>0?'R':'L'):(dy>0?'D':'U');if(anim)queue.push(d);else step(d);return}
+ const cx=Math.floor((e.clientX-OX)/T),cy=Math.floor((e.clientY-OY)/T);if(cx<0||cy<0||cx>=Wd||cy>=Hd)return;const i=cy*Wd+cx;const px=pl%Wd,py=pl/Wd|0;
+ if(boxes.includes(i)&&Math.abs(cx-px)+Math.abs(cy-py)===1){step(cx>px?'R':cx<px?'L':cy>py?'D':'U');return}
+ const p=path(i);if(p&&p.length){queue=p.slice(1);step(p[0])}});
+document.getElementById('undo').onclick=undo;document.getElementById('rs').onclick=()=>load(lv);
+document.getElementById('prev').onclick=()=>{if(lv>0)load(lv-1)};document.getElementById('next').onclick=()=>{if(lv<LV.length-1&&lv+1<unlocked)load(lv+1)};
+document.getElementById('go').onclick=()=>{load(lv===LV.length-1?0:lv+1)};
+</script>
+</body>
+</html>

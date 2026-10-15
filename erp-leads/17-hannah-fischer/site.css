@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+:root{--e-bg:#f5f7fa;--e-card:#fff;--e-ink:#14263d;--e-mu:#4f6077;--e-ln:#d8e0ea;--e-acc:#b3122e;--e-acc2:#1f3a5f;--e-acc-ink:#fff;--e-soft:#e9eef5;--e-r:6px;--e-font:'Atkinson Hyperlegible',system-ui,sans-serif;--e-head:'Newsreader',Georgia,serif;--e-hw:600;--e-hl:-.01em;--e-cta-bg:#1f3a5f;--e-cta-btn:#fff;--e-cta-btn-ink:#1f3a5f}
+body.e-side .e-head{background:#fff;border-right:1px solid #d8e0ea;box-shadow:inset 4px 0 #b3122e}
+body.e-side .e-nav a.on{background:#1f3a5f;color:#fff}
+.e-hero.portrait-left .e-por{border-radius:6px;border-bottom:8px solid #b3122e}
+.e-hero .e-name{font-size:clamp(34px,4.4vw,58px);line-height:1.06}
+.e-kick{color:#b3122e}
+.e-stats b{color:#1f3a5f;font-family:var(--e-head)}
+.e-why .n{color:#b3122e}
+.e-why.grid>div{border-top:3px solid #1f3a5f}

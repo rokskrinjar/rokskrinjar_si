@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Code Breaker</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Libre+Franklin:wght@500;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:manipulation;user-select:none}
+body{background:radial-gradient(ellipse at 50% 0%,#5a3a22,#2c1a0e 70%);font-family:'Libre Franklin',sans-serif;color:#f3e3c3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:40px 10px 10px}
+h1{font-family:'Abril Fatface',serif;font-weight:400;font-size:clamp(30px,8vw,46px);color:#f0c36a;text-shadow:0 3px 0 #1a0f07;letter-spacing:.02em}
+.stat{font-size:12px;letter-spacing:.15em;opacity:.8}
+.board{background:linear-gradient(90deg,#8a5a34,#a8703f 30%,#8a5a34 70%,#7a4d2b);padding:10px 12px;border-radius:14px;box-shadow:inset 0 2px 0 #ffffff22,0 12px 30px #0008;display:flex;flex-direction:column;gap:4px;--p:min(8.5vw,calc((100vh - 330px)/11.5),38px)}
+.row{display:flex;align-items:center;gap:8px;padding:3px 6px;border-radius:30px}.row.cur{background:#00000033;box-shadow:0 0 0 2px #f0c36a88}
+.row .n{width:16px;font-size:10px;opacity:.6;text-align:right}
+.slot{width:var(--p);height:var(--p);border-radius:50%;background:radial-gradient(circle at 50% 40%,#3a2210,#5a3a20);box-shadow:inset 0 3px 5px #0008;cursor:pointer}
+.slot.f{box-shadow:0 3px 4px #0006}.slot.sel{outline:2px dashed #f0c36a;outline-offset:2px}
+.fb{display:grid;grid-template-columns:repeat(2,calc(var(--p)*.34));gap:3px;margin-left:6px}.fb i{width:calc(var(--p)*.34);height:calc(var(--p)*.34);border-radius:50%;background:#3a2210;box-shadow:inset 0 1px 2px #0008}.fb i.b{background:#1a1a1a;box-shadow:0 0 0 1px #000}.fb i.w{background:#f7f2e8}
+.secret{display:flex;gap:8px;padding:6px 10px 6px 30px;margin-bottom:6px;border-bottom:2px solid #5a3a20}.secret .slot{background:#2c1a0e}
+.pal{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.pal button{width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;box-shadow:0 4px 6px #0008;font:inherit;font-weight:800;font-size:12px;color:#0006;position:relative}
+.act{display:flex;gap:8px}.act button{font:inherit;font-weight:800;font-size:13px;border:0;background:#f0c36a;color:#2c1a0e;padding:10px 18px;border-radius:30px;cursor:pointer;box-shadow:0 4px 0 #a07a2c}.act button.alt{background:#5a3a20;color:#f3e3c3;box-shadow:0 4px 0 #2c1a0e}
+.msg{min-height:20px;font-size:14px;text-align:center}
+.back{position:fixed;left:12px;top:12px;color:#f3e3c3aa;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="back" href="index.html">← games</a>
+<h1>Code Breaker</h1>
+<div class="stat" id="stat">STREAK 0 · BEST 0</div>
+<div class="board" id="board"></div>
+<div class="pal" id="pal"></div>
+<div class="act"><button class="alt" id="clr">⌫ Clear</button><button id="sub">Check ✓</button><button class="alt" id="nw">New</button></div>
+<div class="msg" id="msg">Crack the 4-marble code in 10 tries. ● right place · ○ right colour.</div>
+<script>
+const K='best-code-breaker';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const C=['#e63946','#f4a261','#f1dc4a','#2a9d8f','#4a7bd9','#b56bd6'];const ROWS=10,P=4;
+const boardEl=document.getElementById('board');let secret,guesses,cur,row,done,streak=ls.g('code-breaker-streak',0),best=ls.g(K,0);
+let AC;function tone(f,d=.08,type='triangle',v=.05){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function marble(el,c){if(c===null||c===undefined){el.style.background='';el.classList.remove('f');return}el.style.background=`radial-gradient(circle at 35% 30%,#fff 0 8%,${C[c]} 30%,${C[c]} 55%,#0006 100%)`;el.classList.add('f')}
+const pal=document.getElementById('pal');C.forEach((c,i)=>{const b=document.createElement('button');marble(b,i);b.textContent=i+1;b.onclick=()=>put(i);pal.appendChild(b)});
+function stat(){document.getElementById('stat').textContent=`STREAK ${streak} · BEST ${best}`}
+function newGame(){secret=[...Array(P)].map(()=>Math.random()*C.length|0);guesses=[...Array(ROWS)].map(()=>Array(P).fill(null));row=0;cur=0;done=false;build();msg('Crack the 4-marble code in 10 tries. ● right place · ○ right colour.');stat()}
+function build(){boardEl.innerHTML='';const s=document.createElement('div');s.className='secret';s.innerHTML=[...Array(P)].map(()=>'<div class="slot"></div>').join('');boardEl.appendChild(s);
+ for(let r=ROWS-1;r>=0;r--){const d=document.createElement('div');d.className='row';d.dataset.r=r;d.innerHTML=`<span class="n">${r+1}</span>`+[...Array(P)].map((_,i)=>`<div class="slot" data-i="${i}"></div>`).join('')+'<div class="fb">'+'<i></i>'.repeat(4)+'</div>';d.onclick=e=>{const sl=e.target.closest('.slot');if(sl&&+d.dataset.r===row&&!done){cur=+sl.dataset.i;paint()}};boardEl.appendChild(d)}paint()}
+function rowEl(r){return boardEl.querySelector(`.row[data-r="${r}"]`)}
+function paint(){for(let r=0;r<ROWS;r++){const re=rowEl(r);re.classList.toggle('cur',r===row&&!done);re.querySelectorAll('.slot').forEach((s,i)=>{marble(s,guesses[r][i]);s.classList.toggle('sel',r===row&&i===cur&&!done)})}}
+function msg(m){document.getElementById('msg').innerHTML=m}
+function put(c){if(done)return;guesses[row][cur]=c;tone(300+c*80,.06);const nx=guesses[row].findIndex((v,i)=>i>cur&&v===null);cur=nx>=0?nx:Math.min(P-1,cur+1);paint()}
+function clear(){if(done)return;if(guesses[row][cur]===null&&cur>0)cur--;guesses[row][cur]=null;paint()}
+function submit(){if(done)return;const g=guesses[row];if(g.some(v=>v===null)){msg('Fill all four slots first.');tone(150,.1,'square',.03);return}
+ let b=0,w=0;const sc=[],gc=[];for(let i=0;i<P;i++){if(g[i]===secret[i])b++;else{sc.push(secret[i]);gc.push(g[i])}}gc.forEach(v=>{const k=sc.indexOf(v);if(k>=0){w++;sc.splice(k,1)}});
+ const pegs=rowEl(row).querySelectorAll('.fb i');[...Array(b).fill('b'),...Array(w).fill('w')].forEach((c,i)=>setTimeout(()=>{pegs[i].className=c;tone(c==='b'?900:600,.05,'sine',.04)},i*120));
+ if(b===P){done=true;streak++;ls.s('code-breaker-streak',streak);if(streak>best){best=streak;ls.s(K,best)}reveal();msg(`Cracked in ${row+1}! ${row<3?'Uncanny.':row<6?'Sharp.':'Phew.'} Streak ${streak}. Press N or “New”.`);[523,659,784,1046].forEach((f,i)=>setTimeout(()=>tone(f,.2),500+i*100))}
+ else{row++;cur=0;if(row>=ROWS){done=true;streak=0;ls.s('code-breaker-streak',0);reveal();msg('Out of tries — the code is revealed above. Streak reset. (N)');tone(150,.5,'sawtooth',.05)}}
+ stat();paint()}
+function reveal(){boardEl.querySelectorAll('.secret .slot').forEach((s,i)=>setTimeout(()=>marble(s,secret[i]),i*150))}
+addEventListener('keydown',e=>{const k=e.key;if(/^[1-6]$/.test(k))put(+k-1);else if(k==='ArrowLeft'){cur=Math.max(0,cur-1);paint()}else if(k==='ArrowRight'){cur=Math.min(P-1,cur+1);paint()}else if(k==='Backspace'||k==='Delete'){e.preventDefault();clear()}else if(k==='Enter'||k===' '){e.preventDefault();done?newGame():submit()}else if(k==='n'||k==='N')newGame()});
+document.getElementById('clr').onclick=clear;document.getElementById('sub').onclick=submit;document.getElementById('nw').onclick=newGame;
+newGame();
+</script>
+</body>
+</html>

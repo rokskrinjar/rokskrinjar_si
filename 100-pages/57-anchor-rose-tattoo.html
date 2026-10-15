@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anchor & Rose Tattoo Parlour</title>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Cabin+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#efe2c4;--paper2:#e4d2ab;--ink:#161210;--red:#c3261f;--green:#2f6b3a;--yellow:#e8b320;--teal:#2b7a78;--skin:#e8b894}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#1b1411;color:var(--ink);font-family:'Cabin Condensed',sans-serif}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;cursor:pointer}
+header{background:var(--ink);color:var(--paper);padding:18px 4vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;border-bottom:4px double var(--red)}
+.logo{font-family:Rye;font-size:28px;display:flex;align-items:center;gap:12px}
+.logo em{font-style:normal;color:var(--red)}
+nav{display:flex;gap:2px;flex-wrap:wrap}
+nav a{font-family:Rye;padding:8px 14px;font-size:15px;color:#efe2c4aa}
+nav a.on{color:var(--yellow);text-decoration:underline wavy var(--red) 2px;text-underline-offset:6px}
+[data-view][hidden]{display:none}
+.sheet{background:var(--paper);background-image:radial-gradient(ellipse at 30% 20%,#fff6 0,transparent 50%),radial-gradient(ellipse at 80% 90%,#b08a4a44 0,transparent 50%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .3 0 0 0 0 .15 0 0 0 .12 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");min-height:calc(100vh - 80px);padding:40px 4vw 80px}
+h2{font-family:Rye;font-weight:400;font-size:clamp(2.2rem,5vw,4rem);text-align:center;line-height:1.05}
+.banner{display:block;margin:0 auto 10px;width:min(560px,90%)}
+.lede{text-align:center;max-width:56ch;margin:0 auto 30px;font-size:18px;line-height:1.5}
+/* flash */
+.flash{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:22px;max-width:1200px;margin:0 auto}
+.fl{background:none;border:0;text-align:center;position:relative;padding:10px;border-radius:6px;transition:transform .2s}
+.fl:hover{transform:rotate(-2deg) scale(1.04)}
+.fl.on{background:#fff5;outline:2px dashed var(--red)}
+.fl svg{width:100%;height:auto;max-height:210px;filter:drop-shadow(1px 1px 0 #0002)}
+.fl .p{font-family:Rye;font-size:18px;margin-top:4px}
+.fl .p small{font-family:'Cabin Condensed';font-weight:700;font-size:13px;color:var(--red);margin-left:6px}
+.tools{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 auto 26px}
+.tools input{padding:10px 14px;border:3px solid var(--ink);background:#fff8;font-size:18px;font-family:Rye;text-align:center;width:220px}
+.btn{font-family:Rye;background:var(--red);color:var(--paper);border:3px solid var(--ink);padding:10px 20px;font-size:16px;box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.btn.alt{background:var(--paper);color:var(--ink)}
+/* try on */
+.tryon{display:grid;grid-template-columns:1fr 300px;gap:30px;max-width:1100px;margin:0 auto;align-items:start}
+.stage{background:#2a201b;border:4px solid var(--ink);position:relative;overflow:hidden;touch-action:none}
+.stage svg{display:block;width:100%;height:auto}
+.ctrls{background:#fff6;border:3px solid var(--ink);padding:20px}
+.ctrls label{display:block;font-family:Rye;font-size:15px;margin:14px 0 6px}
+.ctrls input[type=range]{width:100%;accent-color:var(--red)}
+.tones{display:flex;gap:8px}
+.tones button{width:36px;height:36px;border-radius:50%;border:3px solid var(--ink)}
+.tones button.on{outline:3px solid var(--red);outline-offset:2px}
+.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.mini button{background:#fff8;border:2px solid var(--ink);padding:4px}
+.mini button.on{background:var(--yellow)}
+.mini svg{width:100%;height:50px}
+/* booking */
+.book{display:grid;grid-template-columns:1fr 1fr;gap:30px;max-width:1100px;margin:0 auto}
+.artists{display:grid;gap:12px}
+.art{display:flex;gap:14px;align-items:center;background:#fff6;border:3px solid var(--ink);padding:12px;text-align:left}
+.art.on{background:var(--yellow)}
+.art .face{width:64px;height:64px;border-radius:50%;border:3px solid var(--ink);flex:none;display:grid;place-items:center;font-family:Rye;font-size:26px;color:var(--paper)}
+.art b{font-family:Rye;font-size:20px;font-weight:400}
+.cal{background:#fff6;border:3px solid var(--ink);padding:16px}
+.cal .days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal .days span{font-weight:700;font-size:12px}
+.cal .d{aspect-ratio:1;border:2px solid var(--ink);background:none;font-weight:700}
+.cal .d.x{opacity:.25;cursor:not-allowed;text-decoration:line-through}
+.cal .d.on{background:var(--red);color:var(--paper)}
+.slots{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.slots button{border:2px solid var(--ink);background:none;padding:6px 12px;font-weight:700}
+.slots button.on{background:var(--ink);color:var(--paper)}
+.ticket{margin-top:18px;border:3px dashed var(--ink);padding:16px;font-size:17px;line-height:1.6;background:#fff8}
+/* aftercare */
+.care{max-width:900px;margin:0 auto;position:relative}
+.care::before{content:"";position:absolute;left:39px;top:0;bottom:0;border-left:4px dotted var(--ink)}
+.step{display:grid;grid-template-columns:80px 1fr;gap:18px;margin-bottom:22px;position:relative;cursor:pointer}
+.step .n{width:80px;height:80px;border-radius:50%;background:var(--paper);border:4px solid var(--ink);display:grid;place-items:center;font-family:Rye;font-size:15px;text-align:center;line-height:1;z-index:1}
+.step.done .n{background:var(--green);color:var(--paper)}
+.step .c{background:#fff6;border:3px solid var(--ink);padding:14px 18px}
+.step .c b{font-family:Rye;font-weight:400;font-size:20px}
+.step .c p{margin-top:4px;line-height:1.5;font-size:16px}
+.heal{max-width:900px;margin:0 auto 26px;background:var(--ink);color:var(--paper);padding:16px 20px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.heal .bar{flex:1;min-width:200px;height:18px;border:2px solid var(--paper);position:relative}
+.heal .bar i{position:absolute;inset:0;right:auto;background:repeating-linear-gradient(45deg,var(--red) 0 10px,#e04a3a 10px 20px);transition:width .4s}
+@media(max-width:860px){.tryon,.book{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">⚓ Anchor <em>&</em> Rose</div>
+ <nav><a href="#flash">Flash Wall</a><a href="#tryon">Try It On</a><a href="#book">Book a Sitting</a><a href="#care">Aftercare</a><a href="index.html">Index ↩</a></nav>
+</header>
+
+<section data-view="flash" class="sheet">
+ <svg class="banner" viewBox="0 0 560 90"><path d="M20 30 L70 30 L60 50 L70 70 L20 70 L34 50Z" fill="#c3261f" stroke="#161210" stroke-width="4" stroke-linejoin="round"/><path d="M540 30 L490 30 L500 50 L490 70 L540 70 L526 50Z" fill="#c3261f" stroke="#161210" stroke-width="4" stroke-linejoin="round"/><path d="M60 16 Q280 -4 500 16 L500 64 Q280 44 60 64Z" fill="#efe2c4" stroke="#161210" stroke-width="4"/><text x="280" y="50" text-anchor="middle" font-family="Rye" font-size="30" fill="#161210">WALK-INS WELCOME</text></svg>
+ <h2>Pick your flash</h2>
+ <p class="lede">Hand-painted designs, every one ready to go. Type a name for the heart banner, then pick a design and try it on.</p>
+ <div class="tools"><input id="bannerTxt" maxlength="10" value="MOTHER"><button class="btn" onclick="go('tryon')">Try on selected →</button></div>
+ <div class="flash" id="flashG"></div>
+</section>
+
+<section data-view="tryon" class="sheet" hidden>
+ <h2>Try it on</h2>
+ <p class="lede">Drag the design to move it. Use the sliders to size and angle it. Measure twice, ink once.</p>
+ <div class="tryon">
+  <div class="stage"><svg id="arm" viewBox="0 0 700 520"></svg></div>
+  <div class="ctrls">
+   <label>Design</label><div class="mini" id="mini"></div>
+   <label>Size · <span id="szv">100</span>%</label><input type="range" id="sz" min="40" max="180" value="100">
+   <label>Angle · <span id="rtv">0</span>°</label><input type="range" id="rt" min="-60" max="60" value="0">
+   <label>Skin</label><div class="tones" id="tones"></div>
+   <label>Placement</label><div id="place" style="font-size:18px">Forearm</div>
+   <label>Estimate</label><div id="est" style="font-family:Rye;font-size:34px">$120</div>
+   <button class="btn" style="margin-top:14px;width:100%" onclick="go('book')">Book it</button>
+  </div>
+ </div>
+</section>
+
+<section data-view="book" class="sheet" hidden>
+ <h2>Book a sitting</h2>
+ <p class="lede">Four artists, two chairs, one very old sailor's radio. A $50 deposit holds your slot and comes off the final price.</p>
+ <div class="book">
+  <div class="artists" id="artists"></div>
+  <div><div class="cal" id="cal"></div><div class="ticket" id="ticket"></div></div>
+ </div>
+</section>
+
+<section data-view="care" class="sheet" hidden>
+ <h2>Aftercare</h2>
+ <p class="lede">A tattoo is a wound for the first few weeks. Tick off each stage as you get there.</p>
+ <div class="heal"><b style="font-family:Rye">Healing</b><div class="bar"><i id="healBar"></i></div><span id="healT">0%</span></div>
+ <div class="care" id="careL"></div>
+</section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'flash';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}if(id==='tryon')drawArm()}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+const K='#161210',R='#c3261f',G='#2f6b3a',Y='#e8b320',T='#2b7a78',S='stroke="#161210" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"';
+const esc=s=>s.replace(/[<>&"]/g,'');
+const FL={
+ heart:['Mother Heart',120,()=>`<path d="M100 170 C40 120 20 90 20 60 C20 30 45 15 65 15 C82 15 95 25 100 40 C105 25 118 15 135 15 C155 15 180 30 180 60 C180 90 160 120 100 170Z" fill="${R}" ${S}/><path d="M50 40 Q60 30 72 32" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" opacity=".7"/><path d="M4 80 L30 70 L30 108 L4 100 L16 90Z" fill="${Y}" ${S}/><path d="M196 80 L170 70 L170 108 L196 100 L184 90Z" fill="${Y}" ${S}/><path d="M26 66 Q100 52 174 66 L174 110 Q100 96 26 110Z" fill="#efe2c4" ${S}/><text x="100" y="97" text-anchor="middle" font-family="Rye" font-size="${Math.min(26,190/Math.max(3,(document.getElementById('bannerTxt')?.value||'MOTHER').length)*1.3)}" fill="${K}">${esc((document.getElementById('bannerTxt')?.value||'MOTHER').toUpperCase())}</text>`],
+ swallow:['Homeward Swallow',140,()=>`<path d="M40 110 Q70 60 110 70 Q150 40 190 30 Q160 70 140 84 Q170 90 196 120 Q150 110 120 110 Q100 130 60 150 Q70 128 80 118 Q50 124 10 110 Q30 104 40 110Z" fill="${T}" ${S}/><path d="M80 112 Q100 100 120 108 Q104 124 80 118Z" fill="#efe2c4" ${S}/><path d="M104 74 Q116 68 124 80 Q114 88 104 80Z" fill="${R}" ${S}/><circle cx="112" cy="76" r="3" fill="${K}"/><path d="M150 60 L170 44 M160 70 L184 54" stroke="${K}" stroke-width="3"/>`],
+ anchor:['Sailor\'s Anchor',150,()=>`<circle cx="100" cy="30" r="16" fill="none" ${S}/><path d="M92 46 h16 v104 h-16z" fill="${K}"/><path d="M60 62 h80 v14 h-80z" fill="${K}"/><circle cx="60" cy="69" r="9" fill="${K}"/><circle cx="140" cy="69" r="9" fill="${K}"/><path d="M30 120 Q40 175 100 180 Q160 175 170 120 L182 132 L170 100 L150 118 L160 122 Q150 160 100 162 Q50 160 40 122 L50 118 L30 100 L18 132Z" fill="${K}"/><path d="M40 60 Q10 100 60 110 Q120 116 100 70 Q130 30 170 60" stroke="${R}" stroke-width="8" fill="none"/><path d="M40 60 Q10 100 60 110 Q120 116 100 70 Q130 30 170 60" stroke="${K}" stroke-width="2" fill="none"/>`],
+ rose:['Traditional Rose',130,()=>`<path d="M40 150 Q20 120 50 110 Q60 130 40 150Z M160 150 Q180 120 150 110 Q140 130 160 150Z" fill="${G}" ${S}/><path d="M100 170 Q30 150 40 90 Q50 40 100 36 Q150 40 160 90 Q170 150 100 170Z" fill="${R}" ${S}/><path d="M60 100 Q70 70 100 66 Q130 70 140 100 Q120 90 100 110 Q80 90 60 100Z" fill="#e0453c" ${S}/><path d="M80 80 Q100 56 120 80 Q108 76 100 90 Q92 76 80 80Z" fill="${R}" ${S}/><path d="M70 130 Q100 150 130 130" fill="none" ${S}/><path d="M60 64 Q70 54 80 56" stroke="#fff" stroke-width="5" fill="none" opacity=".6" stroke-linecap="round"/>`],
+ dagger:['Dagger & Heart',160,()=>`<path d="M100 10 L112 40 L112 150 L100 176 L88 150 L88 40Z" fill="#cfd6da" ${S}/><path d="M100 40 V150" stroke="${K}" stroke-width="2"/><path d="M60 40 Q100 30 140 40 L140 50 Q100 42 60 50Z" fill="${Y}" ${S}/><path d="M92 4 h16 v36 h-16z" fill="${K}"/><path d="M100 150 C60 120 50 100 50 84 C50 68 62 60 74 60 C86 60 96 68 100 78 C104 68 114 60 126 60 C138 60 150 68 150 84 C150 100 140 120 100 150Z" fill="${R}" ${S}/><path d="M92 150 L100 176 L108 150" fill="#cfd6da" ${S}/><circle cx="100" cy="186" r="6" fill="${R}" ${S}/>`],
+ skull:['Grinning Skull',150,()=>`<path d="M40 90 Q40 20 100 20 Q160 20 160 90 Q160 116 140 124 L140 150 L60 150 L60 124 Q40 116 40 90Z" fill="#efe2c4" ${S}/><path d="M60 80 Q60 64 78 64 Q92 66 90 86 Q86 100 72 100 Q60 98 60 80Z M140 80 Q140 64 122 64 Q108 66 110 86 Q114 100 128 100 Q140 98 140 80Z" fill="${K}"/><path d="M100 104 L92 120 L108 120Z" fill="${K}"/><path d="M68 132 h64 M76 124 v26 M92 124 v26 M108 124 v26 M124 124 v26" ${S}/><path d="M30 170 L60 150 M170 170 L140 150" stroke="${K}" stroke-width="10" stroke-linecap="round"/><circle cx="72" cy="80" r="5" fill="${R}"/><circle cx="128" cy="80" r="5" fill="${R}"/>`],
+ dice:['Lucky Dice',100,()=>`<g transform="rotate(-14 70 100)"><rect x="24" y="58" width="80" height="80" rx="12" fill="${R}" ${S}/><circle cx="46" cy="80" r="7" fill="#efe2c4"/><circle cx="82" cy="116" r="7" fill="#efe2c4"/><circle cx="64" cy="98" r="7" fill="#efe2c4"/></g><g transform="rotate(12 140 100)"><rect x="100" y="70" width="76" height="76" rx="12" fill="#efe2c4" ${S}/><circle cx="120" cy="90" r="7" fill="${K}"/><circle cx="156" cy="90" r="7" fill="${K}"/><circle cx="120" cy="126" r="7" fill="${K}"/><circle cx="156" cy="126" r="7" fill="${K}"/></g><text x="100" y="186" text-anchor="middle" font-family="Rye" font-size="24" fill="${K}">LUCKY 7</text>`],
+ star:['Nautical Star',90,()=>{let p='';for(let i=0;i<5;i++){const a=i*Math.PI*2/5-Math.PI/2,b=a+Math.PI/5;const o=[100+Math.cos(a)*80,100+Math.sin(a)*80],n=[100+Math.cos(b)*32,100+Math.sin(b)*32],pa=[100+Math.cos(a-Math.PI/5)*32,100+Math.sin(a-Math.PI/5)*32];p+=`<path d="M100 100 L${o} L${n}Z" fill="${K}"/><path d="M100 100 L${o} L${pa}Z" fill="${i%2?R:'#efe2c4'}"/>`}return p+`<path d="${[...Array(10)].map((_,i)=>{const a=i*Math.PI/5-Math.PI/2,r=i%2?32:80;return(i?'L':'M')+(100+Math.cos(a)*r)+' '+(100+Math.sin(a)*r)}).join(' ')}Z" fill="none" ${S}/>`}]};
+let pick=store.get('ar-pick','heart');
+function drawFlash(){document.getElementById('flashG').innerHTML=Object.entries(FL).map(([k,f])=>`<button class="fl ${k===pick?'on':''}" data-k="${k}"><svg viewBox="0 0 200 200">${f[2]()}</svg><div class="p">${f[0]}<small>$${f[1]}</small></div></button>`).join('')}
+document.getElementById('flashG').onclick=e=>{const b=e.target.closest('.fl');if(!b)return;pick=b.dataset.k;store.set('ar-pick',pick);drawFlash()};
+document.getElementById('bannerTxt').oninput=drawFlash;drawFlash();
+
+/* try on */
+const TONES=['#f3d0b5','#e8b894','#c68a5e','#9a6440','#6b4128','#3f2618'];let tone=1,tx=360,ty=250,drag=null;
+function drawArm(){const sk=TONES[tone],sz=+document.getElementById('sz').value/100,rt=+document.getElementById('rt').value;
+ document.getElementById('szv').textContent=Math.round(sz*100);document.getElementById('rtv').textContent=rt;
+ const sh=`rgba(0,0,0,.18)`;
+ document.getElementById('arm').innerHTML=`<defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sk}"/><stop offset=".55" stop-color="${sk}"/><stop offset="1" stop-color="${sh}"/></linearGradient><clipPath id="clip"><path id="armP" d="M-20 150 Q200 120 420 170 Q560 190 640 200 Q700 210 700 260 Q700 320 640 330 Q560 340 420 350 Q200 380 -20 370Z"/></clipPath></defs>
+ <rect width="700" height="520" fill="#2a201b"/><text x="30" y="60" font-family="Rye" font-size="22" fill="#efe2c444">ANCHOR &amp; ROSE · STENCIL PREVIEW</text>
+ <path d="M-20 150 Q200 120 420 170 Q560 190 640 200 Q700 210 700 260 Q700 320 640 330 Q560 340 420 350 Q200 380 -20 370Z" fill="${sk}"/><path d="M-20 150 Q200 120 420 170 Q560 190 640 200 Q700 210 700 260 Q700 320 640 330 Q560 340 420 350 Q200 380 -20 370Z" fill="url(#ag)" opacity=".6"/>
+ <g clip-path="url(#clip)"><g transform="translate(${tx} ${ty}) rotate(${rt}) scale(${sz*.85}) translate(-100 -100)" style="mix-blend-mode:multiply" opacity=".92" id="tat">${FL[pick][2]()}</g></g>
+ <path d="M420 350 Q470 320 470 260" stroke="${sh}" stroke-width="3" fill="none"/><path d="M60 360 Q200 340 360 350" stroke="#ffffff22" stroke-width="10" fill="none"/>`;
+ document.getElementById('place').textContent=tx<200?'Upper arm':tx<420?'Forearm':'Wrist';
+ const price=Math.round(FL[pick][1]*sz*sz/10)*10;document.getElementById('est').textContent='$'+price+' · ~'+Math.max(1,Math.round(price/90*10)/10)+' hrs';
+ document.getElementById('mini').innerHTML=Object.entries(FL).map(([k,f])=>`<button class="${k===pick?'on':''}" data-k="${k}"><svg viewBox="0 0 200 200">${f[2]()}</svg></button>`).join('');
+ document.getElementById('tones').innerHTML=TONES.map((t,i)=>`<button style="background:${t}" class="${i===tone?'on':''}" data-t="${i}"></button>`).join('')}
+['sz','rt'].forEach(id=>document.getElementById(id).oninput=drawArm);
+document.getElementById('mini').onclick=e=>{const b=e.target.closest('button');if(!b)return;pick=b.dataset.k;drawArm();drawFlash()};
+document.getElementById('tones').onclick=e=>{const t=e.target.dataset.t;if(t==null)return;tone=+t;drawArm()};
+const arm=document.getElementById('arm');const pt=e=>{const r=arm.getBoundingClientRect();return[(e.clientX-r.left)/r.width*700,(e.clientY-r.top)/r.height*520]};
+arm.addEventListener('pointerdown',e=>{const[x,y]=pt(e);drag=[x-tx,y-ty];arm.setPointerCapture(e.pointerId)});
+arm.addEventListener('pointermove',e=>{if(!drag)return;const[x,y]=pt(e);tx=Math.max(40,Math.min(660,x-drag[0]));ty=Math.max(170,Math.min(350,y-drag[1]));const g=document.getElementById('tat');const sz=+document.getElementById('sz').value/100,rt=+document.getElementById('rt').value;g.setAttribute('transform',`translate(${tx} ${ty}) rotate(${rt}) scale(${sz*.85}) translate(-100 -100)`)});
+arm.addEventListener('pointerup',()=>{if(drag){drag=null;drawArm()}});
+
+/* booking */
+const ART=[['"Sailor" Sal','Traditional & nautical · 31 yrs','#c3261f','S',[1,3,5]],['Rosa Vega','Roses, botanicals & lettering','#2f6b3a','R',[2,4,6]],['Kenji Mori','Irezumi & big back pieces','#2b7a78','K',[1,2,3,4]],['Dot Pemberton','Fine line & dotwork','#161210','D',[0,5,6]]];
+let aSel=0,day=null,slot=null;
+function drawBook(){document.getElementById('artists').innerHTML=ART.map((a,i)=>`<button class="art ${i===aSel?'on':''}" data-i="${i}"><div class="face" style="background:${a[2]}">${a[3]}</div><div><b>${a[0]}</b><div>${a[1]}</div><div style="font-size:13px;opacity:.7">In the chair: ${a[4].map(d=>['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d]).join(', ')}</div></div></button>`).join('');
+ const now=new Date(),y=now.getFullYear(),m=now.getMonth(),first=new Date(y,m,1).getDay(),dim=new Date(y,m+1,0).getDate();
+ let c=`<div style="font-family:Rye;font-size:22px;text-align:center;margin-bottom:10px">${now.toLocaleString('en',{month:'long'})} ${y}</div><div class="days">${'SMTWTFS'.split('').map(d=>`<span>${d}</span>`).join('')}${'<i></i>'.repeat(first)}`;
+ for(let d=1;d<=dim;d++){const wd=(first+d-1)%7,ok=ART[aSel][4].includes(wd)&&d>=now.getDate()&&(d*7+aSel)%5!==0;c+=`<button class="d ${ok?'':'x'} ${d===day?'on':''}" data-d="${d}" ${ok?'':'disabled'}>${d}</button>`}
+ c+='</div>';if(day)c+=`<div class="slots">${['11:00','13:30','16:00','18:30'].map((s,i)=>(day+i)%3===1?`<button disabled style="opacity:.3;text-decoration:line-through">${s}</button>`:`<button class="${s===slot?'on':''}" data-s="${s}">${s}</button>`).join('')}</div>`;
+ document.getElementById('cal').innerHTML=c;
+ document.getElementById('ticket').innerHTML=day&&slot?`<b style="font-family:Rye;font-size:22px">Appointment card</b><br>${FL[pick][0]} with <b>${ART[aSel][0]}</b><br>${new Date(y,m,day).toLocaleDateString('en',{weekday:'long',day:'numeric',month:'long'})} at ${slot}<br>Deposit $50 · balance about $${FL[pick][1]-50}<br><button class="btn" id="conf" style="margin-top:10px">Hold my slot</button>`:'Choose an artist, a day and a time. Your flash: <b>'+FL[pick][0]+'</b>'}
+document.getElementById('artists').onclick=e=>{const b=e.target.closest('.art');if(!b)return;aSel=+b.dataset.i;day=slot=null;drawBook()};
+document.getElementById('cal').onclick=e=>{if(e.target.dataset.d){day=+e.target.dataset.d;slot=null;drawBook()}if(e.target.dataset.s){slot=e.target.dataset.s;drawBook()}};
+document.getElementById('ticket').onclick=e=>{if(e.target.id==='conf'){e.target.outerHTML='<div style="font-family:Rye;color:#c3261f;font-size:24px;transform:rotate(-4deg);margin-top:8px">★ SEE YOU THEN, SAILOR ★</div>'}};
+drawBook();
+
+/* aftercare */
+const CARE=[['Hour 0','Wrapped','Leave the wrap on for 2–4 hours. Don\'t peek at it, however tempting.'],['Day 1','First wash','Wash with lukewarm water and unscented soap, using clean hands and no cloth. Pat dry with paper towel.'],['Days 2–3','Ooze & tenderness','Plasma and ink weeping out is normal. Put on a very thin layer of balm 2–3 times a day.'],['Days 4–7','Peeling','It flakes like a sunburn. Do not pick or scratch it. Slap it gently if the itch drives you mad.'],['Week 2','Cloudy skin','A milky film covers the ink. It\'s new skin and it will clear.'],['Weeks 3–4','Settled','No more swimming bans. Use SPF 50 on it for the rest of your life.'],['Month 2','Touch-up','Come back for a free touch-up of any patchy spots.']];
+let done=new Set(store.get('ar-care',[0]));
+function drawCare(){document.getElementById('careL').innerHTML=CARE.map((c,i)=>`<div class="step ${done.has(i)?'done':''}" data-i="${i}"><div class="n">${done.has(i)?'✓':c[0]}</div><div class="c"><b>${c[0]} · ${c[1]}</b><p>${c[2]}</p></div></div>`).join('');const p=Math.round(done.size/CARE.length*100);document.getElementById('healBar').style.width=p+'%';document.getElementById('healT').textContent=p+'%'}
+document.getElementById('careL').onclick=e=>{const s=e.target.closest('.step');if(!s)return;const i=+s.dataset.i;done.has(i)?done.delete(i):done.add(i);store.set('ar-care',[...done]);drawCare()};drawCare();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

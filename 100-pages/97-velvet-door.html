@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Velvet Door — A Speakeasy</title>
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--velvet:#4a0f18;--velvet2:#2a060c;--brass:#c9a04a;--cream:#f2e6cc;--smoke:#1a1214;--dim:#f2e6cc99}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(ellipse at 50% 0%,#6a1a24,var(--velvet2) 70%);background-attachment:fixed;color:var(--cream);font-family:'Libre Baskerville',serif;min-height:100vh}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 4vw;border-bottom:1px solid #c9a04a44}
+.logo{font-family:'Rozha One';font-size:30px;color:var(--brass);letter-spacing:.04em}
+nav{display:flex;gap:18px;flex-wrap:wrap;font-style:italic}
+nav a{color:var(--dim)}nav a.on{color:var(--brass)}
+nav a.locked{opacity:.35;pointer-events:none}
+[data-view][hidden]{display:none}
+.wrap{max-width:1180px;margin:0 auto;padding:30px 4vw 70px}
+h2{font-family:'Rozha One';font-weight:400;font-size:clamp(2.4rem,5.5vw,4.2rem);color:var(--brass);line-height:1}
+.sub{font-style:italic;color:var(--dim);max-width:60ch;line-height:1.7;margin:10px 0 24px}
+/* door */
+.doorwrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.door{position:relative;width:min(100%,360px);aspect-ratio:1/2;margin:0 auto;background:linear-gradient(90deg,#3a2414,#5a3a20 50%,#3a2414);border-radius:8px 8px 0 0;box-shadow:0 30px 60px #000c,inset 0 0 0 10px #2a1a0e;cursor:pointer;transition:transform .08s}
+.door.hit{transform:scale(.99) translateX(2px)}
+.door .panel{position:absolute;left:14%;right:14%;border:4px solid #2a1a0e;border-radius:4px}
+.door .p1{top:8%;height:34%}.door .p2{top:52%;height:40%}
+.door .slot{position:absolute;left:32%;right:32%;top:20%;height:5%;background:#0a0604;border:3px solid var(--brass);border-radius:3px;overflow:hidden}
+.door .slot i{position:absolute;inset:0;background:#000;transition:transform .4s}
+.door.peek .slot i{transform:translateX(100%)}
+.door .eyes{position:absolute;left:36%;right:36%;top:21%;height:3%;display:flex;justify-content:space-around;align-items:center;opacity:0;transition:opacity .3s}
+.door.peek .eyes{opacity:1}
+.door .eyes b{width:8px;height:8px;border-radius:50%;background:#f2e6cc}
+.door .knob{position:absolute;right:10%;top:52%;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f7d88a,#8a6a20)}
+.door.open{transform:perspective(900px) rotateY(-70deg);transform-origin:left;transition:transform 1.4s}
+.knocks{display:flex;gap:8px;margin:14px 0;min-height:30px;flex-wrap:wrap}
+.knocks span{width:22px;height:22px;border-radius:50%;background:var(--brass);animation:k .3s}
+@keyframes k{from{transform:scale(1.8)}}
+.voice{font-size:22px;font-style:italic;min-height:3em;line-height:1.5}
+.btn{border:1px solid var(--brass);background:none;color:var(--brass);padding:12px 22px;font-family:'Rozha One';font-size:18px;letter-spacing:.06em}
+.btn:hover{background:var(--brass);color:var(--velvet2)}
+/* bar */
+.bar{display:grid;grid-template-columns:1fr 340px;gap:30px;align-items:start}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;background:linear-gradient(#2a1a0e,#1a0e06);padding:16px;border-radius:6px;border-top:6px solid var(--brass)}
+.bottle{background:none;border:0;text-align:center;font-size:12px;color:var(--dim);transition:transform .2s}
+.bottle:hover{transform:translateY(-6px) rotate(-4deg)}
+.bottle svg{width:54px;height:110px;display:block;margin:0 auto 4px}
+.glassbox{text-align:center}
+.glassbox svg{width:220px;height:280px}
+.order{background:var(--cream);color:var(--smoke);padding:16px 18px;transform:rotate(-1.5deg);box-shadow:4px 4px 0 #0006;margin-bottom:16px}
+.order b{font-family:'Rozha One';font-size:24px;font-weight:400}
+.poured{font-size:14px;color:var(--dim);min-height:3em;margin:8px 0}
+.glasses{display:flex;gap:6px;justify-content:center;margin:8px 0}
+.glasses button{border:1px solid #c9a04a66;background:none;padding:4px 10px;font-size:13px}
+.glasses button.on{background:var(--brass);color:var(--velvet2)}
+.tips{font-family:'Rozha One';font-size:22px;color:var(--brass)}
+/* menu */
+.menu{max-width:760px;margin:0 auto;border:2px solid var(--brass);outline:1px solid var(--brass);outline-offset:6px;padding:40px;background:#1a0e0ecc;text-align:center}
+.menu h3{font-family:'Rozha One';font-weight:400;font-size:26px;color:var(--brass);margin-top:22px}
+.menu .d{font-style:italic;color:var(--dim);font-size:15px;line-height:1.6}
+.menu .r{font-size:13px;letter-spacing:.1em;margin-top:4px}
+.menu .orn{color:var(--brass);letter-spacing:.8em;margin:18px 0}
+/* band */
+.band{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.inst{border:1px solid #c9a04a55;padding:18px;text-align:center;background:#00000033;transition:.3s}
+.inst.on{background:#c9a04a22;box-shadow:0 0 30px #c9a04a44;border-color:var(--brass)}
+.inst svg{width:90px;height:90px}
+.inst h3{font-family:'Rozha One';font-weight:400;font-size:22px;color:var(--brass)}
+.inst p{font-size:13px;color:var(--dim);margin-top:4px}
+.spot{height:180px;background:radial-gradient(ellipse at 50% 0,#f7e0a066,transparent 70%);margin-bottom:-120px;pointer-events:none}
+@media(max-width:900px){.doorwrap,.bar{grid-template-columns:1fr}.band{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div class="logo">THE VELVET DOOR</div><nav id="nav"><a href="#door">The Door</a><a href="#bar" class="locked">Behind the Bar</a><a href="#menu" class="locked">Cocktail Menu</a><a href="#band" class="locked">Bandstand</a><a href="index.html">Slip Out</a></nav></header>
+
+<section data-view="door"><div class="wrap">
+ <div class="doorwrap">
+  <div class="door" id="door"><div class="panel p1"></div><div class="panel p2"></div><div class="slot"><i></i></div><div class="eyes"><b></b><b></b></div><div class="knob"></div></div>
+  <div><h2>Chicago, 1926</h2><p class="sub">A plain door in an alley behind a laundry. Word on the street is that you knock the old "shave and a haircut" rhythm: <b>knock, knock-knock, knock, knock… (pause) …knock, knock</b>. Click the door to knock.</p>
+   <div class="knocks" id="knocks"></div><div class="voice" id="voice">…</div><button class="btn" id="skip" style="margin-top:14px">Whisper "Sent by Lou"</button></div>
+ </div>
+</div></section>
+
+<section data-view="bar" hidden><div class="wrap">
+ <h2>Behind the bar</h2><p class="sub">The regulars are thirsty. Read each order, choose the glass and pour the right bottles, then serve it. The recipe card is on the cocktail menu if you get stuck.</p>
+ <div class="bar"><div><div class="shelf" id="shelf"></div></div>
+  <div><div class="order" id="order"></div><div class="glassbox"><svg id="glass" viewBox="0 0 220 280"></svg></div><div class="glasses" id="glasses"></div><div class="poured" id="poured"></div><div style="display:flex;gap:8px;justify-content:center"><button class="btn" id="dump">Dump</button><button class="btn" id="serve">Serve ✦</button></div><p class="tips" id="tips" style="text-align:center;margin-top:14px"></p></div></div>
+</div></section>
+
+<section data-view="menu" hidden><div class="wrap"><div class="menu" id="menuC"></div></div></section>
+
+<section data-view="band" hidden><div class="wrap">
+ <h2>The bandstand</h2><p class="sub">The Velvet Four play till 3 a.m. Bring each musician in and out, and they'll find the groove together.</p>
+ <div class="spot"></div><div class="band" id="bandG"></div>
+ <div style="text-align:center;margin-top:20px"><button class="btn" id="stopB">Last call (stop)</button></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'door';if(id!=='door'&&!inside)id='door';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let inside=store.get('vd-in',false);
+let AC=null;const ac=()=>{try{AC=AC||new AudioContext();AC.resume();return AC}catch(e){return null}};
+
+/* door */
+const door=document.getElementById('door');let taps=[];let tmo=null;
+function knock(){const a=ac();if(!a)return;const t=a.currentTime,o=a.createOscillator(),g=a.createGain();o.type='sine';o.frequency.setValueAtTime(140,t);o.frequency.exponentialRampToValueAtTime(60,t+.12);g.gain.setValueAtTime(.5,t);g.gain.exponentialRampToValueAtTime(.001,t+.18);o.connect(g).connect(a.destination);o.start(t);o.stop(t+.2)}
+door.onclick=()=>{if(inside&&door.classList.contains('open'))return;knock();door.classList.remove('hit');void door.offsetWidth;door.classList.add('hit');taps.push(performance.now());document.getElementById('knocks').innerHTML=taps.map(()=>'<span></span>').join('');clearTimeout(tmo);tmo=setTimeout(judge,1400)};
+function judge(){const n=taps.length;const iv=taps.slice(1).map((t,i)=>t-taps[i]);taps=[];const v=document.getElementById('voice');door.classList.add('peek');
+ // shave-and-a-haircut: 7 knocks, intervals: long short short long long(ish) LONGEST short
+ let ok=false;if(n===7){const base=iv[0];const r=iv.map(x=>x/base);ok=r[1]<.8&&r[2]<.8&&r[4]>1.3&&r[4]>r[5]}
+ if(ok){v.textContent='"…Two bits. Get in here, quick."';setTimeout(enter,1200)}else{v.textContent=n<4?'"Who\'s there? Scram."':n===7?'"Close, but you knock like a cop. Again."':'"We don\'t know any "'+n+' knocks". Beat it."';setTimeout(()=>{door.classList.remove('peek');document.getElementById('knocks').innerHTML=''},2200)}}
+function enter(){inside=true;store.set('vd-in',true);door.classList.add('open');NA.forEach(a=>a.classList.remove('locked'));try{const a=ac();[196,247,294,370].forEach((f,i)=>{const o=a.createOscillator(),g=a.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.06,a.currentTime+i*.12);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+i*.12+1.5);o.connect(g).connect(a.destination);o.start(a.currentTime+i*.12);o.stop(a.currentTime+i*.12+1.6)})}catch(e){}setTimeout(()=>go('bar'),1500)}
+document.getElementById('skip').onclick=()=>{door.classList.add('peek');document.getElementById('voice').textContent='"Lou sent you? …Fine. Keep your voice down."';setTimeout(enter,1200)};
+if(inside){NA.forEach(a=>a.classList.remove('locked'))}
+
+/* bar */
+const BOT=[['rye','Rye Whiskey','#b8742a','tall'],['gin','Gin','#e8f0f0','square'],['rum','White Rum','#f0ece0','round'],['cognac','Cognac','#8a4a1a','round'],['vermouth','Sweet Vermouth','#6a1a1a','tall'],['dry','Dry Vermouth','#e8e8c0','tall'],['campari','Campari','#c81a2a','tall'],['bitters','Angostura','#6a2a1a','tiny'],['lime','Lime Juice','#c8e080','jar'],['lemon','Lemon Juice','#f0e080','jar'],['syrup','Simple Syrup','#f4f0e4','jar'],['triple','Triple Sec','#f0c070','square'],['bubbly','Champagne','#f0e0a0','champ'],['sugar','Sugar Cube','#ffffff','cube']];
+const REC=[['Old Fashioned','rocks',{rye:2,bitters:1,sugar:1},'The original "cocktail": spirit, sugar, water and bitters. Stirred over one big cube.'],['Manhattan','coupe',{rye:2,vermouth:1,bitters:1},'Rye and sweet vermouth, stirred and served up with a cherry.'],['Negroni','rocks',{gin:1,vermouth:1,campari:1},'Equal parts, so it is impossible to get wrong. Bitter, sweet and strong.'],['Martini','coupe',{gin:2,dry:1},'Gin and dry vermouth, stirred until very cold. The drier, the less vermouth.'],['Daiquiri','coupe',{rum:2,lime:1,syrup:1},'Rum, lime and sugar, shaken hard. Simple and perfect.'],['Sidecar','coupe',{cognac:2,triple:1,lemon:1},'Cognac, orange liqueur and lemon, with a sugared rim.'],['French 75','flute',{gin:1,lemon:1,syrup:1,bubbly:2},'Named after a field gun, because it hits you like one.'],['Gimlet','coupe',{gin:2,lime:1,syrup:1},'The sailors\' drink: gin and lime to ward off scurvy.']];
+const PATRONS=['Big Tony','Mrs. Delacroix','a nervous accountant','Detective Ruiz (off duty?)','Lulu from the chorus line','a man in a very good hat','the piano player'];
+let glass='rocks',pour={},order=null,tips=store.get('vd-tips',0),served=0;
+function bottleSVG(b){const[,,c,sh]=b;if(sh==='cube')return`<svg viewBox="0 0 54 110"><rect x="14" y="70" width="26" height="26" fill="#fff" stroke="#c9a04a"/></svg>`;if(sh==='jar')return`<svg viewBox="0 0 54 110"><rect x="12" y="40" width="30" height="60" rx="6" fill="${c}" opacity=".85" stroke="#c9a04a"/><rect x="16" y="32" width="22" height="10" fill="#8a6a3a"/></svg>`;
+ if(sh==='tiny')return`<svg viewBox="0 0 54 110"><path d="M20 60 h14 v40 h-14z" fill="${c}" stroke="#c9a04a"/><rect x="22" y="44" width="10" height="16" fill="#e8e0c0"/><rect x="18" y="70" width="18" height="18" fill="#f2e6cc"/></svg>`;
+ const w=sh==='square'?34:sh==='round'?36:26;return`<svg viewBox="0 0 54 110"><path d="M${27-w/2} 104 V52 Q${27-w/2} 38 22 34 V10 H32 V34 Q${27+w/2} 38 ${27+w/2} 52 V104Z" fill="${c}" opacity=".9" stroke="#c9a04a"/><rect x="${27-w/2+2}" y="62" width="${w-4}" height="24" fill="#f2e6cc"/><rect x="21" y="6" width="12" height="8" fill="#8a6a3a"/></svg>`}
+document.getElementById('shelf').innerHTML=BOT.map(b=>`<button class="bottle" data-b="${b[0]}">${bottleSVG(b)}${b[1]}</button>`).join('');
+function newOrder(){order=REC[Math.random()*REC.length|0];const who=PATRONS[Math.random()*PATRONS.length|0];document.getElementById('order').innerHTML=`<div style="font-size:13px;letter-spacing:.14em">ORDER FROM ${who.toUpperCase()}</div><b>"${['A','One','Make it a','I\'ll have a'][Math.random()*4|0]} ${order[0]}, please."</b>`;pour={};glassUI()}
+function glassUI(){const total=Object.values(pour).reduce((a,b)=>a+b,0);let layers='',y=0;const parts=Object.entries(pour);const cap=glass==='flute'?6:glass==='coupe'?4:5;
+ const shape={rocks:'M50 120 L170 120 L160 250 L60 250Z',coupe:'M30 90 Q110 190 190 90Z',flute:'M85 40 L135 40 L128 200 L92 200Z'}[glass];
+ const clip=`<clipPath id="gc"><path d="${shape}"/></clipPath>`;const top={rocks:120,coupe:90,flute:40}[glass],bot={rocks:250,coupe:150,flute:200}[glass];
+ parts.forEach(([k,n])=>{const h=(bot-top)*Math.min(1,n/cap);const b=BOT.find(x=>x[0]===k);layers+=`<rect x="0" y="${bot-y-h}" width="220" height="${h}" fill="${b[2]}" opacity=".8"/>`;y+=h});
+ let s=`<defs>${clip}</defs><g clip-path="url(#gc)">${layers}${pour.bubbly?[...Array(10)].map((_,i)=>`<circle cx="${95+(i*7)%30}" cy="${80+(i*17)%110}" r="2" fill="#fff" opacity=".7"/>`).join(''):''}</g><path d="${shape}" fill="#ffffff14" stroke="#f2e6cc" stroke-width="3"/>`;
+ if(glass==='coupe')s+=`<path d="M110 150 V240 M70 245 H150" stroke="#f2e6cc" stroke-width="4"/>`;if(glass==='flute')s+=`<path d="M110 200 V250 M84 255 H136" stroke="#f2e6cc" stroke-width="4"/>`;
+ if(glass==='rocks'&&total)s+=`<rect x="85" y="${Math.max(130,250-(bot-top)*Math.min(1,total/cap)+4)}" width="44" height="44" fill="#ffffff55" stroke="#fff" rx="4"/>`;
+ document.getElementById('glass').innerHTML=s;document.getElementById('glasses').innerHTML=['rocks','coupe','flute'].map(g=>`<button class="${g===glass?'on':''}" data-g="${g}">${g}</button>`).join('');
+ document.getElementById('poured').textContent=parts.length?parts.map(([k,n])=>`${BOT.find(x=>x[0]===k)[1]} ×${n}`).join(' · '):'Empty glass.';document.getElementById('tips').textContent=`Tips tonight: $${tips.toFixed(2)}`}
+document.getElementById('shelf').onclick=e=>{const b=e.target.closest('.bottle');if(!b)return;pour[b.dataset.b]=(pour[b.dataset.b]||0)+1;glug();glassUI()};
+document.getElementById('glasses').onclick=e=>{const g=e.target.dataset.g;if(g){glass=g;glassUI()}};
+document.getElementById('dump').onclick=()=>{pour={};glassUI()};
+document.getElementById('serve').onclick=()=>{const want=order[2];const keys=new Set([...Object.keys(want),...Object.keys(pour)]);let ok=true;keys.forEach(k=>{if((want[k]||0)!==(pour[k]||0))ok=false});const gOK=glass===order[1];
+ const o=document.getElementById('order');if(ok&&gOK){tips+=.25+Math.random()*.5;o.innerHTML+=`<div style="color:#2a6a2a;margin-top:6px">★ "Now that's a ${order[0]}." (+ tip)</div>`}else if(ok){tips+=.05;o.innerHTML+=`<div style="color:#8a5a1a;margin-top:6px">"Right drink, wrong glass. A ${order[1]}, pal."</div>`}else o.innerHTML+=`<div style="color:#8a1a1a;margin-top:6px">"What is this, bathtub gin?"</div>`;store.set('vd-tips',tips);served++;setTimeout(newOrder,1600);glassUI()};
+function glug(){const a=ac();if(!a)return;for(let i=0;i<3;i++){const t=a.currentTime+i*.09,o=a.createOscillator(),g=a.createGain();o.frequency.setValueAtTime(300+Math.random()*200,t);o.frequency.exponentialRampToValueAtTime(120,t+.08);g.gain.setValueAtTime(.08,t);g.gain.exponentialRampToValueAtTime(.001,t+.09);o.connect(g).connect(a.destination);o.start(t);o.stop(t+.1)}}
+newOrder();
+
+/* menu */
+document.getElementById('menuC').innerHTML=`<div style="letter-spacing:.4em;font-size:12px">— EST. 1923 · MEMBERS &amp; FRIENDS —</div><h2 style="font-size:48px;margin-top:10px">Libations</h2><div class="orn">◆ ◆ ◆</div>`+REC.map(r=>`<h3>${r[0]}</h3><div class="d">${r[3]}</div><div class="r">${Object.entries(r[2]).map(([k,n])=>`${n} ${BOT.find(x=>x[0]===k)[1].toLowerCase()}`).join(' · ')} — served in a ${r[1]}</div>`).join('')+`<div class="orn">◆ ◆ ◆</div><div class="d">Ask for "cold tea" if anyone official comes in.</div>`;
+
+/* band */
+const INS=[['Piano','Stride comping','<rect x="10" y="40" width="70" height="30" fill="#1a0e06" stroke="#c9a04a"/>'+[...Array(7)].map((_,i)=>`<rect x="${14+i*9}" y="58" width="8" height="12" fill="#f2e6cc"/>`).join('')],['Double bass','Walking bass line','<path d="M45 10 v20 M35 30 q-12 20 0 30 q-14 20 10 26 q24 -6 10 -26 q12 -10 0 -30z" fill="#8a4a1a" stroke="#c9a04a"/>'],['Brushes','Swing ride & snare','<ellipse cx="45" cy="45" rx="30" ry="10" fill="#c9a04a"/><rect x="20" y="55" width="50" height="22" fill="#6a1a1a" stroke="#c9a04a"/>'],['Trumpet','Muted melody','<path d="M10 45 h40 l20 -14 v28 l-20 -14" fill="#c9a04a"/><circle cx="30" cy="40" r="3" fill="#1a0e06"/>']];
+let on=new Set(),bandT=null,bstep=0;const CHORDS=[[48,52,55,58],[53,57,60,63],[48,52,55,58],[43,47,50,53]];const mtof=m=>440*2**((m-69)/12);
+function tone(m,t,d,type,v,f=3000){const a=ac();const o=a.createOscillator(),g=a.createGain(),lp=a.createBiquadFilter();lp.type='lowpass';lp.frequency.value=f;o.type=type;o.frequency.value=mtof(m);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(lp).connect(g).connect(a.destination);o.start(t);o.stop(t+d+.05)}
+function noise(t,d,v,f){const a=ac();const n=a.createBufferSource(),b=a.createBuffer(1,a.sampleRate*d,a.sampleRate),dd=b.getChannelData(0);for(let i=0;i<dd.length;i++)dd[i]=(Math.random()*2-1)*(1-i/dd.length);n.buffer=b;const hp=a.createBiquadFilter();hp.type='highpass';hp.frequency.value=f;const g=a.createGain();g.gain.value=v;n.connect(hp).connect(g).connect(a.destination);n.start(t)}
+function beat(){const a=ac();if(!a)return;const t=a.currentTime+.05,bar=Math.floor(bstep/4)%4,b=bstep%4,ch=CHORDS[bar],sw=.6;
+ if(on.has(1)){const walk=[ch[0],ch[1],ch[2],ch[3]-12+(b===3?1:0)];tone(walk[b]-12,t,.55,'triangle',.25,900)}
+ if(on.has(0)&&(b===1||b===3))ch.forEach(m=>tone(m+12,t,.35,'triangle',.05,2400));
+ if(on.has(2)){noise(t,.25,.05,6000);noise(t+sw*.66,.12,.03,6000);if(b%2)noise(t,.18,.07,1500)}
+ if(on.has(3)&&Math.random()<.7){const sc=[0,2,3,5,7,9,10];const m=ch[0]+12+sc[Math.random()*7|0];tone(m,t+(Math.random()<.5?0:sw*.66),.35,'sawtooth',.035,1400)}
+ bstep++}
+function bandUI(){document.getElementById('bandG').innerHTML=INS.map((x,i)=>`<button class="inst ${on.has(i)?'on':''}" data-i="${i}"><svg viewBox="0 0 90 90">${x[2]}</svg><h3>${x[0]}</h3><p>${x[1]}</p><p style="color:#c9a04a">${on.has(i)?'♪ playing':'sitting out'}</p></button>`).join('')}
+document.getElementById('bandG').onclick=e=>{const b=e.target.closest('.inst');if(!b)return;const i=+b.dataset.i;on.has(i)?on.delete(i):on.add(i);if(on.size&&!bandT){ac();bandT=setInterval(beat,60000/132)}if(!on.size){clearInterval(bandT);bandT=null}bandUI()};
+document.getElementById('stopB').onclick=()=>{on.clear();clearInterval(bandT);bandT=null;bandUI()};bandUI();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

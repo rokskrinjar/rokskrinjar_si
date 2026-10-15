@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Expandly — Expansion for customer success</title>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--surface:#ffffff;--bg:#eef3f1;--ink:#0f2622;--ink2:#435752;--ink3:#7a8b87;--grid:#e1e9e6;--s1:#1d4ed8;--s2:#c2410c;--s3:#0e9f6e;--s4:#a21caf;--s5:#ca8a04;--q1:#dbe5fb;--q2:#b3c8f5;--q3:#7fa1ec;--q4:#4a77df;--q5:#1d4ed8;--q6:#163a9e;--pos:#1d4ed8;--neg:#c93a39;--good:#0f7a52;--warn:#a86b00;--bad:#c93a39;--cur:"$"}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14.5px/1.5 'Urbanist',sans-serif}
+.wrap{max-width:1420px;margin:0 auto;padding:20px 28px 70px}
+.top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.lg{font-weight:800;font-size:22px;display:flex;align-items:center;gap:8px}.lg i{width:28px;height:28px;border-radius:8px;background:var(--s3);display:grid;place-items:center;color:#fff;font-style:normal;font-size:16px}
+.top .sp{flex:1}.src{font-size:12.5px;color:var(--ink3)}
+.bento{display:grid;grid-template-columns:260px 1fr;gap:16px}
+.side{display:flex;flex-direction:column;gap:12px}
+.panel{background:var(--surface);border-radius:20px;padding:16px}
+.panel h6{margin:0 0 10px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.panel .opt{display:grid;gap:4px}.panel .opt button{text-align:left;border:0;background:#f3f7f6;border-radius:10px;padding:9px 11px;font:600 13.5px 'Urbanist';color:var(--ink2);cursor:pointer}.panel .opt button.on{background:var(--ink);color:#fff}
+.me{display:flex;gap:10px;align-items:center}.me i{width:40px;height:40px;border-radius:50%;background:#c4e9dc;display:grid;place-items:center;font-style:normal;font-weight:800}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--surface);border-radius:18px;padding:16px}.kpi .l{font-size:13px;color:var(--ink3);font-weight:600}.kpi .v{font-size:28px;font-weight:800;letter-spacing:-.02em}.kpi .d{font-size:12px;font-weight:700}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border-radius:20px;padding:18px 20px;min-width:0}.card h3{margin:0;font-size:16px;font-weight:800}.card .sub{color:var(--ink3);font-size:13px;margin:2px 0 14px}
+.sig{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:#e8f4ef;color:#0f7a52;margin-right:4px;white-space:nowrap}
+.cr{border:0;background:var(--s1);color:#fff;border-radius:8px;padding:5px 10px;font:700 12px 'Urbanist';cursor:pointer}.cr.done{background:var(--good)}
+@media(max-width:1100px){.bento{grid-template-columns:1fr}.side{flex-direction:row;flex-wrap:wrap}.side .panel{flex:1;min-width:220px}.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}}@media(max-width:640px){.wrap{padding:16px}.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body><div class="wrap">
+<div class="top"><div class="lg"><i>↗</i>Expandly</div><span class="src">Gainsight · Pendo seat usage · Stripe subscriptions · Salesforce opportunities · Zendesk</span><span class="sp"></span></div>
+<div class="bento"><div class="side">
+ <div class="panel"><div class="me"><i>ML</i><div><b>Maya Lund</b><br><span style="color:var(--ink3);font-size:13px">CSM · 38 accounts</span></div></div></div>
+ <div class="panel"><h6>Sheets</h6><div class="opt"><button data-sheet="book">My book</button><button data-sheet="util">Seat utilisation</button><button data-sheet="cand">Upsell candidates</button><button data-sheet="attach">Product attach</button><button data-sheet="pipe">Expansion pipeline</button></div></div>
+ <div class="panel"><h6>Book</h6><div class="opt"><button data-f="book" data-v="me" class="on">My accounts</button><button data-f="book" data-v="team">Whole CS team</button></div><h6 style="margin-top:14px">Segment</h6><div class="opt"><button data-f="seg" data-v="all" class="on">All</button><button data-f="seg" data-v="ent">Enterprise</button><button data-f="seg" data-v="mm">Mid-market</button></div></div></div>
+<main style="min-width:0">
+ <section data-panel="book"><div class="kpis" id="k1"></div><div class="g g21"><div class="card"><h3>Book ARR, month by month</h3><p class="sub">Starting ARR + expansion − contraction − churn</p><div id="c_b"></div></div><div class="card"><h3>Expansion target</h3><p class="sub">Closed expansion vs. quarterly target</p><div id="c_tg"></div></div></div></section>
+ <section data-panel="util" hidden><div class="card"><h3>Seat utilisation by account and month</h3><p class="sub">Active seats ÷ purchased seats (Pendo) · darker = closer to the limit</p><div id="c_hm"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Accounts by utilisation band</h3><p class="sub">Over 90% = expansion conversation · under 50% = adoption risk</p><div id="c_band"></div></div></section>
+ <section data-panel="cand" hidden><div class="card"><h3>Upsell candidates</h3><p class="sub">Ranked by expected expansion ARR. “Create opp” writes an expansion opportunity to Salesforce.</p><div id="t_c"></div></div></section>
+ <section data-panel="attach" hidden><div class="g g2"><div class="card"><h3>Add-on attach rate</h3><p class="sub">Share of accounts with each add-on, by segment</p><div id="c_at"></div></div><div class="card"><h3>Which add-on comes next</h3><p class="sub">Most common second purchase after the first add-on</p><div id="c_sk"></div></div></div></section>
+ <section data-panel="pipe" hidden><div class="kpis" id="k5"></div><div class="card"><h3>Expansion pipeline by stage</h3><p class="sub">Open expansion opportunities</p><div id="c_ps"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Expansion bookings by motion</h3><p class="sub">Monthly</p><div id="c_mo"></div></div></section>
+</main></div></div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const OPP=new Set();
+const A=['Halden Bank','Velo Mobility','Ashgrove Health','Northbeam','Tessera Labs','Calder Labs','Oskar Freight','Mintworth','Marlow Foods','Pellucid AI','Fjord Energy','Lumen Studio'];
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const f=(F.book==='team'?8:1)*{all:1,ent:.55,mm:.45}[F.seg];const L=K.periods('12m');
+ const acc=A.map(a=>{const seats=Math.round(20+r()*400);const util=.4+r()*.65;return{a,seats,util:Math.min(1.15,util),arr:seats*r()*0+seats*(380+r()*240),ai:r()<.4,an:r()<.3,sso:r()<.6}});return memo[k]={r,f,L,acc,arr:3.9e6*f}}
+const S={book:'me',seg:'all'};
+const views={
+book(F){const D=data(F);K.kpis($('k1'),[{label:'Book ARR',value:K.money(D.arr)},{label:'Expansion this quarter',value:K.money(D.arr*.064),delta:.21},{label:'Net retention (book)',value:'119%'},{label:'Accounts > 90% seats',value:K.int(D.acc.filter(a=>a.util>.9).length*D.f)},{label:'Open expansion pipeline',value:K.money(D.arr*.11)}]);
+ K.line($('c_b'),{labels:D.L,series:[{name:'Book ARR',data:K.series(D.r,12,D.arr*.86,{trend:.17,noise:.01}),area:true}],fmt:K.money,h:260,yMin:D.arr*.7});
+ K.bullet($('c_tg'),{rows:[["Q4 '25",D.arr*.05,D.arr*.055],["Q1 '26",D.arr*.061,D.arr*.055],["Q2 '26",D.arr*.058,D.arr*.06],["Q3 '26",D.arr*.064,D.arr*.06]],fmt:K.money})},
+util(F){const D=data(F);const r=K.rng(K.seed(F,'u'));const M=['Apr','May','Jun','Jul','Aug','Sep'];
+ K.heat($('c_hm'),{rows:D.acc.map(a=>a.a),cols:M,data:D.acc.map(a=>M.map((m,j)=>Math.min(1.15,a.util*(.85+j*.03)*(.95+r()*.1)))),fmt:v=>K.pct(v,0),cell:24});
+ const b=[D.acc.filter(a=>a.util<.5).length,D.acc.filter(a=>a.util>=.5&&a.util<.75).length,D.acc.filter(a=>a.util>=.75&&a.util<.9).length,D.acc.filter(a=>a.util>=.9).length];K.bars($('c_band'),{labels:['< 50%','50–75%','75–90%','90%+'],series:[{name:'Accounts',data:b.map(v=>v*D.f)}],fmt:K.int,h:220})},
+cand(F){const D=data(F);const r=K.rng(K.seed(F,'c'));
+ K.table($('t_c'),{cols:[{k:'a',label:'Account'},{k:'arr',label:'ARR',align:'r',fmt:K.money},{k:'util',label:'Seats used',align:'r',fmt:v=>K.pct(v,0)},{k:'sig',label:'Signals',render:v=>{const w=document.createElement('span');v.forEach(x=>{const s=document.createElement('span');s.className='sig';s.textContent=x;w.appendChild(s)});return w}},{k:'exp',label:'Expected expansion',align:'r',fmt:K.money,bar:true},{k:'x',label:'',render:(v,row)=>{const b=document.createElement('button');const on=OPP.has(row.a);b.className='cr'+(on?' done':'');b.textContent=on?'✓ Opp created':'Create opp';b.onclick=()=>{OPP.add(row.a);b.className='cr done';b.textContent='✓ Opp created'};return b}}],rows:D.acc.map(a=>({a:a.a,arr:a.arr,util:a.util,sig:[a.util>.9?'Seat cap':'',!a.ai&&r()<.6?'Asked about AI':'',r()<.3?'New team invited':''].filter(Boolean),exp:a.arr*(a.util>.9?.35:.12)*(.7+r()*.6),x:0})),sort:'exp'})},
+attach(F){const D=data(F);K.bars($('c_at'),{labels:['AI assistant','Advanced analytics','SSO & audit','Premium support'],series:[{name:'Enterprise',data:[.46,.38,.88,.41]},{name:'Mid-market',data:[.31,.22,.52,.18]}],fmt:v=>K.pct(v,0),h:270});
+ const s=v=>Math.round(v*D.f);K.sankey($('c_sk'),{nodes:[['a1','AI assistant',0,0],['b1','Analytics',0,1],['c1','SSO & audit',0,2],['a2','AI assistant',1,0],['b2','Analytics',1,1],['d2','Premium support',1,3],['n','Nothing yet',1,4]],links:[['a1','b2',s(18)],['a1','d2',s(6)],['a1','n',s(22)],['b1','a2',s(14)],['b1','d2',s(5)],['b1','n',s(11)],['c1','a2',s(26)],['c1','b2',s(12)],['c1','n',s(40)]],h:270,fmt:K.int})},
+pipe(F){const D=data(F);K.kpis($('k5'),[{label:'Open expansion pipeline',value:K.money(D.arr*.11)},{label:'Weighted',value:K.money(D.arr*.052)},{label:'Avg expansion deal',value:K.money(28400)},{label:'Win rate (expansion)',value:'58%'},{label:'Cycle',value:'34 days'}]);
+ K.bars($('c_ps'),{labels:['Identified','Discovery','Proposal','Negotiation','Verbal'],series:[{name:'ARR',data:[.34,.27,.21,.12,.06].map(v=>v*D.arr*.11)}],fmt:K.money,horizontal:true,h:230});
+ K.bars($('c_mo'),{labels:D.L,series:[{name:'Added seats',data:K.series(D.r,12,D.arr*.012,{noise:.3})},{name:'Plan upgrade',data:K.series(D.r,12,D.arr*.007,{noise:.4})},{name:'Add-on',data:K.series(D.r,12,D.arr*.005,{noise:.4,trend:.5})}],stacked:true,fmt:K.money,h:250})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

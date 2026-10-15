@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✧ CyberBabe2000 ✧ my page</title>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root { --pink:#ff5fc8; --blue:#5fd4ff; --lilac:#b28cff; --lime:#c6ff5f; --chrome:linear-gradient(180deg,#fff 0%,#c9d6ff 30%,#7b8cc9 50%,#e8eeff 55%,#9aa9e0 100%); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Baloo 2',sans-serif; color:#2a1a4a; min-height:100vh; overflow-x:hidden; cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext y='24' font-size='24'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E") 4 4, auto;
+    background:linear-gradient(135deg,#ffd6f5,#d6e8ff 40%,#e9d6ff 70%,#d6fff0); background-attachment:fixed; }
+  body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background-image:radial-gradient(#ffffffaa 1.5px,transparent 2px); background-size:36px 36px; animation:sl 20s linear infinite; }
+  @keyframes sl { to { background-position:36px 72px; } }
+  a { color:inherit; }
+  .spark { position:fixed; pointer-events:none; z-index:99; font-size:14px; animation:sp .9s ease-out forwards; }
+  @keyframes sp { to { transform:translateY(30px) scale(.2) rotate(180deg); opacity:0; } }
+  .chrome { font-family:'Audiowide'; background:var(--chrome); -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-stroke:1.5px #3a2a7a; filter:drop-shadow(3px 3px 0 #ff5fc8) drop-shadow(0 0 12px #fff); }
+  header { position:relative; z-index:5; text-align:center; padding:20px 16px 0; }
+  header h1 { font-size:clamp(2.6rem,8vw,5.6rem); line-height:1; letter-spacing:.02em; }
+  .marq { overflow:hidden; white-space:nowrap; margin:14px 0 0; background:#2a1a4a; color:var(--lime); font-weight:800; padding:6px 0; }
+  .marq span { display:inline-block; animation:mq 18s linear infinite; }
+  @keyframes mq { from { transform:translateX(100vw); } to { transform:translateX(-100%); } }
+  nav { position:relative; z-index:5; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; padding:16px; }
+  .bub { font-family:'Audiowide'; font-size:14px; padding:10px 20px; border-radius:40px; border:2px solid #fff; background:linear-gradient(180deg,#fff 0%,var(--c,#ff9be0) 45%,var(--d,#ff5fc8) 100%); color:#2a1a4a; box-shadow:0 6px 16px #b28cff66, inset 0 -6px 10px #0001, inset 0 4px 0 #fff; cursor:pointer; text-decoration:none; display:inline-block; transition:transform .15s; position:relative; overflow:hidden; }
+  .bub::after { content:''; position:absolute; left:12%; right:12%; top:3px; height:40%; border-radius:30px; background:linear-gradient(#fffc,#fff0); }
+  .bub:hover { transform:translateY(-3px) scale(1.04); }
+  .bub.on { --c:#9be8ff; --d:#5fd4ff; }
+  main { position:relative; z-index:3; max-width:1100px; margin:0 auto; padding:0 16px 60px; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:boing .6s cubic-bezier(.3,1.7,.5,1) both; }
+  @keyframes boing { from { transform:scale(.9); opacity:0; } }
+  .win { background:#ffffffcc; border:3px solid #fff; border-radius:22px; box-shadow:0 10px 30px #b28cff55, inset 0 0 0 2px #b28cff55; overflow:hidden; backdrop-filter:blur(6px); }
+  .win .bar { background:linear-gradient(90deg,var(--pink),var(--lilac),var(--blue)); color:#fff; font-family:'Audiowide'; font-size:13px; padding:8px 14px; display:flex; justify-content:space-between; text-shadow:1px 1px 0 #2a1a4a88; }
+  .win .bar i { font-style:normal; letter-spacing:4px; }
+  .win .in { padding:16px; }
+  .grid { display:grid; grid-template-columns:320px 1fr; gap:18px; }
+  .pfp { width:100%; aspect-ratio:1; border-radius:18px; background:conic-gradient(from 0deg,#ff5fc8,#5fd4ff,#c6ff5f,#b28cff,#ff5fc8); padding:6px; animation:rot 8s linear infinite; }
+  @keyframes rot { to { filter:hue-rotate(360deg); } }
+  .pfp svg { width:100%; height:100%; border-radius:14px; background:#fff; display:block; }
+  .stat { font-size:15px; line-height:1.9; }
+  .stat b { color:var(--pink); }
+  .mood { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+  .mood button { border:0; background:#fff; border-radius:20px; padding:4px 10px; font-family:inherit; cursor:pointer; box-shadow:0 2px 0 #b28cff; }
+  .mood button.on { background:var(--lime); }
+  .top8 { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .fr { text-align:center; font-size:13px; font-weight:600; cursor:pointer; }
+  .fr .av { aspect-ratio:1; border-radius:14px; border:3px solid #fff; box-shadow:0 4px 10px #b28cff55; display:grid; place-items:center; font-size:2.2rem; transition:transform .2s; }
+  .fr:hover .av { transform:rotate(-6deg) scale(1.08); }
+  .player { display:flex; align-items:center; gap:12px; background:linear-gradient(180deg,#2a1a4a,#4a2a7a); color:#fff; border-radius:14px; padding:12px; }
+  .player button { width:44px; height:44px; border-radius:50%; border:2px solid #fff; background:var(--pink); color:#fff; cursor:pointer; font-size:16px; }
+  .player .viz { display:flex; gap:2px; align-items:flex-end; height:30px; flex:1; }
+  .player .viz i { flex:1; background:linear-gradient(to top,var(--pink),var(--blue)); height:3px; border-radius:2px; }
+  .glitter { font-family:'Audiowide'; font-size:clamp(1.6rem,5vw,3rem); background:linear-gradient(90deg,#ff5fc8,#ffe45f,#5fd4ff,#c6ff5f,#ff5fc8); background-size:300% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gl 3s linear infinite; }
+  @keyframes gl { to { background-position:300% 0; } }
+  /* blog */
+  .post { margin-bottom:18px; }
+  .post h3 { font-family:'Audiowide'; font-size:1.2rem; color:#4a2a7a; }
+  .post .date { font-size:12px; color:#8a6ab0; }
+  .post p { margin:.6rem 0; line-height:1.6; }
+  .cmts { background:#f6efff; border-radius:12px; padding:10px; font-size:14px; }
+  .cmts div { padding:4px 0; border-bottom:1px dashed #b28cff66; }
+  .cmts form { display:flex; gap:6px; margin-top:8px; }
+  .cmts input { flex:1; border:2px solid #b28cff; border-radius:20px; padding:6px 12px; font-family:inherit; }
+  .cmts button { border:0; background:var(--pink); color:#fff; border-radius:20px; padding:6px 14px; font-weight:800; cursor:pointer; }
+  .hearts { border:0; background:none; font-size:16px; cursor:pointer; }
+  /* quiz */
+  .q { text-align:center; }
+  .q h3 { font-family:'Audiowide'; font-size:1.6rem; margin:10px 0 20px; color:#4a2a7a; }
+  .opts { display:grid; grid-template-columns:1fr 1fr; gap:12px; max-width:640px; margin:0 auto; }
+  .opts button { padding:16px; border-radius:18px; border:3px solid #fff; background:linear-gradient(180deg,#fff,#f0e4ff); font-family:inherit; font-size:16px; font-weight:600; cursor:pointer; box-shadow:0 4px 0 #b28cff; }
+  .opts button:hover { background:linear-gradient(180deg,#fff,#ffe0f5); transform:translateY(-2px); }
+  .qprog { height:10px; border-radius:10px; background:#fff; overflow:hidden; max-width:640px; margin:0 auto 16px; border:2px solid #fff; }
+  .qprog i { display:block; height:100%; background:linear-gradient(90deg,var(--pink),var(--blue)); transition:width .4s; }
+  .result .big { font-size:6rem; }
+  /* glitter maker */
+  .maker { display:grid; grid-template-columns:320px 1fr; gap:18px; }
+  .maker input[type=text] { width:100%; font-family:'Audiowide'; font-size:18px; padding:10px 14px; border:3px solid #b28cff; border-radius:16px; outline:none; }
+  .maker label { display:block; font-weight:800; margin:12px 0 6px; }
+  .styles { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .styles button { padding:8px; border-radius:12px; border:2px solid #fff; background:#f6efff; font-family:inherit; font-weight:600; cursor:pointer; }
+  .styles button.on { background:var(--lime); }
+  .out { min-height:260px; display:grid; place-items:center; text-align:center; background:#2a1a4a; border-radius:18px; padding:20px; position:relative; overflow:hidden; }
+  .out .txt { font-family:'Audiowide'; font-size:clamp(2rem,6vw,4rem); line-height:1.1; word-break:break-word; }
+  .s-rainbow { background:linear-gradient(90deg,red,orange,yellow,lime,cyan,violet,red); background-size:300%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gl 2s linear infinite; }
+  .s-chrome { background:var(--chrome); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(3px 3px 0 #ff5fc8); }
+  .s-sparkle { color:#fff; text-shadow:0 0 10px #fff,0 0 20px var(--pink),0 0 40px var(--pink); animation:tw 1s ease-in-out infinite alternate; }
+  @keyframes tw { to { text-shadow:0 0 4px #fff,0 0 10px var(--blue),0 0 60px var(--blue); } }
+  .s-bounce span { display:inline-block; animation:bo .8s ease-in-out infinite; color:var(--lime); }
+  @keyframes bo { 50% { transform:translateY(-14px); } }
+  .s-wave span { display:inline-block; animation:wv 1.4s ease-in-out infinite; color:#fff; }
+  @keyframes wv { 50% { transform:translateY(-10px) rotate(8deg); color:var(--pink); } }
+  .s-blink { color:var(--lime); animation:bk .5s steps(1) infinite; }
+  @keyframes bk { 50% { opacity:0; } }
+  .counter { text-align:center; margin-top:24px; font-family:'Audiowide'; font-size:13px; }
+  .counter span { display:inline-block; background:#000; color:var(--lime); padding:2px 6px; margin:0 1px; border-radius:3px; }
+  @media (max-width:800px){ .grid,.maker { grid-template-columns:1fr; } .top8 { grid-template-columns:repeat(4,1fr); } .opts { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header><h1 class="chrome">CyberBabe2000</h1><div class="marq"><span>✧ welcome 2 my page ✧ sign my blog ✧ best viewed in 800×600 ✧ this site is under construction 🚧 forever ✧ ur the 1,337th visitor ✧ ☆ ~* luv u all *~ ☆</span></div></header>
+<nav><a class="bub" href="#profile">♡ profile</a><a class="bub" href="#blog">✎ blog</a><a class="bub" href="#quiz">✧ quiz</a><a class="bub" href="#glitter">★ glitter maker</a><a class="bub" href="index.html" style="--c:#e0ff9b;--d:#c6ff5f">⌂ index</a></nav>
+<main>
+<section data-view="profile">
+  <div class="grid">
+    <div class="win"><div class="bar"><span>me.jpg</span><i>_□×</i></div><div class="in"><div class="pfp"><svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#ffe0f5"/><circle cx="100" cy="92" r="46" fill="#ffd8b8"/><path d="M50 90 Q52 30 100 34 Q150 30 150 94 Q152 140 138 150 L136 96 Q120 70 100 72 Q76 70 64 96 L62 150 Q48 140 50 90Z" fill="#5a2a7a"/><rect x="66" y="84" width="30" height="18" rx="8" fill="#5fd4ff" stroke="#2a1a4a" stroke-width="3"/><rect x="104" y="84" width="30" height="18" rx="8" fill="#5fd4ff" stroke="#2a1a4a" stroke-width="3"/><path d="M96 92 L104 92" stroke="#2a1a4a" stroke-width="3"/><path d="M84 116 Q100 128 116 116" stroke="#e0417a" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M40 200 Q100 140 160 200" fill="#ff5fc8"/><text x="150" y="44" font-size="28">✨</text><text x="24" y="60" font-size="20">⭐</text></svg></div>
+      <div class="stat" style="margin-top:10px"><b>name:</b> Cyber Babe<br><b>age:</b> 17 (forever)<br><b>location:</b> the information superhighway<br><b>mood:</b> <span id="moodT">✨ sparkly</span></div><div class="mood" id="mood"></div></div></div>
+    <div style="display:grid;gap:18px">
+      <div class="win"><div class="bar"><span>♫ now playing</span><i>_□×</i></div><div class="in"><div class="player"><button id="playBtn">▶</button><div><b id="songT">Butterfly Dreams (Dance Mix)</b><br><small>DJ Glitterheart · 1999</small></div><div class="viz" id="viz"></div></div></div></div>
+      <div class="win"><div class="bar"><span>♥ my top 8</span><i>_□×</i></div><div class="in"><div class="top8" id="top8"></div><p id="frMsg" style="text-align:center;margin-top:10px;font-weight:600;min-height:1.5em"></p></div></div>
+      <div class="win"><div class="bar"><span>about_me.txt</span><i>_□×</i></div><div class="in"><p class="glitter">~*~ hi ~*~</p><p style="line-height:1.7">i ♥ butterfly clips, frosted lip gloss, my tamagotchi (RIP #4), and coding html at 3am. my fav things r glitter, the color periwinkle & the sound of a 56k modem. if u r reading this ur cool. sign my blog pls!!! ☆</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section data-view="blog" hidden><div id="posts"></div></section>
+
+<section data-view="quiz" hidden><div class="win"><div class="bar"><span>quiz.exe — which Y2K icon r u?</span><i>_□×</i></div><div class="in q" id="quizEl"></div></div></section>
+
+<section data-view="glitter" hidden>
+  <div class="win"><div class="bar"><span>★ glitter text generator 3000</span><i>_□×</i></div><div class="in maker">
+    <div><label>ur text</label><input type="text" id="gt" value="u r so cool" maxlength="40"><label>style</label><div class="styles" id="gs"></div><label>background</label><div class="styles" id="gb"></div><button class="bub" id="gCopy" style="margin-top:14px;width:100%">copy html ♡</button></div>
+    <div class="out" id="gout"><div class="txt" id="gtxt"></div></div></div></div>
+</section>
+<div class="counter">visitors: <span id="cnt"></span></div>
+</main>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'profile';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav .bub').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+/* sparkle trail */
+let lastS=0;addEventListener('mousemove',e=>{const n=Date.now();if(n-lastS<40)return;lastS=n;const s=document.createElement('div');s.className='spark';s.textContent=['✦','✧','★','♡','·'][Math.random()*5|0];s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';s.style.color=['#ff5fc8','#5fd4ff','#c6ff5f','#b28cff'][Math.random()*4|0];document.body.appendChild(s);setTimeout(()=>s.remove(),900)});
+const store={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let visits=store.get('cb-visits',1336)+1;store.set('cb-visits',visits);document.getElementById('cnt').outerHTML=String(visits).padStart(7,'0').split('').map(d=>`<span>${d}</span>`).join('');
+
+/* mood */
+const MOODS=[['✨','sparkly'],['😴','sleepy'],['💔','emo'],['🤪','hyper'],['🎧','vibin'],['😎','cool']];let mood=store.get('cb-mood',0);
+function renderMood(){document.getElementById('mood').innerHTML=MOODS.map(([e,n],i)=>`<button data-m="${i}" class="${i===mood?'on':''}">${e}</button>`).join('');document.getElementById('moodT').textContent=MOODS[mood].join(' ')}
+document.getElementById('mood').onclick=e=>{const m=e.target.dataset.m;if(m==null)return;mood=+m;store.set('cb-mood',mood);renderMood()};renderMood();
+
+/* top 8 */
+const F=[['xXPixelGrlXx','🦋','#ffd6f5'],['sk8rboi','🛹','#d6e8ff'],['GlitterGoth','🖤','#e0d6ff'],['DJ_Frosty','🎧','#d6fff0'],['TamagotchiMom','🥚','#fff4d6'],['NeoMatrix99','🕶️','#d6ffd9'],['BubbleTea','🧋','#ffe0d6'],['Tom','🙂','#e8e8e8']];
+const MSGS=['says: "omg ur page is sooo cute!!!"','poked u 👉','sent u a virtual hug (っ◕‿◕)っ','says: "brb mom needs the phone line"','added u to their buddy list ✓','says: "no one can see the Matrix, u have to C it 4 urself"','sent u a boba 🧋','says: "thanks for the add!" (he is everyone\'s friend)'];
+document.getElementById('top8').innerHTML=F.map(([n,e,c],i)=>`<div class="fr" data-f="${i}"><div class="av" style="background:${c}">${e}</div>${n}</div>`).join('');
+document.getElementById('top8').onclick=e=>{const f=e.target.closest('.fr');if(!f)return;document.getElementById('frMsg').textContent=F[f.dataset.f][0]+' '+MSGS[f.dataset.f]};
+
+/* music */
+let AC,playing=false,seqT,step=0,an;const viz=document.getElementById('viz');for(let i=0;i<20;i++)viz.appendChild(document.createElement('i'));
+function note(f,t,d,type='square',v=.05){const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(an);o.start(t);o.stop(t+d)}
+const MEL=[76,79,83,81,79,76,74,76,79,83,86,84,83,79,81,79],BASS=[52,52,55,55,57,57,50,50];
+function tick(){const t=AC.currentTime+.02,s=step%16,hz=n=>440*Math.pow(2,(n-69)/12);note(hz(MEL[s]),t,.18,'square',.04);if(s%2===0)note(hz(BASS[(s/2)%8]),t,.3,'triangle',.12);if(s%4===0){const o=AC.createOscillator(),g=AC.createGain();o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(40,t+.12);g.gain.setValueAtTime(.3,t);g.gain.exponentialRampToValueAtTime(.001,t+.2);o.connect(g);g.connect(an);o.start(t);o.stop(t+.2)}step++}
+document.getElementById('playBtn').onclick=e=>{if(!AC){AC=new AudioContext();an=AC.createAnalyser();an.fftSize=64;an.connect(AC.destination)}playing=!playing;e.target.textContent=playing?'❚❚':'▶';clearInterval(seqT);if(playing)seqT=setInterval(tick,150)};
+(function v(){if(an&&playing){const d=new Uint8Array(an.frequencyBinCount);an.getByteFrequencyData(d);[...viz.children].forEach((b,i)=>b.style.height=Math.max(3,d[i]/255*30)+'px')}requestAnimationFrame(v)})();
+
+/* blog */
+let POSTS=store.get('cb-posts',[['omg new layout!!!','Aug 14, 2000','i spent like 6 hrs on this new background. do u like the sparkles??? i made them in paint. dont steal!!!',[['GlitterGoth','LOVE IT'],['Tom','nice page']],12],['my tamagotchi died again','Jul 30, 2000','i forgot to feed him during math class. RIP Mochi #4. i will never forget u (until i get #5)',[['TamagotchiMom','🙏 rip mochi']],31],['Y2K survival kit','Dec 30, 1999','canned peaches ✓ flashlight ✓ my CD walkman ✓ extra batteries ✓. if the computers stop working, at least i will have Britney.',[['NeoMatrix99','there is no spoon'],['sk8rboi','lol']],44]]);
+function renderPosts(){document.getElementById('posts').innerHTML=POSTS.map(([t,d,b,c,h],i)=>`<div class="win post"><div class="bar"><span>✎ ${t}</span><i>_□×</i></div><div class="in"><div class="date">${d}</div><p>${b}</p><button class="hearts" data-h="${i}">♥ ${h}</button><div class="cmts">${c.map(([n,m])=>`<div><b>${n.replace(/</g,'')}:</b> ${m.replace(/</g,'')}</div>`).join('')}<form data-c="${i}"><input placeholder="leave a comment!!" maxlength="80" required><button>post</button></form></div></div></div>`).join('')}
+document.getElementById('posts').onclick=e=>{const h=e.target.closest('[data-h]');if(h){POSTS[h.dataset.h][4]++;store.set('cb-posts',POSTS);renderPosts()}};
+document.getElementById('posts').onsubmit=e=>{e.preventDefault();const f=e.target,i=+f.dataset.c,v=f.querySelector('input').value;POSTS[i][3].push(['you ✨',v]);store.set('cb-posts',POSTS);renderPosts()};renderPosts();
+
+/* quiz */
+const QZ=[['pick a snack:',[['dunkaroos','pop'],['fruit by the foot','sk8'],['gushers','cyber'],['bagel bites','boy']]],['ur fav accessory:',[['butterfly clips','pop'],['wallet chain','sk8'],['mood ring','cyber'],['frosted tips','boy']]],['friday night:',[['mall + food court','pop'],['skate park','sk8'],['LAN party','cyber'],['TRL marathon','boy']]],['pick a gadget:',[['tamagotchi','pop'],['discman','sk8'],['palm pilot','cyber'],['2-way pager','boy']]],['ur away message:',[['shopping ✨ brb','pop'],['out, deal w/ it','sk8'],['compiling reality...','cyber'],['*~*~*in luv*~*~*','boy']]]];
+const RES={pop:['💖','POP PRINCESS','u r glitter in human form. u own 14 pairs of platform shoes and know every dance move.'],sk8:['🛹','SK8R SOUL','u r too cool 4 school. baggy jeans, zero cares, one very scraped elbow.'],cyber:['💿','CYBER ORACLE','u saw the future coming. u have a geocities page, 3 email addresses and a hacker alias.'],boy:['🎤','BOYBAND HEARTTHROB','u r the one with frosted tips who does the spin move. everyone has ur poster.']};
+let qi=0,score={};function renderQ(){const el=document.getElementById('quizEl');if(qi>=QZ.length){const top=Object.entries(score).sort((a,b)=>b[1]-a[1])[0][0];const [e,n,d]=RES[top];el.innerHTML=`<div class="result"><div class="big">${e}</div><h3>u r a... ${n}!!!</h3><p style="max-width:460px;margin:0 auto;line-height:1.7">${d}</p><button class="bub" id="again" style="margin-top:16px">take it again ↺</button></div>`;document.getElementById('again').onclick=()=>{qi=0;score={};renderQ()};return}
+ const [q,o]=QZ[qi];el.innerHTML=`<div class="qprog"><i style="width:${qi/QZ.length*100}%"></i></div><small>question ${qi+1} of ${QZ.length}</small><h3>${q}</h3><div class="opts">${o.map(([t,k])=>`<button data-k="${k}">${t}</button>`).join('')}</div>`}
+document.getElementById('quizEl').onclick=e=>{const b=e.target.closest('[data-k]');if(!b)return;score[b.dataset.k]=(score[b.dataset.k]||0)+1;qi++;renderQ()};renderQ();
+
+/* glitter maker */
+const GS=['rainbow','chrome','sparkle','bounce','wave','blink'],GB=[['stars','#2a1a4a'],['hot pink','#ff5fc8'],['sky','#5fd4ff'],['lime','#1a3a0a']];let gs='rainbow',gb=0;
+document.getElementById('gs').innerHTML=GS.map(s=>`<button data-s="${s}" class="${s===gs?'on':''}">${s}</button>`).join('');document.getElementById('gb').innerHTML=GB.map(([n],i)=>`<button data-b="${i}" class="${i===gb?'on':''}">${n}</button>`).join('');
+document.getElementById('gs').onclick=e=>{if(!e.target.dataset.s)return;gs=e.target.dataset.s;document.querySelectorAll('#gs button').forEach(b=>b.classList.toggle('on',b===e.target));renderG()};
+document.getElementById('gb').onclick=e=>{if(e.target.dataset.b==null)return;gb=+e.target.dataset.b;document.querySelectorAll('#gb button').forEach(b=>b.classList.toggle('on',b===e.target));renderG()};
+function renderG(){const t=(document.getElementById('gt').value||'hi').replace(/</g,'');const el=document.getElementById('gtxt');el.className='txt s-'+gs;el.innerHTML=['bounce','wave'].includes(gs)?[...t].map((c,i)=>`<span style="animation-delay:${i*.08}s">${c===' '?'&nbsp;':c}</span>`).join(''):t;document.getElementById('gout').style.background=GB[gb][1]+(gb===0?' radial-gradient(#fff 1px,transparent 1.5px) 0 0/20px 20px':'')}
+document.getElementById('gt').oninput=renderG;renderG();
+document.getElementById('gCopy').onclick=e=>{const h=`<span style="font-family:Audiowide">${document.getElementById('gtxt').innerHTML}</span>`;try{navigator.clipboard.writeText(h);e.target.textContent='copied!! ♡'}catch(_){e.target.textContent='copy failed :('}setTimeout(()=>e.target.textContent='copy html ♡',1500)};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

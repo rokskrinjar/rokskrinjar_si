@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halo — Meetings with depth</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:#fff;font:15px/1.5 'Lexend',sans-serif;overflow-x:hidden;background:#2b2118}
+.room{position:fixed;inset:0;background:
+ radial-gradient(60% 50% at 20% 25%,rgba(255,196,140,.55),transparent 70%),
+ radial-gradient(40% 50% at 85% 20%,rgba(255,240,220,.35),transparent 70%),
+ radial-gradient(70% 60% at 60% 110%,rgba(80,110,90,.7),transparent 70%),
+ linear-gradient(180deg,#7a5a40 0%,#4a3626 55%,#2b2118 100%)}
+.room::after{content:'';position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(180deg,rgba(40,28,18,0),rgba(30,20,12,.85)),repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 2px,transparent 2px 120px)}
+.win{position:absolute;left:62%;top:8%;width:22%;height:46%;border-radius:8px;background:linear-gradient(160deg,rgba(255,250,240,.6),rgba(255,230,200,.15));filter:blur(6px)}
+nav{position:relative;z-index:5;display:flex;align-items:center;gap:20px;padding:22px 34px}
+.lg{font-weight:600;font-size:20px;display:flex;align-items:center;gap:10px}.lg i{width:22px;height:22px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 18px rgba(255,255,255,.7)}
+nav a{color:rgba(255,255,255,.75);text-decoration:none;font-size:14px}nav .sp{flex:1}
+.pill{background:rgba(255,255,255,.18);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.25);padding:10px 18px;border-radius:999px;color:#fff!important}
+.scene{position:relative;z-index:2;height:690px;perspective:1400px;margin-top:10px}
+.stage{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .2s ease-out}
+.glass{position:absolute;border-radius:28px;background:rgba(245,240,235,.16);backdrop-filter:blur(30px) saturate(1.4);-webkit-backdrop-filter:blur(30px) saturate(1.4);border:1px solid rgba(255,255,255,.28);box-shadow:0 40px 80px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.35)}
+.main{left:50%;top:40px;width:640px;height:400px;margin-left:-320px;transform:translateZ(0);padding:22px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px}
+.tile{border-radius:18px;position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,.04))}
+.tile .face{position:absolute;left:50%;top:44%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;display:grid;place-items:center;font-size:30px;font-weight:600}
+.tile b{position:absolute;left:12px;bottom:10px;font-weight:500;font-size:13px;background:rgba(0,0,0,.25);padding:3px 10px;border-radius:999px}
+.tile.spk{box-shadow:inset 0 0 0 3px rgba(255,255,255,.8)}
+.ring{position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(255,255,255,.6);animation:sp 1.4s ease-out infinite}@keyframes sp{to{transform:scale(1.35);opacity:0}}
+.left{left:calc(50% - 600px);top:90px;width:250px;height:300px;transform:translateZ(-120px) rotateY(24deg);padding:20px}
+.right{left:calc(50% + 350px);top:70px;width:260px;height:340px;transform:translateZ(-120px) rotateY(-24deg);padding:20px}
+.glass h4{margin:0 0 12px;font-weight:500;font-size:14px;opacity:.85}
+.note{background:rgba(255,255,255,.12);border-radius:14px;padding:10px 12px;margin-bottom:8px;font-size:13px;font-weight:300}
+.dock{left:50%;top:470px;transform:translateX(-50%) translateZ(60px);display:flex;gap:10px;padding:10px;border-radius:999px}
+.dock button{width:50px;height:50px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:19px;cursor:pointer;transition:.2s}.dock button:hover{background:rgba(255,255,255,.35);transform:scale(1.08)}.dock .end{background:#e5484d}
+.cap{left:50%;top:560px;transform:translateX(-50%) translateZ(30px);padding:10px 20px;border-radius:18px;font-weight:300;font-size:15px;white-space:nowrap}
+.copy{position:relative;z-index:3;text-align:center;padding:10px 20px 90px}
+.copy h1{font-weight:300;font-size:clamp(40px,6vw,76px);letter-spacing:-.03em;line-height:1.02;margin:0}.copy h1 b{font-weight:600}
+.copy p{opacity:.8;font-weight:300;font-size:18px;max-width:32em;margin:18px auto 0}
+.feats{position:relative;z-index:3;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1080px;margin:0 auto;padding:0 24px 90px}
+.feats .glass{position:relative;padding:24px}.feats h3{margin:0 0 6px;font-weight:500}.feats p{margin:0;opacity:.75;font-weight:300}
+@media(max-width:1000px){.left,.right{display:none}.main{width:92vw;margin-left:-46vw}.feats{grid-template-columns:1fr}.cap{white-space:normal;width:90vw;text-align:center}}
+</style>
+</head>
+<body>
+<div class="room"><div class="win"></div></div>
+<nav><div class="lg"><i></i>halo</div><a href="#">Spaces</a><a href="#">For teams</a><a href="#">Vision Pro</a><span class="sp"></span><a class="pill" href="#">Try Halo free</a></nav>
+<div class="scene" id="scene"><div class="stage" id="stage">
+ <div class="glass left"><h4>📌 Shared notes</h4><div class="note">Launch moves to 14 Nov — confirm with legal</div><div class="note">Kai to send revised deck by Thu</div><div class="note">Budget ask: €40k for paid pilots</div></div>
+ <div class="glass main" id="main"></div>
+ <div class="glass right"><h4>💬 Chat · 4</h4><div class="note"><b>Ama</b> · can we see Q3 cohort?</div><div class="note"><b>Kai</b> · pinned it left 👈</div><div class="note"><b>Rui</b> · 👏 great call</div><div class="note"><b>Lena</b> · dropping at :45</div></div>
+ <div class="glass dock"><button>🎙</button><button>📷</button><button>🖐</button><button>⬚</button><button>✨</button><button class="end">✕</button></div>
+ <div class="glass cap" id="cap">Kai: “…so if we hold the launch two weeks, legal clears the new terms.”</div>
+</div></div>
+<div class="copy"><h1>Meetings with <b>depth.</b></h1><p>Halo arranges people, notes and screens around you in space — on a laptop, a headset or a wall display. Turn your head to read the chat. Lean in to share.</p></div>
+<div class="feats"><div class="glass"><h3>Spatial layout</h3><p>Panels stay where you put them, across devices and across meetings.</p></div><div class="glass"><h3>Live captions in 40 languages</h3><p>Translated on the fly, attributed to each speaker.</p></div><div class="glass"><h3>Summaries that cite</h3><p>Every bullet links to the moment it was said.</p></div></div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 50 SaaS</a>
+<script>
+const P=[['Kai','#d9805b'],['Ama','#6aa184'],['Rui','#7c8fd6'],['Lena','#c98bb9']];let sp=0;
+const main=document.getElementById('main');
+function draw(){main.innerHTML=P.map((p,i)=>`<div class="tile ${i===sp?'spk':''}"><div class="face" style="background:${p[1]}">${i===sp?'<span class="ring"></span>':''}${p[0][0]}</div><b>${p[0]}${i===sp?' · speaking':''}</b></div>`).join('')}draw();
+const C=['Kai: “…so if we hold the launch two weeks, legal clears the new terms.”','Ama: “Then let’s use the time for paid pilots — 40k gets us six accounts.”','Rui: “I can have the cohort numbers ready by Thursday.”','Lena: “Agreed. I’ll take it to the board on Monday.”'];
+setInterval(()=>{sp=(sp+1)%4;draw();document.getElementById('cap').textContent=C[sp]},3200);
+const st=document.getElementById('stage');addEventListener('pointermove',e=>{const x=(e.clientX/innerWidth-.5),y=(e.clientY/innerHeight-.5);st.style.transform=`rotateY(${x*8}deg) rotateX(${-y*6}deg)`});
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serengeti Field Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Alegreya:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--kraft:#e4d2ad;--kraft2:#d6c092;--ink:#2e2418;--ochre:#c9812e;--sage:#7b8a55;--sky:#f0a868;--dusk:#6b3a5a;--dim:#2e241899}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#5a4430;color:var(--ink);font-family:Alegreya,serif;font-size:18px}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;color:inherit}
+.hand{font-family:Caveat,cursive}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 4vw;color:var(--kraft)}
+.logo{font-family:Caveat;font-weight:700;font-size:36px}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav a{font-family:Caveat;font-size:24px;padding:2px 14px;border-radius:30px;color:#e4d2adbb}
+nav a.on{background:var(--kraft);color:var(--ink)}
+[data-view][hidden]{display:none}
+.book{max-width:1260px;margin:0 auto 60px;background:var(--kraft);border-radius:6px;padding:30px 4vw 50px;box-shadow:0 30px 60px #0008;position:relative;background-image:radial-gradient(ellipse at 20% 10%,#fff4,transparent 50%),repeating-linear-gradient(#0000 0 31px,#2e24180c 31px 32px)}
+.book::before{content:"";position:absolute;left:0;top:0;bottom:0;width:18px;background:repeating-linear-gradient(#3a2a1a 0 10px,transparent 10px 26px);border-radius:6px 0 0 6px;opacity:.4}
+h2{font-family:Caveat;font-weight:700;font-size:clamp(2.6rem,6vw,4.4rem);line-height:1}
+.sub{font-style:italic;max-width:60ch;line-height:1.55;margin:6px 0 20px}
+/* map */
+.mapg{display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start}
+.map svg{width:100%;height:auto;display:block;border-radius:4px;box-shadow:0 0 0 2px var(--ink)}
+.pin{cursor:pointer}
+.log{background:#f4ead4;border-radius:4px;padding:16px;box-shadow:3px 3px 0 #2e241833;transform:rotate(.6deg)}
+.log h3{font-family:Caveat;font-size:30px}
+.log li{list-style:none;padding:6px 0;border-bottom:1px dashed #2e241844;font-size:16px}
+.log li b{font-family:Caveat;font-size:22px}
+.day{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.day button{border:2px solid var(--ink);background:none;border-radius:30px;padding:2px 12px;font-family:Caveat;font-size:20px}
+.day button.on{background:var(--ink);color:var(--kraft)}
+/* camera */
+.cam{position:relative;border-radius:6px;overflow:hidden;box-shadow:0 0 0 3px var(--ink);cursor:crosshair}
+.cam canvas{display:block;width:100%;height:auto}
+.cam .vf{position:absolute;inset:0;pointer-events:none;border:14px solid #0004}
+.cam .vf::before,.cam .vf::after{content:"";position:absolute;left:50%;top:50%;width:40px;height:40px;border:2px solid #fff8;transform:translate(-50%,-50%)}
+.cam .flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .4s}
+.roll{display:flex;gap:10px;overflow-x:auto;padding:14px 0}
+.photo{flex:none;background:#fff;padding:6px 6px 22px;box-shadow:2px 3px 6px #0004;transform:rotate(var(--r));text-align:center;font-family:Caveat;font-size:18px}
+.photo canvas{width:150px;height:100px;display:block}
+.score{font-family:Caveat;font-size:28px}
+/* tracks */
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.print{background:#c9b48a;border-radius:6px;display:grid;place-items:center;min-height:320px;box-shadow:inset 0 0 40px #0003;position:relative}
+.print svg{width:70%;height:auto}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts button{border:2px solid var(--ink);background:#f4ead4;padding:12px;font-family:Caveat;font-size:26px;border-radius:6px}
+.opts button.ok{background:var(--sage);color:#fff}
+.opts button.no{background:#b8452e;color:#fff}
+/* migration */
+.mig svg{width:100%;height:auto;display:block;box-shadow:0 0 0 2px var(--ink);border-radius:4px}
+.months{display:flex;justify-content:space-between;font-family:Caveat;font-size:20px;margin-top:6px}
+input[type=range]{width:100%;accent-color:var(--ochre)}
+.migtxt{margin-top:12px;font-size:19px;line-height:1.5;min-height:3em}
+@media(max-width:900px){.mapg,.tracks{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="logo">Serengeti Field Notes</div><nav><a href="#map">Sightings</a><a href="#camera">Camera</a><a href="#tracks">Tracks</a><a href="#migration">Migration</a><a href="index.html">Home ↩</a></nav></header>
+
+<section data-view="map"><div class="book">
+ <h2>Six days on the plains</h2>
+ <p class="sub">From the notebook of a first-time visitor. Every pin is a sighting. Pick a day to see where we drove and what we met.</p>
+ <div class="day" id="days"></div>
+ <div class="mapg"><div class="map"><svg id="mapSvg" viewBox="0 0 900 600"></svg></div><div class="log" id="log"></div></div>
+</div></section>
+
+<section data-view="camera" hidden><div class="book">
+ <h2>Golden hour, camera ready</h2>
+ <p class="sub">Animals move across the plain as the sun goes down. Click to take a photo. You score more for animals centred in the frame, and extra for the rare ones.</p>
+ <div class="cam" id="camBox"><canvas id="cam" width="1100" height="520"></canvas><div class="vf"></div><div class="flash" id="flash"></div></div>
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:10px"><span class="score" id="score">Film: 12 shots · Points: 0</span><button class="day" style="margin:0"><span style="border:2px solid var(--ink);border-radius:30px;padding:2px 12px;font-family:Caveat;font-size:20px" id="newRoll">New roll</span></button></div>
+ <div class="roll" id="roll"></div>
+</div></section>
+
+<section data-view="tracks" hidden><div class="book">
+ <h2>Whose footprint?</h2>
+ <p class="sub">The guide, Joseph, can read tracks like a newspaper. Here's your chance to try.</p>
+ <div class="tracks"><div class="print" id="print"></div><div><div class="opts" id="opts"></div><p id="tfeed" style="margin-top:16px;min-height:4em;line-height:1.5"></p><div class="score" id="tscore"></div></div></div>
+</div></section>
+
+<section data-view="migration" hidden><div class="book">
+ <h2>The Great Migration</h2>
+ <p class="sub">Around 1.5 million wildebeest, hundreds of thousands of zebra and many gazelle follow the rains in a clockwise loop every year. Move the slider through the months.</p>
+ <div class="mig"><svg id="migSvg" viewBox="0 0 900 560"></svg></div>
+ <input type="range" id="mon" min="0" max="11.9" step=".05" value="1"><div class="months"></div>
+ <div class="migtxt" id="migT"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'map';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+document.querySelector('.months').innerHTML=['J','F','M','A','M','J','J','A','S','O','N','D'].map(m=>`<span>${m}</span>`).join('');
+
+/* animal silhouettes (simple paths, facing right, ~100 wide) */
+const AN={elephant:['Elephant','M10 70 Q8 30 40 26 Q70 20 86 34 Q98 40 96 60 Q100 80 94 96 L88 96 L86 72 L80 70 L78 96 L70 96 L68 70 L40 70 L38 96 L30 96 L28 70 Q18 72 16 96 L10 96Z M86 34 Q106 44 100 80 L96 78 Q98 52 88 46',2],lion:['Lion','M10 56 Q14 40 40 40 L70 40 Q74 26 86 28 Q98 30 98 44 Q96 54 86 54 L84 76 L78 76 L76 58 L40 58 L36 76 L30 76 L28 58 Q16 60 10 74 L6 74 Q6 60 10 56Z M84 30 Q70 26 72 46 Q76 56 90 52',3],giraffe:['Giraffe','M30 96 L32 62 Q24 58 28 48 L60 40 L74 6 Q76 0 82 2 L90 6 L84 10 L70 44 Q72 56 64 60 L66 96 L60 96 L58 62 L40 62 L38 96Z',2],zebra:['Zebra','M12 50 Q14 38 36 38 L66 38 Q72 22 84 20 L94 30 L90 36 L80 34 L76 50 L74 76 L68 76 L66 56 L38 56 L36 76 L30 76 L28 56 Q18 56 12 70 L8 68Z',1],rhino:['Rhino','M8 60 Q8 36 40 34 L72 36 Q86 38 92 50 L100 44 L98 56 Q98 66 88 66 L84 80 L76 80 L74 66 L40 66 L38 80 L30 80 L28 66 Q14 66 8 74Z',4],cheetah:['Cheetah','M8 54 Q20 44 44 46 L74 44 Q80 34 90 36 Q98 38 96 46 L86 50 L82 74 L78 74 L76 56 L42 56 L38 74 L34 74 L32 58 Q18 60 6 68Z',4],wildebeest:['Wildebeest','M10 56 Q14 36 40 38 L68 40 Q76 30 86 30 Q96 34 94 48 L84 54 L82 76 L76 76 L74 58 L40 58 L38 76 L32 76 L30 58 Q16 60 10 70Z M84 30 q-6 -8 2 -12 M92 32 q6 -8 -2 -12',1],hippo:['Hippo','M8 60 Q6 38 40 36 L70 38 Q94 36 98 56 Q100 68 88 70 L86 80 L78 80 L76 70 L40 70 L38 80 L30 80 L28 70 Q12 70 8 60Z',3]};
+const aPath=(k,x,y,s=1,flip=false,col='#2e2418')=>`<path d="${AN[k][1]}" fill="${col}" fill-rule="evenodd" transform="translate(${x} ${y}) scale(${flip?-s:s} ${s}) translate(${flip?-100:0} -100)"/>`;
+
+/* map */
+const DAYS=[['Day 1 · Seronera',[['lion',420,300,'Pride of 9 on a kopje, full bellies'],['giraffe',480,250,'Three males necking'],['zebra',380,340,'Herd of ~200']]],['Day 2 · Ndutu',[['cheetah',260,440,'Mother with 4 cubs!'],['wildebeest',300,470,'Calving season, thousands'],['hippo',330,400,'Hippo pool, pungent']]],['Day 3 · Moru Kopjes',[['rhino',230,310,'Black rhino at dawn, very rare'],['elephant',270,280,'Matriarch and calf']]],['Day 4 · Western corridor',[['hippo',120,240,'Grumeti river'],['lion',160,260,'Tree-climbing lioness'],['zebra',100,280,'Crossing the road']]],['Day 5 · Lobo',[['elephant',560,120,'Bull by the rocks'],['giraffe',600,160,'Masai giraffe'],['cheetah',520,170,'Hunting (missed)']]],['Day 6 · Mara river',[['wildebeest',470,60,'River crossing!! Crocodiles.'],['hippo',520,50,'Grumpy'],['lion',430,90,'Waiting in ambush']]]];
+let day=0;
+function mapUI(){document.getElementById('days').innerHTML=DAYS.map((d,i)=>`<button class="${i===day?'on':''}" data-d="${i}">Day ${i+1}</button>`).join('');
+ let s=`<rect width="900" height="600" fill="#dccb98"/><defs><filter id="wc"><feTurbulence baseFrequency=".02" numOctaves="3" seed="3"/><feDisplacementMap in="SourceGraphic" scale="18"/></filter></defs>`;
+ s+=`<g filter="url(#wc)" opacity=".55"><ellipse cx="320" cy="430" rx="220" ry="130" fill="#e8d8a0"/><ellipse cx="560" cy="160" rx="200" ry="130" fill="#a8b06a"/><ellipse cx="160" cy="260" rx="130" ry="80" fill="#b8b878"/></g>`;
+ s+=`<path d="M0 230 Q120 250 200 220 Q280 200 330 250" stroke="#6a9ab0" stroke-width="7" fill="none"/><text x="40" y="215" class="hand" font-family="Caveat" font-size="22" fill="#3a6a80">Grumeti R.</text><path d="M340 40 Q460 70 620 30 Q700 10 900 40" stroke="#6a9ab0" stroke-width="9" fill="none"/><text x="660" y="70" font-family="Caveat" font-size="24" fill="#3a6a80">Mara River</text>`;
+ s+=`<path d="M900 0 L900 120 L780 30Z" fill="#8a9a60" opacity=".5"/><text x="790" y="100" font-family="Caveat" font-size="22">KENYA →</text><path d="M330 0 L900 110" stroke="#2e2418" stroke-dasharray="8 6" opacity=".5"/>`;
+ for(let i=0;i<40;i++){const x=(i*173)%880+10,y=(i*97)%560+20;s+=`<path d="M${x} ${y} l-8 0 q8 -10 16 0 z M${x} ${y} v8" stroke="#4a5a2a" fill="#4a5a2a" opacity=".6"/>`}
+ [[420,300],[230,310],[560,120]].forEach(([x,y])=>s+=`<ellipse cx="${x}" cy="${y+10}" rx="30" ry="12" fill="#8a7a5a" opacity=".6"/>`);
+ const d=DAYS[day][1];s+=`<path d="${d.map((p,i)=>(i?'L':'M')+p[1]+' '+p[2]).join(' ')}" stroke="#b8452e" stroke-width="3" stroke-dasharray="6 6" fill="none"/>`;
+ DAYS.forEach((D,i)=>D[1].forEach(p=>{const on=i===day;s+=`<g class="pin" opacity="${on?1:.25}">${aPath(p[0],p[1]-18,p[2]+4,.36,false,on?'#2e2418':'#5a4a38')}${on?`<circle cx="${p[1]}" cy="${p[2]-16}" r="4" fill="#b8452e"/>`:''}</g>`}));
+ s+=`<g transform="translate(820 520)"><circle r="30" fill="none" stroke="#2e2418"/><path d="M0 -26 L6 0 L0 26 L-6 0Z" fill="#2e2418"/><text y="-34" text-anchor="middle" font-family="Caveat" font-size="20">N</text></g><text x="20" y="580" font-family="Caveat" font-size="22">Serengeti N.P., sketched badly</text>`;
+ document.getElementById('mapSvg').innerHTML=s;
+ const seen=new Set(DAYS.slice(0,day+1).flatMap(D=>D[1].map(p=>p[0])));
+ document.getElementById('log').innerHTML=`<h3>${DAYS[day][0]}</h3><ul>${d.map(p=>`<li><b>${AN[p[0]][0]}</b> · ${p[3]}</li>`).join('')}</ul><h3 style="margin-top:14px">Seen so far</h3><div style="font-size:15px">${Object.keys(AN).map(k=>`<span style="display:inline-block;margin:2px 6px 2px 0;${seen.has(k)?'':'opacity:.35;text-decoration:line-through'}">${seen.has(k)?'✓':'○'} ${AN[k][0]}</span>`).join('')}</div>`}
+document.getElementById('days').onclick=e=>{const d=e.target.dataset.d;if(d!=null){day=+d;mapUI()}};mapUI();
+
+/* camera */
+const cc=document.getElementById('cam'),cx=cc.getContext('2d'),CW=1100,CH=520;let herd=[],shots=12,pts=0,T=0,roll=[];
+function spawnHerd(){herd=Object.keys(AN).flatMap((k,i)=>[...Array(k==='wildebeest'||k==='zebra'?3:1)].map((_,j)=>({k,x:-150-Math.random()*1400-i*200,y:330+Math.random()*120,v:.4+Math.random()*.8+(k==='cheetah'?.8:0),s:k==='giraffe'?1.5:k==='elephant'?1.4:k==='hippo'?1:1,flip:false}))).map(a=>{if(Math.random()<.4){a.flip=true;a.x=CW+150+Math.random()*1200;a.v*=-1}return a})}
+function camDraw(){T+=1;const sunY=100+Math.min(260,T*.05);const g=cx.createLinearGradient(0,0,0,CH);g.addColorStop(0,'#3a2a5a');g.addColorStop(.45,'#e8784a');g.addColorStop(.75,'#f8c070');g.addColorStop(1,'#c9812e');cx.fillStyle=g;cx.fillRect(0,0,CW,CH);
+ cx.fillStyle='#ffe8a0';cx.beginPath();cx.arc(760,sunY,60,0,7);cx.fill();cx.fillStyle='#ffe8a044';cx.beginPath();cx.arc(760,sunY,100,0,7);cx.fill();
+ cx.fillStyle='#8a4a3a';cx.beginPath();cx.moveTo(0,360);for(let x=0;x<=CW;x+=40)cx.lineTo(x,350+Math.sin(x*.01)*14);cx.lineTo(CW,CH);cx.lineTo(0,CH);cx.fill();
+ cx.fillStyle='#3a2418';cx.beginPath();cx.moveTo(0,420);for(let x=0;x<=CW;x+=30)cx.lineTo(x,410+Math.sin(x*.02+1)*8);cx.lineTo(CW,CH);cx.lineTo(0,CH);cx.fill();
+ // acacias
+ [[180,380,1],[900,395,1.3],[520,372,.8]].forEach(([x,y,s])=>{cx.fillStyle='#1e140c';cx.fillRect(x-3*s,y-70*s,6*s,70*s);cx.beginPath();cx.ellipse(x,y-78*s,80*s,16*s,0,0,7);cx.fill();cx.beginPath();cx.ellipse(x-20*s,y-86*s,50*s,10*s,0,0,7);cx.fill()});
+ herd.sort((a,b)=>a.y-b.y).forEach(a=>{a.x+=a.v;if(a.v>0&&a.x>CW+200)a.x=-200-Math.random()*800;if(a.v<0&&a.x<-200)a.x=CW+200+Math.random()*800;const p=new Path2D(AN[a.k][1]);cx.save();cx.translate(a.x,a.y);const sc=a.s*(.7+(a.y-330)/400);cx.scale(a.flip?-sc:sc,sc);cx.translate(a.flip?-50:-50,-100);cx.fillStyle='#1e140c';cx.fill(p,'evenodd');cx.restore()});
+ if(!document.querySelector('[data-view=camera]').hidden)requestAnimationFrame(camDraw);else camRun=false}
+let camRun=false;new MutationObserver(()=>{if(!document.querySelector('[data-view=camera]').hidden&&!camRun){camRun=true;camDraw()}}).observe(document.querySelector('[data-view=camera]'),{attributes:true});
+document.getElementById('camBox').onclick=e=>{if(shots<=0)return;const r=cc.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*CW,y=(e.clientY-r.top)/r.height*CH;shots--;const fl=document.getElementById('flash');fl.style.transition='none';fl.style.opacity=.8;requestAnimationFrame(()=>{fl.style.transition='opacity .4s';fl.style.opacity=0});
+ const t=document.createElement('canvas');t.width=300;t.height=200;t.getContext('2d').drawImage(cc,x-150,y-100,300,200,0,0,300,200);
+ let best=null,bd=1e9;herd.forEach(a=>{const d=Math.hypot(a.x-x,a.y-50-y);if(d<bd){bd=d;best=a}});let gain=0,label='Just grass';if(best&&bd<120){const rare={rhino:3,cheetah:2.5,lion:2}[best.k]||1;gain=Math.round((120-bd)*rare);label=AN[best.k][0]+(bd<40?' ★':'')}pts+=gain;
+ roll.unshift([t.toDataURL('image/jpeg',.7),label,gain]);document.getElementById('roll').innerHTML=roll.map((p,i)=>`<div class="photo" style="--r:${(i%3-1)*2}deg"><img src="${p[0]}" style="width:150px;height:100px;display:block"><div>${p[1]} · +${p[2]}</div></div>`).join('');
+ document.getElementById('score').textContent=shots?`Film: ${shots} shot${shots===1?'':'s'} · Points: ${pts}`:`Roll finished! ${pts} points. ${pts>600?'National Geographic is calling.':pts>300?'Great eye!':'The animals were shy today.'}`;const best0=store.get('sf-best',0);if(!shots&&pts>best0)store.set('sf-best',pts)};
+document.getElementById('newRoll').onclick=e=>{e.stopPropagation();shots=12;pts=0;roll=[];document.getElementById('roll').innerHTML='';document.getElementById('score').textContent='Film: 12 shots · Points: 0';spawnHerd()};
+spawnHerd();
+
+/* tracks */
+const TR=[['lion','Lion','Four toes, no claw marks (cats retract them), and a big three-lobed heel pad.'],['hyena','Spotted hyena','Four toes with claw marks. The front feet are bigger than the back ones.'],['elephant','Elephant','A huge round print, up to 50 cm, with a cracked-skin pattern. Twice the print’s circumference is roughly the elephant’s shoulder height.'],['zebra','Zebra','A single rounded hoof, like a horse.'],['giraffe','Giraffe','Big, squarish split hooves, up to 30 cm long.'],['rhino','Rhino','Three rounded toes, like a clover.']];
+function trackSVG(k){if(k==='lion')return`<ellipse cx="100" cy="130" rx="46" ry="38" fill="#4a3a28"/>${[[50,70],[80,50],[120,50],[150,70]].map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="16" ry="20" fill="#4a3a28"/>`).join('')}`;
+ if(k==='hyena')return`<path d="M60 150 Q100 180 140 150 Q150 110 100 100 Q50 110 60 150Z" fill="#4a3a28"/>${[[55,80],[82,60],[118,60],[145,80]].map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="14" ry="18" fill="#4a3a28"/><path d="M${x} ${y-18} l0 -14" stroke="#4a3a28" stroke-width="4"/>`).join('')}`;
+ if(k==='elephant')return`<circle cx="100" cy="100" r="80" fill="#4a3a28"/>${[...Array(18)].map((_,i)=>`<path d="M${40+(i*37)%120} ${40+(i*53)%120} l${10+(i%5)*4} ${(i%3-1)*8}" stroke="#c9b48a" stroke-width="2" opacity=".6"/>`).join('')}`;
+ if(k==='zebra')return`<path d="M50 60 Q100 20 150 60 Q170 120 140 170 L120 150 Q100 130 80 150 L60 170 Q30 120 50 60Z" fill="#4a3a28"/>`;
+ if(k==='giraffe')return`<path d="M40 40 Q70 30 92 50 L92 170 Q60 180 44 150Z M108 50 Q130 30 160 40 L156 150 Q140 180 108 170Z" fill="#4a3a28"/>`;
+ return`<ellipse cx="100" cy="125" rx="50" ry="45" fill="#4a3a28"/>${[[45,80],[100,55],[155,80]].map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="26" ry="24" fill="#4a3a28"/>`).join('')}`}
+let tq=null,tsc=[0,0];
+function newTrack(){tq=TR[Math.random()*TR.length|0];document.getElementById('print').innerHTML=`<svg viewBox="0 0 200 200">${trackSVG(tq[0])}</svg><div class="hand" style="position:absolute;bottom:10px;right:14px;font-size:20px">plaster cast #${tsc[1]+1}</div>`;document.getElementById('opts').innerHTML=TR.map(t=>`<button data-k="${t[0]}">${t[1]}</button>`).join('');document.getElementById('tfeed').textContent=''}
+document.getElementById('opts').onclick=e=>{const k=e.target.dataset.k;if(!k||e.target.disabled)return;const ok=k===tq[0];tsc[0]+=ok?1:0;tsc[1]++;document.querySelectorAll('#opts button').forEach(b=>{b.disabled=true;if(b.dataset.k===tq[0])b.classList.add('ok')});if(!ok)e.target.classList.add('no');document.getElementById('tfeed').innerHTML=`<b>${ok?'Yes!':'Not quite.'}</b> ${tq[2]}`;document.getElementById('tscore').textContent=`${tsc[0]} / ${tsc[1]} correct · Joseph ${tsc[0]/tsc[1]>.7?'is impressed':'smiles politely'}`;setTimeout(newTrack,2600)};newTrack();
+
+/* migration */
+const MIG=[[310,470,'January to March: the southern plains around Ndutu. Short, nutritious grass after the rains. About 8,000 calves are born every day in February.'],[320,460,''],[300,430,''],[240,360,'April and May: the long rains. The herds drift north-west in columns many kilometres long.'],[160,300,'June: the Western Corridor. The first dangerous crossings of the Grumeti River, full of giant crocodiles.'],[260,200,''],[440,70,'July to September: the famous Mara River crossings into Kenya. It is chaotic, dramatic and dusty.'],[520,50,''],[560,70,''],[600,140,'October: the short rains start, and the herds turn south along the eastern side.'],[520,260,'November: heading back through the Seronera and Lobo areas.'],[400,380,'December: back to the south, just in time for calving. And the loop begins again.']];
+function mig(){const m=+document.getElementById('mon').value,i=Math.floor(m),f=m-i;const a=MIG[i],b=MIG[(i+1)%12];const x=a[0]+(b[0]-a[0])*f,y=a[1]+(b[1]-a[1])*f;let s=`<rect width="900" height="560" fill="#dccb98"/><path d="${MIG.map((p,j)=>(j?'L':'M')+p[0]+' '+p[1]).join(' ')}Z" stroke="#2e2418" stroke-width="2" stroke-dasharray="10 8" fill="none" opacity=".5"/>`;
+ s+=`<path d="M0 230 Q120 250 200 220 Q280 200 330 250" stroke="#6a9ab0" stroke-width="7" fill="none"/><path d="M340 40 Q460 70 620 30 Q700 10 900 40" stroke="#6a9ab0" stroke-width="9" fill="none"/><text x="640" y="70" font-family="Caveat" font-size="24">Masai Mara (Kenya)</text><text x="230" y="520" font-family="Caveat" font-size="24">Ndutu</text><text x="60" y="330" font-family="Caveat" font-size="24">Western Corridor</text><text x="640" y="240" font-family="Caveat" font-size="24">Lobo</text>`;
+ for(let k=0;k<160;k++){const ang=k*2.4,r=Math.sqrt(k)*6;s+=`<ellipse cx="${x+Math.cos(ang)*r*1.6}" cy="${y+Math.sin(ang)*r}" rx="3.4" ry="2" fill="#2e2418" opacity=".8"/>`}
+ s+=`<circle cx="${x}" cy="${y}" r="92" fill="none" stroke="#b8452e" stroke-width="2" stroke-dasharray="4 6"/>`;document.getElementById('migSvg').innerHTML=s;
+ let t='';for(let j=i;j>=0;j--)if(MIG[j][2]){t=MIG[j][2];break}document.getElementById('migT').textContent=t}
+document.getElementById('mon').oninput=mig;mig();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

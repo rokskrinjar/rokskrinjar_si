@@ -1,0 +1,163 @@
+T.trade({
+  id: 'appliance',
+  name: 'Appliance Repair',
+  plural: 'Appliance Repairers',
+  noun: 'appliance repair',
+  icon: 'washer',
+  emergency: false,
+
+  nameParts: {
+    pre: ['Fixwell', 'Spincycle', 'Homefront', 'Keepgoing', 'Kitchenside', 'Rightfix', 'Steadyrun', 'Freshspin', 'Coolbox', 'Ovenwise', 'Mendmore', 'Bluedoor',
+      'Rinse & Repeat', 'Goodturn', 'Ticking Over', 'Smoothrun', 'Housewise', 'Backup', 'Laundry Lane', 'Allround', 'Sparkwell', 'Trustline', 'Quickturn', 'Whitegoods', 'Partsworth', 'Longlife'],
+    post: ['Appliance Repairs', 'Appliance Services', 'Domestic Appliances', 'Repairs', 'Appliance Care', 'Washing Machine Repairs', 'Home Appliance Repair', 'Appliance Engineers', 'Kitchen Appliance Repairs'],
+  },
+
+  headlines: [
+    'Washing machine broken? We fix it at home',
+    'Appliance repairs in {town}, often within a day or two',
+    'Repair it before you replace it',
+    'Washers, dishwashers, ovens and fridges fixed',
+    'Fair call-out, honest diagnosis, no runaround',
+    'Most repairs done on the first visit',
+    'Your kitchen back in action, fast',
+    'Experienced appliance engineers, not a call centre',
+    'We tell you if it is worth fixing',
+    'Leaking, not heating, not spinning? Call us',
+    'Friendly local repairs for every major brand',
+    'Keep your appliances running for years longer',
+  ],
+
+  intros: [
+    'We repair washing machines, dishwashers, tumble dryers, ovens and fridge freezers in your home. Most faults are fixed on the first visit because we carry the common parts with us.',
+    'A broken washing machine throws the whole week out. We offer fast appointments around {town}, a clear call-out price and an honest view on whether it is worth repairing.',
+    'Before you buy a new appliance, let us take a look. Many faults are worn pumps, seals, belts or elements that cost far less to replace than a new machine.',
+    'We are local appliance engineers who fix most major brands of freestanding and integrated appliances. You get a fixed diagnosis fee and a price before any repair goes ahead.',
+    'No call centres, no week-long waits for a slot. Ring us, describe the fault, and we will give you a likely cause, an appointment and a realistic price range.',
+    'If your appliance is beyond economical repair, we will say so and not charge you for parts you do not need. If it can be fixed, we fix it properly with quality parts.',
+    'From a noisy drum to an oven that will not heat, we diagnose faults quickly and explain what went wrong, so you know how to avoid it happening again.',
+    'Good appliances deserve a second life. We fix them, guarantee the repair and help you keep them running for years, which is kinder to your budget and the environment.',
+  ],
+
+  about: [
+    '{owner} has been repairing domestic appliances for over {years} years, starting in a busy service workshop before setting up {name} in {town}. Thousands of repairs later, the aim is the same: fix it right first time at a fair price.',
+    '{name} is a small, local repair business. We answer our own phone, turn up in the time slot we give you and carry a van full of common parts, so most jobs are finished in a single visit. When a part does need ordering, we tell you how long it will take and stick to it.',
+    'We believe in repair over replacement. Most washing machines, dishwashers and ovens fail because of one worn part, such as a pump, belt, element or door lock, and replacing that part can add years of life for a fraction of the cost of a new appliance, without the delivery wait.',
+    'Over {years} years we have worked on just about every major brand, from budget machines to premium built-in ranges. We keep up to date with newer appliances, error codes and control boards, as well as the older, simpler machines that many homes still rely on and are often well worth keeping.',
+    '{owner} would rather lose a repair job than sell you one that is not worth it. If your appliance is old or the part costs more than it is worth, we will tell you straight and only charge the diagnosis.',
+    'We work for homeowners, landlords, letting agents and holiday lets around {town}. We can meet tenants or guests on site, send photos of the fault and the repair, and invoice whoever is paying. Clear reports, tidy work and quick turnarounds keep everyone happy and properties running smoothly.',
+  ],
+
+  services: [
+    { n: 'Washing machine repair', d: 'Machines that will not drain, spin, heat or start, plus leaks, noisy bearings, faulty door locks and error codes.', from: 75, unit: 'per call-out' },
+    { n: 'Dishwasher repair', d: 'Dishwashers not draining, not cleaning, leaking or showing faults, including pumps, heaters, spray arms and door seals.', from: 75, unit: 'per call-out' },
+    { n: 'Tumble dryer repair', d: 'Vented, condenser and heat pump dryers that are not heating, not turning or taking too long, including belts and sensors.', from: 75, unit: 'per call-out' },
+    { n: 'Oven & cooker repair', d: 'Electric ovens, hobs and cookers that will not heat, trip the power or have faulty thermostats, fans or elements.', from: 80, unit: 'per call-out' },
+    { n: 'Fridge & freezer repair', d: 'Fridges and freezers that are too warm, icing up, noisy or leaking water, including thermostats, fans and door seals.', from: 85, unit: 'per call-out' },
+    { n: 'Integrated appliance repair', d: 'Built-in washing machines, dishwashers and fridges carefully removed, repaired and refitted without damaging your kitchen.', from: 95, unit: 'per call-out' },
+    { n: 'Range cooker repair', d: 'Repairs to larger range cookers, including multiple ovens, grills, igniters and fan motors.', from: 95, unit: 'per call-out' },
+    { n: 'Drum bearing replacement', d: 'Noisy or rumbling washing machine drums rebuilt with new bearings and seals, where the machine design allows.', from: 160, unit: 'per job' },
+    { n: 'Door seal & gasket replacement', d: 'Torn or mouldy door seals on washers, fridges and ovens replaced to stop leaks and heat loss.', from: 85, unit: 'per job' },
+    { n: 'Appliance installation', d: 'New washing machines, dishwashers and dryers connected, levelled and tested, with old appliances removed if needed.', from: 65, unit: 'per appliance' },
+    { n: 'Landlord appliance checks', d: 'Safety and function checks on rental property appliances, with a short written report for your records.', from: 60, unit: 'per visit' },
+    { n: 'Maintenance service', d: 'Cleaning filters, pumps and seals and checking hoses and belts to prevent breakdowns and keep appliances efficient.', from: 70, unit: 'per appliance' },
+  ],
+
+  usps: [
+    ['Most repairs on the first visit', 'Our vans carry the pumps, belts, elements, door locks and seals that fail most often, so you are not waiting days for a return visit.'],
+    ['Clear call-out price', 'You know the call-out and diagnosis fee before we arrive, and we give you the repair price before starting any work.'],
+    ['Honest repair advice', 'If a repair is not worth it, we say so. You only pay the diagnosis fee and get a straight explanation.'],
+    ['Quality parts', 'We fit genuine or high-quality parts, not the cheapest option that fails again in six months.'],
+    ['Repairs guaranteed', 'Parts and labour on every repair are guaranteed, so if the same fault comes back, so do we.'],
+    ['Time slots that fit', 'Morning or afternoon slots, and we call ahead when we are on our way, so you do not lose a whole day waiting.'],
+    ['Most major brands', 'We work on most freestanding and integrated appliances, from budget models to premium brands, and we will say upfront if a model needs specialist parts.'],
+    ['Tidy and careful', 'We use floor protection, take care moving appliances and clean up any water or debris before we leave.'],
+    ['Landlord friendly', 'We can meet tenants on site, send photos and reports, and invoice agents or landlords directly.'],
+    ['Repair over replace', 'Fixing an otherwise sound appliance usually costs far less than replacing it, and keeps another perfectly good machine out of landfill.'],
+  ],
+
+  process: [
+    ['Call or book online', 'Tell us the appliance, make and model if you can find it, and what it is doing. We will suggest likely causes.'],
+    ['Arrange a time slot', 'We offer a morning or afternoon slot, often within one or two working days, and call when we are on our way.'],
+    ['Diagnose and quote', 'The engineer tests the appliance, finds the fault and gives you a clear price before carrying out any repair.'],
+    ['Repair and test', 'We fit the part, run a full test cycle and check for leaks or errors before we pack up.'],
+    ['Guarantee and advice', 'You get a written receipt with your guarantee and simple tips to help the appliance last longer.'],
+  ],
+
+  calc: {
+    title: 'Estimate your appliance repair',
+    intro: 'A guide price for a home visit, diagnosis and a common repair, including the part and labour.',
+    base: 45,
+    inputs: [
+      { k: 'count', l: 'Appliances to look at on the same visit', t: 'num', u: 'appliances', min: 1, max: 4, v: 1, step: 1, rate: 30 },
+      { k: 'type', l: 'Appliance', t: 'sel', o: [['Washing machine', { m: 1 }], ['Dishwasher', { m: 1 }], ['Tumble dryer', { m: 0.95 }], ['Electric oven or cooker', { m: 1.05 }], ['Fridge or freezer', { m: 1.2 }], ['Range cooker', { m: 1.25 }]] },
+      { k: 'fault', l: 'Likely fault', t: 'sel', o: [['Not draining or pump noise', { a: 55 }], ['Door lock, catch or seal', { a: 45 }], ['Not heating (element or thermostat)', { a: 70 }], ['Drum bearings or drive belt', { a: 150 }], ['Control board or electronics', { a: 160 }], ['Not sure, diagnosis only', { m: 1 }]] },
+      { k: 'integrated', l: 'Built-in or integrated appliance', t: 'chk', e: { a: 30 } },
+      { k: 'sameday', l: 'Same-day appointment', t: 'chk', e: { a: 25 } },
+    ],
+    notes: ['Includes call-out, diagnosis, a standard part and labour for one repair.', 'Some premium-brand and electronic parts cost more; we always confirm before fitting.', 'If you decide not to go ahead, you only pay the call-out and diagnosis.'],
+  },
+
+  faq: [
+    ['Is it worth repairing my appliance?', 'Usually, if it is under about eight years old and the repair costs less than half the price of a comparable new one. Pumps, belts, door locks and elements are often well worth fixing. We will give you an honest view after diagnosis.'],
+    ['How much is a call-out?', 'Our call-out includes travel and diagnosis. If you go ahead with the repair at the same visit, the call-out is included in the repair price we quote, so you are not paying twice.'],
+    ['Do you carry parts with you?', 'We carry the parts that fail most often, such as pumps, belts, door locks, seals and common elements. Less common or brand-specific parts are ordered and usually fitted within a few working days.'],
+    ['Can you repair integrated appliances?', 'Yes. We carefully slide integrated machines out, repair them and refit them, protecting your worktops, flooring and kitchen units. It takes a little longer, which is reflected in the price.'],
+    ['Do you repair gas cookers?', 'We repair electric ovens, hobs and cookers, and the electrical parts of dual-fuel cookers. Any work on gas supply or burners must be done by a registered gas engineer, and we will tell you if that is needed.'],
+    ['What brands do you repair?', 'Most major domestic appliance brands, from budget to premium. Some very high-end or specialist models need manufacturer-only parts, and we will let you know if that affects price or time.'],
+    ['How long is the repair guaranteed?', 'Our repairs are guaranteed for parts and labour against the same fault. Your receipt shows exactly what was replaced and how long the guarantee lasts.'],
+    ['What should I do before you arrive?', 'Clear space in front of the appliance, empty it if you can, and note any error codes or lights. If it is leaking, switch it off at the plug and turn off the water supply.'],
+    ['Why is my washing machine not draining?', 'Most commonly the pump filter is blocked by coins, hair grips or fluff, or the drain hose is kinked. If clearing the filter does not help, the pump itself may have failed.'],
+    ['Do you install new appliances?', 'Yes. We connect, level and test washing machines, dishwashers and dryers, and can take your old appliance away for recycling for a small extra charge.'],
+  ],
+
+  reviews: [
+    { t: 'Washing machine stopped mid-cycle full of water. He came the next morning, pulled a hair grip and a sock out of the pump and replaced the pump while he was there. Running perfectly now.', job: 'Washing machine pump', s: 5 },
+    { t: 'Honest service. Our dishwasher control board had failed and he told us it would cost nearly as much as a new machine. Charged only the call-out and recommended a reliable model.', job: 'Dishwasher diagnosis', s: 5 },
+    { t: 'Oven was not heating the week before Christmas. Same-day visit, new element fitted in half an hour and he explained the fan was fine so no need to replace it.', job: 'Oven element', s: 5 },
+    { t: 'Our integrated dishwasher was leaking under the cabinets. He removed it without a scratch, replaced the door seal and sump hose and refitted it neatly.', job: 'Integrated dishwasher', s: 5 },
+    { t: 'Tumble dryer taking three hours to dry a load. Turned out to be a blocked condenser and a worn belt. Fixed in one visit and much quicker than expected.', job: 'Tumble dryer', s: 5 },
+    { t: 'Fridge freezer was icing up at the back. Needed a part ordered so it took two visits, but they kept us informed and the price matched the quote.', job: 'Fridge freezer', s: 4 },
+    { t: 'Noisy washing machine sounded like a jet engine. New bearings and seals fitted and it is quieter now than when we bought it. Much cheaper than a new machine.', job: 'Drum bearings', s: 5 },
+    { t: 'I manage several rental flats and they are my go-to. They meet tenants, send photos and the invoice comes straight to me. Reliable every time.', job: 'Landlord repairs', s: 5 },
+    { t: 'Range cooker main oven had stopped working. Replaced the thermostat and fan motor in one go. Polite, tidy, and cleaned the oven door glass before leaving.', job: 'Range cooker', s: 5 },
+    { t: 'Door lock on the washer had failed with our clothes inside. Phoned in the morning, fixed by the afternoon. Very grateful.', job: 'Door lock', s: 5 },
+    { t: 'Arrived later in the slot than I hoped, but he rang ahead to let me know. Quick diagnosis of a faulty heater and a fair price.', job: 'Washing machine heater', s: 4 },
+    { t: 'Our six-year-old dishwasher was not cleaning properly. Spray arms were blocked with limescale and the filter was badly clogged. Showed me what to clean in future.', job: 'Dishwasher service', s: 5 },
+    { t: 'Installed our new washer-dryer, took the old one away and fixed a drip on the tap behind it without being asked. Great service.', job: 'Installation', s: 5 },
+    { t: 'Freezer door seal had split and everything was frosting up. New gasket fitted in twenty minutes. Simple job, done well and not overcharged.', job: 'Door seal', s: 5 },
+  ],
+
+  certs: ['Experienced appliance engineers', 'Fully insured to £2m', 'Parts and labour guarantee', 'Fixed call-out and diagnosis fee', 'Portable appliance testing qualified', 'Most major brands repaired'],
+
+  gallery: [
+    ['Replacing a washing machine drain pump', 'Washing machines'],
+    ['New drum bearings and seals fitted', 'Bearings'],
+    ['Integrated dishwasher removed for repair', 'Integrated'],
+    ['Oven element replaced', 'Ovens'],
+    ['Condenser dryer belt and filter service', 'Tumble dryers'],
+    ['Fridge freezer door gasket renewed', 'Door seals'],
+    ['Dishwasher spray arms descaled', 'Dishwashers'],
+    ['Range cooker fan motor replaced', 'Range cookers'],
+    ['Washing machine door lock replaced', 'Washing machines'],
+    ['Fridge fan and thermostat repair', 'Fridges'],
+    ['New washer-dryer installed and levelled', 'Installation'],
+    ['Pump filter cleared of coins and grips', 'Maintenance'],
+  ],
+
+  jobs: ['Washing machine', 'Dishwasher', 'Tumble dryer', 'Oven or cooker', 'Fridge or freezer', 'Integrated appliance', 'Installation', 'Not sure'],
+
+  urgent: ['Washing machine full of water', 'Dishwasher leaking onto the floor', 'Oven not heating', 'Fridge or freezer getting warm', 'Door locked with clothes inside'],
+
+  tips: [
+    ['Clean the pump filter regularly', 'Most washing machines have a small filter behind a flap at the bottom front. Empty it every couple of months to stop coins, grips and fluff causing drainage faults.'],
+    ['Do not overload the drum', 'Overloading strains bearings, belts and suspension, and clothes come out less clean. Aim for about three-quarters full with room for your hand above the clothes.'],
+    ['Run a hot maintenance wash', 'Low-temperature washes let grease and mould build up. Run an empty hot wash with a machine cleaner once a month to keep seals and hoses fresh.'],
+    ['Clean the dishwasher filter weekly', 'Lift out and rinse the filter at the base of the dishwasher every week. A clogged filter causes poor cleaning, bad smells and drainage problems.'],
+    ['Empty dryer filters every load', 'Fluff build-up makes dryers slower, less efficient and a fire risk. Empty the lint filter after every load, and rinse the condenser unit every few weeks if your dryer has one.'],
+    ['Leave fridge vents clear', 'Fridges need airflow around them to cool efficiently. Leave a gap at the back and sides, and vacuum dust from the rear grille once or twice a year.'],
+    ['Check door seals', 'Close a sheet of paper in the fridge or oven door. If it slides out easily, the seal is not doing its job and energy is being wasted.'],
+    ['Write down error codes', 'If your appliance shows an error code, note it before switching off. It helps the engineer diagnose the fault faster and bring the right part.'],
+  ],
+
+  hours: { normal: 'Mon–Fri 8:00–18:00, Sat 9:00–13:00' },
+});

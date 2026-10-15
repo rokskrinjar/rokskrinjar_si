@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lapidary Cabinet</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Martian+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--velvet:#141117;--velvet2:#1e1a22;--brass:#b89a5a;--card:#efe7d4;--ink:#1e1a16;--dim:#efe7d499}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--velvet);color:var(--card);font-family:'EB Garamond',serif}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;color:inherit}
+.mono{font-family:'Martian Mono',monospace}
+header{text-align:center;padding:30px 4vw 10px}
+header h1{font-weight:400;font-size:clamp(2.2rem,5vw,3.6rem);letter-spacing:.06em}
+header p{font-family:'Martian Mono';font-size:10px;letter-spacing:.4em;color:var(--brass);margin-top:4px}
+nav{display:flex;justify-content:center;gap:0;flex-wrap:wrap;margin:18px 0 0;border-top:1px solid #b89a5a44;border-bottom:1px solid #b89a5a44}
+nav a{padding:12px 20px;font-style:italic;font-size:18px;color:var(--dim)}
+nav a.on{color:var(--brass)}
+[data-view][hidden]{display:none}
+.wrap{max-width:1260px;margin:0 auto;padding:30px 4vw 80px}
+.lede{text-align:center;font-style:italic;font-size:19px;max-width:58ch;margin:0 auto 30px;line-height:1.55;color:var(--dim)}
+/* drawer */
+.drawer{background:linear-gradient(#3b2a1a,#2a1d12);padding:18px;border-radius:6px;box-shadow:inset 0 0 0 2px #0006,0 30px 60px #000a}
+.trays{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tray{background:radial-gradient(circle at 50% 40%,#2a2330,#141117);border:2px solid #0008;box-shadow:inset 0 4px 12px #000c;padding:8px 8px 10px;text-align:center;border-radius:2px}
+.tray:hover{box-shadow:inset 0 4px 12px #000c,0 0 0 2px var(--brass)}
+.tray canvas{width:100%;aspect-ratio:1;display:block}
+.tag{background:var(--card);color:var(--ink);padding:5px 6px;font-size:14px;line-height:1.15;margin-top:4px;box-shadow:1px 1px 0 #0006}
+.tag i{display:block;font-size:12px;opacity:.7}
+.handle{width:120px;height:18px;margin:14px auto 0;border-radius:10px;background:linear-gradient(#d9bf80,#8a6d34);box-shadow:0 3px 0 #0008}
+/* viewer */
+.viewer{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.stage{background:radial-gradient(circle at 50% 45%,#2e2638,#0c0a0e 70%);border-radius:50%;aspect-ratio:1;max-width:560px;width:100%;margin:0 auto;position:relative}
+.stage canvas{width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+.stage .hint{position:absolute;bottom:8%;left:0;right:0;text-align:center;font-family:'Martian Mono';font-size:10px;letter-spacing:.2em;color:var(--dim)}
+.label{background:var(--card);color:var(--ink);padding:28px 30px;box-shadow:4px 4px 0 #000}
+.label h2{font-weight:400;font-size:44px;line-height:1}
+.label .f{font-family:'Martian Mono';font-size:13px;color:#7a4a2a;margin:6px 0 14px}
+.label dl{display:grid;grid-template-columns:130px 1fr;gap:6px 12px;font-size:17px}
+.label dt{font-family:'Martian Mono';font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding-top:5px;opacity:.6}
+.label p{margin-top:14px;font-size:18px;line-height:1.55;font-style:italic}
+.pick{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px;justify-content:center}
+.pick button{border:1px solid #b89a5a55;background:none;padding:6px 12px;font-size:15px;font-style:italic}
+.pick button.on{background:var(--brass);color:var(--velvet)}
+/* mohs */
+.scale{position:relative;height:120px;margin:40px 0 60px}
+.scale .bar{position:absolute;left:0;right:0;top:56px;height:8px;background:linear-gradient(90deg,#efe7d4,#b89a5a,#7a4a2a,#3a2a4a);border-radius:4px}
+.scale .m{position:absolute;top:0;transform:translateX(-50%);text-align:center;width:90px;font-size:15px}
+.scale .m b{display:block;font-family:'Martian Mono';font-size:18px;color:var(--brass)}
+.scale .m i{display:block;width:14px;height:14px;border-radius:50%;margin:30px auto 0;border:2px solid var(--velvet)}
+.scale .e{position:absolute;top:78px;transform:translateX(-50%);font-size:13px;font-style:italic;color:var(--dim);text-align:center;width:110px}
+.scale .e::before{content:"▲";display:block;color:#7a9ab8;font-size:10px}
+.test{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center;max-width:900px;margin:0 auto}
+.stone{background:var(--velvet2);border:1px solid #b89a5a44;padding:20px;text-align:center;border-radius:4px}
+.stone canvas{width:160px;height:160px}
+.stone b{display:block;font-size:26px;font-weight:400}
+.q{text-align:center;font-size:22px;font-style:italic}
+.ans{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.btn{background:var(--brass);color:var(--velvet);border:0;padding:12px 22px;font-size:18px;font-style:italic}
+.btn.alt{background:none;color:var(--brass);box-shadow:inset 0 0 0 1px var(--brass)}
+.res{text-align:center;margin-top:18px;min-height:2.6em;font-size:19px}
+/* systems */
+.sys{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.sy{background:var(--velvet2);border:1px solid #b89a5a33;padding:18px;border-radius:4px}
+.sy svg{width:100%;height:170px}
+.sy h3{font-weight:400;font-size:26px}
+.sy .ax{font-family:'Martian Mono';font-size:11px;color:var(--brass);margin:4px 0 8px}
+.sy p{font-size:16px;line-height:1.5;color:var(--dim)}
+@media(max-width:900px){.trays{grid-template-columns:repeat(2,1fr)}.viewer,.test{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><h1>The Lapidary Cabinet</h1><p>MINERALS · CRYSTALS · CURIOSITIES · EST. 1887</p>
+ <nav><a href="#drawer">The Drawer</a><a href="#viewer">Under the Lamp</a><a href="#mohs">Scratch Test</a><a href="#systems">Seven Systems</a><a href="index.html">Close the Cabinet</a></nav></header>
+
+<section data-view="drawer"><div class="wrap">
+ <p class="lede">Twelve specimens on black velvet, each shaped by atoms repeating billions of times over. Choose one to look at under the lamp.</p>
+ <div class="drawer"><div class="trays" id="trays"></div><div class="handle"></div></div>
+</div></section>
+
+<section data-view="viewer" hidden><div class="wrap">
+ <div class="viewer">
+  <div><div class="stage"><canvas id="big" width="700" height="700"></canvas><div class="hint">DRAG TO TURN · SCROLL TO ZOOM</div></div><div class="pick" id="pick"></div></div>
+  <div class="label" id="label"></div>
+ </div>
+</div></section>
+
+<section data-view="mohs" hidden><div class="wrap">
+ <p class="lede">In 1812 Friedrich Mohs ranked ten minerals by what can scratch what. Each one scratches everything below it. The steps aren't even, though: diamond is about four times harder than corundum.</p>
+ <div class="scale" id="scale"></div>
+ <div class="test" id="test"></div>
+ <div class="res" id="res"></div>
+ <div style="text-align:center;font-family:'Martian Mono';font-size:12px;color:#b89a5a" id="score"></div>
+</div></section>
+
+<section data-view="systems" hidden><div class="wrap">
+ <p class="lede">Every crystal belongs to one of seven systems, set by the lengths of its three axes (a, b, c) and the angles between them.</p>
+ <div class="sys" id="sys"></div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'drawer';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* ---------- geometry ---------- */
+function cube(){const v=[];for(const x of[-1,1])for(const y of[-1,1])for(const z of[-1,1])v.push([x,y,z]);return{v,f:[[0,1,3,2],[4,6,7,5],[0,4,5,1],[2,3,7,6],[0,2,6,4],[1,5,7,3]]}}
+function octa(){return{v:[[1.4,0,0],[-1.4,0,0],[0,1.4,0],[0,-1.4,0],[0,0,1.4],[0,0,-1.4]],f:[[0,2,4],[2,1,4],[1,3,4],[3,0,4],[2,0,5],[1,2,5],[3,1,5],[0,3,5]]}}
+function prism(n,h,top,bot,r=1){const v=[];for(let i=0;i<n;i++){const a=i/n*Math.PI*2;v.push([Math.cos(a)*r,h,Math.sin(a)*r])}for(let i=0;i<n;i++){const a=i/n*Math.PI*2;v.push([Math.cos(a)*r,-h,Math.sin(a)*r])}const f=[];for(let i=0;i<n;i++)f.push([i,(i+1)%n,n+(i+1)%n,n+i]);
+ if(top){v.push([0,h+top,0]);const t=v.length-1;for(let i=0;i<n;i++)f.push([t,(i+1)%n,i])}else f.push([...Array(n).keys()].reverse());
+ if(bot){v.push([0,-h-bot,0]);const b=v.length-1;for(let i=0;i<n;i++)f.push([b,n+i,n+(i+1)%n])}else f.push([...Array(n).keys()].map(i=>n+i));return{v,f}}
+function rhombDodeca(){const v=[];for(const x of[-1,1])for(const y of[-1,1])for(const z of[-1,1])v.push([x,y,z]);const ax=[[2,0,0],[-2,0,0],[0,2,0],[0,-2,0],[0,0,2],[0,0,-2]];ax.forEach(a=>v.push(a));const f=[];
+ const ci=(x,y,z)=>v.findIndex(p=>p[0]===x&&p[1]===y&&p[2]===z);
+ for(let i=0;i<3;i++)for(let j=i+1;j<3;j++)for(const si of[-1,1])for(const sj of[-1,1]){const k=3-i-j;const A=[0,0,0],B=[0,0,0];A[i]=2*si;B[j]=2*sj;const c1=[0,0,0],c2=[0,0,0];c1[i]=si;c1[j]=sj;c1[k]=1;c2[i]=si;c2[j]=sj;c2[k]=-1;f.push([ci(...A),ci(...c1),ci(...B),ci(...c2)])}
+ return{v:v.map(p=>p.map(c=>c*.75)),f}}
+function tetra(){return{v:[[1,1,1],[-1,-1,1],[-1,1,-1],[1,-1,-1]].map(p=>p.map(c=>c*1.1)),f:[[0,1,2],[0,3,1],[0,2,3],[1,3,2]]}}
+function shear(g,m){return{v:g.v.map(([x,y,z])=>[x+y*m[0],y,z+y*m[1]]),f:g.f}}
+function scale(g,s){return{v:g.v.map(([x,y,z])=>[x*s[0],y*s[1],z*s[2]]),f:g.f}}
+// [name, formula, geometry, colour, alpha, hardness, system, lustre, streak, locality, note]
+const MIN=[
+ ['Quartz','SiO₂',()=>prism(6,1.3,.9,.9,.75),'#e8eef5',.35,7,'Trigonal','Vitreous','White','Arkansas, USA','The second most common mineral in the crust. Squeeze it and it makes a voltage, which is why quartz keeps time in watches.'],
+ ['Amethyst','SiO₂ + Fe',()=>prism(6,.5,1.1,0,.9),'#9a5ad0',.55,7,'Trigonal','Vitreous','White','Minas Gerais, Brazil','Violet quartz. The colour comes from iron impurities and natural radiation. The Greeks thought it prevented drunkenness.'],
+ ['Pyrite','FeS₂',()=>cube(),'#c9a94a',1,6.5,'Cubic','Metallic','Greenish-black','Navajún, Spain','Fool\'s gold. It grows in near-perfect cubes straight out of the rock, with no cutting or polishing.'],
+ ['Fluorite','CaF₂',()=>octa(),'#6ad0a0',.6,4,'Cubic','Vitreous','White','Weardale, England','It gave its name to fluorescence. Put it under UV light and it glows blue-violet.'],
+ ['Garnet','Fe₃Al₂(SiO₄)₃',()=>rhombDodeca(),'#8a1a2a',.8,7.5,'Cubic','Vitreous','White','Gore Mountain, USA','Twelve rhombic faces. Victorian jewellers set garnets so tightly they looked like pomegranate seeds, which is where the name comes from.'],
+ ['Calcite','CaCO₃',()=>shear(cube(),[.45,.35]),'#f0dca0',.45,3,'Trigonal','Vitreous','White','Iceland','Look through clear "Iceland spar" and you see everything twice. Vikings may have used it to find the sun on cloudy days.'],
+ ['Emerald','Be₃Al₂Si₆O₁₈',()=>prism(6,1.2,0,0,.8),'#1a9a5a',.6,7.75,'Hexagonal','Vitreous','White','Muzo, Colombia','Green beryl coloured by chromium. Almost every emerald has inclusions, which jewellers politely call its jardin, or garden.'],
+ ['Sphalerite','ZnS',()=>tetra(),'#6a3a1a',.9,3.75,'Cubic','Resinous','Brown','Picos de Europa, Spain','The main ore of zinc. Gem-quality pieces flash more fire than diamond, but it is far too soft to wear.'],
+ ['Diamond','C',()=>octa(),'#eef6ff',.3,10,'Cubic','Adamantine','None','Kimberley, South Africa','Pure carbon squeezed 150 km underground. The hardest natural substance, but a hammer will still shatter it.'],
+ ['Corundum','Al₂O₃',()=>prism(6,.8,1.4,1.4,.7),'#2a4ab0',.6,9,'Trigonal','Vitreous','White','Ratnapura, Sri Lanka','Blue, it is sapphire. Red, it is ruby. Same mineral, different trace elements.'],
+ ['Topaz','Al₂SiO₄(F,OH)₂',()=>scale(prism(4,1.2,.6,0,1),[1,1,.6]),'#f0a040',.5,8,'Orthorhombic','Vitreous','White','Ouro Preto, Brazil','Its crystals can weigh hundreds of kilos. One Brazilian topaz weighed 271 kg.'],
+ ['Galena','PbS',()=>scale(cube(),[1,.7,1]),'#7a8088',1,2.5,'Cubic','Metallic','Lead-grey','Joplin, USA','Heavy, shiny and cubic, and the main ore of lead. Early crystal radios used a galena crystal and a "cat\'s whisker" wire.']];
+function rot(p,ax,ay){let[x,y,z]=p;let c=Math.cos(ay),s=Math.sin(ay);[x,z]=[x*c+z*s,-x*s+z*c];c=Math.cos(ax);s=Math.sin(ax);[y,z]=[y*c-z*s,y*s+z*c];return[x,y,z]}
+function hexA(h,a){const n=parseInt(h.slice(1),16);return[n>>16,n>>8&255,n&255]}
+function render(ctx,W,H,m,ax,ay,zoom=1){const g=MIN[m][2](),col=hexA(MIN[m][3]),al=MIN[m][4];ctx.clearRect(0,0,W,H);const S=W*.2*zoom;const P=g.v.map(p=>rot(p,ax,ay));
+ const L=[.4,-.6,.7],ln=Math.hypot(...L);const faces=g.f.map(f=>{const pts=f.map(i=>P[i]);const a=pts[0],b=pts[1],c=pts[2];const u=[b[0]-a[0],b[1]-a[1],b[2]-a[2]],v=[c[0]-a[0],c[1]-a[1],c[2]-a[2]];let n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];const cen=pts.reduce((s,p)=>[s[0]+p[0]/pts.length,s[1]+p[1]/pts.length,s[2]+p[2]/pts.length],[0,0,0]);if(n[0]*cen[0]+n[1]*cen[1]+n[2]*cen[2]<0)n=n.map(x=>-x);const nl=Math.hypot(...n)||1;n=n.map(x=>x/nl);return{pts,n,z:cen[2]}}).sort((a,b)=>a.z-b.z);
+ faces.forEach(f=>{const front=f.n[2]>0;if(al>=1&&!front)return;const d=Math.max(0,(f.n[0]*L[0]+f.n[1]*L[1]+f.n[2]*L[2])/ln);const spec=Math.pow(Math.max(0,f.n[2]*.6+d*.5),8);const k=.35+d*.75;const cc=col.map(c=>Math.min(255,c*k+spec*140));
+  ctx.beginPath();f.pts.forEach((p,i)=>{const x=W/2+p[0]*S,y=H/2+p[1]*S;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.fillStyle=`rgba(${cc.map(Math.round).join(',')},${front?al:al*.5})`;ctx.fill();ctx.strokeStyle=`rgba(255,255,255,${front?.35:.08})`;ctx.lineWidth=1.2;ctx.stroke()})}
+
+/* drawer */
+document.getElementById('trays').innerHTML=MIN.map((m,i)=>`<button class="tray" data-i="${i}"><canvas width="220" height="220"></canvas><div class="tag">${m[0]}<i>${m[9]}</i></div></button>`).join('');
+const minis=[...document.querySelectorAll('#trays canvas')].map(c=>c.getContext('2d'));
+let T=0;function drawerLoop(){if(!document.querySelector('[data-view=drawer]').hidden){T+=.01;minis.forEach((c,i)=>render(c,220,220,i,.5+Math.sin(T+i)*.2,T+i))}requestAnimationFrame(drawerLoop)}drawerLoop();
+document.getElementById('trays').onclick=e=>{const b=e.target.closest('.tray');if(!b)return;sel=+b.dataset.i;label();go('viewer')};
+
+/* viewer */
+const bc=document.getElementById('big'),bx=bc.getContext('2d');let sel=0,ax=.5,ay=.6,vx=0,vy=.006,zoom=1,drag=null;
+function label(){const m=MIN[sel];document.getElementById('label').innerHTML=`<div class="mono" style="font-size:10px;letter-spacing:.2em;opacity:.6">SPECIMEN No. ${String(sel+1).padStart(3,'0')}</div><h2>${m[0]}</h2><div class="f">${m[1]}</div><dl><dt>System</dt><dd>${m[6]}</dd><dt>Hardness</dt><dd>${m[5]} on the Mohs scale</dd><dt>Lustre</dt><dd>${m[7]}</dd><dt>Streak</dt><dd>${m[8]}</dd><dt>Locality</dt><dd>${m[9]}</dd></dl><p>${m[10]}</p>`;
+ document.getElementById('pick').innerHTML=MIN.map((x,i)=>`<button class="${i===sel?'on':''}" data-i="${i}">${x[0]}</button>`).join('')}
+document.getElementById('pick').onclick=e=>{const i=e.target.dataset.i;if(i!=null){sel=+i;label()}};
+bc.addEventListener('pointerdown',e=>{drag=[e.clientX,e.clientY];bc.setPointerCapture(e.pointerId)});
+bc.addEventListener('pointermove',e=>{if(!drag)return;vy=(e.clientX-drag[0])*.004;vx=(e.clientY-drag[1])*.004;ay+=vy;ax+=vx;drag=[e.clientX,e.clientY]});
+bc.addEventListener('pointerup',()=>drag=null);
+bc.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.5,Math.min(2,zoom-e.deltaY*.001))},{passive:false});
+function viewLoop(){if(!document.querySelector('[data-view=viewer]').hidden){if(!drag){ay+=vy;ax+=vx;vx*=.96;vy=vy*.98+.006*.02}render(bx,700,700,sel,ax,ay,zoom)}requestAnimationFrame(viewLoop)}label();viewLoop();
+
+/* mohs */
+const MOHS=[['Talc',1,'#e8e4d8'],['Gypsum',2,'#f0ece0'],['Calcite',3,'#f0dca0'],['Fluorite',4,'#6ad0a0'],['Apatite',5,'#4ab0b0'],['Orthoclase',6,'#f0c0a0'],['Quartz',7,'#e8eef5'],['Topaz',8,'#f0a040'],['Corundum',9,'#2a4ab0'],['Diamond',10,'#eef6ff']];
+const EVERY=[['Fingernail',2.5],['Copper coin',3.5],['Knife blade',5.5],['Window glass',5.5],['Steel file',6.5]];
+document.getElementById('scale').innerHTML='<div class="bar"></div>'+MOHS.map(m=>`<div class="m" style="left:${(m[1]-.5)/10*100}%"><b>${m[1]}</b>${m[0]}<i style="background:${m[2]}"></i></div>`).join('')+EVERY.map((e,i)=>`<div class="e" style="left:${(e[1]-.5)/10*100}%;top:${78+(i%2)*28}px">${e[0]}</div>`).join('');
+const TESTABLE=MIN.map((m,i)=>[m[0],m[5],i]).concat([['Fingernail',2.5,-1],['Knife blade',5.5,-1],['Window glass',5.5,-1]]);let pair,score=[0,0];
+function newTest(){let a,b;do{a=TESTABLE[Math.random()*TESTABLE.length|0];b=TESTABLE[Math.random()*TESTABLE.length|0]}while(a[0]===b[0]||a[1]===b[1]);pair=[a,b];
+ document.getElementById('test').innerHTML=`<div class="stone"><canvas width="160" height="160" id="sA"></canvas><b>${a[0]}</b></div><div class="q">Will the ${a[0].toLowerCase()} scratch the ${b[0].toLowerCase()}?<div class="ans"><button class="btn" data-a="1">Yes, it scratches</button><button class="btn alt" data-a="0">No, it skids off</button></div></div><div class="stone"><canvas width="160" height="160" id="sB"></canvas><b>${b[0]}</b></div>`;
+ [[a,'sA'],[b,'sB']].forEach(([m,id])=>{const c=document.getElementById(id).getContext('2d');if(m[2]>=0)render(c,160,160,m[2],.5,.7);else{c.fillStyle='#b89a5a';c.font='60px serif';c.textAlign='center';c.fillText(m[0]==='Fingernail'?'💅':m[0]==='Knife blade'?'🔪':'🪟',80,100)}});document.getElementById('res').textContent=''}
+document.getElementById('test').onclick=e=>{const an=e.target.dataset.a;if(an==null)return;const[a,b]=pair,truth=a[1]>b[1];const ok=(an==='1')===truth;score[0]+=ok?1:0;score[1]++;
+ document.getElementById('res').innerHTML=`${ok?'✓ Correct.':'✗ Not quite.'} ${a[0]} (${a[1]}) ${truth?'is harder than':'is softer than'} ${b[0].toLowerCase()} (${b[1]}), so it ${truth?'leaves a groove':'just leaves a powdery streak of itself'}. <br><button class="btn alt" style="margin-top:12px" id="nxt">Next pair →</button>`;document.getElementById('score').textContent=`SCORE ${score[0]} / ${score[1]}`;document.getElementById('nxt').onclick=newTest;document.querySelectorAll('#test .ans button').forEach(b=>b.disabled=true)};
+newTest();
+
+/* systems */
+const SYS=[['Cubic','a = b = c · α = β = γ = 90°','Perfect symmetry: salt, pyrite, diamond, garnet.',[1,1,1,0,0]],['Tetragonal','a = b ≠ c · all 90°','A cube stretched along one axis: zircon, rutile.',[1,1,1.6,0,0]],['Orthorhombic','a ≠ b ≠ c · all 90°','A matchbox shape: topaz, olivine, sulphur.',[1.3,.8,1.6,0,0]],['Hexagonal','a = b ≠ c · γ = 120°','Six-fold symmetry: beryl, apatite, snowflakes.',[1,1,1.4,.5,0]],['Trigonal','a = b = c · α = β = γ ≠ 90°','Three-fold symmetry: quartz, calcite, corundum.',[1,1,1,.3,.3]],['Monoclinic','a ≠ b ≠ c · β ≠ 90°','One tilted axis: gypsum, mica, orthoclase.',[1.3,.9,1.4,.45,0]],['Triclinic','a ≠ b ≠ c · no right angles','The least symmetric: turquoise, microcline.',[1.3,.9,1.4,.4,.3]]];
+document.getElementById('sys').innerHTML=SYS.map(([n,ax,t,[a,b,c,sx,sz]])=>{const P=[];for(const x of[0,1])for(const y of[0,1])for(const z of[0,1])P.push([x*a+y*sx*.6,y*c,z*b+y*sz*.6]);const pr=([x,y,z])=>[120+(x-z)*52,140-y*52+(x+z)*22];const E=[[0,1],[0,2],[0,4],[1,3],[1,5],[2,3],[2,6],[3,7],[4,5],[4,6],[5,7],[6,7]];
+ const pts=P.map(pr);return`<div class="sy"><svg viewBox="0 0 260 180">${E.map(([i,j])=>`<line x1="${pts[i][0]}" y1="${pts[i][1]}" x2="${pts[j][0]}" y2="${pts[j][1]}" stroke="#b89a5a" stroke-width="2"/>`).join('')}${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="5" fill="#efe7d4"/>`).join('')}<text x="${(pts[0][0]+pts[4][0])/2}" y="${(pts[0][1]+pts[4][1])/2+18}" fill="#b89a5a" font-family="Martian Mono" font-size="11">a</text><text x="${(pts[0][0]+pts[1][0])/2-16}" y="${(pts[0][1]+pts[1][1])/2}" fill="#b89a5a" font-family="Martian Mono" font-size="11">c</text><text x="${(pts[0][0]+pts[2][0])/2-8}" y="${(pts[0][1]+pts[2][1])/2+18}" fill="#b89a5a" font-family="Martian Mono" font-size="11">b</text></svg><h3>${n}</h3><div class="ax">${ax}</div><p>${t}</p></div>`}).join('');
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

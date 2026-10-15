@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERG — A Seven-Day Sahara Crossing</title>
+<link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Mulish:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --sand:#e8b97a; --sand2:#d49a58; --sand3:#b8733c; --sand4:#8a4e26; --ink:#2a1a10; --cream:#fbf1e2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--cream); color:var(--ink); font-family:'Mulish',sans-serif; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+  .tenor { font-family:'Tenor Sans',sans-serif; }
+  header { position:fixed; top:0; left:0; right:0; z-index:30; display:flex; justify-content:space-between; align-items:center; padding:18px 4vw; color:#fff; mix-blend-mode:difference; }
+  .logo { font-family:'Tenor Sans'; font-size:26px; letter-spacing:.5em; }
+  nav { display:flex; gap:24px; font-size:13px; letter-spacing:.2em; text-transform:uppercase; flex-wrap:wrap; }
+  nav a { opacity:.6; } nav a.on, nav a:hover { opacity:1; }
+  [data-view][hidden] { display:none; }
+  /* dunes */
+  .scene { position:relative; height:100vh; overflow:hidden; }
+  .scene svg { position:absolute; inset:0; width:100%; height:100%; }
+  .layer { transition:transform .3s ease-out; }
+  .copy { position:absolute; left:5vw; top:26vh; z-index:5; color:#fff; text-shadow:0 2px 20px #0004; max-width:560px; transition:color 1s; }
+  .copy h1 { font-family:'Tenor Sans'; font-weight:400; font-size:clamp(3rem,9vw,8rem); line-height:.9; letter-spacing:.06em; }
+  .copy p { font-size:1.2rem; line-height:1.7; margin-top:1rem; font-weight:300; }
+  .time { position:absolute; left:5vw; right:5vw; bottom:5vh; z-index:6; display:flex; align-items:center; gap:18px; color:#fff; text-shadow:0 1px 6px #0006; }
+  .time input { flex:1; accent-color:#fff; }
+  .time b { font-family:'Tenor Sans'; font-size:1.6rem; font-weight:400; min-width:90px; }
+  .btn { display:inline-block; margin-top:1.6rem; padding:14px 26px; border:1px solid currentColor; font-size:12px; letter-spacing:.3em; text-transform:uppercase; background:transparent; color:inherit; cursor:pointer; font-family:inherit; }
+  .btn:hover { background:#fff; color:var(--ink); }
+  /* route */
+  .page { max-width:1300px; margin:0 auto; padding:14vh 4vw 10vh; }
+  .ph h2 { font-family:'Tenor Sans'; font-weight:400; font-size:clamp(2.6rem,6vw,5rem); letter-spacing:.04em; }
+  .ph p { max-width:40rem; line-height:1.7; margin:.6rem 0 3rem; opacity:.8; }
+  .route { display:grid; grid-template-columns:1.4fr 1fr; gap:4vw; align-items:start; }
+  .map { background:var(--sand); border-radius:6px; overflow:hidden; position:relative; box-shadow:0 20px 40px #8a4e2633; }
+  .map svg { width:100%; display:block; }
+  .days { display:grid; gap:6px; }
+  .day { display:grid; grid-template-columns:70px 1fr; gap:16px; padding:14px 16px; background:#fff; border-left:4px solid transparent; cursor:pointer; transition:all .3s; }
+  .day:hover { border-color:var(--sand2); }
+  .day.on { border-color:var(--sand4); background:#fff6e8; }
+  .day b { font-family:'Tenor Sans'; font-size:2rem; font-weight:400; color:var(--sand3); line-height:1; }
+  .day h4 { font-family:'Tenor Sans'; font-weight:400; font-size:1.2rem; }
+  .day p { font-size:14px; line-height:1.6; opacity:.8; display:none; margin-top:4px; }
+  .day.on p { display:block; }
+  .day .km { font-size:12px; letter-spacing:.15em; color:var(--sand3); }
+  /* provisions */
+  .prov { display:grid; grid-template-columns:380px 1fr; gap:4vw; }
+  .ctrl label { display:flex; justify-content:space-between; font-size:13px; letter-spacing:.14em; text-transform:uppercase; margin:22px 0 8px; }
+  .ctrl input[type=range] { width:100%; accent-color:var(--sand4); }
+  .ctrl .seg { display:flex; gap:6px; }
+  .ctrl .seg button { flex:1; padding:10px; border:1px solid var(--ink); background:transparent; font-family:inherit; cursor:pointer; }
+  .ctrl .seg button.on { background:var(--ink); color:#fff; }
+  .out { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .o { background:#fff; padding:24px; box-shadow:0 10px 30px #8a4e2614; }
+  .o small { font-size:11px; letter-spacing:.2em; text-transform:uppercase; opacity:.6; }
+  .o b { display:block; font-family:'Tenor Sans'; font-weight:400; font-size:3rem; line-height:1.1; color:var(--sand4); }
+  .o .icons { font-size:1.6rem; letter-spacing:4px; margin-top:6px; line-height:1.5; }
+  .warn { grid-column:1/-1; padding:18px 22px; background:#fff3e0; border-left:4px solid #c8452e; line-height:1.6; }
+  .kit { grid-column:1/-1; background:#fff; padding:24px; }
+  .kit label { display:flex; gap:10px; padding:6px 0; border-bottom:1px dashed #0001; cursor:pointer; }
+  .kit input { accent-color:var(--sand4); }
+  @media (max-width:900px){ .route,.prov { grid-template-columns:1fr; } .out { grid-template-columns:1fr; } nav { gap:12px; } }
+</style>
+</head>
+<body>
+<header><div class="logo">ERG</div><nav><a href="#dunes">The dunes</a><a href="#route">The route</a><a href="#provisions">Provisions</a><a href="index.html">← Index</a></nav></header>
+
+<section data-view="dunes">
+  <div class="scene" id="scene"><svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" id="dunesSvg"></svg>
+    <div class="copy" id="copy"><div style="font-size:12px;letter-spacing:.5em">ERG CHEBBI · MOROCCO</div><h1>Seven days<br>of sand.</h1><p>A camel crossing through the great dunes, sleeping under more stars than you knew existed. Slide the sun across the sky.</p><a class="btn" href="#route">See the route →</a></div>
+    <div class="time"><span>☀</span><input type="range" id="tod" min="0" max="24" step=".05" value="16.5"><b id="todV"></b><span>☾</span></div></div>
+</section>
+
+<section data-view="route" class="page" hidden>
+  <div class="ph"><h2>The route</h2><p>From Merzouga to the edge of the Algerian border and back — 142 km on foot and camelback. Tap a day to follow the caravan.</p></div>
+  <div class="route"><div class="map"><svg viewBox="0 0 800 560" id="mapSvg"></svg></div><div class="days" id="days"></div></div>
+</section>
+
+<section data-view="provisions" class="page" hidden>
+  <div class="ph"><h2>Provisions</h2><p>The desert forgives almost nothing. Tell us about your crossing and we'll tell you what to carry.</p></div>
+  <div class="prov">
+    <div class="ctrl"><label>Travellers <b id="pV"></b></label><input type="range" id="people" min="1" max="12" value="4"><label>Days <b id="dV"></b></label><input type="range" id="daysN" min="1" max="14" value="7"><label>Season</label><div class="seg" id="season"><button data-t="28">Winter</button><button data-t="36" class="on">Spring</button><button data-t="46">Summer</button></div><label>Pace</label><div class="seg" id="pace"><button data-p=".8">Gentle</button><button data-p="1" class="on">Steady</button><button data-p="1.3">Hard</button></div></div>
+    <div class="out" id="outEl"></div>
+  </div>
+</section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'dunes';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* ---------- dunes ---------- */
+const mix=(a,b,t)=>{const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const A=p(a),B=p(b);return'#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')};
+const SKY=[[0,'#070a1f','#141a3a'],[5,'#1a1a3a','#3a2a4a'],[6.5,'#ff9a6a','#6a7ac8'],[8,'#8fc8f0','#f8e0b0'],[12,'#5aa8e8','#cfe8f8'],[16,'#79b6e8','#f8e2b8'],[18.5,'#ff7a4a','#6a4a8a'],[20,'#2a1a4a','#1a1030'],[24,'#070a1f','#141a3a']];
+function skyAt(h){for(let i=0;i<SKY.length-1;i++){const [a,t1,b1]=SKY[i],[b,t2,b2]=SKY[i+1];if(h>=a&&h<=b){const t=(h-a)/(b-a);return[mix(t1,t2,t),mix(b1,b2,t)]}}return[SKY[0][1],SKY[0][2]]}
+function dunePath(y,amp,seed,w=1600){let d=`M-200 900 L-200 ${y}`;for(let x=-200;x<=w+200;x+=50){const yy=y-Math.abs(Math.sin(x/(260+seed*40)+seed))*amp-Math.sin(x/90+seed*3)*amp*.12;d+=` L${x} ${yy}`}return d+` L${w+200} 900Z`}
+const DL=[[520,120,1,.15],[590,150,2,.3],[660,160,3,.5],[740,140,4,.75],[820,110,5,1]];
+let mx=0,my=0,stars=Array.from({length:180},()=>[Math.random()*1600,Math.random()*520,Math.random()*1.6]);
+function drawDunes(){const h=+tod.value;const [top,bot]=skyAt(h);const day=Math.max(0,Math.sin((h-6)/12*Math.PI));const night=1-Math.min(1,day*3);
+ const sunA=(h-6)/12*Math.PI,sx=800-Math.cos(sunA)*700,sy=620-Math.sin(sunA)*520;const mA=((h+12)%24-6)/12*Math.PI,moonx=800-Math.cos(mA)*700,moony=620-Math.sin(mA)*520;
+ let s=`<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bot}"/></linearGradient><radialGradient id="sunG"><stop offset="0" stop-color="#fff8e0"/><stop offset=".3" stop-color="#ffd68a" stop-opacity=".8"/><stop offset="1" stop-color="#ffb060" stop-opacity="0"/></radialGradient></defs><rect width="1600" height="900" fill="url(#sky)"/>`;
+ s+=stars.map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" opacity="${night*(.4+r/3)}"/>`).join('');
+ if(night>.3)s+=`<path d="M0 ${200} Q800 60 1600 ${260}" stroke="#ffffff" stroke-opacity="${night*.08}" stroke-width="120" fill="none" filter="blur(20px)"/>`;
+ if(sy<700)s+=`<circle cx="${sx}" cy="${sy}" r="220" fill="url(#sunG)" opacity="${Math.min(1,day*2)}"/><circle cx="${sx}" cy="${sy}" r="40" fill="${h<8||h>17?'#ffb070':'#fff6d8'}"/>`;
+ if(moony<700)s+=`<circle cx="${moonx}" cy="${moony}" r="26" fill="#f4efe0" opacity="${night}"/><circle cx="${moonx+10}" cy="${moony-6}" r="24" fill="${top}" opacity="${night}"/>`;
+ const shade=(c)=>mix(c,'#1a1030',Math.min(.85,night*.9)),warm=(c)=>h<8||h>17?mix(c,'#ff7a3a',.25*day):c;
+ const cols=['#f0c890','#e8b97a','#d49a58','#c4834a','#b8733c'];
+ DL.forEach(([y,amp,seed,depth],i)=>{const tx=mx*depth*30,ty=my*depth*10;s+=`<g class="layer" transform="translate(${tx} ${ty})"><path d="${dunePath(y,amp,seed)}" fill="${shade(warm(cols[i]))}"/><path d="${dunePath(y,amp,seed)}" fill="url(#rid${i})" opacity=".0"/>`;
+  if(i===3){for(let k=0;k<7;k++){const cx=900+k*46,cy=y-amp*.55+Math.sin(k)*4;s+=`<g transform="translate(${cx} ${cy}) scale(.8)"><path d="M0 0 q6 -18 16 -8 q6 -16 18 -2 l6 -12 l6 2 l-4 16 l0 14 l-4 0 l0 -10 l-24 0 l0 10 l-4 0Z" fill="${shade('#3a2414')}"/>${k%2?`<path d="M18 -18 l0 -10 l4 0 l0 10" fill="${shade('#3a2414')}"/>`:''}</g>`}}
+  s+='</g>'});
+ if(night>.4)s+=`<g transform="translate(${1180+mx*30} ${720+my*10})"><path d="M-60 0 L0 -70 L60 0Z" fill="#2a1a2a"/><path d="M-8 0 L0 -20 L8 0Z" fill="#ffb04a" opacity="${.6+.4*Math.random()}"/><circle cx="90" cy="-6" r="${10+Math.random()*3}" fill="#ffb04a" opacity=".85"/><circle cx="90" cy="-6" r="60" fill="#ffb04a" opacity=".12"/></g>`;
+ document.getElementById('dunesSvg').innerHTML=s;const hh=Math.floor(h),mm=Math.round((h%1)*60);document.getElementById('todV').textContent=`${String(hh%24).padStart(2,'0')}:${String(mm%60).padStart(2,'0')}`;document.getElementById('copy').style.color=day>.3&&h>9&&h<16?'#3a2414':'#fff'}
+tod.oninput=drawDunes;document.getElementById('scene').addEventListener('mousemove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;drawDunes()});drawDunes();
+setInterval(()=>{if(!V[0].hidden&&(+tod.value>19||+tod.value<5))drawDunes()},200);
+
+/* ---------- route ---------- */
+const PTS=[[80,470],[190,420],[300,360],[380,260],[500,210],[620,150],[700,280],[560,400],[380,470],[180,500],[80,470]];
+const DAYS=[['Merzouga','The caravan gathers at dawn. Camels are introduced; one of them is called Bob and he is not interested in you.',14],['The Great Dune','Climb Erg Chebbi\'s tallest dune (150 m) for sunset. Sandboarding strongly encouraged.',18],['Khamlia','Gnawa music in a Berber village. The drums go on until the stars take over.',22],['The Empty Quarter','No trail, no villages. Navigate by the wind ripples and the guide\'s grandfather\'s advice.',24],['Oasis of Tisserdmine','Palm shade, a spring of cold water, dates straight from the tree.',20],['The Salt Lake','A dry lake that shimmers like water at noon. Mirages are free of charge.',26],['Return to Merzouga','Back through the dunes at dawn. A hammam and a very large tagine await.',18]];
+let sel=0;
+function drawMap(){let s=`<rect width="800" height="560" fill="#e8b97a"/>`;for(let i=0;i<40;i++){const y=20+i*14;s+=`<path d="M0 ${y} Q200 ${y-10+Math.sin(i)*8} 400 ${y} T800 ${y}" stroke="#d49a58" stroke-width="1.2" fill="none" opacity=".6"/>`}
+ s+=`<ellipse cx="620" cy="150" rx="40" ry="24" fill="#6aa0b8" opacity=".7"/><circle cx="614" cy="138" r="6" fill="#5a8a3a"/><circle cx="628" cy="142" r="6" fill="#5a8a3a"/><ellipse cx="700" cy="280" rx="70" ry="36" fill="#fff" opacity=".5"/><text x="700" y="330" text-anchor="middle" font-family="Tenor Sans" font-size="13" fill="#8a4e26">SALT LAKE</text><path d="M740 0 L760 560" stroke="#8a4e26" stroke-dasharray="6 6" stroke-width="2"/><text x="770" y="40" font-family="Tenor Sans" font-size="11" fill="#8a4e26" transform="rotate(90 770 40)">BORDER</text>`;
+ const d=`M${PTS.map(p=>p.join(' ')).join(' L')}`;s+=`<path d="${d}" stroke="#2a1a10" stroke-width="2.5" fill="none" stroke-dasharray="8 6"/>`;
+ const seg=`M${PTS.slice(sel,sel+2).map(p=>p.join(' ')).join(' L')}`;s+=`<path d="${seg}" stroke="#c8452e" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+ PTS.slice(0,7).forEach(([x,y],i)=>s+=`<g style="cursor:pointer" data-d="${i}"><circle cx="${x}" cy="${y}" r="${i===sel?14:10}" fill="${i===sel?'#c8452e':'#fbf1e2'}" stroke="#2a1a10" stroke-width="2"/><text x="${x}" y="${y+4}" text-anchor="middle" font-family="Tenor Sans" font-size="11" fill="${i===sel?'#fff':'#2a1a10'}">${i+1}</text></g>`);
+ s+=`<g><path d="M0 0 q6 -18 16 -8 q6 -16 18 -2 l6 -12 l6 2 l-4 16 l0 14 l-4 0 l0 -10 l-24 0 l0 10 l-4 0Z" fill="#2a1a10" transform="translate(-20 -12)"/><animateMotion dur="3s" repeatCount="indefinite" path="${seg}"/></g>`;
+ s+=`<g transform="translate(60 60)"><circle r="26" fill="#fbf1e2" stroke="#2a1a10"/><path d="M0 -20 L6 0 L0 -4 L-6 0Z" fill="#c8452e"/><text y="16" text-anchor="middle" font-size="10" font-family="Tenor Sans">N</text></g><text x="620" y="540" font-family="Tenor Sans" font-size="12" fill="#2a1a10">0 ——— 20 km</text>`;
+ document.getElementById('mapSvg').innerHTML=s;
+ document.getElementById('days').innerHTML=DAYS.map(([n,t,km],i)=>`<div class="day${i===sel?' on':''}" data-d="${i}"><b>0${i+1}</b><div><div class="km">${km} KM · ${['SUNRISE START','LONG DAY','EASY','HARD','REST','HOT','HOMEWARD'][i]}</div><h4>${n}</h4><p>${t}</p></div></div>`).join('')}
+document.addEventListener('click',e=>{const d=e.target.closest('[data-d]');if(d&&!V[1].hidden){sel=+d.dataset.d;drawMap()}});drawMap();
+
+/* ---------- provisions ---------- */
+let temp=36,pace=1;
+function prov(){const p=+people.value,d=+daysN.value;document.getElementById('pV').textContent=p;document.getElementById('dV').textContent=d;const perDay=(3+(temp-25)*.25)*pace;const water=Math.ceil(p*d*perDay*1.1);const camels=Math.ceil((water+p*d*1.2+p*12)/150)+Math.ceil(p/2);const dates=p*d*12;const kcal=Math.round(2600*pace+(temp>40?300:0));
+ document.getElementById('outEl').innerHTML=`<div class="o"><small>Water</small><b>${water} L</b><div class="icons">${'💧'.repeat(Math.min(20,Math.ceil(water/20)))}</div><span style="font-size:13px;opacity:.7">${perDay.toFixed(1)} L per person per day</span></div>
+ <div class="o"><small>Camels</small><b>${camels}</b><div class="icons">${'🐪'.repeat(Math.min(16,camels))}</div><span style="font-size:13px;opacity:.7">~150 kg each, one to ride per two travellers</span></div>
+ <div class="o"><small>Dates</small><b>${dates.toLocaleString()}</b><span style="font-size:13px;opacity:.7">the desert's energy bar — 12 per person per day</span></div>
+ <div class="o"><small>Daily energy</small><b>${kcal}</b><span style="font-size:13px;opacity:.7">kcal per traveller</span></div>
+ ${temp>40?'<div class="warn"><b>Summer warning.</b> Daytime temperatures exceed 45 °C. We walk only from 5 to 10 am and after 5 pm, and rest through the heat of the day. Please consider a winter crossing.</div>':''}
+ <div class="kit"><b class="tenor" style="font-size:1.3rem;font-weight:400">Personal kit</b>${['Cheche (desert scarf) — 4 m of cotton','Wide-brim hat & UV sunglasses','Sleeping bag rated to '+(temp>40?'10':'0')+' °C — nights are cold','Headlamp & spare batteries','Rehydration salts','Sand-proof bag for electronics','A book you\'ve been meaning to read'].map(k=>`<label><input type="checkbox"> ${k}</label>`).join('')}</div>`}
+['people','daysN'].forEach(id=>document.getElementById(id).oninput=prov);
+document.getElementById('season').onclick=e=>{const t=e.target.dataset.t;if(!t)return;temp=+t;document.querySelectorAll('#season button').forEach(b=>b.classList.toggle('on',b===e.target));prov()};
+document.getElementById('pace').onclick=e=>{const p=e.target.dataset.p;if(!p)return;pace=+p;document.querySelectorAll('#pace button').forEach(b=>b.classList.toggle('on',b===e.target));prov()};prov();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

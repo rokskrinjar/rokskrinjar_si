@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TREMOR — Seismic Observatory</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4f1e8;--grid:#d9d2bf;--ink:#1c1b19;--red:#c62a1f;--blue:#1f4a8a;--dim:#1c1b1988;--slate:#2b2e33}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--slate);color:var(--ink);font-family:'IBM Plex Sans Condensed',sans-serif}
+a{color:inherit;text-decoration:none}button,input{font:inherit;cursor:pointer;color:inherit}
+.mono{font-family:'IBM Plex Mono',monospace}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 4vw;color:var(--paper)}
+.logo{font-weight:700;font-size:26px;letter-spacing:.2em;display:flex;align-items:center;gap:10px}
+.logo svg{width:60px;height:24px}
+nav{display:flex;gap:0;flex-wrap:wrap;border:1px solid #f4f1e855}
+nav a{padding:8px 14px;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#f4f1e8aa}
+nav a.on{background:var(--paper);color:var(--ink)}
+[data-view][hidden]{display:none}
+.sheet{background:var(--paper);max-width:1300px;margin:0 auto 60px;padding:26px 4vw 50px;min-height:80vh}
+h2{font-weight:700;font-size:clamp(2rem,4.6vw,3.4rem);line-height:1;text-transform:uppercase;letter-spacing:.02em}
+h2 span{color:var(--red)}
+.sub{max-width:62ch;line-height:1.55;margin:8px 0 20px;color:#1c1b19cc}
+/* drum */
+.drumbox{display:grid;grid-template-columns:1fr 280px;gap:20px;align-items:start}
+.drum{background:#fff;border:1px solid var(--grid);position:relative}
+.drum canvas{display:block;width:100%;height:auto}
+.drum .lbl{position:absolute;right:10px;top:8px;font-family:'IBM Plex Mono';font-size:11px;color:var(--dim)}
+.ctl{display:grid;gap:12px}
+.card{border:1px solid var(--ink);padding:14px;background:#fffdf6}
+.card h3{font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px}
+.btn{background:var(--ink);color:var(--paper);border:0;padding:10px 14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px;width:100%}
+.btn.red{background:var(--red)}
+.ev{font-family:'IBM Plex Mono';font-size:12px;display:grid;gap:4px;max-height:220px;overflow:auto}
+.ev div{display:flex;justify-content:space-between;border-bottom:1px dotted var(--grid);padding:3px 0}
+.ev b{color:var(--red)}
+input[type=range]{width:100%;accent-color:var(--red)}
+/* magnitude */
+.mag{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+.mnum{font-size:120px;font-weight:700;line-height:.8;color:var(--red)}
+.cmp{display:flex;align-items:flex-end;gap:12px;height:280px;border-bottom:2px solid var(--ink);padding:0 10px}
+.cmp div{flex:1;background:var(--ink);position:relative;transition:height .3s;min-height:2px}
+.cmp div span{position:absolute;bottom:-38px;left:0;right:0;text-align:center;font-size:12px;line-height:1.1}
+.cmp div b{position:absolute;top:-22px;left:0;right:0;text-align:center;font-family:'IBM Plex Mono';font-size:11px}
+.mmi{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;margin-top:60px}
+.mmi div{padding:10px 2px;text-align:center;font-weight:700;font-size:13px;opacity:.3}
+.mmi div.on{opacity:1;outline:2px solid var(--ink)}
+.mmiT{margin-top:10px;min-height:3em;line-height:1.5}
+/* catalog */
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-size:11px;letter-spacing:.2em;text-transform:uppercase;border-bottom:2px solid var(--ink);padding:8px}
+td{padding:10px 8px;border-bottom:1px solid var(--grid)}
+td.m{font-family:'IBM Plex Mono';font-weight:500;font-size:18px}
+.mb{display:inline-block;height:10px;background:var(--red);vertical-align:middle;margin-right:6px}
+tr:hover td{background:#fff}
+.wave{width:160px;height:36px}
+/* drill */
+.drill{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.room{background:#fff;border:1px solid var(--grid);position:relative;overflow:hidden}
+.room svg{display:block;width:100%;height:auto}
+.room.shake{animation:shake .12s infinite}
+@keyframes shake{25%{transform:translate(-4px,2px) rotate(-.3deg)}75%{transform:translate(4px,-2px) rotate(.3deg)}}
+.steps{display:grid;gap:10px}
+.step{display:grid;grid-template-columns:60px 1fr;gap:12px;align-items:center;border:2px solid var(--grid);padding:12px;background:#fffdf6}
+.step.on{border-color:var(--red);background:#fff}
+.step.ok{border-color:#2e7d32}
+.step b{font-size:28px;font-weight:700}
+.big{font-size:24px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-height:1.2em;margin:12px 0}
+@media(max-width:900px){.drumbox,.mag,.drill{grid-template-columns:1fr}.mmi{grid-template-columns:repeat(6,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="logo"><svg viewBox="0 0 60 24"><path d="M0 12 H14 L17 4 L20 20 L23 2 L26 22 L29 8 L32 16 L35 12 H60" stroke="#c62a1f" stroke-width="2" fill="none"/></svg>TREMOR</div><nav><a href="#drum">Helicorder</a><a href="#mag">Magnitude</a><a href="#catalog">Great Quakes</a><a href="#drill">Drill</a><a href="index.html">Index</a></nav></header>
+
+<section data-view="drum"><div class="sheet">
+ <h2>Station <span>TRM</span> · live drum</h2>
+ <p class="sub">A helicorder draws the ground's motion in rows of ink, one line every 15 minutes. Most of it is microseism: the rumble of distant ocean waves. Press <b>Stomp</b> for a local event or <b>Distant quake</b> to watch P, S and surface waves arrive.</p>
+ <div class="drumbox">
+  <div class="drum"><canvas id="dc" width="1200" height="720"></canvas><div class="lbl" id="dlbl">TRM · BHZ · 0.5–20 Hz</div></div>
+  <div class="ctl">
+   <div class="card"><h3>Trigger</h3><div style="display:grid;gap:6px"><button class="btn" id="stomp">Stomp (M 0.1)</button><button class="btn" id="truck">Passing truck</button><button class="btn red" id="quake">Distant quake</button></div></div>
+   <div class="card"><h3>Distant quake size · M<span id="mv">6.5</span></h3><input type="range" id="qm" min="3" max="9" step=".1" value="6.5"></div>
+   <div class="card"><h3>Event log</h3><div class="ev" id="evl"></div></div>
+  </div>
+ </div>
+</div></section>
+
+<section data-view="mag" hidden><div class="sheet">
+ <h2>One step <span>up</span> is 32× the energy</h2>
+ <p class="sub">The moment magnitude scale is logarithmic. Each whole number means about 32 times more energy released, and each two steps means 1,000 times more.</p>
+ <div class="mag">
+  <div><div class="mono" style="font-size:12px;letter-spacing:.2em">MAGNITUDE</div><div class="mnum" id="mN">6.0</div><input type="range" id="mR" min="1" max="9.5" step=".1" value="6"><div id="mE" style="margin-top:14px;font-size:20px;line-height:1.4"></div>
+   <div class="mmi" id="mmi"></div><div class="mmiT" id="mmiT"></div></div>
+  <div><div class="cmp" id="cmp"></div></div>
+ </div>
+</div></section>
+
+<section data-view="catalog" hidden><div class="sheet">
+ <h2>The great <span>quakes</span></h2>
+ <p class="sub">The largest earthquakes since seismographs began recording. Bar length shows energy relative to the 1960 Chile quake.</p>
+ <div style="overflow-x:auto"><table><thead><tr><th>Year</th><th>Location</th><th>Mw</th><th>Energy</th><th>Notes</th></tr></thead><tbody id="cat"></tbody></table></div>
+</div></section>
+
+<section data-view="drill" hidden><div class="sheet">
+ <h2>Drop · Cover · <span>Hold on</span></h2>
+ <p class="sub">When the shaking starts, you have seconds. Practise the three moves in order before the timer runs out.</p>
+ <div class="drill">
+  <div class="room" id="room"><svg id="roomSvg" viewBox="0 0 600 420"></svg></div>
+  <div><div class="big" id="dmsg">Ready when you are.</div><div class="steps" id="steps"></div><button class="btn red" id="dgo" style="margin-top:14px">Start drill</button><p class="sub" style="margin-top:14px;font-size:14px">Don't run outside during shaking, and stay away from windows. If you're in bed, stay there and cover your head with a pillow.</p></div>
+ </div>
+</div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'drum';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* helicorder */
+const dc=document.getElementById('dc'),dx=dc.getContext('2d'),W=1200,H=720,ROWS=16,RH=H/ROWS,LM=70;
+let col=0,row=0,t=0,events=[],log=[];
+function paper(){dx.fillStyle='#fff';dx.fillRect(0,0,W,H);dx.strokeStyle='#e8e2d0';dx.lineWidth=1;for(let x=LM;x<W;x+=(W-LM)/15){dx.beginPath();dx.moveTo(x,0);dx.lineTo(x,H);dx.stroke()}dx.fillStyle='#1c1b1988';dx.font='11px "IBM Plex Mono"';const now=new Date();for(let r=0;r<ROWS;r++){const m=new Date(now-((ROWS-1-r)*15)*60000);dx.fillText(`${String(m.getHours()).padStart(2,'0')}:${String(Math.floor(m.getMinutes()/15)*15).padStart(2,'0')}`,10,r*RH+RH/2+4)}}
+paper();
+function noise(){return(Math.random()-.5)*3.2+Math.sin(t*.09)*2.6+Math.sin(t*.037+1)*1.8}
+function sig(){let s=0;events.forEach(e=>{const dt=t-e.t;if(dt<0)return;if(e.k==='stomp'){s+=dt<40?Math.sin(dt*1.6)*e.a*Math.exp(-dt/10):0}
+ else if(e.k==='truck'){s+=dt<260?Math.sin(dt*.9)*e.a*Math.sin(Math.PI*dt/260):0}
+ else{const P=e.p,S=e.s,L=e.l;if(dt>P)s+=Math.sin(dt*1.1)*e.a*.25*Math.exp(-(dt-P)/60);if(dt>S)s+=Math.sin(dt*.6)*e.a*.6*Math.exp(-(dt-S)/90);if(dt>L)s+=Math.sin(dt*.22)*e.a*Math.exp(-(dt-L)/180)*(1-Math.exp(-(dt-L)/20))}});return s}
+let lastY=null;
+function step(){t++;const x=LM+col,y0=row*RH+RH/2;let v=noise()+sig();v=Math.max(-RH*1.2,Math.min(RH*1.2,v));const y=y0+v;
+ dx.strokeStyle=row%4===3?'#c62a1f':row%4===1?'#1f4a8a':'#1c1b19';dx.lineWidth=1;dx.beginPath();dx.moveTo(x-1,lastY??y);dx.lineTo(x,y);dx.stroke();lastY=y;
+ col++;if(LM+col>=W){col=0;row++;lastY=null;if(row>=ROWS){dx.drawImage(dc,0,RH,W,H-RH,0,0,W,H-RH);dx.fillStyle='#fff';dx.fillRect(0,H-RH,W,RH);row=ROWS-1}}}
+events.push({k:'truck',t:1800,a:RH*.35},{k:'q',t:5200,a:RH*1.2,p:260,s:470,l:600},{k:'stomp',t:9400,a:RH*.9});for(let i=0;i<10*(W-LM);i++)step();
+function loop(){if(!document.querySelector('[data-view=drum]').hidden)for(let i=0;i<3;i++)step();requestAnimationFrame(loop)}loop();
+function addLog(t2,m){log.unshift([new Date().toLocaleTimeString(),t2,m]);document.getElementById('evl').innerHTML=log.slice(0,14).map(l=>`<div><span>${l[0]} ${l[1]}</span><b>${l[2]}</b></div>`).join('')}
+document.getElementById('stomp').onclick=()=>{events.push({k:'stomp',t,a:RH*.9});addLog('Local','M0.1')};
+document.getElementById('truck').onclick=()=>{events.push({k:'truck',t,a:RH*.35});addLog('Cultural','—')};
+document.getElementById('quake').onclick=()=>{const m=+document.getElementById('qm').value;const dist=2000+Math.random()*9000;const P=dist/8/3,S=dist/4.5/3,L=dist/3.6/3;events.push({k:'q',t:t+20,a:Math.min(RH*3,Math.pow(1.9,m-3)*3),p:P,s:S,l:L});addLog(`${Math.round(dist)} km`,'M'+m.toFixed(1));
+ setTimeout(()=>addLog('P-wave arrives',''),P/180*1000);};
+document.getElementById('qm').oninput=e=>document.getElementById('mv').textContent=(+e.target.value).toFixed(1);
+addLog('Station online','OK');
+
+/* magnitude */
+const MMI=[['I','#ffffff','Not felt, except by a very few people in ideal conditions.'],['II','#c0ecff','Felt by a few people at rest, especially on upper floors.'],['III','#9ce0ff','Felt indoors. It feels like a passing truck.'],['IV','#80ffff','Dishes, windows and doors rattle. Parked cars rock.'],['V','#7aff93','Felt by nearly everyone. Some dishes break and unstable objects fall over.'],['VI','#ffff00','Felt by all. Heavy furniture moves and plaster falls.'],['VII','#ffc800','Hard to stand. Poorly built buildings are considerably damaged.'],['VIII','#ff9100','Chimneys and walls collapse. Heavy furniture overturns.'],['IX','#ff0000','Well-designed buildings are damaged and shifted off their foundations.'],['X','#dd0000','Most masonry and frame structures are destroyed.'],['XI','#aa0000','Few structures remain standing. Bridges are destroyed.'],['XII','#880000','Total damage. Objects are thrown into the air.']];
+const EQ=[[2,'Construction blast'],[4,'Large quarry blast'],[6,'Hiroshima bomb (15 kt)'],[7,'A large quake'],[8.3,'Largest nuclear test'],[9.5,'Chile 1960']];
+function mag(){const m=+document.getElementById('mR').value;document.getElementById('mN').textContent=m.toFixed(1);const E=Math.pow(10,1.5*m+4.8);const tnt=E/4.184e9;
+ document.getElementById('mE').innerHTML=`≈ <b>${E.toExponential(1).replace('e+',' × 10^')}</b> joules<br>≈ <b>${tnt>1e6?(tnt/1e6).toFixed(tnt>1e7?0:1)+' million':tnt>1e3?(tnt/1e3).toFixed(1)+' thousand':tnt.toFixed(tnt<1?3:0)}</b> tonnes of TNT`;
+ const mi=Math.max(0,Math.min(11,Math.round(m*1.45-1.6)));document.getElementById('mmi').innerHTML=MMI.map((x,i)=>`<div class="${i===mi?'on':''}" style="background:${x[1]}">${x[0]}</div>`).join('');document.getElementById('mmiT').innerHTML=`<b>Typical intensity near the epicentre: ${MMI[mi][0]}.</b> ${MMI[mi][2]}`;
+ const items=[...EQ.map(e=>e),[m,'Your quake']].sort((a,b)=>a[0]-b[0]);const mxE=Math.pow(10,1.5*9.5);document.getElementById('cmp').innerHTML=items.map(([mm,l])=>{const h=Math.max(.4,Math.pow(Math.pow(10,1.5*mm)/mxE,.18)*100);return`<div style="height:${h}%;${l==='Your quake'?'background:#c62a1f':''}"><b>M${mm.toFixed(1)}</b><span>${l}</span></div>`}).join('')}
+document.getElementById('mR').oninput=mag;mag();
+
+/* catalog */
+const CAT=[[1960,'Valdivia, Chile',9.5,'The largest ever recorded. Its tsunami reached Hawaii and Japan.'],[1964,'Prince William Sound, Alaska',9.2,'The ground shook for 4.5 minutes. The coastline rose by up to 11 m.'],[2004,'Sumatra–Andaman, Indian Ocean',9.1,'The fault ruptured for 1,300 km, and the tsunami struck 14 countries.'],[2011,'Tōhoku, Japan',9.1,'It moved Honshu 2.4 m east and shortened the day by 1.8 microseconds.'],[1952,'Kamchatka, Russia',9.0,'It generated a Pacific-wide tsunami.'],[2010,'Maule, Chile',8.8,'It shifted the city of Concepción 3 m to the west.'],[1906,'Ecuador–Colombia coast',8.8,'One of the first great quakes recorded by seismographs.'],[1965,'Rat Islands, Alaska',8.7,'A remote Aleutian island arc event.']];
+const maxE=Math.pow(10,1.5*9.5);
+document.getElementById('cat').innerHTML=CAT.map(c=>{const r=Math.pow(10,1.5*c[2])/maxE;const ph=[...Array(40)].map((_,i)=>`${i*4},${18+Math.sin(i*1.3)*Math.min(16,(i>8?c[2]*1.6:2)*Math.exp(-Math.max(0,i-10)/14))}`).join(' ');return`<tr><td class="m">${c[0]}</td><td>${c[1]}</td><td class="m" style="color:#c62a1f">${c[2]}</td><td><span class="mb" style="width:${Math.max(3,r*160)}px"></span>${(r*100).toFixed(0)}%</td><td>${c[3]}</td></tr>`}).join('');
+
+/* drill */
+const STEPS=[['DROP','Get down onto your hands and knees before the quake knocks you down.'],['COVER','Get under a sturdy table, or cover your head and neck with your arms.'],['HOLD ON','Hold on to the table leg until the shaking stops. Be ready to move with it.']];let ds=-1,dt0=0,dtimer=null;
+function room(){const kneel=ds>=1,under=ds>=2,hold=ds>=3;let s=`<rect width="600" height="420" fill="#fffdf6"/><rect x="0" y="340" width="600" height="80" fill="#e8e2d0"/><rect x="40" y="60" width="140" height="120" fill="#cfe3f0" stroke="#1c1b19" stroke-width="3"/><path d="M110 60 v120 M40 120 h140" stroke="#1c1b19" stroke-width="2"/>`;
+ s+=`<rect x="420" y="80" width="120" height="16" fill="#8a5a3a"/><rect x="440" y="96" width="6" height="40" fill="#8a5a3a"/><rect x="470" y="40" width="30" height="40" fill="#c62a1f"/><rect x="250" y="220" width="220" height="16" fill="#8a5a3a"/><rect x="262" y="236" width="12" height="104" fill="#6a4a2a"/><rect x="446" y="236" width="12" height="104" fill="#6a4a2a"/>`;
+ const px=under?330:kneel?180:200,py=under?290:kneel?290:200;
+ s+=kneel?`<g transform="translate(${px} ${py})"><circle cx="${under?-10:0}" cy="${under?0:-20}" r="16" fill="#1f4a8a"/><path d="M-20 0 L40 0 L40 30 L-20 30Z" fill="#1f4a8a"/>${hold?'<path d="M40 10 L120 -40" stroke="#1f4a8a" stroke-width="8"/>':''}${under?'<path d="M-24 -10 q14 -20 28 0" stroke="#1f4a8a" stroke-width="7" fill="none"/>':''}</g>`:`<g transform="translate(${px} ${py})"><circle cx="0" cy="0" r="16" fill="#1f4a8a"/><rect x="-14" y="18" width="28" height="70" fill="#1f4a8a"/><rect x="-12" y="88" width="10" height="52" fill="#1f4a8a"/><rect x="2" y="88" width="10" height="52" fill="#1f4a8a"/></g>`;
+ if(ds>=0&&ds<3)s+=[...Array(6)].map((_,i)=>`<rect x="${60+i*90}" y="${(Date.now()/3+i*70)%330}" width="8" height="8" fill="#8a8a8a" transform="rotate(${i*30} ${64+i*90} 180)"/>`).join('');
+ document.getElementById('roomSvg').innerHTML=s;
+ document.getElementById('steps').innerHTML=STEPS.map((x,i)=>`<button class="step ${i===ds?'on':''} ${i<ds?'ok':''}" data-i="${i}"><b>${i<ds?'✓':i+1}</b><span><b style="font-size:20px">${x[0]}</b><br>${x[1]}</span></button>`).join('')}
+document.getElementById('dgo').onclick=()=>{ds=0;dt0=Date.now();document.getElementById('room').classList.add('shake');document.getElementById('dmsg').textContent='Shaking! Drop now!';clearInterval(dtimer);dtimer=setInterval(()=>{const s=(Date.now()-dt0)/1000;if(ds<3){room();if(s>8){clearInterval(dtimer);document.getElementById('room').classList.remove('shake');document.getElementById('dmsg').textContent='Too slow! You have about 5 seconds. Try again.';ds=-1;room()}}},120);room()};
+document.getElementById('steps').onclick=e=>{const b=e.target.closest('.step');if(!b||ds<0||ds>2)return;const i=+b.dataset.i;if(i===ds){ds++;if(ds===3){clearInterval(dtimer);const s=((Date.now()-dt0)/1000).toFixed(1);setTimeout(()=>{document.getElementById('room').classList.remove('shake');document.getElementById('dmsg').textContent=`Safe in ${s}s. The shaking has stopped. Check for hazards, then evacuate calmly.`;room()},1200)}else document.getElementById('dmsg').textContent=['Drop!','Cover!','Hold on!'][ds]}else document.getElementById('dmsg').textContent='Wrong order: '+STEPS[ds][0]+' first!';room()};
+room();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

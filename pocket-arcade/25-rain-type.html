@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Rain Type</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Zen+Maru+Gothic:wght@700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:none;user-select:none;background:#0b1024;font-family:'IBM Plex Mono',monospace;color:#dfe8ff}
+canvas{display:block;position:fixed;inset:0}
+.hud{position:fixed;top:10px;right:14px;text-align:right;font-size:12px;letter-spacing:.15em;pointer-events:none}.hud b{font-size:22px;color:#fff;display:block;letter-spacing:0}
+.lives{position:fixed;top:12px;left:50%;transform:translateX(-50%);font-size:16px;letter-spacing:4px;pointer-events:none}
+.kb{position:fixed;left:0;right:0;bottom:0;padding:6px 4px 8px;display:none;flex-direction:column;gap:5px;background:#0b1024cc;backdrop-filter:blur(6px);z-index:4}.kb.on{display:flex}
+.kr{display:flex;gap:4px;justify-content:center}.k{flex:1;max-width:40px;height:44px;border:0;border-radius:6px;background:#ffffff1a;color:#fff;font:inherit;font-weight:700;font-size:16px;text-transform:uppercase}.k:active{background:#ff6ec7}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#0b1024cc}.ov.on{display:grid}
+.ov h1{font-family:'Zen Maru Gothic',sans-serif;font-size:clamp(44px,12vw,84px);color:#fff;text-shadow:0 0 20px #ff6ec7,0 0 60px #5ad1ff}
+.ov p{margin:14px auto 22px;line-height:1.8;max-width:340px;opacity:.85;font-size:14px}
+button.go{font:inherit;font-weight:700;letter-spacing:.2em;border:1px solid #ff6ec7;background:#ff6ec722;color:#fff;padding:12px 30px;border-radius:40px;cursor:pointer}
+.back{position:fixed;left:12px;top:10px;color:#dfe8ffaa;text-decoration:none;font-size:13px;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud">SCORE<b id="s">0</b>WAVE <span id="w">1</span> · BEST <span id="b">0</span></div>
+<div class="lives" id="lv">☂☂☂☂☂</div>
+<div class="kb" id="kb"></div>
+<div class="ov on" id="ov"><div><h1 id="t">rain type</h1><p id="m">Words slide down the glass.<br>Type them before they reach the street.<br>Clean words build your combo · Esc drops a target.</p><button class="go" id="go">START</button></div></div>
+<a class="back" href="index.html">← games</a>
+<script>
+const K='best-rain-type';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const [SH,MD,LG]='ant,ash,bass,bay,beat,bee,bell,big,bike,bold,box,bus,busy,buzz,cab,calm,car,cat,city,cold,cow,cup,dawn,deep,dew,dim,dog,drum,dusk,east,echo,egg,elk,elm,far,fast,fern,fig,fire,fizz,foam,fog,fox,glee,glow,gust,hail,hen,high,hill,hop,horn,hot,hum,hush,ice,ink,jazz,jog,joy,key,kind,kiwi,lake,lamp,lazy,left,lily,lime,low,map,mist,moon,moss,nap,near,neon,new,noon,oak,odd,old,owl,pear,pen,pig,plum,pond,pop,rain,reed,road,rock,rose,run,sand,sea,shy,sky,slow,snow,soft,song,star,sun,taxi,tea,tide,tiny,tune,van,vast,walk,warm,wave,west,wet,wild,wind,wise,yak,zap,zip|about,above,abuse,acorn,actor,acute,admit,adopt,adore,adult,after,again,agent,agree,ahead,alarm,album,alert,alike,alive,allow,alone,along,alter,amber,among,amuse,angel,anger,angle,angry,ankle,apart,apple,apply,arena,argue,arise,aroma,array,arrow,aside,asset,audio,audit,avoid,award,aware,badge,badly,bagel,baker,basic,basis,baton,beach,beard,began,begin,being,below,bench,berry,birth,bison,black,blame,blaze,blind,bliss,block,blood,bloom,blush,board,boast,bonus,boost,booth,bound,brain,brand,brave,bread,break,breed,brick,bride,brief,bring,brisk,broad,broke,broom,brown,brush,build,built,bunny,buyer,cabal,cabin,cable,camel,candy,canoe,cargo,carry,catch,cause,cedar,chain,chair,charm,chart,chase,cheap,check,chest,chief,child,chirp,chose,cider,cinch,civic,civil,claim,clamp,class,clean,clear,click,cliff,cloak,clock,close,cloud,clove,coach,coast,comet,coral,could,count,court,cover,craft,crane,crash,crave,cream,crime,crisp,cross,crowd,crown,crumb,crust,curve,cycle,daily,daisy,dance,dealt,death,debut,delay,depth,dizzy,doing,doubt,dough,dozen,draft,drama,drawn,dream,dress,drift,drill,drink,drive,drove,dwarf,dying,eager,eagle,early,earth,eight,elbow,elite,ember,empty,enemy,enjoy,enter,entry,equal,error,event,every,exact,exist,extra,fable,fairy,faith,false,fancy,fault,feast,fever,fiber,field,fiery,fifth,fifty,fight,final,first,fixed,flair,flame,flash,fleet,flint,flock,floor,flora,fluid,flute,focus,foggy,force,forge,forth,forty,forum,found,frail,frame,frank,fraud,fresh,front,frost,fruit,fully,funny,gauge,gecko,ghost,giant,giddy,given,glass,gleam,glide,globe,glory,glove,going,grace,grade,grand,grant,grape,grass,gravy,great,green,gross,group,grove,grown,guard,guess,guest,guide,gusto,happy,haste,hazel,heart,heavy,hence,heron,hippo,honey,horse,hotel,hound,house,human,ideal,igloo,image,index,inner,input,issue,ivory,jelly,jewel,joint,joker,jolly,judge,juice,karma,kayak,knack,knelt,known,koala,label,lanky,lapel,large,laser,latch,later,laugh,layer,learn,lease,least,leave,legal,lemon,lemur,level,lever,light,lilac,limit,llama,local,lodge,lofty,logic,loose,lower,lucky,lunar,lunch,lying,lyric,magic,major,maker,mango,maple,march,marsh,match,maybe,mayor,meant,media,melon,merry,metal,might,mimic,minor,minus,mirth,mixed,model,money,month,moose,moral,mossy,motor,motto,mount,mouse,mouth,movie,music,nacho,never,newly,night,ninja,noble,noise,north,noted,novel,nudge,nurse,nylon,oaken,oasis,occur,ocean,offer,often,olive,onion,opera,orbit,order,other,otter,ought,paint,panda,panel,paper,party,pasta,pause,peace,pearl,pecan,penny,perch,petal,phase,phone,photo,piano,piece,pilot,pitch,pixel,place,plain,plane,plant,plate,plaza,plume,plush,point,polar,poppy,pouch,pound,power,press,price,pride,prime,print,prior,prism,prize,proof,proud,prove,quail,queen,quest,quick,quiet,quilt,quite,quota,radar,radio,raise,rally,ranch,range,rapid,ratio,raven,razor,reach,ready,refer,relic,remix,rhyme,ridge,right,risky,rival,river,rivet,robot,rodeo,roost,rough,round,route,royal,rumba,rural,salad,salsa,sandy,satin,scale,scarf,scene,scope,score,scout,sense,serve,seven,shade,shall,shape,share,shark,sharp,sheep,sheet,shelf,shell,shift,shiny,shirt,shock,shoot,shore,short,shown,sight,silky,since,siren,sixth,sixty,skate,skier,skill,slate,sleep,slide,sloth,slush,small,smart,smile,smoke,snack,snail,snowy,solid,solve,sorry,sound,south,space,spare,spark,speak,speed,spend,spent,spice,spire,split,spoke,spoon,sport,spray,squid,staff,stage,stake,stamp,stand,stark,start,state,steam,steel,steep,stern,stick,still,sting,stock,stone,stood,store,storm,story,stove,straw,strip,stuck,study,stuff,style,sugar,suite,sunny,super,sushi,swamp,sweet,swirl,swoop,syrup,table,taken,tango,tapir,taste,teach,teeth,tempo,thank,theft,their,theme,there,these,thick,thing,think,third,thorn,those,three,threw,throw,tidal,tiger,tight,tired,title,toast,today,topaz,topic,torch,total,touch,tough,tower,toxic,track,trade,trail,train,treat,trend,trial,trick,tried,truck,truly,trust,truth,tulip,tweed,twice,twirl,ultra,umbra,under,union,unity,until,unzip,upper,upset,urban,usage,usual,valid,value,vapor,vault,video,vigor,viper,virus,visit,visor,vital,vivid,voice,wagon,waltz,waste,watch,water,waver,whale,wheat,wheel,where,which,while,whisk,white,whole,whose,wince,witty,woman,world,worry,worse,worst,worth,would,wound,woven,write,wrong,wrote,yacht,yield,yodel,young,youth,zebra,zesty,zonal|alleyway,avenue,cascade,cloudburst,crossing,current,downpour,drizzle,droplet,elevator,evening,forecast,glimmer,gutter,harbour,humidity,lantern,melody,midnight,monsoon,moonlight,overcast,platform,puddles,rainbow,raincoat,reflect,rhythm,ripples,shelter,shimmer,silence,skyline,skyscraper,splash,starlight,station,streetlamp,subway,thunder,torrent,traffic,twilight,umbrella,umbrellas,velvet,whisper,window'.split('|').map(s=>s.split(','));
+const cv=document.getElementById('c'),x=cv.getContext('2d');let W,H,KB=0,FS;
+const coarse=matchMedia('(pointer:coarse)').matches||innerWidth<700;
+function fit(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);KB=coarse?160:0;FS=Math.max(15,Math.min(22,W/26))}fit();addEventListener('resize',fit);
+let st='menu',drops=[],parts=[],streaks=[],bokeh=[],score=0,lives=5,wave=1,toSpawn=0,spawnT=0,target=null,combo=0,best=ls.g(K,0),t=0,flash=0,beams=[];
+document.getElementById('b').textContent=best;
+for(let i=0;i<40;i++)bokeh.push({x:Math.random(),y:Math.random()*.9,r:10+Math.random()*50,h:[330,200,45,280][i%4],a:.05+Math.random()*.12});
+for(let i=0;i<80;i++)streaks.push({x:Math.random(),y:Math.random(),l:10+Math.random()*30,v:8+Math.random()*10});
+let AC;function tone(f,d=.05,type='sine',v=.04,to){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;if(to)o.frequency.exponentialRampToValueAtTime(to,AC.currentTime+d);g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function pickWord(){const r=Math.random(),w=wave;const pool=w<2?SH:w<4?(r<.5?SH:MD):w<7?(r<.2?SH:r<.85?MD:LG):(r<.6?MD:LG);let wd;let tries=0;do{wd=pool[Math.random()*pool.length|0];tries++}while(tries<20&&drops.some(d=>d.w[0]===wd[0]));return wd}
+function spawn(){const w=pickWord();x.font=`700 ${FS}px 'IBM Plex Mono'`;const tw=x.measureText(w).width;drops.push({w,p:0,x:20+Math.random()*(W-40-tw),y:-20,v:(.35+wave*.06+Math.random()*.2)*(H/800),tw,wob:Math.random()*6})}
+function startWave(){toSpawn=5+wave*2;spawnT=30}
+function start(){drops=[];parts=[];beams=[];score=0;lives=5;wave=1;combo=0;target=null;startWave();st='play';document.getElementById('ov').classList.remove('on');hud()}
+function hud(){document.getElementById('s').textContent=score;document.getElementById('w').textContent=wave;document.getElementById('lv').textContent='☂'.repeat(Math.max(0,lives))+'·'.repeat(Math.max(0,5-lives));if(score>best){best=score;ls.s(K,best)}document.getElementById('b').textContent=best}
+function splash(px,py,n,c){for(let i=0;i<n;i++){const a=Math.random()*6.28,s=1+Math.random()*4;parts.push({x:px,y:py,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1,l:1,c})}}
+function type(ch){if(st!=='play')return;ch=ch.toLowerCase();
+ if(!target){const c=drops.filter(d=>d.w[0]===ch).sort((a,b)=>b.y-a.y)[0];if(!c){miss();return}target=c}
+ if(target.w[target.p]===ch){target.p++;tone(700+target.p*50,.04,'triangle',.03);beams.push({x:target.x+target.tw*(target.p-.5)/target.w.length,y:target.y,l:1});
+  if(target.p>=target.w.length){combo++;const gain=target.w.length*10*Math.min(8,1+Math.floor(combo/3));score+=gain;splash(target.x+target.tw/2,target.y,24,'#9fe6ff');tone(1200,.15,'sine',.05,600);drops=drops.filter(d=>d!==target);target=null;hud()}}
+ else miss()}
+function miss(){combo=0;flash=.4;tone(140,.08,'square',.03)}
+function update(){t++;if(st!=='play')return;
+ if(toSpawn>0&&--spawnT<=0){spawn();toSpawn--;spawnT=Math.max(28,110-wave*9)*(0.7+Math.random()*.6)}
+ const floor=H-KB-40;drops.forEach(d=>{d.y+=d.v;d.wob+=.05});
+ for(const d of drops.slice()){if(d.y>floor){drops=drops.filter(q=>q!==d);if(target===d)target=null;lives--;combo=0;flash=1;splash(d.x+d.tw/2,floor,30,'#ff6ec7');tone(90,.4,'sawtooth',.06,40);hud();if(lives<=0){over();return}}}
+ if(toSpawn===0&&drops.length===0){wave++;score+=100*wave;hud();startWave();tone(523,.2,'triangle',.05);setTimeout(()=>tone(784,.25,'triangle',.05),120)}}
+function over(){st='over';setTimeout(()=>{document.getElementById('t').textContent=score>=best&&score>0?'new best':'washed out';document.getElementById('m').innerHTML=`Score ${score} · reached wave ${wave}<br>Best ${best}`;document.getElementById('go').textContent='AGAIN';document.getElementById('ov').classList.add('on')},700)}
+function draw(){const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#0b1024');g.addColorStop(.7,'#1b1640');g.addColorStop(1,'#2a1238');x.fillStyle=g;x.fillRect(0,0,W,H);
+ bokeh.forEach(b=>{const gr=x.createRadialGradient(b.x*W,b.y*H,0,b.x*W,b.y*H,b.r);gr.addColorStop(0,`hsla(${b.h},100%,65%,${b.a})`);gr.addColorStop(1,'transparent');x.fillStyle=gr;x.fillRect(b.x*W-b.r,b.y*H-b.r,b.r*2,b.r*2)});
+ x.strokeStyle='#9fb8ff22';x.lineWidth=1;streaks.forEach(s=>{s.y+=s.v/H;if(s.y>1.1){s.y=-.1;s.x=Math.random()}x.beginPath();x.moveTo(s.x*W,s.y*H);x.lineTo(s.x*W-2,s.y*H+s.l);x.stroke()});
+ const floor=H-KB-40;x.fillStyle='#ff6ec718';x.fillRect(0,floor,W,H-floor);x.strokeStyle='#ff6ec7';x.globalAlpha=.6;x.beginPath();x.moveTo(0,floor);x.lineTo(W,floor);x.stroke();x.globalAlpha=1;
+ x.font=`700 ${FS}px 'IBM Plex Mono'`;x.textBaseline='middle';
+ drops.forEach(d=>{const px=d.x+Math.sin(d.wob)*2,py=d.y,isT=d===target;
+  x.strokeStyle=isT?'#ff6ec788':'#9fe6ff22';x.lineWidth=2;x.beginPath();x.moveTo(px+d.tw/2,py-14);x.lineTo(px+d.tw/2,py-60);x.stroke();
+  x.fillStyle=isT?'#ff6ec733':'#9fe6ff18';x.beginPath();x.roundRect(px-10,py-FS*.8,d.tw+20,FS*1.6,FS*.8);x.fill();x.strokeStyle=isT?'#ff6ec7':'#9fe6ff55';x.lineWidth=1.5;x.stroke();
+  const done=d.w.slice(0,d.p),rest=d.w.slice(d.p);x.fillStyle='#ff6ec7';x.fillText(done,px,py);x.fillStyle='#fff';x.fillText(rest,px+x.measureText(done).width,py)});
+ beams.forEach(b=>{x.strokeStyle=`rgba(255,110,199,${b.l})`;x.lineWidth=2;x.beginPath();x.moveTo(W/2,H-KB-10);x.lineTo(b.x,b.y);x.stroke();b.l-=.15});beams=beams.filter(b=>b.l>0);
+ x.fillStyle='#ff6ec7';x.beginPath();x.arc(W/2,H-KB-10,8,0,7);x.fill();
+ parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.l-=.03;x.globalAlpha=Math.max(0,p.l);x.fillStyle=p.c;x.beginPath();x.arc(p.x,p.y,2,0,7);x.fill()});x.globalAlpha=1;parts=parts.filter(p=>p.l>0);
+ if(combo>2&&st==='play'){x.fillStyle='#ff6ec7';x.font=`700 14px 'IBM Plex Mono'`;x.textAlign='left';x.fillText('COMBO ×'+Math.min(8,1+Math.floor(combo/3)),14,50)}x.textAlign='left';
+ if(flash>0){x.fillStyle=`rgba(255,110,199,${flash*.15})`;x.fillRect(0,0,W,H);flash-=.05}}
+function loop(){update();draw();requestAnimationFrame(loop)}requestAnimationFrame(loop);
+addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey)return;if(st!=='play'){if(e.key==='Enter'||e.key===' '){if(document.getElementById('ov').classList.contains('on')){e.preventDefault();start()}}return}
+ if(e.key==='Escape'||e.key==='Backspace'){e.preventDefault();if(target){target.p=0;target=null}return}if(/^[a-z]$/i.test(e.key)){e.preventDefault();type(e.key)}});
+if(coarse){const kb=document.getElementById('kb');kb.classList.add('on');['qwertyuiop','asdfghjkl','zxcvbnm⌫'].forEach(l=>{const r=document.createElement('div');r.className='kr';[...l].forEach(ch=>{const b=document.createElement('button');b.className='k';b.textContent=ch;b.addEventListener('pointerdown',ev=>{ev.preventDefault();if(ch==='⌫'){if(target){target.p=0;target=null}}else type(ch)});r.appendChild(b)});kb.appendChild(r)})}
+document.getElementById('go').onclick=start;
+</script>
+</body>
+</html>

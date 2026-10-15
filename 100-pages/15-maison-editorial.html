@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAISON — Issue N°27</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#0e0e0e; --paper:#f5f1ea; --blush:#e8c9bd; --red:#b3001b; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; font-weight:300; }
+  a { color:inherit; text-decoration:none; }
+  .serif { font-family:'Bodoni Moda',serif; }
+  header { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:18px 3vw; border-bottom:1px solid var(--ink); position:sticky; top:0; background:var(--paper); z-index:30; }
+  header .l, header .r { display:flex; gap:1.8rem; font-size:11px; letter-spacing:.25em; text-transform:uppercase; }
+  header .r { justify-content:flex-end; }
+  header a { position:relative; }
+  header a.on::after, header a:hover::after { content:''; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:var(--ink); }
+  .mast { font-family:'Bodoni Moda'; font-weight:700; font-size:34px; letter-spacing:.35em; padding-left:.35em; }
+  .bag { cursor:pointer; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:fade .8s ease both; }
+  @keyframes fade { from { opacity:0; } }
+  /* cover */
+  .cover { display:grid; grid-template-columns:1fr 1fr; min-height:calc(100vh - 62px); }
+  .cover .img { position:relative; overflow:hidden; background:#caa596; }
+  .figure { position:absolute; inset:0; }
+  .cover .txt { padding:5vh 4vw; display:flex; flex-direction:column; justify-content:space-between; }
+  .issue { display:flex; justify-content:space-between; font-size:11px; letter-spacing:.3em; text-transform:uppercase; }
+  .cover h1 { font-family:'Bodoni Moda'; font-weight:400; font-size:clamp(4rem,10vw,10rem); line-height:.82; letter-spacing:-.03em; }
+  .cover h1 i { color:var(--red); }
+  .cover .dek { font-family:'Bodoni Moda'; font-style:italic; font-size:1.6rem; line-height:1.3; max-width:26rem; }
+  .coverlines { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem 2rem; font-size:13px; line-height:1.5; border-top:1px solid var(--ink); padding-top:1.4rem; }
+  .coverlines b { display:block; font-family:'Bodoni Moda'; font-size:1.2rem; font-weight:700; }
+  .coverlines a:hover b { color:var(--red); }
+  /* lookbook horizontal */
+  .lookbook { height:calc(100vh - 62px); overflow-x:auto; overflow-y:hidden; display:flex; scroll-snap-type:x mandatory; scrollbar-width:thin; }
+  .look { flex:0 0 auto; height:100%; display:grid; grid-template-columns:auto 360px; scroll-snap-align:start; border-right:1px solid var(--ink); }
+  .look .pic { height:100%; aspect-ratio:3/4; position:relative; overflow:hidden; }
+  .look .pic svg { width:100%; height:100%; transition:transform 1.2s cubic-bezier(.2,.8,.2,1); }
+  .look:hover .pic svg { transform:scale(1.04); }
+  .look .cap { padding:4vh 2.4rem; display:flex; flex-direction:column; justify-content:space-between; }
+  .look .n { font-family:'Bodoni Moda'; font-size:7rem; line-height:.8; }
+  .look h3 { font-family:'Bodoni Moda'; font-weight:400; font-style:italic; font-size:2.2rem; line-height:1; margin:1rem 0; }
+  .look p { font-size:14px; line-height:1.7; }
+  .items { border-top:1px solid var(--ink); }
+  .item { display:flex; justify-content:space-between; align-items:center; padding:.8rem 0; border-bottom:1px solid #0002; font-size:13px; gap:1rem; }
+  .item button { font:inherit; font-size:10px; letter-spacing:.2em; text-transform:uppercase; background:var(--ink); color:var(--paper); border:0; padding:.5rem .8rem; cursor:pointer; white-space:nowrap; }
+  .item button:hover { background:var(--red); }
+  .item button.added { background:transparent; color:var(--ink); border:1px solid var(--ink); }
+  .lbhint { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); font-size:11px; letter-spacing:.3em; text-transform:uppercase; background:var(--ink); color:var(--paper); padding:.6rem 1.2rem; z-index:10; }
+  .lbhint[hidden] { display:none; }
+  /* feature article */
+  .article { max-width:1200px; margin:0 auto; padding:10vh 4vw; }
+  .article .kicker { font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--red); }
+  .article h2 { font-family:'Bodoni Moda'; font-weight:400; font-size:clamp(3rem,8vw,7rem); line-height:.9; letter-spacing:-.02em; margin:1.4rem 0 2rem; }
+  .article .by { font-size:12px; letter-spacing:.2em; text-transform:uppercase; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); padding:.8rem 0; display:flex; justify-content:space-between; margin-bottom:4rem; }
+  .cols { columns:2 320px; column-gap:4rem; font-family:'Bodoni Moda'; font-size:1.15rem; line-height:1.7; }
+  .cols p { margin-bottom:1.2rem; }
+  .cols p:first-child::first-letter { font-size:5.6rem; float:left; line-height:.8; margin:.4rem .6rem 0 0; font-weight:700; }
+  .pull { column-span:all; font-family:'Bodoni Moda'; font-style:italic; font-size:clamp(2rem,4vw,3.4rem); line-height:1.1; text-align:center; padding:3rem 6vw; margin:2rem 0; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); }
+  .pull::before { content:'“'; color:var(--red); }
+  .progress { position:fixed; top:62px; left:0; height:2px; background:var(--red); z-index:40; width:0; }
+  /* shop */
+  .shopHead { display:flex; justify-content:space-between; align-items:end; padding:6vh 3vw 2rem; border-bottom:1px solid var(--ink); flex-wrap:wrap; gap:1rem; }
+  .shopHead h2 { font-family:'Bodoni Moda'; font-weight:400; font-size:clamp(3rem,7vw,6rem); line-height:.9; }
+  .sort { display:flex; gap:1rem; font-size:11px; letter-spacing:.2em; text-transform:uppercase; }
+  .sort button { background:none; border:0; font:inherit; cursor:pointer; opacity:.5; }
+  .sort button.on { opacity:1; text-decoration:underline; text-underline-offset:4px; }
+  .products { display:grid; grid-template-columns:repeat(4,1fr); }
+  .prod { border-right:1px solid var(--ink); border-bottom:1px solid var(--ink); padding:1rem 1rem 1.4rem; cursor:pointer; }
+  .prod:nth-child(4n) { border-right:0; }
+  .prod .ph { aspect-ratio:3/4; overflow:hidden; margin-bottom:1rem; position:relative; }
+  .prod .ph svg { width:100%; height:100%; transition:transform .8s; }
+  .prod:hover .ph svg { transform:scale(1.06); }
+  .prod .ph .quick { position:absolute; left:0; right:0; bottom:0; background:var(--ink); color:var(--paper); text-align:center; padding:.8rem; font-size:10px; letter-spacing:.3em; text-transform:uppercase; transform:translateY(100%); transition:transform .4s; }
+  .prod:hover .quick { transform:none; }
+  .prod h4 { font-family:'Bodoni Moda'; font-weight:400; font-size:1.1rem; }
+  .prod small { font-size:12px; opacity:.7; }
+  /* drawer */
+  .drawer { position:fixed; top:0; right:0; bottom:0; width:min(440px,100vw); background:var(--paper); border-left:1px solid var(--ink); z-index:60; transform:translateX(100%); transition:transform .5s cubic-bezier(.7,0,.2,1); display:flex; flex-direction:column; }
+  .drawer.open { transform:none; }
+  .drawer header { position:static; grid-template-columns:1fr auto; }
+  .drawer .list { flex:1; overflow:auto; padding:0 1.6rem; }
+  .ci { display:grid; grid-template-columns:70px 1fr auto; gap:1rem; padding:1rem 0; border-bottom:1px solid #0002; align-items:center; font-size:13px; }
+  .ci svg { width:70px; aspect-ratio:3/4; }
+  .ci .qty { display:flex; gap:.6rem; align-items:center; margin-top:.4rem; }
+  .ci .qty button { width:22px; height:22px; border:1px solid var(--ink); background:none; cursor:pointer; }
+  .foot { padding:1.6rem; border-top:1px solid var(--ink); }
+  .foot .t { display:flex; justify-content:space-between; font-family:'Bodoni Moda'; font-size:1.6rem; margin-bottom:1rem; }
+  .big { width:100%; padding:1.1rem; background:var(--ink); color:var(--paper); border:0; font:inherit; font-size:11px; letter-spacing:.3em; text-transform:uppercase; cursor:pointer; }
+  .big:hover { background:var(--red); }
+  .scrim { position:fixed; inset:0; background:#0006; z-index:55; opacity:0; pointer-events:none; transition:opacity .4s; }
+  .scrim.open { opacity:1; pointer-events:auto; }
+  /* subscribe */
+  .sub { display:grid; grid-template-columns:1fr 1fr; min-height:calc(100vh - 62px); }
+  .sub .l { background:var(--ink); color:var(--paper); padding:8vh 4vw; display:flex; flex-direction:column; justify-content:center; }
+  .sub .l h2 { font-family:'Bodoni Moda'; font-weight:400; font-size:clamp(3rem,6vw,5.4rem); line-height:.9; }
+  .sub .l h2 i { color:var(--blush); }
+  .plans { padding:8vh 4vw; display:grid; gap:1rem; align-content:center; }
+  .plan { border:1px solid var(--ink); padding:1.6rem; display:grid; grid-template-columns:auto 1fr auto; gap:1.2rem; align-items:center; cursor:pointer; transition:background .3s; }
+  .plan.on { background:var(--ink); color:var(--paper); }
+  .plan .dot { width:18px; height:18px; border-radius:50%; border:1px solid currentColor; display:grid; place-items:center; }
+  .plan.on .dot::after { content:''; width:10px; height:10px; border-radius:50%; background:var(--blush); }
+  .plan b { font-family:'Bodoni Moda'; font-size:1.4rem; font-weight:400; display:block; }
+  .plan .p { font-family:'Bodoni Moda'; font-size:1.8rem; }
+  .plans input { font:inherit; font-size:1rem; padding:1rem 0; border:0; border-bottom:1px solid var(--ink); background:none; outline:none; }
+  @media (max-width:900px){ .cover,.sub { grid-template-columns:1fr; } .cover .img { min-height:70vh; } .products { grid-template-columns:1fr 1fr; } .prod:nth-child(2n) { border-right:0; } .look { grid-template-columns:1fr; height:auto; } .lookbook { height:auto; flex-direction:column; overflow:visible; } .look .pic { height:80vh; } header .l { display:none; } header { grid-template-columns:auto 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <nav class="l"><a href="#cover">Cover</a><a href="#lookbook">Lookbook</a><a href="#feature">Feature</a></nav>
+  <a class="mast" href="#cover">MAISON</a>
+  <nav class="r"><a href="#shop">Shop</a><a href="#subscribe">Subscribe</a><span class="bag" id="bagBtn">Bag (<b id="bagN">0</b>)</span><a href="index.html">Index ↗</a></nav>
+</header>
+
+<section data-view="cover">
+  <div class="cover">
+    <div class="img" id="coverImg"></div>
+    <div class="txt">
+      <div class="issue"><span>N°27</span><span>Automne / Hiver</span><span>€14</span></div>
+      <h1>The <i>Quiet</i> Season</h1>
+      <p class="dek">Camel, charcoal, and the radical luxury of doing absolutely nothing in a very good coat.</p>
+      <div class="coverlines">
+        <a href="#lookbook"><b>Twelve Looks</b>From the ateliers of the Marais, photographed at dawn</a>
+        <a href="#feature"><b>The Last Tailor</b>Inside the workshop that dresses presidents, badly</a>
+        <a href="#shop"><b>The Edit</b>Eight pieces that will outlive your opinions</a>
+        <a href="#subscribe"><b>Letters</b>Our readers are furious about the hats</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-view="lookbook" hidden><div class="lookbook" id="lookbook"></div></section>
+<div class="lbhint" id="lbhint" hidden>Scroll → or use arrow keys</div>
+
+<section data-view="feature" hidden>
+  <div class="progress" id="prog"></div>
+  <article class="article">
+    <div class="kicker">Portrait · Rue de Sèvres</div>
+    <h2>The Last Tailor of Saint-Germain</h2>
+    <div class="by"><span>Words by Hélène Marceau</span><span>12 min read</span><span>Photographs by Jun Ota</span></div>
+    <div class="cols">
+      <p>Monsieur Arnaud Delacroix has measured four presidents, two popes, and one very anxious rock star, and he will tell you — without being asked, and at length — that each of them stood wrong. “They lean,” he says, pinning a sleeve with the precision of a bomb-disposal expert. “Power makes men lean. A good jacket must forgive the lean without encouraging it.”</p>
+      <p>His workshop occupies the second floor of a building so narrow it seems to have been folded into the street. There are three windows, two apprentices, one cat named Gabardine, and roughly eleven thousand metres of cloth, stacked to the ceiling in a colour order that only Delacroix understands.</p>
+      <p>A suit here takes ninety hours, across three fittings, spread over as many months. Clients are not permitted to be in a hurry. “If you are in a hurry,” he says, “buy a sweater.”</p>
+      <div class="pull">A good jacket must forgive the lean without encouraging it.</div>
+      <p>The apprentices, both in their twenties, have been sewing buttonholes for eighteen months. They will sew buttonholes for another year before they are allowed to touch a lapel. Neither seems to mind. One of them, Inès, describes the work as “meditation with needles, and occasional bleeding.”</p>
+      <p>Delacroix is seventy-eight. When asked who will take over the workshop, he looks out of the middle window for a long time, then back at the sleeve in his hands. “The cloth will decide,” he says eventually. It is, one realises, the only answer he has ever given to any question.</p>
+      <p>We leave as the light goes gold on the Rue de Sèvres. Behind us, through the window, the old man is still working — leaning, very slightly, over the table.</p>
+    </div>
+  </article>
+</section>
+
+<section data-view="shop" hidden>
+  <div class="shopHead"><h2>The Edit</h2><div class="sort"><button class="on" data-s="feat">Featured</button><button data-s="low">Price ↑</button><button data-s="high">Price ↓</button></div></div>
+  <div class="products" id="products"></div>
+</section>
+
+<section data-view="subscribe" hidden>
+  <div class="sub">
+    <div class="l"><div style="font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin-bottom:2rem">Subscribe</div><h2>Four issues.<br><i>No hurry.</i></h2><p style="margin-top:2rem;line-height:1.8;max-width:28rem;opacity:.8">Printed on uncoated paper in Lyon, bound by hand, delivered by a courier who has been told to take his time.</p></div>
+    <form class="plans" id="subForm">
+      <div class="plan on" data-p="Print"><span class="dot"></span><div><b>Print</b><small>Four issues a year, shipped worldwide</small></div><span class="p">€48</span></div>
+      <div class="plan" data-p="Print + Archive"><span class="dot"></span><div><b>Print + Archive</b><small>Every issue since 1998, online</small></div><span class="p">€72</span></div>
+      <div class="plan" data-p="Patron"><span class="dot"></span><div><b>Patron</b><small>Plus an invitation to the annual dinner</small></div><span class="p">€240</span></div>
+      <input type="email" placeholder="Your email" required id="subEmail">
+      <button class="big">Subscribe</button>
+      <p id="subMsg" class="serif" style="font-style:italic;font-size:1.2rem"></p>
+    </form>
+  </div>
+</section>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer"><header><span class="serif" style="font-size:1.6rem">Your Bag</span><button id="closeBag" style="background:none;border:0;font-size:1.4rem;cursor:pointer">×</button></header><div class="list" id="bagList"></div><div class="foot"><div class="t"><span>Total</span><span id="bagTot">€0</span></div><button class="big" id="checkout">Checkout</button><p id="coMsg" class="serif" style="font-style:italic;margin-top:.8rem"></p></div></aside>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'cover';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('header nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}document.getElementById('lbhint').hidden=id!=='lookbook';if(id==='lookbook')setTimeout(()=>document.getElementById('lbhint').hidden=true,3500)}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+/* fashion figure illustration (editorial silhouette) */
+function fig(o){const {bg,coat,skin='#d9b49c',hair='#1d1512',acc='#b3001b',pose=0,seed=1}=o;const sway=pose*10;
+ return `<svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" class="figure"><defs><linearGradient id="bg${seed}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${bg}"/><stop offset="1" stop-color="${bg}" stop-opacity=".75"/></linearGradient><filter id="gr${seed}"><feTurbulence baseFrequency=".9" numOctaves="2"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .12 0"/><feComposite in2="SourceGraphic" operator="in"/></filter></defs>
+ <rect width="300" height="400" fill="url(#bg${seed})"/><circle cx="${210-sway}" cy="120" r="80" fill="#fff" opacity=".12"/>
+ <ellipse cx="${150+sway*.3}" cy="392" rx="70" ry="8" fill="#0002"/>
+ <path d="M${138+sway*.2} 250 L${130+sway*.4} 385 L${142+sway*.4} 385 L${150} 262 L${158} 385 L${170-sway*.2} 385 L${162} 250Z" fill="#1a1a1a"/>
+ <path d="M${150+sway} 96 C ${110+sway} 110, ${100} 180, ${104-sway*.4} 300 L${196-sway*.4} 300 C ${200} 180, ${190+sway} 110, ${150+sway} 96Z" fill="${coat}"/>
+ <path d="M${150+sway} 100 L${138+sway*.8} 150 L${150+sway*.6} 290 M${150+sway} 100 L${162+sway*.8} 150" stroke="#0003" stroke-width="2" fill="none"/>
+ <path d="M${120+sway*.8} 118 Q${96} 190 ${108-sway*.3} 250" stroke="${coat}" stroke-width="18" stroke-linecap="round" fill="none"/><path d="M${180+sway*.8} 118 Q${206} 190 ${192-sway*.3} 250" stroke="${coat}" stroke-width="18" stroke-linecap="round" fill="none"/>
+ <rect x="${140+sway}" y="78" width="20" height="24" fill="${skin}"/><ellipse cx="${150+sway}" cy="62" rx="20" ry="25" fill="${skin}"/>
+ <path d="M${128+sway} 60 Q${130+sway} 30 ${152+sway} 34 Q${176+sway} 34 ${172+sway} 66 Q${178+sway} 90 ${168+sway} 98 Q${170+sway} 60 ${150+sway} 50 Q${138+sway} 64 ${128+sway} 60Z" fill="${hair}"/>
+ <path d="M${118+sway} 44 L${184+sway} 40 L${178+sway} 32 Q${150+sway} 16 ${124+sway} 34Z" fill="${acc}" opacity="${seed%3?0:1}"/>
+ <path d="M${130+sway} 108 Q${150+sway} 124 ${172+sway} 108 L${170+sway} 122 Q${150+sway} 136 ${132+sway} 122Z" fill="${acc}" opacity="${seed%3===1?1:0}"/>
+ <rect width="300" height="400" filter="url(#gr${seed})"/></svg>`}
+document.getElementById('coverImg').innerHTML=fig({bg:'#c9a393',coat:'#8a6246',seed:3});
+
+/* lookbook */
+const P=[['Camel Wrap Coat','#8a6246','#d6c3b0',1480],['Charcoal Trousers','#3a3a3c','#b9b4ad',420],['Silk Scarf, Rouge','#b3001b','#e8c9bd',290],['Cashmere Rollneck','#c8b89a','#8f9a9e',610],['Wool Cape','#26303b','#d9cfc3',1890],['Leather Gloves','#4a2f22','#e1d4c1',240],['Felt Fedora','#1d1512','#c9a393',380],['Double-Face Blazer','#6b705c','#ede4d6',1120]];
+const LOOKS=[['I','Early Light','Camel on camel, belted low. The collar stands up to the wind and to your mother.',[0,1],'#d6c3b0','#8a6246'],['II','The Commute','Charcoal, flat shoes, the scarf worn like a small emergency.',[1,2],'#b9b4ad','#3a3a3c'],['III','Sunday, Noon','A rollneck so soft you will forget your own name.',[3,6],'#8f9a9e','#c8b89a'],['IV','Night Walk','The cape: impractical, magnificent, entirely necessary.',[4,5],'#d9cfc3','#26303b'],['V','Gallery Opening','Olive double-face, and the confidence to not explain the art.',[7,2],'#ede4d6','#6b705c']];
+document.getElementById('lookbook').innerHTML=LOOKS.map(([n,t,d,it,bg,coat],i)=>`<div class="look"><div class="pic">${fig({bg,coat,seed:i+10,pose:(i%3)-1})}</div><div class="cap"><div><div class="n serif">${n}</div><h3>${t}</h3><p>${d}</p></div><div class="items">${it.map(k=>`<div class="item"><span>${P[k][0]} — €${P[k][3]}</span><button data-add="${k}">Add</button></div>`).join('')}</div></div></div>`).join('');
+addEventListener('keydown',e=>{if(V[1].hidden)return;const lb=document.getElementById('lookbook');if(e.key==='ArrowRight')lb.scrollBy({left:innerWidth*.6,behavior:'smooth'});if(e.key==='ArrowLeft')lb.scrollBy({left:-innerWidth*.6,behavior:'smooth'})});
+document.getElementById('lookbook').addEventListener('wheel',e=>{if(innerWidth<900)return;if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.currentTarget.scrollLeft+=e.deltaY;e.preventDefault()}},{passive:false});
+
+/* feature progress */
+addEventListener('scroll',()=>{if(V[2].hidden)return;const h=document.documentElement;document.getElementById('prog').style.width=scrollY/(h.scrollHeight-innerHeight)*100+'%'});
+
+/* shop */
+let sort='feat';function renderShop(){let list=P.map((p,i)=>[...p,i]);if(sort==='low')list.sort((a,b)=>a[3]-b[3]);if(sort==='high')list.sort((a,b)=>b[3]-a[3]);
+ document.getElementById('products').innerHTML=list.map(([n,c,bg,pr,i])=>`<div class="prod"><div class="ph">${fig({bg,coat:c,seed:i+30,pose:i%2?1:-1})}<div class="quick" data-add="${i}">+ Quick add</div></div><h4>${n}</h4><small>€${pr.toLocaleString()}</small></div>`).join('')}
+document.querySelectorAll('.sort button').forEach(b=>b.onclick=()=>{sort=b.dataset.s;document.querySelectorAll('.sort button').forEach(o=>o.classList.toggle('on',o===b));renderShop()});renderShop();
+
+/* bag */
+const bag=new Map();const drawer=document.getElementById('drawer'),scrim=document.getElementById('scrim');
+function openBag(o){drawer.classList.toggle('open',o);scrim.classList.toggle('open',o)}
+document.addEventListener('click',e=>{const a=e.target.closest('[data-add]');if(!a)return;const k=+a.dataset.add;bag.set(k,(bag.get(k)||0)+1);if(a.tagName==='BUTTON'){a.textContent='Added ✓';a.classList.add('added')}renderBag();openBag(true)});
+function renderBag(){let n=0,t=0;document.getElementById('bagList').innerHTML=[...bag].map(([k,q])=>{n+=q;t+=P[k][3]*q;return `<div class="ci">${fig({bg:P[k][2],coat:P[k][1],seed:k+60}).replace('class="figure"','')}<div><span class="serif" style="font-size:1.05rem">${P[k][0]}</span><div class="qty"><button data-q="${k}" data-d="-1">−</button>${q}<button data-q="${k}" data-d="1">+</button></div></div><span>€${(P[k][3]*q).toLocaleString()}</span></div>`}).join('')||'<p class="serif" style="font-style:italic;padding:2rem 0;font-size:1.2rem">Your bag is empty — as is, frankly, the point.</p>';
+ document.getElementById('bagN').textContent=n;document.getElementById('bagTot').textContent='€'+t.toLocaleString()}
+document.getElementById('bagList').onclick=e=>{const b=e.target.closest('[data-q]');if(!b)return;const k=+b.dataset.q,q=(bag.get(k)||0)+ +b.dataset.d;q>0?bag.set(k,q):bag.delete(k);renderBag()};
+document.getElementById('bagBtn').onclick=()=>openBag(true);document.getElementById('closeBag').onclick=scrim.onclick=()=>openBag(false);
+document.getElementById('checkout').onclick=()=>{document.getElementById('coMsg').textContent=bag.size?'This is a magazine, darling. But we admire your taste.':'Add something first.'};renderBag();
+
+/* subscribe */
+let plan='Print';document.querySelectorAll('.plan').forEach(p=>p.onclick=()=>{plan=p.dataset.p;document.querySelectorAll('.plan').forEach(o=>o.classList.toggle('on',o===p))});
+document.getElementById('subForm').onsubmit=e=>{e.preventDefault();document.getElementById('subMsg').textContent=`Merci. Your ${plan} subscription begins with N°28 — it will arrive when it arrives.`};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

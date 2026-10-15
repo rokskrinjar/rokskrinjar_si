@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,500;0,700;1,500&family=Public+Sans:wght@400;500;600;700&display=swap');
+:root{--e-bg:#fff;--e-card:#fff;--e-ink:#1d1a2e;--e-mu:#5e5a70;--e-ln:#e6e3ea;--e-acc:#7b1e3a;--e-acc2:#1d1a2e;--e-acc-ink:#fff;--e-soft:#f6f2f4;--e-r:0px;--e-font:'Public Sans',system-ui,sans-serif;--e-head:'Libre Bodoni',Georgia,serif;--e-hw:500;--e-hl:-.01em;--e-cta-bg:#7b1e3a;--e-cta-btn:#fff;--e-cta-btn-ink:#7b1e3a}
+.e-hero.editorial .e-name{font-size:clamp(38px,5vw,76px);line-height:1}
+.e-hero.editorial .e-name em,.e-h em{font-style:italic;color:#7b1e3a}
+.e-kick{color:#7b1e3a;letter-spacing:.12em}
+.e-stats b{color:#7b1e3a;font-family:var(--e-head)}
+.e-why.grid>div{border-left:2px solid #7b1e3a;border-radius:0}
+.e-why .n{color:#7b1e3a}
+.e-sec.alt{background:#f6f2f4}

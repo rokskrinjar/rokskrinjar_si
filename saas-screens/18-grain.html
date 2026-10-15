@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grain — The whiteboard your whole company draws on</title>
+<link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@500;700;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#fbfaf7;--tx:#1e1d1b;--mu:#75716a;--ln:#e6e2da;--c1:#ff5c8a;--c2:#3a86ff;--c3:#ffbe0b;--c4:#06b37a;--c5:#8338ec}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 'DM Sans',sans-serif;overflow-x:hidden}
+nav{position:relative;z-index:5;display:flex;align-items:center;gap:24px;padding:20px 32px}
+.lg{font:900 30px/1 'Darker Grotesque';letter-spacing:-.02em;display:flex;align-items:center;gap:6px}.lg i{width:14px;height:14px;background:var(--c1);border-radius:3px;transform:rotate(12deg)}
+nav a{color:var(--tx);text-decoration:none;font-weight:500;font-size:15px}nav .sp{flex:1}
+.btn{border:2px solid var(--tx);padding:9px 16px;border-radius:12px;font-weight:700;background:var(--tx);color:#fff!important}
+.board{position:relative;height:760px;background-image:radial-gradient(#d9d4ca 1.2px,transparent 1.2px);background-size:24px 24px;margin-top:-76px;overflow:hidden;cursor:crosshair}
+.h1wrap{position:absolute;left:50%;top:150px;transform:translateX(-50%);text-align:center;width:min(980px,92%)}
+h1{font:900 clamp(56px,8.6vw,124px)/.84 'Darker Grotesque';letter-spacing:-.03em;margin:0}
+.sel{position:relative;display:inline-block;padding:0 .08em}
+.sel::before{content:'';position:absolute;inset:-4px -6px;border:2px solid var(--c2);pointer-events:none}
+.sel b{position:absolute;width:10px;height:10px;background:#fff;border:2px solid var(--c2)}
+.sel .t{position:absolute;z-index:3;line-height:1.3;bottom:-34px;left:-6px;letter-spacing:0;background:var(--c2);color:#fff;font:700 12px 'DM Sans';padding:2px 8px;border-radius:4px;white-space:nowrap}
+.h1wrap p{font-size:20px;color:var(--mu);max-width:30em;margin:46px auto 0}
+.stick{position:absolute;width:170px;padding:16px;font:600 24px/1.1 'Caveat';box-shadow:0 8px 18px rgba(0,0,0,.08);transform:rotate(var(--r));cursor:grab;user-select:none;z-index:2}
+.stick:active{cursor:grabbing}
+.cur{position:absolute;z-index:4;pointer-events:none;transition:transform 1.2s cubic-bezier(.45,.05,.2,1)}
+.cur svg{width:22px;height:22px;display:block}.cur span{display:inline-block;margin:-2px 0 0 14px;color:#fff;font:700 12px 'DM Sans';padding:3px 8px;border-radius:0 8px 8px 8px;white-space:nowrap}
+.shape{position:absolute;z-index:1}
+.vote{position:absolute;right:6%;bottom:110px;background:#fff;border:1px solid var(--ln);border-radius:14px;padding:12px 14px;box-shadow:0 12px 30px rgba(0,0,0,.08);font-size:14px;z-index:3;width:220px}
+.vote b{display:block;margin-bottom:8px}.vrow{display:flex;justify-content:space-between;align-items:center;padding:3px 0}.vrow i{display:inline-block;height:8px;border-radius:4px;background:var(--c5);margin-left:8px;transition:width .4s}
+.tool{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:4px;background:#fff;border:1px solid var(--ln);border-radius:14px;padding:6px;box-shadow:0 10px 30px rgba(0,0,0,.08);z-index:5}
+.tool button{width:40px;height:40px;border:0;background:transparent;border-radius:9px;font-size:17px;cursor:pointer}.tool button.on{background:#f1eee8}
+.av{position:absolute;right:32px;top:90px;display:flex;z-index:5}.av i{width:32px;height:32px;border-radius:50%;border:3px solid var(--bg);margin-left:-8px;display:grid;place-items:center;color:#fff;font:700 12px 'DM Sans';font-style:normal}
+.logos{display:flex;justify-content:center;gap:50px;flex-wrap:wrap;padding:40px 20px;font:900 28px 'Darker Grotesque';color:#b5b0a6;border-top:1px solid var(--ln)}
+.feat{max-width:1160px;margin:0 auto;padding:60px 28px 90px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.feat h3{font:900 34px/1 'Darker Grotesque';margin:14px 0 8px}.feat p{color:var(--mu);margin:0}
+.sw{height:150px;border-radius:18px;position:relative;overflow:hidden}
+@media(max-width:800px){.feat{grid-template-columns:1fr}.stick{width:120px;font-size:19px}.vote,.av{display:none}nav a:not(.btn){display:none}}
+</style>
+</head>
+<body>
+<nav><div class="lg"><i></i>grain</div><a href="#">Product</a><a href="#">Templates</a><a href="#">Enterprise</a><span class="sp"></span><a href="#">Log in</a><a class="btn" href="#">Start drawing — free</a></nav>
+<div class="board" id="board">
+ <div class="av"><i style="background:var(--c1)">MO</i><i style="background:var(--c2)">JT</i><i style="background:var(--c4)">AV</i><i style="background:var(--tx)">+9</i></div>
+ <svg class="shape" style="left:8%;top:420px" width="180" height="120"><path d="M10 100 C 40 20, 120 10, 170 60" fill="none" stroke="#3a86ff" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 10"/><path d="M160 46 L172 62 L152 66" fill="none" stroke="#3a86ff" stroke-width="4" stroke-linecap="round"/></svg>
+ <svg class="shape" style="right:20%;top:120px" width="120" height="120"><circle cx="60" cy="60" r="48" fill="none" stroke="#06b37a" stroke-width="4"/></svg>
+ <div class="h1wrap"><h1>Think out loud, <span class="sel">together.<b style="left:-11px;top:-9px"></b><b style="right:-11px;top:-9px"></b><b style="left:-11px;bottom:-9px"></b><b style="right:-11px;bottom:-9px"></b><span class="t">Jules is editing</span></span></h1><p>An infinite canvas for workshops, roadmaps and the messy middle of every project. Twelve people, one board, zero lag.</p></div>
+ <div class="stick" style="left:6%;top:180px;background:#ffe27a;--r:-6deg">Customers want offline mode?</div>
+ <div class="stick" style="right:7%;top:300px;background:#ffc2d4;--r:5deg">Ship v1 before the offsite!!</div>
+ <div class="stick" style="left:14%;bottom:150px;background:#c8f0dc;--r:3deg">Ask sales for top 5 asks</div>
+ <div class="vote" id="vote"><b>🗳 Dot vote · 2 min left</b></div>
+ <div class="tool"><button class="on">↖</button><button>✎</button><button>▢</button><button>◯</button><button>🗒</button><button>T</button><button>🔗</button></div>
+</div>
+<div class="logos"><span>Fernway</span><span>Marlow</span><span>Tessera</span><span>Kilnworks</span><span>Pellucid</span></div>
+<div class="feat"><div><div class="sw" style="background:#ffe27a"><svg viewBox="0 0 300 150" width="100%" height="100%"><rect x="30" y="30" width="80" height="80" fill="#fff" transform="rotate(-4 70 70)"/><rect x="120" y="40" width="80" height="80" fill="#ffc2d4" transform="rotate(3 160 80)"/><rect x="210" y="25" width="70" height="70" fill="#c8f0dc"/></svg></div><h3>Stickies that sort themselves</h3><p>Drop 200 notes from a workshop and let Grain cluster them by theme.</p></div>
+ <div><div class="sw" style="background:#cfe0ff"><svg viewBox="0 0 300 150" width="100%" height="100%"><path d="M20 120 L80 60 L140 90 L200 30 L280 70" fill="none" stroke="#3a86ff" stroke-width="5" stroke-linecap="round"/><circle cx="200" cy="30" r="9" fill="#fff" stroke="#3a86ff" stroke-width="4"/></svg></div><h3>Follow the presenter</h3><p>One click and everyone’s view tracks yours. Spotlight a frame, run a timer.</p></div>
+ <div><div class="sw" style="background:#e3d6ff"><svg viewBox="0 0 300 150" width="100%" height="100%"><circle cx="90" cy="75" r="40" fill="#8338ec" opacity=".3"/><circle cx="150" cy="75" r="40" fill="#ff5c8a" opacity=".3"/><circle cx="210" cy="75" r="40" fill="#06b37a" opacity=".3"/></svg></div><h3>Votes, not opinions</h3><p>Dot votes, timers and anonymous mode turn a loud room into a fair one.</p></div></div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const B=document.getElementById('board');
+const PEOPLE=[['Mona','#ff5c8a'],['Jules','#3a86ff'],['Ade','#06b37a'],['Kim','#8338ec']];
+const curs=PEOPLE.map(([n,c])=>{const d=document.createElement('div');d.className='cur';d.innerHTML=`<svg viewBox="0 0 22 22"><path d="M3 2 L19 10 L11 12 L8 20 Z" fill="${c}" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg><span style="background:${c}">${n}</span>`;B.appendChild(d);return d});
+function wander(){curs.forEach(c=>{const x=Math.random()*(B.clientWidth-120)+20,y=Math.random()*(B.clientHeight-200)+90;c.style.transform=`translate(${x}px,${y}px)`})}wander();setInterval(wander,1700);
+const V=[['Offline mode',3],['Templates',5],['SSO',2]];const vote=document.getElementById('vote');
+function dv(){vote.innerHTML='<b>🗳 Dot vote · 2 min left</b>'+V.map(v=>`<div class="vrow">${v[0]}<span>${'●'.repeat(v[1])}<i style="width:${v[1]*12}px"></i></span></div>`).join('')}dv();
+setInterval(()=>{const k=Math.floor(Math.random()*3);V[k][1]=V[k][1]>=8?2:V[k][1]+1;dv()},2400);
+document.querySelectorAll('.stick').forEach(s=>{s.onpointerdown=e=>{const r=s.getBoundingClientRect(),br=B.getBoundingClientRect();const ox=e.clientX-r.left,oy=e.clientY-r.top;s.setPointerCapture(e.pointerId);s.style.right='auto';s.style.bottom='auto';
+ s.onpointermove=m=>{s.style.left=(m.clientX-br.left-ox)+'px';s.style.top=(m.clientY-br.top-oy)+'px'};s.onpointerup=()=>{s.onpointermove=null}}});
+</script>
+</body>
+</html>

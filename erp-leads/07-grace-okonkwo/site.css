@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap');
+:root{color-scheme:dark;--e-bg:#111214;--e-card:#1a1c1f;--e-ink:#f2f0ec;--e-mu:#a5a39f;--e-ln:#2c2e32;--e-acc:#ff3b3b;--e-acc-ink:#fff;--e-soft:#202226;--e-r:4px;--e-font:'Work Sans',system-ui,sans-serif;--e-head:'Anton',Impact,sans-serif;--e-hw:400;--e-ht:uppercase;--e-hl:.005em;--e-overlay:linear-gradient(90deg,rgba(17,18,20,.95) 30%,rgba(120,0,0,.45));--e-nav-bg:#111214;--e-cta-bg:#ff3b3b;--e-cta-ink:#fff;--e-cta-btn:#111214;--e-cta-btn-ink:#fff}
+.e-hero.banner{padding-block:110px 90px}
+.e-hero.banner .e-name{font-size:clamp(40px,5.4vw,80px);line-height:1}
+.e-hero.banner .e-por{border-color:#ff3b3b;filter:grayscale(.2)}
+.e-kick{color:#ff6b6b}
+.e-stats b{color:#ff3b3b;font-family:var(--e-head)}
+.e-why.numbered .n{font-family:var(--e-head);color:#ff3b3b;font-size:72px}
+.e-why.numbered h3{font-size:30px}
+.e-btn{border-radius:2px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.e-fitcols .no li:before{color:#ff6b6b}
+.e-sec.alt{background:#17181b}
+.e-flags>div{background:#1a1c1f}
+.e-ok .sum,.e-res{background:#202226}
+.e-warn{background:#3a2a10;color:#ffd79a}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Activate — Product-led growth</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{color-scheme:dark;--surface:#121821;--bg:#0b1015;--ink:#ecf1f7;--ink2:#aab4c2;--ink3:#6f7b8b;--grid:#1f2833;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--q1:#11233a;--q2:#163d6b;--q3:#1c5cab;--q4:#3987e5;--q5:#6da7ec;--q6:#9ec5f4;--qhi:#0b1220;--qlo:#dfe6f2;--pos:#3987e5;--neg:#e66767;--good:#3ccf8e;--warn:#e0a63a;--bad:#ff6b6b;--cur:"$";--tipbg:#ecf1f7;--tipfg:#0b1015}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Geist',sans-serif}
+.mono{font-family:'Geist Mono',monospace}
+.top{display:flex;align-items:center;gap:14px;padding:14px 26px;border-bottom:1px solid var(--grid)}
+.lg{font-weight:700;font-size:17px;display:flex;align-items:center;gap:8px}.lg b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,var(--s1),var(--s3));font-size:13px}
+.top .sp{flex:1}.pill{font:500 11.5px 'Geist Mono';color:var(--ink2);background:var(--surface);border:1px solid var(--grid);border-radius:999px;padding:4px 10px}
+.lay{display:grid;grid-template-columns:200px 1fr;min-height:calc(100vh - 57px)}
+nav.side{border-right:1px solid var(--grid);padding:16px 12px;display:flex;flex-direction:column;gap:2px}
+nav.side button{border:0;background:transparent;color:var(--ink2);text-align:left;padding:8px 10px;border-radius:8px;font:500 13.5px 'Geist';cursor:pointer}nav.side button.on{background:var(--surface);color:var(--ink);box-shadow:inset 2px 0 0 var(--s1)}
+nav.side h6{font:500 10.5px 'Geist Mono';color:var(--ink3);text-transform:uppercase;letter-spacing:.1em;margin:16px 10px 6px}
+main{padding:20px 26px 70px;min-width:0}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}.filters button{border:1px solid var(--grid);background:transparent;color:var(--ink2);border-radius:7px;padding:6px 11px;font:500 12.5px 'Geist';cursor:pointer}.filters button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+h1{font-size:22px;margin:0 0 14px;font-weight:600;letter-spacing:-.01em}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--grid);border:1px solid var(--grid);border-radius:12px;overflow:hidden;margin-bottom:14px}
+.kpi{background:var(--surface);padding:14px 16px}.kpi .l{font-size:12px;color:var(--ink3)}.kpi .v{font:500 26px 'Geist Mono';letter-spacing:-.04em}.kpi .d{font-size:12px}.kpi .s{font-size:12px;color:var(--ink3)}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1.4fr 1fr}
+.card{background:var(--surface);border:1px solid var(--grid);border-radius:12px;padding:16px 18px;min-width:0}.card h3{margin:0;font-size:14.5px;font-weight:600}.card .sub{color:var(--ink3);font-size:12.5px;margin:2px 0 12px}
+.feat{font:500 11px 'Geist Mono';padding:2px 6px;border-radius:5px;background:#18263a;color:#9ec5f4;margin-right:4px;white-space:nowrap}
+.assign{border:1px solid var(--s1);background:transparent;color:var(--q6);border-radius:6px;padding:3px 9px;font:600 12px 'Geist';cursor:pointer}.assign.done{border-color:var(--good);color:var(--good)}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g21{grid-template-columns:1fr}}@media(max-width:760px){.lay{grid-template-columns:1fr}nav.side{flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--grid)}nav.side h6{display:none}.kpis{grid-template-columns:1fr 1fr}main{padding:16px}.pill{display:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="lg"><b>▲</b>Activate</div><span style="color:var(--ink3)">Product-led growth · Fernway</span><span class="sp"></span><span class="pill">Segment events 2 min</span><span class="pill">Stripe 4 min</span><span class="pill">HubSpot 8 min</span><span class="pill">Salesforce 8 min</span></div>
+<div class="lay"><nav class="side"><h6>Sheets</h6><button data-sheet="funnel">Sign-up funnel</button><button data-sheet="pql">PQL queue</button><button data-sheet="adopt">Feature adoption</button><button data-sheet="conv">Conversion</button><button data-sheet="expand">Expansion</button></nav>
+<main><div class="filters"><button data-f="range" data-v="30d">30 days</button><button data-f="range" data-v="90d" class="on">90 days</button><button data-f="range" data-v="12m">12 months</button><span style="width:8px"></span><button data-f="src" data-v="all" class="on">All sign-ups</button><button data-f="src" data-v="org">Organic</button><button data-f="src" data-v="paid">Paid ads</button><button data-f="src" data-v="inv">Invited by a teammate</button></div>
+ <section data-panel="funnel"><h1>From sign-up to paid</h1><div class="kpis" id="k1"></div>
+  <div class="g g21"><div class="card"><h3>Self-serve funnel</h3><p class="sub">Activated = created 3 docs and invited 1 teammate within 7 days (the “aha” moment)</p><div id="c_fun"></div></div><div class="card"><h3>Sign-ups and activation rate</h3><p class="sub">Weekly</p><div id="c_sa"></div></div></div></section>
+ <section data-panel="pql" hidden><h1>Product-qualified leads, ranked</h1><div class="kpis" id="k2"></div>
+  <div class="card"><h3>Workspaces ready for a sales conversation</h3><p class="sub">Score = usage depth × team growth × company fit (Clearbit). Click “Assign” to route to an AE in Salesforce.</p><div id="t_pql"></div></div></section>
+ <section data-panel="adopt" hidden><h1>What new teams actually use</h1>
+  <div class="card"><h3>Feature adoption by sign-up cohort</h3><p class="sub">Share of workspaces using the feature within 30 days · weekly cohorts</p><div id="c_hm"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Which early actions predict paying</h3><p class="sub">Conversion lift if done in week 1</p><div id="c_lift"></div></div></section>
+ <section data-panel="conv" hidden><h1>Who converts, and how</h1>
+  <div class="g g2"><div class="card"><h3>Trial → paid by team size</h3><p class="sub">Workspace members at day 14</p><div id="c_ts"></div></div><div class="card"><h3>Self-serve vs. sales-assisted</h3><p class="sub">Paid conversions, by month</p><div id="c_sa2"></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Days from sign-up to paid</h3><p class="sub">Paid workspaces, selected period</p><div id="c_days"></div></div></section>
+ <section data-panel="expand" hidden><h1>Seats grow on their own</h1><div class="kpis" id="k5"></div>
+  <div class="card"><h3>Paid seats by acquisition path</h3><p class="sub">Month-end, stacked</p><div id="c_seats"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Workspaces near their plan limit</h3><p class="sub">Expansion candidates for customer success</p><div id="t_lim"></div></div></section>
+</main></div>
+<a class="bk" href="index.html" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 25 dashboards</a>
+<script src="kit.js"></script>
+<script>
+const $=id=>document.getElementById(id);const assigned=new Set();
+const memo={};function data(F){const k=JSON.stringify(F);if(memo[k])return memo[k];const r=K.rng(K.seed(F));const m=F.range==='12m'?4:F.range==='30d'?.34:1;const f={all:1,org:.48,paid:.31,inv:.21}[F.src];const act={all:.34,org:.36,paid:.22,inv:.58}[F.src];const L=K.periods(F.range);
+ const su=Math.round(14200*m*f);return memo[k]={r,m,f,act,L,su}}
+const S={range:'90d',src:'all'};
+const views={
+funnel(F){const D=data(F);const a=Math.round(D.su*D.act),p=Math.round(a*.31),paid=Math.round(D.su*.042*(D.act/.34));
+ K.kpis($('k1'),[{label:'Sign-ups',value:K.num(D.su),delta:.09},{label:'Activation rate',value:K.pct(D.act,0),delta:.03,deltaText:'3 pts'},{label:'PQLs',value:K.num(p)},{label:'Paid conversions',value:K.num(paid),delta:.12},{label:'Sign-up → paid',value:K.pct(paid/D.su,1)}]);
+ K.funnel($('c_fun'),{steps:[['Signed up',D.su],['Verified email',Math.round(D.su*.81)],['Created first doc',Math.round(D.su*.58)],['Activated',a],['PQL',p],['Paid',paid]]});
+ const n=D.L.length;K.line($('c_sa'),{labels:D.L,series:[{name:'Sign-ups',data:K.series(D.r,n,D.su/n,{trend:.2,noise:.1})},{name:'Activated',data:K.series(D.r,n,D.su*D.act/n,{trend:.3,noise:.12})}],fmt:K.num,h:300})},
+pql(F){const D=data(F);const r=K.rng(K.seed(F,'p'));const W=['Northbeam','Halden Bank (Ops)','Velo Mobility','Tessera Labs','Corvid Games','Oskar Freight','Mintworth','Lumen Studio','Brightline Insurance','Arden Mutual'];
+ K.kpis($('k2'),[{label:'PQLs this period',value:K.num(D.su*D.act*.31)},{label:'Unassigned',value:K.int(42*D.f*D.m+3)},{label:'PQL → opportunity',value:'44%'},{label:'PQL win rate',value:'38%'},{label:'Median time to first touch',value:'5.2 h'}]);
+ K.table($('t_pql'),{cols:[{k:'w',label:'Workspace'},{k:'sc',label:'Score',align:'r',bar:true},{k:'mem',label:'Members',align:'r'},{k:'grow',label:'Growth 14d',align:'r',fmt:v=>'+'+v},{k:'f',label:'Using',render:v=>{const w=document.createElement('span');v.forEach(x=>{const s=document.createElement('span');s.className='feat';s.textContent=x;w.appendChild(s)});return w}},{k:'emp',label:'Company size',align:'r',fmt:K.int},{k:'a',label:'',render:(v,row)=>{const b=document.createElement('button');b.className='assign'+(assigned.has(row.w)?' done':'');b.textContent=assigned.has(row.w)?'✓ Assigned to AE':'Assign';b.onclick=e=>{e.stopPropagation();assigned.add(row.w);b.className='assign done';b.textContent='✓ Assigned to AE'};return b}}],rows:W.map(w=>({w,sc:Math.round(60+r()*40),mem:Math.round(4+r()*40),grow:Math.round(1+r()*14),f:['Docs','Templates','AI assist','SSO request','API'].filter(()=>r()<.5).slice(0,3),emp:Math.round(80+r()*4000),a:0})),sort:'sc'})},
+adopt(F){const D=data(F);const r=K.rng(K.seed(F,'a'));const C=['W27','W28','W29','W30','W31','W32','W33','W34','W35','W36','W37','W38'];const FT=['Docs','Templates','Comments','Invite teammate','Integrations','AI assist','Automations'];
+ K.heat($('c_hm'),{rows:FT,cols:C,data:FT.map((f,i)=>C.map((c,j)=>Math.max(.03,[.92,.61,.48,.44,.21,.18,.09][i]*(1+(i===5?j*.06:j*.01))*(.9+r()*.2)*(D.act/.34)))),fmt:v=>K.pct(Math.min(v,.99),0),cell:28});
+ K.bars($('c_lift'),{labels:['Invited 2+ teammates','Connected an integration','Used a template','Tried AI assist','Created 5+ docs','Set up SSO'],series:[{name:'Conversion lift',data:[3.1,2.4,1.6,1.9,1.4,4.2]}],fmt:v=>K.x(v),horizontal:true,h:260})},
+conv(F){const D=data(F);const n=D.L.length;
+ K.bars($('c_ts'),{labels:['1','2–3','4–9','10–24','25+'],series:[{name:'Trial → paid',data:[.012,.035,.081,.142,.21]}],fmt:v=>K.pct(v,1),h:250});
+ K.bars($('c_sa2'),{labels:D.L,series:[{name:'Self-serve',data:K.series(D.r,n,D.su*.042*.72/n,{noise:.2})},{name:'Sales-assisted',data:K.series(D.r,n,D.su*.042*.28/n,{noise:.3,trend:.3})}],stacked:true,fmt:K.int,h:250});
+ K.bars($('c_days'),{labels:['0–3','4–7','8–14','15–21','22–30','31–60','60+'],series:[{name:'Paid workspaces',data:[.08,.14,.31,.19,.13,.1,.05].map(v=>Math.round(v*D.su*.042))}],fmt:K.int,h:220})},
+expand(F){const D=data(F);const n=D.L.length;K.kpis($('k5'),[{label:'Paid seats',value:K.num(48200*D.f)},{label:'Seat growth',value:'+6.1% / mo'},{label:'Net revenue retention (PLG)',value:'124%'},{label:'Workspaces > 90% of limit',value:K.int(186*D.f)},{label:'Upgrades this period',value:K.int(212*D.f*D.m)}]);
+ K.line($('c_seats'),{labels:D.L,series:[{name:'Organic',data:K.series(D.r,n,23e3*D.f,{trend:.3,noise:.02})},{name:'Paid ads',data:K.series(D.r,n,12e3*D.f,{trend:.25,noise:.03})},{name:'Invited',data:K.series(D.r,n,9e3*D.f,{trend:.5,noise:.03})}],stacked:true,fmt:K.num,h:260});
+ const r=K.rng(K.seed(F,'l'));K.table($('t_lim'),{cols:[{k:'w',label:'Workspace'},{k:'plan',label:'Plan'},{k:'used',label:'Seats used',align:'r',fmt:v=>K.pct(v,0),bar:true},{k:'mrr',label:'MRR',align:'r',fmt:K.money},{k:'next',label:'Next plan MRR',align:'r',fmt:K.money}],rows:['Northbeam','Velo Mobility','Corvid Games','Mintworth','Lumen Studio','Oskar Freight'].map(w=>{const mrr=400+r()*3000;return{w,plan:K.pick(r,['Pro','Business']),used:.88+r()*.14,mrr,next:mrr*1.6}}),sort:'used'})}};
+K.app({views,state:S});
+</script>
+</body>
+</html>

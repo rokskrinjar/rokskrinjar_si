@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wm. Hale & Sons — Dispensing Chemists</title>
+<link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
+<style>
+:root{--enamel:#153b36;--enamel2:#0e2926;--gold:#d4af6a;--cream:#f4ead3;--cobalt:#1f3f8f;--amber:#9a5a17;--ink:#2a2118;--red:#8b2a1f}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--enamel);color:var(--cream);font-family:'Old Standard TT',serif}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;cursor:pointer;color:inherit}
+.sign{background:linear-gradient(#0a1f1c,#153b36);border-bottom:4px solid var(--gold);text-align:center;padding:24px 4vw 16px;position:relative}
+.sign h1{font-family:'Goudy Bookletter 1911';font-weight:400;font-size:clamp(2rem,5vw,3.6rem);color:var(--gold);letter-spacing:.08em;text-shadow:0 2px 0 #0008,0 0 20px #d4af6a44}
+.sign .est{font-size:13px;letter-spacing:.5em;color:#d4af6aaa;text-transform:uppercase}
+nav{display:flex;justify-content:center;gap:0;flex-wrap:wrap;background:var(--enamel2);border-bottom:1px solid #d4af6a44}
+nav a{padding:14px 22px;font-style:italic;font-size:17px;color:#f4ead3aa;border-right:1px solid #d4af6a22}
+nav a.on{color:var(--gold);background:#d4af6a14}
+[data-view][hidden]{display:none}
+.wrap{max-width:1260px;margin:0 auto;padding:36px 4vw 80px}
+h2{font-family:'Goudy Bookletter 1911';font-weight:400;font-size:clamp(2rem,4vw,3rem);color:var(--gold);text-align:center}
+.orn{text-align:center;color:var(--gold);letter-spacing:.6em;margin:6px 0 10px}
+.lede{text-align:center;font-style:italic;max-width:60ch;margin:0 auto 30px;line-height:1.7;color:#f4ead3cc;font-size:18px}
+/* shelves */
+.cab{background:linear-gradient(#3b2414,#2a180c);padding:20px;border-radius:6px;border:6px solid #1c0f07;box-shadow:inset 0 0 40px #000a,0 20px 40px #0008}
+.shelf{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;align-items:end;padding:14px 10px 0;border-bottom:14px solid #5a3a22;box-shadow:0 6px 0 #1c0f07;margin-bottom:26px}
+.jar{background:none;border:0;display:flex;flex-direction:column;align-items:center;transition:transform .25s}
+.jar:hover{transform:translateY(-8px)}
+.jar svg{width:100%;max-width:120px;height:auto;filter:drop-shadow(0 6px 4px #0008)}
+.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;z-index:30;padding:20px}
+.modal.on{display:grid}
+.label{background:var(--cream);color:var(--ink);max-width:560px;width:100%;padding:34px;border:2px solid var(--ink);outline:2px solid var(--ink);outline-offset:-10px;position:relative;box-shadow:0 30px 60px #000}
+.label h3{font-family:'Goudy Bookletter 1911';font-weight:400;font-size:38px;text-align:center;line-height:1}
+.label .lat{text-align:center;font-style:italic;font-size:18px;margin:6px 0 14px}
+.label hr{border:0;border-top:1px solid var(--ink);margin:12px 0}
+.label p{line-height:1.65;font-size:17px;margin:8px 0}
+.label .danger{color:var(--red);font-weight:700}
+.label .x{position:absolute;right:16px;top:10px;font-size:26px;background:none;border:0}
+/* mixer */
+.mix{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:30px;align-items:start}
+.herbs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.herb{background:#f4ead30c;border:1px solid #d4af6a44;padding:10px;text-align:left;border-radius:4px;transition:.2s}
+.herb:hover{background:#d4af6a22}
+.herb b{display:block;font-family:'Goudy Bookletter 1911';font-weight:400;font-size:19px;color:var(--gold)}
+.herb small{font-style:italic;opacity:.7;font-size:13px}
+.mortar{position:relative;text-align:center}
+.mortar canvas{width:100%;max-width:460px;height:auto;cursor:grab;touch-action:none}
+.meter{height:10px;background:#0006;border-radius:5px;overflow:hidden;margin:6px 0}
+.meter i{display:block;height:100%;background:var(--gold);width:0;transition:width .2s}
+.recipe{background:var(--cream);color:var(--ink);padding:24px;border:2px solid var(--ink);outline:2px solid var(--ink);outline-offset:-8px}
+.recipe h3{font-family:'Goudy Bookletter 1911';font-weight:400;font-size:26px;text-align:center}
+.recipe li{list-style:none;display:flex;justify-content:space-between;border-bottom:1px dotted #2a211866;padding:6px 0;font-size:16px}
+.recipe li button{background:none;border:0;color:var(--red)}
+.btn{background:var(--gold);color:var(--enamel2);border:0;padding:12px 22px;font-family:'Goudy Bookletter 1911';font-size:18px;letter-spacing:.04em;margin-top:12px}
+.btn.alt{background:none;color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.note{font-size:12px;font-style:italic;opacity:.7;margin-top:12px;line-height:1.5}
+/* label printer */
+.lp{display:grid;grid-template-columns:340px 1fr;gap:40px;align-items:center}
+.lp label{display:block;font-style:italic;color:var(--gold);margin:14px 0 6px}
+.lp input,.lp select{width:100%;padding:10px;background:#f4ead314;border:1px solid #d4af6a55;color:var(--cream);font-size:17px}
+.lp select option{color:#000}
+.bottle{text-align:center}
+.bottle svg{width:min(100%,460px);height:auto;filter:drop-shadow(0 20px 30px #000a)}
+/* ledger */
+.ledger{background:var(--cream);color:var(--ink);padding:40px 50px;box-shadow:0 20px 50px #000a;position:relative;background-image:repeating-linear-gradient(#0000 0 31px,#1f3f8f22 31px 32px);max-width:960px;margin:0 auto}
+.ledger::before{content:"";position:absolute;left:120px;top:0;bottom:0;border-left:2px solid #8b2a1f55}
+.lrow{display:grid;grid-template-columns:90px 1fr 150px;gap:30px;font-size:17px;line-height:32px;padding:0}
+.lrow .d{font-style:italic}
+.lrow .r{font-family:'Goudy Bookletter 1911';font-size:19px}
+.lrow .r small{display:block;font-family:'Old Standard TT';font-style:italic;font-size:14px;line-height:1.5;color:#2a2118aa;margin-bottom:8px}
+.lrow .p{text-align:right;font-variant-numeric:tabular-nums}
+.lhead{font-family:'Goudy Bookletter 1911';font-size:34px;text-align:center;margin-bottom:10px}
+@media(max-width:900px){.mix,.lp{grid-template-columns:1fr}.shelf{grid-template-columns:repeat(3,1fr)}.ledger{padding:24px}.lrow{grid-template-columns:70px 1fr 80px;gap:10px}.ledger::before{display:none}}
+</style>
+</head>
+<body>
+<div class="sign"><div class="est">✦ Established 1853 ✦</div><h1>Wm. Hale &amp; Sons</h1><div class="est">Dispensing Chemists · Druggists · Perfumers</div></div>
+<nav><a href="#shelves">The Shelves</a><a href="#mixer">Mortar &amp; Pestle</a><a href="#labels">Label Press</a><a href="#ledger">Prescription Ledger</a><a href="index.html">Leave the Shop</a></nav>
+
+<section data-view="shelves"><div class="wrap">
+ <h2>The Dispensary Shelves</h2><div class="orn">❦ ❦ ❦</div>
+ <p class="lede">Every jar holds something a Victorian chemist really sold. Some of it we now know was helpful, some harmless and some quite deadly. Take a jar down to read its label.</p>
+ <div class="cab" id="cab"></div>
+</div></section>
+
+<section data-view="mixer" hidden><div class="wrap">
+ <h2>Mortar &amp; Pestle</h2><div class="orn">❦ ❦ ❦</div>
+ <p class="lede">Blend a herbal tisane from gentle kitchen botanicals. Add up to five, then drag in circles inside the mortar to grind them.</p>
+ <div class="mix">
+  <div class="herbs" id="herbs"></div>
+  <div class="mortar"><canvas id="mc" width="500" height="460"></canvas><div style="font-style:italic;color:var(--gold)">Grinding <span id="gp">0</span>%</div><div class="meter"><i id="gm"></i></div></div>
+  <div class="recipe" id="recipe"></div>
+ </div>
+</div></section>
+
+<section data-view="labels" hidden><div class="wrap">
+ <h2>The Label Press</h2><div class="orn">❦ ❦ ❦</div>
+ <p class="lede">Set your own label in the house style, with gilt border, engraved ornaments and bottle to match.</p>
+ <div class="lp">
+  <div>
+   <label>Preparation</label><input id="lName" value="Tincture of Moonlight" maxlength="28">
+   <label>Directions</label><input id="lDir" value="Two drops beneath the pillow" maxlength="40">
+   <label>For</label><input id="lFor" value="Miss E. Brontë" maxlength="24">
+   <label>Bottle</label><select id="lBot"><option value="0">Cobalt poison bottle</option><option value="1">Amber dispensing bottle</option><option value="2">Clear flask</option><option value="3">Green ribbed</option></select>
+   <label>Ornament</label><select id="lOrn"><option>❦</option><option>✠</option><option>☙</option><option>⚜</option><option>✺</option></select>
+  </div>
+  <div class="bottle"><svg id="bsvg" viewBox="0 0 420 560"></svg></div>
+ </div>
+</div></section>
+
+<section data-view="ledger" hidden><div class="wrap">
+ <h2>The Prescription Ledger</h2><div class="orn">❦ ❦ ❦</div>
+ <p class="lede">Entries from our ledgers, 1853–1911, with a modern note in red. <b>Please don't try any of these at home.</b></p>
+ <div class="ledger"><div class="lhead">Anno Domini MDCCCLXXXVII</div><div id="lrows"></div></div>
+</div></section>
+
+<div class="modal" id="modal"><div class="label" id="lbox"></div></div>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')],NA=[...document.querySelectorAll('nav a')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'shelves';V.forEach(v=>v.hidden=v.dataset.view!==id);NA.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));scrollTo(0,0);try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+
+// [label, latin, jar type, glass colour, contents colour, verdict, text]
+const JARS=[
+ ['Laudanum','Tinctura Opii','bottle','#9a5a17','#5a2a0a','danger','Opium dissolved in alcohol. It was sold for teething babies, coughs and "nerves", and was legal to buy over the counter until 1868. Many Victorians became addicted without knowing it.'],
+ ['Calomel','Hydrargyri Subchloridum','jar','#e9e3d2','#f4f0e6','danger','Mercury chloride, given as a purge for almost everything. It rotted teeth and caused mercury poisoning. It was still in teething powders into the 1950s.'],
+ ['Peppermint Water','Aqua Menthae Piperitae','bottle','#1f6b3a','#bfe0c0','good','Peppermint oil in water, for indigestion and colic. Modern research backs this one up for irritable bowels.'],
+ ['Leeches','Hirudo medicinalis','leech','#d9e6e0','#2a3a2a','odd','Kept in a special jar with holes in the lid. Bloodletting was mostly harmful. Oddly, leeches are back in hospitals today to help reattach fingers and ears.'],
+ ['Willow Bark','Cortex Salicis','jar','#7a5a3a','#8a5a2a','good','Chewed for pain since ancient Egypt. Its active compound led to aspirin, which Bayer synthesised in 1897.'],
+ ['Arsenic Complexion Wafers','Arsenicum Album','box','#e6dcc6','#fff','danger','Sold to give ladies a pale, "interesting" complexion. They did make you pale, because they were slowly poisoning you.'],
+ ['Cod Liver Oil','Oleum Morrhuae','bottle','#1f3f8f','#d9b85a','good','Dreaded by children and rich in vitamins A and D. It really did prevent rickets in smoky industrial cities.'],
+ ['Tincture of Cannabis','Tinctura Cannabis Indicae','bottle','#6b3a1a','#4a5a2a','odd','Prescribed to Queen Victoria (reportedly) for period pain. It was freely available until 1928.'],
+ ['Honey & Squill','Oxymel Scillae','jar','#e9b949','#d99a2a','good','A cough syrup of honey, vinegar and sea-onion bulb. The honey part genuinely soothes a cough.'],
+ ['Radium Water','Aqua Radiata','bottle','#3a8a6a','#aef5c0','danger','Sold as "liquid sunshine" around 1910. Wealthy devotees drank it daily and their jaws disintegrated. We never stocked it, whatever the ledger says.'],
+ ['Smelling Salts','Sal Volatile','flask','#e9e3d2','#fff','good','Ammonium carbonate. One sharp sniff makes you gasp. It was handy for fainting spells caused by very tight corsets.'],
+ ['Soothing Syrup','Mrs. W\'s Mixture','bottle','#1f3f8f','#b5405a','danger','"For teething infants." It contained morphine and quietened babies very effectively, sometimes for good. It became a famous scandal around 1911.']];
+function jarSVG(j,i){const[,,t,g,c]=j;const lab=`<rect x="22" y="${t==='bottle'?96:70}" width="76" height="40" fill="#f4ead3" stroke="#2a2118"/><text x="60" y="${t==='bottle'?112:86}" text-anchor="middle" font-family="Goudy Bookletter 1911" font-size="${j[0].length>14?7:9}" fill="#2a2118">${j[0].toUpperCase().slice(0,22)}</text><text x="60" y="${t==='bottle'?126:100}" text-anchor="middle" font-family="Old Standard TT" font-style="italic" font-size="6" fill="#2a2118">${j[1].slice(0,26)}</text>`;
+ if(t==='bottle')return`<svg viewBox="0 0 120 170"><rect x="48" y="4" width="24" height="14" rx="3" fill="#6b4a2a"/><path d="M50 18 H70 V40 Q100 50 100 80 V158 Q100 166 92 166 H28 Q20 166 20 158 V80 Q20 50 50 40Z" fill="${g}" opacity=".9"/><path d="M24 90 V158 H96 V90Z" fill="${c}" opacity=".55"/><path d="M28 60 Q30 90 28 150" stroke="#fff" stroke-width="5" opacity=".25" fill="none" stroke-linecap="round"/>${lab}</svg>`;
+ if(t==='jar'||t==='leech')return`<svg viewBox="0 0 120 170"><path d="M30 20 Q60 0 90 20 Z" fill="${t==='leech'?'#8a8a8a':'#d4af6a'}"/><rect x="26" y="20" width="68" height="10" fill="${t==='leech'?'#6a6a6a':'#b08d4a'}"/>${t==='leech'?'<circle cx="45" cy="25" r="1.5" fill="#000"/><circle cx="60" cy="25" r="1.5" fill="#000"/><circle cx="75" cy="25" r="1.5" fill="#000"/>':''}<path d="M24 30 H96 Q104 30 104 40 V156 Q104 166 94 166 H26 Q16 166 16 156 V40 Q16 30 24 30Z" fill="${g}" opacity=".85"/><rect x="20" y="${t==='leech'?60:110}" width="80" height="${t==='leech'?100:50}" fill="${c}" opacity="${t==='leech'?.25:.6}"/>${t==='leech'?[0,1,2].map(k=>`<path d="M${36+k*18} ${140-k*14} q8 -14 18 -4 q6 8 14 -2" stroke="#2a3a2a" stroke-width="5" fill="none" stroke-linecap="round"/>`).join(''):''}<path d="M24 44 V150" stroke="#fff" stroke-width="5" opacity=".25" stroke-linecap="round"/>${lab.replace(/y="70"/,'y="'+(t==='leech'?36:70)+'"').replace(/y="86"/,'y="'+(t==='leech'?52:86)+'"').replace(/y="100"/,'y="'+(t==='leech'?66:100)+'"')}</svg>`;
+ if(t==='box')return`<svg viewBox="0 0 120 170"><rect x="14" y="90" width="92" height="76" fill="${g}" stroke="#2a2118" stroke-width="2"/><rect x="10" y="82" width="100" height="14" fill="#8b2a1f"/><text x="60" y="118" text-anchor="middle" font-family="Goudy Bookletter 1911" font-size="10" fill="#2a2118">COMPLEXION</text><text x="60" y="132" text-anchor="middle" font-family="Goudy Bookletter 1911" font-size="10" fill="#2a2118">WAFERS</text><text x="60" y="152" text-anchor="middle" font-family="Old Standard TT" font-style="italic" font-size="7" fill="#8b2a1f">Perfectly Harmless!</text></svg>`;
+ return`<svg viewBox="0 0 120 170"><rect x="52" y="10" width="16" height="30" fill="${g}" opacity=".8"/><circle cx="60" cy="10" r="8" fill="#d4af6a"/><path d="M52 40 L20 150 Q20 166 36 166 H84 Q100 166 100 150 L68 40Z" fill="${g}" opacity=".85"/><path d="M34 120 L24 150 Q24 162 36 162 H84 Q96 162 96 150 L86 120Z" fill="${c}" opacity=".6"/>${lab.replace(/y="70"/,'y="96"').replace(/y="86"/,'y="112"').replace(/y="100"/,'y="126"')}</svg>`}
+document.getElementById('cab').innerHTML=[0,1].map(r=>`<div class="shelf">${JARS.slice(r*6,r*6+6).map((j,k)=>`<button class="jar" data-i="${r*6+k}">${jarSVG(j,r*6+k)}</button>`).join('')}</div>`).join('');
+const VERD={danger:['☠ POISON','We now know this was dangerous.'],good:['✓ SOUND','Modern science is broadly on its side.'],odd:['? CURIOUS','Strange, but not all wrong.']};
+document.getElementById('cab').onclick=e=>{const b=e.target.closest('.jar');if(!b)return;const j=JARS[+b.dataset.i];document.getElementById('lbox').innerHTML=`<button class="x" onclick="document.getElementById('modal').classList.remove('on')">×</button><div style="text-align:center;letter-spacing:.4em;font-size:12px">WM. HALE &amp; SONS</div><h3>${j[0]}</h3><div class="lat">${j[1]}</div><hr><p>${j[6]}</p><hr><p class="${j[5]==='danger'?'danger':''}"><b>${VERD[j[5]][0]}</b> · ${VERD[j[5]][1]}</p>`;document.getElementById('modal').classList.add('on')};
+document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')e.target.classList.remove('on')};
+
+/* mixer */
+const HERBS=[['Chamomile','Matricaria','#f2e08a','calming','apple-sweet'],['Peppermint','Mentha','#6fbf73','digestive','cooling'],['Ginger','Zingiber','#e0b050','warming','fiery'],['Lavender','Lavandula','#9c8cd0','soothing','floral'],['Lemon peel','Citrus','#f5d74a','bright','zesty'],['Elderflower','Sambucus','#f4f0dc','cordial','muscat'],['Thyme','Thymus','#8a9a5a','bracing','herbal'],['Rosehip','Rosa canina','#c8452e','tonic','tart'],['Honey','Mel','#e9a92a','soothing','golden'],['Cinnamon','Cinnamomum','#8a4a1a','warming','sweet-spiced']];
+let bowl=[],grind=0,angle=0,last=null,particles=[];
+function herbsUI(){document.getElementById('herbs').innerHTML=HERBS.map((h,i)=>`<button class="herb" data-i="${i}"><b>${h[0]}</b><small>${h[1]} · ${h[3]}</small></button>`).join('')}
+function recipeUI(){const r=document.getElementById('recipe');if(!bowl.length){r.innerHTML='<h3>Receipt</h3><p style="text-align:center;font-style:italic;margin-top:10px">The mortar is empty.</p>';return}
+ const ch=[...new Set(bowl.map(i=>HERBS[i][3]))],fl=bowl.map(i=>HERBS[i][4]);const nm=(ch.includes('calming')||ch.includes('soothing')?'Evening ':ch.includes('warming')?'Hearth ':'Morning ')+(bowl.length>3?'Compound':'Tisane')+' Nº '+(bowl.reduce((a,b)=>a*3+b,7)%97+1);
+ r.innerHTML=`<h3>${nm}</h3><div style="text-align:center;font-style:italic;font-size:14px">${fl.slice(0,3).join(', ')}</div><ul style="margin:12px 0">${bowl.map((i,k)=>`<li><span>${HERBS[i][0]}</span><span>${k===0?'2 drachms':'1 drachm'} <button data-rm="${k}">✕</button></span></li>`).join('')}</ul><div style="font-size:15px">${grind>=100?'<b>Ready.</b> Steep one heaped spoonful in freshly boiled water for five minutes. Take warm.':'<i>Grind the herbs well before you steep them.</i>'}</div>${grind>=100?'<button class="btn" id="wrap" style="width:100%">Wrap in paper & seal</button>':''}<div class="note">Kitchen herbs only. This is a pleasant tea, not medicine. See a doctor if you're unwell.</div>`}
+document.getElementById('herbs').onclick=e=>{const b=e.target.closest('.herb');if(!b||bowl.length>=5)return;bowl.push(+b.dataset.i);grind=Math.max(0,grind-25);for(let k=0;k<30;k++)particles.push({a:Math.random()*7,r:Math.random()*110,c:HERBS[+b.dataset.i][2],s:6+Math.random()*6});recipeUI();drawM()};
+document.getElementById('recipe').onclick=e=>{if(e.target.dataset.rm!=null){bowl.splice(+e.target.dataset.rm,1);recipeUI();drawM()}if(e.target.id==='wrap'){e.target.outerHTML='<div style="text-align:center;font-family:Goudy Bookletter 1911;font-size:22px;color:#8b2a1f;margin-top:10px">✦ Sealed with the Hale crest ✦</div>'}};
+const mc=document.getElementById('mc'),mx=mc.getContext('2d');
+function drawM(){mx.clearRect(0,0,500,460);mx.fillStyle='#00000055';mx.beginPath();mx.ellipse(250,420,190,26,0,0,7);mx.fill();
+ const g=mx.createRadialGradient(220,160,20,250,220,220);g.addColorStop(0,'#f2efe8');g.addColorStop(1,'#a9a39a');mx.fillStyle=g;mx.beginPath();mx.moveTo(60,160);mx.bezierCurveTo(60,360,160,410,250,410);mx.bezierCurveTo(340,410,440,360,440,160);mx.closePath();mx.fill();
+ mx.fillStyle='#6b665e';mx.beginPath();mx.ellipse(250,160,190,50,0,0,7);mx.fill();mx.fillStyle='#d9d4ca';mx.beginPath();mx.ellipse(250,160,176,42,0,0,7);mx.fill();
+ particles.forEach(p=>{const s=Math.max(1.5,p.s*(1-grind/110));const x=250+Math.cos(p.a)*p.r*1.4,y=172+Math.sin(p.a)*p.r*.28;mx.fillStyle=p.c;mx.beginPath();mx.ellipse(x,y,s,s*.5,p.a,0,7);mx.fill()});
+ const px=250+Math.cos(angle)*90,py=160+Math.sin(angle)*22;mx.save();mx.translate(px,py);mx.rotate(-.5+Math.cos(angle)*.15);const pg=mx.createLinearGradient(-14,0,14,0);pg.addColorStop(0,'#bdb6aa');pg.addColorStop(.5,'#f2efe8');pg.addColorStop(1,'#9a948a');mx.fillStyle=pg;mx.beginPath();mx.roundRect?mx.roundRect(-14,-190,28,200,14):mx.rect(-14,-190,28,200);mx.fill();mx.fillStyle='#6b4a2a';mx.fillRect(-10,-200,20,60);mx.restore();
+ document.getElementById('gp').textContent=Math.round(Math.min(100,grind));document.getElementById('gm').style.width=Math.min(100,grind)+'%'}
+mc.addEventListener('pointerdown',e=>{mc.setPointerCapture(e.pointerId);last=null});
+mc.addEventListener('pointermove',e=>{if(!e.buttons)return;const r=mc.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*500-250,y=((e.clientY-r.top)/r.height*460-160)*4;const a=Math.atan2(y,x);if(last!=null&&bowl.length){let d=a-last;if(d>Math.PI)d-=2*Math.PI;if(d<-Math.PI)d+=2*Math.PI;grind=Math.min(100,grind+Math.abs(d)*3);particles.forEach(p=>{p.a+=d*.6;p.r*=.998})}last=a;angle=a;drawM();if(grind>=100)recipeUI()});
+mc.addEventListener('pointerup',()=>{last=null;recipeUI()});
+herbsUI();recipeUI();drawM();
+
+/* label press */
+const BOT=[['#1f3f8f','ribbed'],['#9a5a17','plain'],['#e9eef0','flask'],['#2f6b3a','ribbed']];
+function press(){const b=BOT[+document.getElementById('lBot').value],o=document.getElementById('lOrn').value,nm=document.getElementById('lName').value.replace(/[<>&]/g,''),dir=document.getElementById('lDir').value.replace(/[<>&]/g,''),fr=document.getElementById('lFor').value.replace(/[<>&]/g,'');
+ const flask=b[1]==='flask';let s=`<defs><linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".85" stop-color="#000" stop-opacity=".2"/></linearGradient></defs><ellipse cx="210" cy="540" rx="150" ry="14" fill="#0006"/>`;
+ const body=flask?'M180 40 H240 V150 Q350 200 350 360 Q350 530 210 530 Q70 530 70 360 Q70 200 180 150Z':'M175 40 H245 V110 Q340 130 340 200 V510 Q340 530 320 530 H100 Q80 530 80 510 V200 Q80 130 175 110Z';
+ s+=`<rect x="170" y="14" width="80" height="34" rx="6" fill="#6b4a2a"/><path d="${body}" fill="${b[0]}" opacity=".9"/><path d="${body}" fill="url(#gl)"/>`;
+ if(b[1]==='ribbed')for(let x=96;x<330;x+=16)s+=`<path d="M${x} 210 V500" stroke="#fff" stroke-opacity=".12" stroke-width="5"/>`;
+ if(b[0]==='#1f3f8f')s+=`<text x="210" y="505" text-anchor="middle" font-family="Goudy Bookletter 1911" font-size="16" letter-spacing="6" fill="#ffffff55">NOT TO BE TAKEN</text>`;
+ s+=`<rect x="100" y="230" width="220" height="220" fill="#f4ead3" stroke="#2a2118" stroke-width="2"/><rect x="108" y="238" width="204" height="204" fill="none" stroke="#d4af6a" stroke-width="3"/><rect x="113" y="243" width="194" height="194" fill="none" stroke="#2a2118" stroke-width=".8"/>
+ <text x="210" y="268" text-anchor="middle" font-family="Goudy Bookletter 1911" font-size="11" letter-spacing="4" fill="#2a2118">WM. HALE &amp; SONS</text><text x="210" y="284" text-anchor="middle" font-size="16" fill="#8b2a1f">${o} ${o} ${o}</text>
+ <text x="210" y="${nm.length>18?318:322}" text-anchor="middle" font-family="Goudy Bookletter 1911" font-size="${nm.length>18?17:22}" fill="#2a2118">${nm}</text>
+ <line x1="140" x2="280" y1="340" y2="340" stroke="#2a2118"/><text x="210" y="364" text-anchor="middle" font-family="Old Standard TT" font-style="italic" font-size="${dir.length>28?11:13}" fill="#2a2118">${dir}</text>
+ <text x="210" y="392" text-anchor="middle" font-family="Old Standard TT" font-size="12" fill="#2a2118">for ${fr}</text><text x="210" y="422" text-anchor="middle" font-family="Old Standard TT" font-size="9" letter-spacing="2" fill="#2a2118aa">No. ${Math.abs([...nm].reduce((a,c)=>a*31+c.charCodeAt(0),7))%9000+1000} · HIGH ST. · BATH</text>`;
+ document.getElementById('bsvg').innerHTML=s}
+['lName','lDir','lFor','lBot','lOrn'].forEach(id=>document.getElementById(id).addEventListener('input',press));press();
+
+/* ledger */
+const LED=[['3 Jan.','Mrs. Pettigrew','Paregoric Elixir, ʒ ij. For the baby\'s teeth.','Opium again. Teething gel is much safer.','1s 2d'],['17 Feb.','Rev. Hollis','Blue Pill, xii. One nightly for the liver.','Mercury pills. Please don\'t.','0s 9d'],['2 Mar.','Col. Fanshawe','Tincture of Ginger & Rhubarb. For "the Indian complaint".','Mostly harmless and mostly useless.','1s 6d'],['21 Apr.','Miss Lark','Belladonna drops. To make the eyes sparkle for the Assembly.','Deadly nightshade. It dilates the pupils and can kill.','2s 0d'],['9 Jun.','Master T. Hale','Cod Liver Oil, one bottle. Tasting "most foul", notes the boy.','Actually good for him.','0s 11d'],['30 Aug.','Mr. Doyle (Southsea)','Cocaine Hydrochloride, 7% solution.','Sold legally in chemists until 1916.','3s 4d'],['12 Nov.','Lady Aldridge','Smelling Salts, silver vinaigrette refill.','Harmless, bracing and very fashionable.','1s 0d']];
+document.getElementById('lrows').innerHTML=LED.map(l=>`<div class="lrow"><span class="d">${l[0]}</span><span class="r">${l[2]}<small>${l[1]} · <span style="color:#8b2a1f">${l[3]}</span></small></span><span class="p">${l[4]}</span></div>`).join('')+`<div class="lrow" style="border-top:2px solid #2a2118;margin-top:10px"><span></span><span class="r" style="text-align:right">Carried forward</span><span class="p">10s 8d</span></div>`;
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

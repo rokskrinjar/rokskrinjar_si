@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEMPUS — a room full of clocks</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#101113; --fg:#f1efe9; --dim:#3a3b3e; --acc:#ff6a3d; }
+  body.light { --bg:#efece5; --fg:#141414; --dim:#cfcbc2; --acc:#e0461f; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--fg); font-family:'Space Grotesk',sans-serif; min-height:100vh; transition:background .6s,color .6s; }
+  a { color:inherit; text-decoration:none; }
+  .mono { font-family:'Space Mono',monospace; }
+  header { display:flex; justify-content:space-between; align-items:center; padding:20px 4vw; flex-wrap:wrap; gap:12px; }
+  .logo { font-weight:600; letter-spacing:.4em; font-size:14px; }
+  nav { display:flex; gap:22px; font-size:14px; flex-wrap:wrap; }
+  nav a { opacity:.45; transition:opacity .3s; }
+  nav a.on, nav a:hover { opacity:1; }
+  nav a.on::before { content:'● '; color:var(--acc); }
+  .theme { background:none; border:1px solid var(--dim); color:var(--fg); border-radius:30px; padding:6px 12px; cursor:pointer; font-family:inherit; }
+  [data-view][hidden] { display:none; }
+  [data-view]:not([hidden]) { animation:fade .8s both; }
+  @keyframes fade { from { opacity:0; } }
+  /* word clock */
+  .wc { min-height:calc(100vh - 80px); display:grid; place-items:center; padding:20px; }
+  .grid { display:grid; grid-template-columns:repeat(11,1fr); gap:clamp(4px,1.2vw,14px); font-family:'Space Mono'; font-size:clamp(1rem,3.4vw,2.6rem); text-align:center; width:min(760px,94vw); }
+  .grid span { color:var(--dim); transition:color .8s, text-shadow .8s; }
+  .grid span.on { color:var(--fg); text-shadow:0 0 18px color-mix(in srgb,var(--fg) 35%,transparent); }
+  .dots { display:flex; justify-content:center; gap:18px; margin-top:26px; }
+  .dots i { width:10px; height:10px; border-radius:50%; background:var(--dim); transition:background .6s; }
+  .dots i.on { background:var(--acc); box-shadow:0 0 10px var(--acc); }
+  .caption { text-align:center; margin-top:22px; font-size:13px; opacity:.5; letter-spacing:.2em; }
+  .lang { display:flex; justify-content:center; gap:8px; margin-top:14px; }
+  .lang button { background:none; border:1px solid var(--dim); color:var(--fg); padding:5px 12px; border-radius:20px; cursor:pointer; font-family:inherit; }
+  .lang button.on { border-color:var(--acc); color:var(--acc); }
+  /* faces */
+  .faces { display:grid; grid-template-columns:repeat(3,1fr); gap:2vw; padding:2vh 4vw 8vh; }
+  .face { aspect-ratio:1; border:1px solid var(--dim); border-radius:28px; display:grid; place-items:center; position:relative; overflow:hidden; }
+  .face small { position:absolute; left:18px; top:14px; font-size:12px; letter-spacing:.2em; opacity:.5; }
+  .face svg { width:78%; height:78%; }
+  .flip { display:flex; gap:10px; font-family:'Space Mono'; font-weight:700; }
+  .flip .card { width:clamp(44px,5vw,70px); height:clamp(64px,7.4vw,100px); background:#1d1e21; color:#f1efe9; border-radius:10px; display:grid; place-items:center; font-size:clamp(2rem,4vw,3.4rem); position:relative; box-shadow:0 8px 16px #0006; }
+  .flip .card::after { content:''; position:absolute; left:0; right:0; top:50%; height:2px; background:#0008; }
+  .flip .card.anim { animation:flipc .5s ease-in-out; }
+  @keyframes flipc { 0% { transform:rotateX(0); } 50% { transform:rotateX(90deg); } 100% { transform:rotateX(0); } }
+  .binary { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; }
+  .binary .col { display:grid; gap:10px; }
+  .binary i { width:28px; height:28px; border-radius:50%; background:var(--dim); transition:background .3s; }
+  .binary i.on { background:var(--acc); box-shadow:0 0 12px var(--acc); }
+  .binary i.x { visibility:hidden; }
+  .bars { width:80%; display:grid; gap:18px; }
+  .bars div { height:26px; border-radius:14px; background:var(--dim); position:relative; overflow:hidden; }
+  .bars div b { position:absolute; left:0; top:0; bottom:0; background:var(--fg); border-radius:14px; transition:width .5s; }
+  .bars div span { position:absolute; right:10px; top:3px; font-family:'Space Mono'; font-size:13px; mix-blend-mode:difference; color:#fff; }
+  .text { font-size:clamp(1.3rem,2.4vw,2rem); line-height:1.25; text-align:center; padding:0 10%; font-weight:300; }
+  .text em { font-style:normal; color:var(--acc); }
+  /* stopwatch/timer */
+  .tools { display:grid; grid-template-columns:1fr 1fr; gap:4vw; padding:4vh 6vw 8vh; }
+  .tool { border:1px solid var(--dim); border-radius:28px; padding:30px; }
+  .tool h3 { font-weight:400; font-size:13px; letter-spacing:.3em; opacity:.6; margin-bottom:20px; }
+  .readout { font-family:'Space Mono'; font-size:clamp(2.6rem,6vw,5rem); letter-spacing:-.04em; font-variant-numeric:tabular-nums; }
+  .readout small { font-size:.45em; opacity:.6; }
+  .row { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .btn { padding:12px 22px; border-radius:40px; border:1px solid var(--fg); background:transparent; color:var(--fg); font-family:inherit; font-size:14px; cursor:pointer; }
+  .btn.pri { background:var(--acc); border-color:var(--acc); color:#fff; }
+  .laps { margin-top:18px; font-family:'Space Mono'; font-size:14px; max-height:200px; overflow:auto; }
+  .laps div { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--dim); }
+  .laps .best { color:#3cd67a; } .laps .worst { color:var(--acc); }
+  .ring { width:240px; height:240px; margin:0 auto; position:relative; }
+  .ring svg { width:100%; height:100%; transform:rotate(-90deg); }
+  .ring .readout { position:absolute; inset:0; display:grid; place-items:center; font-size:2.6rem; }
+  .presets { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin-top:14px; }
+  .presets button { border:1px solid var(--dim); background:none; color:var(--fg); border-radius:20px; padding:6px 12px; cursor:pointer; font-family:'Space Mono'; }
+  /* world */
+  .world { padding:2vh 4vw 8vh; }
+  .city { display:grid; grid-template-columns:1.2fr 1fr 2fr 1fr; gap:20px; align-items:center; padding:18px 0; border-bottom:1px solid var(--dim); }
+  .city b { font-size:clamp(1.3rem,2.4vw,2rem); font-weight:400; }
+  .city .t { font-family:'Space Mono'; font-size:clamp(1.4rem,2.8vw,2.4rem); }
+  .city .day { height:18px; border-radius:10px; position:relative; background:linear-gradient(90deg,#1a2240 0%,#1a2240 22%,#ffb86b 28%,#8fd3ff 40%,#8fd3ff 62%,#ffb86b 74%,#1a2240 80%,#1a2240 100%); }
+  .city .day i { position:absolute; top:-5px; width:4px; height:28px; background:var(--fg); border-radius:2px; }
+  .city small { opacity:.5; }
+  .add { display:flex; gap:10px; margin-top:20px; }
+  .add select { flex:1; max-width:340px; background:var(--bg); color:var(--fg); border:1px solid var(--dim); border-radius:30px; padding:10px 14px; font-family:inherit; }
+  @media (max-width:900px){ .faces { grid-template-columns:1fr 1fr; } .tools { grid-template-columns:1fr; } .city { grid-template-columns:1fr 1fr; } .city .day { grid-column:1/-1; } }
+</style>
+</head>
+<body>
+<header><div class="logo">TEMPUS</div><nav><a href="#word">Word clock</a><a href="#faces">Faces</a><a href="#tools">Stopwatch & timer</a><a href="#world">World</a><a href="index.html">← Index</a></nav><button class="theme" id="theme">◐ Light</button></header>
+
+<section data-view="word"><div class="wc"><div><div class="grid" id="grid"></div><div class="dots" id="dots"><i></i><i></i><i></i><i></i></div><div class="caption" id="cap"></div><div class="lang" id="lang"><button data-l="en" class="on">English</button><button data-l="de">Deutsch</button></div></div></div></section>
+
+<section data-view="faces" hidden><div class="faces">
+  <div class="face"><small>ANALOG</small><svg viewBox="-110 -110 220 220" id="analog"></svg></div>
+  <div class="face"><small>FLIP</small><div class="flip" id="flip"></div></div>
+  <div class="face"><small>BINARY</small><div class="binary" id="binary"></div></div>
+  <div class="face"><small>PROGRESS</small><div class="bars" id="bars"></div></div>
+  <div class="face"><small>RADIAL</small><svg viewBox="-110 -110 220 220" id="radial"></svg></div>
+  <div class="face"><small>PROSE</small><div class="text" id="prose"></div></div>
+</div></section>
+
+<section data-view="tools" hidden><div class="tools">
+  <div class="tool"><h3>STOPWATCH</h3><div class="readout" id="sw">00:00<small>.00</small></div><div class="row"><button class="btn pri" id="swStart">Start</button><button class="btn" id="swLap">Lap</button><button class="btn" id="swReset">Reset</button></div><div class="laps" id="laps"></div></div>
+  <div class="tool"><h3>TIMER</h3><div class="ring"><svg viewBox="0 0 240 240"><circle cx="120" cy="120" r="108" fill="none" stroke="var(--dim)" stroke-width="10"/><circle id="tArc" cx="120" cy="120" r="108" fill="none" stroke="var(--acc)" stroke-width="10" stroke-linecap="round" stroke-dasharray="679" stroke-dashoffset="0"/></svg><div class="readout" id="tr">05:00</div></div>
+    <div class="presets" id="presets"><button data-s="60">1m</button><button data-s="180">3m</button><button data-s="300">5m</button><button data-s="600">10m</button><button data-s="1500">25m 🍅</button></div>
+    <div class="row" style="justify-content:center"><button class="btn" id="tMinus">−1m</button><button class="btn pri" id="tStart">Start</button><button class="btn" id="tPlus">+1m</button></div></div>
+</div></section>
+
+<section data-view="world" hidden><div class="world"><div id="cities"></div><div class="add"><select id="citySel"></select><button class="btn" id="addCity">+ Add city</button></div></div></section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'word';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+document.getElementById('theme').onclick=e=>{document.body.classList.toggle('light');e.target.textContent=document.body.classList.contains('light')?'◑ Dark':'◐ Light'};
+
+/* word clock */
+const LAYOUT={en:['ITLISASAMPM','ACQUARTERDC','TWENTYFIVEX','HALFSTENFTO','PASTERUNINE','ONESIXTHREE','FOURFIVETWO','EIGHTELEVEN','SEVENTWELVE','TENSEOCLOCK'],
+ de:['ESKISTAFÜNF','ZEHNZWANZIG','DREIVIERTEL','VORFUNKNACH','HALBAELFÜNF','EINSXAMZWEI','DREIPMJVIER','SECHSNLACHT','SIEBENZWÖLF','ZEHNEUNKUHR']};
+let lang='en';const grid=document.getElementById('grid');
+function word(rows,r,start,len){return[r,start,len]}
+const EN={IT:[0,0,2],IS:[0,3,2],A:[1,0,1],QUARTER:[1,2,7],TWENTY:[2,0,6],FIVE_M:[2,6,4],HALF:[3,0,4],TEN_M:[3,5,3],TO:[3,9,2],PAST:[4,0,4],ONE:[5,0,3],TWO:[6,8,3],THREE:[5,6,5],FOUR:[6,0,4],FIVE:[6,4,4],SIX:[5,3,3],SEVEN:[8,0,5],EIGHT:[7,0,5],NINE:[4,7,4],TEN:[9,0,3],ELEVEN:[7,5,6],TWELVE:[8,5,6],OCLOCK:[9,5,6]};
+const DE={ES:[0,0,2],IST:[0,3,3],FUENF_M:[0,7,4],ZEHN_M:[1,0,4],ZWANZIG:[1,4,7],DREIVIERTEL:[2,0,11],VIERTEL:[2,4,7],VOR:[3,0,3],NACH:[3,7,4],HALB:[4,0,4],ELF:[4,5,3],FUENF:[4,7,4],EINS:[5,0,4],EIN:[5,0,3],ZWEI:[5,7,4],DREI:[6,0,4],VIER:[6,7,4],SECHS:[7,0,5],ACHT:[7,7,4],SIEBEN:[8,0,6],ZWOELF:[8,6,5],ZEHN:[9,0,4],NEUN:[9,3,4],UHR:[9,8,3]};
+function renderGrid(){grid.innerHTML=LAYOUT[lang].map((r,i)=>[...r].map((c,j)=>`<span data-r="${i}" data-c="${j}">${c}</span>`).join('')).join('')}
+function wordsFor(d){const h=d.getHours(),m=d.getMinutes(),m5=Math.floor(m/5)*5;const H=['TWELVE','ONE','TWO','THREE','FOUR','FIVE','SIX','SEVEN','EIGHT','NINE','TEN','ELEVEN'];
+ if(lang==='en'){const w=['IT','IS'];let hr=h%12;if(m5===0)w.push(H[hr],'OCLOCK');else{const to=m5>30;const mm=to?60-m5:m5;if(to)hr=(hr+1)%12;({5:['FIVE_M'],10:['TEN_M'],15:['A','QUARTER'],20:['TWENTY'],25:['TWENTY','FIVE_M'],30:['HALF']})[mm].forEach(x=>w.push(x));w.push(to?'TO':'PAST',H[hr])}return w.map(k=>EN[k])}
+ const HD=['ZWOELF','EINS','ZWEI','DREI','VIER','FUENF','SECHS','SIEBEN','ACHT','NEUN','ZEHN','ELF'];const w=['ES','IST'];let hr=h%12;const nx=(hr+1)%12;
+ const map={0:[HD[hr]==='EINS'?'EIN':HD[hr],'UHR'],5:['FUENF_M','NACH',HD[hr]],10:['ZEHN_M','NACH',HD[hr]],15:['VIERTEL','NACH',HD[hr]],20:['ZWANZIG','NACH',HD[hr]],25:['FUENF_M','VOR','HALB',HD[nx]],30:['HALB',HD[nx]],35:['FUENF_M','NACH','HALB',HD[nx]],40:['ZWANZIG','VOR',HD[nx]],45:['DREIVIERTEL',HD[nx]],50:['ZEHN_M','VOR',HD[nx]],55:['FUENF_M','VOR',HD[nx]]};
+ return[...w,...map[m5]].map(k=>DE[k])}
+let lastKey='';function tickWord(){const d=new Date(),k=lang+d.getHours()+':'+Math.floor(d.getMinutes()/5);if(k!==lastKey){lastKey=k;grid.querySelectorAll('span').forEach(s=>s.classList.remove('on'));wordsFor(d).forEach(([r,c,l])=>{for(let j=0;j<l;j++)grid.querySelector(`[data-r="${r}"][data-c="${c+j}"]`)?.classList.add('on')})}
+ const extra=d.getMinutes()%5;document.querySelectorAll('#dots i').forEach((i,k)=>i.classList.toggle('on',k<extra));document.getElementById('cap').textContent=d.toLocaleTimeString('en-GB')+' · '+(extra?`+${extra} min`:'exactly')}
+document.getElementById('lang').onclick=e=>{const l=e.target.dataset.l;if(!l)return;lang=l;lastKey='';document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('on',b===e.target));renderGrid();tickWord()};
+renderGrid();
+
+/* faces */
+const flipEl=document.getElementById('flip');flipEl.innerHTML='<div class="card">0</div><div class="card">0</div><div style="font-size:3rem;align-self:center">:</div><div class="card">0</div><div class="card">0</div>';
+const binEl=document.getElementById('binary');binEl.innerHTML=[2,4,3,4,3,4].map(n=>`<div class="col">${[8,4,2,1].map(b=>`<i class="${b>=(1<<n)?'x':''}" data-b="${b}"></i>`).join('')}</div>`).join('');
+function faces(d){const h=d.getHours(),m=d.getMinutes(),s=d.getSeconds(),ms=d.getMilliseconds();
+ let a=`<circle r="100" fill="none" stroke="var(--dim)" stroke-width="2"/>`;for(let i=0;i<60;i++){const an=i*6*Math.PI/180,r1=i%5?92:84;a+=`<line x1="${Math.sin(an)*r1}" y1="${-Math.cos(an)*r1}" x2="${Math.sin(an)*96}" y2="${-Math.cos(an)*96}" stroke="var(--fg)" stroke-width="${i%5?1:3}" opacity="${i%5?.35:1}"/>`}
+ const hand=(ang,len,w,c)=>`<line x1="0" y1="${len*.18}" x2="${Math.sin(ang)*len}" y2="${-Math.cos(ang)*len}" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`;const sm=(s+ms/1000);
+ a+=hand(((h%12)+m/60)*30*Math.PI/180,52,7,'var(--fg)')+hand((m+s/60)*6*Math.PI/180,78,4,'var(--fg)')+hand(sm*6*Math.PI/180,86,1.5,'var(--acc)')+`<circle r="5" fill="var(--acc)"/>`;document.getElementById('analog').innerHTML=a;
+ const digs=[...String(h).padStart(2,'0')+String(m).padStart(2,'0')];[...flipEl.querySelectorAll('.card')].forEach((c,i)=>{if(c.textContent!==digs[i]){c.classList.remove('anim');void c.offsetWidth;c.classList.add('anim');setTimeout(()=>c.textContent=digs[i],250)}});
+ const vals=[Math.floor(h/10),h%10,Math.floor(m/10),m%10,Math.floor(s/10),s%10];binEl.querySelectorAll('.col').forEach((c,i)=>c.querySelectorAll('i').forEach(dot=>dot.classList.toggle('on',(vals[i]&+dot.dataset.b)>0)));
+ const dayP=(h*3600+m*60+s)/864,wk=((d.getDay()+6)%7+dayP/100)/7*100,yr=(d-new Date(d.getFullYear(),0,1))/(new Date(d.getFullYear()+1,0,1)-new Date(d.getFullYear(),0,1))*100;
+ document.getElementById('bars').innerHTML=[['day',dayP],['week',wk],['month',(d.getDate()-1+dayP/100)/new Date(d.getFullYear(),d.getMonth()+1,0).getDate()*100],['year',yr]].map(([n,v])=>`<div><b style="width:${v}%"></b><span>${n} ${v.toFixed(1)}%</span></div>`).join('');
+ const rr=(r,frac,c,w)=>{const an=frac*2*Math.PI;const x=Math.sin(an)*r,y=-Math.cos(an)*r;return `<circle r="${r}" fill="none" stroke="var(--dim)" stroke-width="${w}"/><path d="M0 ${-r} A${r} ${r} 0 ${frac>.5?1:0} 1 ${x} ${y}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`};
+ document.getElementById('radial').innerHTML=rr(90,(h%12+m/60)/12,'var(--fg)',12)+rr(66,(m+s/60)/60,'var(--acc)',12)+rr(42,sm/60,'var(--fg)',6)+`<text y="6" text-anchor="middle" font-family="Space Mono" font-size="18" fill="var(--fg)">${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}</text>`;
+ const words=['midnight','the small hours','the small hours','the small hours','the small hours','dawn','early morning','morning','morning','mid-morning','late morning','nearly noon','noon','lunchtime','early afternoon','afternoon','late afternoon','teatime','early evening','evening','evening','late evening','night','nearly midnight'];
+ document.getElementById('prose').innerHTML=`It is <em>${words[h]}</em>, ${m<15?'just after':m<30?'a quarter past':m<45?'half past':'nearly'} ${((m<45?h:h+1)%12)||12} — and ${60-s} seconds until the next minute.`}
+
+/* stopwatch */
+let swStart=0,swAcc=0,swOn=false,laps=[];const fmtSW=ms=>{const cs=Math.floor(ms/10)%100,s=Math.floor(ms/1000)%60,m=Math.floor(ms/60000);return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}<small>.${String(cs).padStart(2,'0')}</small>`};
+const swNow=()=>swAcc+(swOn?performance.now()-swStart:0);
+swStartB=document.getElementById('swStart');swStartB.onclick=()=>{if(swOn){swAcc=swNow();swOn=false;swStartB.textContent='Start'}else{swStart=performance.now();swOn=true;swStartB.textContent='Stop'}};
+document.getElementById('swLap').onclick=()=>{if(!swOn)return;const t=swNow();laps.unshift(t-(laps.reduce((a,b)=>a+b,0)));renderLaps()};
+document.getElementById('swReset').onclick=()=>{swAcc=0;swOn=false;laps=[];swStartB.textContent='Start';renderLaps()};
+function renderLaps(){const mn=Math.min(...laps),mx=Math.max(...laps);document.getElementById('laps').innerHTML=laps.map((l,i)=>`<div class="${laps.length>2&&l===mn?'best':laps.length>2&&l===mx?'worst':''}"><span>Lap ${laps.length-i}</span><span>${fmtSW(l).replace(/<\/?small>/g,'')}</span></div>`).join('')}
+
+/* timer */
+let tTotal=300,tLeft=300,tOn=false,tEnd=0;const trEl=document.getElementById('tr'),arc=document.getElementById('tArc');
+function renderT(){const s=Math.max(0,Math.ceil(tLeft));trEl.textContent=`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;arc.style.strokeDashoffset=679*(1-tLeft/tTotal)}
+document.getElementById('presets').onclick=e=>{const s=e.target.dataset.s;if(!s)return;tTotal=tLeft=+s;tOn=false;document.getElementById('tStart').textContent='Start';renderT()};
+document.getElementById('tPlus').onclick=()=>{tLeft+=60;tTotal=Math.max(tTotal,tLeft);if(tOn)tEnd+=60000;renderT()};document.getElementById('tMinus').onclick=()=>{tLeft=Math.max(1,tLeft-60);if(tOn)tEnd-=60000;renderT()};
+document.getElementById('tStart').onclick=e=>{if(tOn){tOn=false;e.target.textContent='Start'}else{if(tLeft<=0)tLeft=tTotal;tEnd=performance.now()+tLeft*1000;tOn=true;e.target.textContent='Pause'}};
+let AC;function alarm(){try{AC=AC||new AudioContext();for(let k=0;k<6;k++){const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=k%2?880:1320;g.gain.setValueAtTime(.15,AC.currentTime+k*.25);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+k*.25+.2);o.connect(g);g.connect(AC.destination);o.start(AC.currentTime+k*.25);o.stop(AC.currentTime+k*.25+.22)}}catch(e){}}
+
+/* world */
+const CITIES=[['Ljubljana','Europe/Ljubljana'],['Reykjavík','Atlantic/Reykjavik'],['New York','America/New_York'],['Tokyo','Asia/Tokyo'],['Sydney','Australia/Sydney'],['São Paulo','America/Sao_Paulo'],['Nairobi','Africa/Nairobi'],['Mumbai','Asia/Kolkata'],['Los Angeles','America/Los_Angeles'],['Honolulu','Pacific/Honolulu'],['London','Europe/London'],['Auckland','Pacific/Auckland']];
+let shown=[0,1,2,3,4];document.getElementById('citySel').innerHTML=CITIES.map(([n],i)=>`<option value="${i}">${n}</option>`).join('');
+document.getElementById('addCity').onclick=()=>{const i=+document.getElementById('citySel').value;if(!shown.includes(i))shown.push(i);renderWorld()};
+function renderWorld(){const now=new Date();const localOff=-now.getTimezoneOffset();document.getElementById('cities').innerHTML=shown.map(i=>{const [n,tz]=CITIES[i];const t=now.toLocaleTimeString('en-GB',{timeZone:tz,hour:'2-digit',minute:'2-digit'});const [hh,mm]=t.split(':').map(Number);const f=(hh+mm/60)/24;
+ const other=new Date(now.toLocaleString('en-US',{timeZone:tz})),diff=Math.round((other-new Date(now.toLocaleString('en-US')))/36e5);return `<div class="city"><div><b>${n}</b><br><small>${diff===0?'same time':(diff>0?'+':'')+diff+' h'}</small></div><div class="t">${t}</div><div class="day"><i style="left:${f*100}%"></i></div><div style="text-align:right"><small>${now.toLocaleDateString('en-GB',{timeZone:tz,weekday:'short',day:'numeric',month:'short'})}</small> <button data-rm="${i}" style="background:none;border:0;color:var(--fg);opacity:.4;cursor:pointer;font-size:16px">✕</button></div></div>`}).join('')}
+document.getElementById('cities').onclick=e=>{const r=e.target.dataset.rm;if(r==null)return;shown=shown.filter(x=>x!=r);renderWorld()};
+
+/* main loop */
+let lastW=0;(function loop(t){const d=new Date();if(!V[0].hidden)tickWord();if(!V[1].hidden)faces(d);document.getElementById('sw').innerHTML=fmtSW(swNow());
+ if(tOn){tLeft=(tEnd-performance.now())/1000;if(tLeft<=0){tLeft=0;tOn=false;document.getElementById('tStart').textContent='Start';alarm();document.title='⏰ Time!'; setTimeout(()=>document.title='TEMPUS — a room full of clocks',4000)}renderT()}
+ if(!V[3].hidden&&t-lastW>1000){lastW=t;renderWorld()}requestAnimationFrame(loop)})(0);
+renderT();go(location.hash.slice(1));
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Petal — Your first week at Calder Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#fff4ef;--card:#fff;--plum:#3b1e3f;--rose:#ff8fa3;--peach:#ffc9a8;--sage:#bfe3c8;--sky:#cfe3ff;--mu:#8a6d84}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--plum);font:16px/1.55 'Bricolage Grotesque',sans-serif}
+.top{display:flex;align-items:center;gap:14px;padding:18px 32px}
+.brand{font-weight:800;font-size:22px;display:flex;gap:8px;align-items:center}.brand svg{width:28px}
+.top .sp{flex:1}.av{width:36px;height:36px;border-radius:50%;background:var(--peach);display:grid;place-items:center;font-weight:600}
+.shell{max-width:1200px;margin:0 auto;padding:10px 32px 60px;display:grid;grid-template-columns:300px 1fr;gap:28px}
+.side{position:sticky;top:20px;align-self:start}
+.hello{background:var(--plum);color:#fff;border-radius:28px;padding:26px;position:relative;overflow:hidden}
+.hello h2{font-size:30px;line-height:1.05;margin:0 0 8px;font-weight:800}.hello p{margin:0;opacity:.8;font-size:15px}
+.hello .blob{position:absolute;right:-30px;bottom:-40px;width:150px;height:150px;border-radius:46% 54% 60% 40%;background:var(--rose);opacity:.85}
+.ring{display:flex;align-items:center;gap:14px;margin-top:18px;position:relative}
+.ring svg{width:64px;height:64px;transform:rotate(-90deg)}
+.steps{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:8px}
+.steps li{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;cursor:pointer;transition:.2s;font-weight:600}
+.steps li .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#fff;border:2px solid #f0d9d2;font-size:13px;flex:none}
+.steps li.done .n{background:var(--sage);border-color:var(--sage)}.steps li.on{background:#fff;box-shadow:0 6px 18px rgba(59,30,63,.08)}.steps li.on .n{background:var(--rose);border-color:var(--rose);color:#fff}
+.steps li small{display:block;font-weight:400;color:var(--mu);font-size:12.5px}
+.stage{display:grid;gap:22px}
+.card{background:var(--card);border-radius:28px;padding:32px;box-shadow:0 10px 30px rgba(59,30,63,.06)}
+.kick{font-size:13px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.12em}
+h1{font-size:clamp(34px,4vw,48px);line-height:1.05;margin:8px 0 10px;font-weight:800;letter-spacing:-.02em;text-wrap:balance}
+.hand{font-family:'Gloria Hallelujah',cursive;color:#d6456b;font-size:18px;transform:rotate(-3deg);display:inline-block}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+input,select{width:100%;padding:13px 15px;border-radius:14px;border:2px solid #f0dcd5;background:#fffaf8;font:inherit;color:var(--plum)}
+input:focus,select:focus{outline:none;border-color:var(--rose)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.pill{padding:9px 14px;border-radius:999px;border:2px solid #f0dcd5;cursor:pointer;font-weight:600;font-size:14px;user-select:none}
+.pill.on{background:var(--plum);border-color:var(--plum);color:#fff}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px;flex-wrap:wrap}
+.btn{padding:14px 22px;border-radius:999px;border:0;font:700 15px 'Bricolage Grotesque';cursor:pointer}
+.btn.p{background:var(--plum);color:#fff}.btn.g{background:transparent;color:var(--plum)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mini{border-radius:24px;padding:22px;min-height:170px;position:relative}
+.mini h3{margin:0 0 6px;font-size:19px}.mini p{margin:0;font-size:14px;opacity:.85}
+.mini .big{font-size:44px;font-weight:800;line-height:1}
+.buddy{display:flex;gap:14px;align-items:center;margin-top:12px}.buddy .ph{width:54px;height:54px;border-radius:18px;background:#fff;display:grid;place-items:center;font-size:24px}
+.day{display:grid;grid-template-columns:64px 1fr;gap:12px;margin-top:10px;font-size:14px}
+.day b{font-variant-numeric:tabular-nums}
+.check{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed #f0dcd5;cursor:pointer}
+.check i{width:22px;height:22px;border-radius:7px;border:2px solid var(--rose);display:grid;place-items:center;font-style:normal;color:#fff;font-size:13px;flex:none}
+.check.ok i{background:var(--rose)}.check.ok span{text-decoration:line-through;opacity:.55}
+@media(max-width:900px){.shell{grid-template-columns:1fr;padding:10px 16px 60px}.side{position:static}.three,.grid2{grid-template-columns:1fr}.top{padding:16px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="brand"><svg viewBox="0 0 32 32"><circle cx="16" cy="9" r="7" fill="#ff8fa3"/><circle cx="9" cy="19" r="7" fill="#ffc9a8"/><circle cx="23" cy="19" r="7" fill="#bfe3c8"/><circle cx="16" cy="17" r="4" fill="#3b1e3f"/></svg>petal</div><span class="sp"></span><span style="font-size:14px;color:var(--mu)">Need a hand? <b style="color:var(--plum)">Ask Joon (your buddy)</b></span><div class="av">AL</div></div>
+<div class="shell">
+ <aside class="side">
+  <div class="hello"><div class="blob"></div><h2>Welcome aboard, Ama 👋</h2><p>Product Designer · starts Monday 6 Oct</p>
+   <div class="ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="4"/><circle id="arc" cx="18" cy="18" r="15" fill="none" stroke="#ffc9a8" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="94.2" style="transition:stroke-dashoffset .6s"/></svg><div><b id="pc" style="font-size:22px">0%</b><div style="font-size:13px;opacity:.75">ready for day one</div></div></div>
+  </div>
+  <ul class="steps" id="steps"></ul>
+ </aside>
+ <div class="stage" id="stage"></div>
+</div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const S=[['About you','Name, pronouns, photo'],['Your setup','Laptop & accounts'],['Paperwork','Contract & bank details'],['Week one','Meet the team'],['All set','Ready for Monday']];
+let cur=0;const done=new Set();
+const views=[
+ ()=>`<div class="card"><div class="kick">Step 1 of 5</div><h1>Let’s start with you.</h1><p style="color:var(--mu);margin:0">This is how you’ll show up across Slack, Calendar and the team page. <span class="hand">no corporate headshots needed ✿</span></p>
+  <div class="grid2"><div><label>Preferred name</label><input value="Ama"></div><div><label>Pronouns</label><select><option>she / her</option><option>he / him</option><option>they / them</option><option>Prefer to say later</option></select></div>
+  <div><label>Birthday (optional)</label><input placeholder="DD / MM — we bring cake"></div><div><label>Working hours</label><select><option>09:00 – 17:30 · Lisbon</option><option>Flexible</option></select></div></div>
+  <label style="margin-top:20px">Things you’re into</label><div class="pills">${['Climbing','Ceramics','Sci-fi','Coffee nerd','Running','Board games','Synths','Gardening'].map((p,i)=>`<span class="pill ${i===1||i===3?'on':''}">${p}</span>`).join('')}</div>
+  <div class="row"><button class="btn g">Save for later</button><button class="btn p" data-next>Continue →</button></div></div>`,
+ ()=>`<div class="card"><div class="kick">Step 2 of 5</div><h1>Your gear is on its way.</h1><p style="color:var(--mu);margin:0">MacBook Pro 14″ ships Thursday to your home address. Pick your extras:</p>
+  <div class="pills" style="margin-top:16px">${['27″ monitor','Ergonomic chair stipend','Noise-cancelling headphones','Standing desk','Keyboard of your choice'].map((p,i)=>`<span class="pill ${i<2?'on':''}">${p}</span>`).join('')}</div>
+  <div style="margin-top:24px">${['Google Workspace','Slack','Figma (Org seat)','Linear','1Password'].map((a,i)=>`<div class="check ${i<2?'ok':''}"><i>✓</i><span>Accept invite to <b>${a}</b></span></div>`).join('')}</div>
+  <div class="row"><button class="btn g" data-prev>← Back</button><button class="btn p" data-next>Continue →</button></div></div>`,
+ ()=>`<div class="card"><div class="kick">Step 3 of 5</div><h1>The boring-but-important bit.</h1><p style="color:var(--mu);margin:0">Takes about 6 minutes. Everything is encrypted and only HR sees it.</p>
+  <div style="margin-top:20px">${['Sign employment contract','Add bank details for payroll','Tax form (NIF)','Emergency contact','Read the handbook (the short version)'].map((a,i)=>`<div class="check ${i===0?'ok':''}"><i>✓</i><span>${a}</span></div>`).join('')}</div>
+  <div class="row"><button class="btn g" data-prev>← Back</button><button class="btn p" data-next>Continue →</button></div></div>`,
+ ()=>`<div class="three"><div class="mini" style="background:var(--peach)"><h3>Your buddy</h3><div class="buddy"><div class="ph">🧑🏻‍🎨</div><div><b>Joon Park</b><br><span style="font-size:13px">Senior Designer · 3 yrs here</span></div></div><p style="margin-top:12px">Coffee on Monday at 10:30, his treat.</p></div>
+  <div class="mini" style="background:var(--sage)"><h3>Team</h3><div class="big">7</div><p>designers, 2 researchers and one very loud parrot on Zoom.</p></div>
+  <div class="mini" style="background:var(--sky)"><h3>First project</h3><p style="font-size:16px;font-weight:600;opacity:1">Redesigning lab booking — research kicks off Week 2.</p></div></div>
+  <div class="card"><div class="kick">Monday, 6 October</div><h1 style="font-size:34px">Your first day, hour by hour</h1>${[['09:30','Arrive · badge & laptop at the front desk'],['10:30','Coffee with Joon ☕'],['12:00','Team lunch — Taberna do Largo'],['14:00','Design crit (just listen, no pressure)'],['16:00','1:1 with Inês, your manager'],['17:30','Go home. Seriously.']].map(d=>`<div class="day"><b>${d[0]}</b><span>${d[1]}</span></div>`).join('')}
+  <div class="row"><button class="btn g" data-prev>← Back</button><button class="btn p" data-next>Looks great →</button></div></div>`,
+ ()=>`<div class="card" style="text-align:center;padding:60px 32px;background:var(--plum);color:#fff"><div style="font-size:64px">🌷</div><h1 style="color:#fff">You’re all set, Ama.</h1><p style="opacity:.8;max-width:30em;margin:0 auto">Joon will message you on Friday. Until then, rest up — and if anything feels unclear, there are no silly questions here.</p><span class="hand" style="color:var(--peach);margin-top:18px;font-size:22px">see you Monday!</span></div>`];
+function render(){document.getElementById('steps').innerHTML=S.map((s,i)=>`<li class="${i===cur?'on':''} ${done.has(i)?'done':''}" data-i="${i}"><span class="n">${done.has(i)?'✓':i+1}</span><div>${s[0]}<small>${s[1]}</small></div></li>`).join('');
+ document.getElementById('stage').innerHTML=views[cur]();const p=Math.round(done.size/4*100);document.getElementById('pc').textContent=Math.min(100,p)+'%';document.getElementById('arc').style.strokeDashoffset=94.2*(1-Math.min(1,p/100))}
+document.addEventListener('click',e=>{const li=e.target.closest('[data-i]');if(li){cur=+li.dataset.i;render();return}
+ if(e.target.closest('[data-next]')){done.add(cur);cur=Math.min(4,cur+1);render();scrollTo({top:0,behavior:'smooth'});return}
+ if(e.target.closest('[data-prev]')){cur=Math.max(0,cur-1);render();return}
+ const p=e.target.closest('.pill');if(p)p.classList.toggle('on');const c=e.target.closest('.check');if(c)c.classList.toggle('ok')});
+render();
+</script>
+</body>
+</html>

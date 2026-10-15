@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Drop Four</title>
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Work+Sans:wght@500;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:manipulation;user-select:none}
+body{background:repeating-linear-gradient(180deg,#f7e7c6 0 60px,#f3dcae 60px 120px);font-family:'Work Sans',sans-serif;color:#4a2511;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:44px 10px 12px}
+h1{font-family:Shrikhand,cursive;font-weight:400;font-size:clamp(36px,10vw,58px);color:#e2552b;text-shadow:3px 3px 0 #f2a93b,6px 6px 0 #1f7a7a;line-height:1}
+.bar{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}.bar button{font:inherit;font-weight:800;font-size:12px;border:2px solid #4a2511;background:none;color:#4a2511;padding:5px 12px;border-radius:30px;cursor:pointer}.bar button.on{background:#4a2511;color:#f7e7c6}
+.score{display:flex;gap:14px;font-weight:800;font-size:14px}.score span{display:flex;align-items:center;gap:6px}.score i{width:14px;height:14px;border-radius:50%;display:inline-block}
+.wrap{position:relative;--c:min(12.5vw,calc((100vh - 260px)/7.2),64px)}
+.arrow{height:var(--c);display:grid;grid-template-columns:repeat(7,var(--c));gap:6px;padding:0 10px}
+.arrow div{display:grid;place-items:center}.arrow div.on::after{content:'';width:70%;height:70%;border-radius:50%;background:var(--pc);opacity:.6;animation:bob .8s infinite alternate}@keyframes bob{to{transform:translateY(6px)}}
+.board{position:relative;display:grid;grid-template-columns:repeat(7,var(--c));gap:6px;padding:10px;background:#1f7a7a;border-radius:18px;box-shadow:0 10px 0 #145656,0 20px 40px #4a251144}
+.cell{width:var(--c);height:var(--c);border-radius:50%;background:#f7e7c6;box-shadow:inset 0 4px 0 #0003;position:relative;cursor:pointer;overflow:visible}
+.disc{position:absolute;inset:0;border-radius:50%;transition:transform .45s cubic-bezier(.4,1.6,.6,1)}
+.disc.p{background:radial-gradient(circle at 35% 30%,#ff9a6b,#e2552b 60%,#b23c16)}.disc.a{background:radial-gradient(circle at 35% 30%,#ffe08a,#f2a93b 60%,#c07a14)}
+.disc::after{content:'';position:absolute;inset:18%;border-radius:50%;border:3px solid #ffffff44}
+.disc.win{animation:pulse .6s infinite alternate}@keyframes pulse{to{box-shadow:0 0 0 5px #fff,0 0 24px 8px #fff8}}
+.msg{font-weight:800;font-size:16px;min-height:22px}
+.back{position:fixed;left:12px;top:12px;color:#4a2511;text-decoration:none;font-size:13px;font-weight:800;z-index:6}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="back" href="index.html">← games</a>
+<h1>Drop Four</h1>
+<div class="bar" id="lvl"><button data-d="2">Easy</button><button data-d="4" class="on">Medium</button><button data-d="7">Hard</button><button id="new">New game</button></div>
+<div class="score"><span><i style="background:#e2552b"></i>You <b id="ws">0</b></span><span><i style="background:#f2a93b"></i>CPU <b id="ls">0</b></span><span>Draws <b id="ds">0</b></span><span>All-time wins <b id="bs">0</b></span></div>
+<div class="wrap"><div class="arrow" id="arrow"></div><div class="board" id="board"></div></div>
+<div class="msg" id="msg">Your move — tap a column, or ← → and Space.</div>
+<script>
+const K='best-drop-four';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const C=7,R=6;const board=document.getElementById('board'),arrow=document.getElementById('arrow');let g,cells=[],turn,over,depth=4,col=3,busy=false,first=1,wins=0,losses=0,draws=0,total=ls.g(K,0);
+document.getElementById('bs').textContent=total;
+let AC;function tone(f,d=.1,type='triangle',v=.06){try{AC=AC||new AudioContext();const o=AC.createOscillator(),gg=AC.createGain();o.type=type;o.frequency.value=f;gg.gain.setValueAtTime(v,AC.currentTime);gg.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(gg).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+for(let r=0;r<R;r++)for(let c=0;c<C;c++){const d=document.createElement('div');d.className='cell';d.dataset.c=c;board.appendChild(d);cells.push(d)}
+for(let c=0;c<C;c++){const d=document.createElement('div');arrow.appendChild(d)}
+function arrowUpd(){[...arrow.children].forEach((d,i)=>{d.classList.toggle('on',i===col&&turn===1&&!over&&!busy)});arrow.style.setProperty('--pc','#e2552b')}
+function newGame(){g=[...Array(R)].map(()=>Array(C).fill(0));cells.forEach(c=>c.innerHTML='');over=false;busy=false;turn=first;first=first===1?2:1;msg(turn===1?'Your move — tap a column, or ← → and Space.':'CPU starts…');arrowUpd();if(turn===2)setTimeout(aiMove,500)}
+function msg(s){document.getElementById('msg').textContent=s}
+function lowest(c){for(let r=R-1;r>=0;r--)if(!g[r][c])return r;return -1}
+function drop(c,p){const r=lowest(c);if(r<0)return false;g[r][c]=p;const d=document.createElement('div');d.className='disc '+(p===1?'p':'a');const cell=cells[r*C+c];const h=cell.getBoundingClientRect().top-board.getBoundingClientRect().top+cell.offsetHeight;d.style.transform=`translateY(${-h-20}px)`;cell.appendChild(d);requestAnimationFrame(()=>requestAnimationFrame(()=>d.style.transform='translateY(0)'));setTimeout(()=>tone(p===1?330:260,.12,'square',.05),380);return r}
+function winLine(b,p){const D=[[0,1],[1,0],[1,1],[1,-1]];for(let r=0;r<R;r++)for(let c=0;c<C;c++)for(const[dr,dc]of D){const L=[];for(let k=0;k<4;k++){const rr=r+dr*k,cc=c+dc*k;if(rr<0||rr>=R||cc<0||cc>=C||b[rr][cc]!==p)break;L.push([rr,cc])}if(L.length===4)return L}return null}
+function full(b){return b[0].every(v=>v)}
+function play(c){if(over||busy||turn!==1)return;const r=drop(c,1);if(r===false||r<0)return;busy=true;arrowUpd();setTimeout(()=>{busy=false;if(end())return;turn=2;msg('CPU is thinking…');setTimeout(aiMove,250)},450)}
+function end(){const w1=winLine(g,1),w2=winLine(g,2);if(w1||w2){over=true;const L=w1||w2;L.forEach(([r,c])=>cells[r*C+c].firstChild&&cells[r*C+c].firstChild.classList.add('win'));
+  if(w1){wins++;total++;ls.s(K,total);msg('You win! 🎉 Tap “New game” or press N.');[523,659,784,1046].forEach((f,i)=>setTimeout(()=>tone(f,.2),i*100))}else{losses++;msg('CPU connects four. Try again? (N)');tone(150,.5,'sawtooth',.05)}hud();arrowUpd();return true}
+ if(full(g)){over=true;draws++;hud();msg('Board full — a draw. (N)');return true}return false}
+function hud(){document.getElementById('ws').textContent=wins;document.getElementById('ls').textContent=losses;document.getElementById('ds').textContent=draws;document.getElementById('bs').textContent=total}
+// AI: negamax with alpha-beta
+const ORDER=[3,2,4,1,5,0,6];
+function score(b,p){let s=0;const o=3-p;for(let r=0;r<R;r++)if(b[r][3]===p)s+=3;
+ const D=[[0,1],[1,0],[1,1],[1,-1]];for(let r=0;r<R;r++)for(let c=0;c<C;c++)for(const[dr,dc]of D){const er=r+dr*3,ec=c+dc*3;if(er<0||er>=R||ec<0||ec>=C)continue;let mp=0,mo=0;for(let k=0;k<4;k++){const v=b[r+dr*k][c+dc*k];if(v===p)mp++;else if(v===o)mo++}
+  if(mp&&mo)continue;if(mp===3)s+=5;else if(mp===2)s+=2;if(mo===3)s-=4;else if(mo===2)s-=1}return s}
+function nega(b,d,a,be,p){if(winLine(b,3-p))return -100000-d;if(full(b))return 0;if(d===0)return score(b,p);let bestV=-Infinity;
+ for(const c of ORDER){let r=-1;for(let rr=R-1;rr>=0;rr--)if(!b[rr][c]){r=rr;break}if(r<0)continue;b[r][c]=p;const v=-nega(b,d-1,-be,-a,3-p);b[r][c]=0;if(v>bestV)bestV=v;if(v>a)a=v;if(a>=be)break}return bestV}
+function aiMove(){if(over)return;let bestC=3,bestV=-Infinity;const b=g.map(r=>r.slice());
+ for(const c of ORDER){let r=-1;for(let rr=R-1;rr>=0;rr--)if(!b[rr][c]){r=rr;break}if(r<0)continue;b[r][c]=2;let v=-nega(b,depth-1,-Infinity,Infinity,1);b[r][c]=0;if(depth<=2)v+=Math.random()*6-3;if(v>bestV){bestV=v;bestC=c}}
+ busy=true;drop(bestC,2);setTimeout(()=>{busy=false;if(end())return;turn=1;msg('Your move.');arrowUpd()},450)}
+board.addEventListener('click',e=>{const cell=e.target.closest('.cell');if(!cell)return;col=+cell.dataset.c;arrowUpd();play(col)});
+board.addEventListener('pointermove',e=>{const cell=e.target.closest('.cell');if(cell&&col!==+cell.dataset.c){col=+cell.dataset.c;arrowUpd()}});
+addEventListener('keydown',e=>{const k=e.key;if(k==='ArrowLeft'||k==='a'){e.preventDefault();col=Math.max(0,col-1);arrowUpd()}else if(k==='ArrowRight'||k==='d'){e.preventDefault();col=Math.min(C-1,col+1);arrowUpd()}
+ else if(k===' '||k==='Enter'||k==='ArrowDown'){e.preventDefault();if(over)newGame();else play(col)}else if(/^[1-7]$/.test(k)){col=+k-1;arrowUpd();play(col)}else if(k==='n'||k==='N')newGame()});
+document.getElementById('lvl').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.id==='new'){newGame();return}depth=+b.dataset.d;document.querySelectorAll('#lvl button[data-d]').forEach(x=>x.classList.toggle('on',x===b));newGame()};
+newGame();
+</script>
+</body>
+</html>

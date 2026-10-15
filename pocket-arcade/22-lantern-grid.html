@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Lantern Grid</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;touch-action:manipulation;user-select:none}
+body{background:radial-gradient(ellipse at 50% 110%,#3a1f5c,#140b2e 55%,#07051a);font-family:'Zen Kaku Gothic New',sans-serif;color:#ffe8c7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:44px 12px 14px}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(1px 1px at 12% 20%,#fff9,transparent),radial-gradient(1px 1px at 78% 12%,#fff8,transparent),radial-gradient(1.5px 1.5px at 55% 30%,#fffa,transparent),radial-gradient(1px 1px at 30% 8%,#fff7,transparent);background-size:300px 260px;pointer-events:none}
+h1{font-family:'Shippori Mincho',serif;font-weight:800;font-size:clamp(28px,7vw,40px);letter-spacing:.08em;color:#ffcf8a;text-shadow:0 0 20px #ff9d3a88}
+.meta{display:flex;gap:18px;font-size:14px;letter-spacing:.08em}.meta b{color:#fff}
+.string{position:relative}
+.grid{display:grid;grid-template-columns:repeat(var(--n),var(--s));gap:calc(var(--s)*.14)}
+.lan{width:var(--s);height:calc(var(--s)*1.15);position:relative;cursor:pointer;transition:transform .2s}
+.lan::before{content:'';position:absolute;left:50%;top:-10%;width:2px;height:14%;background:#8a6a4a;transform:translateX(-50%)}
+.lan .cap,.lan .base{position:absolute;left:28%;right:28%;height:9%;background:#3a2418;border-radius:3px}.lan .cap{top:2%}.lan .base{bottom:2%}
+.lan .body{position:absolute;left:6%;right:6%;top:9%;bottom:9%;border-radius:45%;background:repeating-linear-gradient(0deg,#0000 0 14%,#0002 14% 16%),radial-gradient(circle at 50% 45%,#5a3350,#2b1830);transition:background .25s,box-shadow .25s;box-shadow:inset 0 0 12px #0008}
+.lan.on .body{background:repeating-linear-gradient(0deg,#0000 0 14%,#a1401a33 14% 16%),radial-gradient(circle at 50% 45%,#fff0b8,#ffb347 45%,#e8641c);box-shadow:0 0 calc(var(--s)*.45) #ff9d3a99,inset 0 0 12px #c2410c88}
+.lan .tas{position:absolute;left:50%;bottom:-8%;width:3px;height:10%;background:#c0392b;transform:translateX(-50%)}
+.lan.kb .body{outline:3px solid #fff;outline-offset:3px}
+.lan.hint .body{animation:hint 1s infinite}@keyframes hint{50%{outline:3px dashed #7ee8ff;outline-offset:5px}}
+.lan:active{transform:scale(.94)}
+.bar{display:flex;gap:10px}.bar button{font:inherit;font-weight:700;border:1px solid #ffcf8a66;background:#ffcf8a14;color:#ffe8c7;padding:8px 16px;border-radius:30px;cursor:pointer}
+.ov{position:fixed;inset:0;display:none;place-items:center;text-align:center;z-index:5;background:#07051acc}.ov.on{display:grid}
+.ov h2{font-family:'Shippori Mincho',serif;font-size:clamp(34px,9vw,52px);color:#ffcf8a;text-shadow:0 0 30px #ff9d3a}.ov p{margin:10px auto 22px;line-height:1.7;max-width:340px}
+.ov button{font:inherit;font-weight:700;font-size:16px;border:0;background:linear-gradient(#ffcf8a,#ff9d3a);color:#3a1f0a;padding:12px 30px;border-radius:30px;cursor:pointer;box-shadow:0 0 30px #ff9d3a66}
+.back{position:fixed;left:12px;top:12px;color:#ffe8c7aa;text-decoration:none;font-size:13px;z-index:6}
+.hintx{font-size:12px;opacity:.6;text-align:center}
+</style>
+<style>html.embed .back,html.embed a.bk{display:none!important}</style><script>try{if(window.self!==window.parent)document.documentElement.classList.add("embed")}catch(e){document.documentElement.classList.add("embed")}</script>
+</head>
+<body>
+<a class="back" href="index.html">← games</a>
+<h1>Lantern Grid</h1>
+<div class="meta"><span>Night <b id="lv">1</b></span><span>Taps <b id="mv">0</b> / par <b id="par">0</b></span><span>Best <b id="bs">1</b></span></div>
+<div class="grid" id="grid"></div>
+<div class="bar"><button id="hint">✦ Hint</button><button id="rs">⟲ Reset</button></div>
+<p class="hintx">Light every lantern. A tap flips a lantern and its four neighbours.<br>Arrows + Space also work.</p>
+<div class="ov" id="ov"><div><h2 id="ot">The square glows</h2><p id="op"></p><button id="go">Next night</button></div></div>
+<script>
+const K='best-lantern-grid';const ls={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const gridEl=document.getElementById('grid');let n,cells,start,level=1,moves=0,par=0,cur=0,els=[],best=ls.g(K,1),hints=0;
+document.getElementById('bs').textContent=best;
+let AC;function tone(f,d=.2,type='sine',v=.06){try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g).connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+const PENTA=[392,440,523.25,587.33,659.25,783.99,880];
+function nbrs(i){const r=i/n|0,c=i%n,o=[i];if(r>0)o.push(i-n);if(r<n-1)o.push(i+n);if(c>0)o.push(i-1);if(c<n-1)o.push(i+1);return o}
+function setup(){n=level<3?3:level<7?4:5;const presses=Math.min(n*n-1,2+Math.floor(level*.9));cells=Array(n*n).fill(1);const picked=new Set();while(picked.size<presses)picked.add(Math.random()*n*n|0);picked.forEach(i=>nbrs(i).forEach(j=>cells[j]^=1));if(cells.every(v=>v))return setup();
+ start=cells.slice();par=solve().filter(Boolean).length||presses;moves=0;cur=Math.floor(n*n/2);render(true)}
+function sz(){const s=Math.floor(Math.min((innerWidth-40)/(n*1.14),(innerHeight-300)/(n*1.3),96));gridEl.style.setProperty('--s',s+'px');gridEl.style.setProperty('--n',n)}
+addEventListener('resize',()=>n&&sz());
+function render(rebuild){if(rebuild){gridEl.innerHTML='';els=cells.map((v,i)=>{const d=document.createElement('div');d.className='lan';d.innerHTML='<div class="cap"></div><div class="body"></div><div class="base"></div><div class="tas"></div>';d.onclick=()=>{cur=i;press(i)};gridEl.appendChild(d);return d});sz()}
+ els.forEach((d,i)=>{d.classList.toggle('on',!!cells[i]);d.classList.toggle('kb',i===cur)});document.getElementById('lv').textContent=level;document.getElementById('mv').textContent=moves;document.getElementById('par').textContent=par}
+function press(i){if(document.getElementById('ov').classList.contains('on'))return;els.forEach(e=>e.classList.remove('hint'));nbrs(i).forEach(j=>cells[j]^=1);moves++;tone(PENTA[(i*3)%PENTA.length]*(cells[i]?1:.5),.3,'sine',.05);render();if(cells.every(v=>v))win()}
+// GF(2) solver: returns press vector that turns current state into all-on
+function solve(){const N=n*n;const A=[];for(let i=0;i<N;i++){const row=Array(N+1).fill(0);nbrs(i).forEach(j=>row[j]=1);row[N]=cells[i]^1;A.push(row)}
+ let r=0;const piv=[];for(let c=0;c<N&&r<N;c++){let p=-1;for(let k=r;k<N;k++)if(A[k][c]){p=k;break}if(p<0)continue;[A[r],A[p]]=[A[p],A[r]];for(let k=0;k<N;k++)if(k!==r&&A[k][c])for(let j=c;j<=N;j++)A[k][j]^=A[r][j];piv.push(c);r++}
+ const xv=Array(N).fill(0);piv.forEach((c,i)=>xv[c]=A[i][N]);return xv}
+function hint(){const s=solve();const idx=s.findIndex(Boolean);if(idx<0)return;hints++;els[idx].classList.add('hint');tone(990,.2,'triangle',.04)}
+function win(){const stars=moves<=par?'★★★':moves<=par*1.5?'★★☆':'★☆☆';[0,1,2,3,4].forEach(k=>setTimeout(()=>tone(PENTA[k+2],.5,'sine',.05),k*110));
+ level++;if(level>best){best=level;ls.s(K,best);document.getElementById('bs').textContent=best}
+ setTimeout(()=>{document.getElementById('ot').textContent=['The square glows','Festival lights','Radiant!','Brilliant night'][Math.random()*4|0];document.getElementById('op').innerHTML=`<span style="font-size:28px;color:#ffcf8a">${stars}</span><br>${moves} taps · par ${par}`;document.getElementById('ov').classList.add('on')},500)}
+addEventListener('keydown',e=>{const k=e.key;if(document.getElementById('ov').classList.contains('on')){if(k===' '||k==='Enter'){e.preventDefault();next()}return}
+ let r=cur/n|0,c=cur%n;if(k==='ArrowLeft'||k==='a')c=Math.max(0,c-1);else if(k==='ArrowRight'||k==='d')c=Math.min(n-1,c+1);else if(k==='ArrowUp'||k==='w')r=Math.max(0,r-1);else if(k==='ArrowDown'||k==='s')r=Math.min(n-1,r+1);else if(k===' '||k==='Enter'){e.preventDefault();press(cur);return}else if(k==='h')return hint();else if(k==='r')return reset();else return;e.preventDefault();cur=r*n+c;render()});
+function reset(){cells=start.slice();moves=0;els.forEach(e=>e.classList.remove('hint'));render()}
+function next(){document.getElementById('ov').classList.remove('on');setup()}
+document.getElementById('hint').onclick=hint;document.getElementById('rs').onclick=reset;document.getElementById('go').onclick=next;
+level=Math.max(1,best);setup();
+</script>
+</body>
+</html>

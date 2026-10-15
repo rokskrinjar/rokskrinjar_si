@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novaport Metro — Map & Journey Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;600;800;900&family=Red+Hat+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f7f7f4; --ink:#141414; --mute:#8a8a86; --L1:#e4002b; --L2:#0072ce; --L3:#00a651; --L4:#ffb500; --L5:#8e44ad; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--ink); font-family:'Red Hat Display',sans-serif; }
+  a { color:inherit; text-decoration:none; }
+  .mono { font-family:'Red Hat Mono',monospace; }
+  header { display:flex; align-items:center; gap:20px; padding:12px 3vw; background:var(--ink); color:#fff; flex-wrap:wrap; }
+  .roundel { width:44px; height:44px; border-radius:50%; border:8px solid var(--L1); position:relative; }
+  .roundel::after { content:''; position:absolute; left:-14px; right:-14px; top:50%; height:10px; margin-top:-5px; background:var(--L2); }
+  .brand { font-weight:900; font-size:22px; letter-spacing:.02em; margin-right:auto; }
+  .brand small { display:block; font-weight:400; font-size:12px; opacity:.6; letter-spacing:.12em; }
+  nav { display:flex; gap:4px; flex-wrap:wrap; }
+  nav a { padding:8px 14px; font-weight:600; font-size:14px; border-radius:4px; }
+  nav a.on { background:#fff; color:var(--ink); }
+  .clock { font-family:'Red Hat Mono'; font-size:18px; }
+  [data-view][hidden] { display:none; }
+  .layout { display:grid; grid-template-columns:1fr 380px; min-height:calc(100vh - 68px); }
+  .mapWrap { position:relative; overflow:hidden; background:#fff; }
+  #map { width:100%; height:100%; display:block; cursor:grab; touch-action:none; }
+  #map:active { cursor:grabbing; }
+  .station circle { cursor:pointer; transition:r .15s; }
+  .station:hover circle { r:9; }
+  .station text { font-family:'Red Hat Display'; font-weight:600; font-size:12px; pointer-events:none; }
+  .station.dim, .line.dim { opacity:.15; }
+  .zoomCtl { position:absolute; right:14px; bottom:14px; display:flex; flex-direction:column; gap:4px; }
+  .zoomCtl button { width:40px; height:40px; border:0; background:var(--ink); color:#fff; font-size:20px; cursor:pointer; border-radius:4px; }
+  .legend { position:absolute; left:14px; bottom:14px; background:#fff; padding:10px 14px; border:1px solid #0001; box-shadow:0 4px 14px #0001; font-size:13px; }
+  .legend div { display:flex; align-items:center; gap:8px; margin:3px 0; cursor:pointer; }
+  .legend i { width:26px; height:6px; border-radius:3px; }
+  .side { padding:20px; border-left:1px solid #0001; overflow:auto; max-height:calc(100vh - 68px); background:var(--bg); }
+  .side h2 { font-weight:900; font-size:1.6rem; margin-bottom:12px; }
+  .pick { display:grid; gap:8px; }
+  .pick label { font-size:12px; font-weight:600; letter-spacing:.1em; color:var(--mute); text-transform:uppercase; }
+  .pick select { font-family:inherit; font-size:15px; padding:12px; border:2px solid var(--ink); border-radius:6px; background:#fff; font-weight:600; }
+  .swap { justify-self:end; border:0; background:none; font-size:18px; cursor:pointer; margin:-6px 0; }
+  .btn { width:100%; padding:14px; border:0; border-radius:6px; background:var(--ink); color:#fff; font-family:inherit; font-weight:800; font-size:15px; cursor:pointer; margin-top:10px; }
+  .journey { margin-top:18px; }
+  .summary { display:flex; justify-content:space-between; background:#fff; padding:14px; border-radius:8px; border:1px solid #0001; margin-bottom:12px; }
+  .summary b { font-size:1.6rem; font-weight:900; display:block; }
+  .summary small { color:var(--mute); font-size:12px; }
+  .leg { display:grid; grid-template-columns:22px 1fr; gap:10px; }
+  .leg .bar { width:8px; margin:0 auto; border-radius:4px; }
+  .leg .st { padding:6px 0; font-weight:600; }
+  .leg .info { font-size:13px; color:var(--mute); padding:4px 0 10px; }
+  .leg .tr { font-size:13px; font-weight:800; padding:6px 10px; background:#fff; border-left:4px solid var(--ink); margin:6px 0; }
+  .stInfo { background:#fff; border-radius:8px; padding:16px; border:1px solid #0001; margin-top:16px; }
+  .stInfo h3 { font-weight:900; font-size:1.3rem; }
+  .badges { display:flex; gap:6px; margin:8px 0; flex-wrap:wrap; }
+  .badges span { color:#fff; font-weight:800; font-size:12px; padding:3px 8px; border-radius:4px; }
+  .deps div { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed #0002; font-family:'Red Hat Mono'; font-size:13px; }
+  /* status */
+  .page { max-width:1100px; margin:0 auto; padding:4vh 4vw 10vh; }
+  .page h2 { font-weight:900; font-size:clamp(2.4rem,5vw,4rem); letter-spacing:-.02em; }
+  .board { background:#0d0d0d; color:#ffb500; font-family:'Red Hat Mono'; border-radius:10px; padding:20px; margin-top:20px; }
+  .board .row { display:grid; grid-template-columns:60px 1fr 200px 110px; gap:14px; align-items:center; padding:12px 0; border-bottom:1px solid #222; }
+  .board .ln { width:44px; height:44px; border-radius:50%; display:grid; place-items:center; color:#fff; font-family:'Red Hat Display'; font-weight:900; font-size:18px; }
+  .board .ok { color:#35e08a; } .board .warn { color:#ffb500; } .board .bad { color:#ff4d5e; }
+  .flap { display:inline-block; background:#1a1a1a; padding:2px 5px; margin-right:2px; border-radius:2px; min-width:14px; text-align:center; }
+  /* fares */
+  .fares { display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-top:24px; }
+  .card { background:#fff; border-radius:12px; padding:24px; border:1px solid #0001; }
+  .zones { display:flex; gap:6px; margin:10px 0; }
+  .zones button, .rider button { flex:1; padding:10px; border:2px solid var(--ink); background:#fff; border-radius:6px; font-family:inherit; font-weight:800; cursor:pointer; }
+  .zones button.on, .rider button.on { background:var(--ink); color:#fff; }
+  .rider { display:flex; gap:6px; margin:10px 0; }
+  .price { font-size:3.4rem; font-weight:900; letter-spacing:-.03em; }
+  .pass { aspect-ratio:1.6; border-radius:16px; background:linear-gradient(135deg,var(--L2),var(--L5)); color:#fff; padding:22px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 20px 40px #0072ce44; position:relative; overflow:hidden; }
+  .pass::after { content:''; position:absolute; right:-40px; top:-40px; width:180px; height:180px; border-radius:50%; border:26px solid #ffffff22; }
+  .pass b { font-size:1.5rem; }
+  @media (max-width:900px){ .layout { grid-template-columns:1fr; } .mapWrap { height:60vh; } .side { max-height:none; border-left:0; } .fares { grid-template-columns:1fr; } .board .row { grid-template-columns:50px 1fr; } }
+</style>
+</head>
+<body>
+<header><div class="roundel"></div><div class="brand">Novaport Metro<small>MAP · PLANNER · STATUS</small></div><nav><a href="#map">Map & planner</a><a href="#status">Line status</a><a href="#fares">Fares</a><a href="index.html">← Index</a></nav><div class="clock" id="clock"></div></header>
+
+<section data-view="map">
+  <div class="layout">
+    <div class="mapWrap"><svg id="map" viewBox="0 0 1000 720"><g id="world"></g></svg>
+      <div class="legend" id="legend"></div><div class="zoomCtl"><button id="zin">+</button><button id="zout">−</button><button id="zre" style="font-size:14px">⟲</button></div></div>
+    <div class="side"><h2>Plan a journey</h2>
+      <div class="pick"><label>From</label><select id="from"></select><button class="swap" id="swap" title="Swap">⇅</button><label>To</label><select id="to"></select></div>
+      <button class="btn" id="go">Find route</button><div class="journey" id="journey"></div><div id="stInfo"></div></div>
+  </div>
+</section>
+
+<section data-view="status" class="page" hidden><h2>Line status</h2><p style="color:var(--mute)">Live-ish. Updated every few seconds by a very diligent robot.</p><div class="board" id="board"></div></section>
+
+<section data-view="fares" class="page" hidden><h2>Fares</h2>
+  <div class="fares"><div class="card"><h3 style="font-weight:900">Single journey</h3><label class="mono" style="font-size:12px;color:var(--mute)">ZONES TRAVELLED</label><div class="zones" id="zones"><button data-z="1" class="on">1</button><button data-z="2">1–2</button><button data-z="3">1–3</button><button data-z="4">1–4</button></div><label class="mono" style="font-size:12px;color:var(--mute)">RIDER</label><div class="rider" id="rider"><button data-r="1" class="on">Adult</button><button data-r=".5">Child</button><button data-r=".6">Senior</button></div><label style="display:flex;gap:8px;align-items:center;font-weight:600;margin:10px 0"><input type="checkbox" id="peak" checked> Peak hours (07–10, 16–19)</label><div class="price" id="price"></div><p style="color:var(--mute)" id="cap"></p></div>
+  <div class="card"><h3 style="font-weight:900;margin-bottom:12px">Your Nova pass</h3><div class="pass"><div style="display:flex;justify-content:space-between"><b>NOVA</b><span class="mono">ZONES 1–<span id="pz">1</span></span></div><div class="mono" style="font-size:1.2rem;letter-spacing:.2em">4921 •••• •••• 0077</div><div style="display:flex;justify-content:space-between;align-items:end"><span>Balance<br><b id="bal">₦ 24.60</b></span><button class="btn" style="width:auto;margin:0;background:#fff;color:var(--ink)" id="topup">Top up +10</button></div></div></div></div>
+</section>
+
+<script>
+const V=[...document.querySelectorAll('[data-view]')];
+function go(id){id=V.some(v=>v.dataset.view===id)?id:'map';V.forEach(v=>v.hidden=v.dataset.view!==id);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));try{history.replaceState(null,'','#'+id)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1))}});
+setInterval(()=>document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'}),1000);
+
+/* stations: id -> [name, x, y, zone] ; lines: [id, name, color var, [station ids]] */
+const S={A:['Harbour',120,560,2],B:['Fish Market',220,520,2],C:['Old Town',330,470,1],D:['Central',480,380,1],E:['Museum Quarter',600,320,1],F:['University',720,260,2],G:['Observatory',840,200,3],H:['Airport',940,120,4],
+ I:['Westgate',80,300,2],J:['Mill Street',200,320,2],K:['Cathedral',340,350,1],L:['Riverside',600,420,1],M:['Docklands',740,470,2],N:['Eastbank',880,500,3],
+ O:['Northfield',480,80,3],P:['Parkway',480,180,2],Q:['Opera',480,280,1],R:['Southgate',480,520,2],S:['Stadium',480,640,3],
+ T:['Botanical Gardens',260,160,2],U:['Arts District',380,230,1],V:['Tech Park',720,560,3],W:['Lighthouse',860,640,4],
+ X:['Canal Bridge',640,180,2],Y:['Market Hall',560,480,1]};
+const L=[['L1','Coastal','--L1',['A','B','C','D','E','F','G','H']],['L2','Crosstown','--L2',['I','J','K','D','L','M','N']],['L3','North–South','--L3',['O','P','Q','D','R','S']],['L4','Garden','--L4',['T','U','Q','E','X','F']],['L5','Riverloop','--L5',['K','C','R','Y','L','V','W']]];
+const col=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+/* graph */
+const G={};Object.keys(S).forEach(k=>G[k]=[]);L.forEach(([id,,,st])=>st.forEach((s,i)=>{if(i){const a=st[i-1],d=Math.hypot(S[a][1]-S[s][1],S[a][2]-S[s][2])/60+1;G[a].push([s,id,d]);G[s].push([a,id,d])}}));
+function route(from,to){/* dijkstra over (station,line) with transfer penalty */const key=(s,l)=>s+'|'+l;const dist={},prev={},Q=[];L.filter(l=>l[3].includes(from)).forEach(l=>{dist[key(from,l[0])]=0;Q.push([0,from,l[0]])});
+ while(Q.length){Q.sort((a,b)=>a[0]-b[0]);const [d,s,l]=Q.shift();const k0=key(s,l);if(d>dist[k0])continue;
+  if(s===to){const path=[];let k=k0;while(k){const [ss,ll]=k.split('|');path.unshift([ss,ll]);k=prev[k]}return{d,path}}
+  G[s].forEach(([n,nl,w])=>{if(nl!==l)return;const k=key(n,nl),c=d+w;if(dist[k]==null||c<dist[k]){dist[k]=c;prev[k]=k0;Q.push([c,n,nl])}});
+  L.forEach(([id,,,st])=>{if(id===l||!st.includes(s))return;const k=key(s,id),c=d+5;if(dist[k]==null||c<dist[k]){dist[k]=c;prev[k]=k0;Q.push([c,s,id])}})}return null}
+
+/* map render */
+const world=document.getElementById('world');let hi=null,sel=null;
+function draw(){let s=`<rect x="-2000" y="-2000" width="5000" height="5000" fill="#fff"/><path d="M-100 600 Q200 560 360 610 T700 580 T1100 620 L1100 900 L-100 900Z" fill="#e3f0f7"/><path d="M300 -50 Q420 200 540 420 Q600 520 760 560 Q880 590 1100 560" stroke="#cfe6f2" stroke-width="40" fill="none"/><text x="720" y="610" font-family="Red Hat Display" font-style="italic" font-size="16" fill="#7aaecc">Nova Bay</text><text x="360" y="120" font-family="Red Hat Display" font-style="italic" font-size="14" fill="#7aaecc" transform="rotate(62 360 120)">River Aln</text>`;
+ L.forEach(([id,,c,st])=>{const dim=hi&&!hi.lines.includes(id);s+=`<polyline class="line${dim?' dim':''}" points="${st.map(k=>S[k][1]+','+S[k][2]).join(' ')}" fill="none" stroke="${col(c)}" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>`});
+ if(hi){s+=`<polyline points="${hi.path.map(([k])=>S[k][1]+','+S[k][2]).join(' ')}" fill="none" stroke="#141414" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/><circle r="9" fill="#fff" stroke="#141414" stroke-width="4"><animateMotion dur="${hi.path.length*.6}s" repeatCount="indefinite" path="M${hi.path.map(([k])=>S[k][1]+' '+S[k][2]).join(' L')}"/></circle>`}
+ Object.entries(S).forEach(([k,[n,x,y]])=>{const lines=L.filter(l=>l[3].includes(k));const inter=lines.length>1;const dim=hi&&!hi.path.some(p=>p[0]===k);const lx=x<200?12:x>820?-12:12,anchor=x>820?'end':'start';
+  s+=`<g class="station${dim?' dim':''}" data-s="${k}"><circle cx="${x}" cy="${y}" r="${inter?8:6}" fill="#fff" stroke="${inter?'#141414':col(lines[0][2])}" stroke-width="${inter?4:4}"/>${sel===k?`<circle cx="${x}" cy="${y}" r="14" fill="none" stroke="#141414" stroke-width="2"><animate attributeName="r" values="10;18;10" dur="1.4s" repeatCount="indefinite"/></circle>`:''}<text x="${x+lx}" y="${y-12}" text-anchor="${anchor}" fill="#141414" paint-order="stroke" stroke="#fff" stroke-width="4">${n}</text></g>`});
+ world.innerHTML=s}
+/* pan/zoom */
+let vb={x:0,y:0,w:1000,h:720};const svg=document.getElementById('map');const setVB=()=>svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+function zoom(f,cx=vb.x+vb.w/2,cy=vb.y+vb.h/2){const nw=Math.min(1600,Math.max(300,vb.w*f)),nh=nw*.72;vb.x=cx-(cx-vb.x)*nw/vb.w;vb.y=cy-(cy-vb.y)*nh/vb.h;vb.w=nw;vb.h=nh;setVB()}
+svg.addEventListener('wheel',e=>{e.preventDefault();const r=svg.getBoundingClientRect(),cx=vb.x+(e.clientX-r.left)/r.width*vb.w,cy=vb.y+(e.clientY-r.top)/r.height*vb.h;zoom(e.deltaY<0?.85:1.18,cx,cy)},{passive:false});
+let drag=null;svg.addEventListener('pointerdown',e=>{if(e.target.closest('.station'))return;drag=[e.clientX,e.clientY,vb.x,vb.y];svg.setPointerCapture(e.pointerId)});svg.addEventListener('pointermove',e=>{if(!drag)return;const r=svg.getBoundingClientRect();vb.x=drag[2]-(e.clientX-drag[0])/r.width*vb.w;vb.y=drag[3]-(e.clientY-drag[1])/r.height*vb.h;setVB()});svg.addEventListener('pointerup',()=>drag=null);
+zin.onclick=()=>zoom(.8);zout.onclick=()=>zoom(1.25);zre.onclick=()=>{vb={x:0,y:0,w:1000,h:720};setVB()};
+
+/* legend */
+document.getElementById('legend').innerHTML=L.map(([id,n,c])=>`<div data-l="${id}"><i style="background:var(${c})"></i><b>${id}</b> ${n}</div>`).join('');
+document.getElementById('legend').onclick=e=>{const d=e.target.closest('[data-l]');if(!d)return;const l=L.find(x=>x[0]===d.dataset.l);hi={lines:[l[0]],path:l[3].map(k=>[k,l[0]])};draw();document.getElementById('journey').innerHTML=''};
+
+/* selects */
+const opts=Object.entries(S).sort((a,b)=>a[1][0].localeCompare(b[1][0])).map(([k,[n]])=>`<option value="${k}">${n}</option>`).join('');from.innerHTML=opts;to.innerHTML=opts;from.value='A';to.value='H';
+swap.onclick=()=>{[from.value,to.value]=[to.value,from.value]};
+function plan(){const f=from.value,t=to.value;if(f===t){document.getElementById('journey').innerHTML='<p>You are already there. Congratulations!</p>';return}const r=route(f,t);if(!r)return;
+ const legs=[];r.path.forEach(([s,l],i)=>{if(!legs.length||legs.at(-1).l!==l)legs.push({l,st:[s]});else legs.at(-1).st.push(s)});const clean=legs.filter(g=>g.st.length>1);
+ const stops=r.path.length-1-(clean.length-1),mins=Math.round(r.d*2.2),zones=new Set(r.path.map(([k])=>S[k][3]));const fare=(1.8+Math.max(...zones)*0.9).toFixed(2);
+ hi={lines:clean.map(g=>g.l),path:r.path};sel=null;draw();
+ document.getElementById('journey').innerHTML=`<div class="summary"><div><b>${mins} min</b><small>${stops} stops · ${clean.length-1} change${clean.length===2?'':'s'}</small></div><div style="text-align:right"><b>₦${fare}</b><small>zones ${Math.min(...zones)}–${Math.max(...zones)}</small></div></div>`+
+ clean.map((g,i)=>{const line=L.find(x=>x[0]===g.l);const dir=line[3].indexOf(g.st[1])>line[3].indexOf(g.st[0])?line[3].at(-1):line[3][0];return `${i?`<div class="tr">↻ Change to ${g.l} ${line[1]} · ~3 min walk</div>`:''}<div class="leg"><div class="bar" style="background:var(${line[2]})"></div><div><div class="st">${S[g.st[0]][0]}</div><div class="info"><b style="color:var(${line[2]})">${g.l} ${line[1]}</b> towards ${S[dir][0]} · ${g.st.length-1} stop${g.st.length>2?'s':''}<br>${g.st.slice(1,-1).map(k=>S[k][0]).join(' · ')}</div><div class="st">${S[g.st.at(-1)][0]}</div></div></div>`}).join('')}
+document.getElementById('go').onclick=plan;
+svg.addEventListener('click',e=>{const g=e.target.closest('.station');if(!g)return;const k=g.dataset.s;sel=k;draw();const lines=L.filter(l=>l[3].includes(k));
+ document.getElementById('stInfo').innerHTML=`<div class="stInfo"><h3>${S[k][0]}</h3><div class="badges">${lines.map(l=>`<span style="background:var(${l[2]})">${l[0]} ${l[1]}</span>`).join('')}<span style="background:#141414">Zone ${S[k][3]}</span></div><div class="deps">${lines.flatMap(l=>[l[3][0],l[3].at(-1)].filter(t=>t!==k).map((t,i)=>`<div><span style="color:var(${l[2]});font-weight:600">${l[0]} → ${S[t][0]}</span><span>${2+((k.charCodeAt(0)+i*5)%7)} min</span></div>`)).join('')}</div><div style="display:flex;gap:6px;margin-top:10px"><button class="btn" style="margin:0" id="setF">From here</button><button class="btn" style="margin:0;background:#fff;color:#141414;border:2px solid #141414" id="setT">To here</button></div></div>`;
+ document.getElementById('setF').onclick=()=>{from.value=k;plan()};document.getElementById('setT').onclick=()=>{to.value=k;plan()}});
+draw();plan();
+
+/* status board */
+const MSG=[['GOOD SERVICE','ok'],['MINOR DELAYS','warn'],['GOOD SERVICE','ok'],['SEVERE DELAYS','bad'],['GOOD SERVICE','ok'],['PART SUSPENDED','bad']];const REASON=['','Signal fault at Central','','A swan on the line at Riverside','','Engineering works Opera–Parkway'];
+function board(){document.getElementById('board').innerHTML=L.map(([id,n,c],i)=>{const k=(i+Math.floor(Date.now()/8000))%MSG.length;const [m,cls]=i===2?MSG[0]:MSG[k];const flap=s=>[...s].map(ch=>`<span class="flap">${ch===' '?'&nbsp;':ch}</span>`).join('');return `<div class="row"><div class="ln" style="background:var(${c})">${id.slice(1)}</div><div style="color:#fff;font-family:'Red Hat Display';font-weight:800;font-size:1.1rem">${n}<div class="mono" style="font-size:12px;color:#888;font-weight:400">${cls==='ok'?'Trains every 3–4 min':REASON[k]}</div></div><div class="${cls}">${flap(m)}</div><div style="color:#888;font-size:12px">${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</div></div>`}).join('')}
+board();setInterval(()=>{if(!V[1].hidden)board()},8000);
+
+/* fares */
+let zone=1,rider=1,bal=24.6;function fares(){const peak=document.getElementById('peak').checked;const p=(1.8+zone*.9)*(peak?1:.8)*rider;document.getElementById('price').textContent='₦'+p.toFixed(2);document.getElementById('cap').textContent=`Daily cap: ₦${(p*3.2).toFixed(2)} — after that, ride free all day.`;document.getElementById('pz').textContent=zone}
+document.getElementById('zones').onclick=e=>{const z=e.target.dataset.z;if(!z)return;zone=+z;document.querySelectorAll('#zones button').forEach(b=>b.classList.toggle('on',b===e.target));fares()};
+document.getElementById('rider').onclick=e=>{const r=e.target.dataset.r;if(!r)return;rider=+r;document.querySelectorAll('#rider button').forEach(b=>b.classList.toggle('on',b===e.target));fares()};
+document.getElementById('peak').onchange=fares;fares();document.getElementById('topup').onclick=()=>{bal+=10;document.getElementById('bal').textContent='₦ '+bal.toFixed(2)};
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>

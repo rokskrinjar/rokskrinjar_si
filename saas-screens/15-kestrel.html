@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kestrel — Your work, at the speed of your keyboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=Sometype+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--bg:#1a1714;--s:#24201c;--s2:#2e2924;--ln:#3a342d;--tx:#f2ebe1;--mu:#a59a8b;--acc:#ff9b42;--key:#efe7db}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 'Instrument Sans',sans-serif;overflow-x:hidden}
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+nav{display:flex;align-items:center;gap:26px;padding:24px 0}.lg{font:800 20px 'Unbounded';letter-spacing:-.02em}.lg span{color:var(--acc)}
+nav a{color:var(--mu);text-decoration:none;font-size:15px}nav .sp{flex:1}
+.cta{background:var(--acc);color:#1a1714!important;padding:10px 16px;border-radius:10px;font-weight:600}
+.hero{text-align:center;padding:60px 0 30px}
+h1{font:800 clamp(40px,6.4vw,88px)/.98 'Unbounded';letter-spacing:-.04em;margin:0 auto 22px;max-width:14ch}
+h1 em{font-style:normal;color:var(--acc)}
+.hero p{color:var(--mu);font-size:19px;max-width:34em;margin:0 auto}
+.try{margin-top:24px;color:var(--mu);font:14px 'Sometype Mono'}
+kbd{display:inline-grid;place-items:center;min-width:34px;height:34px;padding:0 9px;border-radius:8px;background:linear-gradient(#fbf6ee,#e2d9cb);color:#2a241d;font:600 14px 'Sometype Mono';box-shadow:0 3px 0 #b8ab97,0 5px 10px rgba(0,0,0,.4);margin:0 2px;transition:.08s;vertical-align:middle}
+kbd.dn{transform:translateY(3px);box-shadow:0 0 0 #b8ab97,0 2px 4px rgba(0,0,0,.4);background:var(--acc)}
+.stage{position:relative;margin:40px auto 0;max-width:900px;height:470px;border-radius:20px;background:var(--s);border:1px solid var(--ln);overflow:hidden}
+.app{position:absolute;inset:0;display:grid;grid-template-columns:200px 1fr;filter:blur(1.5px);opacity:.55;transition:.25s}
+.stage.idle .app{filter:none;opacity:1}
+.app aside{border-right:1px solid var(--ln);padding:18px;font-size:14px;color:var(--mu)}.app aside div{padding:5px 0}
+.app main{padding:22px}.task{display:flex;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--ln);font-size:15px}.task i{width:16px;height:16px;border:1.5px solid var(--mu);border-radius:5px}.task span{margin-left:auto;font:12px 'Sometype Mono';color:var(--mu)}
+.pal{position:absolute;left:50%;top:60px;transform:translateX(-50%);width:min(560px,92%);background:#2b2620;border:1px solid #4a4239;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.6);transition:.2s}
+.stage.idle .pal{opacity:0;transform:translateX(-50%) scale(.96);pointer-events:none}
+.pal input{width:100%;background:transparent;border:0;border-bottom:1px solid #4a4239;padding:18px 20px;color:var(--tx);font:17px 'Instrument Sans';outline:none}
+.pal .grp{font:11px 'Sometype Mono';color:var(--mu);padding:12px 20px 4px;text-transform:uppercase;letter-spacing:.1em}
+.it{display:flex;align-items:center;gap:12px;padding:10px 20px;cursor:pointer;font-size:15px}.it .ic{width:26px;height:26px;border-radius:7px;background:var(--s2);display:grid;place-items:center;font-size:13px}
+.it.on{background:rgba(255,155,66,.12)}.it.on .ic{background:var(--acc);color:#1a1714}.it small{margin-left:auto;font:12px 'Sometype Mono';color:var(--mu)}
+.it mark{background:none;color:var(--acc);font-weight:600}
+.shorts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:90px 0}
+.sc{background:var(--s);border:1px solid var(--ln);border-radius:16px;padding:24px}
+.sc .keys{margin-bottom:18px}.sc h3{font:700 20px 'Unbounded';letter-spacing:-.02em;margin:0 0 6px}.sc p{margin:0;color:var(--mu);font-size:15px}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding-bottom:90px}
+.stat .n{font:800 clamp(80px,12vw,160px)/.9 'Unbounded';letter-spacing:-.06em;color:var(--acc)}
+.stat p{font-size:22px;line-height:1.4;margin:0}
+footer{padding:30px 0 70px;color:var(--mu);font-size:14px;border-top:1px solid var(--ln);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media(max-width:860px){.shorts,.stat{grid-template-columns:1fr}.app{grid-template-columns:1fr}.app aside{display:none}nav a:not(.cta){display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><div class="lg">kestrel<span>.</span></div><a href="#">Features</a><a href="#">Shortcuts</a><a href="#">Changelog</a><span class="sp"></span><a class="cta" href="#">Download for Mac</a></nav>
+<div class="hero"><h1>Never reach for the <em>mouse</em> again.</h1><p>Kestrel is a task manager you drive entirely from the keyboard. Capture, triage and ship work without leaving the home row.</p>
+ <div class="try">Try it — press <kbd id="k1">⌘</kbd><kbd id="k2">K</kbd> then type, <kbd>↑</kbd><kbd>↓</kbd> and <kbd>↵</kbd></div></div>
+<div class="stage" id="stage">
+ <div class="app"><aside><div style="color:var(--tx);font-weight:600">Inbox · 8</div><div>Today · 5</div><div>Upcoming</div><div>Projects</div><div style="margin-top:14px">#launch-v3</div><div>#hiring</div><div>#q4-planning</div></aside>
+  <main><div style="font:700 22px 'Unbounded';margin-bottom:10px">Today</div><div id="tasks"></div></main></div>
+ <div class="pal"><input id="in" placeholder="Type a command or search…" autocomplete="off"><div id="res"></div></div>
+</div>
+<div class="shorts"><div class="sc"><div class="keys"><kbd>C</kbd></div><h3>Capture</h3><p>One key, from anywhere on your Mac. Natural dates: “invoice Fernway fri 3pm”.</p></div><div class="sc"><div class="keys"><kbd>E</kbd><kbd>E</kbd></div><h3>Triage</h3><p>Double-tap E to empty the inbox one decision at a time. Defer, delegate, do.</p></div><div class="sc"><div class="keys"><kbd>G</kbd><kbd>P</kbd></div><h3>Jump</h3><p>Vim-style go-to for every view. G P for projects, G T for today, G I for inbox.</p></div></div>
+<div class="stat"><div class="n">2.4h</div><p>saved per week by the median Kestrel user, measured as time not spent clicking through menus. <span style="color:var(--mu)">(Yes, we measure that. Locally, on your machine.)</span></p></div>
+<footer><span>© 2026 Kestrel Labs</span><span>macOS · Windows · Linux · Web</span></footer>
+</div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#111;text-decoration:none">← 50 SaaS</a>
+<script>
+const T=[['Review launch checklist','#launch-v3','today'],['Reply to Priya re: pricing page','','11:00'],['Draft Q4 OKRs','#q4-planning','fri'],['Interview: senior designer','#hiring','14:30'],['Ship onboarding emails','#launch-v3','today']];
+const tasks=document.getElementById('tasks');const drawT=()=>tasks.innerHTML=T.map(t=>`<div class="task"><i></i>${t[0]} <span>${t[1]} ${t[2]}</span></div>`).join('');drawT();
+const CMDS=[['＋','Create task','C'],['✓','Complete selected','⌘↵'],['→','Move to project…','M'],['◷','Snooze until tomorrow','H'],['⎇','Go to #launch-v3','G P'],['⌕','Search all tasks','/'],['☾','Toggle dark mode','⌥T'],['↻','Undo last action','⌘Z']];
+const stage=document.getElementById('stage'),inp=document.getElementById('in'),res=document.getElementById('res');let sel=0,list=CMDS;
+function draw(){const q=inp.value.toLowerCase();list=CMDS.filter(c=>c[1].toLowerCase().includes(q));sel=Math.min(sel,Math.max(0,list.length-1));
+ res.innerHTML='<div class="grp">'+(q?'Results':'Suggested')+'</div>'+(list.map((c,i)=>`<div class="it ${i===sel?'on':''}" data-i="${i}"><span class="ic">${c[0]}</span>${q?c[1].replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','i'),'<mark>$1</mark>'):c[1]}<small>${c[2]}</small></div>`).join('')||'<div class="it">No commands — press ↵ to create “'+inp.value+'”</div>')}
+function run(){const c=list[sel];stage.classList.add('idle');if(!c&&inp.value){T.unshift([inp.value,'','today']);drawT()}else if(c&&c[1]==='Create task'){T.unshift(['New task','','today']);drawT()}else if(c&&c[1]==='Complete selected'){T.shift();drawT()}inp.value='';}
+inp.oninput=()=>{sel=0;draw()};
+inp.onkeydown=e=>{if(e.key==='ArrowDown'){sel=(sel+1)%Math.max(1,list.length);draw();e.preventDefault()}if(e.key==='ArrowUp'){sel=(sel-1+list.length)%Math.max(1,list.length);draw();e.preventDefault()}if(e.key==='Enter')run();if(e.key==='Escape')stage.classList.add('idle')};
+res.onclick=e=>{const it=e.target.closest('[data-i]');if(it){sel=+it.dataset.i;run()}};
+const press=(id,on)=>document.getElementById(id)?.classList.toggle('dn',on);
+addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();press('k1',1);press('k2',1);setTimeout(()=>{press('k1',0);press('k2',0)},150);stage.classList.remove('idle');inp.focus();draw()}});
+stage.addEventListener('click',e=>{if(stage.classList.contains('idle')){stage.classList.remove('idle');inp.focus();draw()}});
+// auto demo: type "snooze"
+draw();let demo='snooze',di=0;const iv=setInterval(()=>{if(document.activeElement===inp){clearInterval(iv);return}inp.value=demo.slice(0,++di);draw();if(di>=demo.length)clearInterval(iv)},180);
+</script>
+</body>
+</html>

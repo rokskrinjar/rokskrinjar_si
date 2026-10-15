@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plugboard — Integrations</title>
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>html.embed .bk{display:none!important}</style><script>try{if(self!==parent||location.hash=='#t')document.documentElement.classList.add('embed')}catch(e){document.documentElement.classList.add('embed')}</script>
+<style>
+:root{--panel:#e9e3d6;--p2:#ddd5c4;--tx:#262320;--mu:#77705f;--ln:#cbc2ad;--jack:#2b2724;--red:#e0483a;--yel:#f0b429;--blu:#2e7fd6;--grn:#3aa76d}
+*{box-sizing:border-box}body{margin:0;background:var(--panel);color:var(--tx);font:15px/1.5 'Bai Jamjuree',sans-serif}
+.screw{position:absolute;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f5f0e6,#9b9282);box-shadow:inset 0 0 0 1px #8a8170}.screw::after{content:'';position:absolute;left:2px;right:2px;top:5px;height:2px;background:#6d6556;transform:rotate(35deg)}
+header{position:relative;padding:22px 40px;border-bottom:2px solid var(--ln);display:flex;align-items:center;gap:24px}
+.lg{font:700 22px 'Bai Jamjuree';letter-spacing:.06em;display:flex;align-items:center;gap:10px}.lg i{width:18px;height:18px;border-radius:50%;background:var(--jack);box-shadow:0 0 0 4px #bdb39d}
+header .sp{flex:1}header a{color:var(--tx);text-decoration:none;font-weight:500}
+.hero{position:relative;padding:40px;display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:center}
+h1{font:700 clamp(38px,5vw,64px)/1 'Bai Jamjuree';letter-spacing:-.02em;margin:0 0 14px;text-transform:uppercase}
+h1 span{color:var(--red)}
+.hero p{color:var(--mu);font-size:18px;max-width:30em}
+.bay{position:relative;background:var(--p2);border:2px solid var(--ln);border-radius:14px;padding:22px;box-shadow:inset 0 2px 0 #f6f1e7,0 10px 20px rgba(0,0,0,.08)}
+.bay svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:visible}
+.rowj{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:70px}.rowj:last-of-type{margin-bottom:0}
+.j{text-align:center;font:600 11px 'JetBrains Mono';color:var(--mu);text-transform:uppercase}
+.j b{display:block;width:34px;height:34px;margin:0 auto 6px;border-radius:50%;background:radial-gradient(circle,#111 0 7px,#555 8px 10px,#c9c0ab 11px);box-shadow:0 2px 0 #fff8}
+.lab{font:700 11px 'Bai Jamjuree';letter-spacing:.2em;color:var(--mu);margin:0 0 8px}
+.bar{display:flex;gap:10px;padding:0 40px 20px;flex-wrap:wrap;align-items:center}
+.srch{flex:1;min-width:240px;border:2px solid var(--ln);background:#f3eee3;border-radius:10px;padding:12px 14px;font:16px 'Bai Jamjuree'}
+.cat{border:2px solid var(--ln);background:transparent;border-radius:999px;padding:7px 14px;font:600 14px 'Bai Jamjuree';cursor:pointer;color:var(--tx)}.cat.on{background:var(--tx);color:var(--panel);border-color:var(--tx)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:0 40px 70px}
+.app{background:#f3eee3;border:2px solid var(--ln);border-radius:14px;padding:18px;position:relative;cursor:pointer;transition:transform .15s}
+.app:hover{transform:translateY(-3px)}
+.app .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:#fff;font:700 18px 'Bai Jamjuree';margin-bottom:12px}
+.app h3{margin:0;font-size:18px}.app p{margin:4px 0 12px;color:var(--mu);font-size:14px}
+.app .ft{display:flex;justify-content:space-between;align-items:center;font:12px 'JetBrains Mono';color:var(--mu)}
+.led{width:10px;height:10px;border-radius:50%;background:#bdb39d;box-shadow:inset 0 1px 2px rgba(0,0,0,.3)}.led.on{background:#5fe08f;box-shadow:0 0 10px #5fe08f}
+.btn{border:0;border-radius:8px;padding:7px 12px;font:700 13px 'Bai Jamjuree';cursor:pointer;background:var(--tx);color:var(--panel)}.btn.on{background:var(--grn)}
+@media(max-width:960px){.hero{grid-template-columns:1fr;padding:24px 18px}.grid{grid-template-columns:1fr 1fr;padding:0 18px 60px}.bar{padding:0 18px 18px}header{padding:18px}header a{display:none}}
+</style>
+</head>
+<body>
+<header><span class="screw" style="left:10px;top:10px"></span><span class="screw" style="right:10px;top:10px"></span><div class="lg"><i></i>PLUGBOARD</div><a href="#">Directory</a><a href="#">Build an integration</a><a href="#">Docs</a><span class="sp"></span><span style="font:600 13px 'JetBrains Mono';color:var(--mu)">4 PATCHED · 212 AVAILABLE</span></header>
+<div class="hero"><div><h1>Patch any app<br>into <span>any other.</span></h1><p>Plugboard connects 212 tools with two-way sync, so a deal won in your CRM becomes a project, an invoice and a Slack cheer — without a single Zap.</p></div>
+ <div class="bay" id="bay"><svg id="cables"></svg><div class="lab">OUTPUTS · TRIGGERS</div><div class="rowj" id="out"></div><div class="lab">INPUTS · ACTIONS</div><div class="rowj" id="in"></div></div></div>
+<div class="bar"><input class="srch" id="q" placeholder="Search integrations…"><div id="cats" style="display:flex;gap:6px;flex-wrap:wrap"></div></div>
+<div class="grid" id="grid"></div>
+<a class="bk" href="index.html" style="position:fixed;left:12px;bottom:12px;z-index:9999;font:600 12px/1 system-ui,sans-serif;padding:9px 12px;border-radius:999px;background:rgba(20,20,20,.82);color:#fff;text-decoration:none">← 50 SaaS</a>
+<script>
+const OUT=['CRM','Forms','Stripe','Calendar','GitHub','Support'],IN=['Slack','Projects','Invoices','Email','Sheets','Warehouse'];
+const PATCH=[[0,1,'#e0483a'],[2,2,'#f0b429'],[1,3,'#2e7fd6'],[4,0,'#3aa76d']];
+const $=s=>document.getElementById(s);$('out').innerHTML=OUT.map(o=>`<div class="j"><b></b>${o}</div>`).join('');$('in').innerHTML=IN.map(o=>`<div class="j"><b></b>${o}</div>`).join('');
+function cables(){const bay=$('bay').getBoundingClientRect();const o=[...$('out').querySelectorAll('b')],n=[...$('in').querySelectorAll('b')];
+ $('cables').innerHTML=PATCH.map(([a,b,c],k)=>{const p=o[a].getBoundingClientRect(),q=n[b].getBoundingClientRect();const x1=p.left-bay.left+17,y1=p.top-bay.top+17,x2=q.left-bay.left+17,y2=q.top-bay.top+17;const sag=60+k*14;
+  return`<path d="M${x1} ${y1} C ${x1} ${y1+sag}, ${x2} ${y2+sag}, ${x2} ${y2}" stroke="rgba(0,0,0,.18)" stroke-width="9" fill="none" transform="translate(3,5)"/><path d="M${x1} ${y1} C ${x1} ${y1+sag}, ${x2} ${y2+sag}, ${x2} ${y2}" stroke="${c}" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="${x1}" cy="${y1}" r="9" fill="${c}" stroke="#222" stroke-width="2"/><circle cx="${x2}" cy="${y2}" r="9" fill="${c}" stroke="#222" stroke-width="2"/>`}).join('')}
+addEventListener('resize',cables);setTimeout(cables,50);document.fonts&&document.fonts.ready.then(cables);
+const A=[['HubSpot','CRM','#ff7a59','Two-way contact & deal sync',1],['Slack','Chat','#4a154b','Post to channels, react to emoji',1],['Stripe','Billing','#635bff','Payments, invoices, refunds',1],['Linear','Projects','#5e6ad2','Issues from deals and tickets',1],['Notion','Docs','#111','Create pages from templates',0],['Google Sheets','Data','#0f9d58','Append rows, live lookups',0],['Zendesk','Support','#03363d','Tickets ↔ accounts',0],['Xero','Billing','#13b5ea','Invoices & reconciliation',0],['GitHub','Dev','#24292f','Releases, PRs, issues',0],['Typeform','Forms','#262627','Responses as triggers',0],['Snowflake','Data','#29b5e8','Warehouse sync, hourly',0],['Salesforce','CRM','#00a1e0','Objects, flows, reports',0]];
+let cat='All';const cats=['All','CRM','Billing','Projects','Data','Chat','Support','Dev'];
+function grid(){const q=$('q').value.toLowerCase();$('cats').innerHTML=cats.map(c=>`<button class="cat ${c===cat?'on':''}" data-c="${c}">${c}</button>`).join('');
+ $('grid').innerHTML=A.filter(a=>(cat==='All'||a[1]===cat)&&(a[0]+a[3]).toLowerCase().includes(q)).map(a=>`<div class="app"><div class="ic" style="background:${a[2]}">${a[0][0]}</div><h3>${a[0]}</h3><p>${a[3]}</p><div class="ft"><span style="display:flex;gap:6px;align-items:center"><span class="led ${a[4]?'on':''}"></span>${a[4]?'PATCHED':a[1].toUpperCase()}</span><button class="btn ${a[4]?'on':''}" data-a="${a[0]}">${a[4]?'✓ On':'Connect'}</button></div></div>`).join('')}
+$('cats').onclick=e=>{const b=e.target.closest('[data-c]');if(b){cat=b.dataset.c;grid()}};$('q').oninput=grid;
+$('grid').onclick=e=>{const b=e.target.closest('[data-a]');if(b){const a=A.find(x=>x[0]===b.dataset.a);a[4]=a[4]?0:1;grid()}};grid();
+</script>
+</body>
+</html>
