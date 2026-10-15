@@ -1,0 +1,51 @@
+{
+  "experience": [
+    {
+      "years": ["2024 – present"],
+      "role": "Head of Analytics",
+      "company": "Aye-Q",
+      "summary": "Rebuilt the analytics of a revenue-management product for SaaS companies: one standard solution for every customer instead of a custom build for each."
+    },
+    {
+      "years": ["2020 – 2024"],
+      "role": "Supply Chain Analytics Coach",
+      "company": "Novartis",
+      "summary": "Built Qlik Sense apps for the supply chain community, governed apps delivered by group IT and trained users. Automated monthly reporting with a KPI dashboard for strategic product leads."
+    },
+    {
+      "years": ["2019 – 2020", "2014 – 2017"],
+      "role": "SAP Consultant, later BW/BI Team Lead",
+      "company": "Sapphir",
+      "summary": "Two stints with a national tax administration. First as an ABAP and BRF+ developer automating tax processing and building fraud-detection strategies; later leading a small SAP BI team that ran its data warehouse, integrations and management dashboards."
+    },
+    {
+      "years": ["2017 – 2019"],
+      "role": "Master Data & BI Manager",
+      "company": "Danfoss Trata",
+      "summary": "Owned product master data for one of Danfoss's four global business segments, across 14 product lines. Set up master-data governance and launched a global product catalogue."
+    },
+    {
+      "years": ["2013 – 2014"],
+      "role": "Business Controller & BI Developer",
+      "company": "ISS Facility Services",
+      "summary": "Replaced Excel-based reporting with a company-wide BI system that made billing for large contracts almost automatic. Coordinated the ERP upgrade."
+    },
+    {
+      "years": ["2012 – 2013"],
+      "role": "BI Consultant & Developer",
+      "company": "Adacta",
+      "summary": "QlikView consultant and developer, delivering complete BI systems for large companies in energy and other industries."
+    },
+    {
+      "years": ["2004 – 2012"],
+      "role": "Teaching Assistant",
+      "company": "Faculty of Economics, University of Ljubljana",
+      "summary": "Taught process modelling and redesign, e-commerce and decision support systems, and published in peer-reviewed journals. As General Secretary of the Business Informatics Institute, ran process-redesign projects for a bank and a power utility."
+    }
+  ],
+  "education": [
+    { "year": "2010", "title": "PhD", "school": "Faculty of Economics, University of Ljubljana" },
+    { "year": "2003", "title": "Postgraduate study, Managing Information Technology", "school": "University of Salford (Erasmus)" },
+    { "year": "2002", "title": "Degree in Business Informatics", "school": "Faculty of Economics, University of Ljubljana" }
+  ]
+}
