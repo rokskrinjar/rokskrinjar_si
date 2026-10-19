@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Moja kuharska knjiga · Rok Skrinjar</title>
   <meta name="description" content="Osebna zbirka preverjenih receptov in kuharskih spoznanj.">
+  <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -108,6 +109,15 @@
     .related li { margin:6px 0; }
 
     .state { padding:40px 0; color:var(--muted); }
+    /* Password gate: keeps the cookbook out of sight, not a real lock */
+    .lock { max-width:360px; margin:12vh auto 0; text-align:center; }
+    .lock h1 { font-size:2rem; margin-bottom:8px; }
+    .lock p { margin:0 0 24px; color:var(--muted); }
+    .lock form { display:flex; gap:8px; }
+    .lock input { flex:1; min-width:0; min-height:48px; padding:0 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--fg); font:inherit; font-size:1rem; }
+    .lock input:focus { outline:2px solid var(--accent); outline-offset:1px; }
+    .lock button { min-height:48px; padding:0 18px; border:0; border-radius:10px; background:var(--accent); color:#fff; font:inherit; font-weight:600; cursor:pointer; }
+    .lock .err { margin:12px 0 0; color:var(--accent); min-height:1.5em; }
     footer { margin-top:72px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:.85rem; }
     @media (prefers-reduced-motion: reduce) { .card { transition:none; } .card:hover { transform:none; } }
   </style>
@@ -349,8 +359,42 @@
       wrapTables(document.getElementById('body'));
     }
 
-    const q = new URLSearchParams(location.search);
-    (q.get('r') ? renderRecipe(q.get('r')) : q.get('k') ? renderTopic(q.get('k')) : renderHome())
+    const start = () => {
+      const q = new URLSearchParams(location.search);
+      return (q.get('r') ? renderRecipe(q.get('r')) : q.get('k') ? renderTopic(q.get('k')) : renderHome());
+    };
+
+    // Password gate. The cookbook is only hidden from casual visitors: the recipes are public files in the repo.
+    const PASS_SHA256 = '897c28f8df989f876ea04616fe6e7f2d1219a8bbabdbb30ff8d409cec8f8db07';
+    const sha256 = async t => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)))].map(b => b.toString(16).padStart(2, '0')).join('');
+    const unlocked = () => { try { return localStorage.getItem('cookbook-key') === PASS_SHA256; } catch (e) { return false; } };
+    function gate() {
+      return new Promise(resolve => {
+        if (unlocked()) return resolve();
+        app.innerHTML = `<div class="lock">
+          <p class="eyebrow">Kuharska knjiga</p>
+          <h1>Zasebno</h1>
+          <p>Za ogled vnesi geslo.</p>
+          <form id="lock"><input id="pw" type="password" autocomplete="current-password" aria-label="Geslo" placeholder="Geslo" required><button type="submit">Odpri</button></form>
+          <p class="err" id="err" role="alert"></p>
+        </div>`;
+        const pw = document.getElementById('pw');
+        pw.focus();
+        document.getElementById('lock').addEventListener('submit', async e => {
+          e.preventDefault();
+          if (await sha256(pw.value) === PASS_SHA256) {
+            try { localStorage.setItem('cookbook-key', PASS_SHA256); } catch (err) {}
+            app.innerHTML = '<p class="state">Nalagam kuharsko knjigo…</p>';
+            resolve();
+          } else {
+            document.getElementById('err').textContent = 'Napačno geslo.';
+            pw.select();
+          }
+        });
+      });
+    }
+
+    gate().then(start)
       .catch(() => {
         app.innerHTML = `<a class="back" href="/projects/">← Projekti</a><h1>Moja kuharska knjiga</h1>
           <p class="lead">Vsebine trenutno ni mogoče naložiti. Poskusi znova čez minuto.</p>
