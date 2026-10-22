@@ -72,7 +72,7 @@ S čim jo postrežem.
 - **14. 10. 2026:** kako je šlo, kaj sem spremenil, kaj ni zabeleženo.
 ```
 
-- Naslova `## Sestavine` in `## Priprava` naj ostaneta točno tako, saj se na strani spremenita v seznam za odkljukanje med kuhanjem.
+- Naslova `## Sestavine` in `## Priprava` (ali `## Postopek`) naj ostaneta točno tako, saj se na strani spremenita v seznam za odkljukanje med kuhanjem. Pod njima so dovoljeni podrazdelki `###` (npr. `### Omaka`), seznami v njih postanejo kljukice.
 - Vsi ostali razdelki so neobvezni; dodaš lahko tudi druge. Neizveden recept nima `## Dnevnik priprave`, dokler ga ne skuham.
 - Povezava na drug recept v besedilu: `[Ime recepta](?r=ime-datoteke)`. Tabele v Markdownu so podprte.
 - Kategorije za zdaj: `Glavne jedi`, `Osnovne omake`. Novo dodaj le, kadar res potrebuješ, in jo vedno zapiši enako.

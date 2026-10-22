@@ -260,7 +260,6 @@
       if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
     }
 
-    // Turn the lists under "Sestavine" and "Priprava" into tap-to-tick checklists.
     function wrapTables(root) {
       root.querySelectorAll('table').forEach(t => {
         const box = document.createElement('div');
@@ -270,11 +269,9 @@
       });
     }
 
+    // Turn the lists under "Sestavine" and "Priprava"/"Postopek" (including ### subsections) into tap-to-tick checklists.
     function checklists(root) {
-      root.querySelectorAll('h2').forEach(h => {
-        if (!/^(sestavine|priprava)$/i.test(h.textContent.trim())) return;
-        const listEl = h.nextElementSibling;
-        if (!listEl || !/^(UL|OL)$/.test(listEl.tagName)) return;
+      const tick = listEl => {
         const numbered = listEl.tagName === 'OL';
         listEl.classList.add('check');
         [...listEl.children].forEach((li, i) => {
@@ -288,6 +285,12 @@
           label.append(text);
           li.append(label);
         });
+      };
+      root.querySelectorAll('h2').forEach(h => {
+        if (!/^(sestavine|priprava|postopek)$/i.test(h.textContent.trim())) return;
+        for (let el = h.nextElementSibling; el && el.tagName !== 'H2'; el = el.nextElementSibling) {
+          if (/^(UL|OL)$/.test(el.tagName)) tick(el);
+        }
       });
     }
 
