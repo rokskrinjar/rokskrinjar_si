@@ -12,115 +12,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js" integrity="sha384-+pxiN6T7yvpryuJmE1gM9PX7yQit15auDb+ZwwvJOd/4be2Cie5/IuVXgQb/S9du" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a" crossorigin="anonymous"></script>
-  <style>
-    :root {
-      --bg:#fbf8f3; --fg:#2a2420; --muted:#6f655c; --card:#fff; --border:#ebe3d8;
-      --accent:#b4441c; --accent-soft:#f7e9df; --ok:#3d7537; --ok-soft:#e7f1e3;
-      --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
-      --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg:#161311; --fg:#f1ebe4; --muted:#a89d92; --card:#1f1b18; --border:#352d27;
-              --accent:#f08a5d; --accent-soft:#3a2419; --ok:#8cc483; --ok-soft:#1f2c1c; }
-    }
-    * { box-sizing:border-box; }
-    [hidden] { display:none !important; } /* .card and .tool set display, which would override [hidden] */
-    body { margin:0; background:var(--bg); color:var(--fg); font-family:system-ui,-apple-system,'Segoe UI',sans-serif; line-height:1.6; -webkit-text-size-adjust:100%; }
-    a { color:var(--accent); }
-    main { max-width:960px; margin:0 auto; padding:40px 16px 96px; }
-    .narrow { max-width:720px; margin:0 auto; }
-    .back { display:inline-block; color:var(--muted); font-size:.9rem; text-decoration:none; padding:10px 0; }
-    .back:hover { color:var(--accent); }
-    .eyebrow { margin:24px 0 6px; color:var(--accent); font-size:.75rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
-    h1, h2, h3 { font-family:var(--serif); font-weight:600; letter-spacing:-.01em; line-height:1.15; }
-    h1 { margin:0 0 12px; font-size:clamp(2.1rem, 7vw, 3.3rem); }
-    .lead { margin:0; max-width:36rem; color:var(--muted); font-size:1.1rem; }
-    .muted { color:var(--muted); }
-
-    .sections { display:flex; gap:8px; flex-wrap:wrap; margin:28px 0 0; }
-    .sections a { display:inline-flex; align-items:center; min-height:44px; padding:0 16px; border:1px solid var(--border); border-radius:999px; background:var(--card); color:var(--fg); text-decoration:none; font-size:.95rem; }
-    .sections a:hover { border-color:var(--accent); }
-    section { margin-top:56px; scroll-margin-top:16px; }
-    .section-head { display:flex; align-items:baseline; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border); padding-bottom:8px; margin-bottom:20px; }
-    .section-head h2 { margin:0; font-size:1.6rem; }
-
-    .chips { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 20px; }
-    .chip { min-height:40px; padding:0 14px; border:1px solid var(--border); border-radius:999px; background:transparent; color:var(--fg); font:inherit; font-size:.9rem; cursor:pointer; }
-    .chip[aria-pressed="true"] { background:var(--fg); border-color:var(--fg); color:var(--bg); }
-
-    .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap:16px; }
-    .card { display:flex; flex-direction:column; background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; color:inherit; text-decoration:none; transition:border-color .15s, transform .15s; }
-    .card:hover { border-color:var(--accent); transform:translateY(-2px); }
-    .card img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; background:var(--accent-soft); }
-    .card-body { display:flex; flex-direction:column; gap:8px; padding:18px 18px 20px; flex:1; }
-    .card h3 { margin:0; font-size:1.3rem; }
-    .meta { display:flex; flex-wrap:wrap; gap:4px 12px; color:var(--muted); font-size:.85rem; }
-    .desc { margin:0; color:var(--muted); font-size:.95rem; }
-    .verdict { margin:0; font-family:var(--serif); font-style:italic; font-size:1.05rem; }
-    .badges { display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:6px; }
-    .badge { display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:2px 10px; font-size:.78rem; font-weight:600; background:var(--accent-soft); color:var(--accent); }
-    .badge.ok { background:var(--ok-soft); color:var(--ok); }
-    .badge.tag { background:transparent; border:1px solid var(--border); color:var(--muted); font-weight:400; }
-    .stars { color:var(--accent); letter-spacing:.1em; }
-
-    .topics { list-style:none; margin:0; padding:0; border-top:1px solid var(--border); }
-    .topics a { display:block; padding:16px 4px; border-bottom:1px solid var(--border); color:inherit; text-decoration:none; }
-    .topics a:hover h3 { color:var(--accent); }
-    .topics h3 { margin:0 0 4px; font-size:1.2rem; }
-    .topics p { margin:0; color:var(--muted); font-size:.95rem; }
-
-    /* Detail views */
-    .detail-meta { display:flex; flex-wrap:wrap; gap:6px 18px; margin:8px 0 0; color:var(--muted); font-size:.95rem; }
-    .detail-meta span { display:inline-flex; gap:6px; }
-    .detail-meta b { color:var(--fg); font-weight:600; }
-    .verdict-big { margin:28px 0 0; padding:20px 22px; border-radius:14px; background:var(--accent-soft); }
-    .verdict-big .badges { margin:0 0 8px; padding:0; }
-    .verdict-big blockquote { margin:0; font-family:var(--serif); font-style:italic; font-size:1.5rem; line-height:1.3; }
-    .photos { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap:10px; margin:24px 0 0; }
-    .photos img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:10px; display:block; }
-    .tools { display:flex; flex-wrap:wrap; gap:8px; margin:24px 0 0; }
-    .tool { display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 16px; border:1px solid var(--border); border-radius:999px; background:var(--card); color:var(--fg); font:inherit; font-size:.9rem; cursor:pointer; }
-    .tool[aria-pressed="true"] { border-color:var(--ok); color:var(--ok); }
-
-    .prose { margin-top:8px; font-size:1.05rem; }
-    .prose h2 { margin:40px 0 12px; font-size:1.55rem; }
-    .prose h3 { margin:28px 0 8px; font-size:1.2rem; }
-    .prose ul, .prose ol { padding-left:1.3em; }
-    .prose li { margin:6px 0; }
-    .prose blockquote { margin:16px 0; padding:4px 0 4px 16px; border-left:3px solid var(--accent); color:var(--muted); }
-    .prose strong { font-weight:650; }
-    .prose h1 + .lead, .narrow h1 + .lead { margin-bottom:12px; }
-    .table-wrap { overflow-x:auto; margin:20px 0; border:1px solid var(--border); border-radius:12px; background:var(--card); }
-    .prose table { width:100%; border-collapse:collapse; font-size:.95rem; }
-    .prose th, .prose td { padding:10px 14px; text-align:left; vertical-align:top; border-bottom:1px solid var(--border); }
-    .prose th { font-weight:600; color:var(--muted); font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; }
-    .prose tr:last-child td { border-bottom:0; }
-    .prose td:first-child { font-weight:600; white-space:nowrap; }
-    /* Ingredients and steps become tap-to-tick checklists while cooking */
-    .prose .check { list-style:none; padding:0; }
-    .prose .check li { margin:0; border-bottom:1px solid var(--border); }
-    .prose .check label { display:flex; gap:14px; align-items:flex-start; padding:12px 2px; cursor:pointer; }
-    .prose .check input { flex:0 0 auto; width:22px; height:22px; margin:2px 0 0; accent-color:var(--ok); }
-    .prose .check .n { flex:0 0 auto; min-width:1.4em; font-family:var(--serif); font-weight:600; color:var(--accent); }
-    .prose .check input:checked ~ span { color:var(--muted); text-decoration:line-through; text-decoration-color:var(--border); }
-    .related { margin-top:48px; padding-top:20px; border-top:1px solid var(--border); }
-    .related h2 { margin:0 0 8px; font-size:1.25rem; }
-    .related ul { margin:0; padding-left:1.2em; }
-    .related li { margin:6px 0; }
-
-    .state { padding:40px 0; color:var(--muted); }
-    /* Password gate: keeps the cookbook out of sight, not a real lock */
-    .lock { max-width:360px; margin:12vh auto 0; text-align:center; }
-    .lock h1 { font-size:2rem; margin-bottom:8px; }
-    .lock p { margin:0 0 24px; color:var(--muted); }
-    .lock form { display:flex; gap:8px; }
-    .lock input { flex:1; min-width:0; min-height:48px; padding:0 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--fg); font:inherit; font-size:1rem; }
-    .lock input:focus { outline:2px solid var(--accent); outline-offset:1px; }
-    .lock button { min-height:48px; padding:0 18px; border:0; border-radius:10px; background:var(--accent); color:#fff; font:inherit; font-weight:600; cursor:pointer; }
-    .lock .err { margin:12px 0 0; color:var(--accent); min-height:1.5em; }
-    footer { margin-top:72px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:.85rem; }
-    @media (prefers-reduced-motion: reduce) { .card { transition:none; } .card:hover { transform:none; } }
-  </style>
+  <link rel="stylesheet" href="/projects/cooking/cookbook.css">
+  <script src="/projects/cooking/gate.js"></script>
 </head>
 <body>
   <main id="app">
@@ -237,6 +130,7 @@
         <nav class="sections" aria-label="Razdelki">
           <a href="#recepti">Recepti · ${recipes.length}</a>
           <a href="#znanje">Kuharsko znanje · ${topics.length}</a>
+          <a href="temperatures/">Temperature pečenja</a>
         </nav>
         <section id="recepti">
           <div class="section-head"><h2>Recepti</h2></div>
@@ -248,6 +142,7 @@
         </section>
         <section id="znanje">
           <div class="section-head"><h2>Kuharsko znanje</h2><span class="muted">Tehnike, razlage in triki</span></div>
+          <a class="feature" href="temperatures/"><span class="feature-t">°C</span><span><h3>Temperature pečenja mesa in rib</h3><p>Izberi kos in pečenost ter takoj dobi ciljno temperaturo sredice, čas počivanja in uradni varnostni minimum.</p></span></a>
           ${topics.length ? `<ul class="topics">${topics.map(k => `<li><a href="?k=${esc(k.slug)}"><h3>${esc(k.title)}</h3><p>${esc(excerpt(k.body))}</p></a></li>`).join('')}</ul>` : '<p class="muted">Še ni zapisov.</p>'}
         </section>
         ${footer}`;
@@ -317,6 +212,10 @@
       document.title = `${r.title} · Moja kuharska knjiga`;
       const topics = await loadAll('knowledge', list(r.knowledge).filter(s => SLUG.test(s)));
       const photos = list(r.photos).map(p => ({ src: photoSrc(p), alt: photoAlt(p, r.title) })).filter(p => p.src);
+      const temps = await fetch('temperatures/data.json').then(x => x.json()).then(d => d.cuts.filter(c => (c.recipes || []).includes(slug)).map(c => {
+        const o = c.doneness ? { temp: d.doneness[c.default].target, label: d.doneness[c.default].label } : (c.options.find(o => o.id === c.default) || c.options[0]);
+        return { id: c.id, name: c.name, temp: o.temp, label: o.label };
+      })).catch(() => []);
       app.innerHTML = `<article class="narrow">
         <a class="back" href="./">← Kuharska knjiga</a>
         ${r.category ? `<p class="eyebrow">${esc(r.category)}</p>` : '<p class="eyebrow">Recept</p>'}
@@ -333,6 +232,7 @@
           ${r.verdict ? `<blockquote>»${esc(r.verdict)}«</blockquote>` : ''}
         </div>` : ''}
         ${photos.length ? `<div class="photos">${photos.map(p => `<img src="${esc(p.src)}" alt="${esc(p.alt)}" loading="lazy">`).join('')}</div>` : ''}
+        ${temps.map(t => `<a class="temp-link" href="temperatures/?kos=${esc(t.id)}"><span class="temp-n">${t.temp} °C</span><span><b>Ciljna temperatura sredice</b>${esc(t.name)} · ${esc(t.label)}<small>Odpri vodnik po temperaturah →</small></span></a>`).join('')}
         <div class="tools"><button type="button" class="tool" id="wake" aria-pressed="false" hidden>Zaslon naj ostane prižgan</button></div>
         <div class="prose" id="body">${md(r.body)}</div>
         ${list(r.tags).length ? `<div class="badges">${list(r.tags).map(t => `<span class="badge tag">${esc(t)}</span>`).join('')}</div>` : ''}
@@ -367,37 +267,7 @@
       return (q.get('r') ? renderRecipe(q.get('r')) : q.get('k') ? renderTopic(q.get('k')) : renderHome());
     };
 
-    // Password gate. The cookbook is only hidden from casual visitors: the recipes are public files in the repo.
-    const PASS_SHA256 = '897c28f8df989f876ea04616fe6e7f2d1219a8bbabdbb30ff8d409cec8f8db07';
-    const sha256 = async t => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)))].map(b => b.toString(16).padStart(2, '0')).join('');
-    const unlocked = () => { try { return localStorage.getItem('cookbook-key') === PASS_SHA256; } catch (e) { return false; } };
-    function gate() {
-      return new Promise(resolve => {
-        if (unlocked()) return resolve();
-        app.innerHTML = `<div class="lock">
-          <p class="eyebrow">Kuharska knjiga</p>
-          <h1>Zasebno</h1>
-          <p>Za ogled vnesi geslo.</p>
-          <form id="lock"><input id="pw" type="password" autocomplete="current-password" aria-label="Geslo" placeholder="Geslo" required><button type="submit">Odpri</button></form>
-          <p class="err" id="err" role="alert"></p>
-        </div>`;
-        const pw = document.getElementById('pw');
-        pw.focus();
-        document.getElementById('lock').addEventListener('submit', async e => {
-          e.preventDefault();
-          if (await sha256(pw.value) === PASS_SHA256) {
-            try { localStorage.setItem('cookbook-key', PASS_SHA256); } catch (err) {}
-            app.innerHTML = '<p class="state">Nalagam kuharsko knjigo…</p>';
-            resolve();
-          } else {
-            document.getElementById('err').textContent = 'Napačno geslo.';
-            pw.select();
-          }
-        });
-      });
-    }
-
-    gate().then(start)
+    cookbookGate(app).then(start)
       .catch(() => {
         app.innerHTML = `<a class="back" href="/projects/">← Projekti</a><h1>Moja kuharska knjiga</h1>
           <p class="lead">Vsebine trenutno ni mogoče naložiti. Poskusi znova čez minuto.</p>

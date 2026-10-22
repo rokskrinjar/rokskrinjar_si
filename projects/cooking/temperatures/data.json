@@ -1,0 +1,1510 @@
+{
+  "checked": "2026-10-22",
+  "doneness": {
+    "rare": {
+      "label": "Rare",
+      "sl": "krvavo",
+      "range": [
+        49,
+        53
+      ],
+      "target": 52,
+      "color": "#9e1b32",
+      "text": "Sredica temno rdeča in sijoča, meso mehko in zelo sočno."
+    },
+    "medium-rare": {
+      "label": "Medium rare",
+      "sl": "srednje krvavo",
+      "range": [
+        54,
+        57
+      ],
+      "target": 56,
+      "color": "#c4374e",
+      "text": "Sredica svetlo rdeča do rožnata in topla, meso mehko in sočno. Najpogostejša izbira za steake."
+    },
+    "medium": {
+      "label": "Medium",
+      "sl": "srednje pečeno",
+      "range": [
+        58,
+        62
+      ],
+      "target": 60,
+      "color": "#d6787a",
+      "text": "Rožnata sredica, meso čvrstejše, sok svetlejši."
+    },
+    "medium-well": {
+      "label": "Medium well",
+      "sl": "skoraj pečeno",
+      "range": [
+        63,
+        68
+      ],
+      "target": 65,
+      "color": "#a9785e",
+      "text": "Le še sled rožnate barve v sredini, meso čvrsto in manj sočno."
+    },
+    "well-done": {
+      "label": "Well done",
+      "sl": "dobro pečeno",
+      "range": [
+        69,
+        73
+      ],
+      "target": 71,
+      "color": "#7a5a45",
+      "text": "Sivo-rjava sredica brez rožnate barve, meso čvrsto in bolj suho."
+    }
+  },
+  "safety": {
+    "whole-red": {
+      "temp": 63,
+      "rest": "3 min",
+      "label": "Govedina, teletina, jagnjetina (cel kos): 63 °C in vsaj 3 min počitka",
+      "source": "usda",
+      "below": "info",
+      "belowText": "Pod uradnim minimumom USDA (63 °C + 3 min počitka). Pri celih kosih govedine in jagnjetine so bakterije predvsem na površini, ki se pri pečenju močno segreje, zato jih kuharji pogosto pripravljajo rožnate. Za nosečnice, majhne otroke, starejše in imunsko oslabljene izberi vsaj 63 °C.",
+      "refs": [
+        "USDA: 63 °C + 3 min počitka",
+        "NIJZ: ≥ 63 °C za 15 s (govedina, teletina, ovčje meso)",
+        "FSA (UK): celi kosi govedine in jagnjetine so lahko v sredini rožnati, površina mora biti zapečena"
+      ]
+    },
+    "whole-pork": {
+      "temp": 63,
+      "rest": "3 min",
+      "label": "Svinjina, cel kos: 63 °C in vsaj 3 min počitka",
+      "source": "usda",
+      "below": "warn",
+      "belowText": "Pod uradnim minimumom za svinjino (63 °C + 3 min počitka, USDA). Rožnata svinjina je kulinarična izbira na lastno odgovornost; za ranljive skupine je odsvetovana.",
+      "refs": [
+        "USDA: 63 °C + 3 min počitka",
+        "NIJZ: ≥ 68 °C za 15 s",
+        "FSA (UK): svinjino speci do konca, brez rožnatega mesa"
+      ],
+      "strict": {
+        "temp": 68,
+        "text": "NIJZ za svinjino navaja ≥ 68 °C za 15 s, FSA (UK) pa svinjino brez rožnatega mesa. Za strožje priporočilo izberi 68 °C ali več.",
+        "short": "NIJZ: ≥ 68 °C"
+      }
+    },
+    "ground": {
+      "temp": 71,
+      "rest": null,
+      "label": "Mleto meso in sveže klobase: 71 °C",
+      "source": "usda",
+      "below": "danger",
+      "belowText": "Pri mletem mesu so bakterije s površine primešane v notranjost, zato mora sredica doseči vsaj 71 °C. Barva ni zanesljiv znak.",
+      "refs": [
+        "USDA: 71 °C (mleto meso in klobase)",
+        "NIJZ: ≥ 68 °C za 15 s; jedi z nadevom iz mletega mesa ≥ 74 °C",
+        "FSA (UK): 70 °C 2 minuti, burgerji doma ne rožnati"
+      ]
+    },
+    "poultry": {
+      "temp": 74,
+      "rest": null,
+      "label": "Vsa perutnina, tudi mleta: 74 °C",
+      "source": "usda",
+      "below": "danger",
+      "belowText": "Pod uradnim minimumom za perutnino (74 °C, USDA). Perutnina lahko vsebuje salmonelo in kampilobakter; nižja temperatura ni varna brez natančnega nadzora časa (npr. sous-vide).",
+      "refs": [
+        "USDA: 74 °C (vsa perutnina, tudi mleta)",
+        "EFSA: 75 °C",
+        "NIJZ: manjši kosi ≥ 74 °C za 15 s, piščančje prsi ≥ 76,5 °C, cela perutnina ≥ 82 °C (v stegnu)"
+      ]
+    },
+    "fish": {
+      "temp": 63,
+      "rest": null,
+      "label": "Ribe: 63 °C ali dokler meso ni več prosojno in se lušči",
+      "source": "usda",
+      "below": "warn",
+      "belowText": "Pod uradnim minimumom za ribe (63 °C, USDA). Sočna, ravno pečena riba je kulinarična izbira; zaradi zajedavcev naj bo riba, ki ni pečena do konca, predhodno zamrznjena. Za ranljive skupine peci do 63 °C.",
+      "refs": [
+        "USDA: 63 °C ali dokler meso ni več prosojno in se lušči",
+        "NIJZ: ≥ 63 °C za 15 s",
+        "FSA (UK): meso postane neprosojno in se lušči"
+      ]
+    },
+    "rolled": {
+      "temp": 70,
+      "rest": null,
+      "label": "Zvite (rolane) pečenke: pečene do konca, 70 °C",
+      "source": "fsa",
+      "below": "danger",
+      "belowText": "Pri zviti pečenki je nekdanja površina mesa zavita v notranjost, zato jo speci do konca kot mleto meso (FSA, UVHVVR).",
+      "refs": [
+        "FSA (UK): zvite pečenke speci do konca, 70 °C 2 minuti",
+        "UVHVVR: posebna pozornost pri zviti pečenki, kuhanje pri 70 °C"
+      ]
+    }
+  },
+  "species": [
+    {
+      "id": "govedina",
+      "name": "Govedina",
+      "table": "govedina",
+      "color": "#c4374e"
+    },
+    {
+      "id": "svinjina",
+      "name": "Svinjina",
+      "table": "svinjina",
+      "color": "#d98f7e"
+    },
+    {
+      "id": "piscanec",
+      "name": "Piščanec",
+      "table": "perutnina",
+      "color": "#d9a441"
+    },
+    {
+      "id": "puran",
+      "name": "Puran",
+      "table": "perutnina",
+      "color": "#c98a3a"
+    },
+    {
+      "id": "raca",
+      "name": "Raca",
+      "table": "perutnina",
+      "color": "#9c4a3c"
+    },
+    {
+      "id": "teletina",
+      "name": "Teletina",
+      "table": "teletina-jagnjetina",
+      "color": "#d6787a"
+    },
+    {
+      "id": "jagnjetina",
+      "name": "Jagnjetina",
+      "table": "teletina-jagnjetina",
+      "color": "#a8505a"
+    },
+    {
+      "id": "mleto",
+      "name": "Mleto meso",
+      "table": "mleto",
+      "color": "#8a5a44"
+    },
+    {
+      "id": "ribe",
+      "name": "Ribe",
+      "table": "ribe",
+      "color": "#5f93aa"
+    }
+  ],
+  "tables": [
+    {
+      "id": "govedina",
+      "name": "Govedina"
+    },
+    {
+      "id": "svinjina",
+      "name": "Svinjina"
+    },
+    {
+      "id": "perutnina",
+      "name": "Perutnina"
+    },
+    {
+      "id": "teletina-jagnjetina",
+      "name": "Teletina in jagnjetina"
+    },
+    {
+      "id": "mleto",
+      "name": "Mleto meso"
+    },
+    {
+      "id": "ribe",
+      "name": "Ribe"
+    }
+  ],
+  "cuts": [
+    {
+      "id": "govedina-pljucna",
+      "species": "govedina",
+      "name": "Pljučna pečenka (file)",
+      "safety": "whole-red",
+      "doneness": [
+        "rare",
+        "medium-rare",
+        "medium",
+        "medium-well",
+        "well-done"
+      ],
+      "default": "medium-rare",
+      "rest": "5 min, cel kos 10–15 min",
+      "carry": [
+        2,
+        4
+      ],
+      "tip": "Najmehkejši in zelo pust kos: nad medium hitro postane suh. Cel kos na hitro zapeci z vseh strani in ga dokončaj v pečici."
+    },
+    {
+      "id": "govedina-ramstek",
+      "species": "govedina",
+      "name": "Ramstek",
+      "safety": "whole-red",
+      "doneness": [
+        "rare",
+        "medium-rare",
+        "medium",
+        "medium-well",
+        "well-done"
+      ],
+      "default": "medium-rare",
+      "rest": "3–5 min",
+      "carry": [
+        2,
+        3
+      ],
+      "tip": "Mastni rob nekajkrat zareži, da se zrezek med pečenjem ne zvija."
+    },
+    {
+      "id": "govedina-entrecote",
+      "species": "govedina",
+      "name": "Entrecôte / bržola",
+      "safety": "whole-red",
+      "doneness": [
+        "rare",
+        "medium-rare",
+        "medium",
+        "medium-well",
+        "well-done"
+      ],
+      "default": "medium-rare",
+      "rest": "3–5 min",
+      "carry": [
+        2,
+        3
+      ],
+      "tip": "Ima več medmišične maščobe, ki se lepše stopi pri medium rare do medium kot pri rare."
+    },
+    {
+      "id": "govedina-tbone",
+      "species": "govedina",
+      "name": "T-bone",
+      "safety": "whole-red",
+      "doneness": [
+        "rare",
+        "medium-rare",
+        "medium",
+        "medium-well",
+        "well-done"
+      ],
+      "default": "medium-rare",
+      "rest": "5 min",
+      "carry": [
+        2,
+        3
+      ],
+      "tip": "Meri v debelejšem delu ob ledjih, stran od kosti. Manjši del s fileom se speče hitreje."
+    },
+    {
+      "id": "govedina-rostbif",
+      "species": "govedina",
+      "name": "Rostbif",
+      "safety": "whole-red",
+      "doneness": [
+        "rare",
+        "medium-rare",
+        "medium",
+        "medium-well"
+      ],
+      "default": "medium-rare",
+      "rest": "10–15 min",
+      "carry": [
+        3,
+        6
+      ],
+      "tip": "Velik kos: iz pečice ga vzemi nekaj stopinj prej, med počivanjem se še segreje. Reži na tanke rezine prečno na vlakna."
+    },
+    {
+      "id": "govedina-stegno",
+      "species": "govedina",
+      "name": "Zrezki iz stegna",
+      "safety": "whole-red",
+      "doneness": [
+        "medium",
+        "medium-well",
+        "well-done"
+      ],
+      "default": "medium",
+      "rest": "2–3 min",
+      "carry": [
+        1,
+        2
+      ],
+      "tip": "Tanke zrezke speci na hitro in termometer zapiči s strani do sredine. Za dušenje v omaki jih kuhaj, dokler se ne zmehčajo."
+    },
+    {
+      "id": "govedina-plece",
+      "species": "govedina",
+      "name": "Pleče",
+      "safety": "whole-red",
+      "slow": true,
+      "options": [
+        {
+          "id": "duseno",
+          "label": "Dušeno, počasi pečeno",
+          "temp": 93,
+          "range": [
+            90,
+            96
+          ],
+          "kind": "tender",
+          "texture": "Mehko, razpada pod vilicami"
+        }
+      ],
+      "rest": "15–20 min",
+      "carry": [
+        2,
+        4
+      ],
+      "tip": "Veliko vezivnega tkiva, ki se v želatino spremeni šele pri 90 °C in več ter po nekaj urah. Gotovo je, ko sonda zdrsne brez upora."
+    },
+    {
+      "id": "govedina-bocnik",
+      "species": "govedina",
+      "name": "Bočnik",
+      "safety": "whole-red",
+      "slow": true,
+      "options": [
+        {
+          "id": "duseno",
+          "label": "Dušeno, počasi pečeno",
+          "temp": 93,
+          "range": [
+            90,
+            96
+          ],
+          "kind": "tender",
+          "texture": "Mehko, za rezanje ali trganje"
+        }
+      ],
+      "rest": "20–30 min",
+      "carry": [
+        2,
+        4
+      ],
+      "tip": "Peci počasi pri nizki temperaturi ali duši. Temperatura je le okvir: odločilno je, da sonda zdrsne kot v maslo."
+    },
+    {
+      "id": "govedina-rebra",
+      "species": "govedina",
+      "name": "Rebra",
+      "safety": "whole-red",
+      "slow": true,
+      "options": [
+        {
+          "id": "duseno",
+          "label": "Počasi pečeno ali dušeno",
+          "temp": 93,
+          "range": [
+            88,
+            96
+          ],
+          "kind": "tender",
+          "texture": "Meso se loči od kosti"
+        }
+      ],
+      "rest": "15 min",
+      "carry": [
+        2,
+        3
+      ],
+      "tip": "Gotova so, ko se meso odmika od kosti in sonda zdrsne brez upora. Meri med kostmi, ne ob kosti."
+    },
+    {
+      "id": "svinjina-ribica",
+      "species": "svinjina",
+      "name": "Svinjska ribica",
+      "safety": "whole-pork",
+      "options": [
+        {
+          "id": "rozna",
+          "label": "Rahlo rožnato",
+          "temp": 60,
+          "range": [
+            58,
+            61
+          ],
+          "kind": "culinary",
+          "texture": "Zelo sočno, rožnata sredica"
+        },
+        {
+          "id": "varno",
+          "label": "Sočno, minimum USDA",
+          "temp": 63,
+          "kind": "safe",
+          "texture": "Sočno, komaj rožnato"
+        },
+        {
+          "id": "pecena",
+          "label": "Po priporočilu NIJZ",
+          "temp": 68,
+          "range": [
+            68,
+            70
+          ],
+          "kind": "safe",
+          "texture": "Brez rožnate, čvrstejše"
+        }
+      ],
+      "default": "varno",
+      "rest": "5 min",
+      "carry": [
+        2,
+        3
+      ],
+      "tip": "Ovita v pršut ali slanino ostane bolj sočna. Pusta je, zato jo vzemi s toplote takoj, ko doseže cilj.",
+      "recipes": [
+        "svinjska-ribica-v-prsutu-z-limonino-masleno-omako"
+      ]
+    },
+    {
+      "id": "svinjina-kare",
+      "species": "svinjina",
+      "name": "Kare (hrbet)",
+      "safety": "whole-pork",
+      "options": [
+        {
+          "id": "varno",
+          "label": "Sočno, minimum USDA",
+          "temp": 63,
+          "kind": "safe",
+          "texture": "Sočno, komaj rožnato"
+        },
+        {
+          "id": "cvrsto",
+          "label": "Po priporočilu NIJZ",
+          "temp": 68,
+          "range": [
+            68,
+            70
+          ],
+          "kind": "safe",
+          "texture": "Brez rožnate, čvrstejše"
+        }
+      ],
+      "default": "varno",
+      "rest": "10 min",
+      "carry": [
+        3,
+        5
+      ],
+      "tip": "Pečenka s kostjo: meri v sredini mesa, stran od kosti."
+    },
+    {
+      "id": "svinjina-kotleti",
+      "species": "svinjina",
+      "name": "Kotleti",
+      "safety": "whole-pork",
+      "options": [
+        {
+          "id": "varno",
+          "label": "Sočno, minimum USDA",
+          "temp": 63,
+          "kind": "safe",
+          "texture": "Sočno, komaj rožnato"
+        },
+        {
+          "id": "cvrsto",
+          "label": "Po priporočilu NIJZ",
+          "temp": 68,
+          "range": [
+            68,
+            70
+          ],
+          "kind": "safe",
+          "texture": "Brez rožnate, čvrstejše"
+        }
+      ],
+      "default": "varno",
+      "rest": "3–5 min",
+      "carry": [
+        1,
+        3
+      ],
+      "tip": "Tanjše kotlete meri s strani. Pri kotletih s kostjo zapiči sondo v sredino mesa, stran od kosti."
+    },
+    {
+      "id": "svinjina-vrat",
+      "species": "svinjina",
+      "name": "Vrat",
+      "safety": "whole-pork",
+      "options": [
+        {
+          "id": "rezine",
+          "label": "Pečenka na rezine",
+          "temp": 72,
+          "range": [
+            70,
+            75
+          ],
+          "kind": "culinary",
+          "texture": "Sočno, z razpuščeno maščobo"
+        },
+        {
+          "id": "trganje",
+          "label": "Za trganje",
+          "temp": 93,
+          "range": [
+            90,
+            96
+          ],
+          "kind": "tender",
+          "texture": "Razpada pod vilicami"
+        }
+      ],
+      "default": "rezine",
+      "rest": "10–15 min",
+      "carry": [
+        3,
+        5
+      ],
+      "tip": "Mastnejši kos, ki dobro prenese višje temperature in ostane sočen."
+    },
+    {
+      "id": "svinjina-stegno",
+      "species": "svinjina",
+      "name": "Stegno (pečenka)",
+      "safety": "whole-pork",
+      "options": [
+        {
+          "id": "varno",
+          "label": "Sočno, minimum USDA",
+          "temp": 63,
+          "kind": "safe",
+          "texture": "Sočno, komaj rožnato"
+        },
+        {
+          "id": "cvrsto",
+          "label": "Po priporočilu NIJZ",
+          "temp": 68,
+          "range": [
+            68,
+            70
+          ],
+          "kind": "safe",
+          "texture": "Brez rožnate, čvrstejše"
+        }
+      ],
+      "default": "varno",
+      "rest": "10–15 min",
+      "carry": [
+        3,
+        6
+      ],
+      "tip": "Pusto meso, ki se hitro izsuši. Reži na tanke rezine prečno na vlakna."
+    },
+    {
+      "id": "svinjina-plece",
+      "species": "svinjina",
+      "name": "Pleče",
+      "safety": "whole-pork",
+      "slow": true,
+      "options": [
+        {
+          "id": "rezine",
+          "label": "Pečenka na rezine",
+          "temp": 80,
+          "range": [
+            75,
+            85
+          ],
+          "kind": "tender",
+          "texture": "Sočno, mehko, še drži obliko"
+        },
+        {
+          "id": "trganje",
+          "label": "Za trganje (pulled pork)",
+          "temp": 94,
+          "range": [
+            90,
+            96
+          ],
+          "kind": "tender",
+          "texture": "Razpada pod vilicami"
+        }
+      ],
+      "default": "rezine",
+      "rest": "15–30 min",
+      "carry": [
+        3,
+        5
+      ],
+      "tip": "Veliko vezivnega tkiva: za mehkobo potrebuje višjo temperaturo in čas, ne zaradi varnosti."
+    },
+    {
+      "id": "svinjina-rebrca",
+      "species": "svinjina",
+      "name": "Rebrca",
+      "safety": "whole-pork",
+      "slow": true,
+      "options": [
+        {
+          "id": "mehka",
+          "label": "Mehka, počasi pečena",
+          "temp": 93,
+          "range": [
+            88,
+            96
+          ],
+          "kind": "tender",
+          "texture": "Meso se loči od kosti"
+        }
+      ],
+      "rest": "10 min",
+      "carry": [
+        2,
+        3
+      ],
+      "tip": "Meri med kostmi. Gotova so, ko se rebrca ob dvigu na sredini upognejo in meso razpoka."
+    },
+    {
+      "id": "piscanec-prsi",
+      "species": "piscanec",
+      "name": "Piščančje prsi",
+      "safety": "poultry",
+      "options": [
+        {
+          "id": "usda",
+          "label": "Minimum USDA",
+          "temp": 74,
+          "kind": "safe",
+          "texture": "Belo in najbolj sočno"
+        },
+        {
+          "id": "nijz",
+          "label": "Po priporočilu NIJZ",
+          "temp": 77,
+          "range": [
+            76.5,
+            78
+          ],
+          "kind": "safe",
+          "texture": "Belo, čvrstejše"
+        }
+      ],
+      "default": "nijz",
+      "rest": "3–5 min",
+      "carry": [
+        1,
+        3
+      ],
+      "tip": "Prsi so neenakomerno debele: pred pečenjem jih lahko sploščiš. Meri v najdebelejšem delu in jih vzemi s toplote takoj, ko dosežejo cilj; vsaka stopinja več jih izsuši.",
+      "strict": {
+        "temp": 76.5,
+        "text": "NIJZ za piščančje prsi navaja ≥ 76,5 °C, EFSA za perutnino 75 °C. Za strožje priporočilo izberi cilj NIJZ.",
+        "short": "NIJZ: ≥ 76,5 °C"
+      }
+    },
+    {
+      "id": "piscanec-medaljoni",
+      "species": "piscanec",
+      "name": "Piščančji medaljoni",
+      "safety": "poultry",
+      "options": [
+        {
+          "id": "varno",
+          "label": "Pečeno do varne temperature",
+          "temp": 74,
+          "kind": "safe",
+          "texture": "Belo, sočno"
+        }
+      ],
+      "default": "varno",
+      "rest": "2–3 min",
+      "carry": [
+        1,
+        2
+      ],
+      "tip": "Tanki kosi: termometer zapiči s strani do sredine. Če jih dokončaš v omaki, izmeri najdebelejši kos.",
+      "recipes": [
+        "piscancji-medaljoni-veloute"
+      ]
+    },
+    {
+      "id": "piscanec-bedra",
+      "species": "piscanec",
+      "name": "Bedra",
+      "safety": "poultry",
+      "options": [
+        {
+          "id": "varno",
+          "label": "Varni minimum",
+          "temp": 74,
+          "kind": "safe",
+          "texture": "Varno, a še nekoliko gumijasto"
+        },
+        {
+          "id": "mehko",
+          "label": "Najboljša tekstura",
+          "temp": 82,
+          "range": [
+            80,
+            85
+          ],
+          "kind": "tender",
+          "texture": "Mehko in sočno"
+        }
+      ],
+      "default": "mehko",
+      "rest": "5 min",
+      "carry": [
+        1,
+        3
+      ],
+      "tip": "Temno meso z več vezivnega tkiva je najboljše pri 80–85 °C: zaradi mehkobe, ne zaradi varnosti."
+    },
+    {
+      "id": "piscanec-krace",
+      "species": "piscanec",
+      "name": "Krače",
+      "safety": "poultry",
+      "options": [
+        {
+          "id": "varno",
+          "label": "Varni minimum",
+          "temp": 74,
+          "kind": "safe",
+          "texture": "Varno, a še nekoliko gumijasto"
+        },
+        {
+          "id": "mehko",
+          "label": "Najboljša tekstura",
+          "temp": 82,
+          "range": [
+            80,
+            85
+          ],
+          "kind": "tender",
+          "texture": "Mehko in sočno"
+        }
+      ],
+      "default": "mehko",
+      "rest": "5 min",
+      "carry": [
+        1,
+        3
+      ],
+      "tip": "Meri v najdebelejšem delu, stran od kosti; kost prevaja toploto drugače kot meso."
+    },
+    {
+      "id": "piscanec-perutnicke",
+      "species": "piscanec",
+      "name": "Perutničke",
+      "safety": "poultry",
+      "options": [
+        {
+          "id": "varno",
+          "label": "Varni minimum",
+          "temp": 74,
+          "kind": "safe",
+          "texture": "Varno"
+        },
+        {
+          "id": "mehko",
+          "label": "Najboljša tekstura",
+          "temp": 82,
+          "range": [
+            80,
+            88
+          ],
+          "kind": "tender",
+          "texture": "Mehko, hrustljava koža"
+        }
+      ],
+      "default": "mehko",
+      "rest": "2–3 min",
+      "carry": [
+        1,
+        2
+      ],
+      "tip": "Majhne in tanke: meri s strani, v debelejšem delu, stran od kosti."
+    },
+    {
+      "id": "piscanec-cel",
+      "species": "piscanec",
+      "name": "Cel piščanec",
+      "safety": "poultry",
+      "options": [
+        {
+          "id": "stegno",
+          "label": "Merjeno v stegnu",
+          "temp": 82,
+          "range": [
+            80,
+            85
+          ],
+          "kind": "safe",
+          "texture": "Mehko stegno, prsi vsaj 74 °C"
+        }
+      ],
+      "default": "stegno",
+      "rest": "15 min",
+      "carry": [
+        3,
+        5
+      ],
+      "tip": "Meri na treh mestih: v najgloblji del stegna, v najgloblji del peruti in v najdebelejši del prsi, vedno stran od kosti. Stegno naj doseže 82 °C (NIJZ), nobeno mesto pa ne sme biti pod 74 °C.",
+      "strict": {
+        "temp": 82,
+        "short": "NIJZ: ≥ 82 °C v stegnu",
+        "text": "NIJZ za celo perutnino navaja ≥ 82 °C, merjeno v stegnu."
+      }
+    },
+    {
+      "id": "puran-prsa",
+      "species": "puran",
+      "name": "Puranja prsa",
+      "safety": "poultry",
+      "options": [
+        {
+          "id": "usda",
+          "label": "Minimum USDA",
+          "temp": 74,
+          "kind": "safe",
+          "texture": "Belo in najbolj sočno"
+        },
+        {
+          "id": "nijz",
+          "label": "Strožje priporočilo",
+          "temp": 77,
+          "range": [
+            76.5,
+            78
+          ],
+          "kind": "safe",
+          "texture": "Belo, čvrstejše"
+        }
+      ],
+      "default": "nijz",
+      "rest": "10–15 min",
+      "carry": [
+        2,
+        4
+      ],
+      "tip": "Velik in pust kos: meri v najdebelejšem delu in ga vzemi iz pečice takoj pri 74 °C.",
+      "strict": {
+        "temp": 75,
+        "text": "EFSA za perutnino navaja 75 °C, NIJZ za piščančje prsi ≥ 76,5 °C.",
+        "short": "EFSA: 75 °C"
+      }
+    },
+    {
+      "id": "raca-prsa",
+      "species": "raca",
+      "name": "Račja prsa",
+      "safety": "poultry",
+      "options": [
+        {
+          "id": "rozna",
+          "label": "Rožnato (kulinarično)",
+          "temp": 57,
+          "range": [
+            54,
+            58
+          ],
+          "kind": "culinary",
+          "texture": "Rožnata sredica, kot steak"
+        },
+        {
+          "id": "varno",
+          "label": "Varni minimum",
+          "temp": 74,
+          "kind": "safe",
+          "texture": "Brez rožnate, čvrsto"
+        }
+      ],
+      "default": "rozna",
+      "rest": "5–8 min",
+      "carry": [
+        2,
+        3
+      ],
+      "tip": "Kožo zareži v mrežo in jo začni peči v hladni ponvi, da se maščoba počasi stopi in koža postane hrustljava."
+    },
+    {
+      "id": "teletina-pljucna",
+      "species": "teletina",
+      "name": "Telečja pljučna pečenka",
+      "safety": "whole-red",
+      "doneness": [
+        "medium-rare",
+        "medium",
+        "medium-well"
+      ],
+      "default": "medium",
+      "rest": "5–10 min",
+      "carry": [
+        2,
+        4
+      ],
+      "tip": "Nežno in pusto meso: najboljše je rožnato. Na hitro zapeci in dokončaj v pečici."
+    },
+    {
+      "id": "teletina-kotleti",
+      "species": "teletina",
+      "name": "Telečji kotleti",
+      "safety": "whole-red",
+      "doneness": [
+        "medium-rare",
+        "medium",
+        "medium-well"
+      ],
+      "default": "medium",
+      "rest": "3–5 min",
+      "carry": [
+        2,
+        3
+      ],
+      "tip": "Meri v sredini mesa, stran od kosti."
+    },
+    {
+      "id": "teletina-stegno",
+      "species": "teletina",
+      "name": "Telečje stegno (pečenka)",
+      "safety": "whole-red",
+      "doneness": [
+        "medium",
+        "medium-well",
+        "well-done"
+      ],
+      "default": "medium-well",
+      "rest": "10–15 min",
+      "carry": [
+        3,
+        6
+      ],
+      "tip": "Pusta pečenka, ki se hitro izsuši: peci pri zmerni temperaturi in jo zalivaj."
+    },
+    {
+      "id": "teletina-plece",
+      "species": "teletina",
+      "name": "Telečje pleče",
+      "safety": "whole-red",
+      "slow": true,
+      "options": [
+        {
+          "id": "duseno",
+          "label": "Dušeno, počasi pečeno",
+          "temp": 88,
+          "range": [
+            85,
+            92
+          ],
+          "kind": "tender",
+          "texture": "Mehko, razpada"
+        }
+      ],
+      "rest": "10–15 min",
+      "carry": [
+        2,
+        4
+      ],
+      "tip": "Za mehkobo ga duši ali počasi peci; vezivno tkivo potrebuje čas in višjo temperaturo."
+    },
+    {
+      "id": "teletina-zvita",
+      "species": "teletina",
+      "name": "Zvita (rolana) pečenka",
+      "safety": "rolled",
+      "options": [
+        {
+          "id": "skozi",
+          "label": "Pečeno do konca",
+          "temp": 72,
+          "range": [
+            70,
+            75
+          ],
+          "kind": "safe",
+          "texture": "Brez rožnate, sočno"
+        }
+      ],
+      "rest": "10–15 min",
+      "carry": [
+        3,
+        5
+      ],
+      "tip": "Velja za vsako zvito ali nadevano pečenko (teletina, svinjina, perutnina): površina je zavita v notranjost, zato jo speci do konca. Meri v sredini zvitka in v nadevu."
+    },
+    {
+      "id": "jagnjetina-kotleti",
+      "species": "jagnjetina",
+      "name": "Jagnječji kotleti",
+      "safety": "whole-red",
+      "doneness": [
+        "medium-rare",
+        "medium",
+        "medium-well",
+        "well-done"
+      ],
+      "default": "medium-rare",
+      "rest": "3–5 min",
+      "carry": [
+        2,
+        3
+      ],
+      "tip": "Tanke kotlete meri s strani, v sredini mesa, stran od kosti."
+    },
+    {
+      "id": "jagnjetina-pljucna",
+      "species": "jagnjetina",
+      "name": "Jagnječja pljučna pečenka",
+      "safety": "whole-red",
+      "doneness": [
+        "rare",
+        "medium-rare",
+        "medium",
+        "medium-well"
+      ],
+      "default": "medium-rare",
+      "rest": "5 min",
+      "carry": [
+        2,
+        3
+      ],
+      "tip": "Majhen in tanek kos se speče v nekaj minutah; meri zgodaj."
+    },
+    {
+      "id": "jagnjetina-stegno",
+      "species": "jagnjetina",
+      "name": "Jagnječje stegno",
+      "safety": "whole-red",
+      "doneness": [
+        "medium-rare",
+        "medium",
+        "medium-well",
+        "well-done"
+      ],
+      "default": "medium",
+      "rest": "15 min",
+      "carry": [
+        4,
+        6
+      ],
+      "tip": "Velik kos s kostjo: meri v najdebelejšem delu, stran od kosti, in na več mestih."
+    },
+    {
+      "id": "jagnjetina-plece",
+      "species": "jagnjetina",
+      "name": "Jagnječje pleče",
+      "safety": "whole-red",
+      "slow": true,
+      "options": [
+        {
+          "id": "rezine",
+          "label": "Pečeno na rezine",
+          "temp": 70,
+          "range": [
+            65,
+            72
+          ],
+          "kind": "culinary",
+          "texture": "Sočno, malo žilavo"
+        },
+        {
+          "id": "duseno",
+          "label": "Počasi pečeno",
+          "temp": 88,
+          "range": [
+            85,
+            92
+          ],
+          "kind": "tender",
+          "texture": "Mehko, se loči od kosti"
+        }
+      ],
+      "default": "duseno",
+      "rest": "15 min",
+      "carry": [
+        3,
+        5
+      ],
+      "tip": "Najboljše je počasi pečeno: maščoba in vezivno tkivo se razpustita, meso se loči od kosti."
+    },
+    {
+      "id": "mleto-burgerji",
+      "species": "mleto",
+      "name": "Burgerji (govedina, svinjina)",
+      "safety": "ground",
+      "options": [
+        {
+          "id": "varno",
+          "label": "Pečeno do varne temperature",
+          "temp": 71,
+          "kind": "safe",
+          "texture": "Sočno, brez rožnate"
+        }
+      ],
+      "default": "varno",
+      "rest": null,
+      "carry": [
+        1,
+        2
+      ],
+      "tip": "Burger je lahko rjav, preden doseže 71 °C. Termometer zapiči s strani do sredine."
+    },
+    {
+      "id": "mleto-pleskavice",
+      "species": "mleto",
+      "name": "Pleskavice",
+      "safety": "ground",
+      "options": [
+        {
+          "id": "varno",
+          "label": "Pečeno do varne temperature",
+          "temp": 71,
+          "kind": "safe",
+          "texture": "Sočno, brez rožnate"
+        }
+      ],
+      "default": "varno",
+      "rest": null,
+      "carry": [
+        1,
+        2
+      ],
+      "tip": "Tanjše pleskavice meri s strani, v najdebelejšem delu."
+    },
+    {
+      "id": "mleto-cevapcici",
+      "species": "mleto",
+      "name": "Čevapčiči",
+      "safety": "ground",
+      "options": [
+        {
+          "id": "varno",
+          "label": "Pečeno do varne temperature",
+          "temp": 71,
+          "kind": "safe",
+          "texture": "Sočno"
+        }
+      ],
+      "default": "varno",
+      "rest": null,
+      "carry": [
+        0,
+        1
+      ],
+      "tip": "Tanki: sondo zapiči po dolgem, od konca proti sredini, in izmeri najdebelejšega."
+    },
+    {
+      "id": "mleto-klobase",
+      "species": "mleto",
+      "name": "Sveže klobase",
+      "safety": "ground",
+      "options": [
+        {
+          "id": "varno",
+          "label": "Pečeno do varne temperature",
+          "temp": 71,
+          "kind": "safe",
+          "texture": "Sočno"
+        }
+      ],
+      "default": "varno",
+      "rest": null,
+      "carry": [
+        0,
+        1
+      ],
+      "tip": "Velja za sveže svinjske in goveje klobase. Sveže perutninske klobase spadajo med mleto perutnino (74 °C)."
+    },
+    {
+      "id": "mleto-perutnina",
+      "species": "mleto",
+      "name": "Izdelki iz mlete perutnine",
+      "safety": "poultry",
+      "options": [
+        {
+          "id": "varno",
+          "label": "Pečeno do varne temperature",
+          "temp": 74,
+          "kind": "safe",
+          "texture": "Sočno, belo"
+        }
+      ],
+      "default": "varno",
+      "rest": null,
+      "carry": [
+        0,
+        1
+      ],
+      "tip": "Burgerji, polpeti in klobase iz piščanca ali purana morajo doseči 74 °C."
+    },
+    {
+      "id": "ribe-brancin",
+      "species": "ribe",
+      "name": "Brancin",
+      "safety": "fish",
+      "options": [
+        {
+          "id": "socno",
+          "label": "Ravno pečeno",
+          "temp": 56,
+          "range": [
+            54,
+            58
+          ],
+          "kind": "culinary",
+          "texture": "Bel, sočen, se ravno lušči"
+        },
+        {
+          "id": "varno",
+          "label": "Varni minimum",
+          "temp": 63,
+          "kind": "safe",
+          "texture": "Neprosojen, se lušči"
+        }
+      ],
+      "default": "socno",
+      "rest": "1–2 min",
+      "carry": [
+        1,
+        2
+      ],
+      "tip": "Celo ribo meri v najdebelejšem delu ob hrbtu, stran od kosti."
+    },
+    {
+      "id": "ribe-orada",
+      "species": "ribe",
+      "name": "Orada",
+      "safety": "fish",
+      "options": [
+        {
+          "id": "socno",
+          "label": "Ravno pečeno",
+          "temp": 56,
+          "range": [
+            54,
+            58
+          ],
+          "kind": "culinary",
+          "texture": "Bela, sočna, se ravno lušči"
+        },
+        {
+          "id": "varno",
+          "label": "Varni minimum",
+          "temp": 63,
+          "kind": "safe",
+          "texture": "Neprosojna, se lušči"
+        }
+      ],
+      "default": "socno",
+      "rest": "1–2 min",
+      "carry": [
+        1,
+        2
+      ],
+      "tip": "Celo ribo meri v najdebelejšem delu ob hrbtu, stran od kosti."
+    },
+    {
+      "id": "ribe-losos",
+      "species": "ribe",
+      "name": "Losos",
+      "safety": "fish",
+      "options": [
+        {
+          "id": "steklen",
+          "label": "Steklena sredica",
+          "temp": 50,
+          "range": [
+            48,
+            52
+          ],
+          "kind": "culinary",
+          "texture": "Sredica še prosojna in maslena"
+        },
+        {
+          "id": "socno",
+          "label": "Ravno pečen",
+          "temp": 55,
+          "range": [
+            54,
+            57
+          ],
+          "kind": "culinary",
+          "texture": "Sočen, se lušči v listih"
+        },
+        {
+          "id": "varno",
+          "label": "Varni minimum",
+          "temp": 63,
+          "kind": "safe",
+          "texture": "Neprosojen, bolj suh"
+        }
+      ],
+      "default": "socno",
+      "rest": "1–2 min",
+      "carry": [
+        1,
+        2
+      ],
+      "tip": "Bela snov, ki izstopi na površje (beljakovine), pomeni, da je losos že precej pečen."
+    },
+    {
+      "id": "ribe-postrv",
+      "species": "ribe",
+      "name": "Postrv",
+      "safety": "fish",
+      "options": [
+        {
+          "id": "socno",
+          "label": "Ravno pečena",
+          "temp": 57,
+          "range": [
+            55,
+            60
+          ],
+          "kind": "culinary",
+          "texture": "Sočna, se lušči"
+        },
+        {
+          "id": "varno",
+          "label": "Varni minimum",
+          "temp": 63,
+          "kind": "safe",
+          "texture": "Neprosojna, se lušči"
+        }
+      ],
+      "default": "socno",
+      "rest": "1–2 min",
+      "carry": [
+        1,
+        2
+      ],
+      "tip": "Tanka riba: meri v najdebelejšem delu, stran od hrbtenice."
+    },
+    {
+      "id": "ribe-polenovka",
+      "species": "ribe",
+      "name": "Polenovka (sveži ali razsoljeni fileji)",
+      "safety": "fish",
+      "options": [
+        {
+          "id": "socno",
+          "label": "Ravno pečena",
+          "temp": 58,
+          "range": [
+            56,
+            60
+          ],
+          "kind": "culinary",
+          "texture": "Bela, se lušči v velikih listih"
+        },
+        {
+          "id": "varno",
+          "label": "Varni minimum",
+          "temp": 63,
+          "kind": "safe",
+          "texture": "Neprosojna, čvrstejša"
+        }
+      ],
+      "default": "socno",
+      "rest": "1–2 min",
+      "carry": [
+        1,
+        2
+      ],
+      "tip": "Velja za fileje. Suho polenovko za bakalar najprej namakaš in nato kuhaš do mehkega; tam temperatura sredice ni merilo."
+    }
+  ],
+  "euFish": "Riba, ki ni pečena do konca (npr. losos s stekleno sredico), naj bo predhodno zamrznjena, ker mraz uniči zajedavce, kot je anisakis. NIJZ za domačo zamrzovalno skrinjo svetuje vsaj 7 dni pod −20 °C; navadna skrinja pri −18 °C za to ni zanesljiva. Ribiški izdelki, namenjeni uživanju surovih, morajo biti pri proizvajalcu zamrznjeni na −20 °C vsaj 24 ur ali na −35 °C vsaj 15 ur (Uredba (ES) 853/2004). Ličinke anisakisa uniči tudi segrevanje sredice na 60 °C.",
+  "sources": [
+    {
+      "title": "Safe Minimum Internal Temperature Chart",
+      "publisher": "USDA FSIS",
+      "date": "posodobljeno 14. 4. 2025",
+      "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart"
+    },
+    {
+      "title": "Cook to a Safe Minimum Internal Temperature",
+      "publisher": "FoodSafety.gov (ZDA)",
+      "date": "pregledano 21. 11. 2024",
+      "url": "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures"
+    },
+    {
+      "title": "Food Thermometers",
+      "publisher": "USDA FSIS",
+      "date": "posodobljeno 21. 3. 2025",
+      "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/food-thermometers",
+      "note": "Postavitev sonde, merjenje na več mestih, umerjanje v ledeni in vreli vodi, čiščenje."
+    },
+    {
+      "title": "Toplotna obdelava živil",
+      "publisher": "NIJZ",
+      "date": "objavljeno 15. 5. 2024",
+      "url": "https://nijz.si/moje-okolje/varnost-zivil/toplotna-obdelava-zivil/",
+      "note": "Tabela središčnih temperatur (vir: Smernice dobre higienske prakse/HACCP za gostinstvo) in navodila za vbodne termometre."
+    },
+    {
+      "title": "Ravnanje s surovim perutninskim mesom v domači kuhinji",
+      "publisher": "NIJZ",
+      "date": "posodobljeno 12. 12. 2022",
+      "url": "https://nijz.si/moje-okolje/varnost-zivil/ravnanje-s-surovim-perutninskim-mesom-v-domaci-kuhinji/"
+    },
+    {
+      "title": "Paraziti v živilih (PDF)",
+      "publisher": "NIJZ",
+      "date": "21. 12. 2022",
+      "url": "https://nijz.si/wp-content/uploads/2022/11/paraziti-v-zivilih.pdf",
+      "note": "Zamrzovanje rib doma in temperature, ki uničijo zajedavce."
+    },
+    {
+      "title": "Kako (še zlasti) poleti poskrbimo za varnost hrane",
+      "publisher": "UVHVVR",
+      "date": "19. 7. 2024",
+      "url": "https://www.gov.si/novice/2024-07-19-kako-se-zlasti-poleti-poskrbimo-za-varnost-hrane"
+    },
+    {
+      "title": "Cooking your food",
+      "publisher": "Food Standards Agency (UK)",
+      "date": "objavljeno 18. 12. 2017",
+      "url": "https://www.gov.uk/government/publications/cooking-your-food/cooking-your-food",
+      "note": "70 °C za 2 minuti in enakovredne kombinacije časa in temperature; celi kosi govedine in jagnjetine so lahko rožnati."
+    },
+    {
+      "title": "Food poisoning",
+      "publisher": "EFSA",
+      "date": "pregledano 31. 3. 2025",
+      "url": "https://www.efsa.europa.eu/en/safe2eat/food-poisoning"
+    },
+    {
+      "title": "Uredba Komisije (EU) št. 1276/2011 (spremembe Uredbe (ES) 853/2004, priloga III, oddelek VIII)",
+      "publisher": "EU",
+      "date": "",
+      "url": "https://www.legislation.gov.uk/eur/2011/1276/adopted/data.html",
+      "note": "Zamrzovanje ribiških izdelkov, namenjenih uživanju surovih."
+    }
+  ],
+  "timeTemp": [
+    [
+      60,
+      "45 min"
+    ],
+    [
+      65,
+      "10 min"
+    ],
+    [
+      70,
+      "2 min"
+    ],
+    [
+      75,
+      "30 s"
+    ],
+    [
+      80,
+      "6 s"
+    ]
+  ]
+}

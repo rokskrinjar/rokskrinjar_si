@@ -90,6 +90,26 @@ recipes: []                 # neobvezno, imena receptov iz recipes/ brez .md
 Razlaga, triki, opozorila.
 ```
 
+## Temperature pečenja: `temperatures/data.json`
+
+Vodnik `/projects/cooking/temperatures/` bere vse podatke iz ene datoteke `temperatures/data.json`:
+
+- `doneness`: stopnje pečenosti govedine (rare … well done) z razponi in barvami.
+- `safety`: uradni minimumi po skupinah (cel kos rdečega mesa, svinjina, mleto meso, perutnina, ribe, zvite pečenke), z navedbo virov (`refs`) in strožjim slovenskim priporočilom (`strict`).
+- `cuts`: kosi mesa. Nov kos dodaš z enim vnosom:
+
+```json
+{ "id": "govedina-flank", "species": "govedina", "name": "Flank steak", "safety": "whole-red",
+  "doneness": ["rare", "medium-rare", "medium"], "default": "medium-rare",
+  "rest": "5 min", "carry": [2, 3], "tip": "Reži prečno na vlakna." }
+```
+
+  Kosi, ki nimajo stopenj govedine, namesto `doneness` uporabijo `options` z `label`, `temp`, neobveznim `range`, `kind` (`culinary` kulinarično, `safe` varnostni minimum, `tender` za mehkobo pri počasnem pečenju) in `texture`.
+- `recipes` pri kosu poveže recept: na strani recepta se pokaže ciljna temperatura, v vodniku pa povezava na recept.
+- `sources` in `checked`: viri in datum zadnjega preverjanja. **Ob spremembi uradnih vrednosti posodobi tudi `checked`.**
+
+Kulinarične temperature so izkustvene; uradne vrednosti vedno preveri pri USDA, NIJZ, UVHVVR ali FSA.
+
 ## Fotografije
 
 Datoteko daj v `photos/` (npr. `photos/piscancji-medaljoni-1.jpg`, širina do ~1600 px, JPG) in jo dodaj v `photos:` pri receptu. Lahko tudi z opisom: `photos: [{src: photos/ime-1.jpg, alt: Kratek opis slike}]`.
