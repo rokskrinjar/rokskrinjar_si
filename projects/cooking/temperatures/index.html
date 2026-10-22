@@ -102,13 +102,24 @@
     .bar span { position:absolute; top:0; bottom:0; display:flex; align-items:flex-end; padding:0 0 6px 8px; color:#fff; font-size:.72rem; font-weight:700; text-shadow:0 1px 2px #0006; white-space:nowrap; overflow:hidden; }
     .axis { position:relative; height:22px; margin-top:4px; color:var(--muted); font-size:.75rem; font-variant-numeric:tabular-nums; }
     .axis span { position:absolute; transform:translateX(-50%); }
-    .pins { position:relative; height:96px; margin-top:6px; border-top:1px dashed var(--border); }
+    .pins { position:relative; height:100px; margin-top:6px; border-top:1px dashed var(--border); }
     .pin { position:absolute; top:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; text-align:center; width:96px; font-size:.72rem; line-height:1.2; color:var(--ok); }
     .pin::before { content:''; width:2px; height:12px; background:var(--ok); }
     .pin b { font-size:.85rem; }
     .scale-note { margin:4px 0 0; color:var(--muted); font-size:.85rem; }
     .levels { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap:12px; margin-top:20px; }
-    .level { padding:14px; border-radius:14px; background:var(--card); border:1px solid var(--border); }
+    .level { display:block; width:100%; padding:14px; border-radius:14px; background:var(--card); border:1px solid var(--border); color:var(--fg); font:inherit; text-align:left; cursor:pointer; transition:border-color .15s; }
+    .level[aria-pressed="true"] { border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent); background:var(--accent-soft); }
+    .level:disabled { opacity:.45; cursor:default; }
+    .level .lsw { display:block; height:10px; border-radius:6px; margin-bottom:12px; }
+    .level .r-kind { margin:0 0 6px; }
+    .bar span.off { filter:saturate(.25) opacity(.55); }
+    .bar.track { background:linear-gradient(90deg, var(--border), var(--card)); }
+    .bar .cur { position:absolute; top:-2px; bottom:-2px; width:3px; margin-left:-1.5px; background:var(--fg); border-radius:2px; }
+    .marks { position:relative; height:32px; }
+    .mark { position:absolute; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; }
+    .mark span { padding:2px 8px; border-radius:999px; background:var(--fg); color:var(--bg); font-size:.75rem; font-weight:700; white-space:nowrap; }
+    .mark::after { content:''; width:0; height:0; border:6px solid transparent; border-top-color:var(--fg); }
     .level svg { display:block; width:100%; height:auto; max-width:180px; margin:0 auto 10px; }
     .level h3 { margin:0; font-size:1.1rem; }
     .level .lr { margin:2px 0 6px; font-weight:700; font-variant-numeric:tabular-nums; }
@@ -220,7 +231,7 @@
     </section>
 
     <section id="lestvica">
-      <div class="section-head"><h2>Stopnje pečenosti govedine</h2><span class="muted">Gastronomske stopnje</span></div>
+      <div class="section-head"><h2 id="scale-title">Lestvica</h2><span class="muted" id="scale-sub"></span></div>
       <div class="scale" id="scale"></div>
       <div class="levels" id="levels"></div>
     </section>
@@ -439,7 +450,7 @@
       const opts = optionsOf(cut);
       const opt = opts.find(o => o.id === optId) || opts.find(o => o.id === cut.default) || opts[0];
       state = { cut, opt, opts };
-      renderPicker(); renderResult();
+      renderPicker(); renderResult(); renderScale();
       if (push) {
         const u = new URL(location.href); u.searchParams.set('kos', cut.id); u.searchParams.set('p', opt.id);
         history.replaceState(null, '', u);
@@ -535,35 +546,64 @@
       document.getElementById('mini-num').textContent = opt.temp + ' °C';
     }
 
+    // Temperature scale for the selected cut: doneness bands for red meat, the cut's own targets otherwise.
     function renderScale() {
-      const lo = 45, hi = 77, pct = t => ((t - lo) / (hi - lo)) * 100;
-      const L = Object.values(D.doneness);
-      const segs = L.map((d, i) => {
-        const a = i === 0 ? lo : (L[i - 1].range[1] + d.range[0]) / 2, b = i === L.length - 1 ? hi : (d.range[1] + L[i + 1].range[0]) / 2;
-        return `<span style="left:${pct(a)}%;width:${pct(b) - pct(a)}%;background:${d.color}">${esc(d.label)}</span>`;
+      const { cut, opt, opts } = state;
+      const sf = D.safety[cut.safety], strict = cut.strict || sf.strict;
+      const sp = D.species.find(s => s.id === cut.species);
+      const done = !!cut.doneness;
+      document.getElementById('scale-title').textContent = (done ? 'Stopnje pečenosti: ' : 'Temperaturna lestvica: ') + cut.name;
+      document.getElementById('scale-sub').textContent = done ? 'Gastronomske stopnje' : sp.name;
+      let lo = 45, hi = 77;
+      if (!done) {
+        const vals = opts.flatMap(o => o.range || [o.temp]).concat(sf.temp, strict ? [strict.temp] : []);
+        lo = Math.floor((Math.min(...vals) - 5) / 5) * 5; hi = Math.ceil((Math.max(...vals) + 5) / 5) * 5;
+      }
+      const pct = t => ((t - lo) / (hi - lo)) * 100;
+      let segs;
+      if (done) {
+        const L = Object.entries(D.doneness);
+        segs = L.map(([k, d], i) => {
+          const a = i === 0 ? lo : (L[i - 1][1].range[1] + d.range[0]) / 2, b = i === L.length - 1 ? hi : (d.range[1] + L[i + 1][1].range[0]) / 2;
+          return `<span class="${cut.doneness.includes(k) ? '' : 'off'}" style="left:${pct(a)}%;width:${pct(b) - pct(a)}%;background:${d.color}">${esc(d.label)}</span>`;
+        }).join('');
+      } else {
+        segs = opts.map(o => {
+          const [a, b] = o.range || [o.temp - 1, o.temp + 1];
+          return `<span style="left:${pct(a)}%;width:${Math.max(pct(b) - pct(a), 3)}%;background:${o.color}"></span>`;
+        }).join('');
+      }
+      const step = hi - lo > 40 ? 10 : 5;
+      const ticks = [];
+      for (let t = Math.ceil(lo / step) * step; t <= hi; t += step) ticks.push(`<span style="left:${pct(t)}%">${t}°</span>`);
+      const pinList = [[sf.temp, sf.source === 'fsa' ? 'Uradni minimum (FSA)' : 'Uradni minimum (USDA)', sf.rest ? '+ ' + sf.rest + ' počitka' : '']];
+      if (strict) pinList.push([strict.temp, (strict.short || 'Strožje').split(':')[0], 'strožje priporočilo']);
+      const pins = pinList.map(([t, a, b], i) => {
+        const dy = i && Math.abs(t - pinList[0][0]) < (hi - lo) / 6 ? 40 : 0;
+        return `<div class="pin" style="left:${pct(t)}%;top:${dy}px"><b>${num(t)} °C</b>${esc(a)}${b ? `<br>${esc(b)}` : ''}</div>`;
       }).join('');
-      const ticks = [45, 50, 55, 60, 65, 70, 75].map(t => `<span style="left:${pct(t)}%">${t}°</span>`).join('');
-      const pins = [[63, 'Cel kos', '+ 3 min počitka', 0], [71, 'Mleto meso', '', 0], [74, 'Perutnina', '', 34]].map(([t, a, b, dy]) =>
-        `<div class="pin" style="left:${pct(t)}%;top:${dy}px"><b>${t} °C</b>${a}${b ? `<br>${b}` : ''}</div>`).join('');
       document.getElementById('scale').innerHTML = `
-        <div class="bar" role="img" aria-label="Lestvica pečenosti od 49 do 73 °C">${segs}</div>
-        <div class="axis" aria-hidden="true">${ticks}</div>
-        <div class="pins" aria-label="Uradni varnostni minimumi (USDA)">${pins}</div>
-        <p class="scale-note">Barvni trak so <strong>gastronomske stopnje</strong>. Zelene oznake spodaj so <strong>uradni varnostni minimumi</strong> USDA.</p>`;
+        <div class="marks" aria-hidden="true"><div class="mark" style="left:${pct(opt.temp)}%"><span>Tvoj cilj · ${num(opt.temp)} °C</span></div></div>
+        <div class="bar${done ? '' : ' track'}" role="img" aria-label="Lestvica od ${lo} do ${hi} °C, izbrani cilj ${num(opt.temp)} °C">${segs}<i class="cur" style="left:${pct(opt.temp)}%"></i></div>
+        <div class="axis" aria-hidden="true">${ticks.join('')}</div>
+        <div class="pins" aria-label="Uradni varnostni minimumi">${pins}</div>
+        <p class="scale-note">${done ? 'Barvni trak so <strong>gastronomske stopnje</strong> (zatemnjenih ta kos nima).' : 'Barvni pasovi so <strong>cilji za ta kos</strong>.'} Zelene oznake so <strong>uradni varnostni minimumi</strong>. Tapni kartico spodaj, da jo izbereš.</p>`;
       const core = { rare: 0.62, 'medium-rare': 0.5, medium: 0.38, 'medium-well': 0.22, 'well-done': 0 };
-      document.getElementById('levels').innerHTML = Object.entries(D.doneness).map(([k, d]) => {
-        const c = core[k];
-        return `<article class="level">
-          <svg viewBox="0 0 180 90" aria-hidden="true">
+      const cards = done
+        ? Object.entries(D.doneness).map(([k, d]) => ({ id: k, on: cut.doneness.includes(k), label: d.label, sub: d.sl, range: d.range, temp: d.target, text: d.text, color: d.color, core: core[k] }))
+        : opts.map(o => ({ id: o.id, on: true, label: o.label, range: o.range, temp: o.temp, text: o.texture, color: o.color, kind: o.kind }));
+      document.getElementById('levels').innerHTML = cards.map(c => `
+        <button type="button" class="level" data-opt="${c.id}" aria-pressed="${c.id === opt.id}" ${c.on ? '' : 'disabled'}>
+          ${done ? `<svg viewBox="0 0 180 90" aria-hidden="true">
             <ellipse cx="90" cy="45" rx="84" ry="40" fill="#6e4430"/>
             <ellipse cx="90" cy="45" rx="76" ry="33" fill="#a8806a"/>
-            ${c ? `<ellipse cx="90" cy="45" rx="${76 * (0.4 + c)}" ry="${33 * (0.4 + c)}" fill="${d.color}" opacity=".55"/><ellipse cx="90" cy="45" rx="${76 * c}" ry="${33 * c}" fill="${d.color}"/>` : ''}
-          </svg>
-          <h3>${esc(d.label)}</h3>
-          <p class="lr">${range(d.range)} <small>${esc(d.sl)}</small></p>
-          <p>${esc(d.text)}</p>
-        </article>`;
-      }).join('');
+            ${c.core ? `<ellipse cx="90" cy="45" rx="${76 * (0.4 + c.core)}" ry="${33 * (0.4 + c.core)}" fill="${c.color}" opacity=".55"/><ellipse cx="90" cy="45" rx="${76 * c.core}" ry="${33 * c.core}" fill="${c.color}"/>` : ''}
+          </svg>` : `<span class="lsw" style="background:${c.color}"></span>`}
+          <h3>${esc(c.label)}</h3>
+          <p class="lr">${c.range ? range(c.range) : num(c.temp) + ' °C'} ${c.sub ? `<small>${esc(c.sub)}</small>` : ''}</p>
+          ${c.kind ? `<span class="r-kind ${KIND[c.kind].cls}">${KIND[c.kind].text}</span>` : ''}
+          <p>${esc(c.text || '')}${c.on ? '' : '<br><em>Za ta kos ni priporočeno.</em>'}</p>
+        </button>`).join('');
     }
 
     function renderTable(tableId) {
@@ -630,7 +670,7 @@
       const startCut = q.get('kos') || (last && last[0]) || 'govedina-ramstek';
       const startOpt = q.get('p') || (q.get('kos') ? null : last && last[1]);
       select(startCut, startOpt, !!q.get('kos'));
-      renderScale(); renderTable(D.species.find(s => s.id === state.cut.species).table); renderSafety(); wakeLock();
+      renderTable(D.species.find(s => s.id === state.cut.species).table); renderSafety(); wakeLock();
       recipeTitles().then(t => { TITLES = t; renderResult(); });
 
       app.addEventListener('click', e => {

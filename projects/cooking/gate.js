@@ -14,14 +14,15 @@
         <p class="eyebrow">Kuharska knjiga</p>
         <h1>Zasebno</h1>
         <p>Za ogled vnesi geslo.</p>
-        <form id="lock"><input id="pw" type="password" autocomplete="current-password" aria-label="Geslo" placeholder="Geslo" required><button type="submit">Odpri</button></form>
+        <form id="lock"><input id="pw" type="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="Geslo" placeholder="Geslo" required><button type="submit">Odpri</button></form>
         <p class="err" id="err" role="alert"></p>
       </div>`;
       const pw = container.querySelector('#pw');
       pw.focus();
       container.querySelector('#lock').addEventListener('submit', async e => {
         e.preventDefault();
-        if (await sha256(pw.value) === PASS_SHA256) {
+        // Phone keyboards often capitalise the first letter or add a space, so ignore case and spaces.
+        if (await sha256(pw.value.trim().toLowerCase()) === PASS_SHA256) {
           try { localStorage.setItem('cookbook-key', PASS_SHA256); } catch (err) {}
           container.innerHTML = saved;
           resolve();
