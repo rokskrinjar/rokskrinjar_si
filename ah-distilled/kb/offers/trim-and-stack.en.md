@@ -15,6 +15,7 @@ After listing problems and brainstorming delivery vehicles, you have far more po
 
 <div class="formula" markdown="1">
 **Trim:** cut high cost / low value · keep low cost / high value · keep the few critical high cost / high value pieces
+
 **Stack:** bundle what remains, name and value each piece, show the **total value** next to the **price**
 </div>
 

@@ -37,7 +37,7 @@ When the problem is cash flow, change when and how they pay, not what they get. 
 1. **Pay in full** with a discount or a bonus for paying up front.
 2. **Financing or card**, so a third party or their credit card carries the cost.
 3. **Half now, half later**, for example half today and half in 30 days.
-4. **Check priority**, then **three payments.** Ask what matters more to them, then offer splitting the amount in three.
+4. **Check priority**, then **three payments.** Ask how important solving the problem is to them on a scale of 1 to 10. A high score (summaries mention 8 or more) means the problem is real and it is worth offering to split the amount in three.
 5. **Spread monthly**, the smallest payment per month over a longer term.
 
 Present one step at a time. Do not show the full list, because people will jump straight to the easiest option.

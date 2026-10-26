@@ -15,6 +15,7 @@ People want more of what they can't easily get. When an offer is available to an
 
 <div class="formula" markdown="1">
 **Scarcity** = a limit on **quantity** (how many can buy)
+
 **Urgency** = a limit on **time** (until when they can buy)
 </div>
 
