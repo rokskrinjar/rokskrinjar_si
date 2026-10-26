@@ -11,7 +11,7 @@ related: [pricing-decisions, cash-forward, hiring-and-talent, focus-and-subtract
 
 ## Bistvo {#gist}
 
-Lokalni lastniki skoraj vedno pridejo z besedami, da potrebujejo več leadov. Ko Alex pogleda številke, leadi le redko so prvi problem. Stopnje zaključka 70 do 90 odstotkov, udeležba na terminih blizu 100 odstotkov in oglasi z donosom 10:1 ali več mu povedo, da ima podjetje prenizke cene in porabi veliko premalo na kanalu, ki že deluje. Njegove prve poteze so običajno dvig cene za 10 do 40 odstotkov, namenska pristajalna stran in več denarja za oglase na kanalu, ki je že dobičkonosen. Majhne spremembe na posamezen račun (vrstni red jedilnika, priložena pijača, korak ponovne rezervacije) gredo v podjetju z velikim obsegom naravnost v dobiček.
+Lokalni lastniki skoraj vedno pridejo z besedami, da potrebujejo več leadov. Ko Alex pogleda številke, so leadi le redko prvi problem. Stopnje zaključka 70 do 90 odstotkov, udeležba na terminih blizu 100 odstotkov in oglasi z donosom 10:1 ali več mu povedo, da ima podjetje prenizke cene in porabi veliko premalo na kanalu, ki že deluje. Njegove prve poteze so običajno dvig cene za 10 do 40 odstotkov, namenska pristajalna stran in več denarja za oglase na kanalu, ki je že dobičkonosen. Majhne spremembe na posamezen račun (vrstni red jedilnika, priložena pijača, korak ponovne rezervacije) gredo v podjetju z velikim obsegom naravnost v dobiček.
 
 Drugi vzorec je kapaciteta. Veliko lokalnih podjetij omejuje en zdravnik, ustanovitelj, ki je še vedno v kombiju, ali pomanjkanje tehnikov. Alex obravnava zaposlovanje kot osrednjo funkcijo podjetja z lastnim lijakom in proračunom. Izračuna, koliko bruto dobička prinese en strokovnjak ali prodajalec, in lastniku tako pokaže, kako poceni je v resnici velik bonus za zaposlitev. Strokovnjaka premakne na najzahtevnejše delo, preprostejšo polovico pa preda sodelavcem.
 
@@ -328,7 +328,7 @@ Tretji vzorec je časovni zamik denarja. Četrtletno obračunavanje, plačilo po
 ## Kako bi to uporabil Alex {#alex}
 
 **Prva vprašanja.**
-1. Kakšne so tvoja udeležba na terminih, stopnja zaključka in donos na oglase? Zelo visoke številke pomenijo prenizke cene in premalo porabe.
+1. Kakšna je tvoja udeležba na terminih, stopnja zaključka in donos na oglase? Zelo visoke številke pomenijo prenizke cene in premalo porabe.
 2. Te omejuje povpraševanje (prazni stoli, prosti termini) ali ponudba (čakalna vrsta, lastnik ali strokovnjak povsem zaseden)?
 3. Koliko denarja zbereš od stranke prvi dan in ali pokrije strošek, da jo pridobiš in postrežeš?
 4. Koliko avatarjev, storitev, lokacij in stranskih projektov imaš in kateri prinaša denar?

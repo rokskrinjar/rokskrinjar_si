@@ -40,11 +40,11 @@ Across a large membership platform he describes a stable shape: over 20% churn i
 |---|---|
 | Month one | Activation, onboarding, expectations set, the right promises made |
 | Day 90 | A real outcome or a visible change in behaviour |
-| Month six | Customers connected to each other or embedded in the routine |
+| Month six | Customers connected to each other |
 
 ### Activation and onboarding
 
-The activation point is what your longest-staying customers did early. If you don't know it, study them and point the whole early experience at that behaviour. His examples: a first $2,000 sale within seven days for a gym licensee, 5+ lbs lost in week one, a trainer's first five clients. If there is no onboarding at all, he adds it first: one-on-one where possible, restate the customer's goal and why they want it, deliver a quick win within 24 hours, introduce one named contact. In one SaaS case, onboarding added two to three months to LTV.
+The activation point is what your longest-staying customers did early. If you don't know it, study them and point the whole early experience at that behaviour. His examples: a first $2,000 sale within seven days for a gym licensee, 5+ lbs lost in week one, a trainer's first five clients. If there is no onboarding at all, he adds it first: one-on-one where possible, restate the customer's goal and why they want it, deliver a quick win within 24 hours, introduce one named contact. In the lecture built on a SaaS case, he says onboarding can add two to three months to LTV in recurring businesses.
 
 ### Churn as consumption and expectations
 
@@ -77,7 +77,7 @@ Treat these as his rules of thumb, each from its own context: B2B annual client 
 
 <div class="ba" markdown="1">
 <div class="before" markdown="1">
-**Before.** Group onboarding with about 25 customers per call. Sales over-promised. Complaints handled by sales.
+**Before.** Group onboarding with about 25 customers per call. Complaints such as "too techy", "not enough support" and "too slow" pointed to a gap between what sales promised and what customers got.
 </div>
 <div class="after" markdown="1">
 **After.** One-on-one onboarding that restates the goal and fixes issues live, rescripted sales expectations, a separate escalations team, commission for support staff on saves.
