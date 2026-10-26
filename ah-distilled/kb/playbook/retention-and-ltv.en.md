@@ -11,7 +11,7 @@ related: [continuity-offers, upsell-offers, pricing-decisions, cash-forward, ent
 
 ## The gist {#gist}
 
-In several lectures Alex calls retention the most valuable property a business can have. Retained customers stack year on year and growth compounds. Without retention you are permanently in the business of replacing customers, and a business that depends only on new sales dies when its channel breaks. He also points out that the cost of reaching a given customer is roughly the same for everyone in a market, so the lasting edge is how much lifetime value you build on top.
+In several lectures Alex calls retention the most valuable property a business can have. Retained customers stack year on year and growth compounds. Without retention you are permanently in the business of replacing customers, and a business that depends only on new sales dies when its channel breaks. Since the cost of reaching a given customer is roughly the same for every competitor, the lasting edge is the lifetime value you build on top.
 
 His order is consistent: plug the leaks, then pour in more. Scaling acquisition into a leaking bucket just scales the problems. And when he digs into churn, the cause is usually upstream of the product: weak onboarding, customers who don't use what they bought, or a sales promise that didn't match reality.
 
@@ -27,7 +27,6 @@ His order is consistent: plug the leaks, then pour in more. Scaling acquisition 
 - **The ceiling moves.** With 100 new sales a month and an LTV of about $7.7K, revenue tops out around $770K a month in one of his worked examples. Halve churn and the ceiling doubles without one extra sale.
 - **You can pay more per customer.** At a fixed LTV:CAC target, doubling LTV doubles what you can afford to acquire a customer. In one portfolio company, LTV rising from about $2,000 to $3,800 took the business from about $2M a month to about $2M a week.
 - **It is often easier.** He frequently finds dropping churn far easier than multiplying acquisition. He would rather keep the same 300 customers than sell 900 a year to stay at 300.
-- **It is what buyers pay for.** As an investor, the first number he checks is how many of last year's customers are still paying.
 
 ### Fix the leak first, but read it correctly
 
@@ -45,7 +44,7 @@ Across a large membership platform he describes a stable shape: over 20% churn i
 
 ### Activation and onboarding
 
-The activation point is what your longest-staying customers did early. If you don't know it, study them and point the whole early experience at that behaviour. His examples: a first $2,000 sale within seven days for a gym licensee, 5+ lbs lost in week one, a trainer's first five clients. If there is no onboarding at all, he adds it first: one-on-one where possible, restate the customer's goal and why they want it, deliver a quick win within 24 hours, introduce one named contact. He treats onboarding as the last step of the sale, because the buyer has to be sold again on acting instead of quitting. In one SaaS case, onboarding added two to three months to LTV.
+The activation point is what your longest-staying customers did early. If you don't know it, study them and point the whole early experience at that behaviour. His examples: a first $2,000 sale within seven days for a gym licensee, 5+ lbs lost in week one, a trainer's first five clients. If there is no onboarding at all, he adds it first: one-on-one where possible, restate the customer's goal and why they want it, deliver a quick win within 24 hours, introduce one named contact. In one SaaS case, onboarding added two to three months to LTV.
 
 ### Churn as consumption and expectations
 
@@ -64,7 +63,7 @@ Message every canceller and tag the reason (price, overwhelm, not using, missing
 
 ### Referral ask and upsell at the moment of need
 
-Ask for referrals at the activation point. The customer's gratitude fades quickly while you remember the favour as bigger than it was, so ask early. After activation he wants a testimonial, a referral, then ascension. Selling customers the next thing is itself a retention tactic: if you don't meet their urge to buy again, someone else will. The two upsells that work almost anywhere are more of what they bought or more help with it, offered right after purchase. Renewals are pitched at several points (week four, milestones, halfway, last chance), not only at the end.
+Ask for referrals at the activation point. The customer's gratitude fades quickly while you remember the favour as bigger than it was, so ask early. After activation he wants a testimonial, a referral, then ascension. Selling customers the next thing is itself a retention tactic: if you don't meet their urge to buy again, someone else will. The two upsells that work almost anywhere are more of what they bought or more help with it, offered right after purchase. Renewals get pitched at several points (week four, milestones, halfway, last chance).
 
 ### Benchmarks he states
 
@@ -105,7 +104,6 @@ A ~$1.1M bar consultancy lost retainer clients after a couple of quarters. His d
 - **Measuring LTV as revenue.** He wants lifetime gross profit. Revenue LTV can make an unprofitable channel look healthy.
 - **Cutting price to stop churn.** His own cut didn't change churn, and in one case a recurring price drop of about a sixth changed nothing.
 - **Adding features to keep people.** Unused inclusions widen the gap between paid and consumed and raise cancellations.
-- **Reacting to one cancellation.** Wait for a pattern across about 20 before changing the product.
 
 ## How Alex would apply it {#alex}
 
