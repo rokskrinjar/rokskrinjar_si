@@ -91,14 +91,6 @@ Software and sellability form a separate thread. For software he treats retentio
 - **Why.** Better-fit clients pay more, earn more, need less work and stay longer. Sales fell from 100+ to 40–50 a month while escalations dropped from 22 to zero in four weeks.
 - **Source.** [Pricing Lessons From a Private Equity God](https://www.youtube.com/watch?v=hnfh2jqNVEQ&t=336s) (05:36)
 
-### Sales coaching and lead generation for financial advisers · ~$6.6M/yr, wants $20M+ · churn is the main problem
-
-- **Situation.** Paid ads to a VSL to a phone team.
-- **Diagnosis.** Activated clients stick, so this is an activation and avatar problem.
-- **Advice.** Identify the segments that activate (demographics, quantifiables, behaviours) and sell only to them, adjusting price if needed. Run daily group role-play for clients' teams, reverse-engineer activation and deliver an early win.
-- **Why.** Bad-fit customers cannot be helped regardless of effort.
-- **Source.** [Helping 4 Educational Business Owners Build a $1M Business in 25 Minutes](https://www.youtube.com/watch?v=BYpTRiRqS1Y&t=1106s) (18:26)
-
 ### Coaching for affiliates who want brand deals · ~$1.5M/yr · a price jump crushed close rate
 
 - **Situation.** Price moved from $4k/month to $20k for three months plus a back-end share. Close rate fell from ~96% to 20–30%, margin from 80% to ~37%.
@@ -291,14 +283,6 @@ Software and sellability form a separate thread. For software he treats retentio
 - **Why.** SaaS competitors are well funded and focused.
 - **Source.** [$100M Investor Answers The Most Important Business Questions for 1 Hour](https://www.youtube.com/watch?v=--9kOXNCUdE&t=2126s) (35:26)
 
-### Website-as-a-service for small businesses · ~$20M/yr at ~$450/month · fears AI will kill the product
-
-- **Situation.** All growth from outbound cold calling, ~29-month average stay, ~$3.6M EBITDA, people-heavy delivery.
-- **Diagnosis.** The fear does not show in the metrics. The real issues are single-channel risk and low margin.
-- **Advice.** Do not rebuild the product. Add paid inbound. Spend ~6 months rebuilding workflows with AI and cut headcount ~50% to roughly double margin, then accept a negative first quarter on CAC, knowing the 29-month back end.
-- **Why.** Margin funds acquisition without touching price; customers who would do it themselves with AI never bought anyway.
-- **Source.** [Watch This If You Have a Service Business](https://www.youtube.com/watch?v=jqo0lVveh98&t=907s) (15:07)
-
 ### Software selling an ad product to newspapers · size not stated · stagnant for years
 
 - **Situation.** A friend's company with a good revenue-share offer and a capable sales team.
@@ -312,13 +296,13 @@ Software and sellability form a separate thread. For software he treats retentio
 - **Keep the working channel and feed it (about 10 cases).** Owners want a new platform, avatar or B2B line; he says more creative, more spend, more volume on what already returns, and adds a channel before he adds an avatar.
 - **The new thing is an escape (about 6 cases).** B2B, apparel and supplements, a business school, a new niche, SaaS: the plateau comes from a skill gap in the core, and a new line will not close it.
 - **Raise value per customer before scaling ads (about 9 cases).** Upsells, ~$1,500 one-time offers, performance back ends, diagnostic sales of the goal, renewal pitches, annual prepay and memberships for graduates.
-- **Churn is fixed at the start (about 7 cases).** Qualify for the avatar that activates, onboard one-on-one, book the next session, deliver an early win; he would rather lose sales than keep poor-fit buyers.
+- **Churn is fixed at the start (about 6 cases).** Qualify for the avatar that activates, onboard one-on-one, book the next session, deliver an early win; he would rather lose sales than keep poor-fit buyers.
 - **Never cut price to fix churn (about 3 cases).** His own price cuts lost millions with churn unchanged; he raises or restructures price instead, splitting upfront and back-end when velocity suffers.
 - **Sell at events and milestones (about 4 cases).** Events and challenges pay off only when renewals and upgrades are pitched in the room.
 - **Over-delivery caps capacity (about 3 cases).** Chat access, long unstructured calls and unused group sessions; he cuts them and adds structure and self-serve checkout.
 - **Fix the weakest funnel step (about 3 cases).** Opt-in rate, pixel placement, cold traffic sent straight to checkout.
 - **Education is hard to sell (about 4 cases).** Founder dependency and single channels cap exit value; he points to the sellable assets students or audiences create.
-- **Software lives on retention and fit (about 5 cases).** Find the cohort that stays, sell to the real decision maker, protect margin, and choose a growing market.
+- **Software lives on retention and fit (about 4 cases).** Find the cohort that stays, sell to the real decision maker, commit to one path, and choose a growing market.
 
 ## How Alex would apply it {#alex}
 
@@ -339,4 +323,4 @@ Software and sellability form a separate thread. For software he treats retentio
 - **Founder at capacity:** strip over-delivery, structure the sale (scripted webinar, self-serve checkout), clip content for reach, then hire.
 - **Itch for something new:** add a channel inside the current business; refuse a new avatar or product until the core is clearly exhausted.
 - **Wanting an exit:** remove founder dependency and single-channel risk, or build around the sellable assets your students or audience create.
-- **Software:** prove retention in one cohort first, sell to whoever really decides, and protect margin before spending on acquisition.
+- **Software:** prove retention in one cohort first, sell to whoever really decides, and commit to one path before spending on acquisition.

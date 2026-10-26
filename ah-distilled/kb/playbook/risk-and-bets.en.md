@@ -25,7 +25,7 @@ He frames risk as personal and usually overestimated: for most founders the real
 
 ### Payoff × probability, and the career punch card
 
-In a short lecture on risk he runs a thought experiment: about 35 working years at about five years per serious attempt gives roughly seven bets. Big-bet logic (10% odds at 100x) suits venture funds with unlimited capital and attempts. A founder who loses three such bets in a row, which is normal, is fifteen years in with nothing. So when two options have similar risk-adjusted value, he takes the more probable one and compounds a chain of sure wins. He adds a test: assume none of the good things you expect happen; if you still win, take it.
+In a short lecture on risk he runs a thought experiment: about 35 working years at about five years per serious attempt gives roughly seven bets. Big-bet logic (10% odds at 100x) suits venture funds with unlimited capital and attempts. A founder who loses three such bets in a row is fifteen years in with nothing. So when two options have similar risk-adjusted value, he takes the more probable one and compounds a chain of sure wins. He adds a test: assume none of the good things you expect happen; if you still win, take it.
 
 In another talk he stresses the other side: you are paid for the risk you are seen to take, and risk is often mispriced because people overestimate downside. The two fit together: seek bets that look riskier to others than they are for you.
 
@@ -33,7 +33,7 @@ For changes inside a running business he uses a concrete bar in one hotseat: mak
 
 ### Idea risk versus execution risk
 
-He separates two kinds of risk and says he only takes the second. Idea risk asks whether people want it. Execution risk asks whether you can run it well. He picks businesses with proven demand (more customers, more money, better jobs, weight loss, entertainment), so the only variable is execution. With proven demand, a failure tells you the problem was you. With idea risk you cannot tell, which makes push-or-pivot decisions nearly impossible.
+He separates two kinds of risk and says he only takes the second. Idea risk asks whether people want it. Execution risk asks whether you can run it well. He picks businesses with proven demand, so the only variable is execution. With proven demand, a failure tells you the problem was you. With idea risk you cannot tell, which makes push-or-pivot decisions nearly impossible.
 
 ### Push or pivot
 
@@ -41,7 +41,7 @@ His rule, repeated in several videos: pivot only when a core assumption about de
 
 ### Do not start a new venture to escape a plateau
 
-His test for the urge: would you still want the new venture if the current business tripled? If not, it is an escape. A new business caps at the founder's current skill level, so changing the vehicle does not lift the ceiling. Years in one business pay down your ignorance debt; a new field puts you back at the bottom. The problems on your current path (sales efficiency, hiring) will exist on the new one too.
+His test for the urge: would you still want the new venture if the current business tripled? If not, it is an escape. A new business caps at the founder's current skill level, so changing the vehicle does not lift the ceiling. Years in one business pay down your ignorance debt; a new field puts you back at the bottom.
 
 ### Owners self-capping spend out of fear
 
@@ -85,7 +85,7 @@ An online craft-education membership (about $800K a year, 30–35% profit) ran f
 
 ### Consumer brand with a defined last test
 
-A founder of a premium drinks brand had about $1.5M in sales across many stores, zero profit and no repeat-purchase data. Alex proposed one focused bet on travel-retail contracts, where the small can was an advantage. If she could not close one, she should shut it down and put her time into the property business she already ran profitably on the side. The rule: learn fast rather than spend three more years on an unproven assumption.
+A founder of a premium drinks brand had about $1.5M in sales across many stores, zero profit and no repeat-purchase data. Alex proposed one focused bet on travel-retail contracts, where the small can was an advantage. If she could not close one, she should shut it down and put her time into the property development she had already proven on the side. The rule: learn fast rather than spend three more years on an unproven assumption.
 
 ### Data consultancy weighing a SaaS product (invented)
 
