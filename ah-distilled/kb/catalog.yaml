@@ -1,0 +1,102 @@
+# AH distilled — catalogue of the knowledge base.
+# Single source for structure: books -> sections -> concepts.
+# Concept content lives in kb/<book>/<concept>.en.md (primary) and .sl.md (translation).
+# Book introductions live in kb/<book>/_book.en.md and _book.sl.md.
+
+books:
+  - id: offers
+    title: {en: "$100M Offers", sl: "$100M Offers"}
+    subtitle: {en: "How to make offers so good people feel stupid saying no", sl: "Kako narediti ponudbe, ki jih je neumno zavrniti"}
+    kind: book
+    sections:
+      - id: problem
+        title: {en: "The commodity trap", sl: "Past blaga"}
+        concepts: [grand-slam-offer]
+      - id: pricing
+        title: {en: "Pricing", sl: "Cena"}
+        concepts: [starving-crowd, niche, charge-what-its-worth]
+      - id: value
+        title: {en: "Value", sl: "Vrednost"}
+        concepts: [value-equation, problems-solutions, delivery-vehicles, trim-and-stack]
+      - id: enhance
+        title: {en: "Enhancing the offer", sl: "Ojačanje ponudbe"}
+        concepts: [scarcity, urgency, bonuses, guarantees, naming]
+
+  - id: leads
+    title: {en: "$100M Leads", sl: "$100M Leads"}
+    subtitle: {en: "How to get strangers to want to buy your stuff", sl: "Kako doseči, da neznanci želijo kupiti tvoje stvari"}
+    kind: book
+    sections:
+      - id: understand
+        title: {en: "Understanding leads", sl: "Razumevanje leadov"}
+        concepts: [engaged-leads, lead-magnets]
+      - id: core-four
+        title: {en: "The Core Four", sl: "Core Four"}
+        concepts: [core-four, warm-outreach, free-content, cold-outreach, paid-ads]
+      - id: getters
+        title: {en: "Lead getters", sl: "Lead getterji"}
+        concepts: [lead-getters]
+      - id: start
+        title: {en: "Getting started", sl: "Začetek"}
+        concepts: [rule-of-100, more-better-new]
+
+  - id: money
+    title: {en: "$100M Money Models", sl: "$100M Money Models"}
+    subtitle: {en: "How to make money", sl: "Kako zaslužiti denar"}
+    kind: book
+    sections:
+      - id: foundations
+        title: {en: "Foundations", sl: "Osnove"}
+        concepts: [money-models, client-financed-acquisition]
+      - id: offer-types
+        title: {en: "The four offer types", sl: "Štirje tipi ponudb"}
+        concepts: [attraction-offers, upsell-offers, downsell-offers, continuity-offers]
+      - id: assemble
+        title: {en: "Putting it together", sl: "Sestavljanje"}
+        concepts: [build-your-money-model]
+
+  - id: sales
+    title: {en: "Selling & Scaling", sl: "Prodaja in rast"}
+    subtitle: {en: "From Alex's talks, trainings and podcast", sl: "Iz Alexovih predavanj, treningov in podcasta"}
+    kind: talks
+    sections:
+      - id: sales
+        title: {en: "Sales", sl: "Prodaja"}
+        concepts: [closer]
+      - id: scaling
+        title: {en: "Scaling", sl: "Rast"}
+        concepts: [constraint]
+
+concepts:
+  grand-slam-offer:            {title: {en: "Grand Slam Offer", sl: "Grand Slam ponudba"}, big: true}
+  starving-crowd:              {title: {en: "Starving Crowd", sl: "Lačna množica"}, big: true}
+  niche:                       {title: {en: "Commit to a Niche", sl: "Zaveza niši"}}
+  charge-what-its-worth:       {title: {en: "Charge What It's Worth", sl: "Zaračunaj, kar je vredno"}, big: true}
+  value-equation:              {title: {en: "The Value Equation", sl: "Enačba vrednosti"}, big: true}
+  problems-solutions:          {title: {en: "Problems into Solutions", sl: "Iz problemov v rešitve"}}
+  delivery-vehicles:           {title: {en: "Delivery Vehicles", sl: "Načini dostave"}}
+  trim-and-stack:              {title: {en: "Trim & Stack", sl: "Odreži in zloži"}}
+  scarcity:                    {title: {en: "Scarcity", sl: "Pomanjkanje"}}
+  urgency:                     {title: {en: "Urgency", sl: "Nujnost"}}
+  bonuses:                     {title: {en: "Bonuses", sl: "Bonusi"}}
+  guarantees:                  {title: {en: "Guarantees", sl: "Garancije"}}
+  naming:                      {title: {en: "Naming (MAGIC)", sl: "Poimenovanje (MAGIC)"}}
+  engaged-leads:               {title: {en: "Leads & Engaged Leads", sl: "Leadi in zavzeti leadi"}}
+  lead-magnets:                {title: {en: "Lead Magnets", sl: "Lead magneti"}, big: true}
+  core-four:                   {title: {en: "The Core Four", sl: "Core Four"}, big: true}
+  warm-outreach:               {title: {en: "Warm Outreach", sl: "Topli outreach"}}
+  free-content:                {title: {en: "Posting Free Content", sl: "Objavljanje brezplačne vsebine"}}
+  cold-outreach:               {title: {en: "Cold Outreach", sl: "Hladni outreach"}}
+  paid-ads:                    {title: {en: "Paid Ads", sl: "Plačani oglasi"}}
+  lead-getters:                {title: {en: "Lead Getters", sl: "Lead getterji"}, big: true}
+  rule-of-100:                 {title: {en: "The Rule of 100", sl: "Pravilo 100"}, big: true}
+  more-better-new:             {title: {en: "More, Better, New", sl: "Več, bolje, novo"}}
+  money-models:                {title: {en: "Money Models", sl: "Money modeli"}, big: true}
+  client-financed-acquisition: {title: {en: "Client-Financed Acquisition", sl: "Pridobivanje, ki ga financira stranka"}, big: true}
+  attraction-offers:           {title: {en: "Attraction Offers", sl: "Privabljalne ponudbe"}}
+  upsell-offers:               {title: {en: "Upsell Offers", sl: "Upsell ponudbe"}}
+  downsell-offers:             {title: {en: "Downsell Offers", sl: "Downsell ponudbe"}}
+  continuity-offers:           {title: {en: "Continuity Offers", sl: "Ponudbe naročnine"}}
+  build-your-money-model:      {title: {en: "Building Your Money Model", sl: "Sestavi svoj money model"}}
+  closer:                      {title: {en: "The CLOSER Framework", sl: "Okvir CLOSER"}, big: true}
+  constraint:                  {title: {en: "The Constraint", sl: "Ozko grlo"}, big: true}

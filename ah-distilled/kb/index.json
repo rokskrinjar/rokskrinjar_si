@@ -1,0 +1,762 @@
+{
+ "name": "AH distilled",
+ "description": "Alex Hormozi's business frameworks, distilled.",
+ "languages": [
+  "en",
+  "sl"
+ ],
+ "books": [
+  {
+   "id": "offers",
+   "title": {
+    "en": "$100M Offers",
+    "sl": "$100M Offers"
+   },
+   "subtitle": {
+    "en": "How to make offers so good people feel stupid saying no",
+    "sl": "Kako narediti ponudbe, ki jih je neumno zavrniti"
+   },
+   "url": "offers/",
+   "sections": [
+    {
+     "id": "problem",
+     "title": {
+      "en": "The commodity trap",
+      "sl": "Past blaga"
+     },
+     "concepts": [
+      {
+       "id": "grand-slam-offer",
+       "title": {
+        "en": "Grand Slam Offer",
+        "sl": "Grand Slam ponudba"
+       },
+       "url": "offers/grand-slam-offer.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    },
+    {
+     "id": "pricing",
+     "title": {
+      "en": "Pricing",
+      "sl": "Cena"
+     },
+     "concepts": [
+      {
+       "id": "starving-crowd",
+       "title": {
+        "en": "Starving Crowd",
+        "sl": "Lačna množica"
+       },
+       "url": "offers/starving-crowd.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "niche",
+       "title": {
+        "en": "Commit to a Niche",
+        "sl": "Zaveza niši"
+       },
+       "url": "offers/niche.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "charge-what-its-worth",
+       "title": {
+        "en": "Charge What It's Worth",
+        "sl": "Zaračunaj, kar je vredno"
+       },
+       "url": "offers/charge-what-its-worth.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    },
+    {
+     "id": "value",
+     "title": {
+      "en": "Value",
+      "sl": "Vrednost"
+     },
+     "concepts": [
+      {
+       "id": "value-equation",
+       "title": {
+        "en": "The Value Equation",
+        "sl": "Enačba vrednosti"
+       },
+       "url": "offers/value-equation.html",
+       "card": {
+        "en": "How a buyer decides, in their head, whether something is worth its price. Push two levers up and two down.",
+        "sl": "Kako kupec v glavi oceni, ali je nekaj vredno svoje cene. Dva vzvoda dvigneš, dva spustiš."
+       },
+       "key": {
+        "en": "Value = (Dream Outcome × Perceived Likelihood) ÷ (Time Delay × Effort & Sacrifice)",
+        "sl": "Vrednost = (sanjski izid × zaznana verjetnost) ÷ (časovni zamik × trud in žrtvovanje)"
+       },
+       "source": {
+        "en": "kb/offers/value-equation.en.md",
+        "sl": "kb/offers/value-equation.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "problems-solutions",
+       "title": {
+        "en": "Problems into Solutions",
+        "sl": "Iz problemov v rešitve"
+       },
+       "url": "offers/problems-solutions.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "delivery-vehicles",
+       "title": {
+        "en": "Delivery Vehicles",
+        "sl": "Načini dostave"
+       },
+       "url": "offers/delivery-vehicles.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "trim-and-stack",
+       "title": {
+        "en": "Trim & Stack",
+        "sl": "Odreži in zloži"
+       },
+       "url": "offers/trim-and-stack.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    },
+    {
+     "id": "enhance",
+     "title": {
+      "en": "Enhancing the offer",
+      "sl": "Ojačanje ponudbe"
+     },
+     "concepts": [
+      {
+       "id": "scarcity",
+       "title": {
+        "en": "Scarcity",
+        "sl": "Pomanjkanje"
+       },
+       "url": "offers/scarcity.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "urgency",
+       "title": {
+        "en": "Urgency",
+        "sl": "Nujnost"
+       },
+       "url": "offers/urgency.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "bonuses",
+       "title": {
+        "en": "Bonuses",
+        "sl": "Bonusi"
+       },
+       "url": "offers/bonuses.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "guarantees",
+       "title": {
+        "en": "Guarantees",
+        "sl": "Garancije"
+       },
+       "url": "offers/guarantees.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "naming",
+       "title": {
+        "en": "Naming (MAGIC)",
+        "sl": "Poimenovanje (MAGIC)"
+       },
+       "url": "offers/naming.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "leads",
+   "title": {
+    "en": "$100M Leads",
+    "sl": "$100M Leads"
+   },
+   "subtitle": {
+    "en": "How to get strangers to want to buy your stuff",
+    "sl": "Kako doseči, da neznanci želijo kupiti tvoje stvari"
+   },
+   "url": "leads/",
+   "sections": [
+    {
+     "id": "understand",
+     "title": {
+      "en": "Understanding leads",
+      "sl": "Razumevanje leadov"
+     },
+     "concepts": [
+      {
+       "id": "engaged-leads",
+       "title": {
+        "en": "Leads & Engaged Leads",
+        "sl": "Leadi in zavzeti leadi"
+       },
+       "url": "leads/engaged-leads.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "lead-magnets",
+       "title": {
+        "en": "Lead Magnets",
+        "sl": "Lead magneti"
+       },
+       "url": "leads/lead-magnets.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    },
+    {
+     "id": "core-four",
+     "title": {
+      "en": "The Core Four",
+      "sl": "Core Four"
+     },
+     "concepts": [
+      {
+       "id": "core-four",
+       "title": {
+        "en": "The Core Four",
+        "sl": "Core Four"
+       },
+       "url": "leads/core-four.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "warm-outreach",
+       "title": {
+        "en": "Warm Outreach",
+        "sl": "Topli outreach"
+       },
+       "url": "leads/warm-outreach.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "free-content",
+       "title": {
+        "en": "Posting Free Content",
+        "sl": "Objavljanje brezplačne vsebine"
+       },
+       "url": "leads/free-content.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "cold-outreach",
+       "title": {
+        "en": "Cold Outreach",
+        "sl": "Hladni outreach"
+       },
+       "url": "leads/cold-outreach.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "paid-ads",
+       "title": {
+        "en": "Paid Ads",
+        "sl": "Plačani oglasi"
+       },
+       "url": "leads/paid-ads.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    },
+    {
+     "id": "getters",
+     "title": {
+      "en": "Lead getters",
+      "sl": "Lead getterji"
+     },
+     "concepts": [
+      {
+       "id": "lead-getters",
+       "title": {
+        "en": "Lead Getters",
+        "sl": "Lead getterji"
+       },
+       "url": "leads/lead-getters.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    },
+    {
+     "id": "start",
+     "title": {
+      "en": "Getting started",
+      "sl": "Začetek"
+     },
+     "concepts": [
+      {
+       "id": "rule-of-100",
+       "title": {
+        "en": "The Rule of 100",
+        "sl": "Pravilo 100"
+       },
+       "url": "leads/rule-of-100.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "more-better-new",
+       "title": {
+        "en": "More, Better, New",
+        "sl": "Več, bolje, novo"
+       },
+       "url": "leads/more-better-new.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "money",
+   "title": {
+    "en": "$100M Money Models",
+    "sl": "$100M Money Models"
+   },
+   "subtitle": {
+    "en": "How to make money",
+    "sl": "Kako zaslužiti denar"
+   },
+   "url": "money/",
+   "sections": [
+    {
+     "id": "foundations",
+     "title": {
+      "en": "Foundations",
+      "sl": "Osnove"
+     },
+     "concepts": [
+      {
+       "id": "money-models",
+       "title": {
+        "en": "Money Models",
+        "sl": "Money modeli"
+       },
+       "url": "money/money-models.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "client-financed-acquisition",
+       "title": {
+        "en": "Client-Financed Acquisition",
+        "sl": "Pridobivanje, ki ga financira stranka"
+       },
+       "url": "money/client-financed-acquisition.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    },
+    {
+     "id": "offer-types",
+     "title": {
+      "en": "The four offer types",
+      "sl": "Štirje tipi ponudb"
+     },
+     "concepts": [
+      {
+       "id": "attraction-offers",
+       "title": {
+        "en": "Attraction Offers",
+        "sl": "Privabljalne ponudbe"
+       },
+       "url": "money/attraction-offers.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "upsell-offers",
+       "title": {
+        "en": "Upsell Offers",
+        "sl": "Upsell ponudbe"
+       },
+       "url": "money/upsell-offers.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "downsell-offers",
+       "title": {
+        "en": "Downsell Offers",
+        "sl": "Downsell ponudbe"
+       },
+       "url": "money/downsell-offers.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      },
+      {
+       "id": "continuity-offers",
+       "title": {
+        "en": "Continuity Offers",
+        "sl": "Ponudbe naročnine"
+       },
+       "url": "money/continuity-offers.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    },
+    {
+     "id": "assemble",
+     "title": {
+      "en": "Putting it together",
+      "sl": "Sestavljanje"
+     },
+     "concepts": [
+      {
+       "id": "build-your-money-model",
+       "title": {
+        "en": "Building Your Money Model",
+        "sl": "Sestavi svoj money model"
+       },
+       "url": "money/build-your-money-model.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sales",
+   "title": {
+    "en": "Selling & Scaling",
+    "sl": "Prodaja in rast"
+   },
+   "subtitle": {
+    "en": "From Alex's talks, trainings and podcast",
+    "sl": "Iz Alexovih predavanj, treningov in podcasta"
+   },
+   "url": "sales/",
+   "sections": [
+    {
+     "id": "sales",
+     "title": {
+      "en": "Sales",
+      "sl": "Prodaja"
+     },
+     "concepts": [
+      {
+       "id": "closer",
+       "title": {
+        "en": "The CLOSER Framework",
+        "sl": "Okvir CLOSER"
+       },
+       "url": "sales/closer.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    },
+    {
+     "id": "scaling",
+     "title": {
+      "en": "Scaling",
+      "sl": "Rast"
+     },
+     "concepts": [
+      {
+       "id": "constraint",
+       "title": {
+        "en": "The Constraint",
+        "sl": "Ozko grlo"
+       },
+       "url": "sales/constraint.html",
+       "card": {
+        "en": "",
+        "sl": ""
+       },
+       "key": {
+        "en": "",
+        "sl": ""
+       },
+       "source": {},
+       "ready": false
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

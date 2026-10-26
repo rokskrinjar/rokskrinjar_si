@@ -1,0 +1,31 @@
+# Texts for the home page (level 0). English first, Slovenian second.
+home:
+  eyebrow: {en: "Personal study map", sl: "Osebni študijski zemljevid"}
+  title: {en: "Alex Hormozi, distilled", sl: "Alex Hormozi, zgoščeno"}
+  lede:
+    en: "The core business frameworks from $100M Offers, $100M Leads, $100M Money Models and Alex's sales talks, explained with examples, common mistakes, worksheets and how Alex himself would apply them. Three levels: this overview, one page per book, and one page per concept."
+    sl: "Ključni poslovni okviri iz $100M Offers, $100M Leads, $100M Money Models in Alexovih predavanj o prodaji, razloženi s primeri, pogostimi napakami, delovnimi listi in tem, kako bi jih uporabil Alex sam. Trije nivoji: ta pregled, stran za vsako knjigo in stran za vsak koncept."
+  books_title: {en: "The books", sl: "Knjige"}
+  big_title: {en: "Twelve big ideas", sl: "Dvanajst velikih idej"}
+  big_lede:
+    en: "If you only remember twelve things, remember these. Each one links to its full page."
+    sl: "Če si zapomniš le dvanajst stvari, si zapomni te. Vsaka vodi na svojo celotno stran."
+  flow_title: {en: "How the books fit together", sl: "Kako se knjige povezujejo"}
+  flow:
+    - {en: "Offers: make something people feel stupid saying no to.", sl: "Offers: naredi nekaj, kar je neumno zavrniti."}
+    - {en: "Leads: get enough of the right people to see it.", sl: "Leads: poskrbi, da to vidi dovolj pravih ljudi."}
+    - {en: "Money Models: turn each customer into more cash, faster, so growth pays for itself.", sl: "Money Models: iz vsake stranke naredi več denarja, hitreje, da se rast plača sama."}
+    - {en: "Selling & Scaling: close the conversations and fix the one bottleneck that holds you back.", sl: "Prodaja in rast: zaključi pogovore in odpravi edino ozko grlo, ki te zavira."}
+  plan_title: {en: "Study plan · 3 weeks", sl: "Učni plan · 3 tedni"}
+  plan:
+    - {t: {en: "Week 1", sl: "Teden 1"}, en: "$100M Offers (audiobook, about 4 hours). Each evening, apply one concept to your own offer using its worksheet.", sl: "$100M Offers (zvočna knjiga, okoli 4 ure). Vsak večer en koncept uporabi na svoji ponudbi z delovnim listom."}
+    - {t: {en: "Week 2", sl: "Teden 2"}, en: "$100M Leads. Pick one Core Four channel and run it for seven days under the Rule of 100.", sl: "$100M Leads. Izberi en kanal iz Core Four in ga sedem dni izvajaj po pravilu 100."}
+    - {t: {en: "Week 3", sl: "Teden 3"}, en: "$100M Money Models and the free courses on acquisition.com. Sketch your money model and calculate your 30-day gross profit against CAC.", sl: "$100M Money Models in brezplačni tečaji na acquisition.com. Nariši svoj money model in izračunaj 30-dnevni bruto dobiček glede na CAC."}
+    - {t: {en: "Then", sl: "Nato"}, en: "YouTube and the podcast only when you have a specific question.", sl: "YouTube in podcast le, ko imaš konkretno vprašanje."}
+  guru_title: {en: "Ask Alex · in progress", sl: "Vprašaj Alexa · v nastajanju"}
+  guru:
+    en: "Every concept here is written as a knowledge base, including a section on how Alex would apply it. The goal is a personal business adviser that answers real business questions the way Alex would, for example by rewriting an offer with his principles. The full knowledge base is available as one file:"
+    sl: "Vsak koncept je napisan kot baza znanja, vključno z razdelkom o tem, kako bi ga uporabil Alex. Cilj je osebni poslovni svetovalec, ki na resnična poslovna vprašanja odgovarja tako, kot bi Alex, na primer s prepisom ponudbe po njegovih načelih. Celotna baza znanja je na voljo kot ena datoteka:"
+  footer:
+    en: "A paraphrase for personal study, not affiliated with Alex Hormozi or Acquisition.com. Examples are invented. See the original books for exact definitions."
+    sl: "Parafraza za osebno učenje, brez povezave z Alexom Hormozijem ali Acquisition.com. Primeri so izmišljeni. Za točne definicije glej izvirne knjige."
