@@ -1,0 +1,7 @@
+{
+  "name": "ask-alex-api",
+  "private": true,
+  "type": "module",
+  "description": "Ask Alex chatbot backend for rokskrinjar.si/ah-distilled",
+  "engines": { "node": ">=18" }
+}

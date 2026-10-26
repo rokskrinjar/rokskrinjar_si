@@ -23,10 +23,10 @@ home:
     - {t: {en: "Week 2", sl: "Teden 2"}, en: "$100M Leads. Pick one Core Four channel and run it for seven days under the Rule of 100.", sl: "$100M Leads. Izberi en kanal iz Core Four in ga sedem dni izvajaj po pravilu 100."}
     - {t: {en: "Week 3", sl: "Teden 3"}, en: "$100M Money Models and the free courses on acquisition.com. Sketch your money model and calculate your 30-day gross profit against CAC.", sl: "$100M Money Models in brezplačni tečaji na acquisition.com. Nariši svoj money model in izračunaj 30-dnevni bruto dobiček glede na CAC."}
     - {t: {en: "Then", sl: "Nato"}, en: "YouTube and the podcast only when you have a specific question.", sl: "YouTube in podcast le, ko imaš konkretno vprašanje."}
-  guru_title: {en: "Ask Alex · in progress", sl: "Vprašaj Alexa · v nastajanju"}
+  guru_title: {en: "Ask Alex", sl: "Vprašaj Alexa"}
   guru:
-    en: "Every concept here is written as a knowledge base, including a section on how Alex would apply it. The goal is a personal business adviser that answers real business questions the way Alex would, for example by rewriting an offer with his principles. The full knowledge base is available as one file:"
-    sl: "Vsak koncept je napisan kot baza znanja, vključno z razdelkom o tem, kako bi ga uporabil Alex. Cilj je osebni poslovni svetovalec, ki na resnična poslovna vprašanja odgovarja tako, kot bi Alex, na primer s prepisom ponudbe po njegovih načelih. Celotna baza znanja je na voljo kot ena datoteka:"
+    en: "Every concept here doubles as a knowledge base, including how Alex would apply it. Ask Alex is a chatbot that answers business questions briefly, the way Alex would reason, using only this knowledge base and linking to the pages behind each answer. The full knowledge base is also available as one file:"
+    sl: "Vsak koncept je hkrati baza znanja, vključno s tem, kako bi ga uporabil Alex. Vprašaj Alexa je klepetalni bot, ki na poslovna vprašanja odgovarja na kratko, kot bi razmišljal Alex, samo iz te baze znanja in s povezavami na strani, iz katerih odgovor izhaja. Celotna baza znanja je na voljo tudi kot ena datoteka:"
   footer:
     en: "A paraphrase for personal study, not affiliated with Alex Hormozi or Acquisition.com. Examples are invented. See the original books for exact definitions."
     sl: "Parafraza za osebno učenje, brez povezave z Alexom Hormozijem ali Acquisition.com. Primeri so izmišljeni. Za točne definicije glej izvirne knjige."
