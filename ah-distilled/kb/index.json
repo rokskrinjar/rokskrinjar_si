@@ -637,15 +637,18 @@
        },
        "url": "money/client-financed-acquisition.html",
        "card": {
-        "en": "",
-        "sl": ""
+        "en": "When what a new customer pays in the first 30 days covers the cost to acquire and serve them, growth funds itself. At 2×, every customer pays for two more.",
+        "sl": "Ko to, kar nova stranka plača v prvih 30 dneh, pokrije strošek njene pridobitve in izvedbe, se rast financira sama. Pri 2× vsaka stranka plača še dve."
        },
        "key": {
-        "en": "",
-        "sl": ""
+        "en": "30-day gross profit ≥ CAC (goal ≥ 2× CAC); LTGP:CAC ≥ 3:1 as a rule of thumb",
+        "sl": "30-dnevni bruto dobiček ≥ CAC (cilj ≥ 2× CAC); LTGP:CAC ≥ 3:1 kot pravilo palca"
        },
-       "source": {},
-       "ready": false
+       "source": {
+        "en": "kb/money/client-financed-acquisition.en.md",
+        "sl": "kb/money/client-financed-acquisition.sl.md"
+       },
+       "ready": true
       }
      ]
     },

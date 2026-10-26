@@ -94,7 +94,7 @@ The Better step had nothing to do with the ad. Lifting show-ups from 60% to 80% 
 
 ## Common mistakes {#mistakes}
 
-- **Jumping to New because you're bored.** Repeating what works feels dull. That dullness is usually a sign it's working, not a reason to stop.
+- **Jumping to New because you're bored.** Repeating what works feels dull. That dullness is usually a sign it works. Keep going.
 - **Optimising before you have volume.** Testing headlines on 30 messages is noise. Better only works once More has given you enough data.
 - **Stopping More too early.** Most people quit raising volume long before results per unit actually drop. Check the numbers before deciding you've hit the ceiling.
 - **Changing many things at once.** If you change offer, copy and audience together, you can't tell what helped, and you can't repeat it.
@@ -105,7 +105,7 @@ The Better step had nothing to do with the ad. Lifting show-ups from 60% to 80% 
 - **His default answer to "what should I do next?" is more.** He first asks whether the current activity can simply be doubled, and usually it can.
 - **He sees boredom as the enemy of growth.** Many owners abandon what works because it's repetitive. He keeps the boring thing going and often scales it further.
 - **He moves to Better only when volume stalls,** and then works on the weakest step in the funnel, one change at a time.
-- **He is sceptical of new platforms, funnels and offers** while an existing channel still has room to grow. New is a last resort, not a first idea.
+- **He is sceptical of new platforms, funnels and offers** while an existing channel still has room to grow. New comes last.
 - **He buys volume with people before he buys novelty.** Hiring someone to do more of the proven work comes before adding a channel.
 - **When he does go New, he restarts the Rule of 100** on it and keeps the old channel running.
 - **Questions he would ask:** What's working right now? Can you do twice as much of it next month? What happens to results per unit as you scale? Which step in your funnel converts worst? What's the one change you'll test there first? Why do you want to add something new, and what will it cost the channel that works?

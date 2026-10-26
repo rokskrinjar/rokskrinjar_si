@@ -103,7 +103,7 @@ The review pays for much of the sales effort, so a new client no longer depends 
 
 - **He looks at the money model before the marketing.** When growth stalls because ads seem too expensive, he first asks how much each customer is worth in the first 30 days. Often the fix is the sequence of offers.
 - **He builds it one offer at a time,** starting with the attraction offer. Once that reliably brings in the right customers, he adds the upsell, then the downsell, then continuity.
-- **He wants every customer to hear the next offer.** An upsell after every yes and a downsell after every no is a process, not a matter of mood.
+- **He wants every customer to hear the next offer.** An upsell after every yes and a downsell after every no is a fixed step in the process.
 - **He keeps it simple.** Many offers around one core product beat a catalogue. He would cut products before he would cut offers.
 - **He measures it with 30-day gross profit against CAC,** and aims for the first month to pay for acquiring that customer and ideally two more.
 - **He prefers models that pay up front.** Setup fees, prepayments and first-month upsells bring cash in when the business needs it to acquire the next customer.

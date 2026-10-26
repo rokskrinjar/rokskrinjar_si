@@ -103,7 +103,7 @@ Pregled pokrije velik del prodajnega truda, zato nova stranka ni več odvisna od
 
 - **Money model pogleda pred marketingom.** Ko rast zastane, ker so oglasi videti predragi, najprej vpraša, koliko je vsaka stranka vredna v prvih 30 dneh. Pogosto je rešitev v zaporedju ponudb.
 - **Gradi ga po eno ponudbo naenkrat,** z začetkom pri privabljalni. Ko ta zanesljivo pripelje prave stranke, doda upsell, nato downsell, nato naročnino.
-- **Hoče, da vsaka stranka sliši naslednjo ponudbo.** Upsell po vsakem »da« in downsell po vsakem »ne« je proces, ne stvar razpoloženja.
+- **Hoče, da vsaka stranka sliši naslednjo ponudbo.** Upsell po vsakem »da« in downsell po vsakem »ne« je stalen korak v procesu.
 - **Ohrani preprostost.** Veliko ponudb okoli enega glavnega produkta premaga katalog. Prej bi ukinil produkte kot ponudbe.
 - **Meri ga s 30-dnevnim bruto dobičkom proti CAC** in cilja na to, da prvi mesec plača pridobitev te stranke in idealno še dveh.
 - **Ima raje modele, ki plačajo vnaprej.** Pristojbine za nastavitev, predplačila in upselli v prvem mesecu prinesejo denar takrat, ko ga podjetje potrebuje za pridobitev naslednje stranke.

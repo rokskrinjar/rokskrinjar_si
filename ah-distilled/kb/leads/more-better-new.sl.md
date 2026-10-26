@@ -94,7 +94,7 @@ Korak Bolje ni imel nič z oglasom. Dvig prihodov s 60 % na 80 % pomeni tretjino
 
 ## Pogoste napake {#mistakes}
 
-- **Skok na Novo iz dolgčasa.** Ponavljanje tega, kar deluje, je videti dolgočasno. Ta dolgčas je navadno znak, da deluje, ne razlog za prenehanje.
+- **Skok na Novo iz dolgčasa.** Ponavljanje tega, kar deluje, je videti dolgočasno. Ta dolgčas je navadno znak, da deluje. Nadaljuj.
 - **Optimiziranje, preden imaš volumen.** Testiranje naslovov na 30 sporočilih je šum. Bolje deluje šele, ko ti Več da dovolj podatkov.
 - **Prezgodnja ustavitev Več.** Večina ljudi neha večati volumen precej preden rezultati na enoto res padejo. Preden se odločiš, da si dosegel strop, preveri številke.
 - **Spreminjanje več stvari naenkrat.** Če hkrati spremeniš ponudbo, besedilo in ciljno skupino, ne veš, kaj je pomagalo, in tega ne moreš ponoviti.
@@ -105,7 +105,7 @@ Korak Bolje ni imel nič z oglasom. Dvig prihodov s 60 % na 80 % pomeni tretjino
 - **Njegov privzeti odgovor na »kaj naj naredim naslednje?« je več.** Najprej vpraša, ali je trenutno aktivnost mogoče preprosto podvojiti, in navadno jo je.
 - **Dolgčas vidi kot sovražnika rasti.** Mnogi lastniki opustijo, kar deluje, ker je ponavljajoče se. On dolgočasno stvar ohrani in jo pogosto še skalira.
 - **Na Bolje preide šele, ko volumen zastane,** in takrat dela na najšibkejšem koraku lijaka, eno spremembo naenkrat.
-- **Do novih platform, lijakov in ponudb je skeptičen,** dokler ima obstoječi kanal še prostor za rast. Novo je zadnja možnost, ne prva ideja.
+- **Do novih platform, lijakov in ponudb je skeptičen,** dokler ima obstoječi kanal še prostor za rast. Novo pride zadnje.
 - **Volumen kupi z ljudmi, preden kupi novost.** Zaposlitev nekoga, ki dela več dokazanega dela, pride pred dodajanjem kanala.
 - **Ko gre v Novo, na njem znova zažene Pravilo 100** in stari kanal pusti teči.
 - **Vprašanja, ki bi jih postavil:** Kaj trenutno deluje? Ali lahko naslednji mesec narediš dvakrat toliko? Kaj se zgodi z rezultati na enoto, ko večaš? Kateri korak v lijaku najslabše konvertira? Katero eno spremembo boš tam najprej preizkusil? Zakaj želiš dodati nekaj novega in koliko bo to stalo kanal, ki deluje?
