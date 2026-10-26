@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="sl" data-lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ekonomika stranke · Customer Economics</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+</head>
+<body>
+<div class="topbar">
+  <a class="back" href="index.html"><span class="sl">← AH distilled</span><span class="en">← AH distilled</span></a>
+  <div class="lang" role="group" aria-label="Jezik / Language">
+    <button type="button" data-set="sl">SL</button><button type="button" data-set="en">EN</button><button type="button" data-set="both">SL+EN</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <header class="page-head">
+    <p class="eyebrow"><span class="sl">Del 3 · Monetizacija</span><span class="en">Part 3 · Money Models</span></p>
+    <h1><span class="sl">Ekonomika stranke</span><span class="en">Customer Economics</span></h1>
+    <p class="src">$100M Money Models / $100M Leads · LTGP:CAC, payback</p>
+    <p class="lede sl">Tri številke, ki povedo, ali se ti rast splača in kako hitro jo lahko poganjaš: koliko stane stranka, koliko dobička prinese v življenjski dobi in kako hitro se strošek povrne.</p>
+    <p class="lede en">Three numbers that tell you whether growth pays and how fast you can push it: what a customer costs, how much profit they bring over their lifetime, and how fast the cost comes back.</p>
+  </header>
+
+  <section class="sec">
+    <h2><span class="sl">Bistvo</span><span class="en">The gist</span></h2>
+    <div class="eq" role="img" aria-label="LTGP : CAC ≥ 3 : 1">
+      <span class="lhs"><span class="sl">Zdravo razmerje:</span><span class="en">Healthy ratio:</span></span>
+      <div class="frac">
+        <div class="num"><span class="up"><span class="sl">Življenjski bruto dobiček (LTGP)</span><span class="en">Lifetime Gross Profit (LTGP)</span></span></div>
+        <div class="den"><span class="down"><span class="sl">Strošek pridobitve stranke (CAC)</span><span class="en">Customer Acquisition Cost (CAC)</span></span></div>
+      </div>
+      <span class="ratio">≥ 3 : 1</span>
+    </div>
+    <div class="grid2">
+      <div class="cell"><strong>CAC</strong><span class="d"><span class="sl">Vsi stroški marketinga in prodaje ÷ število novih strank</span><span class="en">All marketing and sales costs ÷ number of new customers</span></span></div>
+      <div class="cell"><strong><span class="sl">Bruto dobiček</span><span class="en">Gross profit</span></strong><span class="d"><span class="sl">Prihodek − neposredni stroški izvedbe</span><span class="en">Revenue − direct cost of delivery</span></span></div>
+      <div class="cell"><strong>LTGP</strong><span class="d"><span class="sl">Mesečni bruto dobiček × povprečna življenjska doba (meseci)</span><span class="en">Monthly gross profit × average lifetime (months)</span></span></div>
+      <div class="cell"><strong><span class="sl">Doba povrnitve</span><span class="en">Payback period</span></strong><span class="d"><span class="sl">Čas, ko kumulativni bruto dobiček stranke doseže CAC</span><span class="en">Time until a customer's cumulative gross profit reaches CAC</span></span></div>
+    </div>
+    <div class="gist">
+      <p class="sl">Podjetje je zdravo, ko stranka v svoji življenjski dobi prinese vsaj <b>trikrat več bruto dobička</b>, kot je stala njena pridobitev. A razmerje samo ni dovolj: če se strošek povrne šele v letu dni, ti zmanjka gotovine, preden rast sploh zaživi. Zato je drugi ključni podatek <b>doba povrnitve</b>. Ko se CAC povrne v 30 dneh, lahko rast financiraš z denarjem strank, ne s krediti.</p>
+      <p class="en">A business is healthy when a customer brings at least <b>three times more gross profit</b> over their lifetime than it cost to acquire them. But the ratio alone isn't enough: if cost pays back only after a year, you run out of cash before growth takes off. So the second key number is the <b>payback period</b>. When CAC pays back within 30 days, you fund growth with customers' money, not loans.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2><span class="sl">Kako izračunaš vsako številko</span><span class="en">How to compute each number</span></h2>
+
+    <div class="box">
+      <h3><span class="sl">1. CAC: strošek pridobitve stranke</span><span class="en">1. CAC: Customer Acquisition Cost</span></h3>
+      <p class="sl">Seštej <b>vse</b>, kar si v obdobju porabil za pridobivanje strank: oglase, orodja, plače ali čas prodajalcev, provizije partnerjev, dogodke. Deli s številom novih strank v istem obdobju. Najpogostejša napaka je, da štejemo samo oglase. Če prodajaš sam, oceni vrednost svojega časa, sicer bo CAC videti nerealno nizek in se bo ob prvem zaposlenem prodajalcu nenadoma podvojil.</p>
+      <p class="en">Add up <b>everything</b> spent in a period on getting customers: ads, tools, salaries or sales time, partner commissions, events. Divide by the number of new customers in the same period. The most common error is counting ads only. If you sell yourself, put a value on your time, or CAC will look unrealistically low and suddenly double when you hire your first salesperson.</p>
+    </div>
+
+    <div class="box">
+      <h3><span class="sl">2. Bruto dobiček, ne prihodek</span><span class="en">2. Gross profit, not revenue</span></h3>
+      <p class="sl">Bruto dobiček je denar, ki ostane po neposrednih stroških izvedbe: delo ljudi, ki storitev opravijo, material, licence, gostovanje, podizvajalci. Le ta denar lahko vložiš nazaj v pridobivanje strank. Dve podjetji z enakim prihodkom imata lahko povsem različno ekonomiko: 1.000 € prihodka pri 80 % marži je 800 € za rast, pri 20 % marži le 200 €. Zato Hormozi vse te kazalnike gradi na bruto dobičku (<span class="term">gross profit</span>).</p>
+      <p class="en">Gross profit is what's left after the direct costs of delivery: the people doing the work, materials, licences, hosting, subcontractors. Only this money can be reinvested in acquiring customers. Two businesses with the same revenue can have very different economics: €1,000 of revenue at 80% margin is €800 for growth, at 20% margin only €200. That's why Hormozi builds these metrics on gross profit.</p>
+    </div>
+
+    <div class="box">
+      <h3><span class="sl">3. LTGP: življenjski bruto dobiček</span><span class="en">3. LTGP: Lifetime Gross Profit</span></h3>
+      <p class="sl">Koliko bruto dobička povprečna stranka ustvari, dokler ostane. Za naročnine je praktična ocena: povprečna življenjska doba ≈ 1 ÷ mesečni delež odhodov (<span class="term">churn</span>). Pri 5 % odhodih na mesec stranka v povprečju ostane 20 mesecev. LTGP = mesečni bruto dobiček × 20, plus enkratni nakupi (nastavitev, nadgradnje). Pri projektnem delu namesto tega seštej povprečen bruto dobiček vseh projektov, ki jih stranka naroči.</p>
+      <p class="en">How much gross profit the average customer generates while they stay. For subscriptions a practical estimate: average lifetime ≈ 1 ÷ monthly churn rate. At 5% monthly churn a customer stays 20 months on average. LTGP = monthly gross profit × 20, plus one-off purchases (setup, upsells). For project work, instead add up the average gross profit of all projects a client orders.</p>
+    </div>
+
+    <div class="box">
+      <h3><span class="sl">4. Razmerje LTGP:CAC</span><span class="en">4. The LTGP:CAC ratio</span></h3>
+      <p class="sl">LTGP deli s CAC. Pod 1:1 vsaka nova stranka izgublja denar. Okoli 3:1 je pogosto uporabljeno pravilo za zdravo podjetje, ker pokrije pridobitev in še ostane za režijo in dobiček. Precej nad tem je lahko znak, da premalo vlagaš v rast. Številka je ocena, ne resnica: posebej pri mladih podjetjih je življenjska doba strank še domneva, zato računaj previdno.</p>
+      <p class="en">Divide LTGP by CAC. Below 1:1 each new customer loses money. Around 3:1 is a widely used rule of thumb for a healthy business, because it covers acquisition and leaves room for overhead and profit. Far above that can be a sign you're under-investing in growth. The number is an estimate, not truth: especially in young businesses customer lifetime is still an assumption, so calculate conservatively.</p>
+    </div>
+
+    <div class="box">
+      <h3><span class="sl">5. Doba povrnitve</span><span class="en">5. Payback period</span></h3>
+      <p class="sl">CAC deli z mesečnim bruto dobičkom, upoštevaj pa tudi enkratna plačila na začetku. Če se povrne v <b>30 dneh</b>, imaš na koncu meseca že nazaj denar za naslednjo stranko; rast je omejena le z zmogljivostjo, ne z gotovino. Hitro dobo povrnitve dosežeš s plačili vnaprej, nastavitvenimi pristojbinami, letnimi predplačili in nadgradnjami v prvem mesecu, kar je točno naloga <a href="money-model.html">money modela</a>.</p>
+      <p class="en">Divide CAC by monthly gross profit, and include any one-off payments at the start. If it pays back within <b>30 days</b>, by month-end you already have the cash back for the next customer; growth is limited only by capacity, not cash. You get fast payback through upfront payments, setup fees, annual prepayment and first-month upsells, which is exactly the job of a <a href="money-model.html">money model</a>.</p>
+    </div>
+
+    <div class="box">
+      <h3><span class="sl">Kako izboljšaš vsak vzvod</span><span class="en">How to improve each lever</span></h3>
+      <p class="sl"><b>Nižji CAC:</b> boljša ponudba, ki jo več ljudi sprejme; boljša konverzija na vsakem koraku (več odgovorov, več sestankov, več zaprtih poslov); več priporočil in partnerjev, ki prinašajo leade z izposojenim zaupanjem. <b>Višji bruto dobiček:</b> višja cena (gre skoraj v celoti v dobiček), nižji stroški izvedbe s standardizacijo in avtomatizacijo. <b>Daljša življenjska doba:</b> hiter prvi rezultat, dober začetek sodelovanja (<span class="term">onboarding</span>), ponavljajoča se vrednost, nadgradnje. <b>Hitrejša povrnitev:</b> denar na začetku namesto na koncu.</p>
+      <p class="en"><b>Lower CAC:</b> a better offer more people accept; better conversion at each step (more replies, more meetings, more closes); more referrals and partners bringing leads with borrowed trust. <b>Higher gross profit:</b> higher price (falls almost entirely to profit), lower delivery cost through standardisation and automation. <b>Longer lifetime:</b> a fast first result, good onboarding, recurring value, upsells. <b>Faster payback:</b> cash at the start instead of the end.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2><span class="sl">Primeri</span><span class="en">Examples</span></h2>
+    <p class="lede sl">Primeri so izmišljeni in služijo ponazoritvi.</p>
+    <p class="lede en">Examples are made up for illustration.</p>
+
+    <article class="example">
+      <p class="tag"><span class="sl">B2B · SaaS / analitika</span><span class="en">B2B · SaaS / analytics</span></p>
+      <h3><span class="sl">Naročnina na upravljano BI rešitev</span><span class="en">Managed BI subscription</span></h3>
+      <p class="sl">V četrtletju porabijo 6.000 € za oglase in dogodke ter 4.000 € za prodajni čas in pridobijo 5 strank. Naročnina je 800 € na mesec, neposredni stroški (licence, podpora) 200 €. Nato uvedejo plačano nastavitev 1.800 € (stroški 600 €), boljši onboarding prepolovi odhode, priporočila pa ob istem strošku prinesejo še eno stranko več.</p>
+      <p class="en">In a quarter they spend €6,000 on ads and events and €4,000 on sales time and win 5 customers. The subscription is €800/month, direct costs (licences, support) €200. Then they introduce a paid setup of €1,800 (cost €600), better onboarding halves churn, and referrals bring one extra customer at the same spend.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th><span class="sl">Kazalnik</span><span class="en">Metric</span></th><th><span class="sl">Pred</span><span class="en">Before</span></th><th><span class="sl">Po</span><span class="en">After</span></th></tr></thead>
+          <tbody>
+            <tr><td><span class="sl">Stroški pridobivanja</span><span class="en">Acquisition spend</span></td><td>10.000 €</td><td>10.000 €</td></tr>
+            <tr><td><span class="sl">Nove stranke</span><span class="en">New customers</span></td><td>5</td><td>6</td></tr>
+            <tr><td><b>CAC</b></td><td>2.000 €</td><td>1.667 €</td></tr>
+            <tr><td><span class="sl">Mesečni bruto dobiček (800 − 200)</span><span class="en">Monthly gross profit (800 − 200)</span></td><td>600 €</td><td>600 €</td></tr>
+            <tr><td><span class="sl">Bruto dobiček nastavitve (1.800 − 600)</span><span class="en">Setup gross profit (1,800 − 600)</span></td><td>0 €</td><td>1.200 €</td></tr>
+            <tr><td><span class="sl">Mesečni odhodi</span><span class="en">Monthly churn</span></td><td>10 %</td><td>5 %</td></tr>
+            <tr><td><span class="sl">Povprečna življenjska doba</span><span class="en">Average lifetime</span></td><td><span class="sl">10 mes.</span><span class="en">10 mo.</span></td><td><span class="sl">20 mes.</span><span class="en">20 mo.</span></td></tr>
+            <tr><td><b>LTGP</b></td><td>6.000 €</td><td>13.200 €</td></tr>
+            <tr><td><b>LTGP:CAC</b></td><td><span class="ratio">3,0 : 1</span></td><td><span class="ratio">7,9 : 1</span></td></tr>
+            <tr><td><span class="sl">Bruto dobiček v prvih 30 dneh</span><span class="en">Gross profit in first 30 days</span></td><td>600 €</td><td>1.800 €</td></tr>
+            <tr><td><b><span class="sl">Doba povrnitve</span><span class="en">Payback period</span></b></td><td><span class="sl">≈ 3,3 mes.</span><span class="en">≈ 3.3 mo.</span></td><td><span class="sl">v 1. mesecu</span><span class="en">within month 1</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sl">Računi: CAC prej 10.000 / 5 = 2.000 €, potem 10.000 / 6 ≈ 1.667 €. LTGP prej 600 × 10 = 6.000 €, potem 1.200 + 600 × 20 = 13.200 €. Razmerje potem 13.200 / 1.667 ≈ 7,9. Ker 1.800 € bruto dobička v prvem mesecu preseže CAC 1.667 €, se pridobitev povrne v 30 dneh. Prej je bilo podjetje »zdravo« na papirju (3:1), a je za vsako stranko čakalo več kot tri mesece na svoj denar.</p>
+      <p class="en">Arithmetic: CAC before 10,000 / 5 = €2,000, after 10,000 / 6 ≈ €1,667. LTGP before 600 × 10 = €6,000, after 1,200 + 600 × 20 = €13,200. Ratio after 13,200 / 1,667 ≈ 7.9. Because €1,800 of first-month gross profit exceeds the €1,667 CAC, acquisition pays back within 30 days. Before, the business was "healthy" on paper (3:1) but waited more than three months for its money on each customer.</p>
+    </article>
+
+    <article class="example">
+      <p class="tag"><span class="sl">Lokalna storitev · avtopralnica</span><span class="en">Local service · car detailing</span></p>
+      <h3><span class="sl">Zakaj prihodek zavaja</span><span class="en">Why revenue misleads</span></h3>
+      <p class="sl">Detajling studio prodaja dve storitvi po 100 €. CAC iz lokalnih oglasov je 50 € na novo stranko.</p>
+      <p class="en">A detailing studio sells two services at €100 each. CAC from local ads is €50 per new customer.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th><span class="sl">Storitev</span><span class="en">Service</span></th><th><span class="sl">Prihodek</span><span class="en">Revenue</span></th><th><span class="sl">Neposredni stroški</span><span class="en">Direct costs</span></th><th><span class="sl">Bruto dobiček</span><span class="en">Gross profit</span></th><th><span class="sl">Obiskov do povrnitve CAC</span><span class="en">Visits to pay back CAC</span></th></tr></thead>
+          <tbody>
+            <tr><td><span class="sl">Notranje čiščenje</span><span class="en">Interior clean</span></td><td>100 €</td><td>30 €</td><td>70 €</td><td>1</td></tr>
+            <tr><td><span class="sl">Keramična zaščita</span><span class="en">Ceramic coating</span></td><td>100 €</td><td>75 €</td><td>25 €</td><td>2</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sl">Na računu sta storitvi enaki, v ekonomiki pa ne. Notranje čiščenje povrne CAC že ob prvem obisku (70 € ≥ 50 €), keramična zaščita šele ob drugem (2 × 25 € = 50 €). Studio zato oglašuje čiščenje kot vstopno storitev, zaščito pa ponudi kot nadgradnjo obstoječim strankam, kjer CAC ni več treba plačati, ali ji dvigne ceno.</p>
+      <p class="en">On the invoice the two look identical; in the economics they aren't. Interior cleaning pays back CAC on the first visit (€70 ≥ €50), ceramic coating only on the second (2 × €25 = €50). So the studio advertises cleaning as the entry service and offers coating as an upsell to existing customers, where no CAC has to be paid again, or raises its price.</p>
+    </article>
+
+    <article class="example">
+      <p class="tag"><span class="sl">Svetovanje · AI</span><span class="en">Consulting · AI</span></p>
+      <h3><span class="sl">Moč cene</span><span class="en">The power of price</span></h3>
+      <div class="ba">
+        <div class="before">
+          <span class="lbl"><span class="sl">Pred</span><span class="en">Before</span></span>
+          <p class="sl">Projekt avtomatizacije 10.000 €, stroški izvedbe 6.000 €, bruto dobiček 4.000 €. CAC 2.000 €. Razmerje na en projekt 2:1.</p>
+          <p class="en">Automation project €10,000, delivery cost €6,000, gross profit €4,000. CAC €2,000. Ratio on one project 2:1.</p>
+        </div>
+        <div class="after">
+          <span class="lbl"><span class="sl">Po</span><span class="en">After</span></span>
+          <p class="sl">Z jasnim izračunom prihranka in garancijo cena 12.000 €, stroški ostanejo 6.000 €, bruto dobiček 6.000 €. Ob istem CAC razmerje 3:1.</p>
+          <p class="en">With a clear savings case and a guarantee the price is €12,000, costs stay €6,000, gross profit €6,000. At the same CAC the ratio is 3:1.</p>
+        </div>
+      </div>
+      <p class="sl">Cena se je dvignila za 20 %, bruto dobiček pa za 50 % (s 4.000 € na 6.000 €), ker gre ves dodatek neposredno v dobiček. Zato je cena praviloma najmočnejši in najhitrejši vzvod LTGP, ki ga podpre boljša ponudba.</p>
+      <p class="en">Price went up 20%, gross profit by 50% (from €4,000 to €6,000), because the entire increase drops straight to profit. That's why price is usually the strongest and fastest LTGP lever, backed by a better offer.</p>
+    </article>
+  </section>
+
+  <section class="sec">
+    <h2><span class="sl">Pogoste napake</span><span class="en">Common mistakes</span></h2>
+    <ul class="mistakes">
+      <li><strong><span class="sl">LTV na prihodku</span><span class="en">LTV on revenue</span></strong>
+        <p class="sl">Življenjska vrednost iz prihodka napihne razmerje in skrije slabo maržo. Vedno računaj z bruto dobičkom.</p>
+        <p class="en">Lifetime value based on revenue inflates the ratio and hides poor margins. Always use gross profit.</p></li>
+      <li><strong><span class="sl">Nepopoln CAC</span><span class="en">Incomplete CAC</span></strong>
+        <p class="sl">Samo oglasi brez prodajnega časa, orodij in provizij dajo prenizek CAC in lažen občutek varnosti.</p>
+        <p class="en">Ads alone, without sales time, tools and commissions, give a CAC that's too low and a false sense of safety.</p></li>
+      <li><strong><span class="sl">Dobro razmerje, počasna povrnitev</span><span class="en">Good ratio, slow payback</span></strong>
+        <p class="sl">Tudi 5:1 ti ne pomaga, če se denar vrne v enem letu in ti gotovina zmanjka v treh mesecih.</p>
+        <p class="en">Even 5:1 doesn't help if the money comes back in a year and you run out of cash in three months.</p></li>
+      <li><strong><span class="sl">Optimistična življenjska doba</span><span class="en">Optimistic lifetime</span></strong>
+        <p class="sl">Pri mladem podjetju je življenjska doba domneva. Računaj s krajšo dobo, dokler podatki ne pokažejo drugače.</p>
+        <p class="en">In a young business lifetime is a guess. Use a shorter one until the data says otherwise.</p></li>
+      <li><strong><span class="sl">Povprečje, ki skriva segmente</span><span class="en">An average that hides segments</span></strong>
+        <p class="sl">Skupni CAC lahko skrije kanal, ki izgublja denar. Računaj ločeno po kanalu in tipu stranke.</p>
+        <p class="en">A blended CAC can hide a channel that loses money. Calculate separately by channel and customer type.</p></li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <h2><span class="sl">Delovni list</span><span class="en">Worksheet</span></h2>
+    <div class="worksheet">
+      <p class="sl">Vzemi podatke zadnjih treh mesecev. Kjer številke nimaš, zapiši previdno oceno in označi, da je ocena.</p>
+      <p class="en">Use data from the last three months. Where you lack a number, write a conservative estimate and mark it as such.</p>
+      <div class="q"><p class="sl"><b>CAC:</b> Koliko si skupaj porabil za pridobivanje strank (vključno s svojim časom) in koliko novih strank si dobil?</p><p class="en"><b>CAC:</b> How much did you spend in total on acquiring customers (including your time) and how many new customers did you win?</p></div>
+      <div class="q"><p class="sl"><b>Bruto dobiček:</b> Kakšen je neposredni strošek izvedbe na stranko? Kakšna je tvoja bruto marža?</p><p class="en"><b>Gross profit:</b> What is the direct delivery cost per customer? What is your gross margin?</p></div>
+      <div class="q"><p class="sl"><b>LTGP:</b> Kako dolgo stranka v povprečju ostane in koliko vsega kupi? Izračunaj LTGP in razmerje s CAC.</p><p class="en"><b>LTGP:</b> How long does a customer stay on average and how much do they buy in total? Compute LTGP and the ratio to CAC.</p></div>
+      <div class="q"><p class="sl"><b>Povrnitev:</b> Koliko bruto dobička dobiš v prvih 30 dneh? Kaj bi moral spremeniti, da preseže CAC?</p><p class="en"><b>Payback:</b> How much gross profit do you collect in the first 30 days? What would need to change for it to exceed CAC?</p></div>
+      <div class="q"><p class="sl"><b>Vzvod:</b> Kateri en vzvod (CAC, cena, stroški izvedbe, življenjska doba, plačilo vnaprej) bi najbolj izboljšal številke? Kaj narediš ta mesec?</p><p class="en"><b>Lever:</b> Which single lever (CAC, price, delivery cost, lifetime, upfront payment) would improve the numbers most? What will you do this month?</p></div>
+    </div>
+  </section>
+
+  <nav class="pager" aria-label="Navigacija">
+    <a class="prev" href="money-model.html"><span class="dir"><span class="sl">← Prejšnja</span><span class="en">← Previous</span></span><span class="name"><span class="sl">Money Model</span><span class="en">Money Models</span></span></a>
+    <a class="next" href="closer.html"><span class="dir"><span class="sl">Naslednja →</span><span class="en">Next →</span></span><span class="name"><span class="sl">CLOSER</span><span class="en">The CLOSER Framework</span></span></a>
+  </nav>
+
+  <footer><span class="sl">Parafraza za osebno učenje. Za izvirne definicije glej knjigo.</span><span class="en">Paraphrased for personal study. See the book for original definitions.</span></footer>
+</main>
+</body>
+</html>
