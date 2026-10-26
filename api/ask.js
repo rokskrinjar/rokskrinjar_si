@@ -1,6 +1,6 @@
 // Ask Alex: short, grounded answers in the spirit of Alex Hormozi, from the AH distilled knowledge base.
-// Vercel serverless function. Needs the ANTHROPIC_API_KEY environment variable.
-import KB from "../kb.js";
+// Vercel serverless function at /api/ask. Needs the ANTHROPIC_API_KEY environment variable.
+import KB from "./_kb.js";
 
 const MODEL = process.env.ASK_ALEX_MODEL || "claude-sonnet-5-5";
 const MAX_TOKENS = 600;
@@ -37,15 +37,18 @@ function limited(ip) {
   return list.length > PER_IP_PER_HOUR;
 }
 
+// Allowed: the site's own host (production and Vercel previews) and the configured origins.
 function cors(req, res) {
   const origin = req.headers.origin || "";
-  if (ALLOWED_ORIGINS.includes(origin)) {
+  const sameHost = origin && req.headers.host && origin === `https://${req.headers.host}`;
+  const ok = !origin || sameHost || ALLOWED_ORIGINS.includes(origin);
+  if (origin && ok) {
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Vary", "Origin");
   }
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  return ALLOWED_ORIGINS.includes(origin);
+  return ok;
 }
 
 function cleanMessages(raw) {

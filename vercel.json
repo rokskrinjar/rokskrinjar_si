@@ -1,0 +1,94 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "functions": {
+    "api/ask.js": {
+      "maxDuration": 30
+    }
+  },
+  "redirects": [
+    {
+      "source": "/ah-distilled/value-equation.html",
+      "destination": "/ah-distilled/offers/value-equation.html",
+      "permanent": true
+    },
+    {
+      "source": "/ah-distilled/grand-slam-offer.html",
+      "destination": "/ah-distilled/offers/grand-slam-offer.html",
+      "permanent": true
+    },
+    {
+      "source": "/ah-distilled/starving-crowd.html",
+      "destination": "/ah-distilled/offers/starving-crowd.html",
+      "permanent": true
+    },
+    {
+      "source": "/ah-distilled/pricing-enhancers.html",
+      "destination": "/ah-distilled/offers/charge-what-its-worth.html",
+      "permanent": true
+    },
+    {
+      "source": "/ah-distilled/core-four.html",
+      "destination": "/ah-distilled/leads/core-four.html",
+      "permanent": true
+    },
+    {
+      "source": "/ah-distilled/lead-magnet.html",
+      "destination": "/ah-distilled/leads/lead-magnets.html",
+      "permanent": true
+    },
+    {
+      "source": "/ah-distilled/rule-of-100.html",
+      "destination": "/ah-distilled/leads/rule-of-100.html",
+      "permanent": true
+    },
+    {
+      "source": "/ah-distilled/lead-getters.html",
+      "destination": "/ah-distilled/leads/lead-getters.html",
+      "permanent": true
+    },
+    {
+      "source": "/ah-distilled/money-model.html",
+      "destination": "/ah-distilled/money/money-models.html",
+      "permanent": true
+    },
+    {
+      "source": "/ah-distilled/unit-economics.html",
+      "destination": "/ah-distilled/money/client-financed-acquisition.html",
+      "permanent": true
+    },
+    {
+      "source": "/ah-distilled/closer.html",
+      "destination": "/ah-distilled/sales/closer.html",
+      "permanent": true
+    },
+    {
+      "source": "/ah-distilled/constraint.html",
+      "destination": "/ah-distilled/sales/constraint.html",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/ah-distilled/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ]
+}

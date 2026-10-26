@@ -1,0 +1,9 @@
+{
+  "name": "rokskrinjar-si",
+  "private": true,
+  "type": "module",
+  "description": "rokskrinjar.si: static site plus the Ask Alex function in /api",
+  "engines": {
+    "node": ">=18"
+  }
+}

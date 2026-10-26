@@ -63,7 +63,7 @@
   async function ask(text) {
     text = text.trim();
     if (!text) return;
-    if (!API) { add("assistant", t("offline"), "error"); return; }
+    if (!API) { if (!log.querySelector(".msg.error")) add("assistant", t("offline"), "error"); return; }
     examples.hidden = true;
     messages.push({ role: "user", content: text });
     add("user", text);
