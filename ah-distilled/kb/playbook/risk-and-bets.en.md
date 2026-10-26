@@ -45,7 +45,7 @@ His test for the urge: would you still want the new venture if the current busin
 
 ### Owners self-capping spend out of fear
 
-In many cases the owner's own fear is the limiter: capped ad budgets on profitable funnels, too few creatives, hesitation to hire salespeople despite lead flow. His counter-arguments:
+Often the owner's fear is the limiter: capped budgets on profitable funnels, too few creatives, no new salespeople despite lead flow. His counter-arguments:
 
 - **If a dollar reliably returns several, the right budget is as much as the channel will take.**
 - **Testing spend is investment.** Budget a known loss to find the few keywords, creatives or channels that scale. One rule of thumb he gives: let a new campaign spend up to about 2x the allowable acquisition cost before shutting it off. A new channel costing $10K a month for six months before its first sale can still be a good investment if it then returns 5–10x.
@@ -56,7 +56,7 @@ He also sizes bets. In one turnaround he notes that even a high-expected-value b
 
 ### Debt, expenses and hiring ahead of growth
 
-His view of debt is conservative: it adds risk, and over a long horizon risk tends to come due, so he leans toward paying it off. He prefers growing debt-free through offer design (upfront cash, prepay, anchors). Expenses are downside risk, so he does not hire ahead of growth: get the growth and let it pay for the people. He recalls hiring 25 support reps in anticipation of growth, and later four people handled more volume. His exception is commission-based sales reps. He also wants a low personal burn and profit taken out regularly, because stress from being asset rich and cash poor degrades decisions.
+His view of debt is conservative: it adds risk, and over a long horizon risk tends to come due, so he leans toward paying it off. He prefers growing debt-free through offer design (upfront cash, prepay, anchors). Expenses are downside risk, so he does not hire ahead of growth: get the growth and let it pay for the people. He recalls hiring 25 support reps in anticipation of growth, and later four people handled more volume. His exception is commission-based sales reps. He also takes profit out regularly, since being asset rich and cash poor degrades decisions.
 
 ### Slow down when emotional
 
@@ -81,7 +81,7 @@ The consultancy would enter a saturated market with no track record. The existin
 
 ### Education business capping its own ads
 
-An online craft-education membership (about $800K a year, 30–35% profit) ran four ads and limited spend at about $37 per acquisition. Alex told the owner to make 80 or more ads and accept up to about $100 per acquisition, because back-end value recovered it within the first month. In his framing this was media arbitrage: once clicks cost less than they earn, the only question is volume.
+An online craft-education membership (about $800K a year, 30–35% profit) ran four ads and limited spend at about $37 per acquisition. Alex told the owner to make 80 or more ads and accept up to about $100 per acquisition, because back-end value recovered it within the first month.
 
 ### Consumer brand with a defined last test
 
