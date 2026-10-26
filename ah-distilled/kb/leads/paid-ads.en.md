@@ -74,7 +74,7 @@ Strangers from ads are cold and distracted. Contact them fast after they respond
 </div>
 </div>
 
-Suppose the winning variant brings an engaged lead for 40 €, one in ten leads becomes a customer, so CAC is 400 €. If a customer pays 300 € setup plus 200 € per month, the first 30 days bring in 500 €. That covers CAC once, not twice, so before scaling the team adds a paid onboarding package to push 30-day revenue past 800 €.
+Suppose the winning variant brings an engaged lead for 40 €, one in ten leads becomes a customer, so CAC is 400 €. If a customer pays 300 € setup plus 200 € per month and delivery costs are close to zero, the first 30 days bring about 500 € of gross profit. That covers CAC once, not twice, so before scaling the team adds a paid onboarding package to push 30-day gross profit past 800 €.
 
 ### Dental clinic (local business)
 
