@@ -850,6 +850,431 @@
      ]
     }
    ]
+  },
+  {
+   "id": "playbook",
+   "title": {
+    "en": "Alex's Playbook",
+    "sl": "Alexov priročnik"
+   },
+   "subtitle": {
+    "en": "How Alex diagnoses and decides, distilled from 100+ videos",
+    "sl": "Kako Alex postavi diagnozo in se odloča, zgoščeno iz več kot 100 videov"
+   },
+   "url": "playbook/",
+   "sections": [
+    {
+     "id": "diagnose",
+     "title": {
+      "en": "How he diagnoses",
+      "sl": "Kako postavi diagnozo"
+     },
+     "concepts": [
+      {
+       "id": "diagnostic-sequence",
+       "title": {
+        "en": "The Diagnostic Sequence",
+        "sl": "Zaporedje diagnoze"
+       },
+       "url": "playbook/diagnostic-sequence.html",
+       "card": {
+        "en": "The fixed order of questions Alex runs on any business before he gives advice. Numbers first, then the one constraint, then two or three moves.",
+        "sl": "Stalni vrstni red vprašanj, ki jih Alex postavi vsakemu podjetju, preden da nasvet. Najprej številke, nato eno ozko grlo, nato dve ali tri poteze."
+       },
+       "key": {
+        "en": "Numbers → supply or demand → weakest stage vs benchmark → one \"how do I…\" question → 2–3 moves",
+        "sl": "Številke → ponudba ali povpraševanje → najšibkejša faza proti mejniku → eno vprašanje »kako naj…« → 2–3 poteze"
+       },
+       "source": {
+        "en": "kb/playbook/diagnostic-sequence.en.md",
+        "sl": "kb/playbook/diagnostic-sequence.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "business-math",
+       "title": {
+        "en": "Business Math & Benchmarks",
+        "sl": "Poslovna matematika in mejniki"
+       },
+       "url": "playbook/business-math.html",
+       "card": {
+        "en": "The handful of numbers Alex runs in his head on every business, and the benchmarks he compares them to. Choosing between options becomes a math problem.",
+        "sl": "Peščica številk, ki jih Alex na pamet izračuna za vsako podjetje, in mejniki, s katerimi jih primerja. Izbira med možnostmi postane matematični problem."
+       },
+       "key": {
+        "en": "LTGP = price ÷ churn × gross margin; 30-day cash > CAC + delivery cost",
+        "sl": "LTGP = cena ÷ odliv × bruto marža; denar v 30 dneh > CAC + strošek izvedbe"
+       },
+       "source": {
+        "en": "kb/playbook/business-math.en.md",
+        "sl": "kb/playbook/business-math.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "decide",
+     "title": {
+      "en": "How he decides",
+      "sl": "Kako se odloča"
+     },
+     "concepts": [
+      {
+       "id": "focus-and-subtraction",
+       "title": {
+        "en": "Focus & Subtraction",
+        "sl": "Fokus in odvzemanje"
+       },
+       "url": "playbook/focus-and-subtraction.html",
+       "card": {
+        "en": "Alex's default fix for a stuck or overwhelmed owner is to take things away. One business, one avatar, one channel and one priority, held long enough to compound.",
+        "sl": "Alexov privzeti recept za obstalega ali preobremenjenega lastnika je odvzemanje. En posel, en avatar, en kanal in ena prioriteta, dovolj dolgo, da se učinek sešteva."
+       },
+       "key": {
+        "en": "1-1-1 = one product, one avatar, one channel until $1M a year. Subtract before you add.",
+        "sl": "1-1-1 = en izdelek, en avatar, en kanal do 1 milijona dolarjev letno. Najprej odvzemi, nato dodaj."
+       },
+       "source": {
+        "en": "kb/playbook/focus-and-subtraction.en.md",
+        "sl": "kb/playbook/focus-and-subtraction.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "prioritising-moves",
+       "title": {
+        "en": "Prioritising Moves",
+        "sl": "Razvrščanje potez"
+       },
+       "url": "playbook/prioritising-moves.html",
+       "card": {
+        "en": "How Alex orders the work once he knows the constraint. Squeeze what already works, rank everything else by impact, confidence and ease, and give the owner only two or three moves.",
+        "sl": "Kako Alex razvrsti delo, ko pozna ozko grlo. Izžmi, kar že deluje, vse drugo razvrsti po učinku, zaupanju in lahkosti, lastniku pa daj samo dve ali tri poteze."
+       },
+       "key": {
+        "en": "More → Better → New, ranked by Impact × Confidence × Ease",
+        "sl": "Več → Bolje → Novo, razvrščeno po učinek × zaupanje × lahkost"
+       },
+       "source": {
+        "en": "kb/playbook/prioritising-moves.en.md",
+        "sl": "kb/playbook/prioritising-moves.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "risk-and-bets",
+       "title": {
+        "en": "Risk & Bets",
+        "sl": "Tveganje in stave"
+       },
+       "url": "playbook/risk-and-bets.html",
+       "card": {
+        "en": "Alex prices every move as payoff times probability, prefers the surer bet, keeps pushing while the core assumptions hold, and treats fear-driven under-spending, debt and premature hiring as the risks that actually hurt owners.",
+        "sl": "Alex vsako potezo oceni kot izplačilo krat verjetnost, raje izbere zanesljivejšo stavo, vztraja, dokler osnovne predpostavke držijo, za resnična tveganja pa ima premajhno vlaganje iz strahu, dolg in zaposlovanje pred rastjo."
+       },
+       "key": {
+        "en": "Bet value = payoff × probability. At equal value, take the higher probability.",
+        "sl": "Vrednost stave = izplačilo × verjetnost. Pri enaki vrednosti izberi večjo verjetnost."
+       },
+       "source": {
+        "en": "kb/playbook/risk-and-bets.en.md",
+        "sl": "kb/playbook/risk-and-bets.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "levers",
+     "title": {
+      "en": "Money levers",
+      "sl": "Finančni vzvodi"
+     },
+     "concepts": [
+      {
+       "id": "pricing-decisions",
+       "title": {
+        "en": "Pricing Decisions",
+        "sl": "Odločitve o ceni"
+       },
+       "url": "playbook/pricing-decisions.html",
+       "card": {
+        "en": "Price is the lever Alex reaches for first: it costs nothing to change, falls straight to profit, and most owners are underpriced. He tests it by conversion × price and almost never lowers it.",
+        "sl": "Cena je vzvod, po katerem Alex seže najprej: spremeniti jo ne stane nič, razlika gre naravnost v dobiček, večina lastnikov pa je prepoceni. Preizkuša jo z zmnožkom konverzija × cena in je skoraj nikoli ne zniža."
+       },
+       "key": {
+        "en": "Raise price until conversion × price (or total gross profit) starts to fall, not until unit sales fall.",
+        "sl": "Ceno dviguj, dokler zmnožek konverzija × cena (ali skupni bruto dobiček) ne začne padati, ne dokler ne pade število prodaj."
+       },
+       "source": {
+        "en": "kb/playbook/pricing-decisions.en.md",
+        "sl": "kb/playbook/pricing-decisions.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "cash-forward",
+       "title": {
+        "en": "Pull Cash Forward",
+        "sl": "Denar naprej"
+       },
+       "url": "playbook/cash-forward.html",
+       "card": {
+        "en": "Alex treats up-front cash as the master variable. If the first 30 days of a customer pay for acquiring and serving them, growth stops being limited by money, so he fixes cash flow through offer design before anyone talks about debt or investors.",
+        "sl": "Alex obravnava denar vnaprej kot glavno spremenljivko. Če prvih 30 dni stranke plača njeno pridobitev in izvedbo, rast ni več omejena z denarjem, zato denarni tok popravi z obliko ponudbe, preden kdor koli omeni posojilo ali investitorje."
+       },
+       "key": {
+        "en": "Cash collected in the first 30 days > cost of delivery + cost of acquiring the customer (CAC).",
+        "sl": "Denar, pobran v prvih 30 dneh > strošek izvedbe + strošek pridobitve stranke (CAC)."
+       },
+       "source": {
+        "en": "kb/playbook/cash-forward.en.md",
+        "sl": "kb/playbook/cash-forward.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "retention-and-ltv",
+       "title": {
+        "en": "Retention & Lifetime Value",
+        "sl": "Zadrževanje in življenjska vrednost"
+       },
+       "url": "playbook/retention-and-ltv.html",
+       "card": {
+        "en": "If Alex could give a business one advantage, it would be revenue retention. He fixes churn before scaling acquisition, and he reads churn as an onboarding, usage or expectation problem far more often than a sign the product is bad.",
+        "sl": "Če bi Alex podjetju lahko dal eno samo prednost, bi bila to zadržanost prihodka (revenue retention). Odliv popravi, preden poveča pridobivanje strank, in ga veliko pogosteje razume kot težavo uvajanja, uporabe ali pričakovanj kot pa znak slabega izdelka."
+       },
+       "key": {
+        "en": "LTV = price ÷ monthly churn. LTGP = LTV × gross margin. Revenue plateaus at new sales per month × LTV.",
+        "sl": "LTV = cena ÷ mesečni odliv. LTGP = LTV × bruto marža. Prihodek obstane pri novih prodajah na mesec × LTV."
+       },
+       "source": {
+        "en": "kb/playbook/retention-and-ltv.en.md",
+        "sl": "kb/playbook/retention-and-ltv.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "people",
+     "title": {
+      "en": "Sales and people",
+      "sl": "Prodaja in ljudje"
+     },
+     "concepts": [
+      {
+       "id": "sales-machine",
+       "title": {
+        "en": "The Sales Machine",
+        "sl": "Prodajni stroj"
+       },
+       "url": "playbook/sales-machine.html",
+       "card": {
+        "en": "How Alex builds selling into a system: what surrounds the call, who gets which lead, a question-led call, a planned answer to every objection, and a team trained by daily drills and recorded calls.",
+        "sl": "Kako Alex prodajo spremeni v sistem: kaj obdaja klic, kdo dobi kateri lead, klic, ki ga vodijo vprašanja, vnaprej pripravljen odgovor na vsak ugovor in ekipa, ki jo trenirajo dnevne vaje in posnetki klicev."
+       },
+       "key": {
+        "en": "Availability × speed × show rate × close rate × cash collected. Fix around the call before you fix the call.",
+        "sl": "Razpoložljivost × hitrost × odstotek prihodov × odstotek zaprtih × pobran denar. Najprej popravi tisto okoli klica, šele nato klic."
+       },
+       "source": {
+        "en": "kb/playbook/sales-machine.en.md",
+        "sl": "kb/playbook/sales-machine.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "hiring-and-talent",
+       "title": {
+        "en": "Hiring & Talent",
+        "sl": "Zaposlovanje in talenti"
+       },
+       "url": "playbook/hiring-and-talent.html",
+       "card": {
+        "en": "Past the first stage, the speed of a company is the speed at which it recruits. Alex treats talent as the long-term constraint and runs hiring with the same funnel, metrics and standards as customer acquisition.",
+        "sl": "Ko je prva faza mimo, podjetje raste tako hitro, kot zna zaposlovati. Alex vidi talent kot dolgoročno ozko grlo in zaposlovanje vodi z enakim lijakom, metrikami in standardi kot pridobivanje strank."
+       },
+       "key": {
+        "en": "Who before how. Hire A-players for the smallest skill gap, pay them well, interview far more than feels reasonable.",
+        "sl": "Najprej kdo, potem kako. Zaposli A-igralce z najmanjšo vrzeljo v veščinah, plačaj jih dobro in opravi veliko več razgovorov, kot se zdi smiselno."
+       },
+       "source": {
+        "en": "kb/playbook/hiring-and-talent.en.md",
+        "sl": "kb/playbook/hiring-and-talent.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "delegation-and-owner",
+       "title": {
+        "en": "Delegation & the Owner's Role",
+        "sl": "Delegiranje in vloga lastnika"
+       },
+       "url": "playbook/delegation-and-owner.html",
+       "card": {
+        "en": "Alex sees the founder as the default bottleneck. He buys back time in a fixed order and delegates through a written system, until the business keeps growing while the owner is away.",
+        "sl": "Alex ima ustanovitelja za privzeto ozko grlo. Čas odkupuje v stalnem vrstnem redu in delegira prek zapisanega sistema, dokler podjetje ne raste tudi takrat, ko lastnika ni."
+       },
+       "key": {
+        "en": "Time study → task list → process → decision rules with limits → KPIs → hand off at ~80% as good.",
+        "sl": "Časovna študija → seznam opravil → proces → odločitvena pravila z omejitvami → KPI-ji → predaja pri ~80 % kakovosti"
+       },
+       "source": {
+        "en": "kb/playbook/delegation-and-owner.en.md",
+        "sl": "kb/playbook/delegation-and-owner.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "scale",
+     "title": {
+      "en": "Growth and value",
+      "sl": "Rast in vrednost"
+     },
+     "concepts": [
+      {
+       "id": "stages-of-growth",
+       "title": {
+        "en": "Stages of Growth",
+        "sl": "Faze rasti"
+       },
+       "url": "playbook/stages-of-growth.html",
+       "card": {
+        "en": "Each revenue stage has its own constraint and asks the founder to give up the job that got them there. Nail the current unit before you multiply it.",
+        "sl": "Vsaka faza prihodkov ima svoje ozko grlo in od ustanovitelja zahteva, da se odpove delu, ki ga je pripeljalo do tja. Najprej izpili trenutno enoto, šele nato jo pomnoži."
+       },
+       "key": {
+        "en": "Nail it before you scale it: no second location, product or business until the first is profitable and runs without you.",
+        "sl": "Najprej izpili, nato skaliraj: nobene druge lokacije, izdelka ali podjetja, dokler prvo ni dobičkonosno in ne teče brez tebe."
+       },
+       "source": {
+        "en": "kb/playbook/stages-of-growth.en.md",
+        "sl": "kb/playbook/stages-of-growth.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "enterprise-value",
+       "title": {
+        "en": "Enterprise Value",
+        "sl": "Vrednost podjetja"
+       },
+       "url": "playbook/enterprise-value.html",
+       "card": {
+        "en": "The difference between owning a well-paid job and owning an asset. A business is worth what it earns without you, multiplied by how little risk a buyer takes on.",
+        "sl": "Razlika med dobro plačano službo in premoženjem. Podjetje je vredno toliko, kolikor zasluži brez tebe, pomnoženo s tem, kako malo tveganja prevzame kupec."
+       },
+       "key": {
+        "en": "Enterprise value = (customers × lifetime gross profit) ÷ risk",
+        "sl": "Vrednost podjetja = (stranke × življenjski bruto dobiček) ÷ tveganje"
+       },
+       "source": {
+        "en": "kb/playbook/enterprise-value.en.md",
+        "sl": "kb/playbook/enterprise-value.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "cases",
+     "title": {
+      "en": "Casebook",
+      "sl": "Zbirka primerov"
+     },
+     "concepts": [
+      {
+       "id": "cases-local",
+       "title": {
+        "en": "Cases: Local Businesses",
+        "sl": "Primeri: lokalna podjetja"
+       },
+       "url": "playbook/cases-local.html",
+       "card": {
+        "en": "Forty-two real situations from gyms, clinics, dental and chiropractic practices, salons, restaurants and home-service contractors, with what Alex diagnosed and what he told the owner to do.",
+        "sl": "Dvainštirideset resničnih situacij iz fitnesov, klinik, zobnih in kiropraktičnih ordinacij, salonov, restavracij in obrtnikov na domu, s tem, kakšno diagnozo je postavil Alex in kaj je lastniku svetoval."
+       },
+       "key": {
+        "en": "Local businesses are usually underpriced and under-advertised, and their ceiling is the owner or one expert doing all the work.",
+        "sl": "Lokalna podjetja imajo običajno prenizke cene in premalo oglaševanja, strop pa je lastnik ali en strokovnjak, ki dela vse."
+       },
+       "source": {
+        "en": "kb/playbook/cases-local.en.md",
+        "sl": "kb/playbook/cases-local.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "cases-services",
+       "title": {
+        "en": "Cases: Service & B2B Businesses",
+        "sl": "Primeri: storitvena in B2B podjetja"
+       },
+       "url": "playbook/cases-services.html",
+       "card": {
+        "en": "Thirty-six real situations from agencies, consultancies, law and accounting firms, staffing, B2B services and real-estate and insurance businesses, with what Alex diagnosed and what he told the owner to do.",
+        "sl": "Šestintrideset resničnih situacij iz agencij, svetovalnih podjetij, odvetniških in računovodskih pisarn, kadrovskih in B2B storitev ter nepremičninskih in zavarovalniških podjetij, s tem, kakšno diagnozo je postavil Alex in kaj je lastniku svetoval."
+       },
+       "key": {
+        "en": "Service businesses are usually underpriced, sold by the hour, fed by one channel the owner doesn't control, and leaking clients in the first months.",
+        "sl": "Storitvena podjetja imajo običajno prenizke cene, prodajajo ure, živijo od enega kanala, ki ga lastnik ne nadzoruje, in v prvih mesecih izgubljajo stranke."
+       },
+       "source": {
+        "en": "kb/playbook/cases-services.en.md",
+        "sl": "kb/playbook/cases-services.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "cases-products",
+       "title": {
+        "en": "Cases: E-commerce & Products",
+        "sl": "Primeri: e-trgovina in izdelki"
+       },
+       "url": "playbook/cases-products.html",
+       "card": {
+        "en": "Real hotseat situations from e-commerce brands, DTC labels, consumer goods and physical-product makers, with what Alex diagnosed and told the owner to do.",
+        "sl": "Resnične situacije s hotseatov e-trgovin, DTC blagovnih znamk, potrošniškega blaga in proizvajalcev fizičnih izdelkov, z Alexovo diagnozo in nasveti lastniku."
+       },
+       "key": {
+        "en": "Most product owners have a pricing, focus or brand problem dressed up as a traffic problem; fix margin and the back end, then spend harder on the channel that already works.",
+        "sl": "Večina lastnikov izdelkov ima težavo s ceno, fokusom ali blagovno znamko, preoblečeno v težavo s prometom; najprej uredi maržo in back end, nato pa pogumneje vlagaj v kanal, ki že deluje."
+       },
+       "source": {
+        "en": "kb/playbook/cases-products.en.md",
+        "sl": "kb/playbook/cases-products.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "cases-education-software",
+       "title": {
+        "en": "Cases: Education, Coaching & Software",
+        "sl": "Primeri: izobraževanje, coaching in programska oprema"
+       },
+       "url": "playbook/cases-education-software.html",
+       "card": {
+        "en": "Real hotseat situations from coaches, course and community businesses, event and creator brands, and software companies, with what Alex diagnosed and told the owner to do.",
+        "sl": "Resnične situacije s hotseatov coachev, podjetij s tečaji in skupnostmi, dogodkov in ustvarjalcev ter programskih podjetij, z Alexovo diagnozo in nasveti lastniku."
+       },
+       "key": {
+        "en": "Education is transactional, so growth equals acquisition; raise value per customer and fix activation before chasing a new avatar, product or platform.",
+        "sl": "Izobraževanje je transakcijski posel, zato je rast enaka pridobivanju kupcev; dvigni vrednost na kupca in uredi aktivacijo, preden loviš novega ciljnega kupca, izdelek ali platformo."
+       },
+       "source": {
+        "en": "kb/playbook/cases-education-software.en.md",
+        "sl": "kb/playbook/cases-education-software.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    }
+   ]
   }
  ]
 }

@@ -20,23 +20,23 @@ The third pattern is cash timing. Quarterly billing, pay-per-visit models and fr
 ## Cases {#cases}
 
 ### Dental practice, multi-location · ~$2M/yr · one expert does every high-ticket case
-- **Situation.** About 47% profit, but the founder-doctor handles every high-ticket case, capping the practice at roughly 25 to 30 patients a month. Billing is per visit, close rate is 80 to 90%, and patients wait two to four weeks for a slot.
+- **Situation.** About 47% profit. The founder-doctor handles every high-ticket case (cap of ~25–30 patients a month), bills per visit and closes 80–90%; patients wait two to four weeks.
 - **Diagnosis.** Supply constraint created by a single expert doing every step. The very high close rate signals underpricing.
-- **Advice.** Give associates the simpler half of visits; make the founder the architect and teacher. Collect payment up front with a card on file at check-in. Raise price about 20%, later more. Send a VSL before the treatment presentation, shorten booking time, post before/after content.
+- **Advice.** Associates take the simpler half of visits; the founder becomes architect and teacher. Payment up front, card on file at check-in. Raise price about 20%. A VSL before the treatment presentation and faster booking.
 - **Why.** Halving the expert's load doubles capacity. In the follow-up the average ticket rose from about $28K to $44K and booking dropped to within a week, with no new locations.
 - **Source.** [This Video Should Be Required Viewing for Business Owners](https://www.youtube.com/watch?v=uaLNfijnp-8&t=329s) (05:29)
 
 ### Residential trash collection · ~$640K/yr, losing ~$150K · growth starved of cash
-- **Situation.** Under two years old, 2,500 customers, two avatars (single homes and HOAs) and five acquisition channels. Quarterly billing, bins and sales commissions are all paid out before the customer pays.
+- **Situation.** Under two years old, 2,500 customers, two avatars (homes and HOAs), five channels. Bins and commissions are paid out before quarterly billing brings cash in.
 - **Diagnosis.** Too many avatars and channels, and an offer that collects too little cash up front to fund growth.
-- **Advice.** Pick single homes as the avatar (still take inbound HOA deals). Go all in on door-to-door with commission-only reps hired through direct-response job ads and trained by shadowing and role play. Restructure the offer: bin plus first quarter up front, with free months spread later, and an anchor of a prepaid year with the bin free.
-- **Why.** Each sale needs about $208 cash to cover labour, bin and commission. If about one in five takes the prepaid year, average cash per sale clears that bar and growth funds itself without debt.
+- **Advice.** Pick single homes as the avatar. Go all in on door-to-door with commission-only reps, trained by shadowing and role play. Restructure the offer: bin plus first quarter up front, free months spread later, and an anchor of a prepaid year with the bin free.
+- **Why.** Each sale needs about $208 cash to cover labour, bin and commission. If about one in five takes the prepaid year, average cash per sale clears that bar and growth funds itself.
 - **Source.** [Building a $1,000,000 Business for a Stranger in 69 Minutes](https://www.youtube.com/watch?v=Wr6n_zNKvMk&t=0s) (00:00)
 
 ### Chiropractic chain, 6 locations · ~$5.2M/yr · inconsistent lead flow
 - **Situation.** About 23% profit, CAC about $700 against LTV about $3,400, 80% show rate, 71% close, yet only $1.5–2K of ads per location per month. Insurance checks push the sale to day two, and each site sells differently.
 - **Diagnosis.** Underspending on very profitable search ads, a weak social front-end offer, and selling after treatment instead of at peak pain.
-- **Advice.** In order: raise search spend sharply until returns fall to about 5:1; a $29 front-end offer with card on file; tighter ad copy; collect insurance card on the booking call and print plans each morning; sell the same day after assessment; pilot a checklist sales process at one site; add local SEO.
+- **Advice.** In order: raise search spend sharply until returns fall to about 5:1; a $29 front-end offer with card on file; collect insurance card on the booking call and print plans each morning; sell the same day after assessment; pilot a checklist sales process at one site; add local SEO.
 - **Why.** Doubling revenue per location hits the profit goal without opening new sites.
 - **Source.** [Building a $5,000,000 Business for a Stranger in 42 Mins](https://www.youtube.com/watch?v=sBJppqCeFGI&t=2251s) (37:31)
 
@@ -48,9 +48,9 @@ The third pattern is cash timing. Quarterly billing, pay-per-visit models and fr
 - **Source.** [Building a $2,500,000 Business for a Stranger in 36 Minutes](https://www.youtube.com/watch?v=OQf2Ba-Lp_4&t=234s) (03:54)
 
 ### Roofing and gutter contractor · ~$20K/month, two months old · thinks salespeople are the constraint
-- **Situation.** 59% margin, sales from door-knocking (about one sale per 20 doors) and referrals. Replacements bring about $7K gross profit, repairs about $1.5K at 64% margin. Target: $7–10M in three years.
+- **Situation.** 59% margin, sales from door-knocking (about one per 20 doors) and referrals. Replacements bring about $7K gross profit, repairs about $1.5K at 64%.
 - **Diagnosis.** Repairs are an overlooked, uncontested, fast-cycle product with no cash drag. The owner's door-to-door skill is the engine; average ticket and recurring revenue are the missed levers.
-- **Advice.** Systematise repairs and lift the ticket toward $2.5–5K with a menu upsell at follow-up; one VSL for the first sale and one for the upsell; scale doors with commission framed per door; a $180–240/year maintenance plan credited toward repairs; a paid priority fee of about 20%; recruit reps as a second avatar.
+- **Advice.** Systematise repairs and lift the ticket toward $2.5–5K with a menu upsell at follow-up; a VSL for each step; scale doors with commission framed per door; a $180–240/year maintenance plan credited toward repairs; a paid priority fee of about 20%.
 - **Why.** Three repairs a day can match a replacement in gross profit. Ninety days later monthly jobs rose from about 15–20 to 60–85.
 - **Source.** [How I Would Build a $10M Service Business (If I Had to Start Over)](https://www.youtube.com/watch?v=o64cI6tebnU&t=194s) (03:14)
 
@@ -78,7 +78,7 @@ The third pattern is cash timing. Quarterly billing, pay-per-visit models and fr
 ### Indoor family entertainment centre · ~$4.8M/yr, losing money · weeks from zero cash
 - **Situation.** About 150 staff, $400K a month in revenue against $550K needed to break even, $180K a month of debt service, peak days at half capacity.
 - **Diagnosis.** Cash is the immediate threat; the business needs about $600K extra before the slow season, and it tracks outputs instead of inputs.
-- **Advice.** Bet on summer camp: hit the email list, run a 7–10 day giveaway (a whole summer as first prize, a big discount for everyone else), a 72-hour claim window, phone follow-up of every lead, then evergreen multi-week bundles. Clean up the landing page, add video. Later, more callers and the same giveaway for birthdays.
+- **Advice.** Bet on summer camp: hit the email list, run a 7–10 day giveaway (a whole summer as first prize, a big discount for everyone else), a 72-hour claim window, phone follow-up of every lead, then evergreen multi-week bundles. Later, more callers and the same giveaway for birthdays.
 - **Why.** Summer is when parents spend big and book now. Reported result: about 3,700 leads and summer camp revenue up 325%, limited by too few callers.
 - **Source.** [Can I Save This Failing Theme Park in 90 Days?](https://www.youtube.com/watch?v=xRxVpjeHmeA&t=284s) (04:44)
 
@@ -92,7 +92,7 @@ The third pattern is cash timing. Quarterly billing, pay-per-visit models and fr
 ### Concierge longevity medical practice · ~$3M/yr · owner believes marketing is the bottleneck
 - **Situation.** About $600K profit plus owner pay, ~475 patients, 16 staff. Growth from word of mouth and some SEO; one past event went badly.
 - **Diagnosis.** The demand side is under-used; the sales process works for warm traffic; referrals happen but aren't systematised.
-- **Advice.** Replace the small cash referral credit with a high-value treatment members can give a friend, and ask who they're bringing at each booked visit. Add a quarterly giveaway of a year of service to the newsletter. Run weekly events at local high-net-worth gatherings with a discounted scan, a sales video during the scan and a same-day close. Later, ads to a low-priced one-day workshop. Leave the sales process alone.
+- **Advice.** Replace the small cash referral credit with a high-value treatment members can give a friend, and ask who they're bringing at each visit. A quarterly giveaway in the newsletter. Weekly events at local high-net-worth gatherings with a discounted scan and a same-day close. Leave the sales process alone.
 - **Why.** Cash discounts mean nothing to wealthy clients, a guest treatment costs almost nothing, and high-trust sales close best in person.
 - **Source.** [$100M Worth of Marketing Knowledge in 32 Minutes | Scale or Fail](https://www.youtube.com/watch?v=B-ogfFiQpXg&t=238s) (03:58)
 

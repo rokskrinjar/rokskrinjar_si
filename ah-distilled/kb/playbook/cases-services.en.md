@@ -21,8 +21,8 @@ The third pattern is churn. Agencies and recurring services lose clients in mont
 
 ### B2B hospitality consultancy · ~$1.1M/yr · $30K programme sold cold, LTV:CAC 1.7
 - **Situation.** About 11% net after 4.5 years. A $30K 90-day programme is sold to strangers from paid ads at about $11.8K CAC. Retainer clients churn. Goal: triple.
-- **Diagnosis.** High-ticket offer pushed at cold traffic, weak ads with no call-out or lead magnet, a funnel with duplicated opt-in friction, and churn because value isn't shown.
-- **Advice.** Call-out ads with pain hooks; a lead magnet split-tested against a profit calculator; a two-page funnel with VSL above the scheduler and a pre-call video; a $5.8K audit as the front end, closed in one call by the founder; roll that credit into a quarterly retainer, with the big fee waived for annual commitment; show clients their numbers monthly; test up to 2x the allowable CAC.
+- **Diagnosis.** A high-ticket offer pushed at cold traffic, weak ads, a high-friction funnel, and churn because value isn't shown.
+- **Advice.** Call-out ads with pain hooks and a lead magnet; a two-page funnel with a VSL above the scheduler; a $5.8K audit as the front end, closed in one call by the founder; roll that credit into a quarterly retainer, with the big fee waived for annual commitment; show clients their numbers monthly.
 - **Why.** A lower first step turns strangers into customers, who are far more likely to buy again; a fast win funds the bigger purchase.
 - **Source.** [Building a $3,000,000 Business for a Stranger in 57 Mins](https://www.youtube.com/watch?v=n6SHLmKcY0E&t=287s) (04:47)
 
@@ -34,16 +34,16 @@ The third pattern is churn. Agencies and recurring services lose clients in mont
 - **Source.** [How to Get Rich for Service-Based Businesses (Thank Me Later)](https://www.youtube.com/watch?v=mRlSb0O5QNU&t=908s) (15:08)
 
 ### Music-industry law firm with side lines · ~$300K/yr, losing ~$100K · six months of cash
-- **Situation.** Legal services at $250 an hour (about $1,500 per client), plus a $500 course and $1,000/year contract software that burns about $7K a month. Large YouTube and Instagram audiences; sales come through DMs with no clear call to action.
-- **Diagnosis.** Demand exists but is sprayed across three offers; hourly billing underprices the services; the software loses most of the money; traffic leaks.
-- **Advice.** Kill or sell the software. Make education free or cheap to feed services. Route every call to action to Instagram DM and message new followers with a qualifier. Sell an outcome package at about $5,800 plus a small share of deals, with a $25K anchor and a $2–3K DIY downsell. Add a short VSL, a BANT form and a scripted call.
-- **Why.** Services already earn and demand exceeds supply; about 800 new followers a month at 5% close and $6K could mean roughly $240K a month.
+- **Situation.** Legal work at $250 an hour (about $1,500 per client), plus a $500 course and contract software burning about $7K a month. Large social audiences, but no clear call to action.
+- **Diagnosis.** Demand is sprayed across three offers, hourly billing underprices the work, and the software loses most of the money.
+- **Advice.** Kill or sell the software. Make education free to feed services. Route every call to action to DMs and qualify new followers. Sell an outcome package at about $5,800 plus a small share of deals, with a $25K anchor and a $2–3K DIY downsell, sold on a scripted call.
+- **Why.** Services already earn; about 800 new followers a month at 5% close and $6K could mean roughly $240K a month.
 - **Source.** [I Confronted a Stranger With a Failing Business...](https://www.youtube.com/watch?v=6Fg4VXjRphQ&t=0s) (00:00); [I Blew Up a Business Through 3 Small Changes (Just Copy Me)](https://www.youtube.com/watch?v=3yAiVjcImQ4&t=0s) (00:00)
 
 ### Luxury personal styling · ~$309K/yr, 42% margin · strong economics, low volume
-- **Situation.** About 40 recurring clients, about one churn a year. $8.5K onboarding, then $2K a month or $4.5K a quarter. Paid traffic lands on a form with no headline; about 1,800 clicks gave 8 sales. Six referral partners, found with about 40 cold emails, bring a third of revenue.
+- **Situation.** About 40 recurring clients, about one churn a year; $8.5K onboarding, then $2K a month. About 1,800 paid clicks to a form with no headline gave 8 sales. Six partners, found with about 40 cold emails, bring a third of revenue.
 - **Diagnosis.** Conversion is the bottleneck, and the partner channel is barely tapped. No price anchor, continuity isn't the default.
-- **Advice.** A style-assessment lead magnet, a 3–7 minute VSL and BANT plus income questions; qualified leads get a call, the rest an automated freebie. Send 20 partner emails a day across more partner types and hold partner events. Add attribution, a 10x top-tier anchor and default continuity after onboarding.
+- **Advice.** A style-assessment lead magnet, a short VSL and BANT questions; qualified leads get a call, the rest a freebie. Send 20 partner emails a day and hold partner events. Add a 10x top-tier anchor and default continuity after onboarding.
 - **Why.** The product already converts on calls, so the cheap gains are upstream; partners earned about $2,500 per email sent, better than ads.
 - **Source.** [I Blew Up A Secret Business To Prove It's Not Luck](https://www.youtube.com/watch?v=SmiOK8Yun4s&t=47s) (00:47); [Building a $1,000,000 Business for a Stranger in 56 Mins](https://www.youtube.com/watch?v=nrounb8NlFQ&t=479s) (07:59)
 
@@ -260,8 +260,8 @@ The third pattern is churn. Agencies and recurring services lose clients in mont
 ### Agency selling ~$50K done-for-you packages · financing earns more than the service
 - **Situation.** Arranging customer financing made more money than delivering the work.
 - **Diagnosis.** The money was in the financing.
-- **Advice.** The owner switched to business lending.
-- **Why.** Follow the easy cash flow.
+- **Advice.** The owner switched to business lending and made financing the business.
+- **Why.** Follow the easy cash flow. Look at where the profit actually comes from before deciding what business you are in, because it is often a different one from the one you started.
 - **Source.** [Your Business Is NOT What You Think It Is](https://www.youtube.com/watch?v=rj7rzOdj84A&t=2066s) (34:26)
 
 ### Resume-improvement service · strong process · the business failed

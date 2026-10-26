@@ -20,23 +20,23 @@ Tretji vzorec je časovni zamik denarja. Četrtletno obračunavanje, plačilo po
 ## Primeri {#cases}
 
 ### Zobna ordinacija z več lokacijami · ~2 mio $/leto · en strokovnjak dela vse drage primere
-- **Situacija.** Približno 47 % dobička, a zdravnik ustanovitelj sam vodi vse drage primere, kar ordinacijo omeji na okoli 25 do 30 pacientov na mesec. Obračun je po obisku, zaključek 80 do 90 %, pacienti čakajo dva do štiri tedne na termin.
+- **Situacija.** Približno 47 % dobička. Zdravnik ustanovitelj sam vodi vse drage primere (strop okoli 25–30 pacientov na mesec), obračunava po obisku in zaključi 80–90 %; pacienti čakajo dva do štiri tedne.
 - **Diagnoza.** Omejitev ponudbe, ker en strokovnjak opravi vsak korak. Zelo visoka stopnja zaključka kaže na prenizke cene.
-- **Nasvet.** Sodelavci prevzamejo preprostejšo polovico obiskov; ustanovitelj postane arhitekt in učitelj. Plačilo vnaprej s kartico na datoteki ob prijavi. Cena gor za okoli 20 %, kasneje še več. VSL pred predstavitvijo zdravljenja, krajši čas do termina, vsebine pred/po.
+- **Nasvet.** Sodelavci prevzamejo preprostejšo polovico obiskov; ustanovitelj postane arhitekt in učitelj. Plačilo vnaprej, kartica na datoteki ob prijavi. Cena gor za okoli 20 %. VSL pred predstavitvijo zdravljenja in hitrejši termini.
 - **Zakaj.** Pol manj dela za strokovnjaka pomeni dvakratno kapaciteto. Ob ponovnem pregledu se je povprečni račun dvignil s približno 28 tisoč na 44 tisoč $, termin pa je bil na voljo v tednu dni, brez novih lokacij.
 - **Vir.** [This Video Should Be Required Viewing for Business Owners](https://www.youtube.com/watch?v=uaLNfijnp-8&t=329s) (05:29)
 
 ### Odvoz smeti za gospodinjstva · ~640 tisoč $/leto, izguba ~150 tisoč $ · rasti zmanjkuje denarja
-- **Situacija.** Mlajše od dveh let, 2.500 strank, dva avatarja (posamezne hiše in upravniki stanovanjskih sosesk) in pet kanalov pridobivanja. Četrtletni obračun, zabojniki in provizije prodajalcev so plačani, preden plača stranka.
+- **Situacija.** Mlajše od dveh let, 2.500 strank, dva avatarja (hiše in soseske), pet kanalov. Zabojniki in provizije so plačani, preden četrtletni obračun prinese denar.
 - **Diagnoza.** Preveč avatarjev in kanalov ter ponudba, ki vnaprej zbere premalo denarja za financiranje rasti.
-- **Nasvet.** Izbrati posamezne hiše kot avatar (dohodne posle s soseskami še vedno sprejeti). Iti povsem v prodajo od vrat do vrat s prodajalci samo na provizijo, ki jih najdeš z oglasi za zaposlitev in usposobiš s spremljanjem in igro vlog. Preoblikovati ponudbo: zabojnik in prvo četrtletje vnaprej, brezplačni meseci razporejeni kasneje, kot sidro pa vnaprej plačano leto z brezplačnim zabojnikom.
-- **Zakaj.** Vsaka prodaja potrebuje okoli 208 $ gotovine za delo, zabojnik in provizijo. Če približno vsak peti vzame plačano leto, povprečna gotovina na prodajo preseže to mejo in rast se financira sama, brez dolga.
+- **Nasvet.** Izbrati posamezne hiše kot avatar. Iti povsem v prodajo od vrat do vrat s prodajalci samo na provizijo, usposobljenimi s spremljanjem in igro vlog. Preoblikovati ponudbo: zabojnik in prvo četrtletje vnaprej, brezplačni meseci razporejeni kasneje, kot sidro pa vnaprej plačano leto z brezplačnim zabojnikom.
+- **Zakaj.** Vsaka prodaja potrebuje okoli 208 $ gotovine za delo, zabojnik in provizijo. Če približno vsak peti vzame plačano leto, povprečna gotovina na prodajo preseže to mejo in rast se financira sama.
 - **Vir.** [Building a $1,000,000 Business for a Stranger in 69 Minutes](https://www.youtube.com/watch?v=Wr6n_zNKvMk&t=0s) (00:00)
 
 ### Veriga kiropraktičnih ordinacij, 6 lokacij · ~5,2 mio $/leto · neenakomeren pritok leadov
 - **Situacija.** Okoli 23 % dobička, CAC okoli 700 $ ob LTV okoli 3.400 $, 80 % udeležba, 71 % zaključek, a le 1.500–2.000 $ oglasov na lokacijo na mesec. Preverjanje zavarovanja premakne prodajo na drugi dan, vsaka lokacija prodaja po svoje.
 - **Diagnoza.** Premajhna poraba za zelo donosne iskalne oglase, šibka uvodna ponudba na družbenih omrežjih in prodaja po zdravljenju namesto na vrhuncu bolečine.
-- **Nasvet.** Po vrsti: močno dvigniti porabo za iskalne oglase, dokler donos ne pade na okoli 5:1; uvodna ponudba za 29 $ s kartico na datoteki; ostrejša besedila oglasov; kartica zavarovanja že ob klicu za rezervacijo in tisk načrtov vsako jutro; prodaja isti dan po pregledu; pilot prodajnega procesa s kontrolnim seznamom na eni lokaciji; lokalni SEO.
+- **Nasvet.** Po vrsti: močno dvigniti porabo za iskalne oglase, dokler donos ne pade na okoli 5:1; uvodna ponudba za 29 $ s kartico na datoteki; kartica zavarovanja že ob klicu za rezervacijo in tisk načrtov vsako jutro; prodaja isti dan po pregledu; pilot prodajnega procesa s kontrolnim seznamom na eni lokaciji; lokalni SEO.
 - **Zakaj.** Podvojen prihodek na lokacijo doseže cilj dobička brez odpiranja novih lokacij.
 - **Vir.** [Building a $5,000,000 Business for a Stranger in 42 Mins](https://www.youtube.com/watch?v=sBJppqCeFGI&t=2251s) (37:31)
 
@@ -48,9 +48,9 @@ Tretji vzorec je časovni zamik denarja. Četrtletno obračunavanje, plačilo po
 - **Vir.** [Building a $2,500,000 Business for a Stranger in 36 Minutes](https://www.youtube.com/watch?v=OQf2Ba-Lp_4&t=234s) (03:54)
 
 ### Krovstvo in žlebovi · ~20 tisoč $/mesec, dva meseca star · misli, da so ozko grlo prodajalci
-- **Situacija.** 59 % marža, prodaja od vrat do vrat (okoli ena prodaja na 20 vrat) in s priporočili. Zamenjava strehe prinese okoli 7 tisoč $ bruto dobička, popravilo okoli 1.500 $ pri 64 % marži. Cilj: 7–10 mio $ v treh letih.
+- **Situacija.** 59 % marža, prodaja od vrat do vrat (okoli ena na 20 vrat) in s priporočili. Zamenjava strehe prinese okoli 7 tisoč $ bruto dobička, popravilo okoli 1.500 $ pri 64 %.
 - **Diagnoza.** Popravila so spregledan izdelek brez konkurence, s hitrim ciklom in brez zamika denarja. Lastnikova spretnost prodaje od vrat do vrat je motor; povprečni račun in ponavljajoči prihodki sta zgrešena vzvoda.
-- **Nasvet.** Sistematizirati popravila in z jedilnikom dodatnih storitev ob ponovnem obisku dvigniti račun proti 2.500–5.000 $; en VSL za prvo prodajo in en za pogovor o nadgradnji; razširiti prodajo od vrat do vrat s provizijo, izraženo na vrata; vzdrževalni paket za 180–240 $/leto, ki se upošteva pri popravilih; plačljiva prednostna obravnava za okoli 20 %; zaposlovanje prodajalcev kot drugi avatar.
+- **Nasvet.** Sistematizirati popravila in z jedilnikom dodatnih storitev ob ponovnem obisku dvigniti račun proti 2.500–5.000 $; VSL za vsak korak; razširiti prodajo od vrat do vrat s provizijo, izraženo na vrata; vzdrževalni paket za 180–240 $/leto, ki se upošteva pri popravilih; plačljiva prednostna obravnava za okoli 20 %.
 - **Zakaj.** Tri popravila na dan lahko prinesejo toliko bruto dobička kot ena zamenjava. Po 90 dneh se je mesečno število del dvignilo s 15–20 na 60–85.
 - **Vir.** [How I Would Build a $10M Service Business (If I Had to Start Over)](https://www.youtube.com/watch?v=o64cI6tebnU&t=194s) (03:14)
 
@@ -78,7 +78,7 @@ Tretji vzorec je časovni zamik denarja. Četrtletno obračunavanje, plačilo po
 ### Pokrit družinski zabaviščni center · ~4,8 mio $/leto, z izgubo · tedni do ničle na računu
 - **Situacija.** Okoli 150 zaposlenih, 400 tisoč $ prihodka na mesec ob 550 tisoč $, potrebnih za prag pokritja, 180 tisoč $ mesečnega odplačevanja dolga, ob najmočnejših dneh polovična zasedenost.
 - **Diagnoza.** Takojšnja grožnja je denar; pred mrtvo sezono potrebuje okoli 600 tisoč $ več, sledi pa izhodom namesto vhodom.
-- **Nasvet.** Staviti na poletni tabor: močno uporabiti e-poštni seznam, 7–10-dnevno nagradno igro (celo poletje kot glavna nagrada, velik popust za vse ostale), 72-urno okno za prevzem, telefonsko nadaljevanje z vsakim leadom, nato stalni paketi za več tednov. Počistiti pristajalno stran, dodati video. Kasneje več klicateljev in ista nagradna igra za rojstne dneve.
+- **Nasvet.** Staviti na poletni tabor: močno uporabiti e-poštni seznam, 7–10-dnevno nagradno igro (celo poletje kot glavna nagrada, velik popust za vse ostale), 72-urno okno za prevzem, telefonsko nadaljevanje z vsakim leadom, nato stalni paketi za več tednov. Kasneje več klicateljev in ista nagradna igra za rojstne dneve.
 - **Zakaj.** Poleti starši zapravijo veliko in rezervirajo takoj. Poročani rezultat: okoli 3.700 leadov in 325 % več prihodka od poletnega tabora, omejitev pa premalo klicateljev.
 - **Vir.** [Can I Save This Failing Theme Park in 90 Days?](https://www.youtube.com/watch?v=xRxVpjeHmeA&t=284s) (04:44)
 
@@ -92,7 +92,7 @@ Tretji vzorec je časovni zamik denarja. Četrtletno obračunavanje, plačilo po
 ### Ekskluzivna ordinacija za dolgoživost · ~3 mio $/leto · lastnik misli, da je ozko grlo marketing
 - **Situacija.** Okoli 600 tisoč $ dobička plus plača lastnika, ~475 pacientov, 16 zaposlenih. Rast od ust do ust in nekaj SEO; en pretekli dogodek je bil slabo izveden.
 - **Diagnoza.** Stran povpraševanja je premalo izkoriščena; prodaja za tople stranke deluje; priporočila se dogajajo, a niso sistematizirana.
-- **Nasvet.** Majhen denarni dobropis za priporočilo zamenjati z dragoceno storitvijo, ki jo član lahko podari prijatelju, in ob vsakem rezerviranem obisku vprašati, koga bo pripeljal. V novice dodati četrtletno nagradno igro za leto storitev. Tedenski dogodki na lokalnih srečanjih premožnih ljudi s pregledom s popustom, prodajnim videom med pregledom in zaključkom isti dan. Kasneje oglasi za poceni enodnevno delavnico. Prodajnega procesa se ne dotikati.
+- **Nasvet.** Majhen denarni dobropis za priporočilo zamenjati z dragoceno storitvijo, ki jo član lahko podari prijatelju, in ob vsakem obisku vprašati, koga bo pripeljal. Četrtletna nagradna igra v novicah. Tedenski dogodki na lokalnih srečanjih premožnih ljudi s pregledom s popustom in zaključkom isti dan. Prodajnega procesa se ne dotikati.
 - **Zakaj.** Denarni popusti premožnim ne pomenijo nič, storitev za gosta skoraj nič ne stane, prodaja z visokim zaupanjem pa se najbolje zaključi v živo.
 - **Vir.** [$100M Worth of Marketing Knowledge in 32 Minutes | Scale or Fail](https://www.youtube.com/watch?v=B-ogfFiQpXg&t=238s) (03:58)
 
