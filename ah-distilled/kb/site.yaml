@@ -3,19 +3,20 @@ home:
   eyebrow: {en: "Personal study map", sl: "Osebni študijski zemljevid"}
   title: {en: "Alex Hormozi, distilled", sl: "Alex Hormozi, zgoščeno"}
   lede:
-    en: "The core business frameworks from $100M Offers, $100M Leads, $100M Money Models and Alex's sales talks, explained with examples, common mistakes, worksheets and how Alex himself would apply them. Three levels: this overview, one page per book, and one page per concept."
-    sl: "Ključni poslovni okviri iz $100M Offers, $100M Leads, $100M Money Models in Alexovih predavanj o prodaji, razloženi s primeri, pogostimi napakami, delovnimi listi in tem, kako bi jih uporabil Alex sam. Trije nivoji: ta pregled, stran za vsako knjigo in stran za vsak koncept."
+    en: "The core business frameworks from $100M Offers, $100M Leads, $100M Money Models and Alex's sales talks, plus a playbook of how he diagnoses and decides, distilled from 103 of his videos. Every concept comes with examples, common mistakes, a worksheet and how Alex himself would apply it."
+    sl: "Ključni poslovni okviri iz $100M Offers, $100M Leads, $100M Money Models in Alexovih predavanj o prodaji ter priročnik o tem, kako postavi diagnozo in se odloča, zgoščen iz 103 njegovih videov. Vsak koncept ima primere, pogoste napake, delovni list in opis, kako bi ga uporabil Alex sam."
   books_title: {en: "The books", sl: "Knjige"}
-  big_title: {en: "Twelve big ideas", sl: "Dvanajst velikih idej"}
+  big_title: {en: "The big ideas", sl: "Velike ideje"}
   big_lede:
-    en: "If you only remember twelve things, remember these. Each one links to its full page."
-    sl: "Če si zapomniš le dvanajst stvari, si zapomni te. Vsaka vodi na svojo celotno stran."
+    en: "If you only remember a few things, remember these. Each one links to its full page."
+    sl: "Če si zapomniš le nekaj stvari, si zapomni te. Vsaka vodi na svojo celotno stran."
   flow_title: {en: "How the books fit together", sl: "Kako se knjige povezujejo"}
   flow:
     - {en: "Offers: make something people feel stupid saying no to.", sl: "Offers: naredi nekaj, kar je neumno zavrniti."}
     - {en: "Leads: get enough of the right people to see it.", sl: "Leads: poskrbi, da to vidi dovolj pravih ljudi."}
     - {en: "Money Models: turn each customer into more cash, faster, so growth pays for itself.", sl: "Money Models: iz vsake stranke naredi več denarja, hitreje, da se rast plača sama."}
     - {en: "Selling & Scaling: close the conversations and fix the one bottleneck that holds you back.", sl: "Prodaja in rast: zaključi pogovore in odpravi edino ozko grlo, ki te zavira."}
+    - {en: "Alex's Playbook: how he actually diagnoses a business and decides what to do next, with real cases.", sl: "Alexov priročnik: kako dejansko postavi diagnozo podjetja in se odloči, kaj narediti, z resničnimi primeri."}
   plan_title: {en: "Study plan · 3 weeks", sl: "Učni plan · 3 tedni"}
   plan:
     - {t: {en: "Week 1", sl: "Teden 1"}, en: "$100M Offers (audiobook, about 4 hours). Each evening, apply one concept to your own offer using its worksheet.", sl: "$100M Offers (zvočna knjiga, okoli 4 ure). Vsak večer en koncept uporabi na svoji ponudbi z delovnim listom."}

@@ -67,6 +67,30 @@ books:
         title: {en: "Scaling", sl: "Rast"}
         concepts: [constraint]
 
+  - id: playbook
+    title: {en: "Alex's Playbook", sl: "Alexov priročnik"}
+    subtitle: {en: "How Alex diagnoses and decides, distilled from 100+ videos", sl: "Kako Alex postavi diagnozo in se odloča, zgoščeno iz več kot 100 videov"}
+    kind: playbook
+    sections:
+      - id: diagnose
+        title: {en: "How he diagnoses", sl: "Kako postavi diagnozo"}
+        concepts: [diagnostic-sequence, business-math]
+      - id: decide
+        title: {en: "How he decides", sl: "Kako se odloča"}
+        concepts: [focus-and-subtraction, prioritising-moves, risk-and-bets]
+      - id: levers
+        title: {en: "Money levers", sl: "Finančni vzvodi"}
+        concepts: [pricing-decisions, cash-forward, retention-and-ltv]
+      - id: people
+        title: {en: "Sales and people", sl: "Prodaja in ljudje"}
+        concepts: [sales-machine, hiring-and-talent, delegation-and-owner]
+      - id: scale
+        title: {en: "Growth and value", sl: "Rast in vrednost"}
+        concepts: [stages-of-growth, enterprise-value]
+      - id: cases
+        title: {en: "Casebook", sl: "Zbirka primerov"}
+        concepts: [cases-local, cases-services, cases-products, cases-education-software]
+
 concepts:
   grand-slam-offer:            {title: {en: "Grand Slam Offer", sl: "Grand Slam ponudba"}, big: true}
   starving-crowd:              {title: {en: "Starving Crowd", sl: "Lačna množica"}, big: true}
@@ -100,3 +124,20 @@ concepts:
   build-your-money-model:      {title: {en: "Building Your Money Model", sl: "Sestavi svoj money model"}}
   closer:                      {title: {en: "The CLOSER Framework", sl: "Okvir CLOSER"}, big: true}
   constraint:                  {title: {en: "The Constraint", sl: "Ozko grlo"}, big: true}
+  diagnostic-sequence:         {title: {en: "The Diagnostic Sequence", sl: "Zaporedje diagnoze"}, big: true}
+  business-math:               {title: {en: "Business Math & Benchmarks", sl: "Poslovna matematika in mejniki"}}
+  focus-and-subtraction:       {title: {en: "Focus & Subtraction", sl: "Fokus in odvzemanje"}, big: true}
+  prioritising-moves:          {title: {en: "Prioritising Moves", sl: "Razvrščanje potez"}}
+  risk-and-bets:               {title: {en: "Risk & Bets", sl: "Tveganje in stave"}}
+  pricing-decisions:           {title: {en: "Pricing Decisions", sl: "Odločitve o ceni"}, big: true}
+  cash-forward:                {title: {en: "Pull Cash Forward", sl: "Denar naprej"}}
+  retention-and-ltv:           {title: {en: "Retention & Lifetime Value", sl: "Zadrževanje in življenjska vrednost"}}
+  sales-machine:               {title: {en: "The Sales Machine", sl: "Prodajni stroj"}}
+  hiring-and-talent:           {title: {en: "Hiring & Talent", sl: "Zaposlovanje in talenti"}, big: true}
+  delegation-and-owner:        {title: {en: "Delegation & the Owner's Role", sl: "Delegiranje in vloga lastnika"}}
+  stages-of-growth:            {title: {en: "Stages of Growth", sl: "Faze rasti"}}
+  enterprise-value:            {title: {en: "Enterprise Value", sl: "Vrednost podjetja"}}
+  cases-local:                 {title: {en: "Cases: Local Businesses", sl: "Primeri: lokalna podjetja"}}
+  cases-services:              {title: {en: "Cases: Service & B2B Businesses", sl: "Primeri: storitvena in B2B podjetja"}}
+  cases-products:              {title: {en: "Cases: E-commerce & Products", sl: "Primeri: e-trgovina in izdelki"}}
+  cases-education-software:    {title: {en: "Cases: Education, Coaching & Software", sl: "Primeri: izobraževanje, coaching in programska oprema"}}
