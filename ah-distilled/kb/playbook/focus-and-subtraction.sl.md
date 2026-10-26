@@ -54,7 +54,7 @@ Isto odvzemanje velja za izdelek. Preobremenjenost ima za glavni vzrok odhodov s
 
 ## Primeri {#examples}
 
-*Primeri so anonimizirani iz videov. Zadnji primer je izmišljen.*
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
 
 ### Samostojna odvetniška praksa z dvema stranskima izdelkoma
 

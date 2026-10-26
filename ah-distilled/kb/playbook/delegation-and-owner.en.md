@@ -75,7 +75,7 @@ His sharpest observation: founders keep working on what they enjoy and are good 
 
 ## Examples {#examples}
 
-*Examples are anonymised cases from the source videos; the last one is invented for illustration.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### Field-service owner who is in everything
 

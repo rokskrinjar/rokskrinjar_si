@@ -72,7 +72,7 @@ The goose is the asset that creates value, often founder-led and unsellable. The
 
 ## Examples {#examples}
 
-*Cases are paraphrased from his videos and anonymised. The last example is invented.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### His own licensing business (lecture)
 

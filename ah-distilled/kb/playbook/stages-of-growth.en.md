@@ -59,7 +59,7 @@ In mass-market models, rising ad costs, colder audiences and heavier infrastruct
 
 ## Examples {#examples}
 
-*Cases are paraphrased from his videos and anonymised. The last example is invented.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### Multi-location clinic chain (hotseat)
 

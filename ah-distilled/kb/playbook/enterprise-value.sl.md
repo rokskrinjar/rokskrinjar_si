@@ -72,7 +72,7 @@ Gos je premoženje, ki ustvarja vrednost, pogosto vezano na ustanovitelja in nep
 
 ## Primeri {#examples}
 
-*Primeri so povzeti po njegovih videih in anonimizirani. Zadnji primer je izmišljen.*
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
 
 ### Njegovo lastno licenčno podjetje (predavanje)
 

@@ -68,7 +68,7 @@ His order for cash in 48 hours, from one live Q&A: current customers first (prep
 
 ## Examples {#examples}
 
-*Cases are anonymised from Alex's hotseats. The last one is invented and marked as such.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### Residential waste-collection startup, losing money
 

@@ -68,7 +68,7 @@ Njegov vrstni red za denar v 48 urah, iz enega Q&A v živo: najprej obstoječe s
 
 ## Primeri {#examples}
 
-*Primeri so anonimizirani iz Alexovih hotseatov. Zadnji je izmišljen in tako označen.*
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
 
 ### Zagonsko podjetje za odvoz odpadkov iz gospodinjstev, z izgubo
 

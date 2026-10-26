@@ -75,7 +75,7 @@ Njegovo najostrejše opažanje: ustanovitelji še naprej delajo to, kar imajo ra
 
 ## Primeri {#examples}
 
-*Primeri so anonimizirani primeri iz videov; zadnji je izmišljen in služi ponazoritvi.*
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
 
 ### Lastnik terenskega servisa, ki je v vsem
 

@@ -69,7 +69,7 @@ Nasvet namerno omeji na dve ali tri poteze z največjim učinkom, da jih lastnik
 
 ## Primeri {#examples}
 
-*Primeri so anonimizirani iz videov. Zadnji primer je izmišljen.*
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
 
 ### Storitveno podjetje, v katerem nič ni pokvarjeno
 

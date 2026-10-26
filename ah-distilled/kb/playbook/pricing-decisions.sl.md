@@ -60,7 +60,7 @@ Nikoli ne nižaj cene, da bi se boril s konkurentom, ki te spodbija ali kopira p
 
 ## Primeri {#examples}
 
-*Primeri so anonimizirani iz Alexovih hotseatov. Zadnji je izmišljen in tako označen.*
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
 
 ### Lokalno selitveno podjetje, ~300.000 $ na leto
 

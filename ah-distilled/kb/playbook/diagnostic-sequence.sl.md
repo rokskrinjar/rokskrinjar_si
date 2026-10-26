@@ -64,7 +64,7 @@ Preden se zaveže načrtu, vpraša, kaj lastnik želi: podvojiti, prodati ali pr
 
 ## Primeri {#examples}
 
-*Primeri so anonimizirani iz Alexovih hotseatov; zadnji primer je izmišljen in služi ponazoritvi.*
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
 
 ### Čiščenje prezračevalnih kanalov, okoli 1,25 milijona dolarjev prihodka
 

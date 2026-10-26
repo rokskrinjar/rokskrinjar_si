@@ -60,7 +60,7 @@ Never cut price to fight a competitor who undercuts you or copies the cheap part
 
 ## Examples {#examples}
 
-*Cases are anonymised from Alex's hotseats. The last one is invented and marked as such.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### Local moving company, ~$300K a year
 

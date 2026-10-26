@@ -64,7 +64,7 @@ In a lecture on what nearly killed his business he names the signal: you flip-fl
 
 ## Examples {#examples}
 
-*Cases are anonymised from the source videos. The last example is invented.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### Telehealth owner planning a consultancy
 

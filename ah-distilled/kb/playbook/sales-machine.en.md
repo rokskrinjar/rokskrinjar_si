@@ -83,7 +83,7 @@ A daily leaderboard and competitions every four to six weeks, run in small teams
 
 ## Examples {#examples}
 
-*Examples are real cases from Alex's videos, anonymised, except where marked as invented.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### Webinar-funnel coaching business (hotseat, high six figures a month)
 

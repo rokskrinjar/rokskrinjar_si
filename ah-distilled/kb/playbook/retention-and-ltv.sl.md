@@ -71,7 +71,7 @@ To so njegova pravila palca, vsako iz svojega konteksta: letno zadrževanje B2B 
 
 ## Primeri {#examples}
 
-*Primeri so anonimizirani iz Alexovih videov. Zadnji je izmišljen in tako označen.*
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
 
 ### SaaS podjetje iz portfelja, odliv narašča po lansiranju
 

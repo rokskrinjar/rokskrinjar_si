@@ -54,7 +54,7 @@ The same subtraction runs through the product. He calls overwhelm the main churn
 
 ## Examples {#examples}
 
-*Cases are anonymised from the source videos. The last example is invented.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### Solo legal practice with two side products
 

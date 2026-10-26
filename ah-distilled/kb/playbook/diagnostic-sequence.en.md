@@ -64,7 +64,7 @@ Before he commits to a plan he asks what the owner wants: double it, sell it, or
 
 ## Examples {#examples}
 
-*Cases are anonymised from Alex's hotseats; the last example is invented for illustration.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### Duct-cleaning service, about $1.25M revenue
 

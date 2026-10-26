@@ -59,7 +59,7 @@ Pri modelih za množični trg rast oglaševalskih stroškov, hladnejše občinst
 
 ## Primeri {#examples}
 
-*Primeri so povzeti po njegovih videih in anonimizirani. Zadnji primer je izmišljen.*
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
 
 ### Veriga klinik z več lokacijami (hotseat)
 

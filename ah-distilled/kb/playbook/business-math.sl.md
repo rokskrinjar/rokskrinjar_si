@@ -72,7 +72,7 @@ Optimizira absolutni dobiček. Nižje razmerje donosa pri precej večjem vložku
 
 ## Primeri {#examples}
 
-*Primeri so anonimizirani iz Alexovih videov; zadnji primer je izmišljen in služi ponazoritvi.*
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
 
 ### Naročniška storitev po 1.000 dolarjev na mesec
 

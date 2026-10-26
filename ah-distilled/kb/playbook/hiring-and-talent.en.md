@@ -62,7 +62,7 @@ Two weeks below KPI means a performance plan; two more weeks without improvement
 
 ## Examples {#examples}
 
-*Examples are anonymised cases from the source videos; the last one is invented for illustration.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### Used-car dealership with too many priorities
 

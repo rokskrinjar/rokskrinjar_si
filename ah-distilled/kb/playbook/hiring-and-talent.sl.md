@@ -62,7 +62,7 @@ Dva tedna pod KPI pomenita načrt izboljšanja (PIP); še dva tedna brez napredk
 
 ## Primeri {#examples}
 
-*Primeri so anonimizirani primeri iz videov; zadnji je izmišljen in služi ponazoritvi.*
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
 
 ### Prodajalec rabljenih avtomobilov s preveč prioritetami
 

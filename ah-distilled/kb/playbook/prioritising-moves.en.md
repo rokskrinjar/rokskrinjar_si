@@ -69,7 +69,7 @@ He deliberately limits advice to the two or three highest-impact moves so the ow
 
 ## Examples {#examples}
 
-*Cases are anonymised from the source videos. The last example is invented.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### Home-service company with nothing broken
 

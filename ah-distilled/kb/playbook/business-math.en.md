@@ -72,7 +72,7 @@ He optimises for absolute profit. A lower return ratio on much larger spend can 
 
 ## Examples {#examples}
 
-*Cases are anonymised from Alex's videos; the last example is invented for illustration.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### Subscription service at $1,000 a month
 

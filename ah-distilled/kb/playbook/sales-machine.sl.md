@@ -83,7 +83,7 @@ Dnevno posodobljena lestvica uspešnosti in tekmovanja vsakih štiri do šest te
 
 ## Primeri {#examples}
 
-*Primeri so resnični primeri iz Alexovih videov, anonimizirani, razen kjer so označeni kot izmišljeni.*
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
 
 ### Coaching podjetje z webinarskim lijakom (hotseat, visoke šestmestne številke na mesec)
 

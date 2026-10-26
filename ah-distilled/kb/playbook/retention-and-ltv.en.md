@@ -71,7 +71,7 @@ Treat these as his rules of thumb, each from its own context: B2B annual client 
 
 ## Examples {#examples}
 
-*Cases are anonymised from Alex's videos. The last one is invented and marked as such.*
+*Cases are paraphrased and anonymised from Alex's videos. Any example marked as invented is for illustration only.*
 
 ### Portfolio SaaS company, churn rising after a launch
 
