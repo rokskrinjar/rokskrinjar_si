@@ -1,0 +1,855 @@
+{
+ "name": "AH distilled",
+ "description": "Alex Hormozi's business frameworks, distilled.",
+ "languages": [
+  "en",
+  "sl"
+ ],
+ "books": [
+  {
+   "id": "offers",
+   "title": {
+    "en": "$100M Offers",
+    "sl": "$100M Offers"
+   },
+   "subtitle": {
+    "en": "How to make offers so good people feel stupid saying no",
+    "sl": "Kako narediti ponudbe, ki jih je neumno zavrniti"
+   },
+   "url": "offers/",
+   "sections": [
+    {
+     "id": "problem",
+     "title": {
+      "en": "The commodity trap",
+      "sl": "Past blaga"
+     },
+     "concepts": [
+      {
+       "id": "grand-slam-offer",
+       "title": {
+        "en": "Grand Slam Offer",
+        "sl": "Grand Slam ponudba"
+       },
+       "url": "offers/grand-slam-offer.html",
+       "card": {
+        "en": "An offer so valuable for its price, and so specific to one market, that the buyer has nothing to compare it with. It is the way out of competing on price.",
+        "sl": "Ponudba, ki je za svojo ceno tako vredna in tako prilagojena enemu trgu, da je kupec nima s čim primerjati. Je izhod iz tekmovanja s ceno."
+       },
+       "key": {
+        "en": "Commodity → Differentiated → Grand Slam (category of one)",
+        "sl": "Blago (commodity) → diferencirana ponudba → Grand Slam (category of one)"
+       },
+       "source": {
+        "en": "kb/offers/grand-slam-offer.en.md",
+        "sl": "kb/offers/grand-slam-offer.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "pricing",
+     "title": {
+      "en": "Pricing",
+      "sl": "Cena"
+     },
+     "concepts": [
+      {
+       "id": "starving-crowd",
+       "title": {
+        "en": "Starving Crowd",
+        "sl": "Lačna množica"
+       },
+       "url": "offers/starving-crowd.html",
+       "card": {
+        "en": "Pick a market that is already hungry for what you sell. The right market makes an average offer work, and the wrong one makes a great offer fail.",
+        "sl": "Izberi trg, ki je že lačen tega, kar prodajaš. Pravi trg poskrbi, da deluje tudi povprečna ponudba, napačen pa pokoplje odlično."
+       },
+       "key": {
+        "en": "Market > Offer > Persuasion",
+        "sl": "Trg > ponudba > prepričevanje"
+       },
+       "source": {
+        "en": "kb/offers/starving-crowd.en.md",
+        "sl": "kb/offers/starving-crowd.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "niche",
+       "title": {
+        "en": "Commit to a Niche",
+        "sl": "Zaveza niši"
+       },
+       "url": "offers/niche.html",
+       "card": {
+        "en": "Narrow your market until the offer sounds made for one specific buyer, then stay there. A narrower offer is more relevant, more believable and can charge more.",
+        "sl": "Zoži trg, dokler ponudba ne zveni, kot da je narejena za enega specifičnega kupca, nato tam ostani. Ožja ponudba je bolj relevantna, bolj verjetna in lahko stane več."
+       },
+       "key": {
+        "en": "Narrow the market, keep the market, iterate the offer.",
+        "sl": "Zoži trg, obdrži trg, izboljšuj ponudbo."
+       },
+       "source": {
+        "en": "kb/offers/niche.en.md",
+        "sl": "kb/offers/niche.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "charge-what-its-worth",
+       "title": {
+        "en": "Charge What It's Worth",
+        "sl": "Zaračunaj, kar je vredno"
+       },
+       "url": "offers/charge-what-its-worth.html",
+       "card": {
+        "en": "Don't compete on price. A premium price funds better delivery, attracts more committed clients and produces better results, which justifies the price again.",
+        "sl": "Ne tekmuj s ceno. Premium cena financira boljšo izvedbo, privabi bolj zavzete stranke in prinese boljše rezultate, ki ceno znova upravičijo."
+       },
+       "key": {
+        "en": "Higher price → more margin and more committed buyers → better results → proof that justifies the price",
+        "sl": "Višja cena → več marže in bolj zavzeti kupci → boljši rezultati → dokazi, ki upravičijo ceno"
+       },
+       "source": {
+        "en": "kb/offers/charge-what-its-worth.en.md",
+        "sl": "kb/offers/charge-what-its-worth.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "value",
+     "title": {
+      "en": "Value",
+      "sl": "Vrednost"
+     },
+     "concepts": [
+      {
+       "id": "value-equation",
+       "title": {
+        "en": "The Value Equation",
+        "sl": "Enačba vrednosti"
+       },
+       "url": "offers/value-equation.html",
+       "card": {
+        "en": "How a buyer decides, in their head, whether something is worth its price. Push two levers up and two down.",
+        "sl": "Kako kupec v glavi oceni, ali je nekaj vredno svoje cene. Dva vzvoda dvigneš, dva spustiš."
+       },
+       "key": {
+        "en": "Value = (Dream Outcome × Perceived Likelihood) ÷ (Time Delay × Effort & Sacrifice)",
+        "sl": "Vrednost = (sanjski izid × zaznana verjetnost) ÷ (časovni zamik × trud in žrtvovanje)"
+       },
+       "source": {
+        "en": "kb/offers/value-equation.en.md",
+        "sl": "kb/offers/value-equation.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "problems-solutions",
+       "title": {
+        "en": "Problems into Solutions",
+        "sl": "Iz problemov v rešitve"
+       },
+       "url": "offers/problems-solutions.html",
+       "card": {
+        "en": "List every obstacle the buyer will hit before, during and after buying, then turn each one into a \"how to\" solution. The longer the list, the more value you can build.",
+        "sl": "Naštej vse ovire, na katere bo kupec naletel pred nakupom, med njim in po njem, in vsako preobrni v rešitev »kako …«. Daljši ko je seznam, več vrednosti lahko zgradiš."
+       },
+       "key": {
+        "en": "Every problem the buyer has is a solution you can sell: obstacle → how to get X even if / without Y.",
+        "sl": "Vsak kupčev problem je rešitev, ki jo lahko prodaš: ovira → kako doseči X, tudi če / brez Y."
+       },
+       "source": {
+        "en": "kb/offers/problems-solutions.en.md",
+        "sl": "kb/offers/problems-solutions.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "delivery-vehicles",
+       "title": {
+        "en": "Delivery Vehicles",
+        "sl": "Načini dostave"
+       },
+       "url": "offers/delivery-vehicles.html",
+       "card": {
+        "en": "The same solution can be delivered in many ways, and each way has a different value to the buyer and a different cost to you. Brainstorm many, then pick on value versus cost.",
+        "sl": "Isto rešitev lahko dostaviš na veliko načinov in vsak ima drugačno vrednost za kupca in drugačen strošek zate. Zberi jih veliko, potem izbiraj po vrednosti proti strošku."
+       },
+       "key": {
+        "en": "For each solution: who gets attention (1:1, group, 1:many) × who does the work (DIY, DWY, DFY) × medium × speed and access",
+        "sl": "Za vsako rešitev: koliko pozornosti (1:1, skupina, 1:mnogo) × kdo dela (DIY, DWY, DFY) × medij × hitrost in dostopnost"
+       },
+       "source": {
+        "en": "kb/offers/delivery-vehicles.en.md",
+        "sl": "kb/offers/delivery-vehicles.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "trim-and-stack",
+       "title": {
+        "en": "Trim & Stack",
+        "sl": "Odreži in zloži"
+       },
+       "url": "offers/trim-and-stack.html",
+       "card": {
+        "en": "Score every solution and delivery option by value to the buyer and cost to you, cut the costly low-value ones, and stack what remains into one offer whose total value clearly exceeds the price.",
+        "sl": "Vsako rešitev in način dostave oceni po vrednosti za kupca in strošku zate, odreži drage z nizko vrednostjo, preostanek pa zloži v eno ponudbo, katere skupna vrednost jasno presega ceno."
+       },
+       "key": {
+        "en": "Keep low cost / high value, keep the critical high cost / high value, cut high cost / low value, then stack and show the total.",
+        "sl": "Obdrži nizek strošek / visoko vrednost, obdrži ključne kose z visokim stroškom in visoko vrednostjo, odreži visok strošek / nizko vrednost, nato zloži in pokaži skupno vrednost."
+       },
+       "source": {
+        "en": "kb/offers/trim-and-stack.en.md",
+        "sl": "kb/offers/trim-and-stack.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "enhance",
+     "title": {
+      "en": "Enhancing the offer",
+      "sl": "Ojačanje ponudbe"
+     },
+     "concepts": [
+      {
+       "id": "scarcity",
+       "title": {
+        "en": "Scarcity",
+        "sl": "Pomanjkanje"
+       },
+       "url": "offers/scarcity.html",
+       "card": {
+        "en": "Limiting how many people can get the offer makes it more desirable. In B2B your capacity is already limited, so stating it honestly is both true and persuasive.",
+        "sl": "Če omejiš, koliko ljudi lahko dobi ponudbo, postane bolj zaželena. V B2B je tvoja kapaciteta že omejena, zato je pošteno sporočanje te omejitve hkrati resnično in prepričljivo."
+       },
+       "key": {
+        "en": "Limit the quantity, not the time: total cap, growth cap (N new per period) or cohort cap. It must be real.",
+        "sl": "Omeji količino, ne časa: skupna omejitev, omejitev rasti (N novih na obdobje) ali omejitev kohorte. Mora biti resnična."
+       },
+       "source": {
+        "en": "kb/offers/scarcity.en.md",
+        "sl": "kb/offers/scarcity.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "urgency",
+       "title": {
+        "en": "Urgency",
+        "sl": "Nujnost"
+       },
+       "url": "offers/urgency.html",
+       "card": {
+        "en": "A real time limit on your offer, price or bonus. It gives buyers a reason to decide now instead of drifting into \"maybe later\".",
+        "sl": "Resnična časovna omejitev ponudbe, cene ali bonusa. Kupcu da razlog, da se odloči zdaj, namesto da odločitev odplava v »morda kasneje«."
+       },
+       "key": {
+        "en": "Scarcity limits how many. Urgency limits how long.",
+        "sl": "Pomanjkanje omeji, koliko. Nujnost omeji, kako dolgo."
+       },
+       "source": {
+        "en": "kb/offers/urgency.en.md",
+        "sl": "kb/offers/urgency.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "bonuses",
+       "title": {
+        "en": "Bonuses",
+        "sl": "Bonusi"
+       },
+       "url": "offers/bonuses.html",
+       "card": {
+        "en": "Extras added to the core offer, each built to remove one specific reason the buyer might not buy. Done well, the bonuses alone are worth more than the price.",
+        "sl": "Dodatki k jedru ponudbe, od katerih je vsak narejen za odstranitev enega konkretnega razloga, zakaj kupec morda ne bi kupil. Dobro narejeni bonusi so sami vredni več od cene."
+       },
+       "key": {
+        "en": "One obstacle, one bonus, one name, one stated value. Total bonus value greater than the core offer.",
+        "sl": "Ena ovira, en bonus, eno ime, ena navedena vrednost. Skupna vrednost bonusov večja od jedra ponudbe."
+       },
+       "source": {
+        "en": "kb/offers/bonuses.en.md",
+        "sl": "kb/offers/bonuses.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "guarantees",
+       "title": {
+        "en": "Guarantees",
+        "sl": "Garancije"
+       },
+       "url": "offers/guarantees.html",
+       "card": {
+        "en": "A promise that moves the risk of buying from the buyer to the seller. It raises perceived likelihood of success and usually wins more sales than it costs in refunds.",
+        "sl": "Obljuba, ki tveganje nakupa prenese s kupca na prodajalca. Dvigne zaznano verjetnost uspeha in navadno prinese več prodaj, kot stane vračil."
+       },
+       "key": {
+        "en": "If you do X and don't get Y, we will do Z. Conditions are the actions that create success.",
+        "sl": "Če narediš X in ne dobiš Y, bomo naredili Z. Pogoji so dejanja, ki ustvarijo uspeh."
+       },
+       "source": {
+        "en": "kb/offers/guarantees.en.md",
+        "sl": "kb/offers/guarantees.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "naming",
+       "title": {
+        "en": "Naming (MAGIC)",
+        "sl": "Poimenovanje (MAGIC)"
+       },
+       "url": "offers/naming.html",
+       "card": {
+        "en": "A checklist for naming an offer so the name alone tells the right buyer that it is for them and what they will get. A good name attracts better leads and lets you refresh the same offer when ads get tired.",
+        "sl": "Kontrolni seznam za ime ponudbe, da že samo ime pravemu kupcu pove, da je zanj in kaj bo dobil. Dobro ime privabi boljše leade in omogoča, da isto ponudbo osvežiš, ko se oglasi obrabijo."
+       },
+       "key": {
+        "en": "MAGIC = Magnetic reason why, Announce the avatar, Give them a goal, Indicate a time interval, Complete with a container word",
+        "sl": "MAGIC = Magnetic reason why, Announce the avatar, Give them a goal, Indicate a time interval, Complete with a container word"
+       },
+       "source": {
+        "en": "kb/offers/naming.en.md",
+        "sl": "kb/offers/naming.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "leads",
+   "title": {
+    "en": "$100M Leads",
+    "sl": "$100M Leads"
+   },
+   "subtitle": {
+    "en": "How to get strangers to want to buy your stuff",
+    "sl": "Kako doseči, da neznanci želijo kupiti tvoje stvari"
+   },
+   "url": "leads/",
+   "sections": [
+    {
+     "id": "understand",
+     "title": {
+      "en": "Understanding leads",
+      "sl": "Razumevanje leadov"
+     },
+     "concepts": [
+      {
+       "id": "engaged-leads",
+       "title": {
+        "en": "Leads & Engaged Leads",
+        "sl": "Leadi in zavzeti leadi"
+       },
+       "url": "leads/engaged-leads.html",
+       "card": {
+        "en": "A lead is someone you can contact. An engaged lead is someone who has shown interest in what you sell, and those are the only leads that turn into customers.",
+        "sl": "Lead je nekdo, s komer lahko stopiš v stik. Zavzeti lead je nekdo, ki je pokazal zanimanje za to, kar prodajaš, in samo taki leadi postanejo stranke."
+       },
+       "key": {
+        "en": "Cost per engaged lead = what you spent (time or money) ÷ number of engaged leads",
+        "sl": "Strošek na zavzetega leada = porabljeno (čas ali denar) ÷ število zavzetih leadov"
+       },
+       "source": {
+        "en": "kb/leads/engaged-leads.en.md",
+        "sl": "kb/leads/engaged-leads.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "lead-magnets",
+       "title": {
+        "en": "Lead Magnets",
+        "sl": "Lead magneti"
+       },
+       "url": "leads/lead-magnets.html",
+       "card": {
+        "en": "A free offer that completely solves one narrow problem and, in doing so, reveals the next problem your paid offer solves. It turns strangers into engaged leads who already trust you.",
+        "sl": "Brezplačna ponudba, ki do konca reši en ozek problem in s tem razkrije naslednji problem, ki ga rešuje tvoja plačljiva ponudba. Neznance spremeni v zavzete leade, ki ti že zaupajo."
+       },
+       "key": {
+        "en": "Lead magnet = complete solution to a narrow problem that reveals the next problem",
+        "sl": "Lead magnet = celovita rešitev ozkega problema, ki razkrije naslednji problem"
+       },
+       "source": {
+        "en": "kb/leads/lead-magnets.en.md",
+        "sl": "kb/leads/lead-magnets.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "core-four",
+     "title": {
+      "en": "The Core Four",
+      "sl": "Core Four"
+     },
+     "concepts": [
+      {
+       "id": "core-four",
+       "title": {
+        "en": "The Core Four",
+        "sl": "Core Four"
+       },
+       "url": "leads/core-four.html",
+       "card": {
+        "en": "There are only four ways to let people know about you, set by two questions. Do they already know you, and are you reaching one person or many? Pick one, master it, then add the next.",
+        "sl": "Obstajajo samo štirje načini, kako ljudem sporočiš, da obstajaš, določata pa jih dve vprašanji. Te že poznajo in ali nagovarjaš eno osebo ali mnoge? Izberi enega, ga obvladaj, nato dodaj naslednjega."
+       },
+       "key": {
+        "en": "Known × one-to-one = warm outreach · known × one-to-many = free content · unknown × one-to-one = cold outreach · unknown × one-to-many = paid ads",
+        "sl": "Znani × ena na ena = topli outreach · znani × ena na mnogo = brezplačna vsebina · neznani × ena na ena = hladni outreach · neznani × ena na mnogo = plačani oglasi"
+       },
+       "source": {
+        "en": "kb/leads/core-four.en.md",
+        "sl": "kb/leads/core-four.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "warm-outreach",
+       "title": {
+        "en": "Warm Outreach",
+        "sl": "Topli outreach"
+       },
+       "url": "leads/warm-outreach.html",
+       "card": {
+        "en": "Personal, one-to-one messages to people who already know you. It's free, works today and is where almost everyone should start getting engaged leads.",
+        "sl": "Osebna sporočila ena na ena ljudem, ki te že poznajo. Je brezplačen, deluje že danes in skoraj vsakdo bi moral z njim začeti pridobivati zavzete leade."
+       },
+       "key": {
+        "en": "ACA = Acknowledge, Compliment, Ask. Reach out to 100 people a day.",
+        "sl": "ACA = Acknowledge (priznaj), Compliment (pohvali), Ask (vprašaj). Vsak dan stopi v stik s 100 ljudmi."
+       },
+       "source": {
+        "en": "kb/leads/warm-outreach.en.md",
+        "sl": "kb/leads/warm-outreach.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "free-content",
+       "title": {
+        "en": "Posting Free Content",
+        "sl": "Objavljanje brezplačne vsebine"
+       },
+       "url": "leads/free-content.html",
+       "card": {
+        "en": "Publishing valuable content to people who already follow you, so that trust builds and warm leads come to you. One-to-many to people who know you.",
+        "sl": "Objavljanje uporabne vsebine za ljudi, ki ti že sledijo, da se gradi zaupanje in topli leadi pridejo k tebi. Eden-mnogim, ljudem, ki te poznajo."
+       },
+       "key": {
+        "en": "Every piece = Hook + Retain + Reward. Give far more than you ask.",
+        "sl": "Vsak kos = Hook + Retain + Reward. Daj bistveno več, kot prosiš."
+       },
+       "source": {
+        "en": "kb/leads/free-content.en.md",
+        "sl": "kb/leads/free-content.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "cold-outreach",
+       "title": {
+        "en": "Cold Outreach",
+        "sl": "Hladni outreach"
+       },
+       "url": "leads/cold-outreach.html",
+       "card": {
+        "en": "Contacting strangers one by one, by email, DM, phone or text. Response rates are low, so it works through targeted lists, a big free offer, many follow-ups and volume.",
+        "sl": "Neposredno kontaktiranje neznancev, enega po enega, po e-pošti, sporočilih, telefonu ali SMS-u. Odzivnost je nizka, zato deluje s ciljanimi seznami, veliko brezplačno ponudbo, številnimi opomniki in obsegom."
+       },
+       "key": {
+        "en": "Targeted list + personal first line + big fast value + many touches, repeated at volume",
+        "sl": "Ciljan seznam + osebna prva vrstica + velika hitra vrednost + veliko stikov, ponovljeno v obsegu"
+       },
+       "source": {
+        "en": "kb/leads/cold-outreach.en.md",
+        "sl": "kb/leads/cold-outreach.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "paid-ads",
+       "title": {
+        "en": "Paid Ads",
+        "sl": "Plačani oglasi"
+       },
+       "url": "leads/paid-ads.html",
+       "card": {
+        "en": "Paying a platform to show your message to many strangers at once. The fastest way to scale leads, but only once your offer works and your money model can pay back the cost of each customer.",
+        "sl": "Plačaš platformi, da tvoje sporočilo hkrati pokaže veliko neznancem. Najhitrejša pot do več leadov, a šele ko ponudba deluje in ko money model povrne strošek vsake stranke."
+       },
+       "key": {
+        "en": "Ad = Callout + Value + Call to Action. Start small, find a winner, scale.",
+        "sl": "Oglas = callout + vrednost + poziv k akciji. Začni majhno, najdi zmagovalca, povečaj."
+       },
+       "source": {
+        "en": "kb/leads/paid-ads.en.md",
+        "sl": "kb/leads/paid-ads.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "getters",
+     "title": {
+      "en": "Lead getters",
+      "sl": "Lead getterji"
+     },
+     "concepts": [
+      {
+       "id": "lead-getters",
+       "title": {
+        "en": "Lead Getters",
+        "sl": "Lead getterji"
+       },
+       "url": "leads/lead-getters.html",
+       "card": {
+        "en": "Other people who bring you leads: customers, employees, agencies, and affiliates and partners. They turn the Core Four from something you do into something that runs without your time per lead.",
+        "sl": "Drugi ljudje, ki ti prinašajo leade: stranke, zaposleni, agencije ter affiliati in partnerji. Core Four spremenijo iz nečesa, kar delaš sam, v nekaj, kar teče brez tvojega časa za vsak lead."
+       },
+       "key": {
+        "en": "Customers refer, employees run the Core Four, agencies teach, affiliates lend their audience",
+        "sl": "Stranke priporočajo, zaposleni izvajajo Core Four, agencije učijo, affiliati posodijo svoje občinstvo"
+       },
+       "source": {
+        "en": "kb/leads/lead-getters.en.md",
+        "sl": "kb/leads/lead-getters.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "start",
+     "title": {
+      "en": "Getting started",
+      "sl": "Začetek"
+     },
+     "concepts": [
+      {
+       "id": "rule-of-100",
+       "title": {
+        "en": "The Rule of 100",
+        "sl": "Pravilo 100"
+       },
+       "url": "leads/rule-of-100.html",
+       "card": {
+        "en": "Do 100 primary lead-getting actions every day for 100 days. Early on, volume teaches you more than talent or planning ever will.",
+        "sl": "Vsak dan opravi 100 osnovnih dejanj za pridobivanje leadov, 100 dni zapored. Na začetku te volumen nauči več kot talent ali načrtovanje."
+       },
+       "key": {
+        "en": "100 primary actions a day × 100 days, done first, tracked daily",
+        "sl": "100 osnovnih dejanj na dan × 100 dni, najprej, z dnevnim beleženjem"
+       },
+       "source": {
+        "en": "kb/leads/rule-of-100.en.md",
+        "sl": "kb/leads/rule-of-100.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "more-better-new",
+       "title": {
+        "en": "More, Better, New",
+        "sl": "Več, bolje, novo"
+       },
+       "url": "leads/more-better-new.html",
+       "card": {
+        "en": "The order in which to grow lead flow. Do more of what works, then make it work better, and only then add something new.",
+        "sl": "Vrstni red, po katerem večaš pritok leadov. Delaj več tega, kar deluje, nato to delaj bolje, šele potem dodaj nekaj novega."
+       },
+       "key": {
+        "en": "More → Better → New, in that order",
+        "sl": "Več → bolje → novo, v tem vrstnem redu"
+       },
+       "source": {
+        "en": "kb/leads/more-better-new.en.md",
+        "sl": "kb/leads/more-better-new.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "money",
+   "title": {
+    "en": "$100M Money Models",
+    "sl": "$100M Money Models"
+   },
+   "subtitle": {
+    "en": "How to make money",
+    "sl": "Kako zaslužiti denar"
+   },
+   "url": "money/",
+   "sections": [
+    {
+     "id": "foundations",
+     "title": {
+      "en": "Foundations",
+      "sl": "Osnove"
+     },
+     "concepts": [
+      {
+       "id": "money-models",
+       "title": {
+        "en": "Money Models",
+        "sl": "Money modeli"
+       },
+       "url": "money/money-models.html",
+       "card": {
+        "en": "A deliberate sequence of offers designed to make more money from each customer, faster. The business that can afford to spend the most to acquire a customer wins.",
+        "sl": "Načrtno zaporedje ponudb, ki iz vsake stranke hitreje ustvari več denarja. Zmaga podjetje, ki si lahko za pridobitev stranke privošči porabiti največ."
+       },
+       "key": {
+        "en": "Attraction → Upsell → Downsell → Continuity",
+        "sl": "Privabljalna → upsell → downsell → naročnina"
+       },
+       "source": {
+        "en": "kb/money/money-models.en.md",
+        "sl": "kb/money/money-models.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "client-financed-acquisition",
+       "title": {
+        "en": "Client-Financed Acquisition",
+        "sl": "Pridobivanje, ki ga financira stranka"
+       },
+       "url": "money/client-financed-acquisition.html",
+       "card": {
+        "en": "When what a new customer pays in the first 30 days covers the cost to acquire and serve them, growth funds itself. At 2×, every customer pays for two more.",
+        "sl": "Ko to, kar nova stranka plača v prvih 30 dneh, pokrije strošek njene pridobitve in izvedbe, se rast financira sama. Pri 2× vsaka stranka plača še dve."
+       },
+       "key": {
+        "en": "30-day gross profit ≥ CAC (goal ≥ 2× CAC); LTGP:CAC ≥ 3:1 as a rule of thumb",
+        "sl": "30-dnevni bruto dobiček ≥ CAC (cilj ≥ 2× CAC); LTGP:CAC ≥ 3:1 kot pravilo palca"
+       },
+       "source": {
+        "en": "kb/money/client-financed-acquisition.en.md",
+        "sl": "kb/money/client-financed-acquisition.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "offer-types",
+     "title": {
+      "en": "The four offer types",
+      "sl": "Štirje tipi ponudb"
+     },
+     "concepts": [
+      {
+       "id": "attraction-offers",
+       "title": {
+        "en": "Attraction Offers",
+        "sl": "Privabljalne ponudbe"
+       },
+       "url": "money/attraction-offers.html",
+       "card": {
+        "en": "The first offer a new customer sees. Its job is to bring the right people in and, ideally, cover what it cost to get them.",
+        "sl": "Prva ponudba, ki jo vidi nova stranka. Njena naloga je pripeljati prave ljudi in po možnosti pokriti strošek njihove pridobitve."
+       },
+       "key": {
+        "en": "A good attraction offer pulls in the right buyer and pays back part or all of its acquisition cost.",
+        "sl": "Dobra privabljalna ponudba pritegne pravega kupca in povrne del ali ves strošek njegove pridobitve."
+       },
+       "source": {
+        "en": "kb/money/attraction-offers.en.md",
+        "sl": "kb/money/attraction-offers.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "upsell-offers",
+       "title": {
+        "en": "Upsell Offers",
+        "sl": "Upsell ponudbe"
+       },
+       "url": "money/upsell-offers.html",
+       "card": {
+        "en": "The offer you make right after someone buys. It solves the next problem the first purchase creates, when trust and buying intent are highest.",
+        "sl": "Ponudba, ki jo daš takoj po nakupu. Reši naslednji problem, ki ga ustvari prvi nakup, takrat, ko sta zaupanje in pripravljenost na nakup najvišja."
+       },
+       "key": {
+        "en": "Every solution creates a new problem: sell the next solution right after the yes.",
+        "sl": "Vsaka rešitev ustvari nov problem: naslednjo rešitev prodaj takoj po da."
+       },
+       "source": {
+        "en": "kb/money/upsell-offers.en.md",
+        "sl": "kb/money/upsell-offers.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "downsell-offers",
+       "title": {
+        "en": "Downsell Offers",
+        "sl": "Downsell ponudbe"
+       },
+       "url": "money/downsell-offers.html",
+       "card": {
+        "en": "What you offer after someone says no. A smaller, cheaper or easier version that removes the real obstacle, so you keep the customer instead of losing them.",
+        "sl": "Kar ponudiš, ko nekdo reče ne. Manjša, cenejša ali lažja različica, ki odstrani pravo oviro, da stranko obdržiš, namesto da jo izgubiš."
+       },
+       "key": {
+        "en": "After a no, change the terms, the size or the risk. Do not just cut the price.",
+        "sl": "Po »ne« spremeni pogoje, obseg ali tveganje. Ne znižaj le cene."
+       },
+       "source": {
+        "en": "kb/money/downsell-offers.en.md",
+        "sl": "kb/money/downsell-offers.sl.md"
+       },
+       "ready": true
+      },
+      {
+       "id": "continuity-offers",
+       "title": {
+        "en": "Continuity Offers",
+        "sl": "Ponudbe naročnine"
+       },
+       "url": "money/continuity-offers.html",
+       "card": {
+        "en": "Offers that bill the customer again and again for ongoing value. They turn one sale into recurring revenue, and the work is as much about keeping customers as getting them to join.",
+        "sl": "Ponudbe, ki stranki znova in znova zaračunajo stalno vrednost. Eno prodajo spremenijo v ponavljajoči se prihodek, delo pa je enako v ohranjanju strank kot v tem, da se pridružijo."
+       },
+       "key": {
+        "en": "Get them to join, then get them to stay. Reward commitment, and longer commitments usually churn less.",
+        "sl": "Najprej, da se pridružijo, nato, da ostanejo. Nagradi zavezo, daljše zaveze pa navadno pomenijo manj odhodov."
+       },
+       "source": {
+        "en": "kb/money/continuity-offers.en.md",
+        "sl": "kb/money/continuity-offers.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "assemble",
+     "title": {
+      "en": "Putting it together",
+      "sl": "Sestavljanje"
+     },
+     "concepts": [
+      {
+       "id": "build-your-money-model",
+       "title": {
+        "en": "Building Your Money Model",
+        "sl": "Sestavi svoj money model"
+       },
+       "url": "money/build-your-money-model.html",
+       "card": {
+        "en": "How to assemble a money model piece by piece, starting from your core offer, so that each new customer pays for their own acquisition within 30 days.",
+        "sl": "Kako money model sestaviš kos za kosom, začenši pri glavni ponudbi, da vsaka nova stranka v 30 dneh sama plača svojo pridobitev."
+       },
+       "key": {
+        "en": "Core offer first, then attraction, upsell, downsell, continuity. Add one at a time until 30-day gross profit ≥ 2 × CAC.",
+        "sl": "Najprej glavna ponudba, nato privabljalna, upsell, downsell, naročnina. Dodajaj po eno, dokler 30-dnevni bruto dobiček ni ≥ 2 × CAC."
+       },
+       "source": {
+        "en": "kb/money/build-your-money-model.en.md",
+        "sl": "kb/money/build-your-money-model.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sales",
+   "title": {
+    "en": "Selling & Scaling",
+    "sl": "Prodaja in rast"
+   },
+   "subtitle": {
+    "en": "From Alex's talks, trainings and podcast",
+    "sl": "Iz Alexovih predavanj, treningov in podcasta"
+   },
+   "url": "sales/",
+   "sections": [
+    {
+     "id": "sales",
+     "title": {
+      "en": "Sales",
+      "sl": "Prodaja"
+     },
+     "concepts": [
+      {
+       "id": "closer",
+       "title": {
+        "en": "The CLOSER Framework",
+        "sl": "Okvir CLOSER"
+       },
+       "url": "sales/closer.html",
+       "card": {
+        "en": "Six steps that turn a sales call into a diagnosis the buyer walks through themselves. Understand first, show the destination second, clear doubts last.",
+        "sl": "Šest korakov, ki prodajni klic spremenijo v diagnozo, skozi katero kupec gre sam. Najprej razumeš, nato pokažeš cilj, na koncu odpraviš dvome."
+       },
+       "key": {
+        "en": "Clarify, Label, Overview, Sell the vacation, Explain away concerns, Reinforce",
+        "sl": "Clarify, Label, Overview, Sell the vacation, Explain away concerns, Reinforce"
+       },
+       "source": {
+        "en": "kb/sales/closer.en.md",
+        "sl": "kb/sales/closer.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    },
+    {
+     "id": "scaling",
+     "title": {
+      "en": "Scaling",
+      "sl": "Rast"
+     },
+     "concepts": [
+      {
+       "id": "constraint",
+       "title": {
+        "en": "The Constraint",
+        "sl": "Ozko grlo"
+       },
+       "url": "sales/constraint.html",
+       "card": {
+        "en": "At any moment a business has one main constraint that limits its growth. Work on anything else has little effect until that one is fixed, and then the constraint moves.",
+        "sl": "Podjetje ima v vsakem trenutku eno glavno omejitev, ki zavira rast. Delo na čemer koli drugem ima malo učinka, dokler je ne odpraviš, nato pa se omejitev premakne."
+       },
+       "key": {
+        "en": "Find the one constraint, fix it, find the next one. Test: if leads doubled tomorrow, what breaks first?",
+        "sl": "Najdi eno omejitev, jo odpravi, poišči naslednjo. Test: če bi se ti jutri povpraševanja podvojila, kaj bi se prvo zlomilo?"
+       },
+       "source": {
+        "en": "kb/sales/constraint.en.md",
+        "sl": "kb/sales/constraint.sl.md"
+       },
+       "ready": true
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

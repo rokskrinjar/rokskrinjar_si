@@ -4,302 +4,144 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AH distilled</title>
-<meta name="description" content="Alex Hormozi's core business frameworks, distilled in Slovenian and English, with examples and worksheets.">
+<meta name="description" content="The core business frameworks from $100M Offers, $100M Leads, $100M Money Models and Alex&#x27;s sales talks, explained with examples, common mistakes, worksheets and how Alex himself would apply them. Three levels: this overview, one page per book, and one page per concept.">
 <link rel="icon" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="site.css">
-<script src="site.js"></script>
-<style>
-.topbar .chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1 1 auto}
-.chips a{flex:none;font-family:var(--f-display);font-weight:500;font-size:.88rem;color:var(--ink);text-decoration:none;padding:5px 11px;border:1px solid var(--rule);border-radius:999px}
-.chips a:hover{border-color:var(--accent);color:var(--accent)}
-.topbar{flex-wrap:nowrap}
-@media (max-width:520px){.topbar{flex-wrap:wrap}.topbar .lang{order:-1;margin-left:auto}}
-.intro{display:grid;gap:12px;margin-top:28px}
-.part{margin-top:48px;display:grid;gap:18px}
-.part-head{display:grid;gap:6px}
-.part-head .src{font-family:var(--f-mono);font-size:.8rem;color:var(--muted)}
-.fw{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;display:grid;gap:12px;min-width:0}
-.fw dl{margin:0;display:grid;gap:8px}
-.fw dt{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.fw dd{margin:0}
-.apply{border-top:1px dashed var(--rule);padding-top:12px;font-style:italic;color:var(--muted)}
-.apply b{font-style:normal;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-right:6px}
-.more{justify-self:start;font-family:var(--f-display);font-weight:700;font-size:.95rem;text-decoration:none;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:6px 14px}
-.more:hover{background:var(--accent);color:var(--bg)}
-.more:hover span.en::before{color:var(--bg)}
-.more:hover span.en{color:var(--bg)}
-ul.tight{margin:0;padding-left:1.1em;display:grid;gap:4px}
-.axis{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
-.closer{display:grid;gap:6px}
-.closer > div{display:grid;grid-template-columns:2em minmax(0,1fr);gap:8px;align-items:baseline}
-.closer .L{font-family:var(--f-display);font-weight:800;font-size:1.3rem;color:var(--accent)}
-.plan{margin-top:56px;border-top:3px solid var(--ink);padding-top:20px;display:grid;gap:14px}
-.week{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:12px;padding-block:10px;border-bottom:1px solid var(--rule)}
-.week .t{font-family:var(--f-mono);font-size:.8rem;color:var(--accent);font-weight:600}
-.week > div{display:grid;gap:4px}
-</style>
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
 </head>
 <body>
-
-<div class="topbar">
-  <nav class="chips" aria-label="Deli / Parts">
-    <a href="#ponudba"><span class="sl">1 · Ponudba</span><span class="en">1 · Offer</span></a>
-    <a href="#leadi"><span class="sl">2 · Leadi</span><span class="en">2 · Leads</span></a>
-    <a href="#monetizacija"><span class="sl">3 · Monetizacija</span><span class="en">3 · Money</span></a>
-    <a href="#prodaja"><span class="sl">4 · Prodaja</span><span class="en">4 · Sales</span></a>
-    <a href="#plan"><span class="sl">Učni plan</span><span class="en">Study plan</span></a>
-  </nav>
-  <div class="lang" role="group" aria-label="Jezik / Language">
-    <button type="button" data-set="en">EN</button><button type="button" data-set="sl">SL</button><button type="button" data-set="both">SL+EN</button>
+<header class="topbar">
+  <nav class="crumbs" aria-label="Breadcrumb"><span aria-current="page">AH distilled</span></nav>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-set="en">EN</button><button type="button" data-set="sl">SL</button>
   </div>
-</div>
-
-<div class="wrap">
-  <header class="intro">
-    <p class="eyebrow">AH distilled · <span class="sl">Osebni študijski zemljevid</span><span class="en">Personal study map</span></p>
-    <h1><span class="sl">Hormozijevi frameworki na eni strani</span><span class="en">Hormozi's frameworks on one page</span></h1>
-    <p class="lede sl">Kompakten pregled ključnih idej iz <i>$100M Offers</i>, <i>$100M Leads</i>, <i>$100M Money Models</i> in njegovih prodajnih vsebin. Vsaka kartica ima podstran z razlago, primeri in delovnim listom. Izvirni angleški izrazi so ohranjeni, ker se v prevodu izgubi pomen.</p>
-    <p class="lede en">A compact overview of the key ideas from <i>$100M Offers</i>, <i>$100M Leads</i>, <i>$100M Money Models</i> and his sales content. Every card has a subpage with an explanation, examples and a worksheet. Original English terms are kept because meaning gets lost in translation.</p>
-  </header>
-
-  <!-- 1 PONUDBA -->
-  <section class="part" id="ponudba">
-    <div class="part-head">
-      <p class="eyebrow"><span class="sl">Del 1</span><span class="en">Part 1</span></p>
-      <h2><span class="sl">Ponudba: naredi nekaj, kar je neumno zavrniti</span><span class="en">Offer: make something people feel stupid saying no to</span></h2>
-      <p class="src">$100M Offers</p>
-    </div>
-
-    <article class="fw">
-      <h3><span class="sl">Enačba vrednosti</span><span class="en">The Value Equation</span></h3>
-      <p class="sl">Vrednost ponudbe v očeh kupca. Dve stvari dvigneš, dve spustiš.</p>
-      <p class="en">The value of an offer in the buyer's eyes. Push two things up, two things down.</p>
-      <div class="eq" role="img" aria-label="Value = (Dream Outcome × Perceived Likelihood of Achievement) / (Time Delay × Effort & Sacrifice)">
-        <span class="lhs"><span class="sl">Vrednost =</span><span class="en">Value =</span></span>
-        <div class="frac">
-          <div class="num"><span class="up"><span class="sl">Sanjski izid</span><span class="en">Dream Outcome</span></span> × <span class="up"><span class="sl">Zaznana verjetnost</span><span class="en">Perceived Likelihood</span></span></div>
-          <div class="den"><span class="down"><span class="sl">Časovni zamik</span><span class="en">Time Delay</span></span> × <span class="down"><span class="sl">Trud in žrtvovanje</span><span class="en">Effort &amp; Sacrifice</span></span></div>
-        </div>
-      </div>
-      <dl>
-        <dt><span class="sl">Bistvo</span><span class="en">Key point</span></dt>
-        <dd class="sl">Večina tekmuje samo na zgornjem delu (večji obljubljeni rezultat). Največ vrednosti je pogosto v <mark>imenovalcu</mark>: hitreje do prvega rezultata in manj dela za stranko (<span class="term">done-for-you</span> namesto <span class="term">do-it-yourself</span>).</dd>
-        <dd class="en">Most compete only on the top (a bigger promised result). The most value is often in the <mark>denominator</mark>: a faster first result and less work for the client (done-for-you instead of do-it-yourself).</dd>
-      </dl>
-      <p class="apply sl"><b>Uporabi</b>Kaj v tvoji ponudbi stranko stane največ časa ali truda, in ali bi ti to lahko prevzel?</p>
-      <p class="apply en"><b>Apply</b>What in your offer costs the client the most time or effort, and could you take it over?</p>
-      <a class="more" href="value-equation.html"><span class="sl">Preberi več →</span><span class="en">Read more →</span></a>
-    </article>
-
-    <article class="fw">
-      <h3><span class="sl">Grand Slam ponudba</span><span class="en">Grand Slam Offer</span></h3>
-      <p class="sl">Ponudba, ki je tako dobra, da je kupec ne more primerjati s konkurenco, zato cena ni več glavni kriterij.</p>
-      <p class="en">An offer so good the buyer can't compare it to competitors, so price stops being the main criterion.</p>
-      <ol class="steps">
-        <li><div><p class="sl">Določi sanjski izid stranke.</p><p class="en">Identify the client's dream outcome.</p></div></li>
-        <li><div><p class="sl">Naštej vse ovire na poti do njega (pred, med in po nakupu).</p><p class="en">List every obstacle on the way (before, during and after purchase).</p></div></li>
-        <li><div><p class="sl">Vsako oviro preobrni v rešitev (»kako bi …«).</p><p class="en">Turn each obstacle into a solution ("how to …").</p></div></li>
-        <li><div><p class="sl">Za vsako rešitev določi način dostave: 1-na-1, skupinsko, <span class="term">done-for-you</span>, orodje, predloga.</p><p class="en">Pick a delivery vehicle per solution: 1-on-1, group, done-for-you, tool, template.</p></div></li>
-        <li><div><p class="sl">Odreži, kar je drago in malo vredno; zloži ostalo v paket (<span class="term">trim &amp; stack</span>).</p><p class="en">Trim what is expensive and low-value; stack the rest.</p></div></li>
-      </ol>
-      <p class="apply sl"><b>Uporabi</b>Za svojo najboljšo storitev naredi seznam vsaj 15 ovir, ki jih ima stranka. Večina ponudb rešuje le 2–3.</p>
-      <p class="apply en"><b>Apply</b>For your best service, list at least 15 obstacles the client faces. Most offers solve only 2–3.</p>
-      <a class="more" href="grand-slam-offer.html"><span class="sl">Preberi več →</span><span class="en">Read more →</span></a>
-    </article>
-
-    <article class="fw">
-      <h3><span class="sl">Izbira trga</span><span class="en">Starving Crowd</span></h3>
-      <p class="sl">Trg je pomembnejši od ponudbe, ponudba pa pomembnejša od prepričevanja.</p>
-      <p class="en">Market beats offer, and offer beats persuasion.</p>
-      <div class="grid2">
-        <div class="cell"><strong><span class="sl">Huda bolečina</span><span class="en">Massive pain</span></strong><span class="d"><span class="sl">Problem jih res boli, ne samo moti.</span><span class="en">The problem really hurts, not just annoys.</span></span></div>
-        <div class="cell"><strong><span class="sl">Kupna moč</span><span class="en">Purchasing power</span></strong><span class="d"><span class="sl">Imajo denar in ga bodo porabili.</span><span class="en">They have money and will spend it.</span></span></div>
-        <div class="cell"><strong><span class="sl">Lahko dosegljivi</span><span class="en">Easy to target</span></strong><span class="d"><span class="sl">Veš, kje so zbrani.</span><span class="en">You know where they gather.</span></span></div>
-        <div class="cell"><strong><span class="sl">Rastoč trg</span><span class="en">Growing market</span></strong><span class="d"><span class="sl">Tok gre s tabo, ne proti tebi.</span><span class="en">The tide is with you, not against you.</span></span></div>
-      </div>
-      <p class="apply sl"><b>Uporabi</b>Oceni svoj segment 1–5 na vsakem kriteriju. Kar je pod 3, je opozorilo.</p>
-      <p class="apply en"><b>Apply</b>Score your segment 1–5 on each criterion. Anything under 3 is a warning.</p>
-      <a class="more" href="starving-crowd.html"><span class="sl">Preberi več →</span><span class="en">Read more →</span></a>
-    </article>
-
-    <article class="fw">
-      <h3><span class="sl">Cena in ojačevalci ponudbe</span><span class="en">Pricing &amp; Offer Enhancers</span></h3>
-      <p class="sl">Višja cena ni le več denarja: kupi ti boljše stranke, več pozornosti na stranko in boljše rezultate (<span class="term">virtuous cycle of price</span>).</p>
-      <p class="en">A higher price isn't just more money: it buys you better clients, more attention per client and better results (the virtuous cycle of price).</p>
-      <ul class="tight sl">
-        <li><b>Pomanjkanje</b> (<span class="term">Scarcity</span>): omejeno število mest ali enot.</li>
-        <li><b>Nujnost</b> (<span class="term">Urgency</span>): rok, kohorta, sprememba cene.</li>
-        <li><b>Bonusi</b> (<span class="term">Bonuses</span>): vsak rešuje konkretno oviro.</li>
-        <li><b>Garancije</b> (<span class="term">Guarantees</span>): brezpogojna, pogojna, anti-garancija, implicitna.</li>
-        <li><b>Ime</b> (<span class="term">Naming</span>): magnet, ciljna oseba, cilj, časovni okvir, kontejner.</li>
-      </ul>
-      <ul class="tight en">
-        <li><b>Scarcity</b>: limited seats or units.</li>
-        <li><b>Urgency</b>: deadline, cohort, price change.</li>
-        <li><b>Bonuses</b>: each one solves a specific obstacle.</li>
-        <li><b>Guarantees</b>: unconditional, conditional, anti-guarantee, implied.</li>
-        <li><b>Naming</b>: magnetic reason, avatar, goal, interval, container.</li>
-      </ul>
-      <p class="apply sl"><b>Uporabi</b>Katera je največja bojazen kupca in katera pogojna garancija bi jo izničila, ne da bi te ogrozila?</p>
-      <p class="apply en"><b>Apply</b>What is the buyer's biggest fear, and which conditional guarantee would neutralise it without endangering you?</p>
-      <a class="more" href="pricing-enhancers.html"><span class="sl">Preberi več →</span><span class="en">Read more →</span></a>
-    </article>
-  </section>
-
-  <!-- 2 LEADI -->
-  <section class="part" id="leadi">
-    <div class="part-head">
-      <p class="eyebrow"><span class="sl">Del 2</span><span class="en">Part 2</span></p>
-      <h2><span class="sl">Leadi: dovolj ljudi, ki vedo zate</span><span class="en">Leads: enough people who know you exist</span></h2>
-      <p class="src">$100M Leads</p>
-    </div>
-
-    <article class="fw">
-      <h3>The Core Four</h3>
-      <p class="sl">Obstajajo samo štirje načini, kako ljudem poveš, da obstajaš. Dve osi: ali te poznajo in ali govoriš eni osebi ali mnogim.</p>
-      <p class="en">There are only four ways to let people know you exist. Two axes: do they know you, and are you talking to one person or many.</p>
-      <div class="axis"><span><span class="sl">1-na-1</span><span class="en">One-to-one</span></span><span><span class="sl">1-na-mnogo</span><span class="en">One-to-many</span></span></div>
-      <div class="grid2">
-        <div class="cell"><strong><span class="sl">Topli outreach</span><span class="en">Warm outreach</span></strong><span class="d"><span class="sl">Ljudje, ki te poznajo.</span><span class="en">People who know you.</span></span></div>
-        <div class="cell"><strong><span class="sl">Brezplačna vsebina</span><span class="en">Post free content</span></strong><span class="d"><span class="sl">Objave za tvoje občinstvo.</span><span class="en">Posts for your audience.</span></span></div>
-        <div class="cell"><strong><span class="sl">Hladni outreach</span><span class="en">Cold outreach</span></strong><span class="d"><span class="sl">Neznanci, direktno.</span><span class="en">Strangers, directly.</span></span></div>
-        <div class="cell"><strong><span class="sl">Plačani oglasi</span><span class="en">Paid ads</span></strong><span class="d"><span class="sl">Neznanci, v velikem obsegu.</span><span class="en">Strangers, at scale.</span></span></div>
-      </div>
-      <div class="axis"><span><span class="sl">↑ te poznajo · ↓ te ne poznajo</span><span class="en">↑ know you · ↓ don't know you</span></span></div>
-      <p class="apply sl"><b>Uporabi</b>Izberi enega, ga naredi dobro, šele nato dodaj naslednjega.</p>
-      <p class="apply en"><b>Apply</b>Pick one, get good at it, only then add the next.</p>
-      <a class="more" href="core-four.html"><span class="sl">Preberi več →</span><span class="en">Read more →</span></a>
-    </article>
-
-    <article class="fw">
-      <h3><span class="sl">Lead magnet</span><span class="en">Lead Magnets</span></h3>
-      <p class="sl">Brezplačna stvar, ki v celoti reši ozek problem in razkrije naslednjega, ki ga rešuje plačljiva ponudba.</p>
-      <p class="en">A free thing that fully solves a narrow problem and reveals the next one, which your paid offer solves.</p>
-      <dl>
-        <dt><span class="sl">Trije tipi</span><span class="en">Three types</span></dt>
-        <dd class="sl">Razkrije problem (diagnoza, audit), da vzorec (preizkus, demo), ali en korak večjega procesa (predloga, checklist).</dd>
-        <dd class="en">Reveal the problem (diagnosis, audit), give a sample (trial, demo), or one step of a bigger process (template, checklist).</dd>
-        <dt><span class="sl">Test</span><span class="en">Test</span></dt>
-        <dd class="sl">Bi zanj kdo plačal? Če ne, ni dovolj dober, da bi bil brezplačen.</dd>
-        <dd class="en">Would someone pay for it? If not, it isn't good enough to be free.</dd>
-      </dl>
-      <p class="apply sl"><b>Uporabi</b>Kateri en mini-rezultat lahko stranki daš v 15 minutah?</p>
-      <p class="apply en"><b>Apply</b>What single mini-result can you give a prospect in 15 minutes?</p>
-      <a class="more" href="lead-magnet.html"><span class="sl">Preberi več →</span><span class="en">Read more →</span></a>
-    </article>
-
-    <article class="fw">
-      <h3><span class="sl">Pravilo 100 in Več–Bolje–Novo</span><span class="en">Rule of 100 &amp; More–Better–New</span></h3>
-      <p class="sl">Volumen na začetku premaga talent. Vsak dan 100 primarnih akcij (npr. 100 kontaktov ali 100 minut vsebine) dovolj dolgo, da vidiš podatke.</p>
-      <p class="en">Early on, volume beats talent. Do 100 primary actions every day (e.g. 100 reach-outs or 100 minutes of content) long enough to see real data.</p>
-      <ol class="steps">
-        <li><div><p class="sl"><b>Več</b> (<span class="term">More</span>): najprej povečaj tisto, kar že dela.</p><p class="en"><b>More</b>: first scale what already works.</p></div></li>
-        <li><div><p class="sl"><b>Bolje</b> (<span class="term">Better</span>): ko volumen stoji, izboljšaj konverzijo.</p><p class="en"><b>Better</b>: when volume plateaus, improve conversion.</p></div></li>
-        <li><div><p class="sl"><b>Novo</b> (<span class="term">New</span>): nov kanal šele, ko sta prva dva izčrpana.</p><p class="en"><b>New</b>: a new channel only once the first two are exhausted.</p></div></li>
-      </ol>
-      <p class="apply sl"><b>Uporabi</b>Koliko primarnih akcij si dejansko naredil prejšnji teden?</p>
-      <p class="apply en"><b>Apply</b>How many primary actions did you actually do last week?</p>
-      <a class="more" href="rule-of-100.html"><span class="sl">Preberi več →</span><span class="en">Read more →</span></a>
-    </article>
-
-    <article class="fw">
-      <h3><span class="sl">Lead getterji in vsebina</span><span class="en">Lead Getters &amp; Content</span></h3>
-      <p class="sl">Ko sam ne zmoreš več, pridobiš ljudi, ki leade prinašajo zate: stranke (priporočila), zaposleni, agencije, partnerji in affiliati.</p>
-      <p class="en">When you can't do it all yourself, get others to bring leads: customers (referrals), employees, agencies, partners and affiliates.</p>
-      <dl>
-        <dt><span class="sl">Vsebina</span><span class="en">Content</span></dt>
-        <dd class="sl">Kavelj, zadrži, nagradi (<span class="term">Hook – Retain – Reward</span>). Veliko daj, redko prosi.</dd>
-        <dd class="en">Hook – Retain – Reward. Give a lot, ask rarely.</dd>
-      </dl>
-      <a class="more" href="lead-getters.html"><span class="sl">Preberi več →</span><span class="en">Read more →</span></a>
-    </article>
-  </section>
-
-  <!-- 3 MONETIZACIJA -->
-  <section class="part" id="monetizacija">
-    <div class="part-head">
-      <p class="eyebrow"><span class="sl">Del 3</span><span class="en">Part 3</span></p>
-      <h2><span class="sl">Monetizacija: stranka financira svoj prihod</span><span class="en">Money: the client pays for their own acquisition</span></h2>
-      <p class="src">$100M Money Models</p>
-    </div>
-
-    <article class="fw">
-      <h3>Money Models</h3>
-      <p class="sl">Zaporedje ponudb, ki iz ene stranke naredi več denarja, hitreje. Cilj: <mark>bruto dobiček prvih 30 dni pokrije strošek pridobitve stranke</mark>, idealno dvakrat, da se rast financira sama (<span class="term">client-financed acquisition</span>).</p>
-      <p class="en">A sequence of offers that turns one customer into more cash, faster. Goal: <mark>30-day gross profit covers the cost of acquiring the customer</mark>, ideally twice, so growth funds itself (client-financed acquisition).</p>
-      <div class="grid2">
-        <div class="cell"><strong><span class="sl">Privabljalna ponudba</span><span class="en">Attraction offer</span></strong><span class="d"><span class="sl">Vstop: brezplačno, poceni ali »kupi X, dobiš Y«.</span><span class="en">Entry: free, low-cost or "buy X, get Y".</span></span></div>
-        <div class="cell"><strong>Upsell</strong><span class="d"><span class="sl">Takoj po »da«: naslednji logičen korak.</span><span class="en">Right after a yes: the next logical step.</span></span></div>
-        <div class="cell"><strong>Downsell</strong><span class="d"><span class="sl">Po »ne«: manjša, cenejša ali obročna verzija.</span><span class="en">After a no: smaller, cheaper or payment plan.</span></span></div>
-        <div class="cell"><strong><span class="sl">Naročnina</span><span class="en">Continuity</span></strong><span class="d"><span class="sl">Ponavljajoč prihodek, ki zgradi LTV.</span><span class="en">Recurring revenue that builds LTV.</span></span></div>
-      </div>
-      <p class="apply sl"><b>Uporabi</b>Kaj ponudiš stranki, ki je pravkar kupila, in kaj tisti, ki je rekla ne?</p>
-      <p class="apply en"><b>Apply</b>What do you offer someone who just bought, and someone who just said no?</p>
-      <a class="more" href="money-model.html"><span class="sl">Preberi več →</span><span class="en">Read more →</span></a>
-    </article>
-
-    <article class="fw">
-      <h3><span class="sl">Ekonomika stranke</span><span class="en">Customer Economics</span></h3>
-      <p class="sl">Dve številki, ki ju moraš poznati na pamet.</p>
-      <p class="en">Two numbers you should know by heart.</p>
-      <dl>
-        <dt>LTGP : CAC</dt>
-        <dd class="sl"><span class="ratio">≥ 3 : 1</span> · bruto dobiček skozi življenjsko dobo stranke (<span class="term">Lifetime Gross Profit</span>) proti strošku pridobitve (<span class="term">Customer Acquisition Cost</span>). Pod tem rast boli.</dd>
-        <dd class="en"><span class="ratio">≥ 3 : 1</span> · lifetime gross profit per customer versus the cost to acquire them. Below that, growth hurts.</dd>
-        <dt><span class="sl">Povračilo</span><span class="en">Payback</span></dt>
-        <dd class="sl"><span class="ratio">≤ 30 dni</span> · kako hitro se strošek pridobitve vrne.</dd>
-        <dd class="en"><span class="ratio">≤ 30 days</span> · how quickly the acquisition cost comes back.</dd>
-      </dl>
-      <a class="more" href="unit-economics.html"><span class="sl">Preberi več →</span><span class="en">Read more →</span></a>
-    </article>
-  </section>
-
-  <!-- 4 PRODAJA -->
-  <section class="part" id="prodaja">
-    <div class="part-head">
-      <p class="eyebrow"><span class="sl">Del 4</span><span class="en">Part 4</span></p>
-      <h2><span class="sl">Prodaja: pogovor, ne pritisk</span><span class="en">Sales: a conversation, not pressure</span></h2>
-      <p class="src"><span class="sl">Predavanja in podcasti</span><span class="en">Talks and podcasts</span></p>
-    </div>
-
-    <article class="fw">
-      <h3>The CLOSER Framework</h3>
-      <p class="sl">Struktura prodajnega pogovora. Stranka naj sama pove, zakaj potrebuje spremembo.</p>
-      <p class="en">A structure for the sales conversation. The prospect should say themselves why they need a change.</p>
-      <div class="closer">
-        <div><span class="L">C</span><div><p class="sl"><b>Clarify</b>: zakaj so tu, zakaj zdaj.</p><p class="en"><b>Clarify</b> why they're here, why now.</p></div></div>
-        <div><span class="L">L</span><div><p class="sl"><b>Label</b>: problem poimenuj, naj ga potrdijo.</p><p class="en"><b>Label</b> them with a problem they confirm.</p></div></div>
-        <div><span class="L">O</span><div><p class="sl"><b>Overview past pain</b>: kaj so že poskusili in zakaj ni delovalo.</p><p class="en"><b>Overview</b> past pain: what they tried and why it failed.</p></div></div>
-        <div><span class="L">S</span><div><p class="sl"><b>Sell the vacation</b>: prodaj destinacijo (rezultat), ne letala (proces).</p><p class="en"><b>Sell</b> the vacation, not the plane flight.</p></div></div>
-        <div><span class="L">E</span><div><p class="sl"><b>Explain away concerns</b>: ugovori so skoraj vedno čas, denar, odločanje ali dvom vase.</p><p class="en"><b>Explain</b> away concerns: usually time, money, decision-making or self-doubt.</p></div></div>
-        <div><span class="L">R</span><div><p class="sl"><b>Reinforce</b>: po nakupu potrdi odločitev.</p><p class="en"><b>Reinforce</b> the decision after they buy.</p></div></div>
-      </div>
-      <a class="more" href="closer.html"><span class="sl">Preberi več →</span><span class="en">Read more →</span></a>
-    </article>
-
-    <article class="fw">
-      <h3><span class="sl">Ozko grlo</span><span class="en">The Constraint</span></h3>
-      <p class="sl">Podjetje ima v vsakem trenutku eno glavno omejitev: premalo leadov, slaba konverzija, slaba dostava ali odhajanje strank. Delo na čemerkoli drugem ima malo učinka.</p>
-      <p class="en">At any moment a business has one main constraint: too few leads, weak conversion, poor delivery or customers leaving. Working on anything else has little effect.</p>
-      <p class="apply sl"><b>Uporabi</b>Če bi jutri podvojil leade, kaj bi se najprej zlomilo?</p>
-      <p class="apply en"><b>Apply</b>If your leads doubled tomorrow, what would break first?</p>
-      <a class="more" href="constraint.html"><span class="sl">Preberi več →</span><span class="en">Read more →</span></a>
-    </article>
-  </section>
-
-  <!-- PLAN -->
-  <section class="plan" id="plan">
-    <p class="eyebrow"><span class="sl">Učni plan · 3 tedni</span><span class="en">Study plan · 3 weeks</span></p>
-    <h2><span class="sl">Od zemljevida do razumevanja</span><span class="en">From map to understanding</span></h2>
-    <div class="week"><span class="t"><span class="sl">Teden 1</span><span class="en">Week 1</span></span><div><p class="sl"><i>$100M Offers</i> (audiobook, ~4 h). Vsak večer eno poglavje uporabi na lastni ponudbi.</p><p class="en"><i>$100M Offers</i> (audiobook, ~4 h). Each evening, apply one chapter to your own offer.</p></div></div>
-    <div class="week"><span class="t"><span class="sl">Teden 2</span><span class="en">Week 2</span></span><div><p class="sl"><i>$100M Leads</i>. Izberi en kanal iz Core Four in ga 7 dni izvajaj po pravilu 100.</p><p class="en"><i>$100M Leads</i>. Pick one Core Four channel and run it for 7 days following the Rule of 100.</p></div></div>
-    <div class="week"><span class="t"><span class="sl">Teden 3</span><span class="en">Week 3</span></span><div><p class="sl"><i>$100M Money Models</i> in brezplačni tečaji na acquisition.com. Nariši svoj money model in izračunaj LTGP : CAC.</p><p class="en"><i>$100M Money Models</i> and the free courses on acquisition.com. Sketch your money model and calculate LTGP : CAC.</p></div></div>
-    <div class="week"><span class="t"><span class="sl">Nato</span><span class="en">Then</span></span><div><p class="sl">YouTube in podcast samo ciljano, ko imaš konkretno vprašanje.</p><p class="en">YouTube and the podcast only when you have a specific question.</p></div></div>
-  </section>
-
-  <footer><span class="sl">Povzetek je parafraza za osebno učenje. Za točne definicije in primere glej izvirne knjige.</span><span class="en">This summary is a paraphrase for personal study. See the original books for exact definitions and examples.</span></footer>
-</div>
-
+</header>
+<main class="wrap">
+<header class="page-head home-head">
+  <p class="eyebrow">AH distilled · <span class="en" lang="en">Personal study map</span><span class="sl" lang="sl">Osebni študijski zemljevid</span></p>
+  <h1><span class="en" lang="en">Alex Hormozi, distilled</span><span class="sl" lang="sl">Alex Hormozi, zgoščeno</span></h1>
+  <p class="lede"><span class="en" lang="en">The core business frameworks from $100M Offers, $100M Leads, $100M Money Models and Alex&#x27;s sales talks, explained with examples, common mistakes, worksheets and how Alex himself would apply them. Three levels: this overview, one page per book, and one page per concept.</span><span class="sl" lang="sl">Ključni poslovni okviri iz $100M Offers, $100M Leads, $100M Money Models in Alexovih predavanj o prodaji, razloženi s primeri, pogostimi napakami, delovnimi listi in tem, kako bi jih uporabil Alex sam. Trije nivoji: ta pregled, stran za vsako knjigo in stran za vsak koncept.</span></p>
+</header>
+<section class="home-sec">
+  <h2><span class="en" lang="en">The books</span><span class="sl" lang="sl">Knjige</span></h2>
+  <div class="tiles"><a class="tile tile-offers" href="offers/index.html">
+  <span class="tile-kind"><span class="en" lang="en">Book</span><span class="sl" lang="sl">Knjiga</span> · 13 <span class="en" lang="en">concepts</span><span class="sl" lang="sl">konceptov</span></span>
+  <span class="tile-title"><span class="en" lang="en">$100M Offers</span><span class="sl" lang="sl">$100M Offers</span></span>
+  <span class="tile-sub"><span class="en" lang="en">How to make offers so good people feel stupid saying no</span><span class="sl" lang="sl">Kako narediti ponudbe, ki jih je neumno zavrniti</span></span>
+  <span class="tile-card"><span class="en" lang="en">Pick the right market, make the value obvious, and enhance the offer until comparing it with competitors makes no sense.</span><span class="sl" lang="sl">Izberi pravi trg, naredi vrednost očitno in ponudbo ojačaj, dokler primerjava s konkurenco ne postane nesmiselna.</span></span>
+  <span class="tile-go"><span class="en" lang="en">Open the book →</span><span class="sl" lang="sl">Odpri knjigo →</span></span>
+</a><a class="tile tile-leads" href="leads/index.html">
+  <span class="tile-kind"><span class="en" lang="en">Book</span><span class="sl" lang="sl">Knjiga</span> · 10 <span class="en" lang="en">concepts</span><span class="sl" lang="sl">konceptov</span></span>
+  <span class="tile-title"><span class="en" lang="en">$100M Leads</span><span class="sl" lang="sl">$100M Leads</span></span>
+  <span class="tile-sub"><span class="en" lang="en">How to get strangers to want to buy your stuff</span><span class="sl" lang="sl">Kako doseči, da neznanci želijo kupiti tvoje stvari</span></span>
+  <span class="tile-card"><span class="en" lang="en">Advertising means making known. Use a lead magnet and the Core Four to turn strangers into engaged leads, then get other people to do it for you.</span><span class="sl" lang="sl">Oglaševanje pomeni narediti znano. Z lead magnetom in Core Four neznance spremeni v zavzete leade, nato naj to delajo drugi namesto tebe.</span></span>
+  <span class="tile-go"><span class="en" lang="en">Open the book →</span><span class="sl" lang="sl">Odpri knjigo →</span></span>
+</a><a class="tile tile-money" href="money/index.html">
+  <span class="tile-kind"><span class="en" lang="en">Book</span><span class="sl" lang="sl">Knjiga</span> · 7 <span class="en" lang="en">concepts</span><span class="sl" lang="sl">konceptov</span></span>
+  <span class="tile-title"><span class="en" lang="en">$100M Money Models</span><span class="sl" lang="sl">$100M Money Models</span></span>
+  <span class="tile-sub"><span class="en" lang="en">How to make money</span><span class="sl" lang="sl">Kako zaslužiti denar</span></span>
+  <span class="tile-card"><span class="en" lang="en">Wrap your core product in a sequence of offers that collects enough gross profit in the first 30 days to cover what the customer cost to acquire, ideally twice.</span><span class="sl" lang="sl">Glavni izdelek ovij v zaporedje ponudb, ki v prvih 30 dneh prinese dovolj bruto dobička, da pokrije strošek pridobitve stranke, idealno dvakrat.</span></span>
+  <span class="tile-go"><span class="en" lang="en">Open the book →</span><span class="sl" lang="sl">Odpri knjigo →</span></span>
+</a><a class="tile tile-sales" href="sales/index.html">
+  <span class="tile-kind"><span class="en" lang="en">Talks</span><span class="sl" lang="sl">Predavanja</span> · 2 <span class="en" lang="en">concepts</span><span class="sl" lang="sl">konceptov</span></span>
+  <span class="tile-title"><span class="en" lang="en">Selling &amp; Scaling</span><span class="sl" lang="sl">Prodaja in rast</span></span>
+  <span class="tile-sub"><span class="en" lang="en">From Alex&#x27;s talks, trainings and podcast</span><span class="sl" lang="sl">Iz Alexovih predavanj, treningov in podcasta</span></span>
+  <span class="tile-card"><span class="en" lang="en">A collection from Alex&#x27;s talks, trainings and podcast on two jobs that come after the offer and the leads. Turn conversations into clients, and keep growth flowing by fixing one bottleneck at a time.</span><span class="sl" lang="sl">Zbirka iz Alexovih predavanj, treningov in podcasta o dveh nalogah, ki pridejo za ponudbo in povpraševanji. Pogovore spremeni v stranke in rast ohranjaj tako, da odpravljaš eno ozko grlo naenkrat.</span></span>
+  <span class="tile-go"><span class="en" lang="en">Open the book →</span><span class="sl" lang="sl">Odpri knjigo →</span></span>
+</a></div>
+  <h3 class="flow-title"><span class="en" lang="en">How the books fit together</span><span class="sl" lang="sl">Kako se knjige povezujejo</span></h3>
+  <ol class="flow"><li><span class="en" lang="en">Offers: make something people feel stupid saying no to.</span><span class="sl" lang="sl">Offers: naredi nekaj, kar je neumno zavrniti.</span></li><li><span class="en" lang="en">Leads: get enough of the right people to see it.</span><span class="sl" lang="sl">Leads: poskrbi, da to vidi dovolj pravih ljudi.</span></li><li><span class="en" lang="en">Money Models: turn each customer into more cash, faster, so growth pays for itself.</span><span class="sl" lang="sl">Money Models: iz vsake stranke naredi več denarja, hitreje, da se rast plača sama.</span></li><li><span class="en" lang="en">Selling &amp; Scaling: close the conversations and fix the one bottleneck that holds you back.</span><span class="sl" lang="sl">Prodaja in rast: zaključi pogovore in odpravi edino ozko grlo, ki te zavira.</span></li></ol>
+</section>
+<section class="home-sec">
+  <h2><span class="en" lang="en">Twelve big ideas</span><span class="sl" lang="sl">Dvanajst velikih idej</span></h2>
+  <p class="sec-intro"><span class="en" lang="en">If you only remember twelve things, remember these. Each one links to its full page.</span><span class="sl" lang="sl">Če si zapomniš le dvanajst stvari, si zapomni te. Vsaka vodi na svojo celotno stran.</span></p>
+  <div class="cards"><article class="card">
+  <p class="card-book"><span class="en" lang="en">$100M Offers</span><span class="sl" lang="sl">$100M Offers</span></p><h3><a href="offers/grand-slam-offer.html"><span class="en" lang="en">Grand Slam Offer</span><span class="sl" lang="sl">Grand Slam ponudba</span></a></h3>
+  <p><span class="en" lang="en">An offer so valuable for its price, and so specific to one market, that the buyer has nothing to compare it with. It is the way out of competing on price.</span><span class="sl" lang="sl">Ponudba, ki je za svojo ceno tako vredna in tako prilagojena enemu trgu, da je kupec nima s čim primerjati. Je izhod iz tekmovanja s ceno.</span></p>
+  <p class="key"><span class="en" lang="en">Commodity → Differentiated → Grand Slam (category of one)</span><span class="sl" lang="sl">Blago (commodity) → diferencirana ponudba → Grand Slam (category of one)</span></p>
+  <p class="apply"><b><span class="en" lang="en">Apply</span><span class="sl" lang="sl">Uporabi</span></b> <span class="en" lang="en">Could a buyer put your offer next to a competitor&#x27;s and compare it line by line?</span><span class="sl" lang="sl">Ali bi kupec tvojo ponudbo lahko postavil ob konkurenčno in ju primerjal postavko za postavko?</span></p>
+  <a class="more" href="offers/grand-slam-offer.html"><span class="en" lang="en">Read more →</span><span class="sl" lang="sl">Preberi več →</span></a>
+</article><article class="card">
+  <p class="card-book"><span class="en" lang="en">$100M Offers</span><span class="sl" lang="sl">$100M Offers</span></p><h3><a href="offers/starving-crowd.html"><span class="en" lang="en">Starving Crowd</span><span class="sl" lang="sl">Lačna množica</span></a></h3>
+  <p><span class="en" lang="en">Pick a market that is already hungry for what you sell. The right market makes an average offer work, and the wrong one makes a great offer fail.</span><span class="sl" lang="sl">Izberi trg, ki je že lačen tega, kar prodajaš. Pravi trg poskrbi, da deluje tudi povprečna ponudba, napačen pa pokoplje odlično.</span></p>
+  <p class="key"><span class="en" lang="en">Market &gt; Offer &gt; Persuasion</span><span class="sl" lang="sl">Trg &gt; ponudba &gt; prepričevanje</span></p>
+  <p class="apply"><b><span class="en" lang="en">Apply</span><span class="sl" lang="sl">Uporabi</span></b> <span class="en" lang="en">Does your market have urgent pain, money to spend, an easy place to find them, and growing demand?</span><span class="sl" lang="sl">Ali ima tvoj trg nujno bolečino, denar, jasno mesto, kjer ga najdeš, in rastoče povpraševanje?</span></p>
+  <a class="more" href="offers/starving-crowd.html"><span class="en" lang="en">Read more →</span><span class="sl" lang="sl">Preberi več →</span></a>
+</article><article class="card">
+  <p class="card-book"><span class="en" lang="en">$100M Offers</span><span class="sl" lang="sl">$100M Offers</span></p><h3><a href="offers/charge-what-its-worth.html"><span class="en" lang="en">Charge What It&#x27;s Worth</span><span class="sl" lang="sl">Zaračunaj, kar je vredno</span></a></h3>
+  <p><span class="en" lang="en">Don&#x27;t compete on price. A premium price funds better delivery, attracts more committed clients and produces better results, which justifies the price again.</span><span class="sl" lang="sl">Ne tekmuj s ceno. Premium cena financira boljšo izvedbo, privabi bolj zavzete stranke in prinese boljše rezultate, ki ceno znova upravičijo.</span></p>
+  <p class="key"><span class="en" lang="en">Higher price → more margin and more committed buyers → better results → proof that justifies the price</span><span class="sl" lang="sl">Višja cena → več marže in bolj zavzeti kupci → boljši rezultati → dokazi, ki upravičijo ceno</span></p>
+  <p class="apply"><b><span class="en" lang="en">Apply</span><span class="sl" lang="sl">Uporabi</span></b> <span class="en" lang="en">If you doubled your price tomorrow, what would you improve in delivery with the extra margin?</span><span class="sl" lang="sl">Če bi jutri podvojil ceno, kaj bi z dodatno maržo izboljšal v izvedbi?</span></p>
+  <a class="more" href="offers/charge-what-its-worth.html"><span class="en" lang="en">Read more →</span><span class="sl" lang="sl">Preberi več →</span></a>
+</article><article class="card">
+  <p class="card-book"><span class="en" lang="en">$100M Offers</span><span class="sl" lang="sl">$100M Offers</span></p><h3><a href="offers/value-equation.html"><span class="en" lang="en">The Value Equation</span><span class="sl" lang="sl">Enačba vrednosti</span></a></h3>
+  <p><span class="en" lang="en">How a buyer decides, in their head, whether something is worth its price. Push two levers up and two down.</span><span class="sl" lang="sl">Kako kupec v glavi oceni, ali je nekaj vredno svoje cene. Dva vzvoda dvigneš, dva spustiš.</span></p>
+  <p class="key"><span class="en" lang="en">Value = (Dream Outcome × Perceived Likelihood) ÷ (Time Delay × Effort &amp; Sacrifice)</span><span class="sl" lang="sl">Vrednost = (sanjski izid × zaznana verjetnost) ÷ (časovni zamik × trud in žrtvovanje)</span></p>
+  <p class="apply"><b><span class="en" lang="en">Apply</span><span class="sl" lang="sl">Uporabi</span></b> <span class="en" lang="en">What in your offer costs the client the most time or effort, and could you take it over?</span><span class="sl" lang="sl">Kaj v tvoji ponudbi stranko stane največ časa ali truda, in ali bi to lahko prevzel ti?</span></p>
+  <a class="more" href="offers/value-equation.html"><span class="en" lang="en">Read more →</span><span class="sl" lang="sl">Preberi več →</span></a>
+</article><article class="card">
+  <p class="card-book"><span class="en" lang="en">$100M Leads</span><span class="sl" lang="sl">$100M Leads</span></p><h3><a href="leads/lead-magnets.html"><span class="en" lang="en">Lead Magnets</span><span class="sl" lang="sl">Lead magneti</span></a></h3>
+  <p><span class="en" lang="en">A free offer that completely solves one narrow problem and, in doing so, reveals the next problem your paid offer solves. It turns strangers into engaged leads who already trust you.</span><span class="sl" lang="sl">Brezplačna ponudba, ki do konca reši en ozek problem in s tem razkrije naslednji problem, ki ga rešuje tvoja plačljiva ponudba. Neznance spremeni v zavzete leade, ki ti že zaupajo.</span></p>
+  <p class="key"><span class="en" lang="en">Lead magnet = complete solution to a narrow problem that reveals the next problem</span><span class="sl" lang="sl">Lead magnet = celovita rešitev ozkega problema, ki razkrije naslednji problem</span></p>
+  <p class="apply"><b><span class="en" lang="en">Apply</span><span class="sl" lang="sl">Uporabi</span></b> <span class="en" lang="en">What one narrow problem could you solve for free so well that the buyer immediately sees why they need your paid offer?</span><span class="sl" lang="sl">Kateri en ozek problem bi lahko brezplačno rešil tako dobro, da bi kupec takoj videl, zakaj potrebuje tvojo plačljivo ponudbo?</span></p>
+  <a class="more" href="leads/lead-magnets.html"><span class="en" lang="en">Read more →</span><span class="sl" lang="sl">Preberi več →</span></a>
+</article><article class="card">
+  <p class="card-book"><span class="en" lang="en">$100M Leads</span><span class="sl" lang="sl">$100M Leads</span></p><h3><a href="leads/core-four.html"><span class="en" lang="en">The Core Four</span><span class="sl" lang="sl">Core Four</span></a></h3>
+  <p><span class="en" lang="en">There are only four ways to let people know about you, set by two questions. Do they already know you, and are you reaching one person or many? Pick one, master it, then add the next.</span><span class="sl" lang="sl">Obstajajo samo štirje načini, kako ljudem sporočiš, da obstajaš, določata pa jih dve vprašanji. Te že poznajo in ali nagovarjaš eno osebo ali mnoge? Izberi enega, ga obvladaj, nato dodaj naslednjega.</span></p>
+  <p class="key"><span class="en" lang="en">Known × one-to-one = warm outreach · known × one-to-many = free content · unknown × one-to-one = cold outreach · unknown × one-to-many = paid ads</span><span class="sl" lang="sl">Znani × ena na ena = topli outreach · znani × ena na mnogo = brezplačna vsebina · neznani × ena na ena = hladni outreach · neznani × ena na mnogo = plačani oglasi</span></p>
+  <p class="apply"><b><span class="en" lang="en">Apply</span><span class="sl" lang="sl">Uporabi</span></b> <span class="en" lang="en">Which one of the four channels fits the time and money you have today, and are you doing enough volume in it to know whether it works?</span><span class="sl" lang="sl">Kateri od štirih kanalov ustreza času in denarju, ki ju imaš danes, in ali v njem delaš dovolj volumna, da veš, ali deluje?</span></p>
+  <a class="more" href="leads/core-four.html"><span class="en" lang="en">Read more →</span><span class="sl" lang="sl">Preberi več →</span></a>
+</article><article class="card">
+  <p class="card-book"><span class="en" lang="en">$100M Leads</span><span class="sl" lang="sl">$100M Leads</span></p><h3><a href="leads/lead-getters.html"><span class="en" lang="en">Lead Getters</span><span class="sl" lang="sl">Lead getterji</span></a></h3>
+  <p><span class="en" lang="en">Other people who bring you leads: customers, employees, agencies, and affiliates and partners. They turn the Core Four from something you do into something that runs without your time per lead.</span><span class="sl" lang="sl">Drugi ljudje, ki ti prinašajo leade: stranke, zaposleni, agencije ter affiliati in partnerji. Core Four spremenijo iz nečesa, kar delaš sam, v nekaj, kar teče brez tvojega časa za vsak lead.</span></p>
+  <p class="key"><span class="en" lang="en">Customers refer, employees run the Core Four, agencies teach, affiliates lend their audience</span><span class="sl" lang="sl">Stranke priporočajo, zaposleni izvajajo Core Four, agencije učijo, affiliati posodijo svoje občinstvo</span></p>
+  <p class="apply"><b><span class="en" lang="en">Apply</span><span class="sl" lang="sl">Uporabi</span></b> <span class="en" lang="en">Who already has your ideal clients&#x27; trust, and what would make it easy for them to send those clients to you?</span><span class="sl" lang="sl">Kdo že ima zaupanje tvojih idealnih strank in kaj bi mu olajšalo, da te stranke pošlje k tebi?</span></p>
+  <a class="more" href="leads/lead-getters.html"><span class="en" lang="en">Read more →</span><span class="sl" lang="sl">Preberi več →</span></a>
+</article><article class="card">
+  <p class="card-book"><span class="en" lang="en">$100M Leads</span><span class="sl" lang="sl">$100M Leads</span></p><h3><a href="leads/rule-of-100.html"><span class="en" lang="en">The Rule of 100</span><span class="sl" lang="sl">Pravilo 100</span></a></h3>
+  <p><span class="en" lang="en">Do 100 primary lead-getting actions every day for 100 days. Early on, volume teaches you more than talent or planning ever will.</span><span class="sl" lang="sl">Vsak dan opravi 100 osnovnih dejanj za pridobivanje leadov, 100 dni zapored. Na začetku te volumen nauči več kot talent ali načrtovanje.</span></p>
+  <p class="key"><span class="en" lang="en">100 primary actions a day × 100 days, done first, tracked daily</span><span class="sl" lang="sl">100 osnovnih dejanj na dan × 100 dni, najprej, z dnevnim beleženjem</span></p>
+  <p class="apply"><b><span class="en" lang="en">Apply</span><span class="sl" lang="sl">Uporabi</span></b> <span class="en" lang="en">What is my one daily lead-getting action, and did I do 100 of it today before anything else?</span><span class="sl" lang="sl">Katero je moje eno dnevno dejanje za pridobivanje leadov in ali sem ga danes opravil 100-krat, preden sem se lotil česarkoli drugega?</span></p>
+  <a class="more" href="leads/rule-of-100.html"><span class="en" lang="en">Read more →</span><span class="sl" lang="sl">Preberi več →</span></a>
+</article><article class="card">
+  <p class="card-book"><span class="en" lang="en">$100M Money Models</span><span class="sl" lang="sl">$100M Money Models</span></p><h3><a href="money/money-models.html"><span class="en" lang="en">Money Models</span><span class="sl" lang="sl">Money modeli</span></a></h3>
+  <p><span class="en" lang="en">A deliberate sequence of offers designed to make more money from each customer, faster. The business that can afford to spend the most to acquire a customer wins.</span><span class="sl" lang="sl">Načrtno zaporedje ponudb, ki iz vsake stranke hitreje ustvari več denarja. Zmaga podjetje, ki si lahko za pridobitev stranke privošči porabiti največ.</span></p>
+  <p class="key"><span class="en" lang="en">Attraction → Upsell → Downsell → Continuity</span><span class="sl" lang="sl">Privabljalna → upsell → downsell → naročnina</span></p>
+  <p class="apply"><b><span class="en" lang="en">Apply</span><span class="sl" lang="sl">Uporabi</span></b> <span class="en" lang="en">After a customer says yes to my first offer, what do I offer them next, and what do I offer the ones who say no?</span><span class="sl" lang="sl">Kaj stranki ponudim naslednje, ko reče da prvi ponudbi, in kaj ponudim tistim, ki rečejo ne?</span></p>
+  <a class="more" href="money/money-models.html"><span class="en" lang="en">Read more →</span><span class="sl" lang="sl">Preberi več →</span></a>
+</article><article class="card">
+  <p class="card-book"><span class="en" lang="en">$100M Money Models</span><span class="sl" lang="sl">$100M Money Models</span></p><h3><a href="money/client-financed-acquisition.html"><span class="en" lang="en">Client-Financed Acquisition</span><span class="sl" lang="sl">Pridobivanje, ki ga financira stranka</span></a></h3>
+  <p><span class="en" lang="en">When what a new customer pays in the first 30 days covers the cost to acquire and serve them, growth funds itself. At 2×, every customer pays for two more.</span><span class="sl" lang="sl">Ko to, kar nova stranka plača v prvih 30 dneh, pokrije strošek njene pridobitve in izvedbe, se rast financira sama. Pri 2× vsaka stranka plača še dve.</span></p>
+  <p class="key"><span class="en" lang="en">30-day gross profit ≥ CAC (goal ≥ 2× CAC); LTGP:CAC ≥ 3:1 as a rule of thumb</span><span class="sl" lang="sl">30-dnevni bruto dobiček ≥ CAC (cilj ≥ 2× CAC); LTGP:CAC ≥ 3:1 kot pravilo palca</span></p>
+  <p class="apply"><b><span class="en" lang="en">Apply</span><span class="sl" lang="sl">Uporabi</span></b> <span class="en" lang="en">How much gross profit does a new customer bring me in their first 30 days, compared with what it cost to get them?</span><span class="sl" lang="sl">Koliko bruto dobička mi nova stranka prinese v prvih 30 dneh v primerjavi s tem, koliko me je stala njena pridobitev?</span></p>
+  <a class="more" href="money/client-financed-acquisition.html"><span class="en" lang="en">Read more →</span><span class="sl" lang="sl">Preberi več →</span></a>
+</article><article class="card">
+  <p class="card-book"><span class="en" lang="en">Selling &amp; Scaling</span><span class="sl" lang="sl">Prodaja in rast</span></p><h3><a href="sales/closer.html"><span class="en" lang="en">The CLOSER Framework</span><span class="sl" lang="sl">Okvir CLOSER</span></a></h3>
+  <p><span class="en" lang="en">Six steps that turn a sales call into a diagnosis the buyer walks through themselves. Understand first, show the destination second, clear doubts last.</span><span class="sl" lang="sl">Šest korakov, ki prodajni klic spremenijo v diagnozo, skozi katero kupec gre sam. Najprej razumeš, nato pokažeš cilj, na koncu odpraviš dvome.</span></p>
+  <p class="key"><span class="en" lang="en">Clarify, Label, Overview, Sell the vacation, Explain away concerns, Reinforce</span><span class="sl" lang="sl">Clarify, Label, Overview, Sell the vacation, Explain away concerns, Reinforce</span></p>
+  <p class="apply"><b><span class="en" lang="en">Apply</span><span class="sl" lang="sl">Uporabi</span></b> <span class="en" lang="en">In your last sales call, did the client say their problem out loud before you mentioned your offer?</span><span class="sl" lang="sl">Ali je stranka v tvojem zadnjem prodajnem klicu na glas izrekla svoj problem, preden si omenil ponudbo?</span></p>
+  <a class="more" href="sales/closer.html"><span class="en" lang="en">Read more →</span><span class="sl" lang="sl">Preberi več →</span></a>
+</article><article class="card">
+  <p class="card-book"><span class="en" lang="en">Selling &amp; Scaling</span><span class="sl" lang="sl">Prodaja in rast</span></p><h3><a href="sales/constraint.html"><span class="en" lang="en">The Constraint</span><span class="sl" lang="sl">Ozko grlo</span></a></h3>
+  <p><span class="en" lang="en">At any moment a business has one main constraint that limits its growth. Work on anything else has little effect until that one is fixed, and then the constraint moves.</span><span class="sl" lang="sl">Podjetje ima v vsakem trenutku eno glavno omejitev, ki zavira rast. Delo na čemer koli drugem ima malo učinka, dokler je ne odpraviš, nato pa se omejitev premakne.</span></p>
+  <p class="key"><span class="en" lang="en">Find the one constraint, fix it, find the next one. Test: if leads doubled tomorrow, what breaks first?</span><span class="sl" lang="sl">Najdi eno omejitev, jo odpravi, poišči naslednjo. Test: če bi se ti jutri povpraševanja podvojila, kaj bi se prvo zlomilo?</span></p>
+  <p class="apply"><b><span class="en" lang="en">Apply</span><span class="sl" lang="sl">Uporabi</span></b> <span class="en" lang="en">If your leads doubled tomorrow, what would break first?</span><span class="sl" lang="sl">Če bi se ti jutri povpraševanja podvojila, kaj bi se prvo zlomilo?</span></p>
+  <a class="more" href="sales/constraint.html"><span class="en" lang="en">Read more →</span><span class="sl" lang="sl">Preberi več →</span></a>
+</article></div>
+</section>
+<section class="home-sec plan">
+  <h2><span class="en" lang="en">Study plan · 3 weeks</span><span class="sl" lang="sl">Učni plan · 3 tedni</span></h2>
+  <div class="week"><span class="t"><span class="en" lang="en">Week 1</span><span class="sl" lang="sl">Teden 1</span></span><p><span class="en" lang="en">$100M Offers (audiobook, about 4 hours). Each evening, apply one concept to your own offer using its worksheet.</span><span class="sl" lang="sl">$100M Offers (zvočna knjiga, okoli 4 ure). Vsak večer en koncept uporabi na svoji ponudbi z delovnim listom.</span></p></div><div class="week"><span class="t"><span class="en" lang="en">Week 2</span><span class="sl" lang="sl">Teden 2</span></span><p><span class="en" lang="en">$100M Leads. Pick one Core Four channel and run it for seven days under the Rule of 100.</span><span class="sl" lang="sl">$100M Leads. Izberi en kanal iz Core Four in ga sedem dni izvajaj po pravilu 100.</span></p></div><div class="week"><span class="t"><span class="en" lang="en">Week 3</span><span class="sl" lang="sl">Teden 3</span></span><p><span class="en" lang="en">$100M Money Models and the free courses on acquisition.com. Sketch your money model and calculate your 30-day gross profit against CAC.</span><span class="sl" lang="sl">$100M Money Models in brezplačni tečaji na acquisition.com. Nariši svoj money model in izračunaj 30-dnevni bruto dobiček glede na CAC.</span></p></div><div class="week"><span class="t"><span class="en" lang="en">Then</span><span class="sl" lang="sl">Nato</span></span><p><span class="en" lang="en">YouTube and the podcast only when you have a specific question.</span><span class="sl" lang="sl">YouTube in podcast le, ko imaš konkretno vprašanje.</span></p></div>
+</section>
+<section class="home-sec guru">
+  <h2><span class="en" lang="en">Ask Alex · in progress</span><span class="sl" lang="sl">Vprašaj Alexa · v nastajanju</span></h2>
+  <p><span class="en" lang="en">Every concept here is written as a knowledge base, including a section on how Alex would apply it. The goal is a personal business adviser that answers real business questions the way Alex would, for example by rewriting an offer with his principles. The full knowledge base is available as one file:</span><span class="sl" lang="sl">Vsak koncept je napisan kot baza znanja, vključno z razdelkom o tem, kako bi ga uporabil Alex. Cilj je osebni poslovni svetovalec, ki na resnična poslovna vprašanja odgovarja tako, kot bi Alex, na primer s prepisom ponudbe po njegovih načelih. Celotna baza znanja je na voljo kot ena datoteka:</span></p>
+  <p class="kb-links"><a href="kb/ah-distilled-kb.en.md">ah-distilled-kb.en.md</a> · <a href="kb/ah-distilled-kb.sl.md">ah-distilled-kb.sl.md</a> · <a href="kb/index.json">index.json</a></p>
+</section>
+<footer class="foot"><span class="en" lang="en">A paraphrase for personal study, not affiliated with Alex Hormozi or Acquisition.com. Examples are invented. See the original books for exact definitions.</span><span class="sl" lang="sl">Parafraza za osebno učenje, brez povezave z Alexom Hormozijem ali Acquisition.com. Primeri so izmišljeni. Za točne definicije glej izvirne knjige.</span></footer>
+</main>
 </body>
 </html>
