@@ -11,7 +11,7 @@ related: [constraint, business-math, prioritising-moves, focus-and-subtraction, 
 
 ## The gist {#gist}
 
-Across his hotseats and Q&As, Alex diagnoses almost every business the same way. He asks for the numbers before he listens to the story, because the problem the owner brings is rarely the problem the numbers show. "We need more leads" turns out to be an offer problem, "ads stopped working" turns out to be a lifetime value problem, and "my team is the issue" turns out to be a broken model.
+Alex diagnoses almost every business the same way. He asks for the numbers before he listens to the story, because the problem the owner brings is rarely the problem the numbers show. "We need more leads" turns out to be an offer problem, "ads stopped working" turns out to be a lifetime value problem, and "my team is the issue" turns out to be a broken model.
 
 Then he sorts the business into one of two buckets: it cannot get enough customers (demand) or it cannot serve more customers (supply). Inside that bucket he finds the single stage that sits furthest below a healthy benchmark, names it as a "how do I…" question, and limits his advice to the two or three moves that attack it.
 
@@ -25,13 +25,13 @@ Then he sorts the business into one of two buckets: it cannot get enough custome
 
 In his live hotseats the questions come in nearly the same order every time: what do you sell, to whom, at what price, how do customers find you, how many sales a month, what is the close rate, what is a customer worth over their lifetime, what does it cost to get one, how many leave, what is the gross margin, how much capacity is left. Only then does he ask what the owner actually wants.
 
-He expects owners to know these by heart. In one short walkthrough he reduces it to six numbers: new sales per month, current revenue, price, churn, lifetime value and gross margin, and notes that most owners cannot name the last three. In another he says plainly that he breaks down unit economics before asking about payroll or anything else, because that is where the problem shows up.
+He expects owners to know these by heart. In one walkthrough he reduces it to six numbers: new sales per month, current revenue, price, churn, lifetime value and gross margin, and notes that most owners cannot name the last three. In another he says plainly that he breaks down unit economics before asking about payroll or anything else, because that is where the problem shows up.
 
 ### 2. Distrust the stated problem
 
 A recurring pattern across many videos: the owner names a symptom, the numbers point somewhere else. A practice with three "separate" problems (low margin, pricing set by insurers, one channel) had one model problem. A founder listing six problems was usually missing around three senior people. An owner who wants to start a new business after a plateau usually does not know how to grow the current one. Alex treats the stated problem as a hypothesis and checks it against the numbers.
 
-He also separates a complaint from a constraint. If you already know that spending more would double the business and you are simply not doing it, the admin chores you complain about are not what limits growth.
+He also separates a complaint from a constraint: if you know more spend would double the business and you are not doing it, your chores are not the constraint.
 
 ### 3. Supply or demand triage
 
@@ -48,11 +48,11 @@ On the supply side he goes further: tolerate mediocre marketing while capacity i
 
 Inside the funnel he walks the stages (click, opt-in, booking, show, close, repeat purchase) and compares each to the numbers he knows. He fixes the stage furthest below its benchmark, because that is where a 2–4x is possible. Another version of the same idea: add the same small percentage to every stage and see which one moves output the most. That is usually the weakest stage.
 
-He normally optimises acquisition front to back, since early stages touch the most people. The exception is one stage far below the norm, such as a 5% show rate where 60% is normal. He also notes that a stage cannot exceed 100%, so a 60% show rate cannot triple while a 1% click-through can.
+He normally optimises acquisition front to back, since early stages touch the most people. The exception is one stage far below the norm, such as a 5% show rate where 60% is normal. A 60% show rate cannot triple; a 1% click-through can.
 
 ### 5. Turn the constraint into a "how do I…" question
 
-Once he has the constraint, he rewrites it as a solvable skill question: "how do I recruit, train and manage a sales team", "how do I get customers from a channel I am allowed to use". In one story he refused to discuss pricing, messaging or lifetime gross profit with an owner until the named constraint was solved. Another default framing he uses with CEOs: what is stopping today's run rate from being five times bigger?
+Once he has the constraint, he rewrites it as a solvable skill question: "how do I recruit, train and manage a sales team", "how do I get customers from a channel I am allowed to use". In one story he refused to discuss pricing, messaging or lifetime gross profit with an owner until the named constraint was solved.
 
 ### 6. Limit the advice to two or three moves
 
@@ -77,7 +77,7 @@ Before he commits to a plan he asks what the owner wants: double it, sell it, or
 </div>
 </div>
 
-The order matters: price and conversion fixes come before spend, so the new van and staff are not swamped.
+Price and conversion fixes come before spend, so the new van and staff are not swamped.
 
 ### Online weight-loss program, about $4M, webinar funnel
 

@@ -11,7 +11,7 @@ related: [constraint, business-math, prioritising-moves, focus-and-subtraction, 
 
 ## Bistvo {#gist}
 
-Alex v hotseatih in Q&A-jih skoraj vsako podjetje diagnosticira na enak način. Za številke vpraša, preden posluša zgodbo, ker problem, s katerim pride lastnik, le redko ustreza problemu, ki ga pokažejo številke. »Rabimo več leadov« se izkaže za problem ponudbe, »oglasi ne delujejo več« za problem življenjske vrednosti stranke, »težava je ekipa« pa za pokvarjen poslovni model.
+Alex skoraj vsako podjetje diagnosticira na enak način. Za številke vpraša, preden posluša zgodbo, ker problem, s katerim pride lastnik, le redko ustreza problemu, ki ga pokažejo številke. »Rabimo več leadov« se izkaže za problem ponudbe, »oglasi ne delujejo več« za problem življenjske vrednosti stranke, »težava je ekipa« pa za pokvarjen poslovni model.
 
 Nato podjetje razvrsti v enega od dveh košev: ne more dobiti dovolj strank (povpraševanje, demand) ali ne more postreči več strankam (ponudba oziroma kapaciteta, supply). Znotraj koša poišče eno fazo, ki je najdlje pod zdravim mejnikom, jo ubesedi kot vprašanje »kako naj…« in nasvet omeji na dve ali tri poteze, ki jo napadejo.
 
@@ -52,7 +52,7 @@ Pridobivanje strank običajno optimizira od spredaj nazaj, ker zgodnje faze dose
 
 ### 5. Ozko grlo spremeni v vprašanje »kako naj…«
 
-Ko ima ozko grlo, ga prepiše v rešljivo vprašanje o veščini: »kako naj zaposlim, izurim in vodim prodajno ekipo«, »kako naj dobim stranke iz kanala, ki ga smem uporabljati«. V eni zgodbi z lastnikom ni hotel govoriti o cenah, sporočilih ali življenjskem bruto dobičku, dokler poimenovano ozko grlo ni bilo rešeno. Še en okvir, ki ga uporablja z direktorji: kaj preprečuje, da bi bil današnji tempo prihodkov petkrat večji?
+Ko ima ozko grlo, ga prepiše v rešljivo vprašanje o veščini: »kako naj zaposlim, izurim in vodim prodajno ekipo«, »kako naj dobim stranke iz kanala, ki ga smem uporabljati«. V eni zgodbi z lastnikom ni hotel govoriti o cenah, sporočilih ali življenjskem bruto dobičku, dokler poimenovano ozko grlo ni bilo rešeno.
 
 ### 6. Nasvet omeji na dve ali tri poteze
 
