@@ -24,9 +24,9 @@ The ordering is how he controls risk. A move that adds volume to a proven channe
 
 ### More, then better, then new
 
-He states the default order in several talks: first ask why you cannot do more of what works; if you cannot do more, ask whether you can make it better; only then try something new. He uses it as a quarterly plan too ("more, better", repeated until something blocks it). In one Q&A he explains why small owners stall: they find something that works, stop doing it, and chase several new things, even though their own time is the most direct driver of revenue.
+He states the default order in several talks: first ask why you cannot do more of what works; if you cannot do more, ask whether you can make it better; only then try something new. He uses it as a quarterly plan too ("more, better", repeated until something blocks it). In one Q&A he explains why small owners stall: they find something that works, stop doing it, and chase several new things.
 
-Typical "more" moves from the cases: going from a few networking events a week to several a day, from one stage talk a year to one a week, doubling the ad spend on a funnel that already returns about 4x, or sending 20 partner emails a day instead of a handful. A channel that works but has never been scaled is, in his words, usually the biggest win in the business.
+Typical "more" moves from the cases: going from a few networking events a week to several a day, from one stage talk a year to one a week, doubling the ad spend on a funnel that already returns about 4x, or sending 20 partner emails a day instead of a handful. A channel that works but has never been scaled is, in his view, usually the biggest win in the business.
 
 ### Rank by impact, confidence and ease
 
@@ -49,7 +49,7 @@ When several areas need work, he follows a fairly stable sequence across videos:
 | 3 | Demand on existing channels | Spend and volume on what is proven |
 | 4 | New channels, avatars, products | Highest risk, funded by steps 1–3 |
 
-He puts it as: do not push more demand through thin margins, and do not buy traffic into a leaky bucket. For a stalled local practice he ordered it as pricing and packaging, then attribution, then ads, then content. One caution he adds: cheap conversion fixes can double leads on their own and push a business into a supply constraint, so the order also protects capacity. The supply-versus-demand triage itself comes before all of this (see the diagnostic sequence).
+He puts it as: do not push more demand through thin margins, and do not buy traffic into a leaky bucket. For a stalled local practice he ordered it as pricing and packaging, then attribution, then ads, then content. He adds that cheap conversion fixes can double leads on their own and push a business into a supply constraint. The supply-versus-demand triage itself comes before all of this (see the diagnostic sequence).
 
 ### Never switch off what works
 
@@ -65,7 +65,7 @@ In a keynote he says most businesses grow most by picking up the biggest obvious
 
 ### Two or three moves only
 
-He deliberately limits advice to the two or three highest-impact moves so the owner actually executes them, and in one hotseat simplifies a plan to two steps. Longer lists appear only when each item is small and he has already put them in ICE order.
+He deliberately limits advice to the two or three highest-impact moves so the owner actually executes them, and in one hotseat simplifies a plan to two steps.
 
 ## Examples {#examples}
 
@@ -84,8 +84,6 @@ A duct-cleaning business with about $1.25M revenue, 38% profit, a 99% show rate 
 | 5–7 | Retargeting, reactivation emails, partner offer | More from the existing base and partners |
 | 8 | Outbound to new segments | Newest and heaviest, so last |
 
-The order also avoided overloading delivery capacity.
-
 ### Coach about to switch away from a working funnel
 
 <div class="ba" markdown="1">
@@ -98,10 +96,6 @@ The order also avoided overloading delivery capacity.
 </div>
 
 Alex first suggested the local hybrid, then corrected himself on the call: when something works, put more into it.
-
-### Contractor spread across channels
-
-A junk-removal company for property managers (about $1M) was dabbling in cold email, LinkedIn, social media and networking. Alex picked the channel that overlapped with the owner's skill (in person), told him to scale networking from a few events a week to several a day, and to use the extra cash to fund learning a second channel later.
 
 ### BI consultancy (invented)
 
