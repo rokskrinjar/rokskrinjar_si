@@ -61,6 +61,12 @@ UI = {
     "home": {"en": "AH distilled", "sl": "AH distilled"},
 }
 
+KIND = {
+    "book": {"en": "Book", "sl": "Knjiga"},
+    "talks": {"en": "Talks & trainings", "sl": "Predavanja in treningi"},
+    "playbook": {"en": "From 100+ videos", "sl": "Iz več kot 100 videov"},
+}
+
 MD = markdown.Markdown(extensions=["extra", "sane_lists", "smarty"],
                        extension_configs={"smarty": {"smart_quotes": False}})
 
@@ -268,8 +274,7 @@ def build_book(book, books, concepts):
 </section>""")
     others = "".join(
         f'<a class="chip" href="../{b["id"]}/index.html">{bi(b["title"])}</a>' for b in books if b is not book)
-    kind = {"en": "Book" if book["kind"] == "book" else "Talks & trainings",
-            "sl": "Knjiga" if book["kind"] == "book" else "Predavanja in treningi"}
+    kind = KIND[book["kind"]]
     jump = "".join(f'<a href="#{s["id"]}">{bi(s["title"])}</a>' for s in book["sections"])
     body = f"""<header class="page-head">
   <p class="eyebrow">{bi(kind)} · {len(book['concept_ids'])} {bi(UI['concepts'])}</p>
@@ -296,7 +301,7 @@ def build_home(cat, site, concepts):
         card = {l: meta[l].get("card", "") for l in LANGS}
         n = len(b["concept_ids"])
         tiles.append(f"""<a class="tile tile-{b['id']}" href="{b['id']}/index.html">
-  <span class="tile-kind">{bi({'en': 'Book' if b['kind']=='book' else 'Talks', 'sl': 'Knjiga' if b['kind']=='book' else 'Predavanja'})} · {n} {bi(UI['concepts'])}</span>
+  <span class="tile-kind">{bi(KIND[b['kind']])} · {n} {bi(UI['concepts'])}</span>
   <span class="tile-title">{bi(b['title'])}</span>
   <span class="tile-sub">{bi(b['subtitle'])}</span>
   {f'<span class="tile-card">{bi(card)}</span>' if card['en'] else ''}

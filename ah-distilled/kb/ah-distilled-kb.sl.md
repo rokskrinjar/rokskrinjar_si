@@ -3974,3 +3974,3045 @@ Vzemi zadnje tri mesece svojega podjetja in odgovori pisno.
 4. **Fokus:** Katere tri projekte, ki ne zadevajo ozkega grla, boš ta mesec ustavil?
 5. **Ukrep:** Kateri en ukrep v 30 dneh razširi omejitev in kako ga boš izmeril?
 6. **Naslednja:** Kam se bo omejitev verjetno premaknila, ko jo odpraviš?
+
+# Alexov priročnik — Kako Alex postavi diagnozo in se odloča, zgoščeno iz več kot 100 videov
+
+**Alex večino poslovnih problemov rešuje na isti način, tako da poišče eno ozko grlo, preveri številke in izbere dve ali tri poteze v pravem vrstnem redu.**
+
+### Priročnik na eni strani {#overview}
+
+Štiri knjige opisujejo Alexove okvirje: kako zgraditi ponudbo, pridobiti leade, sestaviti money model in zapreti posel. Ta plast zajame nekaj drugega: kako razmišlja, ko mu resničen lastnik opiše resničen problem. Zgoščena je iz 103 njegovih videov (hotseati, Q&A-ji v živo, predavanja in prodajni treningi). Prepisi ostanejo zasebni. Kar bereš tukaj, je povzeto s svojimi besedami, urejeno po temah, vsak vnos pa navaja videe, iz katerih izhaja, s časovnimi oznakami.
+
+Knjige odgovorijo na vprašanje »kakšen je okvir?«. Priročnik odgovori na »kaj bi naredil najprej, kaj bi ignoriral in zakaj?«. Daje prednost vzorcem, ki se ponavljajo v več videih, točke iz enega samega videa označi kot take, njegove številke pa ohrani kot groba pravila z njihovim kontekstom. Kjer zapiski ne povedo ničesar, tudi priročnik ne pove ničesar.
+
+V vseh videih se vračajo ista načela delovanja:
+
+1. **Poišči eno ozko grlo.** Prva triaža je ponudba ali povpraševanje: če bi se stranke podvojile, kaj bi se zlomilo? Nato napadi stopnjo lijaka, ki je najdlje pod merilom, vse drugo pa ignoriraj.
+2. **Navedeni problem je redko pravi.** »Leadi« se pogosto izkažejo za ponudbo ali prodajni proces, »oglasi« za LTV, »ljudje« za pokvarjen model.
+3. **Najprej številke, nato nasvet.** Sprašuje v stalnem vrstnem redu: kaj prodajaš, komu, po kakšni ceni, kako pridobivaš, delež zaključenih prodaj, LTV, CAC, odliv, bruto marža, zmogljivost. Razmerje med življenjskim bruto dobičkom in CAC je osrednja leča.
+4. **Več, nato bolje, nato novo (more, better, new).** Iztisni, kar že deluje, preden poskusiš kaj novega. Delujočega kanala nikoli ne izklopi, da bi preizkusil drugega.
+5. **Fokus in odvzemanje.** Eno podjetje, en avatar, en kanal, ena prioriteta, približno do 1 M $ na leto. Ukini stranske projekte in enote, ki izgubljajo.
+6. **Cena je prvi in najcenejši vzvod.** Večina lastnikov je prenizko cenovnih; zelo visok delež zaključenih prodaj in tanke marže so opozorila. Namesto popusta dodaj bonuse.
+7. **Potegni denar naprej (pull cash forward).** Težave z gotovino reši z zasnovo ponudbe (predplačilo, pristojbine vnaprej, hitri upselli) pred dolgom ali kapitalom, da se CAC povrne v približno 30 dneh.
+8. **Zakrpaj vedro, preden kupuješ promet.** Prednost je v zadrževanju in življenjski vrednosti, odliv pa je navadno problem uvajanja ali komunikacije.
+9. **Talenti so dolgoročno ozko grlo.** Ljudi pridobivaj, kot pridobivaš stranke, več plačaj tistim, ki so to že naredili, in ljudi presojaj po metrikah, ki jih spremljajo.
+10. **Ustanovitelja premakni od izvajalca k učitelju in voditelju.** Manjša odvisnost od ustanovitelja je pot od dohodka do vrednosti podjetja.
+11. **Najprej izpili, nato skaliraj (nail it before you scale it).** Nobene druge lokacije, izdelka ali podjetja, dokler prvo ni dobičkonosno in ne teče brez lastnika. Najprej boljše, potem večje.
+12. **Sprememba stane, zato izberi malo potez.** Dve ali tri poteze z največjim učinkom, razvrščene po učinku, zanesljivosti in lahkosti, ena sprememba naenkrat.
+
+### Kako bi te ideje uporabil Alex {#alex}
+
+- **Začni s ciljem in številkami.** Vprašaj, kaj lastnik v resnici želi (gotovino, svobodo ali izhod), nato zberi ključne metrike iz razdelka o diagnozi, preden si ustvariš mnenje.
+- **Ozko grlo poimenuj z enim vprašanjem.** Odloči, ali podjetje omejuje ponudba ali povpraševanje, poišči najšibkejšo stopnjo glede na merilo in jo zapiši kot »kako naj…?«.
+- **Podjetje umesti v njegovo fazo.** Prihodki in število zaposlenih določijo, katera pravila veljajo; razdelek o rasti pokaže, čemu naj se ustanovitelj odpove naslednje.
+- **Izberi dve ali tri poteze iz vzvodov v njegovem vrstnem redu:** najprej cena in gotovina, nato zadrževanje in prodajni proces, nato več delujočega kanala in šele nato nekaj novega.
+- **Preveri, kdo bo izvedel.** Če je ozko grlo lastnik ali ključna oseba, ima razdelek o ljudeh prednost pred vsako taktiko rasti.
+- **Umeri se ob podobnem primeru.** V zbirki primerov poišči najbližje podjetje in primerjaj njegovo diagnozo s svojo.
+- **Povej, česa ne narediti.** Zaključi s kratkim, razvrščenim načrtom za naslednjih 90 dni in seznamom motenj, ki jih opustiš.
+
+## Zaporedje diagnoze
+
+- id: diagnostic-sequence
+- book: Alex's Playbook / How he diagnoses
+- original term: Diagnostic Sequence
+- key: Številke → ponudba ali povpraševanje → najšibkejša faza proti mejniku → eno vprašanje »kako naj…« → 2–3 poteze
+- related: constraint, business-math, prioritising-moves, focus-and-subtraction, stages-of-growth
+
+Stalni vrstni red vprašanj, ki jih Alex postavi vsakemu podjetju, preden da nasvet. Najprej številke, nato eno ozko grlo, nato dve ali tri poteze.
+
+#### Bistvo
+
+Alex skoraj vsako podjetje diagnosticira na enak način. Za številke vpraša, preden posluša zgodbo, ker problem, s katerim pride lastnik, le redko ustreza problemu, ki ga pokažejo številke. »Rabimo več leadov« se izkaže za problem ponudbe, »oglasi ne delujejo več« za problem življenjske vrednosti stranke, »težava je ekipa« pa za pokvarjen poslovni model.
+
+Nato podjetje razvrsti v enega od dveh košev: ne more dobiti dovolj strank (povpraševanje, demand) ali ne more postreči več strankam (ponudba oziroma kapaciteta, supply). Znotraj koša poišče eno fazo, ki je najdlje pod zdravim mejnikom, jo ubesedi kot vprašanje »kako naj…« in nasvet omeji na dve ali tri poteze, ki jo napadejo.
+
+<div class="formula" markdown="1">
+**Številke** → **Kapaciteta ali povpraševanje?** → **Najšibkejša faza proti mejniku** → **Eno vprašanje »kako naj…«** → **2–3 poteze**, načrt pa nato določi lastnikov resnični cilj
+</div>
+
+#### Kako deluje
+
+##### 1. Stalni vrstni red vprašanj
+
+V hotseatih v živo si vprašanja skoraj vedno sledijo v istem zaporedju: kaj prodajaš, komu, po kakšni ceni, kako te stranke najdejo, koliko prodaj na mesec, kolikšna je stopnja zaključka (close rate), koliko je stranka vredna v svoji življenjski dobi, koliko stane, da jo dobiš, koliko jih odide, kolikšna je bruto marža, koliko kapacitete še ostane. Šele nato vpraša, kaj lastnik v resnici želi.
+
+Pričakuje, da lastnik te številke zna na pamet. V kratki razlagi jih skrči na šest: nove prodaje na mesec, trenutni prihodek, cena, odliv (churn), življenjska vrednost (LTV) in bruto marža, in pripomni, da večina lastnikov zadnjih treh ne zna povedati. Drugje jasno reče, da najprej razstavi ekonomiko enote (unit economics), preden vpraša o plačah ali čemer koli drugem, ker se tam pokaže problem.
+
+##### 2. Ne zaupaj navedenemu problemu
+
+Vzorec, ki se ponavlja v mnogih videih: lastnik poimenuje simptom, številke pa kažejo drugam. Ambulanta s tremi »ločenimi« problemi (nizka marža, cene, ki jih določajo zavarovalnice, en sam kanal) je imela en problem modela. Ustanovitelj, ki našteje šest problemov, navadno pogreša približno tri višje kadre. Lastnik, ki po zastoju želi začeti novo podjetje, običajno ne zna rasti obstoječega. Alex navedeni problem obravnava kot hipotezo in jo preveri s številkami.
+
+Loči tudi pritožbo od ozkega grla. Če že veš, da bi z večjim vložkom podvojil posel, pa tega preprosto ne narediš, administrativna opravila, nad katerimi tarnaš, niso tisto, kar omejuje rast.
+
+##### 3. Triaža: kapaciteta ali povpraševanje
+
+Njegovo prvo pravo vprašanje v večini hotseatov: je to podjetje omejeno s kapaciteto ali s povpraševanjem? Test je konkreten. Če bi se jutri podvojili leadi, oglaševalski proračun ali outreach, bi se podvojila prodaja ali bi nastala zmeda? Zmeda pomeni kapaciteto. Pravi, da imaš lahko naenkrat samo eno od obojega, ozko grlo pa niha sem in tja kot harmonika. Lastniki obtičijo za leta, ker še naprej delajo na strani, ki so jo že rešili.
+
+| Če je odgovor… | Delo je… | Česa ne naredi |
+|---|---|---|
+| Povpraševanje (kapaciteta je prosta) | Ponudba, cena, konverzija, kreative, nato večji vložek | Popravljanje izvedbe ali zaposlovanje pred rastjo |
+| Kapaciteta (podvojitev bi zlomila izvedbo) | Dvig cene, sprememba razmerja izvedbe, produktizacija, zaposlovanje | Več marketinga; drugo podjetje »za več marketinga« |
+
+Pri kapaciteti gre še dlje: dokler je kapaciteta polna, prenašaj povprečen marketing, ker bi njegovo izboljšanje podjetju škodilo.
+
+##### 4. Vsako fazo primerjaj z mejnikom
+
+V lijaku gre po fazah (klik, prijava, rezervacija, udeležba, zaključek, ponoven nakup) in vsako primerja s številkami, ki jih pozna. Popravi fazo, ki je najdlje pod svojim mejnikom, ker je tam mogoč 2- do 4-kratnik. Druga različica iste ideje: vsaki fazi dodaj enak majhen odstotek in poglej, katera najbolj premakne izhod. Navadno je to najšibkejša faza.
+
+Pridobivanje strank običajno optimizira od spredaj nazaj, ker zgodnje faze dosežejo največ ljudi. Izjema je faza, ki je daleč pod normo, na primer 5-odstotna udeležba (show rate), kjer je normalno 60 %. Opozori tudi, da faza ne more preseči 100 %: 60-odstotne udeležbe ne moreš potrojiti, 1-odstotni klikovni delež pa lahko.
+
+##### 5. Ozko grlo spremeni v vprašanje »kako naj…«
+
+Ko ima ozko grlo, ga prepiše v rešljivo vprašanje o veščini: »kako naj zaposlim, izurim in vodim prodajno ekipo«, »kako naj dobim stranke iz kanala, ki ga smem uporabljati«. V eni zgodbi z lastnikom ni hotel govoriti o cenah, sporočilih ali življenjskem bruto dobičku, dokler poimenovano ozko grlo ni bilo rešeno.
+
+##### 6. Nasvet omeji na dve ali tri poteze
+
+Hotseati se končajo s kratkim, razvrščenim seznamom. Najprej napiše lahke poteze z velikim učinkom, velike stave na konec, in vedno znova pusti pri miru tisto, kar že deluje (ponudbo, ki konvertira, prodajni proces z zdravo stopnjo zaključka). V enem primeru je načrt skrajšal na dva koraka, ki ju bo lastnik dejansko izvedel. Popravke tudi razvrsti tako, da poceni izboljšave konverzije pridejo pred večjim vložkom, ker lahko podjetje že same potisnejo v omejitev kapacitete.
+
+##### 7. Nato lastnikov resnični cilj
+
+Preden se zaveže načrtu, vpraša, kaj lastnik želi: podvojiti, prodati ali preprosto služiti. Odgovor spremeni nasvet. Če lastnik želi le denarni tok, se izogne kompleksnosti in ponavlja delujoči recept. Če želi prodati, se tveganje koncentracije in odvisnost od lastnika pomakneta višje na seznamu. V nekaterih predavanjih cilj vpraša najprej, skupaj s trenutnim stanjem, želenim stanjem in oviro med njima.
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### Čiščenje prezračevalnih kanalov, okoli 1,25 milijona dolarjev prihodka
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Lastnik prosi za več in boljše leade. Številke: 38 % neto marže, 99 % udeležbe, 82 % zaključka, oglasi vračajo približno 13 proti 1, en aktiven partner za priporočila.
+</div>
+<div class="after" markdown="1">
+**Po.** Triaža: omejitev s povpraševanjem, nič hudo pokvarjenega, torej postopne poteze. Najprej 10-odstotni dvig cene (82-odstotni zaključek kaže na prenizko ceno), nato namenska pristajalna stran, več oglasnih kreativ in večji proračun, e-pošta za reaktivacijo, outbound na koncu.
+</div>
+</div>
+
+Vrstni red je pomemben: popravki cene in konverzije pridejo pred večjim vložkom, da novi kombi in ljudje niso preplavljeni.
+
+##### Spletni program hujšanja, okoli 4 milijonov dolarjev, lijak z webinarjem
+
+Lastnica se je bala lansirati velik nov lead magnet. Alex je vsako fazo primerjal s svojimi številkami: udeležba pri 30 % je bila že nad mejnikom, prijava pa pri 5 %, kjer je mogočih 20 % ali več. Vse testiranje je šlo na prijavno stran in ime lead magneta, ker je faza, ki je najdlje pod mejnikom, skrivala največji multiplikator.
+
+##### Podjetje pri okoli 150 tisoč dolarjih na mesec
+
+Izboljšati bi se dalo marsikaj, tudi cenovni model in sporočila. Alex je poimenoval eno ozko grlo (lastnik nikoli ni zgradil prodajne ekipe), ga prepisal v »kako naj zaposlim, vodim in izurim prodajalce« in na naslednjem klicu ni hotel govoriti o ničemer drugem.
+
+##### Qlik svetovalno podjetje, izmišljeno
+
+Dvočlansko BI svetovalno podjetje pravi, da rabi več leadov. Številke: 6 ponudb na mesec, 5 podpisanih (83 % zaključka), oba svetovalca zasedena za naslednje štiri mesece. Triaža: podvojitev leadov bi zlomila izvedbo, torej gre za kapaciteto. Vprašanje postane »kako naj isti rezultat izvedem z manj seniorskega časa?«. Dve potezi: dvig dnevne postavke za nove projekte in delitev izvedbe, pri kateri junior zgradi podatkovni model, seniorja pa skrbita za zasnovo in prevzem.
+
+#### Pogoste napake
+
+- **Začetek pri zgodbi.** Nasvet pred številkami navadno zdravi simptom.
+- **Delo na že rešeni strani.** Kupovanje leadov, ko je izvedba polna, ali zaposlovanje, ko kapaciteta stoji.
+- **Popravljanje vsega hkrati.** Od seznama desetih popravkov se ne izvede noben; on ostane pri dveh ali treh.
+- **Poseganje v to, kar deluje.** Prepisovanje ponudbe ali skripte, ki dobro konvertira, namesto napada na šibko fazo.
+- **Preskok cilja.** Pravi načrt za lastnika, ki želi denarni tok, je drugačen od načrta za tistega, ki gradi za prodajo.
+
+#### Kako bi to uporabil Alex
+
+- **Številke pred mnenji.** Za ceno, obseg, stopnjo zaključka, odliv, življenjsko vrednost, strošek pridobitve in bruto maržo vpraša, preden reče karkoli o strategiji.
+- **Najprej kapaciteta ali povpraševanje.** Če bi podvojitev strank zlomila izvedbo, dela na kapaciteti in ceni. Če ne, gre za čisti problem povpraševanja in dela na ponudbi in prometu.
+- **Najšibkejša faza dobi vse.** Vsako fazo lijaka primerja z mejnikom in vse testiranje usmeri v tisto, ki je najdlje pod normo.
+- **Eno ozko grlo, ubesedeno kot veščina.** Spremeni ga v vprašanje »kako naj…« in stranskih tem ne odpira, dokler ni rešeno.
+- **Kratek razvrščen seznam.** Dve ali tri poteze, najcenejše in najučinkovitejše najprej, deli, ki delujejo, ostanejo pri miru.
+- **Novo podjetje je opozorilni znak.** Če bi lastnik novo idejo opustil, ko bi se obstoječe podjetje potrojilo, je to beg pred ozkim grlom.
+- **Vprašanja, ki bi jih postavil:** Kaj prodajaš, komu, po kakšni ceni? Od kod pridejo stranke? Kolikšni sta udeležba in stopnja zaključka? Koliko je vredna stranka in koliko stane? Če se stranke podvojijo, kaj se zlomi? Zakaj ne vlagaš desetkrat več v oglase? Kaj želiš: podvojiti, prodati ali vzeti denar ven?
+
+#### Delovni list
+
+Odgovarjaj s številkami, ne z vtisi.
+
+1. **Številke:** Zapiši nove prodaje na mesec, ceno, stopnjo zaključka, mesečni odliv, bruto maržo in strošek pridobitve stranke. Označi tiste, ki si jih moral oceniti.
+2. **Triaža:** Če bi se leadi naslednji mesec podvojili, kaj bi se prvo zlomilo? Je to odgovor kapacitete ali povpraševanja?
+3. **Mejniki:** Naštej faze svojega lijaka in ob vsako zapiši današnji delež. Katera je najdlje pod zdravo ravnjo?
+4. **Vprašanje:** Svoje ozko grlo prepiši v en stavek »kako naj…«.
+5. **Poteze:** Izberi največ tri poteze, ki ga napadejo, po vrsti. Česa namenoma ne boš spreminjal?
+6. **Cilj:** Želiš rasti, prodati ali vzeti denar ven? Ali načrt še ustreza?
+
+#### Viri
+
+- [How to Grow Your Business So FAST it Makes Your Accountant Nervous](https://www.youtube.com/watch?v=sGv2BTUCcCM&t=47s) — test podvojitve, triaža kapacitete in povpraševanja ter harmonika (00:47)
+- [Building a $2,500,000 Business for a Stranger in 36 Minutes](https://www.youtube.com/watch?v=OQf2Ba-Lp_4&t=234s) — celoten hotseat: triaža in razvrščen seznam popravkov (03:54)
+- [Entrepreneurs, stop starting new businesses. Fix the one you've got.](https://www.youtube.com/watch?v=s59jbVBprn0&t=432s) — eno ozko grlo, ubesedeno kot vprašanje »kako naj…« (07:12)
+- ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=2010s) — faze lijaka proti mejnikom, napad na najšibkejšo (33:30)
+- [I Reverse Engineered the Perfect Business](https://www.youtube.com/watch?v=HKbFUWJwEG0&t=2824s) — teorija omejitev na fazah lijaka (47:04)
+- ["My business has stopped growing..what should I do?"](https://www.youtube.com/watch?v=f_ceDZqhKbw&t=49s) — šest številk, ki jih vpraša najprej (00:49)
+- [Business Owners: You NEED to Know This Number](https://www.youtube.com/watch?v=jzKpAtzKQ54&t=143s) — ekonomika enote pred vsem drugim; izjema od pravila »od spredaj nazaj« (02:23)
+- [13 Years Of Brutally Honest Business Advice in 90 Mins](https://www.youtube.com/watch?v=KhFlD54nQrY&t=624s) — cilj, trenutno stanje, želeno stanje, ovira; »zakaj ne 10-krat več v oglase?« (10:24)
+- [Building a $12,000,000 Business for a Stranger in 25 Minutes](https://www.youtube.com/watch?v=MH-IMJxbUY4&t=286s) — najprej kapaciteta ali povpraševanje, nato podvojiti, prodati ali služiti (04:46)
+- ["Should He Walk Away From His $1.4M Business To Start Over?" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=0RjIw9M1j28&t=4590s) — stalni vrstni red vprašanj, ki se konča s »kaj želiš?« (76:30)
+
+## Poslovna matematika in mejniki
+
+- id: business-math
+- book: Alex's Playbook / How he diagnoses
+- original term: Business Math (LTGP, LTV:CAC, payback)
+- key: LTGP = cena ÷ odliv × bruto marža; denar v 30 dneh > CAC + strošek izvedbe
+- related: diagnostic-sequence, client-financed-acquisition, pricing-decisions, retention-and-ltv, cash-forward
+
+Peščica številk, ki jih Alex na pamet izračuna za vsako podjetje, in mejniki, s katerimi jih primerja. Izbira med možnostmi postane matematični problem.
+
+#### Bistvo
+
+Alex poslovno matematiko obravnava kot jezik: o podjetju lahko razmišljaš le tako jasno, kot ti dopušča besedišče za njegove številke. V pogovoru, preden komur koli svetuje, izvede isti majhen nabor izračunov: koliko je stranka vredna v bruto dobičku, koliko stane, da jo dobiš, kako hitro se ta strošek vrne in kaj cilj pomeni v leadih, klicih in proračunu.
+
+Rasti je mogoče le na dva načina: več strank ali večja vrednost na stranko. Vedno znova ugotavlja, da je drugi lažji. Ker je strošek pridobitve določene stranke za vse konkurente na trgu približno enak, trajno prednost dobi tisti, pri katerem je stranka vredna največ.
+
+<div class="formula" markdown="1">
+**LTGP** = (cena ÷ mesečni odliv) × bruto marža  ·  **Najvišji CAC** = LTGP  ·  **Financira stranka**, ko je denar, zbran v 30 dneh, večji od CAC + stroška izvedbe
+</div>
+
+#### Kako deluje
+
+##### Dva vzvoda rasti
+
+Vsaka izboljšava naj premakne enega od nekaj vzvodov: več strank, več življenjskega bruto dobička na stranko ali manjše tveganje, da se zaslužek ne bo nadaljeval. V drugem predavanju jih imenuje štiri: promet, konverzija, cena in odliv, in pravi, da naloge, ki ne vodi k enemu od njih, ne bi smeli delati.
+
+Bistvo pokaže njegovo vprašanje o »duhu iz svetilke«. Če bi lahko podvojil nove stranke, ceno ali nakupe na stranko, kaj bi izbral? Pri 20-odstotni marži podvojitev strank podvoji dobiček, podvojitev cene pa ga poveča približno za šestkrat, ker je ves dodatni prihodek marža. Raje ima tudi podvojitev zadrževanja kot podvojitev novih strank: dobiček je na koncu podoben, višja življenjska vrednost pa ti omogoči, da za naslednjo stranko ponudiš več od konkurence.
+
+##### Življenjski bruto dobiček, ne prihodek
+
+Vztraja, da življenjska vrednost pomeni življenjski bruto dobiček (lifetime gross profit, LTGP): cena minus strošek izvedbe, pomnoženo s številom nakupov ali mesecev. Prihodek jo precenjuje. Fiksni stroški, kot sta najemnina in osebje zunaj izvedbe, ostanejo zunaj. Primer, ki ga uporablja: obrok za 10 dolarjev, katerega izvedba stane 9, pridobljen s 5 dolarji stroška pridobitve, je na prihodku videti kot 2 : 1, v resnici pa plačaš 5 dolarjev, da zaslužiš 1.
+
+Njegova različica »na hrbtu prtička«:
+
+1. Odliv (churn) = odpovedi ta mesec ÷ aktivne stranke.
+2. LTV = cena ÷ odliv.
+3. LTGP = LTV × bruto marža.
+4. Strop prihodkov = nove prodaje na mesec × LTV. Rast se splošči, ko odliv požre nove prodaje.
+
+Mlado podjetje ga lahko oceni iz enega meseca: če od 10 strank ostane 9, je odliv 10 % in LTV je cena ÷ 0,10. Lastnikom svetuje, naj računajo konzervativno in zaokrožijo navzdol.
+
+##### Strošek pridobitve in razmerje
+
+CAC je plača marketinga plus mediji plus prodajne provizije v obdobju, deljeno z novimi strankami, najbolje za celo leto. Razmerje, ki ga želi, je odvisno od tega, koliko ljudi je vpletenih v pridobivanje leadov, prodajo in izvedbo: okoli 3 : 1, če je vse troje avtomatizirano, nato 6 : 1, 9 : 1 in 12 : 1 ali več, ko dodajaš ljudi, ker se novi zaposleni počasi uvajajo, CAC pa sčasoma le raste. Optimizira razmerje, ne najcenejšega leada: 5.000 dolarjev LTV pri 500 dolarjih CAC je boljše od 1.000 pri 200.
+
+##### Denar v 30 dneh proti CAC
+
+Njegov cilj za povračilo je 30 dni. Toliko časa majhno podjetje približno zdrži strošek, in to se ujema z brezobrestnim obdobjem kreditnih kartic. Ko bruto dobiček, zbran v prvih 30 dneh, preseže strošek pridobitve in izvedbe, rasti ne omejuje več denar. Če je povračilo daljše, išče pristojbine za vzpostavitev, predplačila, priložene izdelke ali dodatne prodaje (upsell) v prvem mesecu.
+
+##### Računanje nazaj od cilja
+
+Cilje računa nazaj. V enem izračunanem primeru: 300 članov pri 10-odstotnem mesečnem odlivu pomeni 30 nadomestitev na mesec samo zato, da ostaneš na mestu. Pri 50-odstotni konverziji vstopne ponudbe je to 60 vstopnih prodaj, pri 50-odstotnem zaključku 120 pogovorov, pri 50-odstotni udeležbi okoli 240 rezervacij, za kar je bilo potrebnih približno 15 leadov na dan. Pri okoli 10 dolarjih na lead znese proračun okoli 4.500 dolarjev na mesec, rast pa pomeni njegovo podvojitev.
+
+##### Mejniki, ki jih navaja
+
+To so njegova pravila palca iz mnogih videov, s kontekstom, v katerem so nastala. Hkrati svari pred panožnimi povprečji kot cilji in raje vpraša, ali boljšemu rezultatu nasprotuje fizika.
+
+| Metrika | Njegovo pravilo palca |
+|---|---|
+| Stopnja zaključka | 80 % in več pomeni prenizko ceno (po njegovem za 3- do 4-krat); 30–40 % je približno prav ob izobraževanju pred klicem; pod 30 % najprej popravi ciljno stranko (avatar) in prodajni proces, šele nato razmišljaj o ceni |
+| Udeležba (show rate) | ~25 % in več za hladni webinar; majhna plačana predpristojbina pogosto da 70–80 %; ~80 % pomeni, da je obravnava leadov v redu |
+| Prijava (opt-in) | ~30 % na strani z lead magnetom; kvalificirane strani 20–50 % |
+| Rezervacije po webinarju | ~20 % udeležencev ob pozivu k rezervaciji klica |
+| Bruto marža | 80 % in več za storitve; pod tem ne investira; strošek izvedbe približno petina cene |
+| Zadrževanje | mesečni odliv 20 % in več v mesecih 1–3, okoli 10 % po 90. dnevu, okoli 2 % po šestem mesecu; letno zadrževanje v B2B nad 80 % |
+| Povračilo | CAC nazaj v 30 dneh; nova oglaševalska kampanja lahko porabi do 2-kratnik dopustnega CAC, preden jo ustaviš |
+
+##### ROAS proti absolutnemu dobičku
+
+Optimizira absolutni dobiček. Nižje razmerje donosa pri precej večjem vložku lahko prinese bistveno več denarja, zato padajoče razmerje ni razlog za ustavitev. V hotseatu, kjer so iskalni oglasi vračali 9- do 24-kratnik vložka, je rekel, da bi vložek dvigoval, dokler razmerje ne pade na približno 5 : 1.
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### Naročniška storitev po 1.000 dolarjev na mesec
+
+Lastnik je imel 380 strank, 100 novih prodaj na mesec in 50 odpovedi, odliva pa ni poznal. Alex: 50 ÷ 380 je približno 13 % odliva, LTV okoli 7.700 dolarjev, LTGP okoli 7.000 pri 90-odstotni marži. Strop: 100 × 7.700 je okoli 770.000 dolarjev na mesec. Znižanje odliva na okoli 3 % dvigne LTV na približno 33.000 dolarjev in strop na okoli 3,3 milijona na mesec, kar je precej lažje od desetkratnika leadov.
+
+##### Čiščenje prezračevalnih kanalov, 38 % neto marže
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Okoli 1,25 milijona dolarjev prihodka, okoli 479.000 dobička, 82 % zaključka.
+</div>
+<div class="after" markdown="1">
+**Po.** 10-odstotni dvig cene doda okoli 125.000 dolarjev, ki gredo naravnost v dobiček: približno 25 % več neto dobička, dokler stopnja zaključka ostane nad 65 %.
+</div>
+</div>
+
+Pri tankih ali srednjih maržah je cena najmočnejši vzvod, zato ga nizke marže navdušujejo.
+
+##### Analitični retainer, izmišljeno
+
+BI podjetje prodaja mesečni retainer za 3.000 € s 900 € stroška izvedbe (70 % bruto marže, pod njegovim pravilom 80 %). Odliv je 4 % na mesec: LTV 75.000 €, LTGP 52.500 €, zaokroženo navzdol na 45.000 €. CAC je 9.000 €, torej je razmerje 5 : 1, človeška prodaja in človeška izvedba pa zahtevata 9–12 : 1. Bruto dobiček prvega meseca je 2.100 € proti 9.000 € CAC. Poteze: 6.000 € pristojbine za uvedbo in vnaprej plačano četrtletje prineseta 15.000 € v 30 dneh, kar je več od CAC in izvedbe prvega četrtletja (9.000 € + 2.700 € = 11.700 €), znižanje stroška izvedbe na 600 € pa dvigne maržo na 80 %.
+
+#### Pogoste napake
+
+- **Prihodek kot LTV.** Razmerje je videti zdravo, vsaka prodaja pa izgublja denar.
+- **Presojanje vložka samo po ROAS.** Ustavitev kanala, ker je razmerje padlo, čeprav je absolutni dobiček še rasel.
+- **Nepoznavanje odliva.** Brez njega ne vidiš, kje se bo prihodek ustavil.
+- **Nižanje cene za večjo prodajo.** 20-odstotno znižanje pri 40-odstotni marži zahteva dvakrat več prodaje samo za izenačenje.
+- **Kopiranje panožnih povprečij.** Primerja se z zmagovalci in mejami, ne z mediano.
+
+#### Kako bi to uporabil Alex
+
+- **Računa med pogovorom.** Odliv, LTV, LTGP, strop in povračilo izračuna sproti in pričakuje, da jih lastnik pozna brez poročila računovodstva.
+- **Vrednost na stranko pred več strankami.** Cena, odliv in dodatne prodaje navadno bolj in z manj truda premaknejo dobiček kot podvojitev pridobivanja.
+- **Bruto marža je prvi zdravstveni pregled.** Storitev pod 80 % popravi s ceno ali izvedbo, preden karkoli skalira.
+- **Denar naprej, dokler se CAC ne povrne v 30 dneh.** Pristojbine za vzpostavitev, predplačila in zgodnje dodatne prodaje pridejo pred dolgom ali investitorji.
+- **Odločitve z matematiko.** Izbire cene in ponudbe reši s konverzijo × ceno × LTV za vsako možnost, nikoli z mnenjem.
+- **Vlagaj, dokler matematika zdrži.** Če dolar zanesljivo vrne večkratnik, je proračun »kolikor je mogoče«, presojan po absolutnem dobičku.
+- **Vprašanja, ki bi jih postavil:** Koliko zaračunaš in koliko stane izvedba? Koliko jih vsak mesec odpove? Koliko je stranka vredna v bruto dobičku? Koliko stane njena pridobitev in kako hitro se ti vrne? Kakšna je stopnja zaključka glede na ceno? Koliko leadov na dan zahteva tvoj cilj?
+
+#### Delovni list
+
+Uporabi resnične številke zadnjih 12 mesecev.
+
+1. **LTGP:** Cena ÷ mesečni odliv × bruto marža. Zaokroži navzdol.
+2. **CAC:** Plača marketinga + mediji + provizije ÷ nove stranke. Kakšno razmerje imaš in kakšnega zahteva število ljudi v procesu?
+3. **Povračilo:** Koliko bruto dobička prinese nova stranka v prvih 30 dneh? Je to več od CAC in stroška izvedbe?
+4. **Mejniki:** Svoje stopnje zaključka, udeležbe in prijave, bruto maržo in odliv postavi ob njegova pravila palca. Kaj najbolj odstopa?
+5. **Računanje nazaj:** Iz ciljnega števila strank izračunaj nadomestitve na mesec, nato prodaje, klice, rezervacije, leade na dan in proračun.
+
+#### Viri
+
+- [The Mathematics of Business, Explained](https://www.youtube.com/watch?v=A_tx40lNpf8&t=49s) — tabela stopenj zaključka, LTV:CAC glede na število ljudi v procesu, povračilo v 30 dneh, 80 % marže (00:49)
+- [Business Owners: You NEED to Know This Number](https://www.youtube.com/watch?v=jzKpAtzKQ54&t=47s) — LTV kot življenjski bruto dobiček, izračun CAC (00:47)
+- ["My business has stopped growing..what should I do?"](https://www.youtube.com/watch?v=f_ceDZqhKbw&t=144s) — odliv, LTV, LTGP in strop prihodkov (02:24)
+- [KEYNOTE: Small To BIG. The Big 4 Customer Acquisition Models.](https://www.youtube.com/watch?v=XwZH-lOKG9c&t=3822s) — vprašanje o duhu iz svetilke, LTGP zaokroži navzdol, pridobivanje, ki ga financira stranka (63:42)
+- [Your Inflow Is Your Bottleneck (ALEX HORMOZI)](https://www.youtube.com/watch?v=XC_lklN9KmE&t=585s) — računanje nazaj od članov do leadov in proračuna (09:45)
+- [How I Would Build a Business in 2026 (If I Had to Start Over)](https://www.youtube.com/watch?v=i7bLRKwKSms&t=685s) — hitri izračun CAC in LTV, povračilo v 30 dneh (11:25)
+- [If You Don't Understand Margin, You Don't Understand Business](https://www.youtube.com/watch?v=9xAMe0QBFhU&t=245s) — najmanj 80 % bruto marže za storitve (04:05)
+- [6 Hacks To Make More Money [Increase LTV] Without More Customers](https://www.youtube.com/watch?v=Q2VUuUGfpNY&t=47s) — LTGP namesto LTV na prihodku (00:47)
+- [How to Start a Business From Nothing (Thank Me Later)](https://www.youtube.com/watch?v=unshZobTt6Q&t=3860s) — absolutni dobiček pred ROAS (64:20)
+- [How to Get Your Customers to Stay FOREVER](https://www.youtube.com/watch?v=-j8_YCWZ05Q&t=192s) — mejniki zadrževanja po mesecih (03:12)
+- [Make More Profit than 99% of People](https://www.youtube.com/watch?v=41EvCgwPrDc&t=1308s) — primerjava možnosti s konverzijo × ceno (21:48)
+
+## Fokus in odvzemanje
+
+- id: focus-and-subtraction
+- book: Alex's Playbook / How he decides
+- original term: Focus, 1-1-1, subtraction
+- key: 1-1-1 = en izdelek, en avatar, en kanal do 1 milijona dolarjev letno. Najprej odvzemi, nato dodaj.
+- related: prioritising-moves, constraint, more-better-new, niche, risk-and-bets
+
+Alexov privzeti recept za obstalega ali preobremenjenega lastnika je odvzemanje. En posel, en avatar, en kanal in ena prioriteta, dovolj dolgo, da se učinek sešteva.
+
+#### Bistvo
+
+V hotseatih Alex najpogosteje predpiše odvzemanje. Lastniki pridejo z dvema podjetjema, tremi ponudbami, petimi kanali, stranskim programskim izdelkom ali partnerskim poslom ob strani, posledico pa opišejo kot preobremenjenost ali plato. Oboje razume kot kompleksnost, ki so si jo ustvarili sami. Fokus v njegovem pomenu dosežeš z odvzemanjem, meri pa ga s številom in kakovostjo stvari, ki jim rečeš ne.
+
+<div class="formula" markdown="1">
+**1-1-1:** en izdelek, en avatar, en kanal do približno **1 milijona dolarjev letno**. Nato: **ena prioriteta** naenkrat in **najprej odvzemi, potem dodaj**.
+</div>
+
+Logika je ekonomska. Pozornost lastnika je v majhnem podjetju najredkejši vir, strategijo pa Alex razume kot razporejanje omejenega časa, denarja in ljudi med neomejene možnosti. Vsaka razdelitev pozornosti in vsaka sprememba ima ceno, navadno višjo, kot si lastnik misli.
+
+#### Kako deluje
+
+##### 1-1-1 do prvega milijona
+
+Vsaj v dveh nastopih pravilo pove neposredno: en izdelek, en avatar in en kanal do približno milijona dolarjev letno. V enem Q&A jasnost avatarja tudi razvrsti: najboljše je en izdelek za en avatar, sledi en izdelek za veliko ljudi, najslabše je vse za vse. Nov avatar sprejme šele, ko je trenutni izčrpan. Če lastnika mika nekaj novega, raje doda kanal kot nov tip stranke.
+
+##### Najprej odvzemi, nato dodaj
+
+Preden kdo doda nov posel, Alex zahteva seznam stvari, ki jih lahko odstrani iz obstoječega, in ga pusti naprej le, če je preostalih ur realno dovolj. V eni oddaji v živo oceni, da razpolovljena pozornost, s katero se lastnik zavaruje pred slabim izidom, lahko rezultate drugega leta prestavi v četrto leto, ker tekmuješ z ljudmi, ki so zavezani v celoti.
+
+Odvzemanja, ki se ponavljajo:
+
+- **Ubij vampirja (kill the vampire).** Nedonosna linija, ki kravi molznici jemlje denar in čas ustanovitelja, gre stran (stranski programski izdelek, tečaj z izgubo, druga trgovina, ki komaj pokriva stroške).
+- **Izstopi iz stranskih poslov in partnerstev**, čim hitreje. Lastiš si lahko več podjetij, vodenje več kot enega kot direktor pa ima za običajen vzrok neuspeha. Njegov test: če te zaradi težave v njem pokličejo, ga vodiš ti.
+- **Šibkejše podjetje prodaj hitro, tudi pod ceno**, kadar je drugo za red velikosti boljše, da dobiš nazaj vso pozornost.
+- **Pasivne naložbe naj ostanejo pasivne.** Druge naložbe motijo le, če spremenijo tvoj vsakdan.
+
+##### Ženska v rdeči obleki (woman in the red dress)
+
+To podobo (tudi »girl in the red dress«) uporablja za bleščečo novo priložnost, ki se zdi boljša samo zato, ker še ne vidiš njenih težav. Pojavi se v vsaj štirih videih: lastnik veleprodaje, ki bi rad razvil programsko opremo za salone, B2C coaching podjetje, ki ga mikajo korporativne stranke, velika stranka (whale), ki podjetje odvleče od avatarja, in ustanovitelji, ki začnejo nov posel, da bi se izognili novi vrsti problema. Diagnoza je vsakič enaka: novi posel je beg pred rešljivim problemom, vrzel v znanju, ki je povzročila plato, pa gre s tabo.
+
+##### Vsaka sprememba stane padec
+
+V enem hotseatu poda svojo izkustveno oceno: vsaka sprememba procesa (prodajne skripte, uvajanja, vodstvene rutine) povzroči začasen padec za okoli 20 %, dokler se ekipa ne prilagodi. Zato spremembo naredi le, kadar je pričakovani dobiček, prilagojen tveganju, okoli 20 % ali več, na primer 40 % potenciala pri verjetnosti 50/50. Spremembe obravnava kot omejeno luknjalno kartico (punch card): približno en test na teden na avtomatiziranih elementih, kot so pristajalne strani, in morda ena prava sprememba procesa na oddelek na četrtletje. Ideje gredo na zasebni seznam z ocenjenim potencialom in verjetnostjo, iz njega pa jih vzame le, ko ima ekipa kapaciteto in ideja premaga vse ostale v vrsti.
+
+##### Ena prioriteta in naj majhni požari gorijo
+
+Sprašuje po eni stvari, ki bi, če bi čez dvanajst mesecev držala, spremenila vse (lasten kanal za leade, dotok talentov, hitrejša pretvorba v denar). Če je direktor ne zna poimenovati, po njegovem ni opravil svojega dela. Ko je izbrana, stava dobi potrpežljivost: nobene druge rešitve samo zato, ker se prva v 30 dneh še ni obrestovala. Majhni požari lahko gorijo (let small fires burn), ker podjetje v nekaj urah ubije le malo stvari, prve štiri do šest ur dneva pa gredo delu z največjim vzvodom.
+
+##### Poenostavi ponudbe in funkcije
+
+Isto odvzemanje velja za izdelek. Preobremenjenost ima za glavni vzrok odhodov strank (churn) takoj za ceno: če plačaš za pet stvari in uporabljaš eno, se zdi kot 20 % vrednosti, če za isti denar dobiš eno stvar, se zdi kot 100 %. Njegove poteze so odstraniti dele storitve, članov vprašati, za kaj bi se borili in česa ne bi pogrešali, ter zasnovati preprosto pot »začni tukaj«. V marketingu išče eno samo najmočnejšo točko. Prodajno skripto navadno skrajša za polovico. Njegova kratica: preprosto se skalira, razkošno propade (simple scales, fancy fails).
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### Samostojna odvetniška praksa z dvema stranskima izdelkoma
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Samostojni odvetnik, ki dela za ustvarjalce, iz ene video publike prodaja storitve po urah, poceni tečaj in naročnino na programsko opremo. Storitve prinašajo denar, programska oprema ga žge, stranski liniji skupaj izgubljata okoli 100.000 dolarjev na leto.
+</div>
+<div class="after" markdown="1">
+**Po.** Programsko opremo ugasni ali jo prodaj v celoti. Izobraževanje naj bo brezplačno in služi negovanju leadov. Vsak poziv k dejanju naj vodi v en kanal in en prodajni klic, prodaja pa naj bo paket z izidom po fiksni ceni namesto ur.
+</div>
+</div>
+
+Storitve so že imele več povpraševanja kot zmogljivosti. Odstranitev vampirja je ustavila izgube, usmeritev vsega prometa v eno pot do prihodka pa je preostali posel naredila lažji za rast.
+
+##### Ustanoviteljica s štirimi posli
+
+Ustanoviteljica vodi pisateljske umike, založbo, TV oddajo in poslovno šolo, nove stvari pa začenja, ker se dolgočasi. Alex ji svetuje, naj gre tja, kjer trg že plačuje (knjige), neha potiskati šolo, oddajo uporabi kot medij za prodajo osrednje ponudbe, željo po novostih pa preusmeri v marketing, kjer je sprememba poceni.
+
+##### Gradbinec z boljšim drugim podjetjem
+
+Lastnik ima uveljavljeno gradbeno podjetje (okoli 11 milijonov dolarjev pri marži okoli 18 %) in mlado servisno podjetje za dvigala (okoli 3 milijone v prvem letu pri okoli 30 %, ponavljajoči se prihodki). Varna pot je, da dobiček porabi za vodje, ki bi vodili gradbeništvo. Alexova pot je, da gradbeno podjetje hitro proda, tudi s popustom, in gre v celoti v ponavljajoči se posel, ker bi po njegovem eno osredotočeno četrtletje rasti tam lahko doseglo vrednost starega podjetja.
+
+##### Analitično svetovanje (izmišljeno)
+
+| Pred | Po |
+|---|---|
+| Projekti nadzornih plošč, AI klepetalnik, tečaj za ERP | Projekti nadzornih plošč samo za srednje velika proizvodna podjetja |
+| LinkedIn objave, dogodki, priporočila partnerjev, hladni e-maili | Priporočila partnerjev, delana zares, z enim tedenskim ritmom |
+| Tri napol dokončane prioritete | Ena: ponovljiva dvotedenska ponudba za poročilo o marži |
+
+Klepetalnik in tečaj sta ustavljena in gresta na seznam idej. Vrneta se šele, ko osrednja ponudba preseže milijon in ima ekipa prosto kapaciteto.
+
+#### Pogoste napake
+
+- **Zavarovanje z delitvijo.** Vodenje starega in novega posla hkrati se zdi varno. Alex v tem vidi običajen način, da propadeta oba.
+- **Beg, ki se mu reče strategija.** Nova linija, avatar ali podjetje, začeto na platoju, se navadno izogne vrzeli v znanju, ki je plato povzročila.
+- **Veliko sprememb hkrati.** Vsaka sprememba stane padec, izgubi pa se tudi pripisovanje učinka. Pet vzporednih sprememb pomeni pet padcev.
+- **Dodajanje kot zdravilo za odhode.** Več funkcij in več vsebine poveča razkorak med tem, kar stranka plača, in tem, kar uporabi.
+- **Ohranjanje enote z izgubo iz zvestobe.** Lokacija ali linija, ki zmagovalcu jemlje denar in pozornost, se zapre, razen če jo kaj konkretnega zahteva.
+
+#### Kako bi to uporabil Alex
+
+- **Vpraša, katera enota dejansko služi**, in kje se prodaja v resnici zgodi, nato vse usmeri tja in zapre druga vrata.
+- **Pred vsakim dodajanjem zahteva seznam odvzemanj** in preveri, ali je sproščenih ur dovolj za novo stvar.
+- **Rdečo obleko poimenuje na glas**, ko se na platoju pojavi nov posel, avatar ali velika stranka, in pogovor vrne k ozkemu grlu v obstoječem poslu.
+- **Spremembo obravnava kot drago**: ena prava sprememba naenkrat, prag 20 % ob upoštevanju tveganja, metrike v realnem času, da se vidi padec, in čakalna vrsta za vse druge ideje.
+- **Izbere eno prioriteto za leto** in jo varuje; majhne požare pusti goreti, namesto da bi po 30 dneh začel vzporedne popravke.
+- **Poenostavi izdelek in sporočilo**: manj delov storitve, ena osrednja obljuba, najkrajša skripta, ki deluje.
+- **Vprašanja, ki bi jih postavil:** Katera linija služi denar? Če bi imel prijatelj en posel, ki ga hočejo vsi, in štiri počasnejše stranske, kaj bi mu rekel? Če bi delal samo to eno stvar, bi dosegel cilj? Kaj lahko izbrišemo, pa bo še vedno enako dobro ali boljše? Bi si ta novi posel še vedno želel, če bi se obstoječi potrojil?
+
+#### Delovni list
+
+Odgovori pisno, s številkami, kjer jih imaš.
+
+1. **Enote:** Naštej vse izdelke, avatarje in kanale. Ob vsakem zapiši prihodek, dobiček in ure, ki ti jih vzame vsak teden.
+2. **Vampirji:** Katera enota kravi molznici jemlje denar ali pozornost? Kaj bi se zgodilo, če bi jo zaprl ta mesec?
+3. **1-1-1:** Zapiši svoj en izdelek, en avatar in en kanal za naslednjih dvanajst mesecev.
+4. **Ena stvar:** Kateri en rezultat bi, če bi držal čez dvanajst mesecev, naredil večino drugih problemov nepomembnih?
+5. **Proračun sprememb:** Katero eno spremembo boš naredil to četrtletje in kakšen potencial in verjetnost upravičujeta padec?
+6. **Poenostavi:** Kaj lahko odstraniš iz ponudbe, pa tega stranke ne bi pogrešale?
+
+#### Viri
+
+- [I Blew Up a Business Through 3 Small Changes (Just Copy Me)](https://www.youtube.com/watch?v=3yAiVjcImQ4&t=47s) — pravilo 1-1-1 in »ubij vampirja« na primeru samostojne odvetniške prakse (00:47)
+- [If I Wanted to Make My First $100K in 2026, I'd Do This](https://www.youtube.com/watch?v=jfW6gL6hKhk&t=475s) — fokus z odvzemanjem in 1-1-1 za začetnike (07:55)
+- [Why Doing More Is Actually Making You Less Money](https://www.youtube.com/watch?v=hfwZwPGsbIo&t=623s) — padec za okoli 20 % ob vsaki spremembi, luknjalna kartica in zasebni seznam idej (10:23)
+- [Less is More: The Magic of a Simple Business](https://www.youtube.com/watch?v=-JLN1d1ZKUU&t=290s) — ena prioriteta za dvanajst mesecev in majhni požari, ki lahko gorijo (04:50)
+- [Helping E-Commerce Business Owners Scale](https://www.youtube.com/watch?v=8C_6qojTA78&t=1534s) — diagnoza »girl in the red dress« za načrtovan stranski programski posel (25:34)
+- ["Should He Walk Away From His $1.4M Business To Start Over?" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=0RjIw9M1j28&t=576s) — najprej odvzemi, nato dodaj, in cena razdeljene pozornosti (09:36)
+- [Helping 6 Business Owners Scale in 33 Minutes](https://www.youtube.com/watch?v=0EqJD2o-Mnk&t=1843s) — hitra prodaja šibkejšega podjetja za povrnitev pozornosti (30:43)
+- [$100M Investor Answers The Most Important Business Questions for 1 Hour](https://www.youtube.com/watch?v=--9kOXNCUdE&t=2319s) — lov na več zajcev hkrati proti osredotočenim tekmecem (38:39)
+- [I Confronted a Stranger With a Failing Business...](https://www.youtube.com/watch?v=6Fg4VXjRphQ&t=589s) — zaprtje enote z izgubo in usmeritev vsega prometa v eno pot (09:49)
+- [How to Get Your Customers to Stay FOREVER](https://www.youtube.com/watch?v=-j8_YCWZ05Q&t=571s) — manj funkcij kot zdravilo za odhode strank (09:31)
+- [Business Was Hard Until I Understood These 4 Concepts](https://www.youtube.com/watch?v=F84olnKkseM&t=1365s) — zavezanost kot odstranitev alternativ (22:45)
+- [13 Years Of Brutally Honest Business Advice in 90 Mins](https://www.youtube.com/watch?v=KhFlD54nQrY&t=2627s) — naj požari gorijo, prve ure pa gredo delu z vzvodom (43:47)
+
+## Razvrščanje potez
+
+- id: prioritising-moves
+- book: Alex's Playbook / How he decides
+- original term: More, Better, New; ICE (impact, confidence, ease)
+- key: Več → Bolje → Novo, razvrščeno po učinek × zaupanje × lahkost
+- related: more-better-new, constraint, diagnostic-sequence, focus-and-subtraction, pricing-decisions
+
+Kako Alex razvrsti delo, ko pozna ozko grlo. Izžmi, kar že deluje, vse drugo razvrsti po učinku, zaupanju in lahkosti, lastniku pa daj samo dve ali tri poteze.
+
+#### Bistvo
+
+Večina hotseatov se konča enako. Alex napiše kratek oštevilčen seznam: na vrhu hitre, verjetne poteze z velikim učinkom, na dnu težke strateške stave. Preden se na seznamu pojavi kar koli novega, vpraša, zakaj lastnik ne more preprosto delati več tega, kar že deluje. Nove ideje morajo dokazati, da so boljše od tega, da več vložiš v obstoječega zmagovalca.
+
+<div class="formula" markdown="1">
+**Več** tega, kar deluje → naredi **bolje** → šele nato nekaj **novega**.
+Kandidate razvrsti po **učinek × zaupanje × lahkost** (ICE) in jih predaj **dva ali tri**.
+</div>
+
+S tem vrstnim redom nadzoruje tveganje. Poteza, ki doda obseg preverjenemu kanalu, ima znano ekonomiko. Poteza, ki spremeni ponudbo, avatar ali kanal, učno krivuljo postavi na začetek. Najprej pobere očiten denar, denar in samozavest iz teh zmag pa kasneje financirata težje stave.
+
+#### Kako deluje
+
+##### Več, nato bolje, nato novo
+
+Privzeti vrstni red pove v več nastopih: najprej vprašaj, zakaj ne moreš delati več tega, kar deluje; če ne moreš več, vprašaj, ali lahko narediš bolje; šele nato poskusi nekaj novega. Uporablja ga tudi kot četrtletni načrt (»več, bolje«, ponavljano, dokler kaj ne zablokira). V enem Q&A razloži, zakaj mali lastniki obstanejo: najdejo nekaj, kar deluje, s tem nehajo in lovijo več novih stvari.
+
+Tipične poteze »več« iz primerov: z nekaj mreženjskih dogodkov na teden na več na dan, z enega predavanja na odru na leto na enega na teden, podvojitev oglaševalskega proračuna na lijaku, ki že vrača okoli 4-kratnik, ali 20 e-mailov partnerjem na dan namesto peščice. Kanal, ki deluje, a ga nihče ni skaliral, je po njegovem navadno največja zmaga v podjetju.
+
+##### Razvrsti po učinku, zaupanju in lahkosti
+
+ICE (impact, confidence, ease) imenuje kot svoje orodje za razvrščanje, v enem hotseatu pa lahkost razdeli na hitrost in trud, tako da razvrstitev zrcali enačbo vrednosti. Praktična pravila, ki jih doda:
+
+- **Lahko najprej, težko pozneje**, razen če je poznejši korak odvisen od zgodnejšega.
+- **Od najcenejšega do najtežjega.** V enem primeru je bil vrstni red: boljši oglasni material, nato pravi dogodek za piksel, nato enkratna dražja ponudba in šele nato prodajna ekipa, ki prodaja velik paket v nadaljevanju.
+- **Nizko operativno tveganje, kadar je izvedba šibka.** Če ekipa kompleksne spremembe verjetno ne bo izvedla dobro, izbere potezo, ki deluje tudi slabo izvedena.
+- **Malo operativnega trenja.** Najljubši primer je cena: spremeniš številko ali stavek, v izvedbi storitve pa se ne spremeni nič.
+- **Ali to ti ljudje zmorejo izvesti?** Ekipo preveri, preden seznam zaključi.
+
+##### Njegov vrstni red operacij
+
+Kadar je treba popraviti več področij, v videih sledi dokaj stalnemu zaporedju:
+
+| Korak | Kaj popravi | Zakaj je tu |
+|---|---|---|
+| 1 | Ponudbo in ceno | Največji vzvod, najmanj trenja; sprosti denar |
+| 2 | Prodajni proces in konverzijo | Zamaši luknje, preden plačaš več prometa |
+| 3 | Povpraševanje na obstoječih kanalih | Proračun in obseg na preverjenem |
+| 4 | Nove kanale, avatarje, izdelke | Največje tveganje, financirano s koraki 1–3 |
+
+Pove takole: ne potiskaj več povpraševanja skozi tanke marže in ne kupuj prometa v vedro z luknjo. Za lokalno prakso, ki je stala na mestu, je vrstni red postavil tako: cene in paketi, nato pripisovanje virov, nato oglasi, nato vsebina. Doda, da lahko poceni popravki konverzije sami podvojijo leade in podjetje porinejo v ozko grlo ponudbe (supply constraint). Triaža ponudba ali povpraševanje pride pred vsem tem (glej zaporedje diagnoze).
+
+##### Nikoli ne ugasni, kar deluje
+
+To pravilo pogosto ponovi. Ne ugašaj kanala, ki služi, da bi testiral novega; novega dodaj na vrh. Ne dovoli, da glavni kanal pade, medtem ko gradiš drugega. Ne postavljaj novega človeka na nov kanal: obstoječi kanal predaj nekomu, preveri, da zdrži, nato na novega postavi preverjeno osebo. Ko testiraš nov vir leadov, ga usmeri k enemu preverjenemu prodajalcu, da ostanejo spremenljivke samo vir, ponudba in proces. Če je treba proračun premakniti, ga premika postopoma (na primer 30 %, nato 50 %).
+
+##### Ne spreminjaj tega, kar stranke imajo rade
+
+Če povpraševanje presega zmogljivost, dvigne ceno ali doda zmogljivost, izdelka pa ne spreminja, ker je ceno lahko spremeniti, izvedbo pa težko. Opozarja, da se izdelki z dodajanjem slabšajo, da delujoča ponudba v velikem podjetju hkrati zadene obračun, prodajo, oglase in izvedbo, in da prodajni proces z zdravimi stopnjami zaključevanja pustiš pri miru. Prav tako noče reševati problemov, ki se ne kažejo v metrikah: zgodba o grožnji brez rasti odhodov strank ni razlog za prenovo.
+
+##### Najprej največji očiten kup denarja
+
+V enem glavnem predavanju (keynote) pravi, da večina podjetij najbolj zraste, ko najprej pobere največji očiten kup denarja pred sabo. Drugje lastnike vpraša, katera ena stvar bi letos podvojila posel, in jim reče, naj opustijo vse, kar to ni. V enem primeru ni hotel govoriti o ničemer razen o glavnem ozkem grlu, dokler lastnik ni nehal spraševati o drugotnih optimizacijah.
+
+##### Samo dve ali tri poteze
+
+Nasvet namerno omeji na dve ali tri poteze z največjim učinkom, da jih lastnik res izvede, v enem hotseatu pa načrt poenostavi na dva koraka.
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### Storitveno podjetje, v katerem nič ni pokvarjeno
+
+Podjetje za čiščenje prezračevalnih kanalov s približno 1,25 milijona dolarjev prihodka, 38 % dobička, 99 % udeležbo na terminih in 82 % stopnjo zaključevanja je prosilo za več leadov. Alexov razvrščeni seznam:
+
+| # | Poteza | Logika |
+|---|---|---|
+| 1 | Dvig cene za okoli 10 %, obdrži, dokler stopnja zaključevanja ostaja nad ~65 % | Okoli +25 % čistega dobička, brez operativne spremembe |
+| 2 | Nadaljuj z odplačevanjem dolga | Manjše tveganje |
+| 3 | Namenska pristajalna stran za oglase, vsi gumbi vodijo nanjo | Poceni popravek konverzije |
+| 4 | Več oglasnega materiala, uspešne organske objave kot oglasi, nato večji proračun | Oglasi so že vračali okoli 13 : 1 |
+| 5–7 | Ponovno ciljanje, e-maili za reaktivacijo, ponudba za partnerje | Več iz obstoječe baze in partnerjev |
+| 8 | Outbound v nove segmente | Najnovejše in najtežje, zato zadnje |
+
+##### Coach tik pred opustitvijo delujočega lijaka
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Coachinja za hujšanje ima okoli 288.000 dolarjev, potrebuje 600.000. Nacionalni oglasi, ki vodijo v DM pogovore, vračajo okoli 4-kratnik. Razmišlja še o lokalnem modelu v živo.
+</div>
+<div class="after" markdown="1">
+**Po.** Podvoji proračun za oglase na lijaku s 4-kratnikom in dodaj ljudi, ki v DM dogovarjajo termine (setterje). Ne poganjaj obeh modelov.
+</div>
+</div>
+
+Alex je najprej predlagal lokalni hibrid, nato pa se med klicem popravil: ko nekaj deluje, vloži več vanj.
+
+##### BI svetovanje (izmišljeno)
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Večina strank pride od enega ERP partnerja. Lastnik to četrtletje načrtuje nov AI izdelek, serijo webinarjev in pregled cen.
+</div>
+<div class="after" markdown="1">
+**Po.** 1) Dvigni ceno projektov v novih ponudbah. 2) Priporočila partnerja spremeni v stalno mesečno rutino s poročilom po vsakem projektu. 3) Partnerja prosi za predstavitve njegovim drugim regionalnim pisarnam. AI izdelek čaka na seznamu idej.
+</div>
+</div>
+
+Koraka 1 in 2 sta hitra, verjetna in skoraj brezplačna. Korak 3 je še vedno »več« preverjenega kanala. Nov izdelek nosi največ tveganja, zato pride zadnji.
+
+#### Pogoste napake
+
+- **Začetek pri »novem«.** Nov kanal ali izdelek daje občutek napredka, delujoči kanal pa ostaja premalo izkoriščen.
+- **Popravljanje najglasnejšega problema namesto največjega.** Alex išče potezo, ki najbolj spremeni pretok, drugotne optimizacije pa ignorira, dokler ta ni opravljena.
+- **Ugašanje zmagovalca zaradi testa.** Zamenjava delujočega kanala odvzame denar in merilo, ki ju potrebuješ za presojo testa.
+- **Predaja dolgega seznama.** Deset dobrih idej, slabo izvedenih, izgubi proti dvema, izvedenima do konca.
+- **Izboljševanje tega, kar stranke imajo rade.** Spreminjanje osrednjega izdelka ali zdravega prodajnega procesa ogrozi del, ki deluje.
+
+#### Kako bi to uporabil Alex
+
+- **Vpraša »zakaj ne moreš preprosto delati več tega?«**, preden se pogovarja o čem novem, odgovor pa vzame kot naslednje ozko grlo.
+- **Napiše oštevilčen seznam po ICE**: hitro, verjetno, z velikim učinkom najprej, strukturne stave zadnje, ob upoštevanju odvisnosti.
+- **Najprej popravi ponudbo in ceno**, nato konverzijo, nato obseg na preverjenih kanalih in šele nato nove kanale.
+- **Med testiranjem pusti teči vse delujoče kanale** in izolira nove spremenljivke (en prodajalec, en vir, ena sprememba).
+- **Pri miru pusti, kar stranke imajo rade** in kar metrike kažejo kot zdravo.
+- **Načrt skrči na dve ali tri poteze**, ki jih bo lastnik res izvedel.
+- **Vprašanja, ki bi jih postavil:** Od kod pridejo tvoje najboljše stranke in si ta vir skaliral? Če bi letos lahko naredil samo eno stvar in bi morala podvojiti posel, katera bi bila? Kaj se je zgodilo, ko si povečal proračun? Kaj se zlomi, če naredimo več? Je ta nova ideja boljša od tega, da preprosto več vložiš v to, kar deluje?
+
+#### Delovni list
+
+Naštej vse poteze, o katerih razmišljaš, nato pojdi skozi ta vprašanja.
+
+1. **Več:** Kateri kanal ali ponudba že deluje in kako bi izgledal 2-kratnik ali 10-kratnik tega?
+2. **Bolje:** Kateri korak te delujoče poti je najbolj pod tem, kjer bi moral biti?
+3. **Ocena:** Vsaki potezi daj oceno 1–10 za učinek, zaupanje in lahkost. Zmnoži in razvrsti.
+4. **Vrstni red:** Ponovno razvrsti tako, da ponudba in cena prideta pred konverzijo, konverzija pred obsegom in obseg pred čim novim.
+5. **Zaščiti:** Zapiši, česa se ne boš dotaknil (delujoči kanali, osrednji izdelek, zdrav prodajni proces).
+6. **Odreži:** Obdrži dve ali tri najboljše poteze. Ostale daj na seznam idej z datumom.
+
+#### Viri
+
+- [4 Steps to Unf\*\*\* Your Business](https://www.youtube.com/watch?v=kloJJeiysxg&t=193s) — privzeti vrstni red »več, bolje, novo« in zakaj lastniki obstanejo, ko nehajo delati, kar deluje (03:13)
+- [Building a $2,300,000/yr Business for a Stranger in 57 Mins](https://www.youtube.com/watch?v=-Koq14DPXC4&t=2979s) — razvrščanje po ICE, z lahkostjo, razdeljeno na hitrost in trud (49:39)
+- [Building a $3,500,000 Business for a Stranger in 51 Mins](https://www.youtube.com/watch?v=BMF2fWHyDrg&t=3017s) — hitre, verjetne poteze z velikim učinkom pred težkimi stavami (50:17)
+- [How to Get Rich for Service-Based Businesses (Thank Me Later)](https://www.youtube.com/watch?v=mRlSb0O5QNU&t=240s) — vrstni red: ponudba, cena, prodajni proces, nato povpraševanje (04:00)
+- [10 Millionaires Asked Me How to Get Richer](https://www.youtube.com/watch?v=6m6DCQMASEM&t=338s) — nikoli ne ugasni delujočega kanala zaradi testa novega (05:38)
+- [Building a $2,500,000 Business for a Stranger in 36 Minutes](https://www.youtube.com/watch?v=OQf2Ba-Lp_4&t=1891s) — razvrščen seznam za podjetje, v katerem nič ni pokvarjeno, z zaščito zmogljivosti (31:31)
+- ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=4922s) — podvojitev proračuna na lijaku s 4-kratnikom namesto menjave modela (82:02)
+- [Helping 6 Business Owners Scale in 33 Minutes](https://www.youtube.com/watch?v=0EqJD2o-Mnk&t=1653s) — skaliranje kanala, ki ustreza lastnikovim veščinam, preden se uči drugega (27:33)
+- [How to Start a Business From Nothing (Thank Me Later)](https://www.youtube.com/watch?v=unshZobTt6Q&t=3958s) — ne pokvari, kar stranke imajo rade; spremeni ceno, ne izvedbe (65:58)
+- [KEYNOTE: Small To BIG. The Big 4 Customer Acquisition Models.](https://www.youtube.com/watch?v=XwZH-lOKG9c&t=3534s) — najprej poberi največji očiten kup denarja (58:54)
+- [I Blew Up A Secret Business To Prove It's Not Luck](https://www.youtube.com/watch?v=SmiOK8Yun4s&t=999s) — ena stvar, ki bi letos podvojila posel (16:39)
+- [Building a $1,000,000 Business for a Stranger in 26 Minutes](https://www.youtube.com/watch?v=HGZOxBfnF-E&t=99s) — nasvet, omejen na dve ali tri poteze z velikim učinkom (01:39)
+
+## Tveganje in stave
+
+- id: risk-and-bets
+- book: Alex's Playbook / How he decides
+- original term: Risk-adjusted bets; push vs pivot
+- key: Vrednost stave = izplačilo × verjetnost. Pri enaki vrednosti izberi večjo verjetnost.
+- related: prioritising-moves, focus-and-subtraction, constraint, client-financed-acquisition, enterprise-value
+
+Alex vsako potezo oceni kot izplačilo krat verjetnost, raje izbere zanesljivejšo stavo, vztraja, dokler osnovne predpostavke držijo, za resnična tveganja pa ima premajhno vlaganje iz strahu, dolg in zaposlovanje pred rastjo.
+
+#### Bistvo
+
+Alex o tveganju govori v dveh smereh hkrati. Meni, da lastniki precenjujejo slabo stran pravih potez (dvig cene, več vlaganja v kanal, ki se izplača, zaposlitev prodajalcev, ko leadi obstajajo) in podcenjujejo slabo stran napačnih (začetek drugega posla, zadolževanje, zaposlovanje pred rastjo, menjava smeri po slabem tednu).
+
+<div class="formula" markdown="1">
+**Vrednost stave** = **izplačilo** × **verjetnost**
+Pri enaki vrednosti izberi **večjo verjetnost**, nato niži zanesljive zmage eno za drugo.
+**Vztrajaj (push)**, dokler temeljne predpostavke držijo. **Spremeni smer (pivot)** šele, ko podatki eno ovržejo.
+</div>
+
+Tveganje vidi kot osebno in navadno precenjeno: za večino ustanoviteljev je resnična slaba stran stečaj in začetek od začetka. Redki vir je čas, saj ima ustanovitelj v karieri le peščico večletnih poskusov.
+
+#### Kako deluje
+
+##### Izplačilo × verjetnost in kariera kot luknjalna kartica
+
+V kratkem predavanju o tveganju naredi miselni poskus: okoli 35 delovnih let pri okoli petih letih na resen poskus da približno sedem stav. Logika velikih stav (10 % verjetnost za 100-kratnik) ustreza skladom tveganega kapitala z neomejenim kapitalom in poskusi. Ustanovitelj, ki izgubi tri take stave zapored, je petnajst let v karieri brez ničesar. Zato, kadar imata dve možnosti podobno vrednost ob upoštevanju tveganja, izbere verjetnejšo in sestavlja verigo zanesljivih zmag. Doda test: predpostavi, da se nič od dobrega, kar pričakuješ, ne zgodi; če še vedno zmagaš, vzemi.
+
+V drugem nastopu poudari drugo stran: plačan si za tveganje, ki ga drugi vidijo, da ga prevzemaš, tveganje pa je pogosto napačno ovrednoteno, ker ljudje precenjujejo slabo stran. Oboje se ujema: išči stave, ki so drugim videti bolj tvegane, kot so zate.
+
+Za spremembe v delujočem podjetju v enem hotseatu uporabi konkreten prag: spremembo naredi le, kadar je pričakovani dobiček, prilagojen tveganju, okoli 20 % ali več (na primer 40 % potenciala pri 50/50), ker vsaka sprememba stane padec.
+
+##### Tveganje ideje in tveganje izvedbe
+
+Loči dve vrsti tveganja in pravi, da prevzema samo drugo. Tveganje ideje (idea risk) sprašuje, ali ljudje to sploh hočejo. Tveganje izvedbe (execution risk) sprašuje, ali to znaš dobro voditi. Izbira posle z dokazanim povpraševanjem, tako da ostane edina spremenljivka izvedba. Pri dokazanem povpraševanju ti neuspeh pove, da je bil problem v tebi. Pri tveganju ideje tega ne veš, zato je odločitev med vztrajanjem in menjavo smeri skoraj nemogoča.
+
+##### Vztrajaj ali spremeni smer
+
+Njegovo pravilo, ponovljeno v več videih: smer spremeni samo, ko so podatki ovrgli osnovno predpostavko o povpraševanju ali monetizaciji. Če je povpraševanje resnično in je samo težko, rešuj en problem za drugim. Temu reče »dobro težko« (good hard). Predpostavke zapiši pred vlaganjem (kupci so na tej platformi, dosežemo jih lahko z dobičkom), da veš, kaj bi štelo kot ovržba. Izgube pri testiranju predpostavke, ki se izkaže za napačno, so cena učenja, ki ji reče davek na nevednost (ignorance tax). V enem predavanju razmerje pove naravnost: vztrajaj devetkrat od desetih, smer spremeni, kadar trg strukturno ne dopušča ponovnega nakupa.
+
+##### Ne začenjaj novega posla, da bi pobegnil s platoja
+
+Njegov test za to željo: bi si novi posel še vedno želel, če bi se obstoječi potrojil? Če ne, gre za beg. Nov posel se ustavi pri ustanoviteljevi trenutni ravni znanja, zato menjava vozila ne dvigne stropa. Leta v enem poslu odplačajo tvoj dolg nevednosti; novo področje te vrne na dno.
+
+##### Lastniki, ki si iz strahu sami omejijo vlaganje
+
+Pogosto je omejitev lastnikov strah: omejeni proračuni na dobičkonosnih lijakih, premalo oglasov, nobenih novih prodajalcev kljub dotoku leadov. Njegovi protiargumenti:
+
+- **Če dolar zanesljivo vrne več dolarjev, je pravi proračun toliko, kolikor kanal sprejme.**
+- **Denar za testiranje je naložba.** Vnaprej predvidi znano izgubo, da najdeš tistih nekaj ključnih besed, oglasov ali kanalov, ki se skalirajo. Eno njegovih pravil: nova kampanja lahko porabi do približno 2-kratnika dovoljenega stroška pridobitve stranke, preden jo ugasneš. Nov kanal, ki šest mesecev stane 10.000 dolarjev na mesec do prve prodaje, je lahko še vedno dobra naložba, če nato vrača 5- do 10-kratnik.
+- **Popravljiva slaba stran.** Če večje vlaganje ne uspe, se lahko vrneš k temu, kar si delal prej.
+- **Strah preveri z denarnim tokom.** Če je denarni tok v redu, je obotavljanje iracionalno.
+
+Stave tudi dimenzionira. Pri enem reševanju podjetja opozori, da je celo stava z visoko pričakovano vrednostjo nevarna, če imaš kapitala samo za dve igri, in da ima večina ustanoviteljev premalo kapitala glede na verjetnosti.
+
+##### Dolg, stroški in zaposlovanje pred rastjo
+
+Do dolga je konzervativen: dodaja tveganje, tveganje pa na dolgi rok rado pride na vrsto, zato se nagiba k odplačilu. Raje raste brez dolga, z zasnovo ponudbe (denar vnaprej, predplačila, sidrne ponudbe). Stroški so slaba stran, zato ne zaposluje pred rastjo: najprej pridobi rast, nato naj ta plača ljudi. Spominja se, da je v pričakovanju rasti zaposlil 25 ljudi za podporo strankam, kasneje pa so štirje obdelali večji obseg. Izjema so prodajalci na proviziji. Dobiček redno tudi dvigne iz podjetja, ker stanje »bogat s premoženjem, reven z gotovino« slabša odločitve.
+
+##### Upočasni, ko si čustven
+
+V predavanju o tem, kaj je skoraj uničilo njegov posel, poimenuje znak: na istih podatkih iz dneva v dan menjaš mnenje. Ko zazna čustva ali nujnost, upočasni, o velikih odločitvah prespi 24 ur, »odločiti se moram danes« ima navadno za izmišljeno, velike odločitve z več spremenljivkami pa sprejema le spočit. Ko se odloči, odločitve ne spreminja ob predvidljivih težavah, ki sledijo. To stoji ob njegovem mnenju, da podjetje raste s hitrostjo, s katero se odloča vodja. Oboje lahko združiš tako: o majhnih stvareh odločaj hitro, o velikih čustvenih počasi.
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### Lastnik telemedicine, ki načrtuje svetovanje
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Podjetje za telemedicino in klinike s približno 550.000 dolarji na mesec je obstalo, ker izdelka ni mogoče oglaševati na glavnih družbenih omrežjih. Lastnik bi rad ustanovil svetovanje, ki bi učilo druge zdravnike.
+</div>
+<div class="after" markdown="1">
+**Po.** Opusti novi posel. Problem preoblikuj v »kako pridobim stranke iz kanala, ki ga smem uporabljati« in ves trud usmeri vanj.
+</div>
+</div>
+
+Svetovanje bi vstopilo na nasičen trg brez dosežkov. Obstoječi stroj že deluje, njegovo resnično ozko grlo pa bi lastnik odnesel v vsak nov posel.
+
+##### Izobraževalni posel, ki si sam omejuje oglase
+
+Spletno članstvo za ročne spretnosti (okoli 800.000 dolarjev na leto, 30–35 % dobička) je poganjalo štiri oglase in vlaganje omejilo pri okoli 37 dolarjih na pridobitev. Alex je lastniku naročil, naj naredi 80 ali več oglasov in sprejme do okoli 100 dolarjev na pridobitev, ker je vrednost v nadaljevanju to povrnila v prvem mesecu.
+
+##### Potrošniška blagovna znamka z določenim zadnjim testom
+
+Ustanoviteljica premium znamke pijač je imela okoli 1,5 milijona dolarjev prodaje v številnih trgovinah, nič dobička in nobenih podatkov o ponovnih nakupih. Alex je predlagal eno osredotočeno stavo na pogodbe s potovalno prodajo, kjer je bila majhna pločevinka prednost. Če ne bi zaprla nobene, naj posel zapre in čas posveti razvoju nepremičnin, ki ga je ob strani že dokazala. Pravilo: raje se nauči hitro, kot da porabiš še tri leta za nedokazano predpostavko.
+
+##### Podatkovno svetovanje, ki tehta SaaS izdelek (izmišljeno)
+
+| Vprašanje | Odgovor |
+|---|---|
+| Dokazano povpraševanje? | Stranke plačujejo svetovanje; za načrtovani SaaS ni plačal še nihče |
+| Vrsta tveganja | Tveganje ideje pri SaaS, tveganje izvedbe pri svetovanju |
+| Test bega | Lastnik bi idejo SaaS opustil, če bi se svetovanje potrojilo |
+| Odločitev | Vztrajaj pri svetovanju; zapiši, kateri podatki bi SaaS kasneje upravičili |
+
+#### Pogoste napake
+
+- **Denar za teste kot izgubljen denar.** Iskanje kanala, ki se skalira, vedno vključuje poražence.
+- **Menjava smeri po slabem mesecu.** Brez zapisanih predpostavk frustracijo zamenjaš za ovržbo.
+- **Kariera, stavljena na dolge kvote.** Nekaj večletnih poskusov ne prenese niza stav z 10 % verjetnostjo.
+- **Zaposlovanje za rast, ki jo pričakuješ.** Fiksni stroški, prevzeti prezgodaj, postanejo tveganje, ki te potopi, če rast zamuja.
+- **Odločanje v razburjenju.** Menjavanje mnenja na istih podatkih je znak, da počakaš.
+
+#### Kako bi to uporabil Alex
+
+- **Vpraša po izplačilu in verjetnosti** in izbere zanesljivejšo pot, ko sta produkta blizu.
+- **Raje izbere tveganje izvedbe kot tveganje ideje** in pred vsakim novim poslom zahteva dokazano povpraševanje.
+- **Vztraja, dokler zapisane predpostavke držijo**, in smer spremeni le na podlagi podatkov, ne utrujenosti.
+- **Izvede test bega**, preden se pogovarja o kakršnem koli novem poslu: bi si to še želel, če bi se obstoječi posel potrojil?
+- **Odstrani omejitve iz strahu** pri vlaganju in zaposlovanju prodajalcev, kadar to podpirata ekonomika enote in denarni tok, testiranje pa obravnava kot naložbo s proračunom.
+- **Fiksne stroške in dolg drži nizko**, odplačuje dolg, dviguje dobiček in ne zaposluje pred rastjo (razen prodajalcev na proviziji).
+- **Vprašanja, ki bi jih postavil:** Je bila katera temeljna predpostavka o povpraševanju ovržena? Koliko vlagaš, lahko vlagaš več in zakaj ne? Če bi bil donos 10 : 1 namesto 3 : 1, bi vložil več? Kakšna sta tvoja mesečna točka preloma in odplačilo dolga? Bi si to še želel, če bi se obstoječi posel potrojil?
+
+#### Delovni list
+
+Izberi eno odločitev, pred katero stojiš, in jo predelaj.
+
+1. **Vrednost:** Za vsako možnost oceni izplačilo in verjetnost. Katera ima večji produkt in katera je zanesljivejša?
+2. **Vrsta tveganja:** Je povpraševanje dokazano ali staviš na to, ali ljudje to sploh hočejo?
+3. **Predpostavke:** Zapiši dve ali tri predpostavke, ki morajo držati. Kateri podatki bi ovrgli vsako od njih?
+4. **Test bega:** Bi to še vedno izbral, če bi se tvoj obstoječi posel potrojil?
+5. **Vlaganje:** Kje iz strahu omejuješ vlaganje ali zaposlovanje? Kaj pravita ekonomika enote in denarni tok?
+6. **Stanje:** Se odločaš spočit in miren? Če ne, določi rok čez 24 ur.
+
+#### Viri
+
+- [2 Types of Business Risk and the One I Choose EVERY TIME](https://www.youtube.com/watch?v=A9qHKjFPJ-E&t=189s) — tveganje ideje proti tveganju izvedbe in kariera kot nekaj stav (03:09)
+- [Your Business Is NOT What You Think It Is](https://www.youtube.com/watch?v=rj7rzOdj84A&t=1344s) — smer spremeni le, ko podatki ovržejo zapisano predpostavko; davek na nevednost (22:24)
+- ["Should He Walk Away From His $1.4M Business To Start Over?" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=0RjIw9M1j28&t=5686s) — vztrajaj, ko je povpraševanje dokazano in je samo težko (94:46)
+- [Business Was Hard Until I Understood These 4 Concepts](https://www.youtube.com/watch?v=F84olnKkseM&t=1893s) — vztrajaj devetkrat od desetih (31:33)
+- [Entrepreneurs, stop starting new businesses. Fix the one you've got.](https://www.youtube.com/watch?v=s59jbVBprn0&t=95s) — test bega »če bi se potrojil« (01:35)
+- ["The 3 Evil Es" That Almost Killed My Business](https://www.youtube.com/watch?v=noO8ERpgMr4&t=243s) — upočasnjevanje čustvenih odločitev in nezaposlovanje pred rastjo (04:03)
+- [Helping E-Commerce Business Owners Scale](https://www.youtube.com/watch?v=8C_6qojTA78&t=96s) — vnaprej predvidena izguba pri testiranju za iskanje kanalov, ki se skalirajo (01:36)
+- [Building a $3,000,000 Business for a Stranger in 31 Minutes | Scale or Fail](https://www.youtube.com/watch?v=j2TZMFkj71Q&t=1621s) — samoomejeno vlaganje in popravljiva slaba stran (27:01)
+- [Building a $2,500,000 Business for a Stranger in 36 Minutes](https://www.youtube.com/watch?v=OQf2Ba-Lp_4&t=517s) — konzervativen pogled na dolg (08:37)
+- [Why Doing More Is Actually Making You Less Money](https://www.youtube.com/watch?v=hfwZwPGsbIo&t=671s) — prag 20 % ob upoštevanju tveganja za spremembe (11:11)
+- [Can I Save This Failing Theme Park in 90 Days?](https://www.youtube.com/watch?v=xRxVpjeHmeA&t=1491s) — dimenzioniranje stave, ko imaš kapitala le za dve igri (24:51)
+- [I Reverse Engineered the Perfect Business](https://www.youtube.com/watch?v=HKbFUWJwEG0&t=1532s) — vlaganje v nov kanal kot naložba (25:32)
+
+## Odločitve o ceni
+
+- id: pricing-decisions
+- book: Alex's Playbook / Money levers
+- original term: Pricing (raise, test, never discount the core)
+- key: Ceno dviguj, dokler zmnožek konverzija × cena (ali skupni bruto dobiček) ne začne padati, ne dokler ne pade število prodaj.
+- related: charge-what-its-worth, value-equation, cash-forward, retention-and-ltv, business-math
+
+Cena je vzvod, po katerem Alex seže najprej: spremeniti jo ne stane nič, razlika gre naravnost v dobiček, večina lastnikov pa je prepoceni. Preizkuša jo z zmnožkom konverzija × cena in je skoraj nikoli ne zniža.
+
+#### Bistvo
+
+V svojih hotseatih Alex obravnava ceno kot prvi in najcenejši vzvod. Spremeniti jo pomeni spremeniti številko ali stavek, skoraj brez operativnega bremena, a lastniki se je bojijo bolj kot česar koli drugega. Njegova ponavljajoča se diagnoza: mali lastniki postavljajo cene iz lastne denarnice. Ne morejo si predstavljati, da bi kdo plačal več, kot bi plačali sami, in podcenjujejo vse, kar jim gre zlahka.
+
+Zakaj mu je to tako pomembno, pokaže matematika. Pri tankih maržah majhen dvig cene dobiček pomnoži, več strank pa ga le poveča. Na enem predavanju pokaže podjetje z 20-odstotno maržo: podvojitev števila strank podvoji dobiček, podvojitev cene pa ga poveča za šestkrat, ker dodatni prihodek ne prinese dodatnih stroškov.
+
+<div class="formula" markdown="1">
+**Ceno preizkušaj z** zmnožkom stopnja zaprtja × cena (prihodek na prodajni pogovor) ali s skupnim bruto dobičkom. **Nehaj dvigovati**, ko ta številka pade, ne ko prvi kupec reče ne.
+</div>
+
+#### Kako deluje
+
+##### Znaki, da si prepoceni
+
+V zapiskih se vedno znova ponavljajo:
+
+- **Zelo visoka stopnja zaprtja (close rate).** V predavanju o poslovni matematiki da tabelo kot pravilo palca: če zapreš 80 % ali več, si verjetno 3- do 4-krat prepoceni, pri 60–80 % 2- do 3-krat, pri 50–60 % 1,5- do 2-krat, pri 40–50 % 1,25- do 1,5-krat. Okoli 30–40 % je približno prav, če so kupci pred klicem poučeni. Pod 30 % najprej pogleda ciljno stranko (avatar) in prodajni proces, preden se sploh dotakne cene.
+- **Polna zasedenost.** Če povpraševanje presega zmogljivost, je njegova prva poteza dvig cene, pred spremembo razmerja izvedbe ali zaposlovanjem. Manj strank po višji ceni pomeni več denarja in sproščen čas za gradnjo zmogljivosti.
+- **Tanka marža pri polnem obsegu.** Če podjetje komaj ustvarja dobiček celo s ponavljajočimi se strankami in priporočili (brezplačno pridobivanje), so fiksni stroški previsoki ali pa so cene napačne. Pri storitvah želi vsaj 80 % bruto marže, izvedba pa naj stane približno petino cene.
+- **Pridobivanja strank si ne moreš privoščiti.** Po njegovem je veliko težav tipa »potrebujemo cenejše leade« v resnici težav, da na stranko ne zaslužiš dovolj.
+- **Dolgo od zadnjega dviga.** Dvig po treh ali štirih letih je le dohitevanje inflacije.
+
+##### Preizkušanje cene
+
+Ceno hoče določati s testi, ne z mnenji. Ceno počasi dviguj, dokler ljudje ne nehajo reči ja, nato jo malo spusti. Testiraj v živo na klicih in pojdi od nižje k višji, ker znižanje pomeni dobropis nedavnim kupcem. Najprej testiraj segment, ki je manj občutljiv na ceno. Pričakuj, da boš zaslužil več, preden boš zaslužil manj: v enem primeru je dvig za 50 % ob 10 % manj prodajah jasno vreden obdržati. Točka največjega dobička leži onkraj točke največje konverzije.
+
+##### Nikoli ne popuščaj pri ceni jedrne ponudbe
+
+To je eno njegovih najdoslednejših pravil v prodajnih treningih. Ko kupec prosi za popust:
+
+1. Reci, da bi lahko naredil za več. To sidro postavi višje.
+2. Spremeni **pogoje** (obročno plačilo, predplačilo) ali **sestavine** (odstrani funkcijo, ponudi lažjo različico).
+3. Namesto popusta dodaj **bonus**. Prodajni ekipi predlaga seznam ovrednotenih bonusov, ki jih uporablja namesto znižanj.
+4. Če ceno res znižaš, jo **zamenjaj za nekaj**: daljšo zavezo, pričevanje, ocene, priporočilo. Tako ostaneš ti tisti, ki postavlja pogoje, razliko pa lahko upravičiš drugim strankam.
+
+Nenačrtovana znižanja zvenijo kot prosjačenje in znižajo zaupanje. Cenovni testi se načrtujejo vnaprej, ne improvizirajo na klicu.
+
+##### Sidra in premium paketi
+
+Vedno najprej predstavi premium paket in pojdi navzdol le, če kupec reče, da ima omejen proračun. Visoko sidro obdrži, tudi če ga le redki vzamejo: viden vrhnji paket dvigne zaznano vrednost vsega pod njim. Njegov račun: če 10 % kupcev vzame sidro po 10-kratni ceni, se prihodek približno podvoji. Delo ena na ena naj stane približno 5-krat več kot delo ena z mnogimi; če vsi plačajo premium, ga dvigni. Če sidro ni namenjeno prodaji, naj bo skoraj enako jedru, z eno ali dvema dodatnima funkcijama.
+
+##### Konične cene in pristojbine
+
+Ponudba in povpraševanje veljata tudi za mala podjetja. V konicah zaračunaj več ali to predstavi kot popust izven konice. Prodajaj hitrost: doplačilo za isti dan ali prednost je čista marža na isto delo (v enem hotseatu predlaga 10 % in nato 20 %). Prenesi stroške kartičnih provizij na kupca, kar bi v primeru restavracije dobiček povečalo za okoli 15 %. Pristojbine poimenuj po tem, kar kupci sprejmejo (nastavitev, oprema), ceno pa jim določi po tem, kar potrebuješ.
+
+##### Konkurenti in najslabše stranke
+
+Nikoli ne nižaj cene, da bi se boril s konkurentom, ki te spodbija ali kopira poceni del tvojega modela. Igraj igro preseganja vrednosti: kupcu pokaži spremenljivke, na katere ni pomislil (tveganje, enostavnost, hitrost), da primerjava ni več jabolka z jabolki. Sprejmi, da boš ob dvigu izgubil nekaj strank. Ko je v svojem fitnesu cene potrojil in izgubil približno tretjino članov, se je prihodek približno podvojil, zaposleni pa so temu rekli »čiščenje« (the culling), ker je odstranilo kronične pritoževalce. Pritožbe nad ceno od neidealnih strank pomenijo, da cena pravilno filtrira.
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### Lokalno selitveno podjetje, ~300.000 $ na leto
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Urna postavka blizu vrha trga, zaradi cene izgubijo okoli 40 % ponudb. Lastnik misli, da potrebuje več leadov.
+</div>
+<div class="after" markdown="1">
+**Po.** Najprej predstavljen VIP paket (mojstri selitev, pakiranje, material, zavarovanje, cenovna kapica približno 50 % nad oceno), standardni paket kot rezerva in doplačilo za isti dan, ki začne pri 10 %.
+</div>
+</div>
+
+Alex je diagnosticiral blagovno (commodity) ponudbo, ne težave z leadi. Prodaja po urah vabi k primerjanju, zato je ponudbo razstavil na elemente, na katere kupci niso pomislili.
+
+##### Proizvajalec pokalov po meri, ~1,7 mio $ prihodka, 6 % neto
+
+Cene so bile postavljene po načelu strošek plus pribitek. Pri neto marži okoli 6 % dvig cene za približno 6 % dobiček skoraj podvoji. Njegov nasvet: preklop na cene po vrednosti, split testi višjih cen na najbolj prodajanih izdelkih, začetek pri segmentu impulzivnih daril namesto pri cenovno občutljivih B2B kupcih, presoja po bruto dobičku × količina.
+
+##### Samostojna odvetnica z urno postavko 250 $
+
+Povprečna vrednost stranke je bila okoli 1.500 $, stopnja zaprtja pa zelo visoka. Prestavil jo je na fiksnih 5.800 $ in majhen delež od uspeha, s sidrom 25.000 $ brez provizije in različico »naredi sam« za 2.000–3.000 $, ki je cenovno dovolj blizu, da je jedro videti najboljša izbira.
+
+##### Izmišljeno: projekt Qlik nadzornih plošč
+
+| | Danes | Test |
+|---|---|---|
+| Cena projekta | 8.000 € | 14.000 € |
+| Prodajni klici na mesec | 20 | 20 |
+| Stopnja zaprtja | 85 % | 55 % |
+| Prodani projekti | 17 | 11 |
+| Prihodek na klic | 6.800 € | 7.700 € |
+| Bruto dobiček (izvedba 4.000 €) | 68.000 € | 110.000 € |
+
+85-odstotna stopnja zaprtja je njegov najjasnejši znak premajhne cene. Pri višji ceni prodaš manj projektov, a bruto dobiček zraste za okoli 60 %, sprosti pa se tudi zmogljivost za šest projektov.
+
+#### Pogoste napake
+
+- **Cena iz lastne denarnice.** Ceno postaviš prenizko, ker si ne predstavljaš, da bi jo plačal sam. Ceno izpelji iz vrednosti rešenega problema in premoženja kupca.
+- **Strošek plus pribitek ali tržno povprečje.** Tvoji stroški kupca ne zanimajo, tržno povprečje pa večinoma sestavljajo mala podjetja, ki se borijo.
+- **Presoja dviga po številu prodaj.** Manj prodaj po višji ceni pogosto pomeni več dobička. Glej zmnožek konverzija × cena.
+- **Nižanje cene za zaprtje posla ali boj s konkurentom.** Zniža zaupanje in vzgaja lovce na popuste. Raje spremeni pogoje, sestavine ali bonuse.
+- **Nižanje cene, da bi zmanjšal odliv.** V enem primeru znižanje s približno 3.000 na 2.500 na mesec ni spremenilo ničesar, tudi v njegovem podjetju znižanje odliva ni premaknilo.
+
+#### Kako bi to uporabil Alex
+
+- **Ceno preveri pred povpraševanjem.** Tanka marža, poln koledar, zelo visoka stopnja zaprtja ali nedosegljivo pridobivanje strank ga vsi najprej pripeljejo do cene, pred novimi kanali ali zaposlitvami.
+- **Številke izračuna kar na mestu.** Marža, stopnja zaprtja in količina odločitev spremenijo v aritmetiko: 20-odstotno znižanje pri 40-odstotni marži zahteva dvakrat več prodaj samo za izenačenje.
+- **Ceno dvigne in jo podpre z vrednostjo.** Če lastnik višje cene ne zna upravičiti, izboljša ponudbo (hitreje, lažje, bolj zanesljivo) in doda garancijo z zobmi, nato ceno dvigne za 20–40 %.
+- **Jedrne ponudbe ne poceni.** Pogoji, sestavine in bonusi se lahko premaknejo, cena jedra ne. Vsak popust je zamenjan za nekaj.
+- **Zgradi lestev paketov.** Najprej premium, nad njim sidro po 10-kratni ceni, pod njim cenejša različica, vse tako, da je jedro videti najboljše.
+- **Sprejme, da izgubi najslabše stranke.** Glej, kaj stranke delajo, ne kaj govorijo: če kupujejo naprej in se pritožujejo nad ceno, pritožbe prezri.
+- **Vprašanja, ki bi jih postavil:** Kako danes določaš cene in kdo jih je določil? Kakšna je tvoja stopnja zaprtja pri tej ceni? Kdaj si nazadnje dvignil cene? Kakšna je bruto marža? Si polno zaseden? Kateri segment je najmanj občutljiv na ceno? Kakšen prihodek na klic dobiš pri ceni A in kakšnega pri ceni B?
+
+#### Delovni list
+
+Odgovori za svojo glavno ponudbo, z dejanskimi številkami zadnjih treh mesecev.
+
+1. **Stopnja zaprtja:** Kolikšen delež kvalificiranih prodajnih pogovorov zapreš? Kam te to postavi v njegovi tabeli?
+2. **Marža:** Kakšna je tvoja bruto marža na stranko? Je izvedba pri petini cene ali manj?
+3. **Načrt testa:** Katero naslednjo ceno boš ponudil na naslednjih desetih klicih in kakšen prihodek na klic bi pomenil zmago?
+4. **Odgovor na popust:** Kaj boš rekel namesto popusta? Naštej tri bonuse in eno spremembo pogojev, ki jih lahko ponudiš.
+5. **Sidro:** Kaj bi vsebovala različica po 5- do 10-kratni ceni? Kateri od teh elementov te stanejo malo?
+6. **Pristojbine in hitrost:** Kje bi lahko zaračunal prednost, konico ali nastavitev?
+
+#### Viri
+
+- [The Mathematics of Business, Explained](https://www.youtube.com/watch?v=A_tx40lNpf8&t=49s) — tabela stopnje zaprtja za prenizke cene in spodnja meja 80 % bruto marže (00:49)
+- [Make More Profit than 99% of People](https://www.youtube.com/watch?v=41EvCgwPrDc&t=1355s) — prihodek na klic, testiranje od nižje k višji ceni (22:35)
+- [NEVER lower your prices...](https://www.youtube.com/watch?v=BZQtuK-ucDM&t=432s) — račun izenačitve pri znižanju cene, znižanje ne popravi odliva (07:12)
+- [How To Raise Your Prices [plus the letter I actually sent to customers]](https://www.youtube.com/watch?v=Gy-RmpRif-I&t=47s) — multiplikator marže, potrojene cene v fitnesu in »čiščenje« (00:47)
+- [KEYNOTE: Small To BIG. The Big 4 Customer Acquisition Models.](https://www.youtube.com/watch?v=XwZH-lOKG9c&t=3822s) — cenovni džin: podvojena cena proti podvojenim strankam (63:42)
+- [The Ultimate Sales Training for 2026 [Full Course]](https://www.youtube.com/watch?v=StVqS0jD7Ls&t=8965s) — nikoli ne nižaj cene za zaprtje; spremeni pogoje ali sestavine (149:25)
+- [How to Start a Business From Nothing (Thank Me Later)](https://www.youtube.com/watch?v=unshZobTt6Q&t=1573s) — brez popusta na jedro; popust zamenjaj za priporočila (26:13)
+- [Give Me 42 Minutes, I'll Show You How To Sell Like The Top 1% | Scale or Fail Episode 1](https://www.youtube.com/watch?v=zzleYxkf39k&t=810s) — selitveno podjetje: VIP paket, doplačilo za isti dan (13:30)
+- [Building a $3,500,000 Business for a Stranger in 51 Mins](https://www.youtube.com/watch?v=BMF2fWHyDrg&t=1531s) — s pribitka na cene po vrednosti pri 6-odstotni marži (25:31)
+- [I Blew Up a Business Through 3 Small Changes (Just Copy Me)](https://www.youtube.com/watch?v=3yAiVjcImQ4&t=477s) — z urne postavke na ceno po izidu, s sidrom in cenejšo različico (07:57)
+- [If I Started A Business in 2026, I'd Do This](https://www.youtube.com/watch?v=uWdIgftpvBI&t=430s) — viden premium paket dvigne vse pod njim (07:10)
+- [Helping 4 Educational Business Owners Build a $1M Business in 25 Minutes](https://www.youtube.com/watch?v=BYpTRiRqS1Y&t=533s) — nikoli ne sledi konkurentu, ki te spodbija (08:53)
+
+## Denar naprej
+
+- id: cash-forward
+- book: Alex's Playbook / Money levers
+- original term: Pull cash forward (30-day payback)
+- key: Denar, pobran v prvih 30 dneh > strošek izvedbe + strošek pridobitve stranke (CAC).
+- related: client-financed-acquisition, business-math, pricing-decisions, retention-and-ltv, money-models
+
+Alex obravnava denar vnaprej kot glavno spremenljivko. Če prvih 30 dni stranke plača njeno pridobitev in izvedbo, rast ni več omejena z denarjem, zato denarni tok popravi z obliko ponudbe, preden kdor koli omeni posojilo ali investitorje.
+
+#### Bistvo
+
+V zapiskih Alex težav z denarnim tokom skoraj nikoli ne rešuje s posojilom ali krogom financiranja. Rešuje jih tako, da spremeni, kako in kdaj stranka plača: popusti za predplačilo, pristojbine za nastavitev, četrtletno ali letno zaračunavanje, plačilo pred dobavo (layaway), shranjena kartica, načrtovana lestev plačilnih možnosti. Vzorec se ponavlja v hotseatih, predavanjih in prodajnih treningih, denar vnaprej pa deluje kot glavna spremenljivka za velikim delom njegovih nasvetov.
+
+Logika je preprosta. Če nova stranka v prvem mesecu vrne več denarja, kot je stala njena pridobitev in izvedba, vsaka stranka financira naslednjo. Okno 30 dni poveže z brezobrestnim obdobjem kreditne kartice: približno toliko časa lahko malo podjetje nosi strošek pridobivanja brez lastnega denarja.
+
+<div class="formula" markdown="1">
+**Pravilo 30 dni:** denar, pobran v prvih 30 dneh > polni strošek izvedbe + CAC.
+**Strožja različica (eno predavanje):** bruto dobiček ene stranke v 30 dneh > strošek pridobitve in izvedbe za dve stranki.
+</div>
+
+#### Kako deluje
+
+##### Pravila 30 dni
+
+- **Cilj je povračilo CAC v 30 dneh.** Ko to dosežeš, po njegovem ni več fiksnega marketinškega proračuna: trošiš, dokler se izplača. Fiksen proračun v njegovem okviru pomeni, da na začetku izgubljaš denar.
+- **Poznaj krivuljo povračila.** V enem predavanju sprašuje, koliko denarja se vrne na dolar oglaševanja na 15., 30. in 60. dan. Brez tega so marketinške odločitve ugibanje.
+- **Proračun za teste.** Nova kampanja lahko porabi do približno dvakratnik dovoljenega CAC (izračunanega iz denarja v 30 dneh), preden jo ugasneš.
+- **Ko je povračilo predolgo,** pogleda pristojbine za nastavitev, uvajanje, priložene fizične izdelke, daljša predplačila, ponudbe »kupi enega, dobiš dva« ali plačilo zadnjega meseca vnaprej.
+
+##### Popusti za predplačilo
+
+Za plačilo v celoti želi vsaj 10 % popusta, 10–20 % pa se mu zdi vredno, ker malo podjetje s kapitalom zasluži več kot trgi. Lestev iz enega prodajnega treninga: okoli 20 % popusta za celotno predplačilo, okoli 10 % za polovico vnaprej, polna cena na obroke. Dve pravili predstavitve:
+
+- **Najprej pokaži najvišjo ceno** (obročno), nato ponudi popust za hitrejše plačilo. Tako si ti tisti, ki daje ugodnost, in ne tisti, ki dodaja obresti.
+- **Reci »popust za predplačilo«,** ne »plačilo v celoti« (paid in full). Drugo je prodajalski jezik, v katerem za kupca ni ničesar.
+
+Pogosto ima raje ugodnosti kot popuste: hitrejša izvedba (preskok vrste), manj tveganja (daljša garancija), več udobja (osebni skrbnik). V enem predavanju navede okviren delež: »kupi 10, dobiš 2« pripelje 15–20 % kupcev do predplačila, zmeren popust z ugodnostmi pa 30–40 %.
+
+##### Pristojbine vnaprej
+
+Za pobiranje denarja uporabi nekaj, kar se plača vnaprej: pristojbino za nastavitev, za uvajanje ali opremo. Prvo plačilo sestavi od trdih stroškov navzgor (izvedba, oprema, provizija), da pokrije vse, kar moraš plačati, preden je stranka s tabo dolgo. Odpis pristojbine za nastavitev deluje kot zapiranje A/B: odpišeš jo ob letni zavezi, zaračunaš pa, če stranka želi fleksibilnost iz četrtletja v četrtletje.
+
+##### Četrtletno in letno predplačilo
+
+**Nove** stranke, ne obstoječih, prosi za predplačilo četrtletja, da pokriješ CAC; sprememba plačevanja za nove ne odžene obstoječih. Letni paket je lahko privzeta ali celo edina možnost, s statusno ugodnostjo ali fizičnim bonusom samo za letni paket. Tipičen letni popust je okoli 16 % (plačaš deset mesecev, dobiš dvanajst). V enem predavanju trdi, da lahko letno predplačilo celo pri polovični konverziji prinese večkrat več denarja vnaprej, kar financira agresivno pridobivanje strank. Četrtletje je srednja pot, ko je letno preveč za kupca.
+
+##### Plačilo pred dobavo in plačilne lestve
+
+Layaway pomeni, da kupec najprej plača, izvedba pa se začne, ko je plačano. Kupci nato sami pospešijo plačila, izterjava je lažja, ti pa ne nosiš tveganja izvedbe. Njegov standardni vrstni red korakov navzdol na prodajnem klicu:
+
+1. Celotno predplačilo s popustom
+2. Financiranje prek tretje osebe
+3. Delno predplačilo z manjšim popustom
+4. Obročno plačilo (s samodejnim podaljšanjem na koncu, ki se mu zdi trajnejše od mesečne naročnine)
+5. Manjša zaveza ali samo rezervacija naslednjega obiska
+
+Financiranje lahko dvigne prodajo (v enem predavanju navede okoli 35 %), slabega izdelka pa ne reši.
+
+##### Shranjena kartica
+
+Močno znižana ocena stanja ali majhna plačana vstopnica (v enem hotseatu okoli 99 $) služita predvsem temu, da shraniš kupčevo plačilno kartico (card on file). Pravi, da majhna pristojbina vnaprej navadno prinese 70–80 % udeležbe in olajša kasnejšo prodajo in nadgradnjo: naslednji nakup se bremeni na že shranjeno kartico.
+
+##### Ko denar potrebuješ takoj
+
+Njegov vrstni red za denar v 48 urah, iz enega Q&A v živo: najprej obstoječe stranke (predplačilo, raje za dodatno storitev kot za popust), nato bivše stranke (dobropis »dolgujem ti« za večji paket), nato seznam leadov (privabljalna ponudba). V denarni krizi izbere eno samo stavo z največjim denarnim potencialom v razpoložljivem času, najmočnejšo predplačniško ponudbo proda obstoječemu seznamu in denar takoj vloži v oglase. Kratkoročne denarne poteze so sprejemljive, če financirajo odpravo pravega ozkega grla.
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### Zagonsko podjetje za odvoz odpadkov iz gospodinjstev, z izgubo
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Samo mesečna naročnina. Vsak nov naročnik stane delo, zabojnik in prodajno provizijo, preden je stranka sploh kaj plačala.
+</div>
+<div class="after" markdown="1">
+**Po.** Prvo plačilo sestavljeno iz trdih stroškov: približno 42 $ dela + 116 $ zabojnik + 50 $ provizija ≈ 208 $ ob podpisu. Ponudba A/B: plačaj leto vnaprej in dobiš zabojnik brezplačno, ali osnovni paket s pristojbino za zabojnik. Financiranje opreme kot rezerva, z vgrajenim letnim dvigom cene.
+</div>
+</div>
+
+Denar ob podpisu pokrije strošek vsake stranke, zato lahko prodajalci od vrat do vrat, plačani samo s provizijo, rastejo brez dolga. Opozori, da se povprečen denar na prodajo dvigne, četudi sidro vzame le 20 % kupcev.
+
+##### Notranji družinski zabaviščni park, nekaj tednov pred koncem denarja
+
+Prihodek okoli 4,8 mio $, brez dobička, močno zadolžen. Alex je izbral eno samo stavo: predplačniško ponudbo poletnega tabora, prodano obstoječemu seznamu prek nagradne igre z rokom za prevzem in telefonskim sledenjem, denar pa takoj nazaj v oglase.
+
+##### Coaching za pare, počasno povračilo
+
+Dve 12-mesečni ponudbi in izzivi, gnani z oglasi, s počasnim povračilom. Zahteval je okoli 9.000 $ (prvo četrtletje) vnaprej, plačilo pred dobavo kot cenejšo možnost, bonuse za hitro odločitev pa vezal na plačilo vnaprej. Pričakoval je, da konverzijo bolj kot skupna cena poganja prvo plačilo.
+
+##### Izmišljeno: analitični retainer za proizvajalca
+
+| | Mesečno zaračunavanje | Pristojbina + četrtletje vnaprej |
+|---|---|---|
+| Denar v prvih 30 dneh | 3.000 € | 4.500 € + 9.000 € = 13.500 € |
+| Strošek izvedbe v prvih 30 dneh | 2.400 € | 2.400 € |
+| CAC | 6.000 € | 6.000 € |
+| Stanje po 30 dneh | −5.400 € | +5.100 € |
+
+Pri mesečnem zaračunavanju agencija skoraj štiri mesece čaka, da povrne strošek vsake stranke. S pristojbino za uvajanje in predplačanim prvim četrtletjem stranka že v prvem mesecu financira pridobitev naslednje.
+
+#### Pogoste napake
+
+- **Najprej posojilo ali investitorji.** Denarno vrzel obravnava kot problem oblike ponudbe. Če podjetje z dobrimi donosi ne zbere denarja, krivi pogoje posla, ne predstavitve.
+- **Popust brez zahteve po denarju.** Popust, ki ni vezan na predplačilo ali zavezo, podari maržo in ne prinese ničesar nazaj.
+- **Izraz »plačilo v celoti«.** Prodajalski jezik. Predstavi ga kot popust za predplačilo, ki ga dobi kupec.
+- **Spreminjanje plačevanja obstoječim strankam.** Nove plačilne pogoje uvedi za nove stranke.
+- **Plačilo prodajalcev po zaračunanem prihodku.** Pravi, da plačilo redko spremeni vedenje prodajalcev, z eno izjemo: plačilo po pobranem denarju poveča pobrani denar.
+
+#### Kako bi to uporabil Alex
+
+- **Najprej vpraša za številko 30 dni.** Koliko je stranka vredna v bruto dobičku v 30 dneh in koliko stane, da jo pridobiš in ji strežeš?
+- **Ponudbo preoblikuje pred financiranjem.** Pristojbine za nastavitev, predplačilo, letni paket kot privzeta izbira, plačilo pred dobavo. Dolg in kapital prideta šele, ko ponudbe ni več mogoče izboljšati.
+- **Začne visoko in gre po stopnicah navzdol.** Najprej obročna cena, nato popust za predplačilo, financiranje, delno predplačilo, obroki, manjša zaveza. Vsak nekaj kupi.
+- **Ugodnosti uporabi pred odstotki.** Hitreje, varneje, lažje ali bonus, ki je kupcu vreden več, kot tebe stane.
+- **Ko je denar nujen, gre k obstoječim strankam.** Predplačilo za dodatno storitev, dobropisi za večje pakete, ena močna ponudba seznamu.
+- **Odstrani denarni strop, nato troši.** Ko se pridobivanje strank financira samo, naj bo omejitev operativna, ne finančna.
+- **Vprašanja, ki bi jih postavil:** Koliko denarja pobereš v prvih 30 dneh? Kakšen je CAC in v kolikšnem času se povrne? Ponujaš predplačilo ali financiranje in kolikšen delež ga vzame? Imaš shranjeno kupčevo kartico? Koliko denarja imaš in ali z njim lahko izvedeš vse, kar si že prodal?
+
+#### Delovni list
+
+Izpolni za zadnjih deset novih strank.
+
+1. **Denar v 30 dneh:** Koliko je posamezna stranka v povprečju plačala v prvih 30 dneh?
+2. **Strošek v 30 dneh:** Koliko je stala izvedba v teh 30 dneh in kakšen je bil CAC na stranko?
+3. **Vrzel:** Je pobrani denar nad stroškom ali pod njim? Za koliko?
+4. **Nosilci:** Kateri element vnaprej ustreza tvoji ponudbi: pristojbina za nastavitev, uvajanje, predplačano prvo četrtletje, letni paket kot privzeta izbira?
+5. **Lestev:** Zapiši svoje zaporedje korakov od celotnega predplačila do najmanjše zaveze, z natančnimi cenami.
+6. **Nujni denar:** Če bi denar potreboval v 48 urah, kaj bi ponudil obstoječim in bivšim strankam?
+
+#### Viri
+
+- [The Mathematics of Business, Explained](https://www.youtube.com/watch?v=A_tx40lNpf8&t=1738s) — povračilo CAC v 30 dneh, delež predplačil in plačilo pred dobavo (28:58)
+- [How I Would Build a Business in 2026 (If I Had to Start Over)](https://www.youtube.com/watch?v=i7bLRKwKSms&t=488s) — 30 dni ustreza pogojem kreditne kartice; brez fiksnega marketinškega proračuna (08:08)
+- [KEYNOTE: Small To BIG. The Big 4 Customer Acquisition Models.](https://www.youtube.com/watch?v=XwZH-lOKG9c&t=575s) — test pridobivanja, ki ga financira stranka: ena stranka plača dve (09:35)
+- [Building a $1,000,000 Business for a Stranger in 69 Minutes](https://www.youtube.com/watch?v=Wr6n_zNKvMk&t=952s) — prvo plačilo iz trdih stroškov; sidro A/B s predplačilom (15:52)
+- [10x Revenue with 1 New Sales Process (You Can Steal It)](https://www.youtube.com/watch?v=1UhvBSQFy6A&t=1493s) — najprej najvišja cena, lestev popustov za predplačilo, vrstni red korakov (24:53)
+- [How To Close Everyone Downselling Like A Pro (ALEX HORMOZI)](https://www.youtube.com/watch?v=gza5RtQCVsA&t=194s) — izdelana plačilna lestev od predplačila do plačila po obisku (03:14)
+- [Make More Profit than 99% of People](https://www.youtube.com/watch?v=41EvCgwPrDc&t=1595s) — letno predplačilo prinese denar vnaprej tudi pri nižji konverziji (26:35)
+- [Can I Save This Failing Theme Park in 90 Days?](https://www.youtube.com/watch?v=xRxVpjeHmeA&t=284s) — denarna kriza: najmočnejša predplačniška ponudba obstoječemu seznamu (04:44)
+- ["Should He Walk Away From His $1.4M Business To Start Over?" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=0RjIw9M1j28&t=5017s) — vrstni red za denar v 48 urah (83:37)
+- [If I Wanted To Scale A Service Business In 2026, Here's What I'd Do](https://www.youtube.com/watch?v=N5MExtki_VI&t=1519s) — prvo četrtletje vnaprej, plačilo pred dobavo kot cenejša možnost (25:19)
+- [Watch This If You Have a Service Business](https://www.youtube.com/watch?v=jqo0lVveh98&t=1002s) — nove stranke prosi za predplačilo četrtletja, da pokriješ CAC (16:42)
+- [$100M Investor Answers The Most Important Business Questions for 1 Hour](https://www.youtube.com/watch?v=--9kOXNCUdE&t=386s) — znižana ocena stanja za shranjeno kartico in višjo udeležbo (06:26)
+
+## Zadrževanje in življenjska vrednost
+
+- id: retention-and-ltv
+- book: Alex's Playbook / Money levers
+- original term: Retention, LTV and LTGP
+- key: LTV = cena ÷ mesečni odliv. LTGP = LTV × bruto marža. Prihodek obstane pri novih prodajah na mesec × LTV.
+- related: continuity-offers, upsell-offers, pricing-decisions, cash-forward, enterprise-value
+
+Če bi Alex podjetju lahko dal eno samo prednost, bi bila to zadržanost prihodka (revenue retention). Odliv popravi, preden poveča pridobivanje strank, in ga veliko pogosteje razume kot težavo uvajanja, uporabe ali pričakovanj kot pa znak slabega izdelka.
+
+#### Bistvo
+
+V več predavanjih Alex imenuje zadrževanje strank najdragocenejšo lastnost, ki jo lahko ima podjetje. Zadržane stranke se iz leta v leto seštevajo in rast se obrestuje. Brez zadrževanja si za vedno v poslu nadomeščanja strank, podjetje, ki živi samo od novih prodaj, pa umre, ko se mu kanal pokvari. Ker je strošek dosega določene stranke za vse konkurente približno enak, je trajna prednost v življenjski vrednosti, ki jo zgradiš nad tem.
+
+Njegov vrstni red je dosleden: najprej zamaši luknje, nato nalij več. Če pridobivanje strank širiš v vedro, ki pušča, širiš le težave. Ko pa odliv razišče, je vzrok navadno pred izdelkom: šibko uvajanje (onboarding), stranke, ki ne uporabljajo tega, kar so kupile, ali prodajna obljuba, ki se ni ujemala z resničnostjo.
+
+<div class="formula" markdown="1">
+**Odliv (churn)** = odpovedi v mesecu ÷ aktivne stranke · **LTV** = cena ÷ odliv · **LTGP** (življenjski bruto dobiček) = LTV × bruto marža
+**Strop:** nove prodaje na mesec × LTV je približno raven, kjer prihodek neha rasti.
+</div>
+
+#### Kako deluje
+
+##### Zakaj je vredno več kot pridobivanje
+
+- **Strop se premakne.** Pri 100 novih prodajah na mesec in LTV okoli 7.700 $ prihodek v enem od njegovih izračunov obstane pri približno 770.000 $ na mesec. Prepolovi odliv in strop se podvoji brez ene same dodatne prodaje.
+- **Na stranko lahko plačaš več.** Pri fiksnem ciljnem razmerju LTV:CAC podvojen LTV podvoji, koliko si lahko privoščiš za pridobitev stranke. V enem podjetju iz njegovega portfelja je LTV zrasel s približno 2.000 $ na 3.800 $, posel pa s približno 2 mio $ na mesec na približno 2 mio $ na teden.
+- **Pogosto je lažje.** Pogosto ugotovi, da je znižati odliv veliko lažje kot pomnožiti pridobivanje. Raje obdrži istih 300 strank, kot da jih proda 900 na leto, da ostane pri 300.
+
+##### Najprej zamaši luknjo, a jo pravilno preberi
+
+Če stranke odidejo po nekaj četrtletjih, to popravi, preden vložiš več v začetni del lijaka. Dodaja dve opozorili: mladi programi (manj kot 90 dni ali šest mesecev) kažejo napihnjen odliv, zato ne prenavljaj vsega, ker je prvi mesec slab; in če je zadrževanje že dobro, trud usmeri v pridobivanje strank, ne v prenovo izdelka.
+
+##### Kje nastane odliv
+
+Na veliki platformi za članstva opisuje stabilno obliko: več kot 20 % odliva v prvem mesecu, drugi padec okoli tretjega meseca (približno 10 %) in okoli 2 % na mesec po šestem mesecu. Zato delo na odlivu preoblikuje v vprašanje, kako ljudi spraviti čez 30. dan, čez 90. dan in čez šesti mesec:
+
+| Obdobje | Kaj se mora zgoditi |
+|---|---|
+| Prvi mesec | Aktivacija, uvajanje, postavljena pričakovanja, prave obljube |
+| 90. dan | Resničen rezultat ali vidna sprememba vedenja |
+| Šesti mesec | Stranke so povezane med seboj |
+
+##### Aktivacija in uvajanje
+
+Točka aktivacije (activation point) je tisto, kar so tvoje najdlje zadržane stranke naredile zgodaj. Če je ne poznaš, jih preuči in celotno zgodnjo izkušnjo usmeri v to vedenje. Njegovi primeri: prva prodaja za 2.000 $ v sedmih dneh za licenciranega lastnika fitnesa, več kot 5 funtov manj v prvem tednu, prvih pet strank za trenerja. Če uvajanja sploh ni, ga doda najprej: kjer je mogoče ena na ena, ponovi cilj stranke in zakaj ga želi, hitra zmaga v 24 urah, predstavitev ene imenovane kontaktne osebe. V predavanju, zgrajenem na primeru SaaS podjetja, pravi, da lahko uvajanje v naročniških podjetjih LTV podaljša za dva do tri mesece.
+
+##### Odliv kot vprašanje uporabe in pričakovanj
+
+- **Uporaba napove odpoved.** Nizkemu podaljševanju navadno sledi nizka uporaba. Spremljaj uporabo in ukrepaj ob prvem padcu.
+- **Preobremenjenost poganja odliv.** Plačati za pet stvari in uporabljati eno se zdi kot 20 % vrednosti. Odstranitev neuporabljenih vsebin dvigne zaznano vrednost.
+- **Obljube postavijo vrzel.** Visoke obljube dvignejo stopnjo zaprtja in znižajo zadrževanje. Postavi zmerna pričakovanja in jih preseži; vrzel zapri s prepisom prodajnega scenarija, ne z dodajanjem izvedbe.
+- **Navedeni razlogi za odhod zavajajo.** »Vrednost smo že dobili« navadno skriva slabo uvajanje in komunikacijo. Predpiše pogosta sporočila, ki stranki povedo, kaj si naredil zanjo, brez kakršne koli prošnje.
+
+##### Ritem zaračunavanja
+
+Ob vsakem plačilu stranka presoja vrednost za obdobje od zadnjega plačila. Daljša obdobja zgladijo slabe mesece. Navaja študijo z okoli 10,7 % mesečnega odliva pri mesečnem zaračunavanju, okoli 5 % pri četrtletnem in okoli 2 % pri letnem. Zato naredi letni paket za privzeto izbiro (okoli 16 % popusta, s statusnimi ugodnostmi), enkratno vrednost zaračuna vnaprej in ponavljajočo se naročnino drži nizko (»velika glava, dolg rep«, big head, long tail), ponavljajočo se ceno pa postavi tako, da bi jo stranka plačala tudi v svojem najslabšem mesecu.
+
+##### Govori s tistimi, ki so odšli, in s tistimi, ki so ostali
+
+Vsakemu, ki odpove, pošlji sporočilo in označi razlog (cena, preobremenjenost, ne uporablja, manjkajoča funkcija, ni bilo, kot je pričakoval). Na vsakih približno 20 odpovedi popravi enega ali dva najpogostejša; ne odzivaj se na en sam odgovor. Najdlje zadržane stranke vprašaj, zakaj ostajajo: ta odgovor je tvoj motor zadrževanja. Strankam že ob podpisu povej, da odpoved vključuje izstopni pogovor, nato ponudi, da plačano upošteješ kot dobropis za nadaljevanje, za paket, ki reši njihov pravi problem, ali za lažjo različico brez funkcije, ki je ne uporabljajo.
+
+##### Prošnja za priporočilo in nadgradnja v trenutku potrebe
+
+Za priporočila prosi ob točki aktivacije. Hvaležnost stranke hitro zbledi, ti pa se uslugo spominjaš kot večjo, kot je bila, zato prosi zgodaj. Po aktivaciji želi pričevanje, priporočilo in nato nadgradnjo (ascension). Prodaja naslednje stvari je sama po sebi taktika zadrževanja: če ne potešiš želje po ponovnem nakupu, jo bo nekdo drug. Dve nadgradnji, ki delujeta skoraj povsod, sta več tega, kar so kupili, ali več pomoči pri tem, ponujeni takoj po nakupu. Podaljšanja ponudi v več točkah (četrti teden, mejniki, polovica, zadnja priložnost).
+
+##### Mejniki, ki jih navaja
+
+To so njegova pravila palca, vsako iz svojega konteksta: letno zadrževanje B2B strank nad 80 % (računovodska podjetja, kupci iz zasebnega kapitala); 80 % letnega zadrževanja ≈ pet let prihodka na stranko, 50 % ≈ dve leti; najboljši »prosumer« izdelki obdržijo 60 % ali več po 12 mesecih; če vsak mesec ostane manj kot 7 od 10 članov, je zadrževanje tvoj vzvod z najvišjim donosom; odliv pri storitvah redko pade pod 1–2 % na mesec; storitve za mala podjetja po 1.500–3.000 $ na mesec stranke zadržijo približno štiri do šest mesecev.
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### SaaS podjetje iz portfelja, odliv narašča po lansiranju
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Skupinsko uvajanje s približno 25 strankami na klic. Pritožbe, kot so »preveč tehnično«, »premalo podpore« in »prepočasno«, so kazale na vrzel med tem, kar je obljubila prodaja, in tem, kar so stranke dobile.
+</div>
+<div class="after" markdown="1">
+**Po.** Uvajanje ena na ena, ki ponovi cilj in težave reši sproti, prepisana prodajna pričakovanja, ločena ekipa za eskalacije, provizija za podporo za rešene odpovedi.
+</div>
+</div>
+
+Poroča o 61 % manj odpovedih, nadgradnjah, ki so se z uvajanjem ena na ena dvignile z 20 % na 48 %, in okoli 2 mio $ prihranka v šestih mesecih. Nižje obljube niso znižale stopnje zaprtja.
+
+##### Spletne skupnosti in fitnesi
+
+Na njegovi platformi za skupnosti je ena skupina z brisanjem vsebin znižala mesečni odliv s približno 30 % na 5 %. Njegova lastna skupnost je tri tedenske klice skrčila na enega, ko je bila preobremenjenost najpogostejši razlog za odpoved. V njegovih fitnesih je sedem naloženih taktik (uvajanje, odklepanja, izstopni pogovori, spremljanje obiska in druge) znižalo odliv z 11 % na 6 % na mesec.
+
+##### B2B svetovanje z odlivom retainerjev
+
+Svetovalno podjetje za bare s približno 1,1 mio $ prihodka je retainer stranke izgubljalo po nekaj četrtletjih. Njegova diagnoza: vrednost ni bila prikazana. Odliv popravi najprej, tako da strankam vsak mesec pokažeš njihove številke, preden vložiš več v začetni del lijaka.
+
+##### Izmišljeno: upravljana Qlik analitika kot storitev
+
+Leto je začelo 30 proizvodnih podjetij po 1.500 € na mesec; dvanajst mesecev pozneje jih je plačevalo še 18. To je 60 % letnega zadrževanja, približno 2,5 leta in 45.000 € prihodka na stranko. Pogovori pokažejo, da so stranke, ki so ostale, že v prvem mesecu vodile sestanek vodstva iz nadzorne plošče. Uvajanje je prenovljeno okoli tega sestanka, prošnja za priporočilo pa sledi takoj po njem. Pri 80 % zadrževanja bi bil življenjski prihodek na stranko okoli 90.000 €.
+
+#### Pogoste napake
+
+- **Širjenje vedra, ki pušča.** Več oglaševanja ob visokem odlivu samo kupi več ljudi, ki jih boš izgubil.
+- **LTV, merjen kot prihodek.** Hoče življenjski bruto dobiček. LTV iz prihodka lahko nedonosen kanal pokaže kot zdrav.
+- **Nižanje cene, da bi ustavil odliv.** Njegovo lastno znižanje odliva ni spremenilo, v enem primeru tudi znižanje ponavljajoče se cene za približno šestino ni spremenilo ničesar.
+- **Dodajanje funkcij, da bi zadržal ljudi.** Neuporabljene vsebine povečajo vrzel med plačanim in porabljenim ter dvignejo število odpovedi.
+
+#### Kako bi to uporabil Alex
+
+- **Najprej izračuna odliv in LTV.** Večina lastnikov ne pozna ne enega ne drugega. Strop izračuna, preden začne govoriti o rasti.
+- **Zadrževanje popravi pred pridobivanjem,** razen če je zadrževanje že dobro; takrat trud usmeri v pridobivanje.
+- **Začne pri uvajanju.** Če ga ni, je to prvi popravek; nato odklepanja (unlockables), izstopni pogovori in spremljanje uporabe, ena taktika naenkrat.
+- **Aktivacijo določi iz najboljših strank** in prvih 30 dni usmeri vanjo.
+- **Letni paket naredi za privzeto izbiro** in loči enkratno vrednost od ponavljajoče se naročnine.
+- **Prošnjo za priporočilo in nadgradnjo postavi v trenutek potrebe,** takoj po aktivaciji in takoj po nakupu.
+- **Vprašanja, ki bi jih postavil:** Koliko strank odpove vsak mesec in od koliko aktivnih? Kakšna sta cena in bruto marža? Koliko lanskih strank še plačuje in kolikšen del lanskega prihodka? Kako je videti uvajanje? Kaj je tvoja točka aktivacije? Zakaj je odšlo zadnjih 20 in zakaj ostajajo najdlje zadržane stranke? Kje točno v procesu prosiš za priporočilo?
+
+#### Delovni list
+
+Uporabi seznam strank iz zadnjih 12 mesecev.
+
+1. **Številke:** Mesečni odliv, LTV in LTGP. Kje je tvoj strop prihodka pri današnjem tempu novih prodaj?
+2. **Kohorta:** Kolikšen delež strank, aktivnih pred enim letom, še plačuje? Primerjaj z njegovim pravilom palca 80 % za B2B.
+3. **Aktivacija:** Kaj je tvojih pet najdlje zadržanih strank naredilo v prvih 30 dneh?
+4. **Odhodi:** Naštej razloge zadnjih 20 odpovedi. Katerega ali katera dva boš popravil najprej?
+5. **Zaračunavanje:** Bi letno ali četrtletno zaračunavanje lahko postalo privzeto za nove stranke?
+6. **Prošnja:** V katerem trenutku boš prosil za priporočilo in ponudil naslednji nakup?
+
+#### Viri
+
+- [What Makes The Perfect Business (5 Things)](https://www.youtube.com/watch?v=3fsJFUvA6Ts&t=142s) — zadrževanje kot edina prednost; padci v 1., 3. in 6. mesecu (02:22)
+- [How to Get Your Customers to Stay FOREVER](https://www.youtube.com/watch?v=-j8_YCWZ05Q&t=335s) — označevanje razlogov na vsakih ~20 odpovedi; mejniki platforme (05:35)
+- [7 Ways to Get People to Buy More Times](https://www.youtube.com/watch?v=sPkMHh8zTMI&t=1053s) — aktivacija, določena iz najdlje zadržanih strank (17:33)
+- [Watch this to keep more customers](https://www.youtube.com/watch?v=afbP6sB_Atc&t=48s) — primer SaaS: najprej uvajanje, 61 % manj odpovedi (00:48)
+- [Make More Profit than 99% of People](https://www.youtube.com/watch?v=41EvCgwPrDc&t=727s) — ritem zaračunavanja in obdobje presoje vrednosti (12:07)
+- [KEYNOTE: Small To BIG. The Big 4 Customer Acquisition Models.](https://www.youtube.com/watch?v=XwZH-lOKG9c&t=3486s) — prošnja za priporočilo ob točki aktivacije (58:06)
+- [How to Start a Business From Nothing (Thank Me Later)](https://www.youtube.com/watch?v=unshZobTt6Q&t=2714s) — ne širi vedra, ki pušča (45:14)
+- [4 Steps to Unf\*\*\* Your Business](https://www.youtube.com/watch?v=kloJJeiysxg&t=532s) — pogovori s tistimi, ki odidejo, in s tistimi, ki ostanejo; preobremenjenost kot vzrok odliva (08:52)
+- [The Mathematics of Business, Explained](https://www.youtube.com/watch?v=A_tx40lNpf8&t=2657s) — kohortno zadrževanje in mejnik 80 % za B2B (44:17)
+- [7 Millionaires Asked Me How to Get Rich(er)](https://www.youtube.com/watch?v=bgBIO6nZawg&t=1159s) — navedeni razlogi za odhod proti uvajanju in komunikaciji (19:19)
+- ["My business has stopped growing..what should I do?"](https://www.youtube.com/watch?v=f_ceDZqhKbw&t=144s) — odliv, LTV, LTGP in strop prihodka (02:24)
+- ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=3566s) — ponudba podaljšanja v več točkah obdobja (59:26)
+
+## Prodajni stroj
+
+- id: sales-machine
+- book: Alex's Playbook / Sales and people
+- original term: Sales team system (speed to lead, feed the killers, drill and review)
+- key: Razpoložljivost × hitrost × odstotek prihodov × odstotek zaprtih × pobran denar. Najprej popravi tisto okoli klica, šele nato klic.
+- related: closer, constraint, pricing-decisions, hiring-and-talent, downsell-offers
+
+Kako Alex prodajo spremeni v sistem: kaj obdaja klic, kdo dobi kateri lead, klic, ki ga vodijo vprašanja, vnaprej pripravljen odgovor na vsak ugovor in ekipa, ki jo trenirajo dnevne vaje in posnetki klicev.
+
+#### Bistvo
+
+Alex prodajo obravnava kot stroj z veliko majhnimi vzvodi, od katerih vsak malo dvigne verjetnost nakupa. Njegova najpogosteje ponovljena trditev v prodajnih treningih je, da tisto, kar se dogaja *okoli* klica (razpoložljivost, hitrost odziva, rezervacija termina, opomniki, razporejanje leadov), navadno premakne prihodke bolj kot tisto, kar je povedano *na* klicu. To popravi najprej, ker gre večinoma za enkratno nastavitev.
+
+<div class="formula" markdown="1">
+**Prodaja** = priložnosti (razpoložljivost, hitrost, odstotek prihodov) × konverzija (diagnoza, kratek pitch, ugovori) × doslednost (trening, pregled klicev, standardi)
+</div>
+
+Sam klic sledi [okviru CLOSER](../sales/closer.html), ki ga tu ne ponavljamo. Ta vnos govori o sistemu okoli njega: razporejanje leadov, pravila za vprašanja in ugovore, predaja v izvedbo ter kako Alex trenira, razvršča, plačuje in zaposluje prodajalce.
+
+#### Kako deluje
+
+##### Okoli klica: razpoložljivost, hitrost, prihodi
+
+Prodajalčevo delo ima tri dele: čim več priložnosti, njihova konverzija in vzdrževanje tega skozi čas. Priložnosti so prve.
+
+- **Hitrost odziva (speed to lead).** Vsak nov lead pokliči v približno 60 sekundah in pokliči še enkrat, če se ne oglasi. V več hotseatih predpiše eno osebo, katere edino delo je klicanje novih leadov.
+- **Razpoložljivost.** Prodajaj sedem dni na teden, ponudi začetke terminov na 15 minut in ponujaj samo termine za danes ali jutri. Če ti terminov zmanjka, zaposli še enega prodajalca, namesto da odpreš kasnejše datume. V podatkih njegove programske opreme za rezervacije je število prostih terminov napovedovalo obseg prodaje bolj kot katera koli sprememba odstotka zaprtih.
+- **Premik termina naprej.** Ko nekdo rezervira za kasneje, ga takoj pokliči in ponudi termin še danes. Prodajalec, ki je to delal, je prodal približno 4-krat več od drugega najboljšega.
+- **Opomniki.** Ročna sporočila 24 ur prej, zjutraj na dan klica in eno uro prej, s čim, kar pokaže, da si se nanje pripravil. Pravi, da lahko ta osebna priprava dvigne odstotek prihodov za približno 30 %.
+- **Zasedenost koledarja.** Prodajalci naj bodo zasedeni približno 70–75 %. Prepoln koledar potiska termine v prihodnost, prazen pa rodi obup.
+- **Izobraževanje pred klicem.** Kratek video, ki odgovori na pogosta vprašanja. Posli, ki potrebujejo tri ali štiri klice, kažejo, da je bilo pred prvim klicem premalo izobraževanja.
+
+Vsak prodajalec dobi dva SOP-a: kaj reči na klicu in kaj delati med klici. Vsak sestanek se konča z že rezerviranim naslednjim.
+
+##### Točkovanje in razporejanje leadov
+
+Leade točkuj po enem ali dveh dejavnikih, ki napovedujeta nakup, nato »nahrani ubijalce« (feed the killers): najboljši leadi gredo najboljšim closerjem, najslabši novim ali šibkim prodajalcem. Njegova ponavljajoča se zgodba je podjetje za timeshare, kjer je to najboljšemu prodajalcu dvignilo dohodek za več kot desetkrat, uvedba po vsej državi pa je podjetje pomnožila. Novi prodajalci vadijo na slabih leadih, kjer so izgube najmanjše. Pritožbe o kakovosti leadov gredo vodji na štiri oči, nikoli pred skupino.
+
+##### Klic: vprašanja, diagnoza, kratek pitch
+
+- **Skripte iz vprašanj.** Približno 12 vprašanj z enim ali dvema podvprašanjema. Brez odstavkov, ker prodajalci izjave preberejo na glas. Closer izreče samo tri stvari: vprašanja, povzetke in kratke zgodbe, ki razbijejo eno prepričanje.
+- **Diagnoza pred receptom.** Trenutno stanje, želeno stanje, ovira in vsak pretekli poskus, z besedami potencialne stranke. Ne pitcha, dokler ne pričakuje »da«. Potencialna stranka naj govori približno dve tretjini časa.
+- **Trije stebri kot analogije.** Rešitev razdeli na tri sestavne dele in pokaži, da je vsakemu preteklemu poskusu manjkal vsaj eden. Vsak steber dobi metaforo ali 30-sekundno zgodbo, celoten pitch pa traja približno dve do tri minute. Prodajalci se na pamet naučijo samo teh zgodb in odgovorov na ugovore.
+
+##### Teorija ugovorov
+
+Ugovori spadajo v tri skupine: okoliščine (čas, denar, ustreznost), drugi ljudje (zakonec, partner) in jaz (dvom vase). Globlja kot je skupina, bližje si pravemu razlogu.
+
+| Rečejo | Navadno pomeni | Njegova smer |
+|---|---|---|
+| Nimam časa | Še ni prioriteta | Vprašaj, kaj se je spremenilo, odkar so rekli, da lahko vložijo čas; ovrednoti ceno čakanja |
+| Nimam denarja | Ne vidijo vrednosti | Iznajdljivost, ne viri (resourcefulness, not resources); preveri prepričanje prodajalca |
+| Zakonec ali partner | Želi podporo, ne dovoljenja | Oprimi se preteklih dogovorov: partnerju problem že zdaj ni všeč |
+| Vprašanja o podrobnostih | Preferenca: »tvoj rezultat, na moj način« | Najprej vprašaj, kakšen odgovor potrebujejo |
+| »Bom premislil« | Izogibanje odločitvi | Vprašaj za glavni pomislek, nato česa se bojijo |
+
+Verjetne ovire odpri pred ceno, ko so vložki še nizki. Po ceni postanejo ugovori. Pri vsakem Alex pritrdi, poveže (pogosto prek pretekle stranke kot tretje osebe) in postavi naslednje vprašanje. Njegov najpogosteje uporabljen close odigra najboljši in najslabši možni izid.
+
+##### Stopnice navzdol namesto popustov
+
+Izhaja iz prepričanja, da vsak nekaj kupi. Za zaprtje posla nikoli ne zniža cene. Namesto tega gre po vnaprej pripravljeni lestvici navzdol (step-down): popust za predplačilo, financiranje prek tretje osebe, delno predplačilo, obročno plačilo, nato manjša zaveza. Nižjo ceno zamenja za nekaj v zameno (daljša vezava, mnenje stranke, priporočilo) ali doda bonus. Če približno šest stopnic ne zaleže, sklepa, da problem ni bil denar in da je stranka odklopila že prej v klicu.
+
+##### Etična varovalka
+
+Prodajo opisuje kot prenos prepričanja čez most zaupanja. Če stranka ne bi kupila, ko bi vedela vse, kar veš ti, je njen »da« prevara. Ljudi, ki jim ponudba ne bo pomagala, zavrne. S kvalificirano stranko in poštenimi dejstvi pa ponovno vprašati zanj pomeni obveznost.
+
+##### Stisk roke ob predaji v uspeh strank
+
+V eni uri po zaprtju naslednja oseba pošlje oseben video, ki ponovi kupčev cilj. To zmanjša kupčev dvom po nakupu. Prodaja in uspeh strank (customer success) vsak teden skupaj pregledata posnete klice, da se obljube ujemajo z izvedbo.
+
+##### Trening: vaje, posnetki, en popravek naenkrat
+
+- Dnevno igranje vlog za en kratek del skripte, takojšen popravek in več pravilnih ponovitev zapored.
+- Najprej doslednost skripti: če se je nihče ne drži, ne moreš vedeti, ali je problem v skripti.
+- Snemaj vsak klic. Vodja posluša na dvojni hitrosti, izbere enega ali dva popravka z največjim učinkom na odstotek zaprtih, da kratko povratno informacijo in nato popravek vadi v igri vlog. En popravek naenkrat.
+- Prepričanje poganja ton: mnenja strank, prebrana na glas na jutranjem sestanku, najbolje s strani prodajalca, ki je to stranko zaprl.
+
+##### Lestvice, rezi, plačilne lestvice, zaposlovanje
+
+Dnevno posodobljena lestvica uspešnosti in tekmovanja vsakih štiri do šest tednov, v majhnih ekipah, da si prodajalci delijo, kaj deluje. Najslabše redno odreži (omenja približno 10 % na četrtletje), po kratkem načrtu izboljšave. Plačilo privabi prodajalce, redko pa spremeni njihovo vedenje, razen plačila po pobranem denarju. Vidna karierna lestvica (setter, kvalifikator, closer, z objektivnimi cilji in spuščanjem nazaj) daje vstopnim vlogam prihodnost, visok zaslužek najboljšega pa postane oglas za zaposlovanje. Zaposluj prek skupinskih razgovorov in testa sprejemanja povratne informacije, raje vzemi ljudi, ki verjamejo v izdelek, kot izkušene closerje in najboljšega closerja ne postavi za vodjo.
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### Coaching podjetje z webinarskim lijakom (hotseat, visoke šestmestne številke na mesec)
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Odstotek prihodov na webinar približno 18 %, po webinarju zaprtih 14 %, CAC približno 5.800 $.
+</div>
+<div class="after" markdown="1">
+**Po.** Opomniki po vseh kanalih, pošteno pomanjkanje, napisan uvod v klic, igranje vlog in metrike po prodajalcu. Ob enaki porabi za oglase je število rezerviranih klicev zraslo z 58 na 102, odstotek zaprtih na 35 %, CAC pa je padel na približno 2.900 $.
+</div>
+</div>
+
+Oglasi se niso spremenili. Rast je prišla iz prihodov, uvoda v klic in treninga.
+
+##### Veriga storitvenih poslovalnic (podjetje iz portfelja, 14 lokacij)
+
+Zaposleni so prodajali posamezne termine. Po skrivnostnem nakupu (secret shopping) je Alex napisal diagnostični proces: vprašalnik pred prodajo, kartico vzeto med »nastavljanjem profila«, stranko, ki sama izbere svoj cilj, ceno, postavljeno za pot do tega cilja, in lestvico predplačil navzdol, vgrajeno v blagajniški sistem. Prihodek na stranko je zrasel s približno 200 $ na približno 800 $, veriga pa je v približno 18 mesecih zrasla na 32 lokacij. Storitev sama je ostala enaka.
+
+##### Analitično svetovanje (izmišljen B2B primer)
+
+Qlik svetovalno podjetje na zahteve za demo odgovori naslednji dan in klice rezervira teden dni vnaprej. Popravek: pokliči v nekaj minutah, ponudi termin danes ali jutri, pošlji 5-minutni video končane nadzorne plošče. Pitch ima tri stebre (zanesljivi podatki, en model za vse, odgovori v sekundah), vsakega z analogijo. Ugovori o ceni gredo po lestvici navzdol: predplačan projekt, plačilo po fazah, nato plačan dvotedenski pilot.
+
+#### Pogoste napake
+
+- **Piljenje pitcha, medtem ko leadi čakajo.** Počasen odziv, termini čez teden dni in brez opomnikov stanejo več prodaj kot šibko zapiranje.
+- **Enakomerno deljenje leadov.** Enakomerna razporeditev zapravi najboljše leade na najšibkejših prodajalcih.
+- **Improvizirani popusti.** Nenačrtovana znižanja cene zvenijo kot prosjačenje in znižajo zaupanje.
+- **Trening z deljenjem skript.** Brez dnevnih vaj in pregledov klicev prodajalci zdrsnejo, skripte pa nihče ne more diagnosticirati.
+
+#### Kako bi to uporabil Alex
+
+- **Najprej popravi tisto okoli klica.** Hitrost odziva, termini za isti dan in opomniki pridejo pred spremembami skripte.
+- **Odstotek prihodov in odstotek zaprtih obravnava enako.** 20-odstotni dvig katerega koli je vreden enako, zato izbere tistega, ki je s tvojega izhodišča lažji.
+- **Leade razporeja premišljeno:** najboljše ubijalcem, najslabše pripravnikom, brez pritoževanja pred skupino.
+- **Za zaprtje nikoli ne zniža cene.** Spremenijo se pogoji ali sestavni deli, cena nikoli, testi cene pa so načrtovani vnaprej.
+- **Trenira en popravek naenkrat** in prodajalce presoja po podmetrikah, ne le po odstotku zaprtih.
+- **Ustanovitelj naj prodaja do približno 1 M $,** nato preveri, ali model še deluje, ko prodajalci zapirajo s polovico njegovega odstotka.
+- **Vprašanja, ki bi jih postavil:** Kako hitro pokličeš nove leade? Kolikšen delež rezervira, pride, dobi ponudbo in kupi? Kako zasedeni so koledarji? Ali se ekipa skripte drži od besede do besede? Kateri en popravek bi temu prodajalcu najbolj dvignil odstotek zaprtih? Bi en prodajalec več zaslužil več, kot stane?
+
+#### Delovni list
+
+Odgovori pisno s številkami zadnjega meseca.
+
+1. **Hitrost:** Kolikšna je mediana časa od prijave do prvega klica? Kdo je zanj odgovoren?
+2. **Lijak:** Kolikšen delež leadov je rezerviral, prišel, dobil ponudbo in kupil? Kateri korak najbolj zaostaja za ostalimi?
+3. **Razporejanje:** Katera ena ali dve lastnosti leada napovedujeta nakup? Kdo danes dobi najboljše leade?
+4. **Pitch:** Kateri so tvoji trije stebri in katera analogija pojasni vsakega?
+5. **Ugovori:** Naštej tri najpogostejše ugovore in lestvico navzdol, ki jo uporabiš namesto popustov.
+6. **Trening:** Kdaj si nazadnje posnel, pregledal in v igri vlog vadil klic, in kateri je bil tisti en popravek?
+
+#### Viri
+
+- [The Ultimate Sales Training for 2026 [Full Course]](https://www.youtube.com/watch?v=StVqS0jD7Ls&t=192s) — hitrost odziva, termini, opomniki, razporejanje leadov, teorija ugovorov, etika (03:12)
+- [Sales Was Hard Until I Understood These 9 Concepts](https://www.youtube.com/watch?v=cy2k1GdA-9o&t=1622s) — tri naloge prodajalca, premik terminov naprej, okoliščine/drugi ljudje/jaz (27:02)
+- [How I Scaled My Sales Team [Compensation, Recruiting & Training]](https://www.youtube.com/watch?v=okA9Yt2KZuk&t=1486s) — karierna lestvica, ravni plačila, stisk roke ob predaji (24:46)
+- [I Taught 116+ Salesmen My Closing Framework](https://www.youtube.com/watch?v=q32-l3Yoqg4&t=1045s) — trije stebri, prepričanje, dnevni trening (17:25)
+- [3 Simple Steps To Close Any Sale](https://www.youtube.com/watch?v=CojS0DwflXc&t=667s) — vprašanja namesto poučevanja, brez pitcha pred pričakovanim »da« (11:07)
+- [After Closing 4000+ Sales, I Discovered a New Method to Close Deals Faster](https://www.youtube.com/watch?v=RVbvhPGFi6E&t=191s) — pritrdi, poveži, vprašaj; etika ponovnega vprašanja (03:11)
+- [10x Revenue with 1 New Sales Process (You Can Steal It)](https://www.youtube.com/watch?v=1UhvBSQFy6A&t=1636s) — diagnostična prodaja, lestvica predplačil navzdol (27:16)
+- [How To Close Everyone Downselling Like A Pro (ALEX HORMOZI)](https://www.youtube.com/watch?v=gza5RtQCVsA&t=95s) — nižja cena v zameno za zaveze (01:35)
+- [How To Build Large Sales Teams (Starting from 0)](https://www.youtube.com/watch?v=2lA_A8BGRRs&t=236s) — vodjev cikel pregledov, uvajanje, rezi in načrti izboljšav (03:56)
+- [How I Built A 20+ Sales Team [The Process]](https://www.youtube.com/watch?v=bgmh7p1s7zs&t=529s) — lestvica uspešnosti, ekipna tekmovanja, rez najslabših (08:49)
+- [This Business Was Stuck. Here's How I Fixed It.](https://www.youtube.com/watch?v=4GQLJjH9-oA&t=769s) — preobrat odstotka prihodov in zaprtih (12:49)
+- [The Mathematics of Business, Explained](https://www.youtube.com/watch?v=A_tx40lNpf8&t=1499s) — zasedenost koledarja, hitrost odziva (24:59)
+
+## Zaposlovanje in talenti
+
+- id: hiring-and-talent
+- book: Alex's Playbook / Sales and people
+- original term: Who, not how
+- key: Najprej kdo, potem kako. Zaposli A-igralce z najmanjšo vrzeljo v veščinah, plačaj jih dobro in opravi veliko več razgovorov, kot se zdi smiselno.
+- related: delegation-and-owner, constraint, sales-machine, stages-of-growth, business-math
+
+Ko je prva faza mimo, podjetje raste tako hitro, kot zna zaposlovati. Alex vidi talent kot dolgoročno ozko grlo in zaposlovanje vodi z enakim lijakom, metrikami in standardi kot pridobivanje strank.
+
+#### Bistvo
+
+Skoraj v vsakem predavanju o rasti Alex pride do istega: ko je povpraševanje rešeno, podjetje raste samo tako hitro, kot zna najti, izučiti in obdržati dobre ljudi. Ko lastnik našteje šest problemov, jih Alex pogosto prebere kot enega: podjetju manjkajo približno trije višji kadri. Nad približno 30 milijoni dolarjev letno svoje lastno ozko grlo opiše kot čisti talent.
+
+<div class="formula" markdown="1">
+**Hitrost rasti** = **hitrost zaposlovanja talentov**. Najprej vprašaj »kdo« (who), šele potem »kako« (how): najhitrejši odgovor je pogosto nekdo, ki je to že naredil.
+</div>
+
+To podpre z neposredno ekonomiko. V njegovem okviru A-igralec (A-player) stane malo več in ustvari večkrat toliko, zato je pošteno plačilo pravemu človeku ena največjih arbitraž v poslu. Njegova ponavljajoča se pravila palca: zaposli, ko sproščeni čas ali kapaciteta vrne večkratnik plače (omenja 4- do 5-krat), in vsak nov plačni razred obravnavaj kot novo ozemlje, ki ti pokaže talent, za katerega nisi vedel, da obstaja.
+
+#### Kako deluje
+
+##### Zaposlovanje je drugi lijak
+
+V vsaj petih videih zaposlovanje opiše kot zrcalo prodajnega lijaka: pridobivanje prijav, negovanje prijav, razgovor (ki je prodajni pogovor), uvajanje in usposabljanje (izvedba), nato zadrževanje in napredovanje. Uporabljaš iste kanale kot za stranke: oglase, vsebino, lastne sezname, neposredno nagovarjanje, tudi prevzemanje ljudi iz drugih podjetij, priporočila in govorico. Spremljaš podobne številke: nagovore na razgovor, finalne kandidate na zaposlitev, strošek in čas do zapolnitve, neto število zaposlenih po odhodih.
+
+Njegova pravila palca: v enem primeru približno 100 nagovorov na LinkedInu na eno zaposlitev, dobri kandidati pa so s trga v približno 8 dneh, zato te počasen prvi odziv stane kandidata. Bonuse za priporočila odmeri glede na bruto dobiček, ki ga nov človek ustvari.
+
+##### Dva testa na razgovoru
+
+Ponavljata se v več predavanjih:
+
+1. **Metrike.** Koliko relevantnih metrik kandidat uporabi, ko opisuje svoje delo, in kako dobro jih pozna? Kdor ne zna opredeliti izida, ga ne bo dosegel. Dober kandidat za kadrovsko ga je nekoč sam spraševal o strošku zaposlitve, času do zapolnitve in obojestranskem ujemanju po 90 dneh.
+2. **Denar.** »Kako to, kar delaš, podjetju prinaša denar?« Nejasnih odgovorov ne sprejme. Vodja prodaje naj govori o dvigu konverzije na vseh leadih ekipe, finančni vodja o zniževanju stroškov in o številkah kot podlagi za odločitve.
+
+Za vodstvene vloge doda tretjega: če se od kandidata na razgovoru ne naučiš ničesar, ga ne zaposli. Za konkretne vloge raje kot hipotetična vprašanja pokaže pravi problem: dejanske številke in vprašanje, kako bi se ga lotil.
+
+##### Število razgovorov je metoda
+
+Opravi veliko več razgovorov, kot se zdi smiselno. Količina najde izjemo in trenira tvojo presojo: do petdesetega razgovora za isto vlogo že vidiš, kdo je dober. Navaja partnerja, ki je opravil razgovore s približno 600 razvijalci, da je našel tehničnega soustanovitelja, in svojih pet vodij prodaje, preden je eden deloval. Za vloge od prve linije do vodje uporablja skupinske razgovore, kjer močni kandidati govorijo jasno in pomagajo nervoznim. Pri vlogi, ki je ne razumeš, so razgovori tvoje izobraževanje.
+
+##### Koga zaposliti
+
+- **Najmanjša vrzel v veščinah (smallest skill gap).** Vsaka veščina je naučljiva; vprašanje je, koliko stane, da jo naučiš. Izberi kandidata, ki mu manjka veščina, ki se jo najhitreje nauči.
+- **Izkušnje, ki jih lahko kupiš.** Za višje vloge zaposli nekoga, ki je podobno podjetje že pripeljal od tvoje velikosti do velikosti, ki jo želiš, idealno z okoli desetimi leti v funkciji. Njegove napake je plačal nekdo drug.
+- **Voditelji pred menedžerji.** Ljudi oceni na treh ravneh: posameznik (ve, kaj), menedžer (ve, kako, in to uči), voditelj (zgradi sistem, ki uči ljudi). Pravi, da voditelje potrebuješ od približno 3 milijonov dolarjev letno.
+- **Prve zaposlitve.** Prvih pet ali tako je podaljšek tebe in prevzamejo ponavljajoče se delo nizke vrednosti: podporo in administracijo, nato setterja ali prodajalca, pomoč pri marketingu, zunanjega knjigovodjo, tehnika. Če dobro prodajaš, prodajo zaposli kasneje.
+- **Dvig povprečja (bar raiser).** Zaposli samo ljudi, ki dvignejo povprečje ekipe, v katero pridejo, ker ljudje radi zaposlijo malo slabše od sebe.
+
+##### Tveganje napredovanja
+
+Njegovo najpogostejše opozorilo: najboljši closer je redko najboljši vodja prodaje. Lovci (hunters) redko želijo učiti. Vsako raven oceni posebej, najboljšemu pokaži menedžerjev dan, še preden zanj prosi, in zgodnje nazive drži skromne, da ostane prostor za zaposlitev nad njimi. Če napredovanje spodleti, mu preoblikuj vlogo in postavi nekoga nadenj ali pa se razidita. Prevzemi svojo napako in izkušenega človeka predstavi kot naložbo v njegovo kariero.
+
+##### Standardi, toleranca in kultura
+
+Najšibkejša ekipa ima vodjo, ki največ tolerira. Dolg seznam pravil je po njegovem znak nizkih standardov in napačnih zaposlitev. Glavni naj bo človek z najvišjimi standardi. Njegov sistem kulture prodajne ekipe: vidna dnevna lestvica, jasni KPI-ji, tekmovanje vsakih 4 do 6 tednov in vsako četrtletje odhod spodnjih 10 %. Visokozmogljiva kultura ima kljub pogostemu odpuščanju nizko fluktuacijo, ker močni ostanejo.
+
+##### Odpuščanje in plače
+
+Dva tedna pod KPI pomenita načrt izboljšanja (PIP); še dva tedna brez napredka pomenita odhod, in novi zaposleni to slišijo prvi dan. Slabšega izvajalca redko premakne v drugo vlogo (pravi, da je to v devetih primerih od desetih napaka). O plačah: spremeni jih samo, če rešuješ problem privabljanja ali zadrževanja talentov, ker povišic ne moreš vzeti nazaj. Preden odobriš novo zaposlitev, zahtevaj urno izkoriščenost ekipe. Ne zaposluj pred rastjo, z izjemo prodajalcev na proviziji.
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### Prodajalec rabljenih avtomobilov s preveč prioritetami
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Dobičkonosna prodaja rabljenih avtomobilov (okoli 500–600 tisoč dolarjev dobička) hoče hkrati blagovno znamko, oglase na družbenih omrežjih, linijo gospodarskih vozil in servis, vse pa vodi lastnik.
+</div>
+<div class="after" markdown="1">
+**Po.** Alex to prebere kot problem manjkajočih ljudi: približno tri višje zaposlitve. Najprej finančnik, ki mora v 90 dneh najti prihranke v višini svoje plače. Nato operativca za servis in prodajni plac. Šele potem se lastnik s sproščenim časom loti linije gospodarskih vozil.
+</div>
+</div>
+
+Finančnik financira naslednjo zaposlitev, vsak višji kader pa z lastnikovega seznama odstrani cel problem.
+
+##### Veleprodajni posel po slabem napredovanju
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Število poslov pade s približno 70 na 40 na mesec, ko odideta vodja prodaje in drugi najboljši closer. Najboljši closer napreduje in slabo vodi. Lastnik hoče zaposliti direktorja prodaje.
+</div>
+<div class="after" markdown="1">
+**Po.** Lastnik se prodaje nauči sam, poenostavi en scenarij, ga uveljavi za vse in uči s pregledom posnetih klicev in vajami.
+</div>
+</div>
+
+Napredoval je napačen tip osebnosti, prodajno vodeno podjetje, katerega lastnik ne zna voditi prodaje, pa ostane talec tistega, ki jo vodi.
+
+##### Samostojna agencija, ki se boji prve zaposlitve
+
+Samostojna agencija za oglase z okoli 90 tisoč dolarjev dejanskega dobička je vprašala, kako narediti prvo zaposlitev. Alexova diagnoza: model ne deluje in zaposlitev bi problem samo povečala. Pred zaposlovanjem je treba ceno na stranko dvigniti 10-krat ali 10-krat izboljšati učinkovitost izvedbe, ker ni marže, s katero bi koga plačal.
+
+##### BI svetovalno podjetje zaposluje višjega svetovalca (izmišljeno)
+
+| Korak | Šibko | Močno |
+|---|---|---|
+| Iskanje | En oglas in čakanje | Nagovarjanje svetovalcev v podjetjih, ki jih ceniš, bonus za priporočila, vsebina za kandidate |
+| Izbor | Življenjepis in certifikati | Skupinski klic, nato »katere metrike spremljaš na projektu?« |
+| Finale | Pogovor o orodjih | Pravi podatkovni model stranke in vprašanje: »kako bi čas izdelave poročil prepolovil?« |
+| Odločitev | Prvi spodobni kandidat | Po 20+ razgovorih, samo če dvigne povprečje ekipe |
+
+#### Pogoste napake
+
+- **Zaposliš prvega spodobnega.** Brez količine nimaš ne primerjave ne presoje.
+- **Samodejno napredovanje najboljšega.** Lahko izgubiš odličnega izvajalca in dobiš slabega vodjo.
+- **Varčevanje pri plači za ključno vlogo.** Nekaj tisočakov prihranka pri človeku, ki podjetje pomakne leta naprej, je po njegovem lažna ekonomija.
+- **Zaposlovanje brez sistema.** Brez kanalov, hitrosti in metrik, nato pa sklep, da dobrih ljudi ni.
+- **Toleriranje nizkih standardov zaradi miru.** Toleranca postane kultura.
+
+#### Kako bi to uporabil Alex
+
+- **Preveri, ali je talent res ozko grlo.** Če model nima marže, pred vsako zaposlitvijo popravi ceno ali izvedbo.
+- **Ko je zaposlovanje ozko grlo, postane lastnikova naloga,** močno zgoščena: veliko razgovorov v enem tednu, spremljanih kot prodajni lijak.
+- **Za višje vloge kupi izkušnje** in sprejme kratkoročen padec dobička, da plača višje voditelje, kar razume kot preskok let napak.
+- **Na razgovoru uporabi oba testa** (metrike in kako vloga prinaša denar) in zavrne voditelje, od katerih se ne more naučiti ničesar.
+- **Standarde postavi vidno in jih uveljavi za vse,** tudi za najboljšega, s časovno omejenimi načrti izboljšanja.
+- **Zavrača** premeščanje neuspešnih ljudi v druge vloge, napihnjene nazive v majhnih ekipah in povišice, ki ne rešujejo problema zaposlovanja ali zadrževanja.
+- **Vprašanja, ki bi jih postavil:** Če bi imel deset takih, kot je tvoj najboljši, bi zaslužil več? Kaj ta teden delaš, da zaposluješ? Koliko kandidatov potrebuješ na zaposlitev in kako hitro jih prvič kontaktiraš? Katere metrike ta človek uporablja pri svojem delu? Kako njegova vloga prinaša denar? Ali ta zaposlitev dvigne povprečje ekipe?
+
+#### Delovni list
+
+Pisno odgovori za svojo naslednjo ali najpomembnejšo zaposlitev.
+
+1. **Ozko grlo:** Ali te pri rasti res ustavlja talent, ali pa cena, povpraševanje ali model?
+2. **Donos:** Kaj bo ta človek sprostil ali ustvaril, in ali je to vsaj večkratnik njegovega stroška?
+3. **Lijak:** Katere kanale boš uporabil, koliko kandidatov potrebuješ na zaposlitev in kako hitro boš odgovoril?
+4. **Testi:** Katere metrike bi moral našteti dober kandidat in kateri pravi problem mu boš dal v finalnem krogu?
+5. **Standardi:** Česa ne boš več toleriral in kakšno je zapisano pravilo o načrtu izboljšanja, ki ga novi slišijo prvi dan?
+
+#### Viri
+
+- [13 Years Of Brutally Honest Business Advice in 90 Mins](https://www.youtube.com/watch?v=KhFlD54nQrY&t=1098s) — oba testa na razgovoru, dvig povprečja, arbitraža A-igralcev in njegove številke o donosu talentov (18:18)
+- [How to Build a Business That Runs Without You](https://www.youtube.com/watch?v=TLpLmhWqKEU&t=1579s) — število razgovorov, skupinski razgovori, zgodba o 600 razgovorih (26:19)
+- [How I recruit the best employees in the world...](https://www.youtube.com/watch?v=Lxp-e5NionA&t=97s) — zaposlovanje kot zrcalo prodajnega lijaka (01:37)
+- [The Talent Grid - How I Recognize Skill in Self & Team](https://www.youtube.com/watch?v=gpKz22P84iM&t=143s) — ravni posameznika, menedžerja in voditelja (02:23)
+- [The first 5 hires EVERY entrepreneur should make...or go broke...](https://www.youtube.com/watch?v=7NqsFh5ej0w&t=47s) — vrstni red prvih zaposlitev (00:47)
+- [How To Build Large Sales Teams (Starting from 0)](https://www.youtube.com/watch?v=2lA_A8BGRRs&t=332s) — standardi, toleranca, PIP in pravila odpuščanja (05:32)
+- [All Entrepreneurs Have Only 1 Problem...](https://www.youtube.com/watch?v=-is6Z2T2h8o&t=378s) — kako prepoznati A-igralca in kdo naj vodi (06:18)
+- [I Reverse Engineered the Perfect Business](https://www.youtube.com/watch?v=HKbFUWJwEG0&t=669s) — višje plačilo za A-igralce, skromni nazivi, izkušeni operativci (11:09)
+- [Recruiting and Hiring Tips - How to Hire The Best Employees](https://www.youtube.com/watch?v=cemduJKQl5w&t=1254s) — kdaj spremeniti plače in izkoriščenost pred zaposlitvijo (20:54)
+- [10 Millionaires Asked Me How to Get Richer](https://www.youtube.com/watch?v=6m6DCQMASEM&t=1167s) — manjkajoči višji kadri in finančnik, ki se sam financira (19:27)
+- [Every business is limited by the constraint. Here's how to find it.](https://www.youtube.com/watch?v=QtE6kk0158o&t=143s) — matematika lijaka zaposlovanja in skupinski razgovori (02:23)
+
+## Delegiranje in vloga lastnika
+
+- id: delegation-and-owner
+- book: Alex's Playbook / Sales and people
+- original term: Buy back your time
+- key: Časovna študija → seznam opravil → proces → odločitvena pravila z omejitvami → KPI-ji → predaja pri ~80 % kakovosti
+- related: hiring-and-talent, constraint, enterprise-value, stages-of-growth, focus-and-subtraction
+
+Alex ima ustanovitelja za privzeto ozko grlo. Čas odkupuje v stalnem vrstnem redu in delegira prek zapisanega sistema, dokler podjetje ne raste tudi takrat, ko lastnika ni.
+
+#### Bistvo
+
+Na začetku je podjetje oklep, ki lastnika pomnoži, a se brez njega ne premakne. Alexov cilj je podjetje, ki ustvarja vrednost brez tebe: šele takrat je vredno nekaj komu drugemu in šele takrat se lahko umakneš. Dve podjetji z enakim dobičkom sta vredni zelo različno, če eno potrebuje lastnika osemdeset ur na teden.
+
+<div class="formula" markdown="1">
+**Delegiranje** = časovna študija → seznam opravil → **proces** → odločitvena pravila z omejitvami → **KPI-ji** → test zrelosti (približno 80 % tvoje kakovosti) → senčenje, nadzor, podpora
+</div>
+
+To razume kot zaporedje odpovedovanja nadzoru. Na vsaki stopnji je tisto, česar se oklepaš, naslednje, kar moraš predati, in vedno je neprijetno. Predaja nadzora nikoli ne pomeni predaje odgovornosti: za rezultat ostaneš odgovoren in dovolj blizu, da veš, kje so problemi.
+
+#### Kako deluje
+
+##### Vrstni red odkupa časa
+
+V več predavanjih je vrstni red enak:
+
+1. Nizkokvalificirana podpora in izvedbena opravila.
+2. Administracija: računi, izterjava, pogodbe. Nato spremljanje denarja, ko ga nekdo spremlja bolje od tebe (ti ga še vedno gledaš).
+3. Prodaja. Strop prodaje, ki jo vodi ustanovitelj, postavi pri okoli milijonu dolarjev letno.
+4. Vodenje prodajne ekipe. To umesti približno med 3 in 10 milijonov.
+5. Vodenje voditeljev. Od približno 10 do 30 milijonov vodiš majhno skupino, kultura pa potuje prek nje.
+
+Pravilo za vsako opravilo: če ga trg naredi za delček vrednosti tvoje ure, ga predaj, tudi če verjameš, da ga nihče ne naredi tako dobro. Sproščeni čas mora iti v delo z večjo vrednostjo. Ustanovitelji, ki čas sprostijo in ga nato ne zapolnijo z ničimer, vidijo padec marž.
+
+##### Sistem delegiranja
+
+1. **Časovna študija.** Teden dni beleži, kaj delaš, vsakih 15 minut. Vsako opravilo zapiši čim bolj podrobno. Isto študijo uporabi pri vsakem ključnem zaposlenem, od katerega je podjetje preveč odvisno.
+2. **Oseba, proces ali projekt.** Ob vsako opravilo zapiši, ali potrebuje osebo, proces ali enkraten projekt. Oceni ga zeleno (lahko predaš takoj), rumeno (najprej moraš zgraditi proces) ali rdeče (manjka ti veščina ali človek). Najprej počisti zelena, nato rumena, nato rdeča.
+3. **Odločitvena pravila.** Dokumentiraj tudi odločitve, ne le opravila: če se zgodi to, naredi tisto. Bolj ko je vloga ponavljajoča, bolj standardna so pravila. Vsakemu daj pooblastilo za porabo brez odobritve; njegovi primeri so do 500 dolarjev na odločitev z mesečno omejitvijo 5.000 ali operativec, ki lahko porabi do 1.000, ne da bi ga klical. Mesečni finančni pregled ujame zapravljanje.
+4. **KPI-ji.** Vsakega vprašaj, kako njegova vloga podjetju prinaša denar. Če ne zna odgovoriti, mu pomagaj, na primer tako, da stroške slabo opravljenega dela obrneš v KPI-je.
+5. **Test zrelosti.** Ali doseže 100 % rezultata pri približno 80 % tvoje kakovosti? Ob predaji sprejme 60 do 80 %, če je pot izboljšanja jasna, ljudi pa ocenjuje po tem, kako hitro napredujejo.
+6. **Predaja.** Najprej te senčijo, nato jih nadziraš, nato si na voljo, a nisi vpleten.
+
+##### Dokumentiraj, pokaži, podvoji (document, demonstrate, duplicate)
+
+Njegova metoda učenja se ponavlja v hotseatih in prodajnih predavanjih: napiši kontrolni seznam, opravilo naredi pred njimi samo po seznamu, nato ga oni naredijo pred tabo, ti pa takoj popravljaš. Koraki naj bodo dovolj preprosti za nekoga brez izkušenj. Če nimaš zapisanega procesa, se posnemi pri delu: struktura je že tam.
+
+##### Vedi, kje so zakopana trupla (know where the bodies are buried)
+
+Delegiranje uspe le, če rezultati funkcije po predaji ostanejo enaki ali se izboljšajo. Če padejo, si odgovornost odvrgel (abdication). Od lastnika pričakuje, da zna našteti trenutne probleme vsakega oddelka. Če oddelek prinaša samo dobre novice, si predaleč. Rešitev je več vpogleda, nikoli vračanje nadzora k sebi.
+
+##### Testi neodvisnosti od lastnika
+
+- Nisi v podjetniškem klepetu, doseže te lahko ena oseba, s to osebo se dobiš enkrat na teden, podjetje pa raste.
+- Osnovni prehod: mesec dni odsotnosti in nič ne zgori. Pravi prehod: tri mesece odsotnosti (v drugem videu šest) in podjetje raste. Priporoča, da si čas res vzameš, popraviš, kar se pokvari, in ponoviš.
+- Nov operativec mora lastniku prinesti več časa. Če mu predvsem ustvarja nova opravila, ne deluje.
+- Za učenje presoje vprašaj zaposlene »kaj misliš, da bi rekel jaz?« in jim reci, naj naredijo to.
+
+##### Ko delo ni opravljeno
+
+Dve predavanji dajeta isti trikotnik. Preden presodiš človeka, preveri:
+
+| Vzrok | Vprašanje | Rešitev |
+|---|---|---|
+| Pričakovanje (kaj) | Sem ga jasno izrazil, pisno, in je v njegovem poročanju? | Zapiši ga z rokom; pogosto ga preverjaj |
+| Usposobljenost (kako) | Ali ve, kako, glede na svojo obremenitev? | Naredita skupaj, posnemi, določi način poročanja |
+| Motivacija (zakaj) | Ali ve, zakaj je to pomembno za podjetje in zanj? | Pojasni zakaj; preveri, ali ga plačni načrt nagrajuje |
+
+Začne pri »verjetno sem kriv jaz« in najprej preveri pričakovanje. Če sta komunikacija in usposabljanje urejena in se nič ne spremeni, to poimenuje kot motivacijo in opravi neposreden pogovor. Premestitev človeka v drugo vlogo je navadno napaka.
+
+##### Ustanovitelj skriva pravo ozko grlo
+
+Njegovo najostrejše opažanje: ustanovitelji še naprej delajo to, kar imajo radi in v čemer so dobri, predajo pa, česar ne marajo. Njihove prednosti postanejo ozko grlo. Človek iz medijev optimizira medije, closer študira zapiranje prodaje. Če ne maraš dela z ljudmi, je tvoje ozko grlo verjetno zaposlovanje in vodenje. Rast zahteva spremembo identitete: od najboljšega prodajalca ali trenerja do človeka, ki uči in nato zgradi sistem. »Ne zaupam ljudem« po njegovem ni sprejemljiv razlog.
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### Lastnik terenskega servisa, ki je v vsem
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Vrhunsko podjetje za terenske storitve, okoli 1,5 milijona dolarjev prihodkov in 700 tisoč neto. Vsak tehnik prinese 180–300 tisoč letno. Lastnik vztraja, da je vpleten v vse, in je nehal zaposlovati.
+</div>
+<div class="after" markdown="1">
+**Po.** Enotedenska časovna študija, spodnja polovica njegovih aktivnosti predana, sproščeni čas pa gre v iskanje tehnikov po vsej državi s proračunom okoli 50 tisoč na zaposlitev.
+</div>
+</div>
+
+Polovica lastnikovega časa nazaj lahko podvoji podjetje, ker je tehnik vreden veliko več, kot stane, da ga najdeš.
+
+##### Zobna ordinacija, kjer en strokovnjak dela vse
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Zdravnik ustanovitelj sam vodi vse drage primere, omejen na približno 25–30 pacientov na mesec, čakalna doba pa je več tednov.
+</div>
+<div class="after" markdown="1">
+**Po.** Sodelavci prevzamejo preprostejšo polovico obiskov. Ustanovitelj postane arhitekt in učitelj. Skupaj s spremembami cene in plačil je spremljanje pokazalo dvig povprečnega posla s približno 28 na 44 tisoč dolarjev in termin v tednu dni.
+</div>
+</div>
+
+Če strokovnjaku prepoloviš obremenitev, se kapaciteta podvoji. Ustanoviteljeva identiteta se premakne od najboljšega izvajalca k najboljšemu učitelju.
+
+##### Lastnik, ki najbolje zapira prodajo
+
+Lastnik podjetja za dogodke je zaprl okoli 40 % pogovorov, dva prodajalca pa sta zaostajala. Alex je prodajalca spremenil v setterja za lastnika, še vedno na proviziji, z dnevnimi jutranjimi in večernimi preverjanji, dokler proces ni bil dovolj dokumentiran, da ga je lahko vrnil njima.
+
+##### Ustanovitelj analitskega svetovanja (izmišljeno)
+
+Ustanovitelj BI svetovalnega podjetja z desetimi ljudmi dela predprodajo, načrtovanje rešitev in preglede kode. Časovna študija pokaže 12 ur na teden za preglede. Napiše kontrolni seznam za preglede (zeleno), posname se pri treh pregledih (dokumentiraj, pokaži), nato višji svetovalec pregleduje, on pa gleda (podvoji). Po mesecu višji svetovalec opravi vse preglede pri okoli 80 % njegove kakovosti, s pravilom: eskaliraj samo spremembe skupnih podatkovnih modelov. 12 ur gre v predprodajo.
+
+#### Pogoste napake
+
+- **Odvrženje odgovornosti.** Predaš in nikoli več ne pogledaš. Rezultati padejo, lastnik pa sklene, da tega nihče ne zna.
+- **Predajaš samo, česar ne maraš.** Obdržiš opravila, ki jih imaš rad, in ta postanejo ozko grlo.
+- **Predaja opravil brez odločitev.** Brez pravil »če, potem« in omejitev porabe se vsaka izjema vrne k tebi.
+- **Čakanje na 100 %.** Če prvi dan zahtevaš svojo kakovost, ne predaš ničesar.
+- **Zapravljen sproščeni čas.** Odkupljeni čas mora iti v delo z večjo vrednostjo, sicer trpijo marže.
+
+#### Kako bi to uporabil Alex
+
+- **Začne s časovno študijo,** nikoli z ugibanjem. Dnevnik pokaže, kam gredo ure.
+- **Predaja od dna seznama vrednosti** in nadaljuje v stalnem vrstnem redu: podpora, administracija, prodaja, prodajna ekipa, voditelji.
+- **Odločitve hoče na papirju,** s pravili »če, potem« in omejitvijo porabe, da lahko ljudje ukrepajo brez klica lastniku.
+- **Postavi prag zrelosti** pri približno 80 % lastnikove kakovosti in na začetku sprejme manj, če je napredek viden.
+- **Najprej postavi diagnozo, šele nato krivi:** pričakovanje, nato usposobljenost, nato motivacija.
+- **Neodvisnost preizkusi zares:** lastnik gre za mesec dni stran, nato za dlje, in popravi, kar se pokvari.
+- **Vprašanja, ki bi jih postavil:** Kako je bil videti tvoj zadnji teden v 15-minutnih blokih? Katera opravila bi lahko kdo naredil za delček vrednosti tvoje ure? Znaš našteti trenutne probleme vsakega oddelka? Bi prodajni model deloval, če bi prodajalci zapirali pol tako dobro kot ti? So vedeli, da se to pričakuje, znajo to narediti in vedo, zakaj? Česa se oklepaš, ker te veseli?
+
+#### Delovni list
+
+To izpelji v naslednjih dveh tednih.
+
+1. **Časovna študija:** En teden beleži v 15-minutnih blokih. Katerih deset opravil ti je vzelo največ časa?
+2. **Barve:** Vsako opravilo označi zeleno, rumeno ali rdeče in zraven zapiši osebo, proces ali projekt.
+3. **Pravila:** Za najpogostejše zeleno opravilo zapiši pet pravil »če, potem« in omejitev porabe.
+4. **Prag:** Določi, kako je videti 80 % tvoje kakovosti in kako jo boš meril.
+5. **Odsotnost:** Izberi datum za teden dni odsotnosti. Kaj mora obstajati do takrat, da se nič ne pokvari?
+
+#### Viri
+
+- [How to buyback your time as a business owner](https://www.youtube.com/watch?v=awOQDy_o9ww&t=95s) — vrstni red odkupa časa in »vedi, kje so zakopana trupla« (01:35)
+- [How to Build a Business That Runs Without You](https://www.youtube.com/watch?v=TLpLmhWqKEU&t=530s) — časovna študija, odločitvena pravila, omejitve porabe, test zrelosti (08:50)
+- [If I Wanted to Create a Business That Runs Itself, Here's What I'd Do](https://www.youtube.com/watch?v=mr4Pw66_490&t=383s) — oseba, proces ali projekt in zeleno-rumeno-rdeča ocena (06:23)
+- [The SIMPLE Managerial Framework that changed my business](https://www.youtube.com/watch?v=IMowPVgcWbA&t=94s) — pričakovanje, usposobljenost, motivacija (01:34)
+- [How To Scale Yourself: The What-Why-How Framework](https://www.youtube.com/watch?v=lIC8fYbrkII&t=95s) — različica iste diagnoze s kaj, kako in zakaj (01:35)
+- [The Talent Grid - How I Recognize Skill in Self & Team](https://www.youtube.com/watch?v=gpKz22P84iM&t=381s) — test resnično delegiranega podjetja in prednosti kot ozko grlo (06:21)
+- [Give Me 47 minutes, And I'll Fix Your Small Business](https://www.youtube.com/watch?v=sjt5G3YPjmY&t=673s) — dokumentiraj, pokaži, podvoji ter delegiranje proti odvrženju odgovornosti (11:13)
+- [13 Years Of Brutally Honest Business Advice in 90 Mins](https://www.youtube.com/watch?v=KhFlD54nQrY&t=718s) — ustanovitelji delajo, kar jih veseli, namesto na ozkem grlu (11:58)
+- [How to Start a Business From Nothing (Thank Me Later)](https://www.youtube.com/watch?v=unshZobTt6Q&t=2571s) — kaj pomeni »deluje brez tebe« in pooblastila operativca za porabo (42:51)
+- [I Reverse Engineered the Perfect Business](https://www.youtube.com/watch?v=HKbFUWJwEG0&t=620s) — šestmesečni test neodvisnosti in presoja novega operativca (10:20)
+- [Helping 6 Business Owners Scale in 33 Minutes](https://www.youtube.com/watch?v=0EqJD2o-Mnk&t=942s) — primer lastnika terenskega servisa in časovna študija (15:42)
+- [This Video Should Be Required Viewing for Business Owners](https://www.youtube.com/watch?v=uaLNfijnp-8&t=474s) — ustanovitelj strokovnjak kot arhitekt in učitelj (07:54)
+
+## Faze rasti
+
+- id: stages-of-growth
+- book: Alex's Playbook / Growth and value
+- original term: Stages of growth (scaling roadmap)
+- key: Najprej izpili, nato skaliraj: nobene druge lokacije, izdelka ali podjetja, dokler prvo ni dobičkonosno in ne teče brez tebe.
+- related: delegation-and-owner, hiring-and-talent, focus-and-subtraction, constraint, more-better-new
+
+Vsaka faza prihodkov ima svoje ozko grlo in od ustanovitelja zahteva, da se odpove delu, ki ga je pripeljalo do tja. Najprej izpili trenutno enoto, šele nato jo pomnoži.
+
+#### Bistvo
+
+Alex rast razume kot zaporedje stopenj, podobno kot v videoigri. Vsaka ima drugega »šefa«, in veščine, ki so premagale prejšnjega, ne premagajo naslednjega. Zato skoraj vsako podjetje na hotseatu najprej umesti na svoj zemljevid skaliranja (scaling roadmap), ki temelji na številu zaposlenih, in šele nato svetuje: prava poteza pri 5 ljudeh je pri 50 pogosto napačna.
+
+Skozi vse se vlečeta dve pravili. Prvič, v vsaki fazi je tisto, česar se oklepaš, ravno tisto, čemur se moraš odpovedati naslednje: izvedbi, nato prodaji, nato marketingu, nato vodenju. Drugič, najprej boljše, potem večje (better before bigger). Podjetju noče pomagati pomnožiti enote, ki še ne deluje, ker s tem skaliraš le problem.
+
+<div class="formula" markdown="1">
+**Izpili** (dobičkonosna enota, teče brez tebe) → **iztisni** (več tega, kar deluje) → **šele nato pomnoži** (nova lokacija, izdelek, kanal)
+</div>
+
+#### Kako deluje
+
+##### Faze in kaj se spremeni
+
+Uporablja razrede prihodkov, meje pa se med videi nekoliko razlikujejo. To so njegova groba pravila, ne trdni zakoni.
+
+| Faza | Naloga ustanovitelja | Tipično ozko grlo | Čemu se odpoveš |
+|---|---|---|---|
+| 0–100k $ | Nekomu nekaj prodati | Kakršen koli zanesljiv pritok strank | Motnjam; opaža, da osebne težave ustanoviteljev pogosto iztirijo fazo 0–1 M $ |
+| 100k–1 M $ | En izdelek, en avatar, en kanal | Ustanoviteljeve ure prodaje in izvedbe | Izvedbi, da lahko preseže 1 M $ |
+| 1–10 M $ | Od izvajanja k poučevanju | Prodaja, ki jo vodi ustanovitelj, ima strop okoli 1 M $; od približno 3 M $ so potrebni vodje | Prodaji, nato vodenju prodajne ekipe |
+| 10–30 M $ | Od upravljanja k vodenju | Krčenje marže, odvisnost od kanala, pomanjkanje vodij | Marketingu in neposrednemu vodenju |
+| 30 M $+ | Odločanje in svetovanje | Ustanovitelj rasti ne more več poganjati osebno | Lastnemu vodenju kulture |
+
+V enem predavanju opiše, kako se vloga ustanovitelja premika od izvajanja k upravljanju, vodenju, odločanju in svetovanju. Spreminja se tudi meta-veščina v prodaji: zapri posel, nauči druge zapirati, obdrži veliko closerjev, nato zaposli nekoga, ki zna vse to. Prizna, da je tri leta obtičal pri sredini 30 M $, ker po približno treh ravneh hierarhije rasti ni mogel več poganjati sam.
+
+Na zemljevidu po številu zaposlenih omeni konkretne umestitve: okoli 10 do 19 zaposlenih je faza »produktiziraj, da optimiziraš« (productize to optimize), kjer se storitvena podjetja tipično borijo z odlivom strank (nimajo jim česa več prodati) in dragimi leadi. Opozori tudi, da je lahko isto podjetje za različne funkcije v različnih fazah.
+
+##### Prve zaposlitve in prehod od izvajalca k učitelju
+
+Prvih pet ali toliko zaposlitev so podaljšek ustanovitelja, ne oddelki. Zaposluje v obratnem vrstnem redu vrednosti: najprej administracija in podpora, nato setter ali prodajalec, pomoč pri marketingu, zunanji knjigovodja za del časa in tehnik. Merilo je razlika med tem, koliko je vredna tvoja ura, in koliko stane, da jo nadomestiš.
+
+Težji del je sprememba identitete. Ustanovitelj, ki je najboljši prodajalec ali najboljši strokovnjak, mora postati najboljši učitelj te veščine in se meriti po rezultatih ekipe. Njegova »mreža talentov« (Talent Grid) poimenuje tri ravni: posameznik (kaj), vodja (kako, s poučevanjem) in voditelj (kdo, gradi stroj, ki gradi stroj). Močni izvajalci kot vodje pogosto odpovejo, in malo vodij postane voditeljev.
+
+##### Najprej izpili, nato skaliraj (nail it before you scale it)
+
+To je eno njegovih najpogosteje ponovljenih pravil. Pred drugo lokacijo, linijo izdelkov ali podjetjem mora biti prvo dobičkonosno in teči brez ustanovitelja. V enem govoru postavi mejo pri šestih mesecih rasti brez tebe, v drugem pri trimesečni odsotnosti, ki jo podjetje preživi in med njo raste. Prezgodnje odpiranje podvoji dolg in režijo ter prepolovi talente, prekomerno širitev pa navaja kot enega glavnih vzrokov propada.
+
+Prekomerno širitev (over-expansion) definira natančno: prodaš več ljudem, kot si zaposlil in usposobil dobrih ljudi, ki jim bodo služili. Rešitev je upočasniti prodajo, zaposlovati in usposabljati, zmanjšati lastno izplačilo in sprejeti padec dobička, dokler se izvedba, odliv in priporočila ne popravijo.
+
+##### Najprej iztisni, potem dodajaj
+
+Preden množiš, preveri neizkoriščene zmogljivosti. Na več hotseatih pokaže, da podvojitev prihodka na obstoječo lokacijo doseže cilj skoraj brez dodatnih fiksnih stroškov. Ena maloprodajna veriga je obstoječe lokacije povečala približno 4-krat, preden je odprla nove. Do približno 1 M $ želi eno ponudbo, en avatar, en kanal; pod približno 10 M $ ga odvisnost od kanala ne skrbi, nad tem pa želi drugi kanal.
+
+##### Najprej boljše, potem večje
+
+Pri modelih za množični trg rast oglaševalskih stroškov, hladnejše občinstvo in težja infrastruktura z rastjo stiskajo maržo. Njegove ponazoritvene številke: marža 40 % pade na 30 % med 1 M $ in 10 M $ ter proti 10 % pri 30 M $, če se nič ne spremeni. Protiutež so priporočila od ust do ust, zato želi, da ustanovitelj nekje med 1 M $ in 5 M $ skaliranje ustavi in popravi izkušnjo strank.
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### Veriga klinik z več lokacijami (hotseat)
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Šest kupljenih lokacij, približno 5,2 M $ prihodkov in 1,2 M $ dobička. Lastnik je želel več lokacij, da doseže cilj dobička. Pritok leadov je bil neenakomeren, standardi so se med lokacijami razlikovali.
+</div>
+<div class="after" markdown="1">
+**Po.** Alexov načrt je namesto tega podvojil prihodek na lokacijo: več vložka v iskalne oglase, poceni vstopna ponudba s kartico na datoteki, prodaja isti dan po pregledu in prodajni kontrolni seznam, ki ga en vodja najprej preizkusi na eni lokaciji, preden ga uvedejo povsod.
+</div>
+</div>
+
+Fiksni stroški se ob podvojitvi obstoječe lokacije skoraj ne premaknejo, zato nove lokacije morda sploh niso potrebne. Opozoril je tudi na »čarobnost ustanovitelja« (founder magic): prva lokacija je imela ustanoviteljevo osebno privlačnost, ki je druge niso.
+
+##### Storitvena veriga z novim prodajnim procesom (predavanje)
+
+Nizko plačana ekipa na več lokacijah je dobila preprost proces, vgrajen v blagajniški sistem, tako da nobenega koraka ni bilo mogoče preskočiti. Povprečni prihodek na stranko je zrasel s približno 200 $ na približno 800 $, in šele nato je veriga v približno 18 mesecih zrasla s 14 na 32 lokacij. Paket in prodaja sta bila popravljena, preden so dodali zmogljivosti.
+
+##### Zobozdravnik-ustanovitelj na meji zmogljivosti (hotseat)
+
+En zdravnik-ustanovitelj je prevzel vse drage primere, z dva do štiri tedne dolgim čakanjem na termin in deležem zaključenih prodaj 80–90 %. Asistenti so prevzeli preprostejšo polovico obiskov, ustanovitelj je postal arhitekt in učitelj, cene so se dvignile, plačilo pa se je premaknilo vnaprej. Ob ponovnem pregledu je povprečni posel zrasel s približno 28K $ na približno 44K $, nova lokacija pa ni bila potrebna.
+
+##### Analitično svetovanje pri 700k € (izmišljeno)
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** Ustanovitelj proda vsak posel, vodi vsako implementacijo in načrtuje drugo ponudbo za novo panogo.
+</div>
+<div class="after" markdown="1">
+**Po.** Druga ponudba počaka. Ustanovitelj dokumentira izvedbo, zaposli izkušenega svetovalca, ki prevzame implementacije, in ostane pri enem avatarju in enem kanalu, dokler prihodki ne presežejo 1 M € in izvedba tri mesece ne teče brez njega.
+</div>
+</div>
+
+#### Pogoste napake
+
+- **Množenje pokvarjene enote.** Druga lokacija ali linija izdelkov na povprečni ekonomiki enote skalira problem in prepolovi talente.
+- **Oklepanje starega dela.** Ustanovitelji še naprej delajo tisto, v čemer so najboljši, zato njihova moč postane ozko grlo.
+- **Samodejno napredovanje izvajalcev v vodenje.** Močni posamezniki kot vodje pogosto odpovejo; vsako raven oceni posebej.
+- **Novo podjetje kot pobeg s platoja.** Večino platojev vidi kot vrzel v ustanoviteljevih veščinah, ne kot problem vozila. Novo podjetje obstane na isti ravni.
+- **Rast zaradi ega.** Dodajanje prodajalcev ali lokacij, ker se neka številka prihodkov zdi pomembna, brez marže in ekipe, ki bi to podprla.
+
+#### Kako bi to uporabil Alex
+
+- **Najprej umesti podjetje.** Število zaposlenih, prihodki in kdo kaj dela določijo, katera pravila faze veljajo.
+- **Poimenuje, čemu se mora ustanovitelj odpovedati naslednje,** in to predstavi kot naslednjo stopnjo, ne kot izgubo nadzora. Odgovornost ostane pri ustanovitelju.
+- **Širitev ustavi, dokler enota ni izpiljena:** dobičkonosna, z znano dobo povračila in več mesecev rasti brez lastnika.
+- **Najprej iztisne obstoječe zmogljivosti:** prihodek na lokacijo, cena, delež zaključenih prodaj, šele nato nove enote.
+- **Sprejme kratkoročni padec dobička, da zaposli vodje,** kadar je cilj onkraj ustanoviteljevih ur, in vsak višji plačni razred obravnava kot novo ozemlje.
+- **Okoli 1–5 M $ ustavi skaliranje in popravi izkušnjo,** kadar CAC raste hitreje od stroškov oglasov, kar kaže na slaba priporočila.
+- **Vprašanja, ki bi jih postavil:** Koliko ljudi dela tukaj? Ali osnovna enota pri polni zmogljivosti služi? Ali tri mesece teče brez tebe? Česa se oklepaš? Če bi podvojil stranke, kaj bi se zlomilo? Kaj si v resnici želiš: veliko lokacij, eno veliko ali izhod?
+
+#### Delovni list
+
+Odgovori pisno za svoje podjetje, kot je danes.
+
+1. **Faza:** V katerem razredu prihodkov in števila zaposlenih si? V katerem stolpcu tabele?
+2. **Oklepanje:** Katero delo (izvedba, prodaja, marketing, vodenje) še opravljaš, čeprav se mu moraš za naslednjo fazo odpovedati?
+3. **Test enote:** Je tvoja osnovna enota dobičkonosna, z znano dobo povračila, in je tri mesece rasla brez tebe?
+4. **Iztisni:** Koliko več bi lahko dala trenutna enota, preden dodaš novo lokacijo, izdelek ali kanal?
+5. **Preverba ravni:** Kateri od ključnih ljudi so izvajalci, kateri učijo in kateri gradijo sisteme? Kdo bi lahko napredoval?
+
+#### Viri
+
+- [How I Scaled My Sales Team [Compensation, Recruiting & Training]](https://www.youtube.com/watch?v=okA9Yt2KZuk&t=3964s) — razredi faz in čemu se odpoveš v vsaki, vloga ustanovitelja od izvajanja do svetovanja (66:04)
+- [How to buyback your time as a business owner](https://www.youtube.com/watch?v=awOQDy_o9ww&t=238s) — vrstni red odkupa časa, strop ~1 M $ za prodajo, ki jo vodi ustanovitelj (03:58)
+- [The Talent Grid - How I Recognize Skill in Self & Team](https://www.youtube.com/watch?v=gpKz22P84iM&t=143s) — ravni kaj, kako in kdo; vodje potrebni od ~3 M $ (02:23)
+- [The first 5 hires EVERY entrepreneur should make...or go broke...](https://www.youtube.com/watch?v=7NqsFh5ej0w&t=47s) — prve zaposlitve kot podaljšek ustanovitelja, v obratnem vrstnem redu vrednosti (00:47)
+- [How to Start a Business From Nothing (Thank Me Later)](https://www.youtube.com/watch?v=unshZobTt6Q&t=2523s) — najprej izpili, nato skaliraj; šest mesecev brez tebe (42:03)
+- [If I Wanted to Create a Business That Runs Itself, Here's What I'd Do](https://www.youtube.com/watch?v=mr4Pw66_490&t=1014s) — trimesečni test pred drugo lokacijo (16:54)
+- [Business Was Hard Until I Understood These 4 Concepts](https://www.youtube.com/watch?v=F84olnKkseM&t=926s) — definicija prekomerne širitve in kako jo popraviti (15:26)
+- [Biggest mistake that stopped me from getting past $30M](https://www.youtube.com/watch?v=EUW3rMp-Uvg&t=331s) — krčenje marže in premor za popravilo izkušnje (05:31)
+- [Building a $5,000,000 Business for a Stranger in 42 Mins](https://www.youtube.com/watch?v=sBJppqCeFGI&t=2449s) — podvojitev prihodka na lokacijo namesto novih lokacij (40:49)
+- [10x Revenue with 1 New Sales Process (You Can Steal It)](https://www.youtube.com/watch?v=1UhvBSQFy6A&t=870s) — obstoječe lokacije povečaj 4-krat, preden odpreš nove (14:30)
+- [Entrepreneurs, stop starting new businesses. Fix the one you've got.](https://www.youtube.com/watch?v=s59jbVBprn0&t=479s) — podjetja obstanejo na ravni ustanoviteljevih veščin (07:59)
+- [$100M Worth of Marketing Knowledge in 32 Minutes | Scale or Fail](https://www.youtube.com/watch?v=B-ogfFiQpXg&t=1334s) — umestitev na zemljevid skaliranja po številu zaposlenih (22:14)
+
+## Vrednost podjetja
+
+- id: enterprise-value
+- book: Alex's Playbook / Growth and value
+- original term: Enterprise value
+- key: Vrednost podjetja = (stranke × življenjski bruto dobiček) ÷ tveganje
+- related: stages-of-growth, delegation-and-owner, retention-and-ltv, risk-and-bets, continuity-offers
+
+Razlika med dobro plačano službo in premoženjem. Podjetje je vredno toliko, kolikor zasluži brez tebe, pomnoženo s tem, kako malo tveganja prevzame kupec.
+
+#### Bistvo
+
+Alex loči dohodek od bogastva. Dohodek prihaja iz dela. Bogastvo prihaja iz lastništva stvari, ki ustvarjajo vrednost brez tebe. Če se podjetje opazno skrči, ko se lastnik umakne, to imenuje dobro plačana služba, ki je ne moreš pustiti, ne premoženje. Dve podjetji z enakim dobičkom sta lahko vredni povsem različno: eno potrebuje lastnika 80 ur na teden in ga ni mogoče prodati, drugo teče brez njega in se proda z multiplikatorjem.
+
+Vrednost predstavi kot ulomek. V števcu je, koliko strank imaš in koliko bruto dobička vsaka prinese v svoji življenjski dobi. V imenovalcu je tveganje: vse, zaradi česar se kupec boji, da dobiček prodaje ne bo preživel.
+
+<div class="formula" markdown="1">
+**Vrednost podjetja** = (**stranke** × **življenjski bruto dobiček**) ÷ **tveganje**
+</div>
+
+Večina njegovih nasvetov o vrednosti podjetja gre za manjšanje imenovalca: tveganje koncentracije, odliv strank in odvisnost od ustanovitelja.
+
+#### Kako deluje
+
+##### Dohodek ali premoženje
+
+Njegova standardna ponazoritev: dve podjetji z 10 M $ prihodkov in 2 M $ dobička. Tisto, ki ga vodi lastnik, mu po davkih in življenjskih stroških doda približno 500k $ neto premoženja na leto. Tisto, ki teče brez lastnika, je pri multiplikatorju 6x vredno 12 M $, vsakih dodatnih 500k $ dobička pa doda približno 3 M $ vrednosti v primerjavi s približno 250k $ gotovine v žep. V drugem govoru razliko v bogastvu med podjetjem, ki se proda pri 10x, in podjetjem, ki ga ni mogoče prodati, oceni na približno 20-kratno.
+
+Dve varovali: vrednost podjetja šteje šele, ko so pokrite osebne potrebe po gotovini, in podjetje naj bo prodajljivo, ne glede na to, ali ga prodaš, ker je prodajljivo podjetje premoženje, na katero si lahko izposodiš.
+
+##### Tveganje koncentracije
+
+Koncentracija je zanj meja med službo in premoženjem. Pojavi se na štirih mestih:
+
+| Tveganje | Kako je videti | Njegova privzeta rešitev |
+|---|---|---|
+| Ključna oseba (key person) | Ena oseba nosi marketing, prodajo, izvedbo ali operativno »lepilo« | Proces in ljudje; vestirani lastniški delež, če ključna oseba nisi ti |
+| Kanal | Vsa prodaja iz ene oglasne platforme ali enega vira priporočil | Pod ~10 M $ brez skrbi; nad tem zgradi drugi kanal |
+| Stranka | Ena ali dve stranki prinašata velik del prihodkov | Pri prevzemu je to rdeča zastavica; odpri »več vodnjakov« |
+| Dobavitelj / partner | En plačilni procesor, dobavitelj ali dogovor s platformo hrani podjetje | Redundanca pri vsaki odvisnosti; rezervne možnosti imej odobrene |
+
+Tveganje ključne osebe šteje dvojno, kadar je ta oseba lastnik, ki ob prodaji odide. Več področij kot pokriva ena oseba, slabše je. Kot največjo posamezno obliko navaja ustanovitelja kot kanal pridobivanja strank. Tveganje enega kanala je na začetku sprejemljivo, odvisnost od partnerja ali platforme ni.
+
+##### Lepljivi, ponavljajoči se prihodki
+
+Kupci plačajo za prihodke, ki se ponavljajo. Po njegovih pravilih zasebni kapital (private equity) išče približno 80 % letnega zadrževanja strank, licenciranje ali programska oprema pa dosežeta privlačne multiplikatorje (6x ali več) šele nad to mejo. Podjetje, ki en izdelek proda enkrat in nima nadaljnje ponudbe (back end), je po njegovem bližje službi. Svetovanje in izobraževanje se po naravi pogosto ne ponavljata: najdi potrošni element (na primer menjavo kadra, ki vedno znova potrebuje usposabljanje) ali sprejmi, da lahko dobro zaslužiš z manjšo vrednostjo podjetja. Pri B2B spodbuja širitvene prihodke s ciljem neto zadrževanja prihodkov (net revenue retention) nad 100 %.
+
+##### Blagovna znamka in dokazi kot jarek (moat)
+
+Brez zaščitenega izdelka je blagovna znamka glavno razlikovalo, in opozarja, da prevzemniki kupujejo znamke, ne izdelkov. Našteje tri merljive učinke: višji delež klikov (nižji CAC), več ponovnih nakupov (višji LTV) in premijska cena (višji bruto dobiček). Brez znamke je produktno podjetje le »medijska arbitraža« (media arbitrage), ki jo nekdo skopira. Za jarek šteje tudi potrebo po kapitalu.
+
+##### Odvisnost od ustanovitelja: pot od dohodka do vrednosti
+
+Njegov test neodvisnosti od lastnika je, ali podjetje več mesecev raste, ne da bi se ti vrnil. Poteze, ki jih priporoča:
+
+1. Naredi časovno študijo tedna in naloge predaj ljudem, procesom ali projektom.
+2. Najprej se umakni iz pridobivanja strank, s sistemi, ki ustvarjajo marketing brez tvojega obraza.
+3. Ustanovitelja v izvedbi nadomesti z več ozkimi specialisti, od katerih je vsak predstavljen kot strokovnjak za eno področje, namesto da iščeš enega splošnega klona.
+4. Ustanoviteljevo znamko prenašaj postopno: ustanovitelj sam v oglasih, nato ustanovitelj z naslednikom, nato vsak posebej, nato naslednik sam. V njegovem primeru je to trajalo približno 12 mesecev.
+5. Osebno znamko loči od podjetja, ki ga nameravaš prodati.
+
+Če je ustanovitelj večji od podjetja, lahko še vedno prodaš manjšinski delež, a to imenuje dogodek likvidnosti (liquidity event), ne izhod.
+
+##### Prodajljivost, izhodi in primerljive prodaje (M&A comps)
+
+Njegovi multiplikatorji, vse groba pravila: podjetja s prihodki pod približno 10 M $ se tipično prodajo za 1–4-kratnik dobička, nad 10 M $ prihodkov in 2 M $ dobička pa multiplikatorji rastejo. Franšizodajalci lahko dosežejo okoli 15x v primerjavi s približno 8x za lokalne verige, ker so prihodnja odprtja pogodbeno dogovorjena. Preden gradi za izhod, preveri aktivnost prevzemov za ta tip podjetja, preuči, po čem se prodana podjetja razlikujejo od tvojega, in to vrzel zapre. Bankirje in skrbnike zasebnega kapitala vpraša tudi, kaj podjetje slabi; za njegovo so bili odgovori odliv strank, njegovo ime kot znamka in en sam kanal.
+
+##### Prodaj jajca, ne gosi (sell the eggs, not the goose)
+
+Gos je premoženje, ki ustvarja vrednost, pogosto vezano na ustanovitelja in neprodajljivo. Jajca so prodajljiva sredstva, ki jih gos proizvaja. Njegov nasvet je navadno, da gos obdržiš in podjetje zgradiš tako, da proizvaja in prodaja jajca. Za izobraževalca ali svetovalca, ki dela z določenim tipom podjetij, to lahko pomeni standardizacijo podjetij strank, tako da najboljša lahko združiš in prodaš skupaj (roll-up).
+
+#### Primeri
+
+*Primeri so povzeti in anonimizirani iz Alexovih videov. Primeri, označeni kot izmišljeni, so samo za ponazoritev.*
+
+##### Njegovo lastno licenčno podjetje (predavanje)
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** B2B licenčno podjetje za lastnike fitnesov z zelo visokim dobičkom, 100 % prodaje iz plačanih družbenih omrežij in ustanoviteljem v vsakem oglasu. Ustanovitelji so želeli izstopiti. Ocenil je, da gre za guru znamko, ne za podjetje.
+</div>
+<div class="after" markdown="1">
+**Po.** Človek, ki je pri konkurentu vodil outbound, je od začetka zgradil outbound oddelek, oglasi pa so prešli na generalnega direktorja in nove obraze. V približno 12 mesecih je outbound prinašal približno polovico prihodkov, kar je pomirilo prevzemnika.
+</div>
+</div>
+
+##### Dve podjetji, en lastnik (hotseat)
+
+Gradbinec v poslovni gradnji s približno 11 M $ in 18 % marže je vodil še mlado podjetje za servis dvigal s približno 3 M $ in 30 % marže, s ponavljajočimi se prihodki v niši. Njegova lastna pot: gradbeno podjetje hitro prodaj, tudi s popustom, in pojdi v celoti v ponavljajoče se, ker lahko en kvartal osredotočene rasti ponavljajočih se prihodkov doseže vrednost starega podjetja.
+
+##### Prodaja jajc (predavanje)
+
+Svetovalec za računovodske pisarne je želel prodati svoje svetovalno podjetje. Tega nihče ne kupi, kupci pa kupujejo računovodske pisarne v skupinah. Njegov nasvet: vsako leto ali dve sestavi skupino 10 do 20 pisarn strank in si vzemi delež za izvedbo posla.
+
+| | Pisarna, prodana sama | Pisarne, prodane skupaj |
+|---|---|---|
+| Multiplikator dobička | ~4x | ~12x |
+| Delež lastnika pisarne po ~30 % deležu | 4x | ~8,4x, približno dvakrat več |
+
+##### BI svetovanje z enim kanalom prek ponudnika (izmišljeno)
+
+<div class="ba" markdown="1">
+<div class="before" markdown="1">
+**Pred.** 1,2 M € prihodkov, dve stranki prinašata 60 % od tega, skoraj vsi leadi pridejo prek priporočil enega ponudnika programske opreme, ustanovitelj pa vodi vsak ključni projekt.
+</div>
+<div class="after" markdown="1">
+**Po.** Neposreden outbound kanal, mesečni najem upravljane storitve (retainer) po vsakem projektu in dva poimenovana specialista, ki vodita izvedbo. Vrednost je zdaj odvisna od pogodb in procesov, ne od ene osebe in enega partnerja.
+</div>
+</div>
+
+#### Pogoste napake
+
+- **Mešanje dobička in vrednosti.** Visok dobiček, ki vsak dan potrebuje lastnika, ima nizek ali ničeln multiplikator.
+- **Lov na vrednost ob izhodu, preden je gotovina varna.** Na prvo mesto postavi osebne potrebe po gotovini.
+- **Ignoriranje koncentracije, dokler je ne odkrije kupec.** Ključna oseba, en kanal, ena velika stranka in en dobavitelj so točno tisto, kar prevzemniki odbijejo od cene.
+- **Poskus prodaje gosi.** Izobraževalno ali svetovalno podjetje, vezano na ustanovitelja, se redko dobro proda; prodajljivo premoženje je pogosto drugje.
+
+#### Kako bi to uporabil Alex
+
+- **Najprej vpraša po cilju:** boš nekoč prodal ali želiš samo služiti? Če samo služiti, ostane pri preprostem in delujoči recept izvede večkrat.
+- **Preveri koncentracijo pri vseh štirih tveganjih** in popravi tisto, ki bi ga prevzemnik najbolj odbil od cene.
+- **Ustanovitelja iz pridobivanja strank umakne pred izvedbo,** ker je pritok leadov prek ustanovitelja največje tveganje ključne osebe.
+- **Kadar je cilj vrednost podjetja, da zadrževanju prednost pred novimi prihodki,** s ciljem približno 80 % letnega zadrževanja.
+- **Težke probleme ovrednoti v vrednosti podjetja:** izguba 100k $ v šestih mesecih za iskanje drugega kanala je poceni, če podjetju z 2 M $ EBITDA pri 5x doda 10–15 M $ vrednosti.
+- **Presežno gotovino v storitvenih podjetjih vloži v talente in znamko** in noče zamenjati dolgoročne znamke za kratkoročno prodajo.
+- **Vprašanja, ki bi jih postavil:** Je kar koli v tem podjetju odvisno od tebe? Kaj bi prevzemnik videl kot slabosti? Kolikšen del prihodkov prinašajo največja stranka, kanal in dobavitelj? Kolikšno je letno zadrževanje? Kdo kupuje taka podjetja in pri katerem multiplikatorju? Kateri del je gos in kaj so jajca?
+
+#### Delovni list
+
+Vsako tveganje za svoje podjetje danes oceni od 1 (nizko) do 5 (visoko).
+
+1. **Test ustanovitelja:** Če bi odšel za tri mesece, kateri prihodki, posli in odločitve bi se ustavili?
+2. **Koncentracija:** Kolikšen delež prinašajo največja stranka, največji kanal in največji dobavitelj ali partner?
+3. **Lepljivost:** Kolikšno je letno zadrževanje strank in katere ponavljajoče se ali širitvene prihodke bi lahko dodal?
+4. **Jarek:** Kaj ljudje rečejo o tebi, ko te ni zraven, in ali ti to omogoča višjo ceno?
+5. **Primerjave:** Kdo je nedavno kupil podjetja, kot je tvoje, in po čem se razlikujejo od tvojega?
+6. **Gos in jajca:** Kaj ustvarja vrednost in kaj proizvaja, kar bi kupil nekdo drug?
+
+#### Viri
+
+- [How to Build a Business That Runs Without You](https://www.youtube.com/watch?v=TLpLmhWqKEU&t=287s) — enak dobiček, različna vrednost; ustanovitelj kot kanal pridobivanja; najprej gotovina, nato lastniški kapital (04:47)
+- [If I Wanted to Create a Business That Runs Itself, Here's What I'd Do](https://www.youtube.com/watch?v=mr4Pw66_490&t=96s) — primerjava 10 M $ / 2 M $: podjetje z lastnikom in brez njega (01:36)
+- [Give Me 47 minutes, And I'll Fix Your Small Business](https://www.youtube.com/watch?v=sjt5G3YPjmY&t=288s) — kje se pokaže tveganje ključne osebe in kako ga odpraviti; redundanca dobaviteljev (04:48)
+- [How I Scaled My Sales Team [Compensation, Recruiting & Training]](https://www.youtube.com/watch?v=okA9Yt2KZuk&t=238s) — kaj je slabilo njegov izhod: odliv, znamka ustanovitelja, en kanal (03:58)
+- [I Reverse Engineered the Perfect Business](https://www.youtube.com/watch?v=HKbFUWJwEG0&t=146s) — ulomek vrednosti podjetja, test neodvisnosti od lastnika, prenos znamke (02:26)
+- [How to Build a Valuable Company You Can Sell Someday](https://www.youtube.com/watch?v=VxKwz6hBVZU&t=95s) — gos in jajca, primerljive prodaje, združevanje strank (01:35)
+- [The Only 4 Ways To Scale A Service Business (PICK ONE)](https://www.youtube.com/watch?v=O1As2zxy0es&t=625s) — 80 %+ zadrževanja za multiplikatorje licenciranja in programske opreme (10:25)
+- [Your Business Is NOT What You Think It Is](https://www.youtube.com/watch?v=rj7rzOdj84A&t=1247s) — drugi kanal, ovrednoten kot vrednost podjetja (20:47)
+- [How To Grow ANY Business FASTER (Masterclass)](https://www.youtube.com/watch?v=qsXxckCbci0&t=621s) — trije merljivi učinki znamke, redundanca odvisnosti (10:21)
+- [Helping 6 Business Owners Scale in 33 Minutes](https://www.youtube.com/watch?v=0EqJD2o-Mnk&t=660s) — koncentracija virov priporočil in odvisnost od ključne osebe (11:00)
+- [Building a $3,500,000 Business for a Stranger in 51 Mins](https://www.youtube.com/watch?v=BMF2fWHyDrg&t=861s) — rdeče zastavice pri prevzemu: lastnik kot ključna oseba pred upokojitvijo, ena velika stranka (14:21)
+- ["My business has stopped growing..what should I do?"](https://www.youtube.com/watch?v=f_ceDZqhKbw&t=383s) — merilo zasebnega kapitala ~80 % letnega zadrževanja (06:23)
+
+## Primeri: lokalna podjetja
+
+- id: cases-local
+- book: Alex's Playbook / Casebook
+- original term: Hotseat cases
+- key: Lokalna podjetja imajo običajno prenizke cene in premalo oglaševanja, strop pa je lastnik ali en strokovnjak, ki dela vse.
+- related: pricing-decisions, cash-forward, hiring-and-talent, focus-and-subtraction, diagnostic-sequence
+
+Dvainštirideset resničnih situacij iz fitnesov, klinik, zobnih in kiropraktičnih ordinacij, salonov, restavracij in obrtnikov na domu, s tem, kakšno diagnozo je postavil Alex in kaj je lastniku svetoval.
+
+#### Bistvo
+
+Lokalni lastniki skoraj vedno pridejo z besedami, da potrebujejo več leadov. Ko Alex pogleda številke, so leadi le redko prvi problem. Stopnje zaključka 70 do 90 odstotkov, udeležba na terminih blizu 100 odstotkov in oglasi z donosom 10:1 ali več mu povedo, da ima podjetje prenizke cene in porabi veliko premalo na kanalu, ki že deluje. Njegove prve poteze so običajno dvig cene za 10 do 40 odstotkov, namenska pristajalna stran in več denarja za oglase na kanalu, ki je že dobičkonosen. Majhne spremembe na posamezen račun (vrstni red jedilnika, priložena pijača, korak ponovne rezervacije) gredo v podjetju z velikim obsegom naravnost v dobiček.
+
+Drugi vzorec je kapaciteta. Veliko lokalnih podjetij omejuje en zdravnik, ustanovitelj, ki je še vedno v kombiju, ali pomanjkanje tehnikov. Alex obravnava zaposlovanje kot osrednjo funkcijo podjetja z lastnim lijakom in proračunom. Izračuna, koliko bruto dobička prinese en strokovnjak ali prodajalec, in lastniku tako pokaže, kako poceni je v resnici velik bonus za zaposlitev. Strokovnjaka premakne na najzahtevnejše delo, preprostejšo polovico pa preda sodelavcem.
+
+Tretji vzorec je časovni zamik denarja. Četrtletno obračunavanje, plačilo po obisku in vnaprej plačana oprema izčrpajo rastoče lokalno podjetje. Ponudbo preoblikuje tako, da prvi dan pride več denarja: uvodni pregled s kartico na datoteki, vnaprej plačano leto, vpisnina, prvo četrtletje vnaprej. Pod vsem tem leži fokus. Odreže odvečne avatarje, stranske projekte in partnerske dogovore, da lahko lastnik potisne en model na enem trgu, preden se širi.
+
+#### Primeri
+
+##### Zobna ordinacija z več lokacijami · ~2 mio $/leto · en strokovnjak dela vse drage primere
+- **Situacija.** Približno 47 % dobička. Zdravnik ustanovitelj sam vodi vse drage primere (strop okoli 25–30 pacientov na mesec), obračunava po obisku in zaključi 80–90 %; pacienti čakajo dva do štiri tedne.
+- **Diagnoza.** Omejitev ponudbe, ker en strokovnjak opravi vsak korak. Zelo visoka stopnja zaključka kaže na prenizke cene.
+- **Nasvet.** Sodelavci prevzamejo preprostejšo polovico obiskov; ustanovitelj postane arhitekt in učitelj. Plačilo vnaprej, kartica na datoteki ob prijavi. Cena gor za okoli 20 %. VSL pred predstavitvijo zdravljenja in hitrejši termini.
+- **Zakaj.** Pol manj dela za strokovnjaka pomeni dvakratno kapaciteto. Ob ponovnem pregledu se je povprečni račun dvignil s približno 28 tisoč na 44 tisoč $, termin pa je bil na voljo v tednu dni, brez novih lokacij.
+- **Vir.** [This Video Should Be Required Viewing for Business Owners](https://www.youtube.com/watch?v=uaLNfijnp-8&t=329s) (05:29)
+
+##### Odvoz smeti za gospodinjstva · ~640 tisoč $/leto, izguba ~150 tisoč $ · rasti zmanjkuje denarja
+- **Situacija.** Mlajše od dveh let, 2.500 strank, dva avatarja (hiše in soseske), pet kanalov. Zabojniki in provizije so plačani, preden četrtletni obračun prinese denar.
+- **Diagnoza.** Preveč avatarjev in kanalov ter ponudba, ki vnaprej zbere premalo denarja za financiranje rasti.
+- **Nasvet.** Izbrati posamezne hiše kot avatar. Iti povsem v prodajo od vrat do vrat s prodajalci samo na provizijo, usposobljenimi s spremljanjem in igro vlog. Preoblikovati ponudbo: zabojnik in prvo četrtletje vnaprej, brezplačni meseci razporejeni kasneje, kot sidro pa vnaprej plačano leto z brezplačnim zabojnikom.
+- **Zakaj.** Vsaka prodaja potrebuje okoli 208 $ gotovine za delo, zabojnik in provizijo. Če približno vsak peti vzame plačano leto, povprečna gotovina na prodajo preseže to mejo in rast se financira sama.
+- **Vir.** [Building a $1,000,000 Business for a Stranger in 69 Minutes](https://www.youtube.com/watch?v=Wr6n_zNKvMk&t=0s) (00:00)
+
+##### Veriga kiropraktičnih ordinacij, 6 lokacij · ~5,2 mio $/leto · neenakomeren pritok leadov
+- **Situacija.** Okoli 23 % dobička, CAC okoli 700 $ ob LTV okoli 3.400 $, 80 % udeležba, 71 % zaključek, a le 1.500–2.000 $ oglasov na lokacijo na mesec. Preverjanje zavarovanja premakne prodajo na drugi dan, vsaka lokacija prodaja po svoje.
+- **Diagnoza.** Premajhna poraba za zelo donosne iskalne oglase, šibka uvodna ponudba na družbenih omrežjih in prodaja po zdravljenju namesto na vrhuncu bolečine.
+- **Nasvet.** Po vrsti: močno dvigniti porabo za iskalne oglase, dokler donos ne pade na okoli 5:1; uvodna ponudba za 29 $ s kartico na datoteki; kartica zavarovanja že ob klicu za rezervacijo in tisk načrtov vsako jutro; prodaja isti dan po pregledu; pilot prodajnega procesa s kontrolnim seznamom na eni lokaciji; lokalni SEO.
+- **Zakaj.** Podvojen prihodek na lokacijo doseže cilj dobička brez odpiranja novih lokacij.
+- **Vir.** [Building a $5,000,000 Business for a Stranger in 42 Mins](https://www.youtube.com/watch?v=sBJppqCeFGI&t=2251s) (37:31)
+
+##### Klimatizacija in čiščenje prezračevalnih kanalov · ~1,25 mio $/leto · želi več in boljših leadov
+- **Situacija.** Okoli 38 % dobička, 7.200 $ na mesec za marketing, 99 % udeležba, 82 % zaključek, 60 tisoč $ dolga, nov kombi in novi zaposleni.
+- **Diagnoza.** Omejitev povpraševanja, nič ni močno pokvarjeno: prenizke cene, šibka pristajalna stran, premalo porabe za oglase, ni ponovne aktivacije, le en produktiven partner za priporočila.
+- **Nasvet.** Po vrsti: cena gor za 10 % in jo obdržati, dokler zaključek ostaja nad okoli 65 %; še naprej odplačevati dolg; namenska pristajalna stran za oglase; več raznolikih kreativ, nato več porabe; ponovno ciljanje in oglasi na lastno blagovno znamko; mesečne kampanje ponovne aktivacije; partnerska ponudba, pri kateri partnerji prodajo čiščenje odvoda sušilnika in obdržijo denar, on pa proda glavno storitev; outreach na dogodke sosesk na koncu.
+- **Zakaj.** 10 % višja cena prinese okoli 25 % več čistega dobička, oglasi že vračajo okoli 13:1, vrstni red pa ščiti kapaciteto.
+- **Vir.** [Building a $2,500,000 Business for a Stranger in 36 Minutes](https://www.youtube.com/watch?v=OQf2Ba-Lp_4&t=234s) (03:54)
+
+##### Krovstvo in žlebovi · ~20 tisoč $/mesec, dva meseca star · misli, da so ozko grlo prodajalci
+- **Situacija.** 59 % marža, prodaja od vrat do vrat (okoli ena na 20 vrat) in s priporočili. Zamenjava strehe prinese okoli 7 tisoč $ bruto dobička, popravilo okoli 1.500 $ pri 64 %.
+- **Diagnoza.** Popravila so spregledan izdelek brez konkurence, s hitrim ciklom in brez zamika denarja. Lastnikova spretnost prodaje od vrat do vrat je motor; povprečni račun in ponavljajoči prihodki sta zgrešena vzvoda.
+- **Nasvet.** Sistematizirati popravila in z jedilnikom dodatnih storitev ob ponovnem obisku dvigniti račun proti 2.500–5.000 $; VSL za vsak korak; razširiti prodajo od vrat do vrat s provizijo, izraženo na vrata; vzdrževalni paket za 180–240 $/leto, ki se upošteva pri popravilih; plačljiva prednostna obravnava za okoli 20 %.
+- **Zakaj.** Tri popravila na dan lahko prinesejo toliko bruto dobička kot ena zamenjava. Po 90 dneh se je mesečno število del dvignilo s 15–20 na 60–85.
+- **Vir.** [How I Would Build a $10M Service Business (If I Had to Start Over)](https://www.youtube.com/watch?v=o64cI6tebnU&t=194s) (03:14)
+
+##### Tajska restavracija, ena lokacija · ~3,5 mio $/leto · odpira drugo, večjo
+- **Situacija.** 72 sedežev, 19 % neto, ob koncih tedna vrste, alkohol le okoli 1 % prodaje.
+- **Diagnoza.** Odličen izdelek, šibka monetizacija (cene, postavitev jedilnika, pijača, vračanje novih gostov, prošnje za ocene) in brez sistema usposabljanja osebja.
+- **Nasvet.** Glavnim jedem dodati ,99; preurediti jedilnik po dobičku z izpostavljenimi okvirji; predlogi pijač k jedem in tedenska ponudba pijače na namiznem stojalu; prtiček za nove goste z brezplačno sladico in kartico vodje; pijača v zameno za oceno ob računu; kratka dnevna igra vlog za usposabljanje; večer z vplivneži ob odprtju nove lokacije.
+- **Zakaj.** V podjetjih z velikim obsegom in tanko maržo drobni dobički na račun gredo naravnost v dobiček in skoraj ne spremenijo delovanja.
+- **Vir.** [Building a $3,500,000 Business for Two Strangers in 52 Minutes](https://www.youtube.com/watch?v=h9UyQiLjSHg&t=922s) (15:22)
+
+##### Veriga salonov za trepalnice, 7 lokacij · ~2,3 mio $/leto · leadi, odhodi osebja, partnerji ne vlečejo
+- **Situacija.** Okoli 28 % neto po desetih letih. Vodje so usposobljeni neenotno, trije partnerji niso usklajeni, lastnica nima plače, osebje odhaja.
+- **Diagnoza.** Partnerstvo pobere vso pozornost; nadgradnje in ponovne rezervacije niso utrjene; marketing je močno podfinanciran.
+- **Nasvet.** Najprej partnerji: zamenjava deležev za neusklajenega, odkup za tisto, ki odhaja, v zameno za pomoč pri iskanju zamenjave. Nato 10–20 % višje cene ob koncih tedna, ponovna rezervacija pred storitvijo, članstvo kot privzeta izbira, plačilo vnaprej ob blagajni, dveletna karierna pot z odklepanjem veščin in delitvijo dobička za najboljše, kontrolni seznam za sledenje izvoru ob prihodu, namenska oseba za klice leadom in več oglasov, ko sledenje deluje.
+- **Zakaj.** Dokler partnerstvo izčrpava, se nič ne izvede; potem pridejo najprej hitre poteze z velikim učinkom.
+- **Vir.** [Building a $2,300,000/yr Business for a Stranger in 57 Mins](https://www.youtube.com/watch?v=-Koq14DPXC4&t=961s) (16:01)
+
+##### Fizioterapija in zdravljenje bolečine, 3 lokacije · ~4,2 mio $/leto, ~ničeln dobiček · povračila padajo
+- **Situacija.** Zunaj mreže zavarovalnic, preveč storitev in avatarjev, brez oglaševalskega pridobivanja, ni denarja za izkušene vodje. Cilj 20 mio $ z modelom samoplačnikov.
+- **Diagnoza.** Stisnjene marže in brez sistema pridobivanja; izbira samoplačnikov pomeni izbiro, da postaneš dober v marketingu in prodaji.
+- **Nasvet.** Opustiti zavarovalnice z najnižjimi povračili in tako sprostiti denar. Zgraditi uvodno ponudbo za samoplačnike: lokalni Meta oglasi v radiu 10 milj, poceni pregled s kartico na datoteki, klic leadu v 60 sekundah, prodaja po pregledu. Ena do tri uvodne ponudbe, ostalo kot dodatna prodaja. Najprej nadgradnje obstoječim pacientom.
+- **Zakaj.** Podjetja s samoplačniki zmagajo z učinkovitimi vhodnimi vrati in vzponom do storitve z najvišjim LTV.
+- **Vir.** [$100M Investor Answers The Most Important Business Questions for 1 Hour](https://www.youtube.com/watch?v=--9kOXNCUdE&t=97s) (01:37)
+
+##### Pokrit družinski zabaviščni center · ~4,8 mio $/leto, z izgubo · tedni do ničle na računu
+- **Situacija.** Okoli 150 zaposlenih, 400 tisoč $ prihodka na mesec ob 550 tisoč $, potrebnih za prag pokritja, 180 tisoč $ mesečnega odplačevanja dolga, ob najmočnejših dneh polovična zasedenost.
+- **Diagnoza.** Takojšnja grožnja je denar; pred mrtvo sezono potrebuje okoli 600 tisoč $ več, sledi pa izhodom namesto vhodom.
+- **Nasvet.** Staviti na poletni tabor: močno uporabiti e-poštni seznam, 7–10-dnevno nagradno igro (celo poletje kot glavna nagrada, velik popust za vse ostale), 72-urno okno za prevzem, telefonsko nadaljevanje z vsakim leadom, nato stalni paketi za več tednov. Kasneje več klicateljev in ista nagradna igra za rojstne dneve.
+- **Zakaj.** Poleti starši zapravijo veliko in rezervirajo takoj. Poročani rezultat: okoli 3.700 leadov in 325 % več prihodka od poletnega tabora, omejitev pa premalo klicateljev.
+- **Vir.** [Can I Save This Failing Theme Park in 90 Days?](https://www.youtube.com/watch?v=xRxVpjeHmeA&t=284s) (04:44)
+
+##### Selitveno podjetje · ~300 tisoč $/leto · ~40 % ponudb izgubi zaradi cene
+- **Situacija.** 62 % dobička, urna postavka blizu vrha trga. Leadi z zemljevidov/SEO in od nepremičninskih agentov; posli prek agentov v povprečju okoli 3 tisoč $, iz iskanja okoli tisoč $. Želi več lokacij.
+- **Diagnoza.** Generična ponudba in šibek prodajni proces; leadov je dovolj.
+- **Nasvet.** VIP raven (izkušeni selitelji, material, pakiranje, zavarovanje, cenovna kapica) poleg standardne; doplačilo za isti dan od 10 % naprej; na vsakem klicu našteti razlike; brezplačna VIP nadgradnja za agente, ki priporočijo; prilagojeni SMS in DM outreach agentom; osebna srečanja z vodji agencij; bonus za ocene vodjem ekip; vsebine pred/po.
+- **Zakaj.** Ena agencija lahko prinese desetine selitev na leto, razlikovanje pa pridobi posle, ki se zdaj izgubijo zaradi cene.
+- **Vir.** [Give Me 42 Minutes, I'll Show You How To Sell Like The Top 1% | Scale or Fail Episode 1](https://www.youtube.com/watch?v=zzleYxkf39k&t=2001s) (33:21)
+
+##### Ekskluzivna ordinacija za dolgoživost · ~3 mio $/leto · lastnik misli, da je ozko grlo marketing
+- **Situacija.** Okoli 600 tisoč $ dobička plus plača lastnika, ~475 pacientov, 16 zaposlenih. Rast od ust do ust in nekaj SEO; en pretekli dogodek je bil slabo izveden.
+- **Diagnoza.** Stran povpraševanja je premalo izkoriščena; prodaja za tople stranke deluje; priporočila se dogajajo, a niso sistematizirana.
+- **Nasvet.** Majhen denarni dobropis za priporočilo zamenjati z dragoceno storitvijo, ki jo član lahko podari prijatelju, in ob vsakem obisku vprašati, koga bo pripeljal. Četrtletna nagradna igra v novicah. Tedenski dogodki na lokalnih srečanjih premožnih ljudi s pregledom s popustom in zaključkom isti dan. Prodajnega procesa se ne dotikati.
+- **Zakaj.** Denarni popusti premožnim ne pomenijo nič, storitev za gosta skoraj nič ne stane, prodaja z visokim zaupanjem pa se najbolje zaključi v živo.
+- **Vir.** [$100M Worth of Marketing Knowledge in 32 Minutes | Scale or Fail](https://www.youtube.com/watch?v=B-ogfFiQpXg&t=238s) (03:58)
+
+##### Spletna psihiatrična ordinacija v več zveznih državah · ~1,5 mio $/leto · obdrži 1,3 %
+- **Situacija.** Sedem izvajalcev, 89 % zavarovanje, izvajalci dobijo polovico pobranega, 85 % povpraševanja iz enega kanala. Cilj 5 mio $.
+- **Diagnoza.** Namesto treh omejitev en problem modela: ceno določajo zavarovalnice, zato lahko marža pride le iz nižjih stroškov ali od samoplačnikov.
+- **Nasvet.** Ob sprejemu postaviti razvrstitveno vprašanje (najboljši možen izid ali to, kar krije zavarovanje) in poleg zavarovanega obiska prodati en preprost enkraten načrt za okoli 300–600 $. Hkrati zniževati stroške; 1 % marže ni naravni zakon.
+- **Zakaj.** Pri 1,3 % marži vsakih 10 % dodatnega prihodka večkratno pomnoži dobiček, z malo dodatnega operativnega bremena.
+- **Vir.** ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=141s) (02:21)
+
+##### Čiščenje kratkoročnih najemov · ~30–40 tisoč $/mesec · vodeno kot marketinško podjetje
+- **Situacija.** Nekdanji lastnik fitnesa čisti počitniška stanovanja. LTV je visok, CAC okoli 6 $.
+- **Diagnoza.** Stranke je lahko dobiti; omejitev je iskanje in zadrževanje zanesljivih čistilcev. To je podjetje za zaposlovanje in usposabljanje.
+- **Nasvet.** Za talente zrcaliti lijak strank: pridobiti kandidate, intervju, uvajanje, usposabljanje in pot napredovanja.
+- **Zakaj.** Ko je lijak talentov deloval, je podjetje v približno letu dni preseglo 150 tisoč $ na mesec.
+- **Vir.** [Your Business Is NOT What You Think It Is](https://www.youtube.com/watch?v=rj7rzOdj84A&t=334s) (05:34)
+
+##### Družinsko podjetje za ograje · ~20 mio $/leto · okleva s podvojitvijo prodajne ekipe
+- **Situacija.** Cilj 50 mio $, leadov dovolj, pet prodajalcev.
+- **Diagnoza.** Omejitev je prodajna kapaciteta, strahu pa ne podpira nobena težava z denarnim tokom.
+- **Nasvet.** Podvojiti prodajno ekipo in zgraditi akademijo za zaposlovanje in usposabljanje prodajalcev, ki teče vzporedno z lijakom strank.
+- **Zakaj.** Vsak prodajalec prinese okoli milijon $ bruto dobička za okoli 200 tisoč $ stroška, približno 5:1, in dvigne vrednost podjetja.
+- **Vir.** [Watch This If You Have a Service Business](https://www.youtube.com/watch?v=jqo0lVveh98&t=2443s) (40:43)
+
+##### Fizioterapija za odrasle športnike, 2 lokaciji · ~3 mio $/leto · več povpraševanja kot terapevtov
+- **Situacija.** Razmišlja o ekskluzivnih cenah ali stranski spletni trgovini.
+- **Diagnoza.** Omejitev ponudbe, lastnik pa ni izračunal, koliko je vreden en terapevt.
+- **Nasvet.** Zaposlovanje obravnavati kot posel: karierna pot, outreach, veliki bonusi za priporočilo (okoli 20 tisoč $ namesto 500 $) in lovci na talente.
+- **Zakaj.** Vsak terapevt prinese okoli 350 tisoč $ bruto dobička na leto, zato je plačilo 50–100 tisoč $ za enega lahek donos.
+- **Vir.** [Answering Your Top Business Questions for 1 Hour](https://www.youtube.com/watch?v=QwEb78e5a8Y&t=1533s) (25:33)
+
+##### Ekskluzivni terenski servis · ~1,5 mio $/leto · lastnik je v vsem, zaposlovanje je ustavljeno
+- **Situacija.** Okoli 700 tisoč $ neto; vsak tehnik prinese 180–300 tisoč $ na leto.
+- **Diagnoza.** Ozko grlo je lastnik, po lastni izbiri, in nihče ne zaposluje.
+- **Nasvet.** Narediti študijo časa in delegirati spodnjo polovico lastnikovih opravil. Za vsakega tehnika porabiti okoli 50 tisoč $ za nacionalne oglase za zaposlitev z bonusom za selitev in jih obdržati kot redno zaposlene.
+- **Zakaj.** Polovica lastnikovega časa nazaj lahko podvoji podjetje, tehnik pa je vreden veliko več od stroška zaposlitve.
+- **Vir.** [Helping 6 Business Owners Scale in 33 Minutes](https://www.youtube.com/watch?v=0EqJD2o-Mnk&t=755s) (12:35)
+
+##### Elektroinštalater · ~1,6 mio $/leto · lastnik spet v kombiju, ko kdo manjka
+- **Situacija.** Obdrži okoli 650 tisoč $, cilj 5 mio $. Delo prihaja od šestih ali sedmih podjetij za klimatizacijo.
+- **Diagnoza.** Omejitev kapacitete in odvisnost od peščice partnerjev, ki priporočajo.
+- **Nasvet.** Cena gor za 20–40 %, podprta z garancijo pravočasne izvedbe v okviru proračuna. Z dodatnim denarjem zaposliti rezervo v ekipi. Nagovoriti več podjetij za klimatizacijo za ponudbe.
+- **Zakaj.** Cena financira ljudi, ki lastnika spravijo iz kombija, več partnerjev pa da pogajalsko moč.
+- **Vir.** [Helping 6 Business Owners Scale in 33 Minutes](https://www.youtube.com/watch?v=0EqJD2o-Mnk&t=421s) (07:01)
+
+##### Krovstvo, prodaja od vrat do vrat · ~3 mio $/leto · kupljeni leadi, CAC prehitel prihodek
+- **Situacija.** Zgodovinsko 100 % od vrat do vrat. Po nakupu leadov so prodajalci nehali trkati; CAC je dosegel okoli 7.500 $ ob približno 6.500 $ prihodka na stranko. Cilj 10 mio $.
+- **Diagnoza.** Dohodna in odhodna prodaja pomešani v eni ekipi.
+- **Nasvet.** Vse poslati nazaj na vrata. En najboljši zaključevalec dela dohodne leade, medtem ko podjetje izboljšuje vir, ponudbo in proces. Zaposliti močnega internega marketinškega strokovnjaka.
+- **Zakaj.** Manj novih spremenljivk pomeni hitrejše učenje, dohodni leadi pa postanejo nagrada za najboljše prodajalce.
+- **Vir.** [Helping 6 Business Owners Scale in 33 Minutes](https://www.youtube.com/watch?v=0EqJD2o-Mnk&t=1083s) (18:03)
+
+##### Salon za nohte v nakupovalnem centru · ~600 tisoč €/leto · pozimi polovica stolov prazna
+- **Situacija.** Povprečni račun 65 €, zasedenih pet od desetih mest. Prej je izvedel eno nagradno igro brez nadaljnje ponudbe.
+- **Diagnoza.** Problem ustvarjanja povpraševanja, ne sezonskosti. Dolgoročna omejitev je zadrževanje tehnic.
+- **Nasvet.** Ponoviti nagradno igro zdaj, ko je nadaljnja ponudba urejena; izmenjevati uvodne ponudbe in jih presojati po LTV:CAC. Zgraditi karierno pot za tehnice z ravnmi veščin in vodstvenimi vlogami z delitvijo dobička.
+- **Zakaj.** Tehnice odidejo, ko imajo poln urnik, razen če je ostati najlažja pot.
+- **Vir.** ["Should He Walk Away From His $1.4M Business To Start Over?" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=0RjIw9M1j28&t=6403s) (106:43)
+
+##### Kiropraktična ordinacija · ~2,4 mio $/leto, pet let na mestu · brez sledenja izvoru
+- **Situacija.** Okoli 30 % marža. Nov zdravnik jo je premaknil iz omejitve ponudbe v omejitev povpraševanja. Polovica pacientov pride s priporočili, okoli 20 % prek Meta oglasov, brez sledenja.
+- **Diagnoza.** Ni enačbe vhod-izhod, omejitev povpraševanja in pomanjkanje denarja.
+- **Nasvet.** Najprej popraviti cene in pakete, da se sprosti denar; vzpostaviti sledenje izvoru; povečati oglase, ki dobro delujejo za ordinacijo z lokalnim ugledom; več strokovne vsebine, da se razširi radij, iz katerega so ljudje pripravljeni priti.
+- **Zakaj.** Denarni tok je prva potreba; zaupanja vredna lokalna znamka poveča konverzijo oglasov in podpira višjo ceno.
+- **Vir.** [Watch This If You Have a Service Business](https://www.youtube.com/watch?v=jqo0lVveh98&t=141s) (02:21)
+
+##### Veriga za beljenje zob · ~500 tisoč $ na lokacijo · franšiza ali lastne enote
+- **Situacija.** Odprtje enote stane okoli 50 tisoč $, dobiček na lokacijo okoli 250 tisoč $ na leto.
+- **Diagnoza.** Zelo močna ekonomika lastnih enot, približno 5-kratni letni donos na kapital.
+- **Nasvet.** Izračunati obe poti. Pri multiplikatorjih, ki jih je predpostavil, vsaka lastna lokacija doda okoli 2 mio $ vrednosti, vsaka franšiza okoli 300 tisoč $; za 100 mio $ vrednosti je potrebnih okoli 50 lastnih ali okoli 333 franšiznih enot. Izbrati glede na dosegljivo hitrost odpiranja in tip ustanovitelja ter zaposliti za vrzel (na primer vodjo, ki je verigo že razširil).
+- **Zakaj.** Pri takem donosu na kapital lastništvo veliko hitreje gradi premoženje.
+- **Vir.** [How to Grow ANY Local Business (my framework)](https://www.youtube.com/watch?v=BHMeYaHEMpc&t=96s) (01:36)
+
+##### Dom za starejše in oskrba ob demenci · samoplačniki · dobiček pride prepočasi
+- **Situacija.** Prodaja je dobra, stanovalci ostanejo leto ali več, dobiček pa se pokaže šele po dveh do treh mesecih.
+- **Diagnoza.** Problem časovnega zamika denarja; povpraševanje je v redu.
+- **Nasvet.** Tri možnosti: vpisnina vnaprej, prvi trije meseci vnaprej ali paket ob vselitvi s storitvami, ki jih stanovalci tako ali tako potrebujejo (prevoz, frizer in nega, nadgradnje pohištva ali postelje), prodan vnaprej.
+- **Zakaj.** Ljudje se mesečnim stroškom upirajo veliko bolj kot enkratnim, prehod v novo življenjsko obdobje pa je trenutek, ko želijo, da je vse urejeno.
+- **Vir.** [How to Build a Business That Runs Without You](https://www.youtube.com/watch?v=TLpLmhWqKEU&t=2831s) (47:11)
+
+##### Alexov fitnes · vadba za 99 $/mesec · izdelek, v katerega ni verjel
+- **Situacija.** Menil je, da poltrening v majhni skupini daje veliko boljše rezultate kot poceni skupinska vadba.
+- **Diagnoza.** Nizka cena za šibkejši izdelek.
+- **Nasvet.** Vse je po dvotedenskem brezplačnem preizkusu prestavil na poltrening za 299 $ na mesec, z opombo o pomoči za tiste, ki si tega ne morejo privoščiti.
+- **Zakaj.** Tretjina je odšla, dve tretjini sta ostali pri trikratni ceni, zato se je prihodek podvojil ob manj strankah, dobiček pa več kot podvojil.
+- **Vir.** [NEVER lower your prices...](https://www.youtube.com/watch?v=BZQtuK-ucDM&t=46s) (00:46)
+
+##### Alexov poln fitnes · spremenil izdelek, da bi spravil noter več ljudi
+- **Situacija.** Polne vadbe in člani, ki so jih imeli radi.
+- **Diagnoza.** Vadbe je združil in skrajšal, da bi stlačil več ljudi, in izgubil približno tretjino članov.
+- **Nasvet.** Ko ljudje izdelek obožujejo, ga ponovi na novi lokaciji ali dvigni ceno. Izdelka se ne dotikaj.
+- **Zakaj.** Ljubezen do izdelka je najtežje pridobiti, ceno je najlažje spremeniti.
+- **Vir.** [How to Start a Business From Nothing (Thank Me Later)](https://www.youtube.com/watch?v=unshZobTt6Q&t=3958s) (65:58)
+
+##### Intravenska terapija na domu · ~1 mio $/leto, ~50 % EBITDA · razmišlja o oglasih za potrošnike v novih mestih
+- **Situacija.** Rast prihaja s priporočili zdravnikov.
+- **Diagnoza.** Vsak partner, ki priporoča, stane okoli 500 $, a pošlje le okoli enega pacienta za 6 tisoč $ na leto; nihče ga ne aktivira in mu ne poroča nazaj.
+- **Nasvet.** Določiti vodjo partnerjev, sistematizirati povratne klice zdravniku, ki je priporočil, zrežirati prvo priporočilo. Nato isti B2B postopek prenesti na nove trge, namesto prehoda na oglase za potrošnike.
+- **Zakaj.** Obstoječi kanal še zdaleč ni izčrpan; nekaj sto aktiviranih partnerjev z rednimi priporočili bi lahko doseglo cilj.
+- **Vir.** [$100M Investor Answers The Most Important Business Questions for 1 Hour](https://www.youtube.com/watch?v=--9kOXNCUdE&t=3187s) (53:07)
+
+##### Upravljavec restavracij, 3 lokacije prek partnerskih dogovorov · želi veliko verigo hitre prehrane
+- **Situacija.** Tri restavracije vodi prek delitve dobička in delnega lastništva; odpira četrto v polni lasti.
+- **Diagnoza.** Pozornost razdeljena med partnerske dogovore, preden je model dokazan.
+- **Nasvet.** Hitro izstopiti iz drugih dogovorov, živeti na četrti lokaciji, jo zasnovati za skrajno preprostost, optimizirati donos na kapital in vračilno dobo na lokacijo, izpiliti velika odprtja in karierno pot za vodje. O franšizi ali lastnih enotah odločiti kasneje.
+- **Zakaj.** Vračilna doba na lokacijo določa, kako hitro lahko odpreš naslednjo.
+- **Vir.** ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=6074s) (101:14)
+
+##### Gradnja poslovnih objektov in servis dvigal · ~11 mio $ + ~3 mio $/leto · lastnik deli čas
+- **Situacija.** Gradnja pri okoli 18 % marži; nov servis dvigal je v prvem letu naredil okoli 3 mio $ pri 30 %. Želi prodati v 5–10 letih.
+- **Diagnoza.** Servis dvigal je veliko boljši posel (ponavljajoč, nišni); deljena pozornost ga upočasnjuje.
+- **Nasvet.** Varna pot: porabiti okoli 800 tisoč $ dobička za vodje, ki vodijo gradnjo. Alexova pot: gradnjo hitro prodati, tudi s popustom, in iti povsem v dvigala.
+- **Zakaj.** Eno četrtletje osredotočene rasti ponavljajočega prihodka lahko doseže celotno vrednost starega podjetja. Enako je naredil s svojimi fitnesi.
+- **Vir.** [Helping 6 Business Owners Scale in 33 Minutes](https://www.youtube.com/watch?v=0EqJD2o-Mnk&t=1700s) (28:20)
+
+##### Trajna praznična razsvetljava · ~1 mio $/leto, ~51 % neto · brez ponavljajočih prihodkov
+- **Situacija.** Ena lokacija, račun okoli 5 tisoč $, CAC okoli 300 $.
+- **Diagnoza.** Enkratna prodaja, po njej ni česa kupiti.
+- **Nasvet.** Dodati sezonske kampanje začasne dekoracije in vzdrževalne preglede, ob vsakem obisku ponuditi nadgradnje in spremljati delež strank, ki vsako leto kupijo znova.
+- **Zakaj.** Zanesljivi ponovni nakupi naredijo podjetje vredno tudi brez naročnine.
+- **Vir.** [7 Millionaires Asked Me How to Get Rich(er)](https://www.youtube.com/watch?v=bgBIO6nZawg&t=342s) (05:42)
+
+##### Odvoz kosovnih odpadkov za upravnike nepremičnin · ~1 mio $/leto · poskuša vse kanale
+- **Situacija.** Večinoma priporočila, plus majhni poskusi s hladno e-pošto, LinkedInom, družbenimi omrežji in mreženjem. Cilj 10 mio $.
+- **Diagnoza.** Trud razpršen po kanalih brez zaveze.
+- **Nasvet.** Vsak kanal lahko deluje, zato izberi po veščini. Lastnik je najboljši v živo: z nekaj dogodkov mreženja na teden na več na dan, nato z dodatnim denarjem osvojiti drugi kanal.
+- **Zakaj.** Več tega, kar že deluje, je poteza z najmanj tveganja in sprosti denar.
+- **Vir.** [Helping 6 Business Owners Scale in 33 Minutes](https://www.youtube.com/watch?v=0EqJD2o-Mnk&t=1415s) (23:35)
+
+##### Združevanje krovskih podjetij, 8 znamk · ~140 mio $/leto · želi neustavljivo ponudbo
+- **Situacija.** Nedavno ga je kupil sklad zasebnega kapitala; neposredni stroški so visoki.
+- **Diagnoza.** Ponudba ni takojšnja omejitev; centralizacija prodaje že prinese velik dobiček in je potrebna za izstop.
+- **Nasvet.** Najprej v šestih mesecih ali več centralizirati prodajo na daljavo in odrezati spodnjo tretjino prodajalcev. Kasneje dodati garancijo dobička (pravočasno in v okviru proračuna, sicer podjetje vrne svoj dobiček) namesto vračila denarja.
+- **Zakaj.** Podjetje take vrednosti ne sme kopičiti tveganih sprememb; že sama centralizacija bi lahko EBITDA dvignila za okoli 25 %.
+- **Vir.** [$100M Investor Answers The Most Important Business Questions for 1 Hour](https://www.youtube.com/watch?v=--9kOXNCUdE&t=1593s) (26:33)
+
+##### Prodajalec rabljenih avtomobilov · ~500–600 tisoč $ dobička · želi pet pobud hkrati
+- **Situacija.** Blagovna znamka, oglasi na družbenih omrežjih, linija gospodarskih kombijev (6–12 tisoč $ marže na enoto proti okoli 2 tisoč $ na avto) in servisna delavnica, vse naenkrat.
+- **Diagnoza.** Preveč prioritet; pod tem vrzel okoli treh izkušenih vodij.
+- **Nasvet.** Najprej zaposliti finančnika ali kontrolorja, delno plačanega tako, da v 90 dneh najde svojo plačo v zmanjšanih stroških. Nato vodje za servis in prodajo rabljenih vozil. Nato lastnik s sproščenim časom razvija linijo kombijev.
+- **Zakaj.** Že finančna disciplina bi lahko našla okoli 250 tisoč $ na leto, plačilo za izkušene ljudi pa je naslednja raven, ki jo mora lastnik osvojiti.
+- **Vir.** [10 Millionaires Asked Me How to Get Richer](https://www.youtube.com/watch?v=6m6DCQMASEM&t=1217s) (20:17)
+
+##### Servis garažnih vrat · ~7 mio $/leto, ~1,5 mio $ denarnega toka · marketing iz nič
+- **Situacija.** Večina leadov pride od osmih podjetij za garancije na dom.
+- **Diagnoza.** Delujoč partnerski kanal in nič lastnega marketinga.
+- **Nasvet.** Še naprej dodajati garancijske partnerje. Lokalne iskalne oglase in SEO najprej prepustiti zunanjim izvajalcem. Zaposliti mladega internega kupca lokalnih oglasov na družbenih omrežjih z nagrado po uspešnosti. Kasneje prevzemati konkurente.
+- **Zakaj.** Iskalni oglasi so stabilni in primerni za agencije; lokalne kreative na družbenih omrežjih se izrabijo vsaka dva do tri tedne, zato potrebujejo interno produkcijo.
+- **Vir.** [10 Millionaires Asked Me How to Get Richer](https://www.youtube.com/watch?v=6m6DCQMASEM&t=2710s) (45:10)
+
+##### Zobna ordinacija za vsadke · cene pod trgom · pol priporočila, pol iskalni oglasi
+- **Situacija.** Lastnik meni, da daje več vrednosti kot konkurenca za malo nižjo ceno.
+- **Diagnoza.** Prenizke cene.
+- **Nasvet.** Dvigniti cene. Obstoječi prodajni proces dokumentirati iz posnetkov klicev. Dolgoročno kupovati druge ordinacije.
+- **Zakaj.** Dvig cene gre naravnost v dobiček, v napačno ocenjenih podjetjih pa se stopnja zaključka po dvigu pogosto celo poveča.
+- **Vir.** [10 Millionaires Asked Me How to Get Richer](https://www.youtube.com/watch?v=6m6DCQMASEM&t=3342s) (55:42)
+
+##### Klinika za telemedicino · ~550 tisoč $/mesec · želi odpreti svetovanje za zdravnike
+- **Situacija.** Dve leti hitre rasti, nato zastoj. Zdravljenja ni dovoljeno oglaševati na večjih družbenih omrežjih.
+- **Diagnoza.** Lastnik ne zna povečati pridobivanja in želi pobegniti v nov projekt.
+- **Nasvet.** Opustiti svetovanje. Problem preoblikovati v iskanje dovoljenega alternativnega kanala za pridobivanje pacientov in se povsem osredotočiti nanj.
+- **Zakaj.** Nov projekt bi vstopil na nasičen trg brez zgodovine uspehov in brez posebnosti, obstoječi motor pa že deluje.
+- **Vir.** [Entrepreneurs, stop starting new businesses. Fix the one you've got.](https://www.youtube.com/watch?v=s59jbVBprn0&t=48s) (00:48)
+
+##### Krovstvo in obnova fasad · ~6 mio $/leto · lastnik dela 2–3 ure na teden, želi 100 mio $
+- **Situacija.** Zadržujejo ga udobje, varovanje družinskega časa in stranske naložbe v nepremičnine.
+- **Diagnoza.** Problem kompromisa: želi oba izida, rast pa zahteva, da se nečemu odpove.
+- **Nasvet.** Odpovedati se kratkoročnemu dobičku in zaposliti izkušene vodje, ki poganjajo rast. Družinski čas trdno zaščititi. Nepremičnine pustiti pasivne.
+- **Zakaj.** Če ne spremeniš ničesar, se nič ne spremeni; dobiček lahko zaslužiš nazaj, družinskega časa ne, kariera pa dopušča le nekaj velikih zagonov.
+- **Vir.** [Helping 6 Business Owners Scale in 33 Minutes](https://www.youtube.com/watch?v=0EqJD2o-Mnk&t=47s) (00:47); [Watch This If You Have a Service Business](https://www.youtube.com/watch?v=jqo0lVveh98&t=1723s) (28:43)
+
+##### Restavracija z zdravo hrano, prvo leto · tempo ~1,5 mio $ · nenehni požari in utrujen partner
+- **Situacija.** 100–200 rednih gostov, operativni kaos in partner, ki ponavlja, da so pretrpeli dovolj.
+- **Diagnoza.** Povpraševanje je dokazano, zato je to običajna vrsta težavnosti. Pravi problem je partner, katerega odnos spodkopava kulturo.
+- **Nasvet.** Nadaljevati. Odkrit pogovor, ki določi pričakovano vedenje, ali odkup partnerja na obroke in prevzem vsega tveganja in koristi. Zaposlovati agresivno in standarde povedati odkrito.
+- **Zakaj.** Ko povpraševanje obstaja, pritisni; osebje posnema lastnika, ki se najmanj trudi.
+- **Vir.** ["Should He Walk Away From His $1.4M Business To Start Over?" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=0RjIw9M1j28&t=5639s) (93:59)
+
+##### Lokalno podjetje z 2–3 leadi na dan · počasno odzivanje
+- **Situacija.** Majhen dnevni pritok dohodnih leadov, ki jih je nekdo poklical, ko je utegnil (iz Alexovih let s fitnesi).
+- **Diagnoza.** Puščala je hitrost odziva.
+- **Nasvet.** Plačati eno osebo za polni delovni čas, katere edina naloga je poklicati vsak lead v trenutku, ko pride.
+- **Zakaj.** Tako je zaključil okoli 55 % leadov, proti okoli 10 %, ki jih je videl kot običajne.
+- **Vir.** [How to Start a Business From Nothing (Thank Me Later)](https://www.youtube.com/watch?v=unshZobTt6Q&t=4103s) (68:23)
+
+##### Alexov fitnes proti večjemu konkurentu · optimizacija razmerja oglasov
+- **Situacija.** Oglaševal je pri okoli 10:1, konkurent pa je porabil desetkrat več pri okoli 4:1.
+- **Diagnoza.** Optimiziral je razmerje donosa namesto skupnega dobička.
+- **Nasvet.** Porabo povečuj, dokler absolutni dobiček še raste.
+- **Zakaj.** Konkurent je neto zaslužil okoli 45 tisoč $ na mesec, on pa 13.500 $.
+- **Vir.** [How to Start a Business From Nothing (Thank Me Later)](https://www.youtube.com/watch?v=unshZobTt6Q&t=3860s) (64:20)
+
+##### Veriga fizičnih poslovalnic, dva ustanovitelja · zastoj
+- **Situacija.** Podjetje iz portfelja, katerega rast se je pod ustanoviteljema ustavila.
+- **Diagnoza.** Potrebovalo je izkušenega operativnega vodjo.
+- **Nasvet.** Pripeljati nekoga, ki je verigo že pripeljal z okoli 100 na 2.000 lokacij.
+- **Zakaj.** Rast se je nadaljevala in dobiček je rasel veliko hitreje; vodja je celo za četrtletje ustavil odpiranje, da je popravil dobiček na lokacijo, kar je zmanjšalo tveganje tudi za kupca.
+- **Vir.** [I Reverse Engineered the Perfect Business](https://www.youtube.com/watch?v=HKbFUWJwEG0&t=288s) (04:48)
+
+##### Podjetje z več lokacijami iz portfelja · z ~2 mio $ na leto na ~2 mio $ na mesec · zastoj
+- **Situacija.** Direktor ni vedel, kam gre dobiček, niti koliko novih lokacij si podjetje lahko privošči.
+- **Diagnoza.** Ni finančne funkcije.
+- **Nasvet.** Zgraditi finančno vodstvo in občutek negotovosti jemati kot znak, da funkcija manjka.
+- **Zakaj.** Finance povedo, kolikšen del denarnega toka lahko financira nova odprtja.
+- **Vir.** [I Reverse Engineered the Perfect Business](https://www.youtube.com/watch?v=HKbFUWJwEG0&t=3497s) (58:17)
+
+##### Alexov prvi fitnes · ~6 tisoč $ po ureditvi · najemnina ~5 tisoč $ na mesec
+- **Situacija.** Skoraj nič denarja za storitve, ki jih je fitnes potreboval.
+- **Diagnoza.** Omejitev denarja.
+- **Nasvet.** Članarine zamenjati za čiščenje, IT, pranje perila, hrano in video produkcijo ter poganjati poceni Facebook oglase.
+- **Zakaj.** Dodaten član ga ni stal skoraj nič, zato je bila menjava članarin veliko cenejša od plačila z denarjem.
+- **Vir.** [How to Start a Business From Nothing (Thank Me Later)](https://www.youtube.com/watch?v=unshZobTt6Q&t=95s) (01:35)
+
+##### Alexov drugi fitnes · ~8-krat večja naložba kot prvi · enak zaslužek
+- **Situacija.** Okoli 250 tisoč $ je šlo v ekskluzivno opremo prostora.
+- **Diagnoza.** Denar je dal za to, kar je bilo všeč njemu, namesto za to, kar so cenili člani: skupnost, odgovornost in kakovost trenerjev.
+- **Nasvet.** Preden ponovno vlagaš, spoznaj, za katero nalogo te stranka najame.
+- **Zakaj.** Denar prinese več le tam, kjer stranke vidijo vrednost.
+- **Vir.** [How to Start a Business From Nothing (Thank Me Later)](https://www.youtube.com/watch?v=unshZobTt6Q&t=1761s) (29:21)
+
+#### Vzorci
+
+- **Prenizke cene, zato najprej dvig cene (okoli 10 primerov).** Stopnje zaključka 70–90 % in polni urniki zanj pomenijo prenizko ceno. Tipične poteze: dvig za 10–40 %, VIP ravni, doplačila za konec tedna ali isti dan, plačljiva prednost. Spremlja stopnjo zaključka in ceno obdrži, dokler ostaja zdrava.
+- **Premalo porabe na kanalu, ki že deluje (okoli 8 primerov).** Iskalni ali družbeni oglasi z donosom 5:1 do 13:1 na drobnem proračunu, neizkoriščena ekipa od vrat do vrat ali mreženje. Zmagovalca poveča, preden preizkuša karkoli novega, uspeh pa meri v skupnem dobičku.
+- **Kapaciteto omejuje en strokovnjak ali premalo ljudi (okoli 9 primerov).** Zdravniki ustanovitelji, lastniki v kombiju, manjkajoči tehniki, čistilci in terapevti. Izračuna, koliko bruto dobička prinese en zaposleni, in zaposlovanje spremeni v lijak s pravim proračunom.
+- **Denar pride prepozno (okoli 7 primerov).** Četrtletni obračun, plačilo po obisku, počasen dobiček od stanovalcev. Denar premakne naprej z uvodnimi pregledi s kartico na datoteki, vnaprej plačanimi leti, vpisninami in paketi vnaprej.
+- **Preveč avatarjev, kanalov ali projektov (okoli 8 primerov).** Odvoz smeti z dvema avatarjema in petimi kanali, klinike s preveč storitvami, lastniki s stranskimi projekti. Pred širitvijo zreže na en avatar, en kanal in en model.
+- **Šibka vhodna vrata in počasna prodaja (okoli 6 primerov).** Brez namenske pristajalne strani, prodaja preložena na drugi dan, leadi poklicani pozno. Doda poceni uvodno ponudbo, prodajo isti dan in takojšen povratni klic.
+- **Manjka nadaljnja ponudba in ponovna rezervacija (okoli 6 primerov).** Brez članstva, brez ponovne rezervacije, brez vzdrževalnega paketa, brez drugega obiska za nove goste. Doda privzeto članstvo ali paket in prošnjo ob vsakem obisku.
+- **Vrzel pri lastniku, partnerju ali vodstvu (okoli 8 primerov).** Neusklajeni partnerji, manjkajoča finančna funkcija, ni izkušenih operativcev. Najprej uredi partnerstva in plača za izkušene vodje, tudi za ceno nižjega kratkoročnega dobička.
+- **Izdelka, ki ga ljudje obožujejo, se ne dotikaj (2–3 primeri, iz njegovih fitnesov).** Ko ga stranke imajo rade, ga ponovi ali dvigni ceno; denar daj tja, kjer stranke vidijo vrednost.
+
+#### Kako bi to uporabil Alex
+
+**Prva vprašanja.**
+1. Kakšna je tvoja udeležba na terminih, stopnja zaključka in donos na oglase? Zelo visoke številke pomenijo prenizke cene in premalo porabe.
+2. Te omejuje povpraševanje (prazni stoli, prosti termini) ali ponudba (čakalna vrsta, lastnik ali strokovnjak povsem zaseden)?
+3. Koliko denarja zbereš od stranke prvi dan in ali pokrije strošek, da jo pridobiš in postrežeš?
+4. Koliko avatarjev, storitev, lokacij in stranskih projektov imaš in kateri prinaša denar?
+5. Koliko bruto dobička na leto prinese en dodaten tehnik, terapevt ali prodajalec?
+
+**Privzete poteze po situaciji.**
+- **Visok zaključek, prosta kapaciteta:** cena gor za 10–20 %, namenska pristajalna stran, nato več porabe na kanalu, ki že deluje, dokler donos ne pade proti okoli 5:1.
+- **Čakalna vrsta ali strokovnjak na meji:** preprostejše delo predaj sodelavcem, zaposlovanje spremeni v lijak s proračunom, ki ustreza bruto dobičku enega zaposlenega, nato dvigni ceno.
+- **Stiska z denarjem:** preoblikuj ponudbo, da pride več denarja vnaprej (pregled s kartico na datoteki, vnaprej plačano leto, vpisnina, prvo četrtletje vnaprej), odreži plačnike ali storitve z najnižjo maržo in ustavi nove pobude.
+- **Veliko leadov, slaba konverzija:** pokliči lead v minuti, prodaj isti dan po pregledu, dodaj VIP raven in poimenuj razlike.
+- **Enkratna prodaja:** dodaj članstvo ali vzdrževalni paket, ponovno rezerviraj, preden stranka odide, in ob vsakem obisku prosi za priporočilo.
+- **Lastnik želi nov projekt ali nacionalno širitev:** najprej obvladaj sedanji trg in odpravi sedanjo omejitev; nov posel le redko odpravi vrzel v veščinah, ki je povzročila zastoj.
+- **Več lokacij:** pred odprtjem naslednje uredi dobiček in vračilno dobo na lokacijo ter pripelji finančnega vodjo in izkušenega operativca.
+
+## Primeri: storitvena in B2B podjetja
+
+- id: cases-services
+- book: Alex's Playbook / Casebook
+- original term: Hotseat cases
+- key: Storitvena podjetja imajo običajno prenizke cene, prodajajo ure, živijo od enega kanala, ki ga lastnik ne nadzoruje, in v prvih mesecih izgubljajo stranke.
+- related: pricing-decisions, retention-and-ltv, sales-machine, focus-and-subtraction, enterprise-value
+
+Šestintrideset resničnih situacij iz agencij, svetovalnih podjetij, odvetniških in računovodskih pisarn, kadrovskih in B2B storitev ter nepremičninskih in zavarovalniških podjetij, s tem, kakšno diagnozo je postavil Alex in kaj je lastniku svetoval.
+
+#### Bistvo
+
+Lastniki storitvenih podjetij običajno pridejo k Alexu s ciljem rasti in nejasnim občutkom, da potrebujejo več leadov. V večini teh primerov ima podjetje prenizke cene, zaračunava po urah ali po načelu strošek plus pribitek in prodaja vsakomur, ki vpraša. Njegova prva poteza je, da delo zapakira kot izid z jasno ceno, pogosto kot fiksni znesek z delom, vezanim na uspešnost, s sidrom v obliki veliko dražje ravni nad njim in cenejšo različico (downsell) pod njim. Stopnje zaključka blizu 100 % bere kot dokaz, da je cena prenizka, in pričakuje, da bo zaključek ob dvigu cene nekoliko padel.
+
+Drugi vzorec je pridobivanje, ki je odvisno od nečesa, česar lastnik ne nadzoruje: priporočil dobavitelja, peščice partnerjev, ustanoviteljeve mreže, ene oglaševalske platforme. Doda lasten kanal, običajno outbound na določen seznam (najboljši agenti po obsegu, oglaševalci z velikimi proračuni, tipi partnerjev), in še naprej dela več tistega, kar že deluje, preden poskusi kaj novega. Partnerstva in affiliate partnerji dobijo v njegovih nasvetih resno pozornost; želi jih aktivirati, meriti po posameznem partnerju in jim dati ponudbo, ki spremeni njihovo vedenje.
+
+Tretji vzorec je odliv strank (churn). Agencije in ponavljajoče se storitve izgubljajo stranke med tretjim in šestim mesecem, on pa vzrok išče bolj v napačnih strankah in šibkem začetku kot v samem delu. Zoži avatar na tiste, ki se aktivirajo, pred prodajo doda trenje za kvalifikacijo, poskrbi, da prvih 30 dni prinese viden uspeh, in redno sporoča, kaj je bilo narejeno. Pri izstopu gleda, za kaj bi kupec plačal: ponavljajoče se prihodke, več kanalov in neodvisnost od ustanovitelja, včasih dosežene z združevanjem strank namesto s prodajo storitvenega podjetja.
+
+#### Primeri
+
+##### B2B svetovanje za gostinstvo · ~1,1 mio $/leto · program za 30 tisoč $ prodan hladnim strankam, LTV:CAC 1,7
+- **Situacija.** Okoli 11 % neto po 4,5 leta. 90-dnevni program za 30 tisoč $ prodaja neznancem iz plačanih oglasov pri CAC okoli 11.800 $. Stranke na mesečni pogodbi odhajajo. Cilj: potrojiti.
+- **Diagnoza.** Draga ponudba, potisnjena hladnemu prometu, šibki oglasi, lijak z veliko trenja in odliv, ker vrednost ni prikazana.
+- **Nasvet.** Oglasi z nagovorom in bolečino v uvodu ter lead magnet; dvostranski lijak z VSL nad koledarjem; revizija za 5.800 $ kot uvodna ponudba, ki jo ustanovitelj zaključi v enem klicu; ta dobropis prenesti v četrtletno pogodbo, velik znesek pa odpustiti ob letni zavezi; strankam mesečno pokazati njihove številke.
+- **Zakaj.** Nižji prvi korak spremeni neznance v stranke, ki veliko pogosteje kupijo znova; hiter uspeh financira večji nakup.
+- **Vir.** [Building a $3,000,000 Business for a Stranger in 57 Mins](https://www.youtube.com/watch?v=n6SHLmKcY0E&t=287s) (04:47)
+
+##### Organizacija dogodkov in AV tehnika · povprečen posel ~44 tisoč $, ~1 posel na teden · tanke marže
+- **Situacija.** Lastnik zaključi okoli 40 %; dva prodajalca ne dosegata rezultatov; cene postavk si izmišljujejo sproti.
+- **Diagnoza.** Napačno in priložnostno oblikovana cena (problem marže) in problem povpraševanja, ker prodajalca malo naredita.
+- **Nasvet.** Izdelati generator ponudb na osnovi stroškov pri 5–10-kratniku stroška, z zaklepom cene in popustom za plačilo vnaprej. Prodajalca spremeniti v setterja za lastnika, z dnevnimi pregledi in igro vlog. VSL na treh točkah stika. Prositi za zaveze za več dogodkov. Ciljati B2B konference prek razstavnih prostorov in predavanj. Do konca izkoristiti LinkedIn outreach in avtomatski klicalnik.
+- **Zakaj.** Povpraševanja ne tlači v tanke marže; podvojeni sestanki za lastnika, ki zaključi 40 %, hitro spremenijo podjetje. Ob ponovnem pregledu: prodajni lijak okoli 200 % večji, enoletne stranke spremenjene v triletne, en razstavni prostor je prinesel posel za okoli 500 tisoč $.
+- **Vir.** [How to Get Rich for Service-Based Businesses (Thank Me Later)](https://www.youtube.com/watch?v=mRlSb0O5QNU&t=908s) (15:08)
+
+##### Odvetniška pisarna za glasbeno industrijo s stranskimi dejavnostmi · ~300 tisoč $/leto, izguba ~100 tisoč $ · denarja za šest mesecev
+- **Situacija.** Pravno delo po 250 $ na uro (okoli 1.500 $ na stranko), poleg tega tečaj za 500 $ in programska oprema za pogodbe, ki pokuri okoli 7 tisoč $ na mesec. Veliko občinstvo na družbenih omrežjih, a brez jasnega poziva k dejanju.
+- **Diagnoza.** Povpraševanje je razpršeno po treh ponudbah, urna postavka podceni delo, programska oprema pa izgubi večino denarja.
+- **Nasvet.** Programsko opremo ukiniti ali prodati. Izobraževanje narediti brezplačno, da hrani storitve. Vse pozive k dejanju usmeriti v DM in nove sledilce kvalificirati. Prodajati paket z izidom za okoli 5.800 $ plus majhen delež poslov, s sidrom za 25 tisoč $ in DIY različico za 2–3 tisoč $, prodan na klicu po scenariju.
+- **Zakaj.** Storitve že zaslužijo; okoli 800 novih sledilcev na mesec pri 5 % zaključku in 6 tisoč $ bi lahko pomenilo okoli 240 tisoč $ na mesec.
+- **Vir.** [I Confronted a Stranger With a Failing Business...](https://www.youtube.com/watch?v=6Fg4VXjRphQ&t=0s) (00:00); [I Blew Up a Business Through 3 Small Changes (Just Copy Me)](https://www.youtube.com/watch?v=3yAiVjcImQ4&t=0s) (00:00)
+
+##### Ekskluzivno osebno stiliranje · ~309 tisoč $/leto, 42 % marža · močna ekonomika, majhen obseg
+- **Situacija.** Okoli 40 stalnih strank, okoli en odhod na leto; 8.500 $ za uvod, nato 2 tisoč $ na mesec. Okoli 1.800 plačanih klikov na obrazec brez naslova je dalo 8 prodaj. Šest partnerjev, najdenih s približno 40 hladnimi e-sporočili, prinese tretjino prihodka.
+- **Diagnoza.** Ozko grlo je konverzija, partnerski kanal pa je komaj načet. Ni cenovnega sidra, naročnina ni privzeta.
+- **Nasvet.** Lead magnet v obliki ocene stila, kratek VSL in BANT vprašanja; kvalificirani leadi dobijo klic, ostali brezplačen material. Pošiljati 20 e-sporočil partnerjem na dan in prirejati dogodke za partnerje. Dodati 10-krat dražjo vrhnjo raven kot sidro in privzeto naročnino po uvodu.
+- **Zakaj.** Izdelek se na klicih že dobro prodaja, zato so poceni izboljšave višje v lijaku; partnerji so prinesli okoli 2.500 $ na poslano e-sporočilo, več kot oglasi.
+- **Vir.** [I Blew Up A Secret Business To Prove It's Not Luck](https://www.youtube.com/watch?v=SmiOK8Yun4s&t=47s) (00:47); [Building a $1,000,000 Business for a Stranger in 56 Mins](https://www.youtube.com/watch?v=nrounb8NlFQ&t=479s) (07:59)
+
+##### Agencije za lokalna podjetja · mesečna pogodba 1.500 $ · ~0,5:1 donos v prvih 30 dneh
+- **Situacija.** Ponudba je videti enaka kot pogodba vsakega konkurenta.
+- **Diagnoza.** Generična ponudba.
+- **Nasvet.** Preoblikovati jo: eno plačilo vnaprej, agencija obdela leade, nato stranka plača za vsako osebo, ki pride na termin.
+- **Zakaj.** Odziv se je povečal 2,5-krat, sestanki z 40 na 100, zaključek s 16 % na 37 % pri štirikratni ceni, pobran denar pa okoli 22-krat ob enaki porabi za oglase.
+- **Vir.** [GROWTH LEVERS: Big Business Owner Explains Real World Tactics That Work](https://www.youtube.com/watch?v=F3NyhOtRpOE&t=576s) (09:36)
+
+##### Nova marketinška agencija za mala podjetja s storitvami na domu · z 0 na ~500 tisoč $ v štirih mesecih · cilj osemmestna številka
+- **Situacija.** Okoli 2 tisoč $ na mesec na stranko, okoli deset prodaj na mesec.
+- **Diagnoza.** Cena je v coni odliva malih podjetij (stranke v povprečju ostanejo štiri do šest mesecev). Rast se bo ustavila blizu 100 tisoč $ na mesec, ko odliv dohiti nove prodaje, CAC naraste in marže se skrčijo.
+- **Nasvet.** Izbrati eno: veliko ceneje in avtomatizirano (300–500 $ na mesec z vidnimi rezultati, kot sta uvrstitev na zemljevidih in upravljanje ocen) ali premik navzgor k zahtevnejšim strankam.
+- **Zakaj.** Poceni, vidne storitve lahko zdržijo 30–40 mesecev ob nizkem CAC; zahtevno osebno delo zdrži le pri strankah, ki že imajo delujoč model.
+- **Vir.** [Watch This If You Have a Service Business](https://www.youtube.com/watch?v=jqo0lVveh98&t=523s) (08:43)
+
+##### Naročniška storitev · ~400 tisoč $/mesec · 100 novih prodaj na mesec, odliva ni poznal
+- **Situacija.** 380 strank po 1.000 $ na mesec, hitra rast; odliva in LTV ni spremljal.
+- **Diagnoza.** Okoli 13 % mesečnega odliva omeji podjetje blizu 770 tisoč $ na mesec; rast se bo sploščila.
+- **Nasvet.** Trud usmeriti v zmanjšanje odliva proti okoli 3 %, preden poveča pridobivanje.
+- **Zakaj.** Pri 3 % odliva LTV zraste na okoli 33 tisoč $, strop pa na okoli 3,3 mio $ na mesec, kar je veliko lažje kot 10-kratnik leadov. Pri 13 % na mesec po letu dni ostane manj kot 20 % strank, tega pa kupci ne cenijo.
+- **Vir.** ["My business has stopped growing..what should I do?"](https://www.youtube.com/watch?v=f_ceDZqhKbw&t=96s) (01:36)
+
+##### Spletna stran kot storitev za mala podjetja · ~20 mio $/leto, ~3,6 mio $ EBITDA · strah, da bo UI uničila izdelek
+- **Situacija.** Okoli 450 $ na mesec na stranko, 100 % rasti iz hladnih klicev, stranke ostanejo okoli 29 mesecev.
+- **Diagnoza.** Strahu v metrikah ni videti. Pravi tveganji sta en sam kanal in tanka marža zaradi velikega števila ljudi.
+- **Nasvet.** Izdelka ne graditi znova. Dodati plačan dohodni kanal. Okoli šest mesecev prenavljati delovne procese z UI in zmanjšati število zaposlenih za okoli polovico, da se marža približno podvoji, nato sprejeti negativno prvo četrtletje pri CAC, ob znani 29-mesečni življenjski dobi stranke.
+- **Zakaj.** Marža financira pridobivanje brez spreminjanja cene, stranke, ki bi si stran z UI naredile same, pa nikoli niso bile kupci.
+- **Vir.** [Watch This If You Have a Service Business](https://www.youtube.com/watch?v=jqo0lVveh98&t=907s) (15:07)
+
+##### Finančno in davčno svetovanje (CFO) · ~2,9 mio $/leto · ustavil nove prodaje, želi prodajati tečaje
+- **Situacija.** Raste 30–35 % na leto samo z organskim povpraševanjem, a prodaja je ustavljena, ker je izvedba zahtevna. Lastnik je pripravil tečaje in knjige ter jih želi prodajati.
+- **Diagnoza.** Omejitev ponudbe. Posel s tečaji bi bil nov in enako težak posel.
+- **Nasvet.** Znova začeti prodajati. Dodati sodelavce iz tujine za dva- do trikraten vzvod na osebo. Zgraditi podatkovno plast, nato UI. Tečaje in knjige obdržati kot prihodnja marketinška sredstva.
+- **Zakaj.** Nič novih prodaj zagotavlja nič rasti; odpravi omejitev, ki jo imaš, preden ustvarjaš povpraševanje, ki ga ne moreš postreči.
+- **Vir.** [Watch This If You Have a Service Business](https://www.youtube.com/watch?v=jqo0lVveh98&t=1284s) (21:24)
+
+##### Virtualna računovodska pisarna · ~3 mio $/leto, ~1,1 mio $ neto · ~70 % letno zadrževanje
+- **Situacija.** Četrtletni honorarji od okoli 1.950 $. Stranke ob odhodu pravijo, da so se strategij že naučile.
+- **Diagnoza.** Slabo uvajanje in premalo komunikacije; vrednost se v resnici ne izgublja.
+- **Nasvet.** Preveriti predajo od prodaje do uvajanja, za vsako stranko voditi zapiske, pogosto sporočati o opravljenem delu in računovodje usposobiti za stike s strankami. Nato zaposliti vrhunskega davčnega strokovnjaka.
+- **Zakaj.** Cilj je zadrževanje nad 80 %; vidna skrb sporoča kompetentno delo.
+- **Vir.** [7 Millionaires Asked Me How to Get Rich(er)](https://www.youtube.com/watch?v=bgBIO6nZawg&t=1014s) (16:54)
+
+##### Svetovanje pri uvajanju poslovne programske opreme · ~1,4 mio $/leto · razmišlja o novem začetku
+- **Situacija.** Okoli 12 strank, skoraj vse iz priporočil dobavitelja kot podizvajalec: omejena urna postavka, okoli 17 % marže proti okoli 83 % pri neposredni prodaji. Razmišlja o novem zdravstvenem podjetju z zakoncem.
+- **Diagnoza.** Nejasen avatar, ni lastnega kanala pridobivanja, prenizke cene za zelo velike stranke. Pravo tveganje je razdeljen fokus, lastnik pa predvsem išče dovoljenje.
+- **Nasvet.** Ali se povsem zaveže novemu projektu (staro podjetje bi lahko vodil zakonec) ali ostane. Pred odločitvijo načrtovati, katero delo odstrani iz starega podjetja. Če ostane: dodati neposreden kanal pridobivanja in dvigniti cene za velike stranke.
+- **Zakaj.** Ob razpetosti med dvema podjetjema novo raste veliko počasneje.
+- **Vir.** ["Should He Walk Away From His $1.4M Business To Start Over?" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=0RjIw9M1j28&t=47s) (00:47)
+
+##### Koordinacija nepremičninskih transakcij na daljavo · ~1 mio $/leto · 70 % novih poslov iz lastnikovega mreženja
+- **Situacija.** Malo denarja po sezonski rezervi; 73 od 87 sestankov zaključenih.
+- **Diagnoza.** Pri pridobivanju ni vzvoda, 84 % zaključek pa kaže na prenizke cene.
+- **Nasvet.** Iz baze oglasov izvleči najboljše agente po obsegu prodaje in izvajati outbound (klic, e-pošta, SMS) do predstavitev v majhnih skupinah. Kasneje lokalni oglasi po radiju mest z visokimi pragovi obsega. Dvigniti cene.
+- **Zakaj.** Outbound je ob malo denarja cenejši in varnejši; oglasi bodo med učenjem izgubljali denar.
+- **Vir.** ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=5507s) (91:47)
+
+##### Posredovanje urednikov vsebin iz tujine · ~800 tisoč $/leto · vse stranke iz priporočil
+- **Situacija.** 6.500 $ za posredovanje plus 2.500 $ na mesec; okoli 3 % letnega odliva.
+- **Diagnoza.** Čisti problem povpraševanja; zadrževanje je odlično.
+- **Nasvet.** Z lastno ekipo delati vsebino o vsebini (proces do prodaje) in najboljše kose spremeniti v oglase. Povezati se s skupnostmi, kjer se zbira avatar. Morda dvigniti cene in obstoječim priporočiteljem obdržati stare; uvesti trimesečni minimum.
+- **Zakaj.** Vsebina je hkrati oglasna kreativa, nekaj partnerjev iz skupnosti pa bi lahko podjetje potrojilo.
+- **Vir.** ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=3856s) (64:16)
+
+##### Storitev leadov in prodaje za nove nepremičninske preprodajalce · CAC ~5 tisoč $, LTV ~35 tisoč $ · zelo nizek zaključek
+- **Situacija.** Veliko potencialnih strank si ne more privoščiti prvega obroka.
+- **Diagnoza.** Nekvalificirani leadi izčrpavajo prodajno ekipo in stopnjo zaključka.
+- **Nasvet.** Avatar določiti po strankah, ki porabijo največ in ostanejo najdlje (demografija, merljivi podatki, kot je dohodek, geografija, vedenje v prodajnem procesu). To trenje vgraditi v oglase, pristajalne strani, spustne sezname v obrazcih in VSL. Najboljše leade poslati prodaji, ostale v avtomatizirano ponudbo, ki se sama poplača.
+- **Zakaj.** Kvalifikacija zviša ceno na klic, a zniža CAC in dvigne LTV. Ni se spomnil primera, ko bi ga stala denar, prodaja ljudem, ki zapravljajo zadnji dolar, pa škodi etiki, morali in ugledu.
+- **Vir.** [How to Build a Business That Runs Without You](https://www.youtube.com/watch?v=TLpLmhWqKEU&t=3357s) (55:57)
+
+##### B2B licenciranje za lastnike fitnesov (Alexovo) · 100+ novih fitnesov na mesec · neprimerne stranke
+- **Situacija.** Tisti, ki niso bili lastniki, lastniki s krajšim delovnim časom, lastniki brez podpisane najemne pogodbe in lastniki brez osebja so porabili največ časa ekipe in dosegli najslabše rezultate.
+- **Diagnoza.** Ni bilo minimalnega standarda za stranke.
+- **Nasvet.** Zahtevati vsaj 25 članov, podpisano najemno pogodbo, lastnika s polnim delovnim časom in po možnosti enega zaposlenega. Vrniti se k programu z jasnim koncem in oglaševati povprečne rezultate.
+- **Zakaj.** Primernejše stranke plačajo več, zaslužijo več, potrebujejo manj dela in ostanejo dlje. Prodaja je padla s 100+ na 40–50 na mesec, eskalacije pa v štirih tednih z 22 na nič.
+- **Vir.** [Pricing Lessons From a Private Equity God](https://www.youtube.com/watch?v=hnfh2jqNVEQ&t=336s) (05:36)
+
+##### Agencija za leade in prodajni coaching za finančne svetovalce · ~6,6 mio $/leto · glavni problem je odliv
+- **Situacija.** Plačani oglasi do VSL do telefonske ekipe. Cilj: 20 mio $+.
+- **Diagnoza.** Aktivirane stranke ostanejo, zato je to problem aktivacije in avatarja.
+- **Nasvet.** Najti segmente (demografija, merljivi podatki, vedenje), ki se aktivirajo, in prodajati samo njim, po potrebi s prilagojeno ceno. Dnevna skupinska igra vlog za ekipe strank. Razčleniti, kaj vodi do aktivacije, in zagotoviti zgodnji uspeh.
+- **Zakaj.** Neprimernim strankam ne moreš pomagati, ne glede na trud; enako je videl pri lastnikih fitnesov, ki so bili premajhni, da bi plačali.
+- **Vir.** [Helping 4 Educational Business Owners Build a $1M Business in 25 Minutes](https://www.youtube.com/watch?v=BYpTRiRqS1Y&t=1106s) (18:26)
+
+##### Agencija za DM lijake za ustvarjalce · stranke odidejo po 3–5 mesecih
+- **Situacija.** Stranke, ki dosežejo rekorden mesec, ostanejo; druge odidejo.
+- **Diagnoza.** Prvih 30 dni odloča o zadrževanju, izbor strank pa je preohlapen.
+- **Nasvet.** Zahtevati predhodne prodajne izkušnje, ponudbo narediti bolj na ključ, pričakovanja postaviti vnaprej, nato povečati obseg outbounda.
+- **Zakaj.** Manj spremenljivk, ki gredo lahko narobe; odliv je predvsem vprašanje, ali stranka pride do šestega meseca.
+- **Vir.** ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=5016s) (83:36)
+
+##### Posredniški (wholesale) posli · posli padli z ~70 na ~40 na mesec · najboljši so odšli
+- **Situacija.** Vodja prodaje in drugi najboljši zaključevalec sta odšla; najboljši zaključevalec je bil povišan v vodjo in slabo vodi. Lastnik želi zaposliti direktorja prodaje.
+- **Diagnoza.** Ustanovitelj ne pozna prodaje, nič se ne uveljavlja dosledno, povišan je bil napačen tip osebnosti.
+- **Nasvet.** Lastnik gre osebno v prodajo: sprejema klice, poenostavi scenarij, ga uveljavi za vse in usposablja s pregledi klicev in vajami.
+- **Zakaj.** Podjetje, ki ga vodi prodaja in katerega direktor ne zna voditi prodaje, je talec tistega, ki jo vodi.
+- **Vir.** [10 Millionaires Asked Me How to Get Richer](https://www.youtube.com/watch?v=6m6DCQMASEM&t=781s) (13:01)
+
+##### Samostojna agencija za plačane oglase, regulirana niša · ~90 tisoč $/leto dobička · skrbi ga prva zaposlitev
+- **Situacija.** Ena oseba streže niši, ki jo je težko oglaševati.
+- **Diagnoza.** Pokvarjen model; ljudje niso problem.
+- **Nasvet.** Preden razmišlja o zaposlovanju, naj bodisi zaračuna desetkrat več na stranko bodisi postane desetkrat učinkovitejši pri izvedbi.
+- **Zakaj.** Ni marže, iz katere bi lahko zaposlil, s povečevanjem sedanjega modela pa bi povečal problem.
+- **Vir.** [10 Millionaires Asked Me How to Get Richer](https://www.youtube.com/watch?v=6m6DCQMASEM&t=2422s) (40:22)
+
+##### B2B licenciranje za lastnike fitnesov (Alexovo) · ~1 mio $ na teden · ustanovitelji želijo izstopiti
+- **Situacija.** 100 % prodaje iz plačanih družbenih omrežij, ustanovitelj pa je bil obraz vsakega oglasa.
+- **Diagnoza.** Bolj osebna znamka kot podjetje: odvisnost od ustanovitelja, en kanal in odliv bi omejili vsako izstopno ceno.
+- **Nasvet.** Zaposliti nekoga od konkurenta, ki je delal outbound, in mu naročiti, da zgradi oddelek za outbound iz nič; vztrajati skozi počasne prve mesece, dokler se vsaka stopnja lijaka izboljšuje. Ustanovitelja umakniti s pročelja: specialisti, nekdanje stranke kot vodje izdelkov, novi obrazi v oglasih, oglasi predani generalnemu direktorju.
+- **Zakaj.** V približno letu dni je outbound prinašal okoli polovico prihodka, kar je pomirilo kupca; podjetje je postalo vredno tudi obdržati.
+- **Vir.** [How I Scaled My Sales Team \[Compensation, Recruiting & Training\]](https://www.youtube.com/watch?v=okA9Yt2KZuk&t=139s) (02:19); [I Reverse Engineered the Perfect Business](https://www.youtube.com/watch?v=HKbFUWJwEG0&t=1297s) (21:37)
+
+##### Svetovalec računovodskim pisarnam · želi podjetje, ki ga je mogoče prodati
+- **Situacija.** Takega svetovalnega podjetja nihče ne kupi.
+- **Diagnoza.** Kupci pa kupujejo računovodske pisarne, še posebej v skupinah.
+- **Nasvet.** Vsako leto ali dve sestaviti združitev 10–20 pisarn strank in vzeti delež za izpeljavo posla.
+- **Zakaj.** Obseg prinese premijo: pisarne, ki se same prodajo pri okoli 4-kratniku, se skupaj lahko pri okoli 12-kratniku, zato se jim vrednost tudi po odstopu 30 % približno podvoji.
+- **Vir.** [How to Build a Valuable Company You Can Sell Someday](https://www.youtube.com/watch?v=VxKwz6hBVZU&t=812s) (13:32)
+
+##### Marketing na ključ za zdravstvene klinike · ~5 mio $/leto · streže ~160 od ~2.000 klinik
+- **Situacija.** Zdrava agencija z majhnim deležem jasno določene niše.
+- **Diagnoza.** Pobira majhen honorar od strank, ki skupaj ustvarijo veliko več prihodka.
+- **Nasvet.** Razmisliti o združitvi 10–20 strank v nacionalno skupino za velik izstop in pri tem vzeti 20–30 %.
+- **Zakaj.** Konsolidacija dvigne multiplikator, to, da si ti tisti, ki je to naredil, pa spremeni cene in položaj na trgu.
+- **Vir.** [7 Millionaires Asked Me How to Get Rich(er)](https://www.youtube.com/watch?v=bgBIO6nZawg&t=0s) (00:00)
+
+##### Arhitekturni biro · sprašuje, kako meriti zadrževanje prihodka
+- **Situacija.** Projekti so enkratni, zato je zadrževanje strank videti naravno nizko.
+- **Diagnoza.** Razmišljanje na ravni projekta.
+- **Nasvet.** Zadrževanje meriti raven višje, pri partnerjih, ki priporočajo (izvajalci in drugi, ki pošiljajo ponavljajoče se delo), in pridobivanje graditi okoli pridobivanja partnerjev, vsakega z znano vrednostjo in stroškom.
+- **Zakaj.** Enako je bilo v njegovem podjetju s programsko opremo: agencije so ostajale, čeprav so njihove končne stranke odhajale.
+- **Vir.** [How to Build a Business That Runs Without You](https://www.youtube.com/watch?v=TLpLmhWqKEU&t=3839s) (63:59)
+
+##### Zavarovalniška agencija, 29 agentov · lastnik kot obraz ali več novih agentov
+- **Situacija.** Večina leadov pride iz priporočil in mreženja, ne iz lastnikove vsebine.
+- **Diagnoza.** Omejitev povpraševanja.
+- **Nasvet.** Zaposlovati agente in zgraditi usposabljanje, da sami ustvarjajo leade. Pri pozivih k dejanju v vsebini izmenjevati med kupci in kandidati.
+- **Zakaj.** Lead getterji se seštevajo ob enakem trudu lastnika.
+- **Vir.** [$100M Investor Answers The Most Important Business Questions for 1 Hour](https://www.youtube.com/watch?v=--9kOXNCUdE&t=2753s) (45:53)
+
+##### Agencija za plačane oglase · želi stranke s 100 tisoč $+ porabe na mesec · vse iz priporočil
+- **Situacija.** Ni lastnega pridobivanja; rast je odvisna od tega, kdo slučajno priporoči.
+- **Diagnoza.** Čaka na prave stranke, namesto da bi šla ponje.
+- **Nasvet.** Outbound na ciljne stranke z visoko vrednostjo, nišna vsebina in lastni oglasi z ostrim nagovorom, ki izključi male oglaševalce, plus LinkedIn. V pogodbe vgraditi svetovalno fazo za čas, ko stranke oglaševanje prevzamejo same.
+- **Zakaj.** Stranko, ki jo želiš, moraš iti iskat.
+- **Vir.** [10 Millionaires Asked Me How to Get Richer](https://www.youtube.com/watch?v=6m6DCQMASEM&t=3099s) (51:39)
+
+##### Agencija za razvoj spletnih rešitev za velika podjetja · dve stranki ~90 % prihodka · outbound ne deluje
+- **Situacija.** Dva solastnika 50/50, oba delata na projektih za stranke.
+- **Diagnoza.** Problem usklajenosti partnerjev: partner, odgovoren za prodajo, ne izvaja aktivnosti. Veščine niso problem.
+- **Nasvet.** Neposreden, neolepšan pogovor, ki loči kritiko (razliko med povedanim in narejenim) od žalitve. Dogovoriti se, ali oba želita rast; če ne, razdeliti odgovornosti ali delati vsak na svojem.
+- **Zakaj.** Ko sta prej izgubila veliko stranko, sta jo hitro nadomestila, torej sposobnost obstaja.
+- **Vir.** [10 Millionaires Asked Me How to Get Richer](https://www.youtube.com/watch?v=6m6DCQMASEM&t=1702s) (28:22)
+
+##### Nišna agencija za leade s programsko opremo · ~2 mio $ + ~0,55 mio $/leto · ustanovitelj brez motivacije
+- **Situacija.** Okoli 15–20 % deleža majhnega trga, cilj 5 mio $ v dveh letih. Operativa je predana, ustanovitelj pa se ne more pripraviti k ustvarjalnemu delu.
+- **Diagnoza.** To ni prava izgorelost: delo ga ne nagrajuje več in vložek je premajhen. Lovec, ki je obtičal pri obdelovanju polja.
+- **Nasvet.** Dvigniti cilj in skrajšati rok, zaposliti vodjo za vsakodnevno delo in se vrniti k prodaji in iskanju večjih poslov. Ne skrbeti zaradi sprememb glavnega oglaševalskega kanala; proračun po potrebi postopno preseliti.
+- **Zakaj.** Izgorelost pride, ko je nagrada odložena ali ne zadovolji več; 20–30 % rasti mu ne spremeni življenja, 300 % bi ga.
+- **Vir.** ["Should He Walk Away From His $1.4M Business To Start Over?" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=0RjIw9M1j28&t=1198s) (19:58)
+
+##### Glasbena odvetniška pisarna, kasnejša faza · ~100 tisoč $/mesec in raste · izbira med enotami
+- **Situacija.** Pisarna raste, izobraževanje stoji pri okoli 200 tisoč $, poleg tega programska oprema za pogodbe.
+- **Diagnoza.** Dva avatarja, velike založbe in polprofesionalni glasbeniki. Okoli 40 % uporabnikov programske opreme po letu dni še plačuje, kar kaže na ujemanje z manjšimi kupci.
+- **Nasvet.** Premik k manjšim kupcem, izobraževanje uporabiti za pokrivanje CAC in vse usmeriti v dvig zadrževanja v 12. mesecu s 40 % na 60–70 %.
+- **Zakaj.** Te kupce zlahka pridobijo, zadržati jih je težji del, zadrževanje pa je tisto, kar model sešteva.
+- **Vir.** [$100M Investor Answers The Most Important Business Questions for 1 Hour](https://www.youtube.com/watch?v=--9kOXNCUdE&t=2467s) (41:07)
+
+##### Preprodaja nepremičnin · ~15 mio $ prodaje, ~2,5 mio $ po stroških ekipe · 95 % poslov iz rubežev
+- **Situacija.** Obvladuje območje štirih ur vožnje; nobenega oglaševanja.
+- **Diagnoza.** Ni nadzora nad pritokom poslov.
+- **Nasvet.** Začeti oglaševati (iskalni oglasi, pošta, družbena omrežja) na sedanjem trgu, kar bi ga lahko podvojilo. Pred širitvijo preučiti največjega nacionalnega kupca ter njegov model kopirati in izboljšati.
+- **Zakaj.** Model je dokazan z osmimi leti učenja; sprememba posla bi krivuljo vrnila na začetek.
+- **Vir.** [7 Millionaires Asked Me How to Get Rich(er)](https://www.youtube.com/watch?v=bgBIO6nZawg&t=628s) (10:28)
+
+##### Foto kabine na ključ v lokalih · ~1 mio $/leto, 80 kabin · omejitev denarja
+- **Situacija.** Okoli 950 $ bruto na kabino na mesec, vračilna doba okoli 17 mesecev, cilj 3 mio $.
+- **Diagnoza.** Problem financiranja: naprave, ki izgubljajo vrednost, kupljene z gotovino.
+- **Nasvet.** Preizkusiti najem pri proizvajalcu namesto nakupa; sicer prodati majhen delež za kapital.
+- **Zakaj.** Vrednost je v razliki od postavljanja kabin, ne v lastništvu sredstva, ki izgublja vrednost.
+- **Vir.** ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=2360s) (39:20)
+
+##### Najem tribun · ~4,5 mio $/leto, ~1 mio $ dobička · vodje ne delegirajo
+- **Situacija.** Vodstvena raven se oklepa dela.
+- **Diagnoza.** Nejasna pričakovanja in šibko usposabljanje.
+- **Nasvet.** Zaposlovati za najmanjšo vrzel v veščinah; opredeliti želeno vedenje; usposabljati po načelu dokumentiraj, pokaži, ponovi; dajati povratne informacije nehaj/začni/nadaljuj.
+- **Zakaj.** Ljudje ne morejo spremeniti vedenja, ki je opisano le z abstraktnimi besedami.
+- **Vir.** [Answering Your Top Business Questions for 1 Hour](https://www.youtube.com/watch?v=QwEb78e5a8Y&t=769s) (12:49)
+
+##### Holding s 14 nepovezanimi podjetji · ~35 mio $ skupnega prihodka · cilj ~50 mio $ vrednosti
+- **Situacija.** Razpršen portfelj brez skupne niti.
+- **Diagnoza.** Obtičal med strategijo koncentracije in združevanjem, ne zavezan nobeni.
+- **Nasvet.** Odločiti, katero vsakodnevno delo ti je ljubše. Nato bodisi uporabiti 80/20 na portfelju in podvojiti vložek v najboljših okoli šest bodisi iti vertikalno s pravimi sinergijami.
+- **Zakaj.** Obe poti dosežeta cilj; problem je pomanjkanje fokusa.
+- **Vir.** [Answering Your Top Business Questions for 1 Hour](https://www.youtube.com/watch?v=QwEb78e5a8Y&t=1292s) (21:32)
+
+##### Medijsko podjetje z ekipo talentov · želi postati prodajljivo
+- **Situacija.** Njegove zvezde ustvarjajo veliko občinstvo.
+- **Diagnoza.** Zvezde ustvarjajo prikaze, prikazov pa ni mogoče prodati.
+- **Nasvet.** Prikaze usmeriti v lastne izdelke (inkubator izdelkov) ali prodajati oglasni prostor; zbrati majhen delež kapitala za financiranje lansiranj.
+- **Zakaj.** Občinstvo je gos, lastni izdelki so jajca, za katera bo kupec plačal.
+- **Vir.** [How to Build a Valuable Company You Can Sell Someday](https://www.youtube.com/watch?v=VxKwz6hBVZU&t=621s) (10:21)
+
+##### Delovno intenzivna storitev, 19-letni lastnik · ~20 tisoč $/mesec dobička · ~700 tisoč $ prihrankov
+- **Situacija.** Zaradi spremembe platforme je izgubil podjetje s programsko opremo, ki je prinašalo 100 tisoč $ dobička na mesec; živi z 2–3 tisoč $ na mesec.
+- **Diagnoza.** Talent zapravljen na majhni storitveni dejavnosti in razmišljanje le korak naprej.
+- **Nasvet.** Izbrati cilj 2–10 mio $ na mesec, preveriti, kateri posel bi ga dejansko lahko podprl (velikost trga, odliv, pridobivanje), in iti povsem vanj, živeti od prihrankov namesto od prihodka storitve.
+- **Zakaj.** V tej starosti in brez vzdrževanih družinskih članov je tveganje zelo majhno; prihranki obstajajo zato, da z njimi staviš.
+- **Vir.** ["Should He Walk Away From His $1.4M Business To Start Over?" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=0RjIw9M1j28&t=4544s) (75:44)
+
+##### Agencija s paketi na ključ za ~50 tisoč $ · financiranje zasluži več kot storitev
+- **Situacija.** Urejanje financiranja za stranke je prinašalo več denarja kot izvedba dela.
+- **Diagnoza.** Denar je bil v financiranju.
+- **Nasvet.** Lastnik je prešel na poslovno posojanje in iz financiranja naredil svoj posel.
+- **Zakaj.** Sledi lahkemu denarnemu toku. Preden se odločiš, s čim se ukvarjaš, poglej, od kod dejansko prihaja dobiček, ker je to pogosto drug posel od tistega, ki si ga začel.
+- **Vir.** [Your Business Is NOT What You Think It Is](https://www.youtube.com/watch?v=rj7rzOdj84A&t=2066s) (34:26)
+
+##### Storitev za izboljšanje življenjepisov · dober proces · podjetje je propadlo
+- **Situacija.** Prijateljeva storitev za brezposelne: resnična bolečina, lahko ciljanje, rastoč trg.
+- **Diagnoza.** Trg ni mogel plačati.
+- **Nasvet.** Lekcija namesto popravka: izberi trg, ki si te lahko privošči.
+- **Zakaj.** Dober proces ne premaga strank brez denarja.
+- **Vir.** [GROWTH LEVERS: Big Business Owner Explains Real World Tactics That Work](https://www.youtube.com/watch?v=F3NyhOtRpOE&t=1153s) (19:13)
+
+#### Vzorci
+
+- **Prenizke cene, po urah ali strošek plus pribitek (okoli 9 primerov).** Urno pravno delo, izmišljene postavke, omejene postavke podizvajalcev, stopnje zaključka 84–100 %. Preide na ceno za izid, pogosto fiksni znesek plus delež uspešnosti, z visokim sidrom in cenejšo različico.
+- **Pridobivanje je odvisno od nečesa, česar lastnik ne nadzoruje (okoli 9 primerov).** Priporočila dobavitelja, nekaj partnerjev, ustanoviteljeva mreža, ena oglaševalska platforma. Doda lasten kanal, običajno outbound na določen seznam, in še naprej povečuje to, kar že deluje.
+- **Premalo izkoriščeni partnerji in affiliate partnerji (okoli 6 primerov).** Partnerji, ki iz nekaj e-sporočil prinesejo tretjino prihodka, partnerji iz skupnosti, zadrževanje na ravni partnerja. Poveča outreach partnerjem, jim da ponudbo, ki spremeni vedenje, in meri vrednost na partnerja.
+- **Odliv zaradi napačnih strank in šibkega začetka (okoli 7 primerov).** Agencije, ki izgubljajo stranke med tretjim in šestim mesecem, računovodske stranke pri 70 % zadrževanju, naročnina s 13 % mesečnega odliva. Zoži avatar, doda kvalifikacijo, načrtuje zgodnji uspeh in sporoča opravljeno delo.
+- **Ponudba se ne ujema s hladnim prometom (okoli 4 primeri).** Drage ponudbe, potisnjene neznancem, generične mesečne pogodbe. Zniža prvi korak (revizija, uvodna ponudba, plačilo za prihod na termin) in kasneje stranko pripelje višje.
+- **Cena v coni odliva (2–3 primeri).** Storitve za mala podjetja v srednjem cenovnem razredu hitro izgubljajo stranke; svetuje bodisi poceni in avtomatizirano z vidnimi rezultati bodisi premik navzgor.
+- **Ustanovitelj ali partner kot prodajni problem (okoli 4 primeri).** Ustanovitelj, ki ne pozna prodaje, partner, ki ne prodaja, nemotiviran lovec pri obdelovanju polja. Lastnika vrne v prodajo ali izsili pogovor s partnerjem.
+- **Prodajljivost (okoli 5 primerov).** Svetovalna podjetja in podjetja s talenti je težko prodati; pokaže na ponavljajoče se prihodke, več kanalov, neodvisnost od ustanovitelja ali združevanje strank.
+- **Najprej ponudba, nato povpraševanje (2–3 primeri).** Ustavljena prodaja ali samostojni izvajalec brez marže; najprej uredi vzvod pri izvedbi ali ceno, šele nato doda leade.
+
+#### Kako bi to uporabil Alex
+
+**Prva vprašanja.**
+1. Kako oblikuješ ceno: po urah, strošek plus pribitek ali po izidu? Kakšna je tvoja stopnja zaključka?
+2. Od kod pride vsaka nova stranka in koliko tega nadzoruješ?
+3. Koliko strank pride do šestega meseca in kaj imajo skupnega tiste, ki ostanejo?
+4. Kaj se zgodi v prvih 30 dneh in kdaj stranka vidi viden uspeh?
+5. Če bi jutri prodal, za kaj bi kupec dejansko plačal?
+
+**Privzete poteze po situaciji.**
+- **Zelo visok zaključek, obračun po urah:** zapakiraj kot izid s fiksnim zneskom, dodaj del, vezan na uspešnost, sidro nad njim in cenejšo različico pod njim; sprejmi nižji zaključek.
+- **Vse delo iz priporočil ali od enega partnerja:** zgradi outbound na določen seznam (najboljši na ciljnem trgu, veliki porabniki) in vodi partnerski program s ponudbo, ki partnerjem nekaj pomeni.
+- **Odliv med tretjim in šestim mesecem:** avatar določi po najboljših dolgoletnih strankah, kvalificiraj v obrazcu in na klicu, pričakovanja postavi vnaprej, uvajanje naj bo osebno in redno pokaži rezultate.
+- **Draga ponudba hladnemu prometu:** dodaj cenejši uvodni korak (revizija, ocena, plačilo za prihod na termin) in njegovo vrednost prenesi v glavno ponudbo.
+- **Preveč ponudb ali enot:** obdrži tisto s povpraševanjem in maržo, ostale spremeni v marketinška sredstva ali jih zapri.
+- **Zmogljivost izvedbe je polna:** najprej dvigni ceno, v delovni proces dodaj sodelavce iz tujine in UI ter nadaljuj s prodajo.
+- **Načrtuješ izstop:** dodaj drugi kanal, umakni ustanovitelja s pročelja, dvigni zadrževanje ali združi stranke, ki jim strežeš.
+
+## Primeri: e-trgovina in izdelki
+
+- id: cases-products
+- book: Alex's Playbook / Casebook
+- original term: Hotseat cases
+- key: Večina lastnikov izdelkov ima težavo s ceno, fokusom ali blagovno znamko, preoblečeno v težavo s prometom; najprej uredi maržo in back end, nato pa pogumneje vlagaj v kanal, ki že deluje.
+- related: focus-and-subtraction, pricing-decisions, retention-and-ltv, enterprise-value, paid-ads
+
+Resnične situacije s hotseatov e-trgovin, DTC blagovnih znamk, potrošniškega blaga in proizvajalcev fizičnih izdelkov, z Alexovo diagnozo in nasveti lastniku.
+
+#### Bistvo
+
+Lastniki izdelčnih podjetij navadno pridejo s prošnjo za več prometa ali novo linijo. V večini teh primerov Alex ugotovi, da je promet v redu ali premalo testiran, prave vrzeli pa so drugje: cene, postavljene po navadi "strošek plus", preveč izdelkov ali ciljnih kupcev, ki tekmujejo za isto pozornost, brez e-pošte ali ponovnih nakupov v back endu, pokvarjena atribucija in podjetje, ki sicer donosno kupuje klike, a nikoli ne postane blagovna znamka, za katero bi kdo plačal več ali jo kupil.
+
+Njegovi recepti sledijo stalnemu vrstnemu redu. Najprej odvzemanje: zapri lokacijo, ki izgublja, odreži stranske izdelke, opusti novi projekt, ki je v resnici beg. Nato uredi denar na kupca: testiraj višje cene, dodaj ponudbe za ponovni nakup in e-poštne tokove ter poskrbi, da najdonosnejši segment zlahka kupi. Šele nato skaliraj pridobivanje kupcev, in ko to stori, lastnike potiska, naj na kanalu, ki že dobro vrača, porabijo in testirajo več, kot jim je prijetno, dobiček pa obravnavajo kot proračun za eksperimente.
+
+Ponavljata se še dve dolgoročni temi. Zmagovalne izdelke brez blagovne znamke, prodane z direct response oglasi, drugi skopirajo, marže pa z rastjo porabe padajo, zato lastnike z vlečno silo usmerja k enemu izdelku, v katerega verjamejo, in k pravi blagovni znamki, pogosto zgrajeni prek ustvarjalcev in affiliatov. Ko pa lastnik želi dodati nekaj novega (SaaS, svet likov, prevzem), vpraša, ali je obstoječi motor izčrpan in kdo nosi tveganje; odgovor je navadno, naj motor teče naprej in novo financira iz njegovega dobička, ali pa naj tega sploh ne počne.
+
+#### Primeri
+
+##### Veleprodaja podaljškov za lase s salonom · ~3,5 mio $/leto skupaj · želi zgraditi programsko opremo za rezervacije v salonih
+
+- **Situacija.** Veleprodaja in e-trgovina s podaljški pri okoli 2,6 mio $ in 30 % marži, hitra rast, poleg tega salon pri okoli 900 tisoč $ in 50 % marži. Lastnica je nameravala porabiti okoli 500 tisoč $ za programsko opremo za rezervacije.
+- **Diagnoza.** Beg pred rešljivimi težavami (marža in pridobivanje kupcev) v veliko težji posel. Podaljški so že ponovni nakup.
+- **Nasvet.** Programske opreme ne gradi. Izboljšaj marže in pridobivanje v jedru: vsebine, oglasi, usmerjeni na frizerje, vstopna ponudba, ki salonom pomaga več zaslužiti s prodajo podaljškov, ter ločeni prodajalci za lov in za vzdrževanje strank (hunter in farmer).
+- **Zakaj.** Programska oprema pomeni leta brez dobička proti osredotočenim, dobro financiranim tekmecem; sedanji posel je denarno pozitiven in mirnejši.
+- **Vir.** [Helping E-Commerce Business Owners Scale](https://www.youtube.com/watch?v=8C_6qojTA78&t=1151s) (19:11)
+
+##### Proizvajalec pokalov in priznanj · ~1,7 mio $/leto, 6 % neto · cene "strošek plus" in brez fokusa
+
+- **Situacija.** Družinsko podjetje v več generacijah s 40 % bruto maržo, okoli 110 tisoč $ dobička, dvema lokacijama (ena komaj pokriva stroške) in prodajo, razpršeno med lastno stran, SEO, spletne tržnice in viralno linijo šaljivih daril na platformi za video nakupovanje.
+- **Diagnoza.** Napačne cene, dva zelo različna ciljna kupca (cenovno občutljivi ponavljajoči se B2B kupci in impulzivni kupci daril) in brez e-poštnega back enda.
+- **Nasvet.** Zapri lokacijo, ki izgublja. Preidi na cene po vrednosti z rednimi testi, začni pri šaljivih darilih. Izkoristi SEO do konca in dodaj plačano iskanje, tudi za lastno znamko. Zaveži se medijski poti šaljivih daril z eno do tremi objavami na dan, affiliati in oglasi za organskimi zmagovalci. Dodaj ponudbo v paketu, e-poštne tokove in tedensko negovanje.
+- **Zakaj.** Pri tankih maržah lahko ~6 % višja cena dobiček približno podvoji, dobiček v e-trgovini pa prihaja iz ponovnih nakupov.
+- **Vir.** [Building a $3,500,000 Business for a Stranger in 51 Mins](https://www.youtube.com/watch?v=BMF2fWHyDrg&t=1051s) (17:31)
+
+##### Spletni proizvajalec ograj · ~2,5 mio $/leto, 15 % neto · pokvarjena atribucija, najboljši segment premalo izkoriščen
+
+- **Situacija.** Okoli 384 tisoč $ dobička, 81 % kupcev iz Googla, okoli 70 % kupcev, ki montirajo sami, in 30 % naročil po meri, okoli 10 % ponovnih nakupov. Poročani LTV:CAC je bil 1:1, nadzorne plošče pa so kazale 0,41.
+- **Diagnoza.** S pokvarjeno atribucijo ni mogoče ničesar optimizirati. Cenovno najmanj občutljivi segment je bil premalo izkoriščen, možnost izdelave po meri pa skrita.
+- **Nasvet.** Najprej popravi atribucijo. Preuredi posel okrog samomontaže in izdelave po meri, zgradi lijak s klicem za naročila po meri z VSL in kvalifikacijskimi sporočili, dvigni cene, pokaži možnost po meri na vsaki strani in pošiljaj e-pošto dvakrat na teden.
+- **Zakaj.** Podvojena stopnja zaključkov in marža na kupca se seštevata. Leto pozneje so poročali o 44 % višjih prihodkih, naročila po meri so bila polovica posla, proračun pa se je preselil s kampanj na pragu donosnosti k zmagovalnim.
+- **Vir.** [Building a $1,000,000 Business for a Stranger in 26 Minutes](https://www.youtube.com/watch?v=HGZOxBfnF-E&t=679s) (11:19)
+
+##### Proizvajalec luksuznih igralnih miz · ~2,5 mio $/leto, 20 % marža · več oglasov je prineslo slabše povpraševanje
+
+- **Situacija.** Google Ads za 15–20 tisoč $ na mesec; lastnik je želel 4-kratno rast, a višja poraba je znižala kakovost povpraševanj.
+- **Diagnoza.** Trg še zdaleč ni nasičen. Prave meje so bile znanje o ključnih besedah in zakupu medijev ter strah pred porabo; oglasi so dosegali le najbolj ozaveščene kupce.
+- **Nasvet.** Dobiček obravnavaj kot proračun za eksperimente in sprejmi, da boš pri testiranju ključnih besed izgubil nekaj sto tisoč, da najdeš nove zmagovalce. Pomakni se k manj ozaveščenim kupcem s širšimi ključnimi besedami in vmesnimi stranmi v slogu članka (advertorial).
+- **Zakaj.** Že najdene ključne besede so vračale okoli 10:1, zato verjetno obstaja še več zmagovalcev, hladnejši kliki pa so cenejši in jih je veliko več.
+- **Vir.** [Helping E-Commerce Business Owners Scale](https://www.youtube.com/watch?v=8C_6qojTA78&t=96s) (01:36)
+
+##### Direct response e-trgovina · ~3 mio $ letne stopnje po štirih mesecih · štirje izdelki brez znamke, ustanovitelj zasut z opravili
+
+- **Situacija.** Štirje izdelki pod ločenimi znamkami, cilj 15 mio $ in prodaja portfelja. Ustanovitelj se je utapljal v drobnih opravilih.
+- **Diagnoza.** Opravila so pritožba; ozko grlo je drugje. Sam model ima strop: čista medijska arbitraža se navadno ustavi pri okoli 10 mio $ s padajočimi maržami in brez ničesar, kar bi kupec hotel.
+- **Nasvet.** Nišna opravila predaj zunanjim sodelavcem in asistentom. Izberi en izdelek, v katerega ekipa resnično verjame, ostale odreži in zgradi blagovno znamko prek influencerjev-affiliatov, preden se ukvarjaš s pravno zaščito.
+- **Zakaj.** Temu reče direct response začarani krog: prihodki gor, marže dol, ekipa postane breme. Kupci plačajo za blagovne znamke, kopije pa ubijejo zmagovalce brez znamke.
+- **Vir.** [Helping E-Commerce Business Owners Scale](https://www.youtube.com/watch?v=8C_6qojTA78&t=578s) (09:38)
+
+##### DTC blagovna znamka moških oblačil · ~10 mio $/leto, ~3 mio $ dobička · razmišlja o ženski in formalni liniji
+
+- **Situacija.** Modna znamka s pogodbeno proizvodnjo na velikem azijskem trgu, močna pri kupovanju prometa, razmišlja o novih kategorijah.
+- **Diagnoza.** Odlična pri medijski arbitraži, vendar brez blagovne znamke.
+- **Nasvet.** Ostani pri moških oblačilih in tam meri na 100 mio $. Zgradi pravo blagovno znamko, na primer okrog obraza znamke, namesto posnemanja hitre mode.
+- **Zakaj.** Blagovna znamka omogoča višje cene in naredi podjetje prodajljivo; nove kategorije bi razpršile fokus, preden je prva izčrpana.
+- **Vir.** [7 Millionaires Asked Me How to Get Rich(er)](https://www.youtube.com/watch?v=bgBIO6nZawg&t=1833s) (30:33)
+
+##### Preprodajalec dizajnerskih dodatkov v živem prenosu · ~6 mio $/leto · želi ~38 mio $
+
+- **Situacija.** Prodaja dizajnerske torbice in sončna očala v aplikaciji za nakupovanje v živo, omejen na okoli pet ur prenosa na dan, ima lastno logistiko in ga nenehno stiska pomanjkanje denarja.
+- **Diagnoza.** Ozko grlo so prodajalci pred kamero. Skladišče je zamenljiva storitev, denarja pa zmanjkuje, ker gre ves bruto dobiček v zalogo.
+- **Nasvet.** Dodaj dva prodajalca pred kamero, plačana z deležem dobička, pridobljena med ustvarjalci, ki že prodajajo v živo, in vezana z ekskluzivno pogodbo. Skladišče predaj sposobnemu vodji, zaposli finančnika za napovedi, prodajalce uči konkretnih vedenj in zvezdniško prodajalko pusti prodajati.
+- **Zakaj.** Vsak prenos je donosen, zato več prodajnih ur neposredno poveča prihodke; vzvod ustanovitelja je učenje drugih prodaje.
+- **Vir.** [Helping E-Commerce Business Owners Scale](https://www.youtube.com/watch?v=8C_6qojTA78&t=1728s) (28:48)
+
+##### Samostojni založnik družabnih iger · 1,3 mio $ z ene igre iz množičnega financiranja · štiri nove igre začete pred dobavo prve
+
+- **Situacija.** Ostalo je okoli 150 tisoč $ gotovine, še 150 tisoč $ je že šlo za razvoj štirih novih iger, prva igra še ni bila dobavljena, lastnik pa je bil preobremenjen.
+- **Diagnoza.** Kompleksnost, ki si jo je ustvaril sam. Začetek štirih iger pred dokončanjem prve je izbrisal prioritete in povzročil tesnobo.
+- **Nasvet.** Denar zberi tako, da preteklim kupcem ponudiš "kupi eno, dobiš drugo" za prihajajoče igre. Dobava prve igre naj bo edini cilj. Zaposli asistenta. Oglaševanja se uči s fiksnim proračunom za učenje, razdeljenim približno 70/20/10.
+- **Zakaj.** Odzivi na prvo dobavo bodo spremenili poznejše igre, sam posel pa je preprost: odpošlji škatlo.
+- **Vir.** ["Should He Walk Away From His $1.4M Business To Start Over?" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=0RjIw9M1j28&t=2389s) (39:49)
+
+##### Premium koktajli v pločevinki · ~1,5 mio $/leto, nič dobička · želi milijardno blagovno znamko
+
+- **Situacija.** V okoli 1.000 trgovinah s šibko prodajo s polic, ustanoviteljica sama po odpustu zaposlenih, brez izkušenj z blagovno znamko ali direct response trženjem. Ob strani je vodila preverjen posel z razvojem nepremičnin.
+- **Diagnoza.** Ni podatkov o ponovnih nakupih, ni kapitala za igro z znano osebnostjo in ni pripravljenosti na 10–15 let regionalnega garanja.
+- **Nasvet.** Ena zadnja osredotočena stava: vse na pogodbe v potovalni prodaji (letalske družbe, vlaki, križarke), kjer je majhna pločevinka prednost. Če ne zapre nobene pogodbe, naj posel zapre. Sicer naj čas vloži v nepremičnine in se nauči zaposlovati in usposabljati ljudi.
+- **Zakaj.** To je edina pot, ki ne potrebuje kapitala in ustreza njenim veščinam; hitro učenje je boljše od izgube še treh let.
+- **Vir.** [Your Business Is NOT What You Think It Is](https://www.youtube.com/watch?v=rj7rzOdj84A&t=1488s) (24:48)
+
+##### Prodajalec robotskih prodajnih avtomatov · avtomati po ~15 tisoč $ z ~50 % maržo · outbound deluje, a je majhen
+
+- **Situacija.** Podjetniki avtomate želijo, nimajo pa lokacij. Hladna e-pošta prinese dva ali tri odgovore na 100, in skoraj vsi se zaključijo. Štirje zaključevalci, en setter; plačani oglasi niso delovali.
+- **Diagnoza.** Preverjen, zelo donosen outbound postopek, ki ga nikoli niso skalirali.
+- **Nasvet.** S približno 100 pojdi na okoli 5.000 e-poštnih sporočil na dan z več ogretimi domenami, personalizacijo z UI in samodejnim pošiljanjem v imenu prodajalcev. Odgovore pošlji neposredno zaključevalcem, ki tudi sami iščejo stranke. Razmisli o SDR-jih ali klicanju z UI.
+- **Zakaj.** Ekonomika enote je izjemna. Ko postopek deluje, sta meja obseg in število ljudi.
+- **Vir.** [How to Build a Business That Runs Without You](https://www.youtube.com/watch?v=TLpLmhWqKEU&t=5998s) (1:39:58)
+
+##### Oblačila z licenčnimi izdajami · ~6 mio $/leto, ~10 % neto · konverzija niha med 5 in 25 % glede na licenco
+
+- **Situacija.** Izdaje z licencami TV serij in animejev, ves promet iz plačanih družbenih omrežij na čakalne sezname; lastnik je želel izstop pri 4–5-kratniku EBITDA.
+- **Diagnoza.** Ni napovednih podatkov, katera licenca bo uspela. Teza za izstop je šibka: veliki kupci redko pišejo tako majhne čeke, model pa je lahko posnemati.
+- **Nasvet.** Zgradi kvantitativne napovednike uspeha izdaj. Ustvari ambasadorski program nišnih ustvarjalcev, ki promovirajo vsako izdajo in dobijo svoje, njihove podatke o vplivu pa uporabi za izbiro licenčnih partnerjev.
+- **Zakaj.** Ustvarjalci prinesejo občinstvo brez oglaševalskih stroškov, se mehko pogajajo in zgodaj pokažejo, kdo res proda izdelek.
+- **Vir.** [How to Build a Business That Runs Without You](https://www.youtube.com/watch?v=TLpLmhWqKEU&t=4082s) (1:08:02)
+
+##### Spletna trgovina z oblačili in skupnostjo · velikost ni navedena · oblačila ali lasten svet likov?
+
+- **Situacija.** Znamka z okoli 14.000 člani skupnosti, razpeta med skaliranjem oblačil in gradnjo lastnega sveta likov.
+- **Diagnoza.** Lažna izbira "ali-ali".
+- **Nasvet.** Naj motor z oblačili teče naprej. Svet likov financiraj iz njegovega dobička in ga obravnavaj kot trženje. Meri, ali prinaša več kupcev, in preuči, kako veliki studii monetizirajo like.
+- **Zakaj.** Gradnja intelektualne lastnine stane kapital. Nečiji denar mora biti v tveganju, najbolje iz lastnega delujočega motorja.
+- **Vir.** [10 Millionaires Asked Me How to Get Richer](https://www.youtube.com/watch?v=6m6DCQMASEM&t=1991s) (33:11)
+
+##### Ograje po meri z dostavo po vsej državi · ~420 tisoč $/leto · želi priporočila arhitektov in izvajalcev za velike projekte
+
+- **Situacija.** Povpraševanje prihaja prek SEO. Lastnik je želel, da mu partnerji iz stroke pošiljajo projekte od 50 tisoč $ naprej.
+- **Diagnoza.** Lov na velike B2B posle je sprememba strategije z resničnim tveganjem, partnerji pa potrebujejo prepričljiv razlog za priporočanje.
+- **Nasvet.** Začni z najmanj tveganimi potezami: dodaj plačano iskanje in več SEO člankov. Pri partnerjih uporabi neposreden outreach in jim po možnosti dovoli preprodajo z lastno maržo; sicer ponudi skupni delež (na primer 20 %), razdeljen med provizijo partnerja in popust stranki. Dvigni neposredne cene.
+- **Zakaj.** Splošne provizije ne spremenijo vedenja; kar daš, postane preprosto tvoj strošek pridobitve kupca.
+- **Vir.** [$100M Investor Answers The Most Important Business Questions for 1 Hour](https://www.youtube.com/watch?v=--9kOXNCUdE&t=1018s) (16:58)
+
+##### Proizvajalec pokalov razmišlja o prevzemu · tarča ~2-krat večja · 70 % prihodkov tarče od ene stranke
+
+- **Situacija.** Isti proizvajalec priznanj je razmišljal o nakupu lokalnega tekmeca s približno dvakratnimi prihodki, katerega lastnik se je upokojeval.
+- **Diagnoza.** Tveganje ključne osebe zaradi upokojitve lastnika, povrhu hude koncentracije strank, in brez jasnega strateškega razloga za posel.
+- **Nasvet.** Ne kupi. Če so privlačni odnosi z dobavitelji, jih poskusi dobiti drugače.
+- **Zakaj.** Če ima upokojeni lastnik v rokah veliko stranko, lahko kupec ob zaključku posla izgubi večino prihodkov.
+- **Vir.** [Building a $3,500,000 Business for a Stranger in 51 Mins](https://www.youtube.com/watch?v=BMF2fWHyDrg&t=813s) (13:33)
+
+#### Vzorci
+
+- **Najprej odvzemi, nato dodajaj (približno 7 primerov).** Lokacija z izgubo, dodatni izdelki, nedokončane igre, nove kategorije, beg v SaaS: njegova prva poteza je navadno, da nekaj odreže ali zavrne.
+- **Novi projekt je beg (približno 4 primeri).** Programska oprema, ženska oblačila, svet likov, prevzem. Preveri, ali je jedro izčrpano; redko je.
+- **Cene iz navade (približno 4 primeri).** Cene "strošek plus" ali pod trgom; predpiše teste cen po vrednosti in neposredne dvige, ker majhna povišanja pri tankih maržah močno premaknejo dobiček.
+- **Manjkajoč back end (približno 4 primeri).** Brez e-poštnih tokov, brez ponudbe za ponovni nakup, preteklim kupcem nihče ne proda znova. Dobiček e-trgovine prihaja iz drugega in tretjega nakupa.
+- **Premalo porabe in testov na zmagovalnem kanalu (približno 4 primeri).** Plačano iskanje pri 10:1, ki ga lastnik ne upa potisniti, nikoli preizkušen PPC, outbound pri 100 sporočilih na dan.
+- **Medijska arbitraža brez blagovne znamke (približno 3 primeri).** Donosno kupovanje klikov, ki doseže strop, ga drugi skopirajo in ga je težko prodati. Izberi en izdelek in zgradi znamko, pogosto prek ustvarjalcev.
+- **Ustvarjalci in partnerji kot kanal (približno 4 primeri).** Influencerji-affiliati, ambasadorski programi, partnerji, ki preprodajajo; partnerjem daj nekaj, na čemer lahko zaslužijo.
+- **Podatki pred optimizacijo (približno 2 primera).** Pokvarjena atribucija ali brez napovednega modela pomeni, da porabe ni mogoče usmerjati.
+- **Pasti gotovine in zalog (približno 3 primeri).** Bruto dobiček, ujet v zalogi ali prototipih; denar zbere pri preteklih kupcih in fokus vrne na dobavo.
+
+#### Kako bi to uporabil Alex
+
+**Prva vprašanja.**
+1. Kakšni sta bruto marža in neto dobiček in kako so bile postavljene cene?
+2. Kolikšen delež kupcev kupi znova in kaj jim pošljete po prvem naročilu?
+3. Kateri en kanal in izdelek prinašata večino dobička in ali to lahko dokažete z atribucijo?
+4. Kaj se zgodi z donosom, če podvojite porabo na najboljšem kanalu?
+5. Je to blagovna znamka, za katero ljudje plačajo več, ali izdelek, ki ga prodajate, ker oglasi delujejo?
+6. Kaj novega nameravate začeti in zakaj ravno zdaj?
+
+**Privzete poteze glede na situacijo.**
+- **Marža pod ~10 % ali cene "strošek plus":** najprej testi cen, začni pri cenovno najmanj občutljivi liniji; zapri ali odreži vse, kar izgublja.
+- **Ni ponovnih nakupov:** preden kupiš več prometa, dodaj ponudbe v paketu, e-poštne tokove in tedensko negovanje.
+- **Kanal dobro vrača, rast pa stoji:** načrtno povečaj porabo in razširi ciljanje, del dobička pa nameni proračunu za učenje; s širšimi izrazi in vmesnimi vsebinami pojdi k manj ozaveščenim kupcem.
+- **Pokvarjena atribucija:** popravi jo pred vsako drugo optimizacijo.
+- **Več izdelkov ali znamk na medijski arbitraži:** obdrži tisto, v kar ekipa verjame, in okrog nje zgradi blagovno znamko z ustvarjalci ali affiliati.
+- **Želja po novi liniji, SaaS-u ali prevzemu:** privzeti odgovor je ne. Če je želja resnična, naj jedrni motor teče naprej in novo financiraj iz njegovega dobička kot tržno stavo; zavrni prevzeme s tveganjem ključne osebe ali odvisnostjo od ene stranke.
+- **Stiska z gotovino:** najprej prodajaj preteklim kupcem (prednaročila, paketi), zoži fokus na dobavo trenutnega izdelka, zamenljive stvari pa oddaj zunanjim izvajalcem ali najemi.
+- **Preverjen outbound ali prodajni postopek:** pred spremembo strategije skaliraj njegov obseg in število ljudi.
+
+## Primeri: izobraževanje, coaching in programska oprema
+
+- id: cases-education-software
+- book: Alex's Playbook / Casebook
+- original term: Hotseat cases
+- key: Izobraževanje je transakcijski posel, zato je rast enaka pridobivanju kupcev; dvigni vrednost na kupca in uredi aktivacijo, preden loviš novega ciljnega kupca, izdelek ali platformo.
+- related: retention-and-ltv, pricing-decisions, focus-and-subtraction, continuity-offers, enterprise-value
+
+Resnične situacije s hotseatov coachev, podjetij s tečaji in skupnostmi, dogodkov in ustvarjalcev ter programskih podjetij, z Alexovo diagnozo in nasveti lastniku.
+
+#### Bistvo
+
+Podjetja s coachingom, tečaji in ustvarjalci Alexu navadno prinesejo iste tri pritožbe: oglasi se ne skalirajo več, stranke odhajajo in ustanovitelju je zmanjkalo ur. Pod tem pogosto najde lastnika, ki bi rad zamenjal nekaj velikega (platformo, ciljnega kupca, prehod v B2B, nov izdelek), čeprav je cenejša rešitev znotraj obstoječega lijaka. Oglasnih kreativ je premalo, najšibkejši korak lijaka ni bil nikoli testiran, vrednost na kupca je prenizka, da bi prenesla rastoče stroške pridobivanja, back end pa se prodaja prepozno ali sploh ne. Veliko ustanoviteljev tudi daje preveč: dostop do klepeta, dolgi nestrukturirani klici in skupinska srečanja, ki se jih nihče ne udeležuje, kar omeji zmogljivost, zadrževanja pa ne izboljša.
+
+Njegovi recepti so dosledni. Obdrži kanal, ki deluje, in ga nahrani z bistveno več kreativami. Najprej dvigni življenjsko vrednost kupca: upselli, ponudbe za podaljšanje ob mejnikih in na dogodkih, letno predplačilo, komponenta, vezana na rezultat, ali diagnostična prodaja cilja. Odhajanje strank reši na začetku: kvalificiraj za stranke, ki se aktivirajo, uvajaj ena na ena in poskrbi za zgodnjo zmago. Pri ceni se premika v obe smeri, a odločno svari pred nižanjem cene zaradi odhajanja strank, in pri tem navaja lastne drage napake. Ko je ozko grlo ustanovitelj, najprej doda strukturo (scenarij za webinar, samopostrežno blagajno, izrezane vsebine), šele nato ljudi.
+
+Programska oprema in prodajljivost sta ločena nit. Pri programski opremi je zanj zadrževanje strank vse: najdi kohorto, ki ostane, nato rasti. Pri izobraževalnih podjetjih, ki želijo izstop, opozarja, da je izobraževanje, vezano na ustanovitelja, težko prodati, in lastnike usmeri k prodajljivim premoženjem, ki jih ustvarijo njihovi učenci ali občinstvo.
+
+#### Primeri
+
+##### Program coachinga za pare · ~480 tisoč $/leto, ~206 tisoč $ dobička · ustanovitelja na meji zmogljivosti, udeležba na izzivih pada
+
+- **Situacija.** Dve 12-mesečni ponudbi (5 tisoč $ skupinska, 25 tisoč $ z osebnim pristopom in dostopom do klepeta), lijak s petdnevnim izzivom na plačanih družbenih omrežjih, počasno vračanje vložka.
+- **Diagnoza.** Omejitev ponudbe zaradi prevelike dostave (dostop do klepeta, prilagojeni načrti, skupinski klici, ki jih nihče ni cenil). Namesto reševanja zmogljivosti so zgradili cenejši paket, podaljšanja na dogodkih pa niso uspela, ker jih nihče ni ponudil.
+- **Nasvet.** Ena ponudba za ~25 tisoč $: poglobljeno uvajanje ena na ena, četrtletni klici v skupinah po štiri, dva ali trije oddihi v živo, kurirana skupnost. Ukini klepet in tedenske klice; postopno opusti paket za 5 tisoč $. Vnaprej poberi ~9 tisoč $, obročno plačilo pa ponudi kot downsell. Namesto izziva testiraj kratek dogodek "večer za dva", zaženi ~100 slikovnih oglasov in podaljšanja ponujaj v živo s spodbudo za hitro odločitev.
+- **Zakaj.** Zmogljivost zraste s ~60 na 120–150 strank brez zaposlovanja; prvo plačilo vpliva na konverzijo bolj kot skupna cena.
+- **Vir.** [If I Wanted To Scale A Service Business In 2026, Here's What I'd Do](https://www.youtube.com/watch?v=N5MExtki_VI&t=281s) (04:41)
+
+##### Spletni program za starše nevrodivergentnih otrok · ~770 tisoč $/leto, ~555 tisoč $ dobička · ustanoviteljica ~30 ur na teden v DM-jih
+
+- **Situacija.** Ponudba za 2.500 $/leto, 9–10 % konverzija udeležencev v živo, 3–4-urna nestrukturirana srečanja v živo, prodaja samo toplemu občinstvu.
+- **Diagnoza.** Ozko grlo je ustanoviteljica, ki jo zadržujejo prepričanja, da sta prodaja in višja cena slabi; paket ena na ena ima napačno ceno.
+- **Nasvet.** 2.500 $ na šest mesecev, ponavljajoče. Strukturiran 45-minutni webinar s prosojnicami in pogostimi vprašanji. Blagajna pri 2.500 $ z bonusom proti 3.000 $ za predhodni pogovor. Tridnevna garancija in uvajanje naslednji dan. Coaching podraži ~5-krat ali ga ukini. Odgovore na vprašanja izreži v 30–50 objav na teden, vse usmerjene v DM; zmagovalne postanejo oglasi.
+- **Zakaj.** Struktura dvigne konverzijo in sprosti čas ustanoviteljice. Pozneje: čas v DM-jih je padel za približno 90 %.
+- **Vir.** [If You Hate Selling, Please Watch This | Scale or Fail](https://www.youtube.com/watch?v=8VqSFBMMS4M&t=98s) (01:38)
+
+##### Spletni tehnološki tečaji za najstnike · z ~700 tisoč $ na ~150 tisoč $ na mesec · ROAS z 2–3x na ~1x
+
+- **Situacija.** Prodaja materam prek plačanih družbenih omrežij: vstopna ponudba za 297 $ in upsell za 189 $, ki ga vzame 30–40 %. Lastnik je razmišljal o dragem coachingu.
+- **Diagnoza.** Najverjetneje težava kreativ in piksla; model je v redu. Upsell je prepoceni.
+- **Nasvet.** Po vrsti: več in boljših kreativ, usmerjenih na ciljnega kupca z najvišjim LTV; piksel naj se sproži na nakupu po upsellu; testiraj enkratno ponudbo za ~1.500 $ (vsi tečaji ali lahek skupinski bootcamp). Šele če to ne uspe, dodaj prodajno ekipo za back end za 5–10 tisoč $.
+- **Zakaj.** Že 10 % odziv na 1.500 $ doda ~150 $ na naročilo, več kot sedanji upsell, brez gradnje težkega back enda.
+- **Vir.** ["Should He Walk Away From His $1.4M Business To Start Over?" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=0RjIw9M1j28&t=3581s) (59:41)
+
+##### Spletno članstvo za ročne spretnosti · ~800 tisoč $/leto, 30–35 % dobička · lastnica sama omejuje porabo za oglase
+
+- **Situacija.** Članstvo za 27 $/mesec ali ~217 $/leto, prodano prek petdnevnega bootcampa za 10 $ trikrat na leto; ~37 $ na vstopnico, 22 % kupcev se včlani, LTV ~300 $. Aktivni le štirje oglasi.
+- **Diagnoza.** Čista omejitev povpraševanja: premalo kreativ, kavlji za že ozaveščene kupce, malo denarja na vstopu.
+- **Nasvet.** Sledi ritmu porabe ob lansiranju; izdelaj 80+ oglasov (ponovna snemanja, vsebine članov, odklenjene s skritim bonusom, izrezki iz prenosov v živo, statične slike z UI); dodaj kavlje za bolečino in nagovore ciljnega kupca; sprejmi do ~100 $ na kupca; med lansiranjem prodajaj samo letno članstvo s fizičnim začetnim kompletom, mesečno po zaprtju vpisa; nato testiraj bootcamp kot sedemdnevni preizkus za 10 $ z upselli orodij.
+- **Zakaj.** Če klik stane manj, kot prinese, se posel skalira; ~55 % konverzija preizkusa premaga 22 %.
+- **Vir.** [Building a $3,000,000 Business for a Stranger in 31 Minutes | Scale or Fail](https://www.youtube.com/watch?v=j2TZMFkj71Q&t=335s) (05:35)
+
+##### Karierni coaching za vodilne · ~7,2 mio $/leto, ~2 mio $ dobička · želi dodati korporativni B2B
+
+- **Situacija.** B2C na plačanih družbenih omrežjih s porabo 3–5 tisoč $ na dan.
+- **Diagnoza.** Nov ciljni kupec je beg pred težavo z učinkovitostjo prodaje, ki bi ga v B2B tako ali tako spremljala.
+- **Nasvet.** Ostani v B2C in meri na 10–20-kratno porabo. Vzvode ROAS urejaj enega za drugim. Če potrebuje nekaj novega, naj doda kanal in obdrži ciljnega kupca.
+- **Zakaj.** Trg B2C je neprimerno večji, več tega, kar deluje, pa nosi najmanj tveganja.
+- **Vir.** [Answering Your Top Business Questions for 1 Hour](https://www.youtube.com/watch?v=QwEb78e5a8Y&t=434s) (07:14)
+
+##### Program hujšanja za ženske · ~4 mio $/leto proti cilju 12 mio $ · strah pred lansiranjem velikega lead magneta
+
+- **Situacija.** Lijak z webinarjem in prodajno ekipo; udeležba okoli 30 %.
+- **Diagnoza.** Najšibkejši korak je prijava pri ~5 %, mogoče pa je 20 % in več; udeležba je že nad mejnikom.
+- **Nasvet.** Testiraj veliko imen za lead magnet, razbij ga v vsebine in vse testiranje usmeri v stran za prijavo in razpoložljivost terminov. Tudi stopnja rezervacij bi se lahko podvojila.
+- **Zakaj.** Korak z največjim zaostankom za mejnikom da največji multiplikator za ves lijak.
+- **Vir.** ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=1576s) (26:16)
+
+##### Spletni coaching hujšanja · 3,2 mio $/leto, želi 10 mio $ · stranke odidejo po ~8 mesecih, ustanovitelj opravi vse prodajne klice
+
+- **Situacija.** Okoli 15 prodajnih klicev na teden opravi ustanovitelj; novi oglasi pri ~135 $ CAC.
+- **Diagnoza.** Odhajanje je pri hujšanju strukturno, zato igra temelji na distribuciji in vrednosti na kupca.
+- **Nasvet.** Podaljšanje ponudi ob mejnikih, na polovici in kot zadnjo priložnost; v back endu ponudi "kupi šest, dobiš šest"; razmisli o sorodnih izdelkih, ki stranke zadržijo; nato močno povečaj oglaševanje, ker je CAC majhen.
+- **Zakaj.** Višji LTV in bruto dobiček financirata agresivnejše pridobivanje.
+- **Vir.** ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=3279s) (54:39)
+
+##### Coaching back end s skupinskimi klici · velikost ni navedena · ~30 % odhajanja, ~7 % udeležbe
+
+- **Situacija.** Kupci so bili po nakupu takoj poslani v skupinske klice.
+- **Diagnoza.** Nizka uporaba zaradi šibkega uvajanja.
+- **Nasvet.** Uvajanje naj rezervira zaključevalec. Pred skupino dodaj štiri do šest srečanj ena na ena (začni z dvema). Na koncu vsakega klica rezerviraj naslednjega. Uporabi samodejne in ročne opomnike. Začetek ena na ena ponudi kot plačljivo možnost.
+- **Zakaj.** Udobje in zavezanost dvigneta udeležbo, udeležba pa poganja podaljšanja.
+- **Vir.** [Answering Your Top Business Questions for 1 Hour](https://www.youtube.com/watch?v=QwEb78e5a8Y&t=145s) (02:25)
+
+##### Alexov licenčni posel za lastnike fitnesov · 100+ novih fitnesov na mesec · neustrezne stranke preobremenjujejo ekipo
+
+- **Situacija.** Nelastniki, lastniki s krajšim delovnim časom ter lastniki brez podpisanega najema ali zaposlenih so jemali čas ekipi in dosegali slabe rezultate.
+- **Diagnoza.** Težava ustreznosti strank že na vhodu.
+- **Nasvet.** Zahtevaj vsaj 25 strank, podpisan najem, lastnika s polnim delovnim časom in po možnosti enega zaposlenega. Vrni se k programu z določenim koncem. Oglašuj povprečne rezultate.
+- **Zakaj.** Ustreznejše stranke plačajo več, zaslužijo več, potrebujejo manj dela in ostanejo dlje. Prodaja je padla s 100+ na 40–50 na mesec, eskalacije pa v štirih tednih z 22 na nič.
+- **Vir.** [Pricing Lessons From a Private Equity God](https://www.youtube.com/watch?v=hnfh2jqNVEQ&t=336s) (05:36)
+
+##### Coaching za affiliate, ki želijo pogodbe z znamkami · ~1,5 mio $/leto · skok cene je sesul stopnjo zaključkov
+
+- **Situacija.** Cena se je s 4 tisoč $/mesec dvignila na 20 tisoč $ za tri mesece plus delež v back endu. Stopnja zaključkov je padla s ~96 % na 20–30 %, marža z 80 % na ~37 %.
+- **Diagnoza.** Skok je poškodoval hitrost prodaje in moralo lastnika; ciljni kupec je v redu in nenasičen.
+- **Nasvet.** Znižaj vstopni znesek (na primer na 15 ali 10 tisoč $) in dvigni odstotek v back endu. Obdrži ciljnega kupca in delaj majhne popravke.
+- **Zakaj.** Dva vzvoda omogočata eksperimente in vrneta hitrost, sprememba ciljnega kupca pa je ogromna poteza.
+- **Vir.** ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=1239s) (20:39)
+
+##### Alexov dragi program · ~42 tisoč $/leto · ekipa je pritiskala na nižjo ceno zaradi odhajanja strank
+
+- **Situacija.** Cena je bila okoli 800 $ na teden.
+- **Diagnoza.** Za nazaj: cena nikoli ni bila vzrok odhajanja.
+- **Nasvet.** Kaj se je zgodilo: ceno so znižali na ~600 $ na teden in dodali storitve za ~100 tisoč $ na mesec. Nauk, ki ga izpelje: ceno pusti pri miru, ko ima odhajanje drug vzrok.
+- **Zakaj.** Odhajanje je ostalo enako, prihodki so padli za ~25 %, stroški zrasli, izgubljenih pa je bilo okoli 5 mio $ dobička na leto.
+- **Vir.** [NEVER lower your prices...](https://www.youtube.com/watch?v=BZQtuK-ucDM&t=92s) (01:32)
+
+##### Coaching s plačanimi coachi · 40 strank po 400 $/mesec · 75 % bruto marža
+
+- **Situacija.** Coach je za 40 strank prejemal 4 tisoč $ na mesec.
+- **Diagnoza.** Bruto marža 75 % je pod njegovim okvirnim pravilom 80 % za tovrsten posel.
+- **Nasvet.** Dvigni ceno za okoli 20 $ na stranko na mesec ali znižaj plačilo coacha na okoli 3.200 $.
+- **Zakaj.** Nekaj odstotnih točk bruto marže prinese velik relativen dvig neto dobička.
+- **Vir.** [If You Don't Understand Margin, You Don't Understand Business](https://www.youtube.com/watch?v=9xAMe0QBFhU&t=632s) (10:32)
+
+##### Blagovna znamka za osebnostno rast moških · ~500 tisoč $/leto · močno pridobivanje, brez podaljšanj, izguba na oddihih
+
+- **Situacija.** Skupnost za 2 tisoč $/leto in štirje oddihi; webinarji zaključijo 41 %.
+- **Diagnoza.** Na dogodkih se nič ne prodaja, oddihi niso polni, podaljšanja pa so ponujena prepozno.
+- **Nasvet.** Najbolj cenjene elemente (v živo in na spletu) zapakiraj za ~5–6 tisoč $ in naj člani izberejo dva ali tri od štirih dogodkov. Napolni oddihe ter podaljšanja in nadgradnje prodajaj na drugem dogodku.
+- **Zakaj.** Dogodki postanejo donosni šele, ko na njih prodajaš; ljudje kupujejo, ko so v trenutku.
+- **Vir.** ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=1003s) (16:43)
+
+##### Izobraževanje o nepremičninah z velikimi dogodki · ~1,3 mio $/leto · po mentorstvu ni ničesar za kupiti
+
+- **Situacija.** Dva dogodka na leto s po 600 udeleženci; 20 % kupi enoletno mentorstvo za 12 tisoč $. Lastnik je želel več prihodkov in ni nameraval prodati podjetja.
+- **Diagnoza.** Stranke nimajo česa drugega kupiti.
+- **Nasvet.** Podvoji dogodke z dodatno regijo. Po želji diplomantom ponudi downsell v letno članstvo za mreženje in dostop za ~3–5 tisoč $.
+- **Zakaj.** Ponavljanje istega postopka nosi skoraj nič operativnega tveganja; ponavljajoči se back end bi mu omogočil, da je na vstopu na ničli in prekaša tekmece v porabi.
+- **Vir.** [$100M Investor Answers The Most Important Business Questions for 1 Hour](https://www.youtube.com/watch?v=--9kOXNCUdE&t=676s) (11:16)
+
+##### Fitnes coaching prek oglasov na poslovnem omrežju · LTV ~3 tisoč $ · oglasi nad ~1.500 $/dan ne delujejo več
+
+- **Situacija.** Paketi za 2/3/5 tisoč $ za tri, šest in dvanajst mesecev.
+- **Diagnoza.** Prodaja se čas, prodajati pa bi se moral cilj; LTV je prenizek, da bi prenesel padajoče donose pri večji porabi.
+- **Nasvet.** Preidi na diagnostično prodajo s tedensko ceno za toliko tednov, kot jih je treba do cilja, s pogojno garancijo "dokler ne prideš tja". Dodaj affiliate prehranska dopolnila, prodana na prehranskem posvetu okoli 48 ur po začetku. Nato izdelaj več kreativ.
+- **Zakaj.** Prodaja cilja bolje konvertira in podaljša LTV; dopolnila lahko dodajo okoli 50 % prihodkov brez dela z dostavo.
+- **Vir.** [10 Millionaires Asked Me How to Get Richer](https://www.youtube.com/watch?v=6m6DCQMASEM&t=95s) (01:35)
+
+##### Ponudba v slogu coachinga vodilnih · ~10 tisoč $/mesec za oglase pri ~3:1 · zaradi povpraševanj z nizkimi plačami želi zamenjati platformo
+
+- **Situacija.** Plačana družbena omrežja prinašajo povpraševanja z nižjimi plačami od želenih.
+- **Diagnoza.** Težava je LTV; platforma je v redu.
+- **Nasvet.** Najprej dodaj načrtovani back end, vezan na rezultat, da vrednost na kupca dvigneš s približno 3 na 10–12 tisoč $. Sedanja platforma naj teče, nato testiraj druge.
+- **Zakaj.** Z izhodiščem okoli 12:1 tudi padajoči donosi pri višji porabi pustijo zelo donosen kanal.
+- **Vir.** [10 Millionaires Asked Me How to Get Richer](https://www.youtube.com/watch?v=6m6DCQMASEM&t=386s) (06:26)
+
+##### Coaching hujšanja za mame · ~288 tisoč $/leto, potrebuje ~600 tisoč $ · skušnjava menjave kanala
+
+- **Situacija.** Poskusil je lokalne organske objave in lokalne oglase (CAC nad 1 tisoč $); zdaj nacionalni oglasi na Instagram DM pri ~750 $ CAC in ~4x ROAS.
+- **Diagnoza.** Kanal, ki deluje, že ima; tveganje je v odhodu z njega.
+- **Nasvet.** Alex je najprej predlagal lokalni hibrid v živo, nato se je popravil: podvoji porabo na lijaku s 4x in dodaj setterje za DM. Ne poganjaj obojega.
+- **Zakaj.** Ko nekaj deluje, vloži več vanj. Lokalno je le rezerva za hitrejši denar, zmagovalec pa ostane.
+- **Vir.** ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=4393s) (1:13:13)
+
+##### Izobraževanje o potovalnih nagradah · ~6,4 mio $/leto, ~30 % marža · LTV:CAC 1,4:1, več porabe doda malo
+
+- **Situacija.** ROAS 4,5:1, ~6 mesecev do povrnitve na kupca, 85 % kupcev prek lijaka s knjigo; 50 % višja poraba je dodala 10 % prodaje; potencialnim kupcem se zdi predobro, da bi bilo res.
+- **Diagnoza.** Omejitev povpraševanja zaradi stropa kreativ; ekipa za klicanje je premajhna in ne daje prednosti pravim povpraševanjem.
+- **Nasvet.** Oglasi: zanka videov članov s potovanj, različice zmagovalcev, mlad operater za kratke videe, raznoliki obrazi, videi z UI avatarji. Konverzija: točkovanje povpraševanj po porabi za potovanja in s karticami, rast na ~6 klicateljev z vzporednim klicalnikom, zgodnje priznanje omejitev v klicu, telefonska številka v zameno za brezplačno oceno.
+- **Zakaj.** Boljše kreative znižajo CAC; boljša konverzija ~300 dnevnih potencialnih kupcev dvigne LTV:CAC.
+- **Vir.** [Building a $12,000,000 Business for a Stranger in 25 Minutes](https://www.youtube.com/watch?v=MH-IMJxbUY4&t=715s) (11:55)
+
+##### Coaching za nepremičninske agente · ~2,5 mio $/leto · petdnevni izziv naravnost v blagajno, želi vodjo blagovne znamke
+
+- **Situacija.** Dostava bi zmogla štirikratni obseg.
+- **Diagnoza.** Čista igra oglaševanja in povpraševanja.
+- **Nasvet.** Pridobi izkušenega internega vodjo blagovne znamke. Dodaj plačane oglase skupaj s prodajo prek rezervacije klica, ker hladen promet ne konvertira naravnost v blagajni.
+- **Zakaj.** Blagovna znamka je jedrna funkcija, toplo in hladno občinstvo pa zahtevata različno prodajo.
+- **Vir.** [Helping 4 Educational Business Owners Build a $1M Business in 25 Minutes](https://www.youtube.com/watch?v=BYpTRiRqS1Y&t=821s) (13:41)
+
+##### Program "naredimo skupaj" za rast na YouTubu · tempo ~700 tisoč €/leto pri 10 tisoč € za tri mesece · nihajoči meseci
+
+- **Situacija.** Skoraj vsa prodaja iz hladne e-pošte; lasten kanal prinese malo.
+- **Diagnoza.** Nihanja prihajajo iz organskega dela. Večji opozorilni znak je, da jim ne uspeva prav s kanalom, ki ga prodajajo.
+- **Nasvet.** Hladno e-pošto skaliraj do okoli 1 mio $, vsebine preusmeri na ciljnega kupca, ki kupuje (in postani dober v tem), nato dodaj oglase.
+- **Zakaj.** Izobraževanje je transakcijski posel, zato je rast enaka pridobivanju; ogledi napačnega ciljnega kupca ne štejejo.
+- **Vir.** ["He Makes $1.5M a Year... and Keeps 1.3% of It" | Alex Hormozi Answers Live](https://www.youtube.com/watch?v=lidFtb1Ga0o&t=2743s) (45:43)
+
+##### Vstopna prodaja za nove nepremičninske preprodajalce · CAC ~5 tisoč $, LTV ~35 tisoč $ · potencialni kupci ne zmorejo prvega obroka
+
+- **Situacija.** Zelo nizka stopnja zaključkov; nekvalificirana povpraševanja izčrpavajo prodajno ekipo.
+- **Diagnoza.** Manjka kvalifikacija, vezana na opredeljenega ciljnega kupca.
+- **Nasvet.** Ciljnega kupca izpelji iz strank, ki porabijo največ in ostanejo najdlje (demografija, dohodek in drugi merljivi podatki, geografija, vedenje v prodajnem procesu). To trenje vgradi v oglase, pristajalne strani, spustne sezname v obrazcih in VSL. Najboljša povpraševanja pošlji prodaji, ostala pa v samodejno samolikvidacijsko ponudbo.
+- **Zakaj.** Kvalifikacija dvigne ceno na klic, a zniža CAC in dvigne LTV; ne spomni se primera, ko bi ga stala denar. Pripravljenost "vlagati vase" ni kvalifikator.
+- **Vir.** [How to Build a Business That Runs Without You](https://www.youtube.com/watch?v=TLpLmhWqKEU&t=3357s) (55:57)
+
+##### Članstvo s predlogami vsebin za nepremičninske agente · ~20 tisoč $/mesec pri 49 $ · 12 % mesečnega odhajanja, razmišlja o novi niši
+
+- **Situacija.** Okoli 300 članov, ~50 prodaj na mesec; podoben izdelek v drugi niši je zrasel 5-krat.
+- **Diagnoza.** Hitrost prodaje je za velikost trga prenizka, odhajanje pa je verjetno zgoščeno pri agentih s krajšim delovnim časom. Za oceno niše je prezgodaj.
+- **Nasvet.** Ostani in se uči. Najdi dve ali tri lastnosti, ki ločijo tiste, ki odidejo, od tistih, ki ostanejo; ciljaj agente z nedavno prodajo. Bolj potiskaj letno predplačilo (pri ~8-mesečnem LTV so štirje brezplačni meseci enakovredni in denar pridejo prej). Na zahvalno stran dodaj ponudbo za 197–397 $, testiraj oglase, da spoznaš CAC, in razmisli o upsellu upravljane storitve z UI za 500–1.000 $ na mesec.
+- **Zakaj.** Vodilni na trgu ima drobcen delež trga; krivda ciljnega kupca je lahek odgovor.
+- **Vir.** [How to Build a Business That Runs Without You](https://www.youtube.com/watch?v=TLpLmhWqKEU&t=5187s) (1:26:27)
+
+##### Šola motokrosa · nekaj milijonov na leto · podvojeni enodnevni termini, strah pred posnemovalcem
+
+- **Situacija.** Enodnevni termini so zrasli s 70 na 140 ob velikem operativnem bremenu; vsak petdnevni tabor je neto prinesel 100 tisoč $+.
+- **Diagnoza.** Spodnjih ~40 terminov je bilo negativnih ali zanemarljivih, posel pa je bil prepoceni.
+- **Nasvet.** Preusmeri se na petdnevne tabore, dvigni cene in pusti tekmecu, da kopira manj vreden format.
+- **Zakaj.** Povezal je to s svojo najdražjo napako: tekmecu, ki je podcenil, je sledil z nižjo ceno za obstoječo bazo ponavljajočih se strank, kar ga je stalo velik del mesečnih prihodkov, več milijonov letnega dobička in desetine milijonov vrednosti ob izstopu, odhajanje strank pa se ni spremenilo.
+- **Vir.** [Helping 4 Educational Business Owners Build a $1M Business in 25 Minutes](https://www.youtube.com/watch?v=BYpTRiRqS1Y&t=435s) (07:15)
+
+##### Lokalni ekosistem za preurejanje in preprodajo hiš s coachingom · ~4 mio $/leto · želi nacionalni obseg zaradi vpliva
+
+- **Situacija.** Gradbeništvo, obrtna podjetja in lokalni coaching; lastnik je ujet v operativo, z novim COO.
+- **Diagnoza.** Lokalni trg še ni obvladan, zato je nacionalna ambicija prezgodnja, cene pa so precej prenizke.
+- **Nasvet.** Za zdaj pozabi na nacionalni trg. Prosto zmogljivost uporabi za prodajo veliko več ljudem lokalno s plačanimi oglasi in večjimi delavnicami. Preidi na standardne pakete (okoli 15–25 tisoč $ za "naredimo skupaj", ~100 tisoč $ na ključ). Za vpliv uporabi vsebine.
+- **Zakaj.** Lokalni trg bi lahko nosil zelo velik posel; prezgodnja širitev se sesuje, vsebine pa vpliv skalirajo zastonj.
+- **Vir.** [Helping 4 Educational Business Owners Build a $1M Business in 25 Minutes](https://www.youtube.com/watch?v=BYpTRiRqS1Y&t=145s) (02:25)
+
+##### Ustvarjalec info izdelkov za hujšanje · ~4 mio $/leto · načrtuje oblačila, prehranska dopolnila in kreme
+
+- **Situacija.** Veliko sledilcev in jedrna ponudba, ki je obstala.
+- **Diagnoza.** Ista težava "ne vem, kako rasti v jedru", preoblečena v diverzifikacijo.
+- **Nasvet.** Ves trud vloži v rast obstoječe ponudbe proti 10 mio $ in ne lansiraj novih linij.
+- **Zakaj.** Nova linija ne zapolni vrzeli v znanju, ki je povzročila zastoj.
+- **Vir.** [Entrepreneurs, stop starting new businesses. Fix the one you've got.](https://www.youtube.com/watch?v=s59jbVBprn0&t=287s) (04:47)
+
+##### Samostojna ustanoviteljica oddihov za pisanje knjig in medijev · ~1 mio $ lani · kar naprej začenja nove stvari
+
+- **Situacija.** Vodi luksuzne oddihe, založbo, TV oddajo in poslovno šolo ter se hitro naveliča.
+- **Diagnoza.** Energija je razpršena med preveč poslov; povpraševanje in marža sta jasno pri knjigah.
+- **Nasvet.** Izberi knjižni posel in nehaj potiskati šolo. TV oddajo uporabi kot medij za prodajo pisanja knjig in posnemi več sezon. Ustvarjalno energijo usmeri v trženje, nove ideje pa zapisuj na zasebni seznam.
+- **Zakaj.** Osredotočen trud se obrestuje, trg že glasuje z denarjem, vsaka sprememba pa ima zagotovljen strošek.
+- **Vir.** [Why Doing More Is Actually Making You Less Money](https://www.youtube.com/watch?v=hfwZwPGsbIo&t=242s) (04:02)
+
+##### Alexov licenčni posel za lastnike fitnesov · ~1 mio $ na teden · znamka, vezana na ustanovitelja, na enem oglasnem kanalu
+
+- **Situacija.** 100 % prodaje iz plačanih družbenih omrežij, ustanovitelj v vsakem oglasu; ustanovitelja sta želela izstop. Med pandemijo so oglasi delovali slabše.
+- **Diagnoza.** Bolj guru znamka kot podjetje: odvisnost od ustanovitelja in tveganje enega kanala bi omejila ceno.
+- **Nasvet.** Zaposli nekoga od tekmeca, ki temelji na outboundu, da od začetka zgradi outbound oddelek, in vztrajaj skozi počasne prve mesece (nadaljuj, dokler se vsak korak lijaka izboljšuje). Ustanoviteljev obraz umakni s pomočjo specialistov, vodij iz vrst nekdanjih strank in novih obrazov v oglasih.
+- **Zakaj.** V okoli 12 mesecih je outbound prinašal približno polovico prihodkov, kar je pomirilo kupca.
+- **Vir.** [How I Scaled My Sales Team \[Compensation, Recruiting & Training\]](https://www.youtube.com/watch?v=okA9Yt2KZuk&t=139s) (02:19); [I Reverse Engineered the Perfect Business](https://www.youtube.com/watch?v=HKbFUWJwEG0&t=1297s) (21:37)
+
+##### Izobraževanje za vodenje prostorov za dogodke · velikost ni navedena · ustanovitelj ga želi prodati
+
+- **Situacija.** Ustanovitelj je prodal svoje tri prostore za dogodke in zdaj uči druge, kako to narediti.
+- **Diagnoza.** Poskuša prodati gos (izobraževanje, vezano nanj); prodajljivo premoženje so prostori, ki jih vodijo njegovi učenci.
+- **Nasvet.** Poenoti sisteme, celostno podobo in cene učencev ter najboljšim 10 % ponudi pot v združitev v skupine po 20–50, ki se občasno prodajo.
+- **Zakaj.** Prostori so brez obraza, na ključ in dokazano prodajljivi. Delo z združevanjem opravi on, izobraževalni posel pa obdrži.
+- **Vir.** [How to Build a Valuable Company You Can Sell Someday](https://www.youtube.com/watch?v=VxKwz6hBVZU&t=48s) (00:48)
+
+##### Izobraževanje za prodajalce na spletnih tržnicah · velikost ni navedena · ustanovitelj ga želi prodati
+
+- **Situacija.** Nekdanji lastnik spletne trgovine zdaj uči druge, kako zgraditi trgovino.
+- **Diagnoza.** Izobraževanje ni ponavljajoče, nosi tveganje ključne osebe in nihajoče pridobivanje: malo kupcev, nizka cena.
+- **Nasvet.** Trgovine učencev združi v prodajljivo premoženje.
+- **Zakaj.** Skalirati nekaj, kar je že prodajljivo, je veliko lažje kot popraviti nekaj, kar je po naravi neprodajljivo.
+- **Vir.** [How to Build a Valuable Company You Can Sell Someday](https://www.youtube.com/watch?v=VxKwz6hBVZU&t=193s) (03:13)
+
+##### Medijsko podjetje s skupino talentov · velikost ni navedena · želi postati prodajljivo
+
+- **Situacija.** Prihodki so odvisni od zvezd pred kamero.
+- **Diagnoza.** Zvezde ustvarjajo prikaze, prodati pa jih ni mogoče.
+- **Nasvet.** Prikaze usmeri v lastne izdelke (inkubator izdelkov) ali prodajaj oglasni prostor; za financiranje lansiranj zberi manjši delež kapitala.
+- **Zakaj.** Prikazi so gos, izdelki so jajca; izdelke je mogoče ovrednotiti in prodati.
+- **Vir.** [How to Build a Valuable Company You Can Sell Someday](https://www.youtube.com/watch?v=VxKwz6hBVZU&t=621s) (10:21)
+
+##### Korporativna programska oprema za energetsko učinkovitost stavb · ~8 let enaki prihodki · načrtuje podvojitev prodajne ekipe
+
+- **Situacija.** Okoli 10 predstavitev na teden, okoli dva zaključka na leto, ~98 % zadrževanje prihodkov.
+- **Diagnoza.** Povpraševanj je dovolj. Predstavitev nagovarja lastnike, resnično odločitveno moč pa imajo upravniki stavb, ki nimajo spodbude, da bi prevzeli več dela.
+- **Nasvet.** Ne zaposluj novih prodajalcev. Predstavitev prepiši tako, da dvigne status upravnika in govori o njem.
+- **Zakaj.** Spremeniti stotine predstavitev v veliko več zaključkov je bistveno večji vzvod kot podvojiti prodajalce.
+- **Vir.** [How to Grow Your Business So FAST it Makes Your Accountant Nervous](https://www.youtube.com/watch?v=sGv2BTUCcCM&t=1240s) (20:40)
+
+##### Zgodnji SaaS za zmanjšanje neudeležbe na prodajnih klicih · pred skaliranjem · ustanovitelj iz dragega izobraževanja
+
+- **Situacija.** Ustanovitelj pozna trženje in prodajo iz izobraževanja.
+- **Diagnoza.** Druga igra: posel izdelka in zadrževanja.
+- **Nasvet.** Zgodnje trženje uporabi za učenje, najdi kohorto, ki ostane, ponovno ciljaj idealne stranke in preveri dosedanje dosežke soustanovitelja.
+- **Zakaj.** Če uporabniki ne ostanejo, nič drugega ni pomembno.
+- **Vir.** [7 Millionaires Asked Me How to Get Rich(er)](https://www.youtube.com/watch?v=bgBIO6nZawg&t=1495s) (24:55)
+
+##### Orodja za ustvarjalce, agencija in založba · ~4,3 mio $/leto · 40.000 ustvarjalcev, ~1.000 jih zasluži, razmislek o SaaS
+
+- **Situacija.** Več poslovnih linij za ustvarjalce in prihodki s strani znamk.
+- **Diagnoza.** Preveč poslov hkrati; tržnice navadno propadejo, razen če najprej delujejo kot SaaS.
+- **Nasvet.** Bodisi zaračunaj naročnino z brezplačno ravnjo bodisi pojdi v drago ponudbo z osebnim uvajanjem za izbrane ustvarjalce. Prihodke s strani znamk obdrži, nato pojdi vse na eno pot.
+- **Zakaj.** SaaS tekmeci so dobro financirani in osredotočeni.
+- **Vir.** [$100M Investor Answers The Most Important Business Questions for 1 Hour](https://www.youtube.com/watch?v=--9kOXNCUdE&t=2126s) (35:26)
+
+##### Programska oprema z oglasnim izdelkom za časopise · velikost ni navedena · leta brez rasti
+
+- **Situacija.** Podjetje prijatelja z dobro ponudbo z delitvijo prihodkov in sposobno prodajno ekipo.
+- **Diagnoza.** Trg se je vsako leto skrčil za približno četrtino.
+- **Nasvet.** Nauk, ki ga izpelje: izberi rastoč trg.
+- **Zakaj.** Krčenje trga se obrestuje proti tebi, ne glede na to, kako dobri sta ponudba in ekipa.
+- **Vir.** [GROWTH LEVERS: Big Business Owner Explains Real World Tactics That Work](https://www.youtube.com/watch?v=F3NyhOtRpOE&t=1348s) (22:28)
+
+#### Vzorci
+
+- **Obdrži kanal, ki deluje, in ga nahrani (približno 10 primerov).** Lastniki želijo novo platformo, ciljnega kupca ali B2B linijo; on reče več kreativ, več porabe, več obsega na tistem, kar že vrača, in prej doda kanal kot ciljnega kupca.
+- **Nova stvar je beg (približno 6 primerov).** B2B, oblačila in dopolnila, poslovna šola, nova niša, SaaS: zastoj izvira iz vrzeli v znanju v jedru, nova linija pa je ne zapre.
+- **Dvigni vrednost na kupca pred skaliranjem oglasov (približno 9 primerov).** Upselli, enkratne ponudbe za ~1.500 $, back end, vezan na rezultat, diagnostična prodaja cilja, ponudbe za podaljšanje, letno predplačilo in članstva za diplomante.
+- **Odhajanje se reši na začetku (približno 6 primerov).** Kvalificiraj za ciljnega kupca, ki se aktivira, uvajaj ena na ena, rezerviraj naslednje srečanje, poskrbi za zgodnjo zmago; raje izgubi prodajo, kot da obdrži neustrezne kupce.
+- **Nikoli ne nižaj cene zaradi odhajanja (približno 3 primeri).** Njegova lastna znižanja so stala milijone, odhajanje pa se ni spremenilo; ceno raje dvigne ali preoblikuje in jo razdeli na vstopni del in back end, ko trpi hitrost prodaje.
+- **Prodajaj na dogodkih in ob mejnikih (približno 4 primeri).** Dogodki in izzivi se izplačajo šele, ko se podaljšanja in nadgradnje ponudijo v prostoru.
+- **Prevelika dostava omeji zmogljivost (približno 3 primeri).** Dostop do klepeta, dolgi nestrukturirani klici in neuporabljena skupinska srečanja; ukine jih ter doda strukturo in samopostrežno blagajno.
+- **Popravi najšibkejši korak lijaka (približno 3 primeri).** Stopnja prijav, postavitev piksla, hladen promet naravnost v blagajno.
+- **Izobraževanje je težko prodati (približno 4 primeri).** Odvisnost od ustanovitelja in en sam kanal omejita vrednost ob izstopu; usmeri k prodajljivemu premoženju, ki ga ustvarijo učenci ali občinstvo.
+- **Programska oprema živi od zadrževanja in ustreznosti (približno 4 primeri).** Najdi kohorto, ki ostane, prodajaj tistemu, ki res odloča, zaveži se eni poti in izberi rastoč trg.
+
+#### Kako bi to uporabil Alex
+
+**Prva vprašanja.**
+1. Koliko vam stranka plača v življenjski dobi, koliko stane njena pridobitev in kdaj se vam vložek vrne?
+2. Kateri korak lijaka je najbolj pod mejnikom?
+3. Koliko oglasnih kreativ teče in kdaj ste nazadnje dodali nove?
+4. Katere stranke se aktivirajo in ostanejo ter kaj jim je skupno?
+5. Kaj stranke kupijo po prvi ponudbi in kdaj jim to ponudite?
+6. Koliko ur porabi ustanovitelj za dostavo in DM-je in katere od teh stranke resnično cenijo?
+7. O katerem novem ciljnem kupcu, izdelku ali platformi razmišljate in ali je sedanji res izčrpan?
+
+**Privzete poteze glede na situacijo.**
+- **Oglasi se ne skalirajo več:** najprej preveri število kreativ in nastavitev piksla, nato dvigni LTV z upsellom ali back endom; platformo in model pusti pri miru, dokler to ne odpove.
+- **Tanek LTV:CAC:** dodaj komponento, vezano na rezultat, ali podaljšanje, prodajaj cilj v njegovem časovnem okviru, potiskaj letno predplačilo; šele nato porabi več.
+- **Visoko odhajanje:** loči tiste, ki odidejo, od tistih, ki ostanejo, vhod kvalificiraj po profilu tistih, ki ostanejo, dodaj uvajanje ena na ena in zgodnjo zmago ter ponudi podaljšanja ob mejnikih in na dogodkih.
+- **Vprašanja o ceni:** zelo visoko stopnjo zaključkov beri kot znak prenizke cene; ko skok cene ustavi prodajo, del cene prestavi v back end; nikoli ne nižaj cene zaradi odhajanja.
+- **Ustanovitelj na meji zmogljivosti:** odreži preveliko dostavo, strukturiraj prodajo (webinar po scenariju, samopostrežna blagajna), izreži vsebine za doseg, nato zaposli.
+- **Želja po nečem novem:** dodaj kanal znotraj obstoječega posla; novega ciljnega kupca ali izdelka ne začni, dokler jedro ni jasno izčrpano.
+- **Želja po izstopu:** odpravi odvisnost od ustanovitelja in tveganje enega kanala ali gradi okrog prodajljivega premoženja, ki ga ustvarijo učenci ali občinstvo.
+- **Programska oprema:** najprej dokaži zadrževanje v eni kohorti, prodajaj tistemu, ki res odloča, in se zaveži eni poti, preden porabiš za pridobivanje.
