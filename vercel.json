@@ -3,7 +3,6 @@
   "buildCommand": "",
   "outputDirectory": ".",
   "cleanUrls": false,
-  "trailingSlash": false,
   "functions": {
     "api/ask.js": {
       "maxDuration": 30
@@ -68,6 +67,11 @@
     {
       "source": "/ah-distilled/constraint.html",
       "destination": "/ah-distilled/sales/constraint.html",
+      "permanent": true
+    },
+    {
+      "source": "/((?!api(?:/|$))[^.]*[^./])",
+      "destination": "/$1/",
       "permanent": true
     }
   ],

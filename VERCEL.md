@@ -28,3 +28,4 @@ rokskrinjar.si is a static site plus one serverless function:
 - Push to `main` → production deploy on rokskrinjar.si.
 - Push any other branch → preview deploy with its own URL (shown on the commit in GitHub).
 - Pages need relative links or `/<slug>/...` paths, same as before.
+- Folder URLs without a trailing slash (e.g. `/ah-distilled`) are redirected to `/ah-distilled/` by the last rule in `vercel.json`, as GitHub Pages did. Without it, relative CSS, JS and image paths break. `/api` is excluded.
