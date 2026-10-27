@@ -67,7 +67,7 @@
     async function load(dir, slug) {
       if (!SLUG.test(slug)) return null;
       let r = await fetch(`${dir}/${slug}.md`, { cache: 'no-cache' }).catch(() => null);
-      // Just merged and GitHub Pages hasn't redeployed yet: read it straight from the repo.
+      // Just merged and Vercel hasn't redeployed yet: read it straight from the repo.
       if ((!r || !r.ok) && !LOCAL) r = await fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/${BASE}/${dir}/${slug}.md`).catch(() => null);
       if (!r || !r.ok) return null;
       return parse(await r.text(), slug);

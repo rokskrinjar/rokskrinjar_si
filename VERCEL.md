@@ -17,15 +17,12 @@ rokskrinjar.si is a static site plus one serverless function:
 3. **Spend limits.** Set a monthly spend limit for the API key in the Anthropic Console, and a budget in Vercel → Settings → Billing → Spend Management.
 4. **Check the preview.** Every branch gets its own preview URL. Open `/ah-distilled/` and `/ah-distilled/ask.html` there and ask one question.
 5. **Domain.** Vercel → Settings → Domains → add `rokskrinjar.si` and `www.rokskrinjar.si`. Vercel shows the DNS records to set.
-6. **DNS at FreeDNS.si.** Replace the GitHub Pages records:
-   - `rokskrinjar.si`: remove the four GitHub A records (185.199.108–111.153) and add the A record Vercel shows.
-   - `www`: point the CNAME to the value Vercel shows instead of `rokskrinjar.github.io`.
+6. **DNS at FreeDNS.si.** `rokskrinjar.si`: the A record Vercel shows (`216.150.1.1`). `www`: CNAME to the value Vercel shows.
    Wait until Vercel marks both domains as valid and the certificate is issued.
-7. **Switch off GitHub Pages** only after the site works on Vercel: GitHub → repo Settings → Pages → Source: None. Then the `CNAME` and `.nojekyll` files can be deleted.
 
 ## Day-to-day
 
 - Push to `main` → production deploy on rokskrinjar.si.
 - Push any other branch → preview deploy with its own URL (shown on the commit in GitHub).
 - Pages need relative links or `/<slug>/...` paths, same as before.
-- Folder URLs without a trailing slash (e.g. `/ah-distilled`) are redirected to `/ah-distilled/` by the last rule in `vercel.json`, as GitHub Pages did. Without it, relative CSS, JS and image paths break. `/api` is excluded.
+- Folder URLs without a trailing slash (e.g. `/ah-distilled`) are redirected to `/ah-distilled/` by the last rule in `vercel.json`. Without it, relative CSS, JS and image paths break. `/api` is excluded.
