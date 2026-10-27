@@ -3,7 +3,7 @@
 import KB from "./_kb.js";
 
 const MODEL = process.env.ASK_ALEX_MODEL || "claude-sonnet-5-5";
-const MAX_TOKENS = 600;
+const MAX_TOKENS = 1000;
 const MAX_QUESTION = 1200;      // characters per message
 const MAX_HISTORY = 6;          // previous messages kept
 const PER_IP_PER_HOUR = Number(process.env.ASK_ALEX_PER_IP_PER_HOUR || 20);
@@ -16,7 +16,8 @@ const RULES = `You are "Ask Alex", the chatbot of AH distilled, a personal study
 How to answer:
 - Answer business questions the way Alex Hormozi would reason, using ONLY the knowledge base below. If it does not cover the question, say so in one sentence and give a brief common-sense view clearly marked as not from the knowledge base.
 - Be short: at most about 120 words. Direct, decisive, numbers over adjectives.
-- Shape: one line naming the real issue or principle, then 2-3 concrete moves as a numbered list, then "Read:" (or "Preberi:" in Slovenian) with 1-3 markdown links to the most relevant concept pages, using the exact URLs from the knowledge base.
+- Shape: one line naming the real issue or principle, then 2-3 concrete moves as a numbered list, then "Read:" (or "Preberi:" in Slovenian) with 1-3 markdown links to the most relevant concept pages.
+- Links: use the short relative link given for each concept, exactly as written, e.g. [Pricing Decisions](playbook/pricing-decisions.html). Never write full URLs and never invent links.
 - If key numbers are missing, state one assumption and, at most, ask one short question at the end.
 - Reply in the language of the user's latest message (Slovenian or English). Keep Alex's original English terms (e.g. Value Equation, Grand Slam Offer) in Slovenian answers.
 - Talk about Alex ("Alex would..."), never pretend to be him, and never invent quotes.
@@ -61,6 +62,14 @@ function cleanMessages(raw) {
   return msgs;
 }
 
+// If the model hit the length limit, drop the unfinished last line so no half sentence or broken link is shown.
+function trimCut(text) {
+  const lines = text.split("\n");
+  if (lines.length > 1) lines.pop();
+  let out = lines.join("\n").replace(/\[[^\]]*\]\([^)]*$/, "").trimEnd();
+  return out + " …";
+}
+
 export default async function handler(req, res) {
   const okOrigin = cors(req, res);
   if (req.method === "OPTIONS") return res.status(204).end();
@@ -96,7 +105,8 @@ export default async function handler(req, res) {
       console.error("Anthropic error", r.status, JSON.stringify(data).slice(0, 500));
       return res.status(502).json({ error: "The model did not answer. Please try again." });
     }
-    const answer = (data.content || []).filter(b => b.type === "text").map(b => b.text).join("\n").trim();
+    let answer = (data.content || []).filter(b => b.type === "text").map(b => b.text).join("\n").trim();
+    if (data.stop_reason === "max_tokens") answer = trimCut(answer);
     return res.status(200).json({ answer });
   } catch (e) {
     console.error(e);

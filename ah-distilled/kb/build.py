@@ -462,7 +462,7 @@ def build_bot_kb(cat, concepts):
     parts = ["# AH distilled: compact knowledge base", ""]
     for b in cat["books"]:
         intro = b["intro"].get("en")
-        parts += [f"## BOOK: {b['title']['en']} ({b['subtitle']['en']})", f"URL: {SITE_URL}/{b['id']}/", ""]
+        parts += [f"## BOOK: {b['title']['en']} ({b['subtitle']['en']})", f"Link: {b['id']}/", ""]
         if intro and b["id"] == "playbook":
             parts += [section(intro[1], "overview"), ""]
         for cid in b["concept_ids"]:
@@ -472,7 +472,7 @@ def build_bot_kb(cat, concepts):
             m, body = c["docs"]["en"]
             gist = section(body, "gist")
             gist = gist[:1400].rsplit(" ", 1)[0] + (" ..." if len(gist) > 1400 else "")
-            parts += [f"### {m.get('title')} [{SITE_URL}/{b['id']}/{cid}.html]"]
+            parts += [f"### {m.get('title')} (link: {b['id']}/{cid}.html)"]
             if m.get("term"):
                 parts.append(f"Term: {m['term']}")
             parts += [f"Card: {m.get('card', '')}"]

@@ -20,7 +20,8 @@
   }
   function inline(s) {
     s = esc(s);
-    s = s.replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+)\)/g, '<a href="$2">$1</a>');
+    // links: absolute https, or short relative links to concept pages (book/concept.html)
+    s = s.replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+|[a-z0-9-]+\/(?:[a-z0-9-]+\.html)?)\)/g, '<a href="$2">$1</a>');
     s = s.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
     return s;
   }
