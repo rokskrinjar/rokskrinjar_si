@@ -94,7 +94,7 @@
 
   // Countdown in the concept strip (and on the password card): the concept is on offer for five days.
   // After the deadline gate.js locks every page and /api/solis stops answering (same date in api/solis.js).
-  var DEADLINE = Date.parse("2026-11-02T14:00:00+01:00");
+  var DEADLINE = Date.parse("2026-11-16T14:00:00+01:00");
   function expired() { return Date.now() >= DEADLINE; }
   function countdownText() {
     var s = Math.max(0, Math.floor((DEADLINE - Date.now()) / 1000));

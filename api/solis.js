@@ -12,7 +12,7 @@ const MAX_HISTORY = 8;          // previous messages kept
 const PER_IP_PER_HOUR = Number(process.env.SOLIS_DIY_PER_IP_PER_HOUR || 25);
 // The concept is behind a page password (solis-diy/assets/gate.js); the page sends its SHA-256 here.
 // Not real security (the hash is in the public page), it just keeps casual callers out.
-const DEADLINE = Date.parse("2026-11-02T14:00:00+01:00"); // the concept closes then, as on the pages (assets/common.js)
+const DEADLINE = Date.parse("2026-11-16T14:00:00+01:00"); // the concept closes then, as on the pages (assets/common.js)
 const GATE_KEY = "65d0ffd891c8b83bd4efdfbaf47122c04bc625e070914d84055cbe1e3c4e2d7f";
 const ALLOWED_ORIGINS = (process.env.SOLIS_DIY_ORIGINS ||
   "https://rokskrinjar.si,https://www.rokskrinjar.si,http://localhost:8000")

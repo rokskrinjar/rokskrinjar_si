@@ -23,7 +23,7 @@
         '<div class="gate-card">' +
         '<p class="eyebrow">Solis DIY · <span class="sl">koncept</span><span class="en">concept</span></p>' +
         '<h1><span class="sl">Ponudba je potekla</span><span class="en">The offer has expired</span></h1>' +
-        '<p class="muted"><span class="sl">Koncept Solis DIY je bil na voljo do 2. 11. 2026 ob 14.00.</span><span class="en">The Solis DIY concept was available until 2 Nov 2026, 14:00.</span></p>' +
+        '<p class="muted"><span class="sl">Koncept Solis DIY je bil na voljo do 16. 11. 2026 ob 14.00.</span><span class="en">The Solis DIY concept was available until 16 Nov 2026, 14:00.</span></p>' +
         '<p class="fine"><a href="/projects/">← Rok Skrinjar</a></p></div>';
       document.body.appendChild(box);
     });
