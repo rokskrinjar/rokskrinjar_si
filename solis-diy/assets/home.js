@@ -31,7 +31,7 @@
     document.getElementById("ideas").innerHTML = proj.ideas.filter(function (p) {
       return filter === "all" || (filter === "easy" ? p.level === 1 : p.where === filter);
     }).map(function (p) {
-      return '<button type="button" class="idea" data-q="' + SD.esc(p[l].q) + '"><b>' + SD.esc(p[l].title) + "</b><span>" + SD.esc(p[l].teaser) + "</span><em>" + (l === "sl" ? "Vprašaj Skobelja →" : "Ask Skobelj →") + "</em></button>";
+      return '<button type="button" class="idea" data-q="' + SD.esc(p[l].q) + '"><b>' + SD.esc(p[l].title) + "</b><span>" + SD.esc(p[l].teaser) + "</span><em>" + (l === "sl" ? "Vprašaj Skobija →" : "Ask Skobi →") + "</em></button>";
     }).join("");
 
     document.getElementById("prodlist").innerHTML = cat.products.map(function (p) {

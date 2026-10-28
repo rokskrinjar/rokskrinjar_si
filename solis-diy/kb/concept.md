@@ -1,7 +1,7 @@
 # The Solis DIY concept and the market
 
 ## What this site is
-- "Solis DIY" is a concept by Rok Skrinjar: a guide, an AI adviser (Skobelj) and an order planner that shows how Solis Timber could sell its timber directly to hobby woodworkers in Slovenia. It is not affiliated with Solis Timber. No orders are sent; the inquiry button only shows what the customer and the sawmill would receive.
+- "Solis DIY" is a concept by Rok Skrinjar: a guide, an AI adviser (Skobi) and an order planner that shows how Solis Timber could sell its timber directly to hobby woodworkers in Slovenia. It is not affiliated with Solis Timber. No orders are sent; the inquiry button only shows what the customer and the sawmill would receive.
 - Pages: the guide (/solis-diy/index.html: projects, Wood 101, by-products, the company), the planner (planner.html: 13 project templates or an own cut list, nesting into 3 m / 4 m stock, price, delivery, inquiry preview) and the business case (business.html).
 - The planner: choose a project, set sizes, choose the wood variant, or load a cut list from the chat. It groups parts by product and section, nests them into stock lengths (3 or 4 m, about 20 mm overmeasure, 4 mm kerf), counts cuts (0.30 € each), computes m³, weight, an illustrative price and the DIY-store comparison. Delivery: pickup in Straža (free), parcel for pieces up to 2 m (5.99–29.99 € by weight), van up to 4 m and 1 t (25 € up to 20 km, then 0.70 €/km), truck for long beams (60 € up to 20 km, then 1.20 €/km). Orders under 100 € have an 8 € small-order fee.
 

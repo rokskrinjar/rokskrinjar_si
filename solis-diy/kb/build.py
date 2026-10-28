@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the Skobelj knowledge base for /api/solis.
+"""Build the Skobi knowledge base for /api/solis.
 
 Sources (solis-diy/kb/ and solis-diy/assets/):
   company.md        public facts about Solis Timber

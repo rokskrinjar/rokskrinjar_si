@@ -1,6 +1,6 @@
 # Solis Timber d.o.o.: company facts
 
-Public facts for the Skobelj adviser. Sources: solistimber.com (read 2026-10-28), AJPES via companywall.si, Sloexport, FSC certificate database, Delo (12 Jul 2018), EY Family Business Book Slovenia 2022, Si21 (Apr 2021), 24ur (Mar 2023), Kmečki glas (Feb 2025).
+Public facts for the Skobi adviser. Sources: solistimber.com (read 2026-10-28), AJPES via companywall.si, Sloexport, FSC certificate database, Delo (12 Jul 2018), EY Family Business Book Slovenia 2022, Si21 (Apr 2021), 24ur (Mar 2023), Kmečki glas (Feb 2025).
 
 ## Who they are
 - Full name: Solis Timber, predelava lesa, d.o.o. (until 27 Jul 2021: Solis Straža d.o.o.). Address: Na žago 6, 8351 Straža, Slovenia (south-east Slovenia, 9 km from Novo mesto, 8 km from the Kočevski Rog forests). Railway station Straža nearby.

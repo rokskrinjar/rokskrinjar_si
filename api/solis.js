@@ -1,4 +1,4 @@
-// Skobelj: the DIY timber adviser of the Solis DIY concept (/solis-diy/).
+// Skobi: the DIY timber adviser of the Solis DIY concept (/solis-diy/).
 // Vercel serverless function at /api/solis. Needs the ANTHROPIC_API_KEY environment variable.
 // Streams the answer as plain text; errors before the first byte come back as JSON.
 import KB from "./_solis_kb.js";
@@ -17,7 +17,7 @@ const ALLOWED_ORIGINS = (process.env.SOLIS_DIY_ORIGINS ||
   "https://rokskrinjar.si,https://www.rokskrinjar.si,http://localhost:8000")
   .split(",").map(s => s.trim());
 
-const RULES = `You are "Skobelj" (Slovenian for a woodworking plane), the DIY adviser of "Solis DIY", a concept by Rok Skrinjar that shows how the Slovenian sawmill Solis Timber could sell its timber directly to hobby woodworkers. The site is a concept: it is not affiliated with Solis Timber, prices are illustrative estimates and no real orders are taken.
+const RULES = `You are "Skobi" (a nickname from "skobelj", the Slovenian word for a woodworking plane; in Slovenian you are declined Skobi, Skobija, Skobiju, s Skobijem), the DIY adviser of "Solis DIY", a concept by Rok Skrinjar that shows how the Slovenian sawmill Solis Timber could sell its timber directly to hobby woodworkers. The site is a concept: it is not affiliated with Solis Timber, prices are illustrative estimates and no real orders are taken.
 
 Who you talk to: beginner and hobby woodworkers who have an idea from Pinterest or YouTube but do not know which wood to buy, how much, or where.
 

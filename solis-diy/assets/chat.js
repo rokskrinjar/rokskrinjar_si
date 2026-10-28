@@ -1,19 +1,19 @@
-// Skobelj chat drawer. Streams answers from /api/solis; keeps the conversation for this tab only.
+// Skobi chat drawer. Streams answers from /api/solis; keeps the conversation for this tab only.
 (function () {
   "use strict";
   var API = "/api/solis";
   var KEY = "solis-diy-chat";
   var T = {
-    fab: { sl: "Vprašaj Skobelja", en: "Ask Skobelj" },
+    fab: { sl: "Vprašaj Skobija", en: "Ask Skobi" },
     sub: { sl: "DIY svetovalec · AI", en: "DIY adviser · AI" },
     clear: { sl: "Nov pogovor", en: "New chat" },
     close: { sl: "Zapri", en: "Close" },
     send: { sl: "Pošlji", en: "Send" },
     ph: { sl: "npr. Rad bi naredil polico za knjige iz Pinteresta …", en: "e.g. I want to build a bookshelf I saw on Pinterest …" },
-    hello: { sl: "Živjo! Sem Skobelj. Povejte, kaj bi radi naredili, pa vam pomagam izbrati les, izračunati količino in pripraviti kosovnik za naročilo.", en: "Hi! I'm Skobelj. Tell me what you want to build and I'll help you choose the wood, work out how much you need and prepare a cut list to order." },
+    hello: { sl: "Živjo! Sem Skobi. Povejte, kaj bi radi naredili, pa vam pomagam izbrati les, izračunati količino in pripraviti kosovnik za naročilo.", en: "Hi! I'm Skobi. Tell me what you want to build and I'll help you choose the wood, work out how much you need and prepare a cut list to order." },
     load: { sl: "Naloži v načrtovalnik", en: "Load into the planner" },
     parts: { sl: "kosov", en: "parts" },
-    err: { sl: "Skobelj se ta trenutek ne oglaša. Poskusite znova čez minuto.", en: "Skobelj is not answering right now. Please try again in a minute." },
+    err: { sl: "Skobi se ta trenutek ne oglaša. Poskusite znova čez minuto.", en: "Skobi is not answering right now. Please try again in a minute." },
     offline: { sl: "Bot deluje samo na objavljeni strani (rokskrinjar.si). Lokalno je na voljo samo načrtovalnik.", en: "The bot only runs on the published site (rokskrinjar.si). Locally only the planner works." },
     note: { sl: "Odgovore ustvari umetna inteligenca in so lahko napačni. Koncept, ni povezan s Solis Timber. Vprašanja se pošljejo v Anthropicov API; ne vpisujte osebnih podatkov.", en: "Answers are AI-generated and can be wrong. A concept, not affiliated with Solis Timber. Questions are sent to Anthropic's API; don't include personal data." },
     ex: {
@@ -30,13 +30,13 @@
   var fab = document.createElement("button");
   fab.className = "chat-fab"; fab.type = "button";
   var box = document.createElement("section");
-  box.className = "chat"; box.hidden = true; box.setAttribute("aria-label", "Skobelj");
+  box.className = "chat"; box.hidden = true; box.setAttribute("aria-label", "Skobi");
   document.body.appendChild(fab); document.body.appendChild(box);
 
   function shell() {
     fab.innerHTML = SD.icon("plane", "") + "<span>" + t("fab") + "</span>";
     box.innerHTML =
-      '<div class="chat-head"><div class="av">' + SD.icon("plane", "") + '</div><div><b>Skobelj</b><small>' + t("sub") + '</small></div>' +
+      '<div class="chat-head"><div class="av">' + SD.icon("plane", "") + '</div><div><b>Skobi</b><small>' + t("sub") + '</small></div>' +
       '<div class="sp"><button type="button" data-a="clear">' + t("clear") + '</button><button type="button" data-a="close" aria-label="' + t("close") + '">✕</button></div></div>' +
       '<div class="chat-log" aria-live="polite"></div>' +
       '<form class="chat-form"><label class="vh" for="sk-q">' + t("fab") + '</label><textarea id="sk-q" rows="1" maxlength="1500" placeholder="' + SD.esc(t("ph")) + '"></textarea>' +
