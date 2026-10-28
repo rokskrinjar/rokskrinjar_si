@@ -271,6 +271,8 @@
   window.SolisChatMode = "razpis";
   window.SolisChatContext = context;
   window.SolisChatIntro = {
+    sub: { sl: "pomočnik za razpise · AI", en: "funding assistant · AI" },
+    ph: { sl: "npr. Naložba je vredna 850.000 € brez DDV …", en: "e.g. The investment is €850,000 excl. VAT …" },
     hello: { sl: "Živjo! Sem Skobi. Izberite razpis v poročilu tedna in kliknite »Začni prijavo«. Prijavo izpolnim iz baze znanja o žagi, za manjkajoče podatke pa vas vprašam. Lahko me vprašate tudi, kateri razpis je najboljši za določeno naložbo.", en: "Hi! I'm Skobi. Pick a call in this week's report and click \"Start application\". I'll draft it from the sawmill's knowledge base and ask you for whatever is missing. You can also ask me which call suits a particular investment." },
     ex: {
       sl: ["Kateri razpis bi najbolj pomagal pri širitvi na novo zemljišče?", "Ali lahko sončno elektrarno na strehi sofinancira kateri od teh razpisov?", "Kateri roki so najbližje in kaj moramo pripraviti?", "Zakaj bi žaga potrebovala razpisni radar?"],

@@ -35,6 +35,7 @@
   function t(k) { return SD.tr(T[k]); }
   function hello() { return INTRO ? SD.tr(INTRO.hello) : t(BIZ ? "helloBiz" : "hello"); }
   function examples() { return INTRO ? SD.tr(INTRO.ex) : t(BIZ ? "exBiz" : "ex"); }
+  function intro(k) { return INTRO && INTRO[k] ? SD.tr(INTRO[k]) : t(k); }
 
   var messages = [];
   try { messages = JSON.parse(sessionStorage.getItem(KEY) || "[]") || []; } catch (e) { messages = []; }
@@ -50,10 +51,10 @@
     var av = '<img src="assets/skobi.webp" alt="" width="40" height="40">';
     fab.innerHTML = av + "<span>" + t("fab") + "</span>";
     box.innerHTML =
-      '<div class="chat-head"><div class="av">' + av + '</div><div><b>Skobi</b><small>' + t("sub") + '</small></div>' +
+      '<div class="chat-head"><div class="av">' + av + '</div><div><b>Skobi</b><small>' + intro("sub") + '</small></div>' +
       '<div class="sp"><button type="button" data-a="clear">' + t("clear") + '</button><button type="button" data-a="close" aria-label="' + t("close") + '">✕</button></div></div>' +
       '<div class="chat-log" aria-live="polite"></div>' +
-      '<form class="chat-form"><label class="vh" for="sk-q">' + t("fab") + '</label><textarea id="sk-q" rows="1" maxlength="1500" placeholder="' + SD.esc(t("ph")) + '"></textarea>' +
+      '<form class="chat-form"><label class="vh" for="sk-q">' + t("fab") + '</label><textarea id="sk-q" rows="1" maxlength="1500" placeholder="' + SD.esc(intro("ph")) + '"></textarea>' +
       '<button class="btn primary" type="submit">' + t("send") + '</button></form>' +
       '<p class="chat-note">' + t("note") + '</p>';
     log = box.querySelector(".chat-log"); q = box.querySelector("textarea"); form = box.querySelector("form");
