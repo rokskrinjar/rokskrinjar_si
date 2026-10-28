@@ -152,7 +152,7 @@
     try {
       var r = await fetch(API, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "X-Solis-Key": window.SolisKey ? window.SolisKey() : "" },
         body: JSON.stringify({ messages: messages.slice(-9), context: ctx })
       });
       var ct = r.headers.get("content-type") || "";

@@ -345,3 +345,12 @@ pre.order { white-space: pre-wrap; font: .82rem/1.5 var(--mono); background: var
   :root:not([data-theme="light"]) .facts b, :root:not([data-theme="light"]) .bigno, :root:not([data-theme="light"]) .k3 b { color: var(--yellow); }
   :root:not([data-theme="light"]) .section-head h2::before { background: var(--sage); }
 }
+
+/* Password gate (assets/gate.js) */
+html.locked body > *:not(.gate) { display: none !important; }
+.gate { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; background: var(--bg); }
+.gate-card { width: min(420px, 100%); background: var(--paper); border: 1px solid var(--line); border-top: 6px solid var(--forest); border-radius: var(--radius); padding: 28px 24px; box-shadow: var(--shadow); }
+.gate-card h1 { font-size: 2.2rem; }
+.gate-row { display: flex; gap: 8px; margin-top: 6px; }
+.gate-row input { flex: 1; min-width: 0; }
+.gate-err { color: var(--warn); font-size: .9rem; min-height: 1.3em; margin: 8px 0 0; }
