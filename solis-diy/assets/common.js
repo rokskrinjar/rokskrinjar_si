@@ -22,6 +22,9 @@
     document.documentElement.setAttribute("data-lang", l);
     document.addEventListener("DOMContentLoaded", function () {
       document.querySelectorAll(".lang button").forEach(function (b) { b.addEventListener("click", function () { setLang(b.dataset.set); }); });
+      // On phones the menu scrolls sideways; keep the current page in view.
+      var nav = document.querySelector(".nav"), cur = nav && nav.querySelector("[aria-current]");
+      if (cur && nav.scrollWidth > nav.clientWidth) nav.scrollLeft = cur.offsetLeft - 16;
       setLang(lang());
     });
   })();

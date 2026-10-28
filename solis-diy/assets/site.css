@@ -70,7 +70,7 @@ p { margin: 0 0 1em; }
 .brand svg { width: 30px; height: 30px; flex: none; }
 .brand small { font-family: var(--sans); font-weight: 600; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--on-yellow); background: var(--yellow); border-radius: 2px; padding: 2px 7px; letter-spacing: .12em; }
 .nav { display: flex; gap: 4px; margin-left: auto; }
-.nav a { text-decoration: none; color: #c9d3cb; font-weight: 700; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; padding: 7px 11px; border-radius: 2px; }
+.nav a { white-space: nowrap; text-decoration: none; color: #c9d3cb; font-weight: 700; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; padding: 7px 11px; border-radius: 2px; }
 .nav a:hover { color: var(--yellow); }
 .nav a[aria-current="page"] { color: var(--yellow); }
 .lang { display: flex; border: 1px solid var(--sage); border-radius: 2px; overflow: hidden; }
@@ -354,3 +354,15 @@ html.locked body > *:not(.gate) { display: none !important; }
 .gate-row { display: flex; gap: 8px; margin-top: 6px; }
 .gate-row input { flex: 1; min-width: 0; }
 .gate-err { color: var(--warn); font-size: .9rem; min-height: 1.3em; margin: 8px 0 0; }
+
+/* Economics page */
+.mapt { font: 600 11px var(--mono); fill: var(--muted); }
+.mapl { font: 600 12px var(--sans); fill: var(--ink); }
+table.pl td:first-child { white-space: normal; }
+table.pl .pl-in td { color: var(--muted); font-size: .86rem; padding-top: 3px; padding-bottom: 3px; }
+table.pl .pl-in td:first-child { padding-left: 22px; }
+table.pl .pl-sub td { font-weight: 700; border-top: 2px solid var(--line); }
+table.pl .pl-tot td { font-weight: 800; font-size: 1.05rem; border-top: 2px solid var(--ink); background: var(--amber-soft); }
+.facts b { overflow-wrap: anywhere; }
+@media (max-width: 1100px) and (min-width: 821px) { .nav a { padding: 7px 7px; letter-spacing: .06em; } .brand small { display: none; } }
+#mkt td.num, table.pl td.num { white-space: nowrap; }

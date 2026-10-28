@@ -1,0 +1,662 @@
+{
+ "version": "2026-10-28",
+ "note": "Concept model. Money excl. VAT unless noted. Sources in 'sources'; estimates are labelled in each assumption.",
+ "eu": {
+  "diy": 409000000000,
+  "online": 78000000000
+ },
+ "countries": [
+  {
+   "id": "si",
+   "name": {
+    "sl": "Slovenija",
+    "en": "Slovenia"
+   },
+   "note": {
+    "sl": "domači trg, prevzem v Straži",
+    "en": "home market, pickup in Straža"
+   },
+   "pop": 2.131,
+   "diy": 628000000,
+   "timberShare": 0.05,
+   "reach": 1.0,
+   "from": 1,
+   "retail": 1900,
+   "vat": 0.22,
+   "deliv": 20,
+   "delivCharged": 14
+  },
+  {
+   "id": "hr",
+   "name": {
+    "sl": "Hrvaška",
+    "en": "Croatia"
+   },
+   "note": {
+    "sl": "Zagreb, celinska Hrvaška, Kvarner",
+    "en": "Zagreb, continental Croatia, Kvarner"
+   },
+   "pop": 3.874,
+   "diy": 797000000,
+   "timberShare": 0.05,
+   "reach": 0.55,
+   "from": 2,
+   "retail": 2350,
+   "vat": 0.25,
+   "deliv": 38,
+   "delivCharged": 26
+  },
+  {
+   "id": "at",
+   "name": {
+    "sl": "Avstrija",
+    "en": "Austria"
+   },
+   "note": {
+    "sl": "Štajerska, Koroška, Dunaj z okolico",
+    "en": "Styria, Carinthia, Vienna area"
+   },
+   "pop": 9.197,
+   "diy": 5516000000,
+   "timberShare": 0.042,
+   "reach": 0.4,
+   "from": 2,
+   "retail": 1775,
+   "vat": 0.2,
+   "deliv": 48,
+   "delivCharged": 34
+  },
+  {
+   "id": "it",
+   "name": {
+    "sl": "Italija",
+    "en": "Italy"
+   },
+   "note": {
+    "sl": "Furlanija - Julijska krajina, Veneto, Trentino",
+    "en": "Friuli-Venezia Giulia, Veneto, Trentino"
+   },
+   "pop": 58.943,
+   "diy": 16695000000,
+   "timberShare": 0.045,
+   "reach": 0.13,
+   "from": 3,
+   "retail": 1850,
+   "vat": 0.22,
+   "deliv": 52,
+   "delivCharged": 36
+  },
+  {
+   "id": "hu",
+   "name": {
+    "sl": "Madžarska",
+    "en": "Hungary"
+   },
+   "note": {
+    "sl": "zahodna Madžarska, Budimpešta",
+    "en": "western Hungary, Budapest"
+   },
+   "pop": 9.54,
+   "diy": 1917000000,
+   "timberShare": 0.05,
+   "reach": 0.4,
+   "from": 3,
+   "retail": 2280,
+   "vat": 0.27,
+   "deliv": 50,
+   "delivCharged": 34
+  }
+ ],
+ "cities": [
+  {
+   "name": "Ljubljana",
+   "km": 78,
+   "bearing": 305,
+   "weight": 0.55,
+   "from": 1,
+   "pos": "t"
+  },
+  {
+   "name": "Zagreb",
+   "km": 85,
+   "bearing": 88,
+   "weight": 1.1,
+   "from": 2,
+   "pos": "r"
+  },
+  {
+   "name": "Graz",
+   "km": 248,
+   "bearing": 11,
+   "weight": 0.45,
+   "from": 2,
+   "pos": "r"
+  },
+  {
+   "name": "Wien",
+   "km": 427,
+   "bearing": 20,
+   "weight": 2.0,
+   "from": 2,
+   "pos": "r"
+  },
+  {
+   "name": "Trieste",
+   "km": 165,
+   "bearing": 262,
+   "weight": 0.2,
+   "from": 3,
+   "pos": "t"
+  },
+  {
+   "name": "Udine",
+   "km": 229,
+   "bearing": 282,
+   "weight": 0.1,
+   "from": 3,
+   "pos": "l"
+  },
+  {
+   "name": "Venezia",
+   "km": 304,
+   "bearing": 261,
+   "weight": 0.26,
+   "from": 3,
+   "pos": "b"
+  },
+  {
+   "name": "Budapest",
+   "km": 429,
+   "bearing": 58,
+   "weight": 1.7,
+   "from": 3,
+   "pos": "r"
+  },
+  {
+   "name": "Milano",
+   "km": 567,
+   "bearing": 266,
+   "weight": 3.2,
+   "from": 0,
+   "pos": "l"
+  },
+  {
+   "name": "München",
+   "km": 484,
+   "bearing": 314,
+   "weight": 1.5,
+   "from": 0,
+   "pos": "l"
+  }
+ ],
+ "vat": 0.22,
+ "assumptions": {
+  "productFit": {
+   "v": 0.4,
+   "f": "pct",
+   "label": {
+    "sl": "Del lesnega asortimenta DIY, ki ga pokrijejo izdelki Solisa",
+    "en": "Share of the DIY timber range Solis' products cover"
+   },
+   "src": {
+    "sl": "Ocena: smrekov žagan, skobljan, radialen les, BSH, KVH; brez plošč, talnih oblog in trdega lesa.",
+    "en": "Estimate: spruce sawn, planed, quarter-sawn, glulam, KVH; excludes panels, flooring and hardwood."
+   }
+  },
+  "onlineReady": {
+   "v": 0.15,
+   "f": "pct",
+   "label": {
+    "sl": "Kupci, ki les naročijo prek spleta (z dostavo ali prevzemom)",
+    "en": "Buyers who order timber online (delivery or pickup)"
+   },
+   "src": {
+    "sl": "Ocena; spletni delež DIY: Evropa 17 % (2024), Nemčija ~12 %, SI 0–5 % (ECDB).",
+    "en": "Estimate; online share of DIY: Europe 17 % (2024), Germany ~12 %, SI 0–5 % (ECDB)."
+   }
+  },
+  "homeBoost": {
+   "v": 2,
+   "f": "x",
+   "label": {
+    "sl": "Prednost domačega trga (znamka, prevzem)",
+    "en": "Home-market advantage (brand, pickup)"
+   },
+   "src": {
+    "sl": "Ocena: v Sloveniji dvakratni tržni delež.",
+    "en": "Estimate: double market share in Slovenia."
+   }
+  },
+  "priceNet": {
+   "v": 975,
+   "f": "eur",
+   "label": {
+    "sl": "Prodajna cena lesa, €/m³ brez DDV",
+    "en": "Timber selling price, €/m³ excl. VAT"
+   },
+   "src": {
+    "sl": "Cena koncepta 1.190 € z DDV; trgovine DIY v regiji 1.600–2.500 €/m³ z DDV.",
+    "en": "Concept price €1,190 incl. VAT; regional DIY stores €1,600–2,500/m³ incl. VAT."
+   }
+  },
+  "m3PerOrder": {
+   "v": 0.18,
+   "f": "",
+   "unit": "m³",
+   "label": {
+    "sl": "Povprečno naročilo",
+    "en": "Average order"
+   },
+   "src": {
+    "sl": "Ocena iz predlog načrtovalnika (greda 0,11, miza 0,19, pergola 0,5 m³).",
+    "en": "Estimate from the planner templates (raised bed 0.11, table 0.19, pergola 0.5 m³)."
+   }
+  },
+  "cutsPerOrder": {
+   "v": 18,
+   "f": "",
+   "label": {
+    "sl": "Rezov na naročilo",
+    "en": "Cuts per order"
+   },
+   "src": {
+    "sl": "Predloge načrtovalnika: 11–47.",
+    "en": "Planner templates: 11–47."
+   }
+  },
+  "cutFee": {
+   "v": 0.3,
+   "f": "eur",
+   "label": {
+    "sl": "Cena reza z DDV",
+    "en": "Price per cut incl. VAT"
+   },
+   "src": {
+    "sl": "Koncept.",
+    "en": "Concept."
+   }
+  },
+  "extrasPerOrder": {
+   "v": 6,
+   "f": "eur",
+   "label": {
+    "sl": "Dodatki (peleti, lubje) na naročilo, brez DDV",
+    "en": "Extras (pellets, bark) per order, excl. VAT"
+   },
+   "src": {
+    "sl": "Ocena.",
+    "en": "Estimate."
+   }
+  },
+  "extrasCost": {
+   "v": 0.5,
+   "f": "pct",
+   "label": {
+    "sl": "Strošek dodatkov (delež prihodka)",
+    "en": "Cost of extras (share of revenue)"
+   },
+   "src": {
+    "sl": "Ocena: peleti po tržni ceni na debelo.",
+    "en": "Estimate: pellets at wholesale value."
+   }
+  },
+  "wholesale": {
+   "v": 415,
+   "f": "eur",
+   "label": {
+    "sl": "Vrednost lesa na debelo, €/m³",
+    "en": "Wholesale value of the timber, €/m³"
+   },
+   "src": {
+    "sl": "GIS: suh mizarski les, feb. 2026; v DE ~310–325 €/m³ (2025).",
+    "en": "GIS: kiln-dried joinery boards, Feb 2026; DE ~€310–325/m³ (2025)."
+   }
+  },
+  "processing": {
+   "v": 95,
+   "f": "eur",
+   "label": {
+    "sl": "Skobljanje, izguba volumna, izbor, €/m³",
+    "en": "Planing, volume loss, selection, €/m³"
+   },
+   "src": {
+    "sl": "Ocena: 21–26 % izgube pri skobljanju × 415 €/m³.",
+    "en": "Estimate: 21–26 % planing loss × €415/m³."
+   }
+  },
+  "minutesPerOrder": {
+   "v": 20,
+   "f": "",
+   "unit": "min",
+   "label": {
+    "sl": "Delo na naročilo (razrez, pakiranje)",
+    "en": "Labour per order (cutting, packing)"
+   },
+   "src": {
+    "sl": "Ocena, razrez enkrat na teden v paketu.",
+    "en": "Estimate, weekly batch cutting."
+   }
+  },
+  "labourHour": {
+   "v": 25,
+   "f": "eur",
+   "label": {
+    "sl": "Strošek ure dela",
+    "en": "Labour cost per hour"
+   },
+   "src": {
+    "sl": "Eurostat: predelovalne dejavnosti SI 29,8 €/h (2025); SURS C16.1 ~14–25 €/h.",
+    "en": "Eurostat: SI manufacturing €29.8/h (2025); SURS C16.1 ~€14–25/h."
+   }
+  },
+  "packing": {
+   "v": 5,
+   "f": "eur",
+   "label": {
+    "sl": "Embalaža na naročilo",
+    "en": "Packaging per order"
+   },
+   "src": {
+    "sl": "Ocena: folija, vogalniki, del palete (paleta ~12 €).",
+    "en": "Estimate: film, corners, share of a pallet (~€12)."
+   }
+  },
+  "paymentFee": {
+   "v": 0.018,
+   "f": "pct",
+   "label": {
+    "sl": "Plačilne provizije",
+    "en": "Payment fees"
+   },
+   "src": {
+    "sl": "Stripe EGP: 1,5 % + 0,25 €.",
+    "en": "Stripe EEA: 1.5 % + €0.25."
+   }
+  },
+  "returns": {
+   "v": 0.015,
+   "f": "pct",
+   "label": {
+    "sl": "Reklamacije in poškodbe",
+    "en": "Returns and damage"
+   },
+   "src": {
+    "sl": "Izdelki po meri so izvzeti iz vračila (Direktiva 2011/83/EU, čl. 16(c)); DIY splošno 9,4 % (ECDB).",
+    "en": "Made-to-measure goods are exempt from withdrawal (Directive 2011/83/EU, Art. 16(c)); DIY overall 9.4 % (ECDB)."
+   }
+  },
+  "repeat": {
+   "v": 0.35,
+   "f": "pct",
+   "label": {
+    "sl": "Delež ponovnih naročil",
+    "en": "Share of repeat orders"
+   },
+   "src": {
+    "sl": "Ocena.",
+    "en": "Estimate."
+   }
+  },
+  "cac": {
+   "v": 30,
+   "f": "eur",
+   "label": {
+    "sl": "Strošek pridobitve novega kupca",
+    "en": "Cost to acquire a new customer"
+   },
+   "src": {
+    "sl": "Ocena; dom in vrt ROAS 3–4× (Funnelytics, 2025).",
+    "en": "Estimate; home & garden ROAS 3–4× (Funnelytics, 2025)."
+   }
+  },
+  "content": {
+   "v": 24000,
+   "f": "eur",
+   "label": {
+    "sl": "Vsebine, foto, SEO na leto",
+    "en": "Content, photos, SEO per year"
+   },
+   "src": {
+    "sl": "Ocena.",
+    "en": "Estimate."
+   }
+  },
+  "fteCost": {
+   "v": 45000,
+   "f": "eur",
+   "label": {
+    "sl": "Strošek zaposlenega na leto",
+    "en": "Cost per employee per year"
+   },
+   "src": {
+    "sl": "Ocena za prodajo in podporo v Sloveniji.",
+    "en": "Estimate for sales and support in Slovenia."
+   }
+  },
+  "platform": {
+   "v": 15000,
+   "f": "eur",
+   "label": {
+    "sl": "Platforma, gostovanje, orodja na leto",
+    "en": "Platform, hosting, tools per year"
+   },
+   "src": {
+    "sl": "Ocena.",
+    "en": "Estimate."
+   }
+  },
+  "aiPerOrder": {
+   "v": 0.1,
+   "f": "eur",
+   "label": {
+    "sl": "AI svetovalec na naročilo",
+    "en": "AI adviser per order"
+   },
+   "src": {
+    "sl": "Ocena: nekaj pogovorov s Skobijem na naročilo.",
+    "en": "Estimate: a few chats with Skobi per order."
+   }
+  },
+  "build": {
+   "v": 60000,
+   "f": "eur",
+   "label": {
+    "sl": "Razvoj trgovine, integracija s proizvodnjo",
+    "en": "Building the shop, production integration"
+   },
+   "src": {
+    "sl": "Ocena, amortizacija v prvih treh letih.",
+    "en": "Estimate, amortised over the first three years."
+   }
+  },
+  "logOutput": {
+   "v": 33000,
+   "f": "",
+   "unit": "m³",
+   "label": {
+    "sl": "Letna proizvodnja žaganega lesa",
+    "en": "Annual sawn timber output"
+   },
+   "src": {
+    "sl": "60.000 m³ hlodovine × ~55 % izkoristek (ocena).",
+    "en": "60,000 m³ logs × ~55 % yield (estimate)."
+   }
+  }
+ },
+ "scenarios": {
+  "low": {
+   "share": [
+    0.02,
+    0.04,
+    0.06
+   ],
+   "fte": [
+    1,
+    1.5,
+    2,
+    2,
+    2
+   ],
+   "note": {
+    "sl": "Previdni: 2 % dosegljivega trga v prvem letu na trgu, do 6 % v tretjem.",
+    "en": "Cautious: 2 % of the serviceable market in the first year in a market, up to 6 % in the third."
+   }
+  },
+  "base": {
+   "share": [
+    0.04,
+    0.08,
+    0.12
+   ],
+   "fte": [
+    1,
+    2,
+    2.5,
+    3,
+    3
+   ],
+   "note": {
+    "sl": "Osnovni: 4 % dosegljivega trga v prvem letu na trgu, 8 % v drugem, 12 % v tretjem. V Sloveniji dvakrat več.",
+    "en": "Base: 4 % of the serviceable market in the first year in a market, 8 % in the second, 12 % in the third. Twice that in Slovenia."
+   }
+  },
+  "high": {
+   "share": [
+    0.06,
+    0.12,
+    0.2
+   ],
+   "fte": [
+    1.5,
+    2.5,
+    3.5,
+    4,
+    4.5
+   ],
+   "note": {
+    "sl": "Ambiciozni: hitrejša rast s partnerji (delavnice, prevzemna mesta) in več vsebin.",
+    "en": "Ambitious: faster growth with partners (workshops, pickup points) and more content."
+   }
+  }
+ },
+ "sliders": [
+  {
+   "id": "shareMult",
+   "f": "x",
+   "min": 0.25,
+   "max": 3,
+   "step": 0.05,
+   "label": {
+    "sl": "Tržni delež (množitelj)",
+    "en": "Market share (multiplier)"
+   }
+  },
+  {
+   "id": "onlineReady",
+   "f": "pct",
+   "min": 0.05,
+   "max": 0.35,
+   "step": 0.01,
+   "label": {
+    "sl": "Kupci, ki les naročijo prek spleta",
+    "en": "Buyers ordering timber online"
+   }
+  },
+  {
+   "id": "priceNet",
+   "f": "eur",
+   "min": 700,
+   "max": 1400,
+   "step": 10,
+   "label": {
+    "sl": "Cena lesa (€/m³ brez DDV)",
+    "en": "Timber price (€/m³ excl. VAT)"
+   }
+  },
+  {
+   "id": "m3PerOrder",
+   "f": "m3",
+   "min": 0.06,
+   "max": 0.5,
+   "step": 0.01,
+   "label": {
+    "sl": "Povprečno naročilo",
+    "en": "Average order"
+   }
+  },
+  {
+   "id": "cac",
+   "f": "eur",
+   "min": 5,
+   "max": 100,
+   "step": 1,
+   "label": {
+    "sl": "Strošek novega kupca",
+    "en": "Cost per new customer"
+   }
+  },
+  {
+   "id": "minutesPerOrder",
+   "f": "",
+   "min": 5,
+   "max": 60,
+   "step": 1,
+   "label": {
+    "sl": "Minute dela na naročilo",
+    "en": "Labour minutes per order"
+   }
+  }
+ ],
+ "reading": {
+  "sl": [
+   [
+    "Kaj model pove",
+    "Domači mojstri v petih državah za les v trgovinah DIY porabijo okoli 1,15 milijarde evrov na leto, v regijah v dosegu Straže okoli 280 milijonov. Spletna žaga lahko realno doseže okoli 17 milijonov. V osnovnem scenariju kanal v petem letu ustvari okoli 1,7 milijona evrov prihodkov in okoli 120.000 evrov dobička nad prodajo istega lesa na debelo, pri tem pa porabi le okoli 4 % proizvodnje žage. Kanal DIY je dodaten posel z višjo maržo, ne zamenjava za izvoz."
+   ],
+   [
+    "Kje je dobiček",
+    "Prodajna cena je več kot dvakrat višja od vrednosti lesa na debelo, zato je prispevek na naročilo dober. Dobiček pojedo dostava, delo pri majhnih naročilih in pridobivanje kupcev. Prvi dve leti sta zato v izgubi (zagon, ekipa, razvoj trgovine), kumulativno pa se osnovni scenarij izide v petem letu. V modelu je razrez enkrat na teden v paketu, v tujini pa zbirna vožnja do prevzemnih mest namesto posamičnih palet (paleta v Avstrijo stane 158–190 €)."
+   ],
+   [
+    "Kaj najbolj premakne številke",
+    "Velikost naročila. Pri 0,3 m³ na naročilo namesto 0,18 m³ se dobiček v petem letu podvoji (na okoli 250.000 €), pri 0,1 m³ ostane kanal v izgubi. Zato načrtovalnik spodbuja celotne projekte in dodatke (peleti, lubje) namesto posameznih letev. Drugi vzvod je strošek novega kupca: vsebine in Skobi pripeljejo kupce brez plačanih oglasov."
+   ],
+   [
+    "Česar model ne šteje",
+    "Vrednosti blagovne znamke doma, podatkov o tem, kaj kupci res gradijo, prodaje manjšim mizarjem in obrtnikom (B2B), ki bi prišli prek istega kanala, ter morebitnega partnerstva s trgovinami ali delavnicami. Vse to je dodatek k izračunu."
+   ]
+  ],
+  "en": [
+   [
+    "What the model says",
+    "DIYers in the five countries spend around €1.15 billion a year on timber in DIY stores, around €280 million in the regions within reach of Straža. An online sawmill can realistically reach around €17 million of that. In the base scenario the channel makes around €1.7 million of revenue in year 5 and around €120,000 of profit over selling the same timber wholesale, using only about 4 % of the mill's output. The DIY channel is extra business with a higher margin, not a replacement for exports."
+   ],
+   [
+    "Where the profit is",
+    "The selling price is more than twice the wholesale value of the timber, so the contribution per order is healthy. Delivery, labour on small orders and customer acquisition eat into it. The first two years therefore run at a loss (launch, team, building the shop), and the base scenario breaks even cumulatively in year 5. The model cuts in a weekly batch and serves other countries with a consolidated run to pickup points instead of single pallets (a pallet to Austria costs €158–190)."
+   ],
+   [
+    "What moves the numbers most",
+    "Order size. At 0.3 m³ per order instead of 0.18 m³, year-5 profit doubles (to around €250,000); at 0.1 m³ the channel stays in the red. That is why the planner encourages whole projects and extras (pellets, bark) rather than single battens. The second lever is the cost of a new customer: content and Skobi bring buyers in without paid ads."
+   ],
+   [
+    "What the model leaves out",
+    "The value of a brand at home, data on what buyers really build, sales to small joiners and tradespeople (B2B) who would come through the same channel, and possible partnerships with stores or workshops. All of that comes on top."
+   ]
+  ]
+ },
+ "sources": [
+  "Eurostat sbs_ovw_act: promet trgovine na drobno NACE 47.52 (železnina, barve, steklo), 2024",
+  "Eurostat demo_gind, lfst_hhnhtych, ilc_lvho01: prebivalci, gospodinjstva, tip stanovanja, 2025",
+  "Eurostat nama_10_cp18: izdatki gospodinjstev za orodje in vzdrževanje doma (CP055, CP043), 2025",
+  "BHB / GfK: Jahrespressekonferenz 2026 (DE trgovine DIY 20,58 mrd €, les 5,2 %); Handelsverband/GfK Avstrija (3,10 mrd €, les 4,2 %), 2025",
+  "RetailDetail (19. 3. 2026): evropski trg DIY 409 mrd €, splet 78 mrd €; ECDB: spletni deleži DIY po državah, 2025",
+  "Eurostat for_swpan: navidezna poraba žaganega lesa iglavcev po državah, 2024",
+  "Cene v trgovinah DIY: obi.at, hornbach.at, obi-italia.it, bauhaus.hr, obi.hu, okt. 2026; OBI, Slovenijales, Merkur (SI)",
+  "Gozdarski inštitut Slovenije: cene žaganih proizvodov (feb. 2026), sušenje (InfoGozd 2021); Holzkurier 11/2025",
+  "Dostava: DPD SI cenik (sep. 2025), Pošta Slovenije (jun. 2026), GLS, Eurosender (palete SI→AT/HR/HU, 2026)",
+  "Stroški: Stripe EGP (2026), SURS SiStat C16.1 (2026), Eurostat stroški dela (2025), Direktiva 2011/83/EU čl. 16(c), ECDB in Funnelytics (2025)",
+  "Primerjave neposredne prodaje: Grips Intelligence (zuschnittprofi.de, holzprofi24.de), ocene 2025–26",
+  "Razdalje: OSRM, cestne razdalje iz Straže (približno)"
+ ]
+}

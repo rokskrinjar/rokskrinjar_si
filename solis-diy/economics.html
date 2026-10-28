@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="sl" data-lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ekonomika · Solis DIY</title>
+<meta name="title-sl" content="Ekonomika · Solis DIY">
+<meta name="title-en" content="Economics · Solis DIY">
+<meta name="description" content="Koliko lesa kupijo domači mojstri v Sloveniji in sosednjih državah, koliko tega trga lahko doseže žaga iz Straže ter kakšni so prihodki in dobiček kanala DIY v treh letih.">
+<meta property="og:title" content="Economics · Solis DIY">
+<meta property="og:description" content="The DIY timber market in Slovenia and its neighbours, how much of it a sawmill in Straža can reach, and the DIY channel's revenue and profit over three years.">
+<meta property="og:image" content="https://rokskrinjar.si/img/covers/solis-diy.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/common.js"></script>
+<script src="assets/gate.js"></script>
+</head>
+<body>
+<div class="concept"><span class="sl">Koncept Roka Skrinjarja. Ni povezano s Solis Timber d.o.o.; številke so ocene na podlagi javnih virov.</span><span class="en">A concept by Rok Skrinjar. Not affiliated with Solis Timber d.o.o.; figures are estimates from public sources.</span></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><svg viewBox="0 0 100 100" aria-hidden="true" id="logo"></svg>Solis DIY <small class="sl">koncept</small><small class="en">concept</small></a>
+    <nav class="nav" aria-label="Glavni meni">
+      <a href="./"><span class="sl">Vodič</span><span class="en">Guide</span></a>
+      <a href="planner.html"><span class="sl">Načrtovalnik</span><span class="en">Planner</span></a>
+      <a href="business.html"><span class="sl">Poslovni primer</span><span class="en">Business case</span></a>
+      <a href="economics.html" aria-current="page"><span class="sl">Ekonomika</span><span class="en">Economics</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Jezik / Language"><button type="button" data-set="sl">SL</button><button type="button" data-set="en">EN</button></div>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding-bottom:16px">
+  <div class="wrap">
+    <p class="eyebrow"><span class="sl">Ekonomika in donosnost</span><span class="en">Economics and profitability</span></p>
+    <h1><span class="sl">Koliko je vreden trg in koliko lahko zasluži žaga.</span><span class="en">How big the market is, and what the mill can earn.</span></h1>
+    <p class="lede" id="lede"><span class="sl">Ocena od zgoraj navzdol: trg DIY v vsaki državi, delež lesa, del, ki ga pokrijejo izdelki Solisa, regije v dosegu tovornjaka iz Straže in kupci, ki les naročijo prek spleta. Nato petletni izkaz poslovnega izida kanala DIY v treh scenarijih.</span><span class="en">A top-down estimate: the DIY market in each country, the timber share, the part Solis' products cover, the regions within truck reach of Straža and the buyers who order timber online. Then a five-year P&amp;L for the DIY channel in three scenarios.</span></p>
+  </div>
+</section>
+
+<section class="block" style="padding-top:8px">
+  <div class="wrap">
+    <div class="k3">
+      <div><b id="k-eu">–</b><span class="sl">trg DIY in vrta v Evropi na leto</span><span class="en">European DIY and garden market per year</span></div>
+      <div><b id="k-near">–</b><span class="sl">porabijo za les domači mojstri v Sloveniji in sosednjih državah</span><span class="en">spent on timber by DIYers in Slovenia and its neighbours</span></div>
+      <div><b id="k-sam">–</b><span class="sl">dosegljivi trg (SAM): naši izdelki, regije v dosegu, nakup prek spleta</span><span class="en">serviceable market (SAM): our products, reachable regions, online buyers</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="section-head"><h2><span class="sl">Trgi okoli Straže</span><span class="en">Markets around Straža</span></h2><p><span class="sl">Vrednosti brez DDV, na leto. »Doseg« je delež prebivalcev v regijah, ki jih tovornjak iz Straže doseže v enem dnevu.</span><span class="en">Values excl. VAT, per year. "Reach" is the share of people in regions a truck from Straža reaches within a day.</span></p></div>
+    <div>
+      <div class="tw"><table id="mkt"></table></div>
+      <div style="max-width:700px;margin:22px auto 0"><svg viewBox="0 0 700 500" id="map" role="img" aria-label="Razdalje od Straže / Distances from Straža" style="width:100%;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius)"></svg>
+        <p class="fine"><span class="sl">Shematski prikaz, razdalje po cesti (približno). Barva: zelena 1. leto, žajbelj 2. leto, rumena 3. leto, sivo pozneje.</span><span class="en">Schematic, road distances (approximate). Colour: green year 1, sage year 2, yellow year 3, grey later.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="section-head"><h2><span class="sl">Prihodki in dobiček</span><span class="en">Revenue and profit</span></h2>
+      <div class="chips" role="group" aria-label="Scenarij / Scenario">
+        <button class="chip" type="button" data-scen="low"><span class="sl">Previdni</span><span class="en">Cautious</span></button>
+        <button class="chip" type="button" data-scen="base" aria-pressed="true"><span class="sl">Osnovni</span><span class="en">Base</span></button>
+        <button class="chip" type="button" data-scen="high"><span class="sl">Ambiciozni</span><span class="en">Ambitious</span></button>
+      </div>
+    </div>
+    <p class="muted" id="scen-note"></p>
+    <div class="facts" style="margin:18px 0 22px">
+      <div><b id="t-rev">–</b><span class="sl">prihodki v 5. letu</span><span class="en">revenue in year 5</span></div>
+      <div><b id="t-ebit">–</b><span class="sl">dobiček kanala v 5. letu</span><span class="en">channel profit in year 5</span></div>
+      <div><b id="t-margin">–</b><span class="sl">marža EBIT v 5. letu</span><span class="en">EBIT margin in year 5</span></div>
+      <div><b id="t-be">–</b><span class="sl">kumulativno na nič</span><span class="en">cumulative break-even</span></div>
+      <div><b id="t-m3">–</b><span class="sl">lesa v 5. letu</span><span class="en">timber in year 5</span></div>
+      <div><b id="t-orders">–</b><span class="sl">naročil v 5. letu</span><span class="en">orders in year 5</span></div>
+      <div><b id="t-share">–</b><span class="sl">delež proizvodnje žage</span><span class="en">share of mill output</span></div>
+      <div><b>415 €/m³</b><span class="sl">les je obračunan po ceni na debelo</span><span class="en">timber is charged at wholesale value</span></div>
+    </div>
+    <div class="cols2" style="grid-template-columns:1.3fr .7fr;align-items:start">
+      <div class="tw"><table id="pl" class="pl"></table>
+        <p class="fine"><span class="sl">Les je v stroških obračunan po ceni, ki bi jo žaga dobila na debelo. Dobiček kanala je zato dodatni dobiček v primerjavi s prodajo iste količine na debelo.</span><span class="en">Timber is costed at the price the mill would get wholesale, so channel profit is the extra profit over selling the same volume wholesale.</span></p></div>
+      <div class="panel" style="margin:0">
+        <h3 style="font-size:1.05rem"><span class="sl">Preizkusite predpostavke</span><span class="en">Stress the assumptions</span></h3>
+        <div class="params" style="grid-template-columns:1fr" id="sens"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap cols2" id="reading"></div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="section-head"><h2><span class="sl">Predpostavke in viri</span><span class="en">Assumptions and sources</span></h2></div>
+    <div class="tw"><table id="assume"></table></div>
+    <ol class="sources" id="src" style="margin-top:22px"></ol>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><span class="sl">Solis DIY je koncept Roka Skrinjarja in ni povezan s Solis Timber d.o.o. Model je groba ocena za razmislek, ne poslovni načrt.</span><span class="en">Solis DIY is a concept by Rok Skrinjar, not affiliated with Solis Timber d.o.o. The model is a rough estimate to think with, not a business plan.</span></p>
+    <p><a href="/projects/">← Rok Skrinjar</a></p>
+  </div>
+</footer>
+<script src="assets/econ.js"></script>
+<script src="assets/chat.js"></script>
+</body>
+</html>
