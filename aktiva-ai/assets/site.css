@@ -113,7 +113,9 @@ td.r, th.r { text-align: right; font-variant-numeric: tabular-nums; }
 
 /* Assistant page: statement + chat side by side */
 .app { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 22px; align-items: start; padding-bottom: 30px; }
-.statement .head { display: flex; justify-content: space-between; gap: 12px; align-items: start; margin-bottom: 10px; }
+.statement .head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 12px; align-items: start; margin-bottom: 10px; }
+.statement .head > div:first-child { flex: 1 1 220px; min-width: 0; }
+.months { flex: none; }
 .statement .head b { display: block; }
 .months { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
 .months button { border: 0; background: var(--paper); padding: 6px 12px; font: 600 .84rem var(--sans); color: var(--muted); cursor: pointer; }
