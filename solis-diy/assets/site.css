@@ -269,14 +269,14 @@ pre.order { white-space: pre-wrap; font: .82rem/1.5 var(--mono); background: var
 
 /* Chat */
 .chat-fab { position: fixed; right: 18px; bottom: 18px; z-index: 40; display: flex; align-items: center; gap: 9px; padding: 12px 18px 12px 14px; border-radius: 2px; border: 0; background: var(--yellow); color: var(--on-yellow); font: 800 .8rem var(--sans); letter-spacing: .1em; text-transform: uppercase; box-shadow: 0 10px 30px rgba(42, 53, 46, .35); cursor: pointer; }
-.chat-fab svg { width: 24px; height: 24px; }
+.chat-fab img { width: 40px; height: 40px; margin: -8px 0 -8px -6px; }
 .chat-fab[hidden] { display: none; }
 .chat { position: fixed; right: 18px; bottom: 18px; z-index: 50; width: min(430px, calc(100vw - 24px)); height: min(680px, calc(100vh - 36px)); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; box-shadow: 0 30px 80px rgba(0,0,0,.28); display: flex; flex-direction: column; overflow: hidden; }
 .chat[hidden] { display: none; }
 @media (max-width: 560px) { .chat { right: 0; bottom: 0; width: 100vw; height: 100dvh; border-radius: 0; border: 0; } .chat-fab { right: 12px; bottom: 12px; } }
 .chat-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--forest); color: var(--on-forest); }
-.chat-head .av { width: 36px; height: 36px; border-radius: 2px; background: var(--yellow); color: var(--on-yellow); display: grid; place-items: center; flex: none; }
-.chat-head .av svg { width: 22px; height: 22px; }
+.chat-head .av { width: 44px; height: 44px; flex: none; }
+.chat-head .av img { width: 100%; height: 100%; display: block; }
 .chat-head b { display: block; font-family: var(--serif); font-weight: 900; letter-spacing: .08em; text-transform: uppercase; font-size: .95rem; }
 .chat-head small { color: #c9d3cb; font-size: .76rem; }
 .chat-head .sp { margin-left: auto; display: flex; gap: 2px; }
