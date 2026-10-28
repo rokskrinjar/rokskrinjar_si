@@ -11,6 +11,7 @@
     send: { sl: "Pošlji", en: "Send" },
     ph: { sl: "npr. Rad bi naredil polico za knjige iz Pinteresta …", en: "e.g. I want to build a bookshelf I saw on Pinterest …" },
     hello: { sl: "Živjo! Sem Skobi. Povejte, kaj bi radi naredili, pa vam pomagam izbrati les, izračunati količino in pripraviti kosovnik za naročilo.", en: "Hi! I'm Skobi. Tell me what you want to build and I'll help you choose the wood, work out how much you need and prepare a cut list to order." },
+    helloBiz: { sl: "Živjo! Sem Skobi. Vprašajte me o konceptu, trgu in izračunih na tej strani ali o avtorju koncepta, Roku Skrinjarju.", en: "Hi! I'm Skobi. Ask me about the concept, the market and the numbers on this page, or about the concept's author, Rok Skrinjar." },
     load: { sl: "Naloži v načrtovalnik", en: "Load into the planner" },
     parts: { sl: "kosov", en: "parts" },
     err: { sl: "Skobi se ta trenutek ne oglaša. Poskusite znova čez minuto.", en: "Skobi is not answering right now. Please try again in a minute." },
@@ -19,8 +20,14 @@
     ex: {
       sl: ["Videl sem visoko gredo na Pinterestu. Kateri les naj vzamem, da bo zdržala?", "Nimam skobeljnika. Lahko vseeno naredim mizo iz vašega lesa?", "Načrt pravi 2x4. Kaj je to v centimetrih?", "Za kaj je dober radialen les?"],
       en: ["I saw a raised bed on Pinterest. Which wood lasts longest?", "I don't own a planer. Can I still build a table from your wood?", "The plan says 2x4. What is that in millimetres?", "What is quarter-sawn wood good for?"]
+    },
+    // Business case and economics pages are read by the company, so they get business questions.
+    exBiz: {
+      sl: ["Zakaj bi se žaga sploh lotila prodaje domačim mojstrom?", "Koliko bi kanal DIY zaslužil in kdaj bi se povrnil?", "Kaj so največja tveganja in kako bi jih zmanjšali?", "Kdo je Rok Skrinjar in kaj je naredil do zdaj?"],
+      en: ["Why would a sawmill sell to hobbyists at all?", "How much would the DIY channel earn, and when does it pay back?", "What are the biggest risks, and how would you reduce them?", "Who is Rok Skrinjar and what has he done so far?"]
     }
   };
+  var BIZ = /(business|economics)\.html$/.test(location.pathname);
   function t(k) { return SD.tr(T[k]); }
 
   var messages = [];
@@ -56,7 +63,7 @@
 
   function inline(s) {
     s = SD.esc(s);
-    s = s.replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+|[a-z0-9.\/#?=&-]+\.html[^\s)]*)\)/g, '<a href="$2">$1</a>');
+    s = s.replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+|mailto:[^\s)@]+@[^\s)]+|tel:\+?\d+|[a-z0-9.\/#?=&-]+\.html[^\s)]*)\)/g, '<a href="$2">$1</a>');
     s = s.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
     return s;
   }
@@ -121,12 +128,12 @@
 
   function paint() {
     log.innerHTML = "";
-    bubble("assistant", t("hello"));
+    bubble("assistant", t(BIZ ? "helloBiz" : "hello"));
     messages.forEach(function (m) { bubble(m.role, m.content); });
     if (!messages.length) {
       var ex = document.createElement("div");
       ex.className = "chat-ex";
-      t("ex").forEach(function (s) {
+      t(BIZ ? "exBiz" : "ex").forEach(function (s) {
         var b = document.createElement("button"); b.type = "button"; b.textContent = s;
         b.addEventListener("click", function () { ask(s); });
         ex.appendChild(b);
