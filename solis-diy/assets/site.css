@@ -368,5 +368,6 @@ table.pl .pl-tot td { font-weight: 800; font-size: 1.05rem; border-top: 2px soli
 #mkt td.num, table.pl td.num { white-space: nowrap; }
 
 /* Five-day countdown in the concept strip */
-.countdown { display: inline-block; margin-top: 6px; padding: 3px 10px; background: var(--yellow); color: var(--on-yellow); font: 700 .8rem var(--mono); letter-spacing: .02em; border-radius: 2px; font-variant-numeric: tabular-nums; }
+.countdown { display: inline-block; margin: 6px 0 0 28px; padding: 3px 10px; background: var(--yellow); color: var(--on-yellow); font: 700 .8rem var(--mono); letter-spacing: .02em; border-radius: 2px; font-variant-numeric: tabular-nums; }
 .gate-card .countdown { margin: 0 0 14px; }
+@media (max-width: 900px) { .concept .countdown { display: table; margin: 8px auto 0; } }

@@ -1,7 +1,8 @@
-// Password gate for all Solis DIY pages. It only keeps the concept out of sight:
-// the files are public in the repo. The page stores just the SHA-256 of the password.
+// Gate for all Solis DIY pages: closes the concept after the countdown deadline, and can ask for a password.
+// The password only keeps the concept out of sight (the files are public in the repo); the page stores just its SHA-256.
 (function () {
   "use strict";
+  var PASSWORD_ON = false; // off since 2026-10-28 (Rok: the data is public); set true to ask for the password again
   var PASS_SHA256 = "65d0ffd891c8b83bd4efdfbaf47122c04bc625e070914d84055cbe1e3c4e2d7f";
   var KEY = "solis-diy-key";
   function unlocked() { try { return localStorage.getItem(KEY) === PASS_SHA256; } catch (e) { return false; } }
@@ -10,7 +11,7 @@
       return Array.prototype.map.call(new Uint8Array(b), function (x) { return x.toString(16).padStart(2, "0"); }).join("");
     });
   }
-  window.SolisKey = function () { return unlocked() ? PASS_SHA256 : ""; };
+  window.SolisKey = function () { return !PASSWORD_ON || unlocked() ? PASS_SHA256 : ""; };
 
   // Past the countdown deadline the concept is closed for everyone, password or not.
   if (window.SD && SD.expired && SD.expired()) {
@@ -28,7 +29,7 @@
     });
     return;
   }
-  if (unlocked()) return;
+  if (!PASSWORD_ON || unlocked()) return;
 
   // Hide the page before it paints; the form is the only thing shown until the password is right.
   document.documentElement.classList.add("locked");
