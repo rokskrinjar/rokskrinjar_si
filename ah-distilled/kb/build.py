@@ -171,6 +171,7 @@ def page(title, desc, depth, body, crumbs=""):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
 <link rel="stylesheet" href="{up}assets/site.css">
 <script src="{up}assets/site.js"></script>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{{defer:true,src:"/_vercel/insights/script.js"}}))</script>
 </head>
 <body>
 <header class="topbar">

@@ -8,6 +8,7 @@
 <script>/* Review comments only work with the local preview server: hide them on the public site and answer their calls locally. */
 if (location.protocol !== 'file:' && !/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) { document.documentElement.classList.add('public'); const f = window.fetch; window.fetch = (u, o) => String(u).includes('/__feedback/') ? Promise.resolve(new Response('[]', { headers: { 'Content-Type': 'application/json' } })) : f(u, o); }</script>
 <style>.public section.gen, .public #sync, .public .cbtn, .public .chip[data-c="Commented"], .public .cm { display: none !important; }</style>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
 </head>
 <body data-trade="carpenter">
 <script src="../sites.js"></script><script src="../engine.js"></script><script src="../hub.js"></script>
