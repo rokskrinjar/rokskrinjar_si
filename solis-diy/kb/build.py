@@ -7,7 +7,8 @@ Sources (solis-diy/kb/ and solis-diy/assets/):
   diy.md            DIY woodworking knowledge base (species, products, 33 projects, finishing, Q&A)
   catalog.json      products, sections, species, prices, delivery (shared with the planner)
   projects.json     planner templates and idea prompts (shared with the guide)
-  index.html, business.html   the English text of the pages, so Skobi can talk about what is on them
+  index.html, business.html, razpisi.html   the English text of the pages, so Skobi can talk about what is on them
+  razpisi.json      the funding radar: calls checked on official pages, for razpisi.html and the "razpis" mode
   economics.json    the economics page: the model in assets/econ.js is run with node for all scenarios
   /projects/experience.json, /projects.json   the author's public CV and projects (as on /projects/)
 
@@ -204,6 +205,40 @@ def author_md(exclude=("aktiva-ai",), made=SOLIS_MADE):
     return "\n".join(out)
 
 
+def grants_md():
+    """The funding radar's calls (assets/razpisi.json) for razpisi.html and Skobi's "razpis" mode."""
+    data = json.loads((SITE / "assets" / "razpisi.json").read_text(encoding="utf-8"))
+
+    def v(x):
+        if isinstance(x, dict):
+            return x.get("en") or x.get("sl") or ""
+        return "" if x is None else str(x)
+
+    out = [f"# FUNDING CALLS (Razpisni radar on razpisi.html, checked on official pages on {data['preverjeno']})", "",
+           "These calls were found and checked once for the concept by AI agents reading the official pages; in real use an agent would rescan every Monday. "
+           "Quote them only as listed here, say they must be checked in the official call documents, and never invent other calls, dates or amounts. "
+           "Fit (0-100) is the concept's own estimate for Solis Timber.", ""]
+    for c in data["razpisi"]:
+        sl_name, en_name = c["naziv"].get("sl", ""), c["naziv"].get("en", "")
+        out.append(f"## {sl_name}" + (f" ({en_name})" if en_name and en_name != sl_name else ""))
+        out.append(f"- id {c['id']}; funder {v(c['izvajalec'])}; source type {c['vir']}; status {c['status']}; fit {c['ujemanje']}")
+        dates = ", ".join(c.get("roki") or []) or v(c.get("roki_opis")) or "none published"
+        out.append(f"- Opens {c.get('odprtje') or '-'}; deadlines: {dates}")
+        for label, key in (("Type", "oblika"), ("Amount", "znesek"), ("Rate", "delez"), ("Who can apply", "upravicenci"),
+                           ("Eligible costs", "upraviceni_stroski"), ("Why it fits Solis", "ustreznost"), ("Suggested project", "predlog")):
+            if v(c.get(key)):
+                out.append(f"- {label}: {v(c.get(key))}")
+        if c.get("pogoji"):
+            out.append("- Conditions: " + "; ".join(v(x) for x in c["pogoji"]))
+        if c.get("dokumentacija"):
+            out.append("- Application documents: " + "; ".join(v(x) for x in c["dokumentacija"]))
+        out.append(f"- Official page: {c['url']}")
+        out.append("")
+    if data.get("izkljuceni"):
+        out.append("Not listed because Solis cannot apply or they do not fit: " + "; ".join(v(x) for x in data["izkljuceni"]))
+    return "\n".join(out)
+
+
 def main():
     cat = json.loads((SITE / "assets" / "catalog.json").read_text(encoding="utf-8"))
     proj = json.loads((SITE / "assets" / "projects.json").read_text(encoding="utf-8"))
@@ -211,6 +246,8 @@ def main():
         (KB / "concept.md").read_text(encoding="utf-8"),
         page_md("business.html", "Business case (\"Why this concept\")"),
         economics_md(),
+        page_md("razpisi.html", "Funding radar (Razpisni radar)"),
+        grants_md(),
         author_md(),
         page_md("index.html", "The guide"),
         catalog_md(cat),

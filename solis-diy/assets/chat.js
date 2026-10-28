@@ -28,7 +28,13 @@
     }
   };
   var BIZ = /(business|economics)\.html$/.test(location.pathname);
+  // A page can run Skobi in another mode (razpisi.html: "razpis") with its own greeting, examples and history.
+  var MODE = window.SolisChatMode || "";
+  var INTRO = window.SolisChatIntro || null;
+  if (MODE) KEY += "-" + MODE;
   function t(k) { return SD.tr(T[k]); }
+  function hello() { return INTRO ? SD.tr(INTRO.hello) : t(BIZ ? "helloBiz" : "hello"); }
+  function examples() { return INTRO ? SD.tr(INTRO.ex) : t(BIZ ? "exBiz" : "ex"); }
 
   var messages = [];
   try { messages = JSON.parse(sessionStorage.getItem(KEY) || "[]") || []; } catch (e) { messages = []; }
@@ -85,13 +91,24 @@
     return out.join("");
   }
 
-  // Split an answer into prose and an optional ```cutlist``` JSON block.
+  // Split an answer into prose and the optional JSON blocks: ```cutlist``` (planner),
+  // ```polja``` and ```vprasanja``` (application fields and open questions on razpisi.html).
+  function block(text, name) {
+    var m = text.match(new RegExp("```" + name + "\\s*([\\s\\S]*?)```"));
+    if (!m) return null;
+    try { return JSON.parse(m[1]); } catch (e) { return null; }
+  }
   function parse(text) {
-    var m = text.match(/```cutlist\s*([\s\S]*?)```/);
-    var prose = text.replace(/```cutlist[\s\S]*?(```|$)/, "").trim();
-    var data = null;
-    if (m) { try { data = JSON.parse(m[1]); } catch (e) { data = null; } }
-    return { prose: prose, cut: data && Array.isArray(data.items) ? data : null };
+    var data = block(text, "cutlist");
+    var prose = text.replace(/```(cutlist|polja|vprasanja)[\s\S]*?(```|$)/g, "").trim();
+    var fields = block(text, "polja"), qs = block(text, "vprasanja");
+    return { prose: prose, cut: data && Array.isArray(data.items) ? data : null,
+      fields: fields && typeof fields === "object" && !Array.isArray(fields) ? fields : null,
+      questions: Array.isArray(qs) ? qs.filter(function (x) { return typeof x === "string"; }) : [] };
+  }
+  // Older answers go back to the model without their field blocks; the page sends the current fields as context.
+  function slim(m) {
+    return m.role === "assistant" && MODE ? { role: m.role, content: m.content.replace(/```polja[\s\S]*?```/g, "[polja posodobljena / fields updated]") } : m;
   }
 
   function cutCard(cut) {
@@ -115,6 +132,16 @@
     location.href = "planner.html#import";
   }
 
+  function fieldCard(p) {
+    var div = document.createElement("div");
+    div.className = "cutcard";
+    var n = p.fields ? Object.keys(p.fields).filter(function (k) { return k.charAt(0) !== "_"; }).length : 0;
+    div.innerHTML = "<b>" + (SD.lang() === "en" ? "Application updated" : "Prijava posodobljena") + "</b>" +
+      (n ? "<br>" + (SD.lang() === "en" ? "Fields filled: " : "Izpolnjena polja: ") + n : "") +
+      (p.questions.length ? "<br>" + (SD.lang() === "en" ? "Open questions: " : "Odprta vprašanja: ") + p.questions.length : "");
+    return div;
+  }
+
   function bubble(role, text, cls) {
     var div = document.createElement("div");
     div.className = "msg " + role + (cls ? " " + cls : "");
@@ -122,6 +149,7 @@
       var p = parse(text);
       div.innerHTML = md(p.prose);
       if (p.cut) div.appendChild(cutCard(p.cut));
+      if (p.fields || p.questions.length) div.appendChild(fieldCard(p));
     } else div.innerHTML = "<p>" + SD.esc(text) + "</p>";
     log.appendChild(div);
     return div;
@@ -129,12 +157,12 @@
 
   function paint() {
     log.innerHTML = "";
-    bubble("assistant", t(BIZ ? "helloBiz" : "hello"));
+    bubble("assistant", hello());
     messages.forEach(function (m) { bubble(m.role, m.content); });
     if (!messages.length) {
       var ex = document.createElement("div");
       ex.className = "chat-ex";
-      t(BIZ ? "exBiz" : "ex").forEach(function (s) {
+      examples().forEach(function (s) {
         var b = document.createElement("button"); b.type = "button"; b.textContent = s;
         b.addEventListener("click", function () { ask(s); });
         ex.appendChild(b);
@@ -161,7 +189,7 @@
       var r = await fetch(API, {
         method: "POST",
         headers: { "Content-Type": "application/json", "X-Solis-Key": window.SolisKey ? window.SolisKey() : "" },
-        body: JSON.stringify({ messages: messages.slice(-9), context: ctx })
+        body: JSON.stringify({ messages: messages.slice(-9).map(slim), context: ctx, mode: MODE || undefined })
       });
       var ct = r.headers.get("content-type") || "";
       if (!r.ok || ct.indexOf("text/plain") < 0) {
@@ -175,7 +203,8 @@
           if (chunk.done) break;
           answer += dec.decode(chunk.value, { stream: true });
           var p = parse(answer);
-          div.innerHTML = md(p.prose.replace(/```cutlist[\s\S]*$/, ""));
+          div.innerHTML = md(p.prose.replace(/```[\s\S]*$/, "")) +
+            (/```polja/.test(answer) && !p.fields ? '<p class="writing">' + (SD.lang() === "en" ? "Writing the application fields…" : "Pišem polja prijave …") + "</p>" : "");
           var near = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
           if (near) log.scrollTop = log.scrollHeight;
         }
@@ -184,6 +213,8 @@
       div.remove();
       messages.push({ role: "assistant", content: answer });
       bubble("assistant", answer);
+      var done = parse(answer);
+      if ((done.fields || done.questions.length) && window.SolisGrant) window.SolisGrant.apply(done.fields || {}, done.questions);
     } catch (e) {
       div.remove();
       messages.pop();
@@ -197,11 +228,12 @@
 
   function open(prefill, send) {
     box.hidden = false; fab.hidden = true;
+    document.documentElement.classList.add("chat-open");
     if (prefill && send) ask(prefill);
     else if (prefill) { q.value = prefill; grow(); }
     setTimeout(function () { q.focus(); log.scrollTop = log.scrollHeight; }, 30);
   }
-  function close() { box.hidden = true; fab.hidden = false; }
+  function close() { box.hidden = true; fab.hidden = false; document.documentElement.classList.remove("chat-open"); }
 
   fab.addEventListener("click", function () { open(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !box.hidden) close(); });
@@ -211,5 +243,5 @@
     el.addEventListener("click", function (e) { e.preventDefault(); open(el.getAttribute("data-ask-" + SD.lang()) || "", !!el.getAttribute("data-ask-" + SD.lang())); });
   });
 
-  window.SolisChat = { open: open, close: close, ask: ask };
+  window.SolisChat = { open: open, close: close, ask: ask, reset: function () { messages = []; save(); paint(); }, busy: function () { return busy; } };
 })();

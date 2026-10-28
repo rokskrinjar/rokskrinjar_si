@@ -1,0 +1,512 @@
+{
+  "preverjeno": "2026-10-28",
+  "viri": [
+    { "ime": { "sl": "Slovenski podjetniški sklad (SPS)", "en": "Slovene Enterprise Fund (SPS)" }, "url": "https://www.podjetniskisklad.si/" },
+    { "ime": { "sl": "Slovenski regionalno razvojni sklad (SRRS)", "en": "Slovene Regional Development Fund (SRRS)" }, "url": "https://www.srrs.si/javni-razpisi/" },
+    { "ime": { "sl": "SID banka", "en": "SID Bank" }, "url": "https://www.sid.si/" },
+    { "ime": { "sl": "Eko sklad", "en": "Eco Fund" }, "url": "https://www.ekosklad.si/gospodarstvo" },
+    { "ime": { "sl": "Borzen, Center za podpore", "en": "Borzen, Support Centre" }, "url": "https://borzen.si/" },
+    { "ime": { "sl": "Ministrstvo za gospodarstvo, delo in šport", "en": "Ministry of the Economy, Labour and Sport" }, "url": "https://www.gov.si/drzavni-organi/ministrstva/ministrstvo-za-gospodarstvo-delo-in-sport/" },
+    { "ime": { "sl": "Agencija za kmetijske trge (SKP 2023–2027)", "en": "Agricultural Markets Agency (CAP 2023–2027)" }, "url": "https://www.gov.si/drzavni-organi/organi-v-sestavi/agencija-za-kmetijske-trge-in-razvoj-podezelja/" },
+    { "ime": { "sl": "Zavod RS za zaposlovanje", "en": "Employment Service of Slovenia" }, "url": "https://www.ess.gov.si/delodajalci/" },
+    { "ime": { "sl": "EU Funding & Tenders (Horizon Europe, LIFE)", "en": "EU Funding & Tenders (Horizon Europe, LIFE)" }, "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/" },
+    { "ime": { "sl": "Inovacijski sklad EU", "en": "EU Innovation Fund" }, "url": "https://climate.ec.europa.eu/areas-action/eu-funding-climate-action/innovation-fund_en" },
+    { "ime": { "sl": "Eureka / Eurostars", "en": "Eureka / Eurostars" }, "url": "https://www.eurekanetwork.org/" },
+    { "ime": { "sl": "Partnerstvo FOREST", "en": "FOREST Partnership" }, "url": "https://forest-partnership.eu/" },
+    { "ime": { "sl": "Projekt WoodStock", "en": "WoodStock project" }, "url": "https://woodstockproject.eu/" },
+    { "ime": { "sl": "SRC-EDIH (Razvojni center Novo mesto)", "en": "SRC-EDIH (Novo mesto Development Centre)" }, "url": "https://src-edih.si/" },
+    { "ime": { "sl": "Programi Interreg s Slovenijo", "en": "Interreg programmes with Slovenia" }, "url": "https://www.eu-skladi.si/" },
+    { "ime": { "sl": "SLAIF, slovenska tovarna UI", "en": "SLAIF, Slovenian AI Factory" }, "url": "https://www.slaif.si/" }
+  ],
+  "izkljuceni": [
+    { "sl": "IRP08 (SKP, naložbe v primarno predelavo lesa): samo mikro in mala podjetja in obrati do 20.000 m³ hlodovine na leto", "en": "IRP08 (CAP, investments in primary wood processing): micro and small firms and mills up to 20,000 m³ of logs a year only" },
+    { "sl": "P4LM 2026 (SPS): samo mikro podjetja", "en": "P4LM 2026 (SPS): micro firms only" },
+    { "sl": "Garancijska shema za Dolenjsko 2026: samo mikro in mala podjetja", "en": "Dolenjska guarantee scheme 2026: micro and small firms only" },
+    { "sl": "Interreg Slovenija–Hrvaška: sredstva za standardne projekte so porabljena; Central Europe razdeljen; Italija–Slovenija in Slovenija–Avstrija ne pokrivata Straže", "en": "Interreg Slovenia–Croatia: standard-project funds used up; Central Europe fully allocated; Italy–Slovenia and Slovenia–Austria do not cover Straža" },
+    { "sl": "EIC Accelerator: za prebojne visoko tvegane tehnologije, zadnji rok 2026 je zahteval predhodno odobritev", "en": "EIC Accelerator: for breakthrough high-risk technology; the last 2026 cut-off required a prior pass" }
+  ],
+  "razpisi": [
+    {
+      "id": "sps-p4l",
+      "naziv": { "sl": "P4L 2026 – Krediti s subvencijo za podjetja v lesarstvu", "en": "P4L 2026 – Subsidised loans for wood-industry companies" },
+      "izvajalec": { "sl": "Slovenski podjetniški sklad (sredstva Sklada skladov, ESRR)", "en": "Slovene Enterprise Fund (Fund of Funds, ERDF)" },
+      "vir": "national", "status": "zaprt-ponovno", "odprtje": "2026-06-22", "roki": [],
+      "roki_opis": { "sl": "zaprt 20. 9. 2026, ponovitev pričakovana", "en": "closed 20 Sep 2026, expected again" },
+      "oblika": { "sl": "kredit z delnim odpisom glavnice", "en": "loan with partial principal write-off" },
+      "znesek": { "sl": "100.000–2.500.000 €; upravičeni stroški vsaj 135.000 €", "en": "€100,000–2,500,000; eligible costs at least €135,000" },
+      "delez": { "sl": "kredit do 75 % upravičenih stroškov", "en": "loan up to 75 % of eligible costs" },
+      "upravicenci": { "sl": "podjetja do 3.000 zaposlenih z dejavnostjo C16 (razen 16.26) ali C31", "en": "companies up to 3,000 staff in NACE C16 (except 16.26) or C31" },
+      "upraviceni_stroski": { "sl": "novi stroji in oprema za predelavo lesa, procesna programska oprema, prevoz, montaža in zagon; DDV ni upravičen", "en": "new wood-processing machines and equipment, process software, transport, installation and start-up; VAT not eligible" },
+      "ustreznost": { "sl": "Najbolj neposredno orodje za stroje na žagi: linija KVH, skobeljna in sortirna oprema, skener hlodovine ali programska oprema za optimizacijo razreza. Vzhodna Slovenija ima nižjo obrestno mero in večino subvencij.", "en": "The most direct tool for mill machinery: the KVH line, planing and sorting equipment, a log scanner or cutting-optimisation software. Eastern Slovenia gets a lower interest rate and most of the subsidies." },
+      "predlog": { "sl": "Linija za lepljenje na zobati spoj (KVH) z računalniško optimizacijo razreza", "en": "Finger-jointing line (KVH) with computer-optimised cutting" },
+      "ujemanje": 85,
+      "pogoji": [
+        { "sl": "Bonitetna ocena AJPES najmanj SB7; podjetje ni v težavah", "en": "AJPES credit rating at least SB7; not a firm in difficulty" },
+        { "sl": "Les je vsaj 50 % prostornine izdelka; energetska raba lesa (peleti, kotlovnica) je izključena", "en": "Wood is at least 50 % of product volume; energy use of wood (pellets, boiler) excluded" },
+        { "sl": "Projekt se ne začne pred oddajo vloge; ena vloga na prijavitelja", "en": "Project not started before the application; one application per applicant" },
+        { "sl": "Vsaj 25 % lastnih ali nejavnih virov; skladnost z DNSH", "en": "At least 25 % own or private funds; DNSH compliance" },
+        { "sl": "Ohranitev naložbe 3 leta (MSP)", "en": "Investment kept for 3 years (SME)" }
+      ],
+      "dokumentacija": [
+        { "sl": "Obrazec 1: prijava v ePortalu SPS", "en": "Form 1: application in the SPS ePortal" },
+        { "sl": "Obrazec 2: izjava DNSH; Obrazec 3: prednostna področja S5", "en": "Form 2: DNSH statement; Form 3: S5 priority areas" },
+        { "sl": "Poslovni načrt s finančnim načrtom na podatkih za 2025", "en": "Business plan with financial plan on 2025 data" },
+        { "sl": "Bonitetna ocena S.BON-1 ali eS.BON in izkazi 2025", "en": "S.BON-1 or eS.BON rating and 2025 statements" },
+        { "sl": "Nezavezujoče ponudbe, stare največ 60 dni", "en": "Non-binding quotes, at most 60 days old" },
+        { "sl": "Zavarovanje kredita (menice, zastava opreme, hipoteka)", "en": "Loan collateral (bills, equipment pledge, mortgage)" }
+      ],
+      "url": "https://www.podjetniskisklad.si/p4l-2026-krediti-s-subvencijo-za-podjetja-v-lesarstvu-2026/",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "mgds-les-kg",
+      "naziv": { "sl": "Les KG – poslovni modeli (spodbujanje krožnega gospodarstva z uporabo lesa)", "en": "Les KG – business models (circular economy with wood)" },
+      "izvajalec": { "sl": "Ministrstvo za gospodarstvo, delo in šport", "en": "Ministry of the Economy, Labour and Sport" },
+      "vir": "national", "status": "napovedan", "odprtje": null, "roki": [],
+      "roki_opis": { "sl": "napovedan, datum objave ni znan", "en": "announced, publication date not known" },
+      "oblika": { "sl": "nepovratna sredstva", "en": "grant" },
+      "znesek": { "sl": "skupaj 15,72 mio € (13,35 mio € ESRR); znesek na projekt še ni objavljen", "en": "€15.72 M in total (€13.35 M ERDF); amount per project not yet published" },
+      "delez": { "sl": "po shemah državnih pomoči, še ni objavljen", "en": "per state-aid rules, not yet published" },
+      "upravicenci": { "sl": "podjetja lesnopredelovalne industrije", "en": "wood-processing companies" },
+      "upraviceni_stroski": { "sl": "zunanji izvajalci za strategijo krožne in digitalne preobrazbe ter opredmetena in neopredmetena osnovna sredstva; 2026–2028", "en": "external experts for a circular and digital transformation strategy, plus tangible and intangible assets; 2026–2028" },
+      "ustreznost": { "sl": "Najbolj ciljno usmerjen prihajajoči razpis za lesarstvo. Vlada je evropska sredstva potrdila 10. 8. 2026. Radar ga spremlja in Solis opozori, ko bo objavljen.", "en": "The most targeted upcoming call for the wood industry. The government approved the EU funds on 10 Aug 2026; the radar watches it and alerts Solis when it is published." },
+      "predlog": { "sl": "Strategija krožnosti (izkoristek ostankov, KVH iz krajših kosov) in z njo povezane naložbe v digitalizacijo žage", "en": "A circularity strategy (using residues, KVH from short pieces) and the related digitalisation of the mill" },
+      "ujemanje": 85,
+      "pogoji": [
+        { "sl": "Dejavnost v lesnopredelovalni industriji", "en": "Activity in the wood-processing industry" },
+        { "sl": "Podrobni pogoji bodo znani ob objavi razpisa", "en": "Detailed conditions will be known when the call is published" }
+      ],
+      "dokumentacija": [],
+      "url": "https://www.gov.si/novice/2026-08-10-evropska-sredstva-za-inovativne-in-trajnostne-poslovne-modele-v-lesni-industriji/",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "src-edih-tbi",
+      "naziv": { "sl": "SRC-EDIH 2.0 – Testiranje pred investiranjem in storitve digitalnega inovacijskega stičišča", "en": "SRC-EDIH 2.0 – Test before invest and digital innovation hub services" },
+      "izvajalec": { "sl": "Konzorcij SRC-EDIH, vodi Razvojni center Novo mesto (EU in ministrstvo za digitalno preobrazbo)", "en": "SRC-EDIH consortium led by the Novo mesto Development Centre (EU and the digital ministry)" },
+      "vir": "digital", "status": "odprt", "odprtje": "2026-03-01", "roki": [],
+      "roki_opis": { "sl": "sprotno do 28. 2. 2029", "en": "rolling until 28 Feb 2029" },
+      "oblika": { "sl": "brezplačne storitve", "en": "free services" },
+      "znesek": { "sl": "storitve za MSP brezplačne", "en": "services free for SMEs" },
+      "delez": { "sl": "100 %", "en": "100 %" },
+      "upravicenci": { "sl": "slovenska mikro, mala in srednja podjetja", "en": "Slovenian micro, small and medium firms" },
+      "upraviceni_stroski": { "sl": "ocena digitalne zrelosti, načrt preobrazbe, testiranje UI, robotike, avtomatizacije in pametne proizvodnje, usposabljanja, svetovanje o Aktu o UI", "en": "digital maturity assessment, transformation plan, testing of AI, robotics, automation and smart manufacturing, training, AI Act advice" },
+      "ustreznost": { "sl": "Najhitrejši korak brez lastnega deleža, 10 km od Straže: preizkus AI-skeniranja hlodovine, optimizacije razreza ali napovednega vzdrževanja pred nakupom. Rezultat okrepi prijavo na P4L ali Eurostars.", "en": "The quickest step with no own contribution, 10 km from Straža: test AI log scanning, cutting optimisation or predictive maintenance before buying. The result strengthens a P4L or Eurostars application." },
+      "predlog": { "sl": "Ocena digitalne zrelosti in preizkus AI-optimizacije razreza na podatkih skenerja hlodovine", "en": "Digital maturity assessment and a test of AI cutting optimisation on log-scanner data" },
+      "ujemanje": 85,
+      "pogoji": [
+        { "sl": "Namenjeno MSP (Solis kot srednje podjetje ustreza)", "en": "For SMEs (Solis qualifies as medium-sized)" },
+        { "sl": "Vstop prek ocene digitalne zrelosti (DMA) s timom SRC-EDIH", "en": "Entry via a digital maturity assessment (DMA) with the SRC-EDIH team" }
+      ],
+      "dokumentacija": [
+        { "sl": "Ocena digitalne zrelosti (DMA) skupaj s timom; prijavni obrazec ni javno objavljen", "en": "Digital maturity assessment (DMA) with the team; no public application form" }
+      ],
+      "url": "https://src-edih.si/storitve/",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "srrs-bizi-krozno",
+      "naziv": { "sl": "BIZI Krožno – spodbujevalna posojila za krožno gospodarstvo", "en": "BIZI Krožno – incentive loans for the circular economy" },
+      "izvajalec": { "sl": "Slovenski regionalno razvojni sklad", "en": "Slovene Regional Development Fund" },
+      "vir": "national", "status": "odprt", "odprtje": "2026-07-09", "roki": ["2027-12-31"],
+      "oblika": { "sl": "kredit (regionalna pomoč ali de minimis)", "en": "loan (regional aid or de minimis)" },
+      "znesek": { "sl": "100.000–3.000.000 €; obrestna mera fiksna 1,87–3,39 %; ročnost do 20 let", "en": "€100,000–3,000,000; fixed rate 1.87–3.39 %; up to 20 years" },
+      "delez": { "sl": "do 100 % upravičenih stroškov (pri regionalni pomoči do 75 %)", "en": "up to 100 % of eligible costs (up to 75 % under regional aid)" },
+      "upravicenci": { "sl": "podjetja vseh velikosti, registrirana pred 1. 1. 2024; C16 ni izključena", "en": "companies of all sizes registered before 1 Jan 2024; C16 not excluded" },
+      "upraviceni_stroski": { "sl": "oprema, gradbena dela za krožne prostore, programska oprema in licence, obratna sredstva do 30 % (svetovanje, LCA/EPD, usposabljanje)", "en": "equipment, building works for circular facilities, software and licences, working capital up to 30 % (consulting, LCA/EPD, training)" },
+      "ustreznost": { "sl": "Projekt mora slediti hierarhiji 10R, kar se ujema s KVH iz krajših kosov namesto odpada in z izkoristkom ostankov. Lahko financira linijo KVH in povezano opremo z dolgo ročnostjo.", "en": "Projects must follow the 10R hierarchy, which matches KVH made from short pieces instead of waste and the use of residues. It can fund the KVH line and related equipment over a long term." },
+      "predlog": { "sl": "Linija KVH, ki krajše kose in ostanke spremeni v konstrukcijski les, z merjenjem izkoristka", "en": "A KVH line that turns short pieces and offcuts into structural timber, with yield measurement" },
+      "ujemanje": 80,
+      "pogoji": [
+        { "sl": "Bonitetna ocena Ebonitete.si najmanj 5,00", "en": "Ebonitete.si rating at least 5.00" },
+        { "sl": "Prispevek h krožnemu gospodarstvu po hierarhiji 10R z merljivimi kazalniki", "en": "Contribution to the circular economy per the 10R hierarchy with measurable indicators" },
+        { "sl": "Začetek od 1. 1. 2025 (pri skupinskih izjemah po oddaji vloge); zaključek do 31. 12. 2030, največ 3 leta", "en": "Start from 1 Jan 2025 (after the application under block exemption); end by 31 Dec 2030, max 3 years" },
+        { "sl": "Brez davčnega dolga, ni v težavah ali insolventnosti", "en": "No tax arrears, not in difficulty or insolvency" },
+        { "sl": "Zavarovanje z menicami in drugimi instrumenti", "en": "Collateral with bills and other instruments" }
+      ],
+      "dokumentacija": [
+        { "sl": "Elektronski prijavni obrazec v e-Rsklad", "en": "Online form in e-Rsklad" },
+        { "sl": "Izjava vlagatelja in poslovno-finančna priloga (predloga SRRS)", "en": "Applicant statement and business-financial annex (SRRS template)" },
+        { "sl": "Poslovni načrt (nad 500.000 €)", "en": "Business plan (above €500,000)" },
+        { "sl": "Bonitetna ocena, finančni izkazi, izpis SISBIZ", "en": "Credit rating, financial statements, SISBIZ extract" },
+        { "sl": "Gradbeno dovoljenje (če gre za gradnjo) in dokazila o zavarovanju", "en": "Building permit (for construction) and collateral documents" }
+      ],
+      "url": "https://www.srrs.si/javni-razpisi/bizi-krozno-2/",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "sid-nalozbe4",
+      "naziv": { "sl": "Kredit za naložbeni projekt (NALOŽBE4) – »Investiram«", "en": "Investment project loan (NALOŽBE4) – \"Investiram\"" },
+      "izvajalec": { "sl": "SID banka (z Ministrstvom za gospodarstvo, delo in šport)", "en": "SID Bank (with the Ministry of the Economy, Labour and Sport)" },
+      "vir": "national", "status": "odprt", "odprtje": null, "roki": [],
+      "oblika": { "sl": "kredit (regionalna pomoč ali de minimis)", "en": "loan (regional aid or de minimis)" },
+      "znesek": { "sl": "od 100.000 €, projekt do 50 mio €; ročnost 2–20 let, moratorij do 5 let", "en": "from €100,000, projects up to €50 M; 2–20 years, grace up to 5 years" },
+      "delez": { "sl": "do 75 % vrednosti projekta (regionalna pomoč) oziroma 85 % (de minimis)", "en": "up to 75 % of project value (regional aid) or 85 % (de minimis)" },
+      "upravicenci": { "sl": "gospodarske družbe vseh velikosti s sedežem v RS", "en": "companies of all sizes based in Slovenia" },
+      "upraviceni_stroski": { "sl": "sredstva za novo enoto, širitev zmogljivosti, diverzifikacijo ali bistveno spremembo proizvodnega procesa", "en": "assets for a new unit, capacity expansion, diversification or a fundamental change of the production process" },
+      "ustreznost": { "sl": "Primeren za večjo naložbo na kupljenih 3,5 ha v industrijski coni: nova hala in linija. Lahko pokrije večino vrednosti projekta.", "en": "Suits the larger investment on the 3.5 ha in the industrial zone: a new hall and line. It can cover most of the project value." },
+      "predlog": { "sl": "Nova proizvodna hala na 3,5 ha z linijo KVH", "en": "A new production hall on the 3.5 ha with a KVH line" },
+      "ujemanje": 75,
+      "pogoji": [
+        { "sl": "Vsaj dve polni poslovni leti in vsaj 2 zaposlena", "en": "At least two full business years and 2 employees" },
+        { "sl": "Ni v insolventnosti; neplačane dajatve do 200 €", "en": "Not insolvent; unpaid levies at most €200" },
+        { "sl": "Začetek del največ 3 leta pred vlogo, zaključek po vlogi", "en": "Works started at most 3 years before the application, finished after it" }
+      ],
+      "dokumentacija": [
+        { "sl": "Prijavni obrazec na vloge.sid.si in predstavitev kreditojemalca", "en": "Application on vloge.sid.si and borrower presentation" },
+        { "sl": "Investicijski elaborat (trg, naložba, učinki, predračun, viri, terminski načrt, projekcije)", "en": "Investment study (market, investment, effects, estimate, sources, schedule, projections)" },
+        { "sl": "Medletni izkazi in projekcije na obrazcu banke", "en": "Interim statements and projections on the bank's form" },
+        { "sl": "Predlog zavarovanj, podatki o velikosti podjetja, izjava o DDV", "en": "Collateral proposal, company size data, VAT statement" }
+      ],
+      "url": "https://www.sid.si/financiranje/investicije/kredit-za-nalozbeni-projekt-nalozbe-4/",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "woodstock-grants",
+      "naziv": { "sl": "WoodStock Grants – podnebno pametne lesene gradbene rešitve", "en": "WoodStock Grants to support climate-smart wood construction solutions" },
+      "izvajalec": { "sl": "Projekt WoodStock (Horizon Europe), financiranje tretjih oseb", "en": "WoodStock project (Horizon Europe), financial support to third parties" },
+      "vir": "eu", "status": "odprt", "odprtje": "2026-09-15", "roki": ["2026-12-15"],
+      "oblika": { "sl": "nepovratna sredstva", "en": "grant" },
+      "znesek": { "sl": "do 50.000 € na projekt, 4 projekti; največ ena podpora na državo", "en": "up to €50,000 per project, 4 projects; at most one per country" },
+      "delez": null,
+      "upravicenci": { "sl": "MSP, zagonsko podjetje ali neprofitna organizacija iz EU ali pridružene države", "en": "SME, start-up or non-profit from the EU or an associated country" },
+      "upraviceni_stroski": { "sl": "demonstracija, testiranje in priprava na certifikacijo, soustvarjanje, usposabljanje, diseminacija (do 20 %)", "en": "demonstration, testing and certification readiness, co-creation, training, dissemination (up to 20 %)" },
+      "ustreznost": { "sl": "Pilotni gradbeni element (lepljenec ali KVH) iz poškodovanega lesa po lubadarju ali žledu ali iz ostankov, s pripravo na certifikacijo. Slovenski živi laboratorij je InnoRenew CoE.", "en": "A pilot building element (glulam or KVH) from bark-beetle or ice-storm damaged wood or residues, taken towards certification. The Slovenian living lab is InnoRenew CoE." },
+      "predlog": { "sl": "KVH iz smreke, poškodovane po lubadarju, s testiranjem trdnosti in pripravo na certifikacijo", "en": "KVH from bark-beetle damaged spruce, with strength testing and certification readiness" },
+      "ujemanje": 75,
+      "pogoji": [
+        { "sl": "Vsaj ena vrsta premalo izkoriščenega lesa (listavci, slabša kakovost, poškodovan, odslužen les, ostanki)", "en": "At least one under-used wood type (hardwood, low grade, damaged, reclaimed, residues)" },
+        { "sl": "Rešitev nad TRL 5; trajanje 1 leto", "en": "Solution above TRL 5; 1-year duration" },
+        { "sl": "Vrednote New European Bauhaus vsaj na ravni I", "en": "New European Bauhaus values at least at level I" },
+        { "sl": "Ena seja soustvarjanja z živim laboratorijem (InnoRenew)", "en": "One co-creation session with the living lab (InnoRenew)" },
+        { "sl": "Prijava v angleščini prek platforme Evalato", "en": "Application in English via Evalato" }
+      ],
+      "dokumentacija": [
+        { "sl": "Spletni prijavni obrazec (Evalato)", "en": "Online application form (Evalato)" },
+        { "sl": "Razrez proračuna z utemeljitvijo aktivnosti", "en": "Budget breakdown with activity justification" },
+        { "sl": "PDF z vizualnim gradivom", "en": "PDF with visual material" },
+        { "sl": "Samoocena MSP", "en": "SME self-assessment" }
+      ],
+      "url": "https://woodstockproject.eu/woodstock-grants",
+      "jezik": "en", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "eko-118fs-po24",
+      "naziv": { "sl": "118FS-PO24 Nepovratne spodbude za naložbe v učinkovito rabo energije in OVE za poslovne subjekte", "en": "118FS-PO24 Grants for energy efficiency and renewables for businesses" },
+      "izvajalec": { "sl": "Eko sklad", "en": "Eco Fund" },
+      "vir": "national", "status": "odprt", "odprtje": "2024-11-22", "roki": [],
+      "oblika": { "sl": "nepovratna sredstva (de minimis)", "en": "grant (de minimis)" },
+      "znesek": { "sl": "npr. do 350 € na MWh letnega prihranka v tehnološkem procesu; de minimis do 300.000 € v treh letih", "en": "e.g. up to €350 per MWh of annual savings in a process; de minimis up to €300,000 in three years" },
+      "delez": { "sl": "do 30 % brez DDV", "en": "up to 30 % excl. VAT" },
+      "upravicenci": { "sl": "pravne osebe zasebnega prava brez omejitve velikosti", "en": "private legal entities of any size" },
+      "upraviceni_stroski": { "sl": "izolacija, toplotne črpalke, kurilne naprave na biomaso, rekuperacija, izraba odvečne toplote, učinkoviti motorji in frekvenčni pretvorniki, upravljanje energije", "en": "insulation, heat pumps, biomass boilers, heat recovery, waste heat, efficient motors and drives, energy management" },
+      "ustreznost": { "sl": "Rekuperacija odvečne toplote iz sušilnic in frekvenčni pretvorniki na žagi in skobeljni liniji. Vloga se odda po izvedbi, zato je primerna za hitre ukrepe.", "en": "Waste-heat recovery from the kilns and variable-speed drives on the saw and planing line. You apply after completion, so it suits quick measures." },
+      "predlog": { "sl": "Izraba odvečne toplote iz sušilnih komor in frekvenčni pretvorniki na pogonih", "en": "Waste-heat recovery from the drying kilns and variable-speed drives" },
+      "ujemanje": 70,
+      "pogoji": [
+        { "sl": "Nova naložba, v celoti izvedena od 1. 1. 2023; vloga po izvedbi", "en": "New investment fully completed since 1 Jan 2023; apply afterwards" },
+        { "sl": "Pravila de minimis (300.000 € v treh letih)", "en": "De minimis rules (€300,000 in three years)" },
+        { "sl": "Tehnični pogoji ukrepa; za ukrep N energetski pregled s prihrankom", "en": "Technical conditions per measure; energy audit with savings for measure N" },
+        { "sl": "Vloge po vrstnem redu do porabe sredstev", "en": "First come, first served until funds run out" }
+      ],
+      "dokumentacija": [
+        { "sl": "Obrazec Vloga 118FS-PO24", "en": "Application form 118FS-PO24" },
+        { "sl": "Uporabno ali gradbeno dovoljenje", "en": "Use or building permit" },
+        { "sl": "Izjava o pomočeh de minimis", "en": "De minimis aid statement" },
+        { "sl": "Priloge iz tehničnih pogojev ukrepa", "en": "Annexes per the measure's technical conditions" }
+      ],
+      "url": "https://www.ekosklad.si/gospodarstvo/pridobite-spodbudo/objava/118fs-po24-nepovratne-financne-spodbude-za-nove-nalozbe-v-ucinkovito-rabo-energije-in-obnovljive-vire-energije-za-poslovne-subjekte",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "borzen-jp-ove-05",
+      "naziv": { "sl": "JP-OVE-05 Nepovratna sredstva za naprave za samooskrbo do 1 MW in hranilnike", "en": "JP-OVE-05 Grants for self-supply solar up to 1 MW and batteries" },
+      "izvajalec": { "sl": "Borzen, Center za podpore", "en": "Borzen, Support Centre" },
+      "vir": "national", "status": "odprt", "odprtje": "2026-05-12", "roki": [],
+      "oblika": { "sl": "nepovratna sredstva (de minimis)", "en": "grant (de minimis)" },
+      "znesek": { "sl": "do 180 €/kWe za sončno elektrarno in 225 €/kWh za hranilnik", "en": "up to €180/kWe for solar and €225/kWh for storage" },
+      "delez": { "sl": "do 45 % (DDV je upravičen)", "en": "up to 45 % (VAT eligible)" },
+      "upravicenci": { "sl": "pravne osebe in s.p. v vseh sektorjih razen izključenih", "en": "legal entities and sole traders in all non-excluded sectors" },
+      "upraviceni_stroski": { "sl": "nakup in montaža samooskrbne sončne elektrarne, hranilnik ob novi elektrarni, inštalacije in dela", "en": "self-supply solar plant, a battery with a new plant, installation works" },
+      "ustreznost": { "sl": "Strehe hal, sušilnic in skladišč so primerne za elektrarno do 1 MW, ki zniža stroške elektrike žage in skobeljne linije.", "en": "The roofs of the halls, kilns and warehouses suit a plant up to 1 MW that cuts the power bill of the saw and planing line." },
+      "predlog": { "sl": "Samooskrbna sončna elektrarna na strehah hal z hranilnikom", "en": "Self-supply rooftop solar on the halls with a battery" },
+      "ujemanje": 70,
+      "pogoji": [
+        { "sl": "Soglasje za priključitev in začetek del po 1. 1. 2025", "en": "Grid consent and works after 1 Jan 2025" },
+        { "sl": "Priključitev po shemi PS.3A ali PS.3B", "en": "Connection under scheme PS.3A or PS.3B" },
+        { "sl": "Obratovanje v 18 mesecih od odločbe", "en": "Operating within 18 months of the decision" },
+        { "sl": "Vloge po vrstnem redu; nepopolne se zavrnejo", "en": "First come, first served; incomplete applications rejected" }
+      ],
+      "dokumentacija": [
+        { "sl": "Elektronska vloga na ove5.borzen.si", "en": "Online application on ove5.borzen.si" },
+        { "sl": "Ponudba za izvedbo in soglasje za priključitev", "en": "Installation quote and grid consent" },
+        { "sl": "Dokazilo o lastništvu ali pravici do postavitve", "en": "Proof of ownership or right to install" },
+        { "sl": "Izjave de minimis in izjava o sprejemanju pogojev", "en": "De minimis statements and acceptance of conditions" }
+      ],
+      "url": "https://borzen.si/sl-si/podpore-za-zelene-investicije/subvencije-za-proizvodnjo-elektrike-iz-soncne-energije-in-hranilnike-jp-ove-05",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "sps-v10",
+      "naziv": { "sl": "V10 – Vavčer za pridobitev certifikatov", "en": "V10 – Certification voucher" },
+      "izvajalec": { "sl": "Slovenski podjetniški sklad (ESRR)", "en": "Slovene Enterprise Fund (ERDF)" },
+      "vir": "national", "status": "odprt", "odprtje": "2026-04-17", "roki": ["2028-03-31"],
+      "oblika": { "sl": "vavčer", "en": "voucher" },
+      "znesek": { "sl": "1.000–9.999,99 € na vlogo; ločena vloga za vsak certifikat", "en": "€1,000–9,999.99 per application; one application per certificate" },
+      "delez": { "sl": "do 60 %", "en": "up to 60 %" },
+      "upravicenci": { "sl": "mikro, mala in srednja podjetja s sedežem v RS", "en": "Slovenian micro, small and medium firms" },
+      "upraviceni_stroski": { "sl": "priprava, standardi, prva pridobitev ali obnova certifikatov (EN, ISO, PEFC, FSC …)", "en": "preparation, standards, first certification or renewal (EN, ISO, PEFC, FSC …)" },
+      "ustreznost": { "sl": "Certifikacija KVH po EN 15497 ali ISO 14001/50001. Obstoječi FSC, pridobljen pred 2025, ni upravičen.", "en": "KVH certification to EN 15497 or ISO 14001/50001. The existing FSC certificate from before 2025 is not eligible." },
+      "predlog": { "sl": "Certifikat CE za KVH (konstrukcijski les na zobati spoj)", "en": "CE certification for KVH (finger-jointed structural timber)" },
+      "ujemanje": 70,
+      "pogoji": [
+        { "sl": "MSP z vsaj enim zaposlenim", "en": "SME with at least one employee" },
+        { "sl": "Certifikat prvič pridobljen po 1. 1. 2025", "en": "Certificate first obtained after 1 Jan 2025" },
+        { "sl": "Akreditiran certifikacijski organ, ki ni tudi svetovalec", "en": "Accredited certification body that is not the consultant" },
+        { "sl": "Brez neporavnanih obveznosti do ministrstva", "en": "No arrears to the ministry" }
+      ],
+      "dokumentacija": [
+        { "sl": "Vloga na ePortalu SPS (prijavni list: podatki, primernost, projekt, izvajalec s ponudbo, finančni načrt, izjave)", "en": "SPS ePortal application (company data, eligibility, project, consultant with quote, budget, statements)" },
+        { "sl": "Obrazec 1: izjava certifikacijskega organa", "en": "Form 1: certification body statement" }
+      ],
+      "url": "https://www.podjetniskisklad.si/v10-vavcer-za-pridobitev-certifikatov/",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "eko-83po25",
+      "naziv": { "sl": "83PO25 Kreditiranje okoljskih naložb pravnih oseb", "en": "83PO25 Loans for environmental investments" },
+      "izvajalec": { "sl": "Eko sklad", "en": "Eco Fund" },
+      "vir": "national", "status": "odprt", "odprtje": "2025-09-05", "roki": [],
+      "oblika": { "sl": "kredit (de minimis)", "en": "loan (de minimis)" },
+      "znesek": { "sl": "25.000–2.000.000 €; od 0,5 % fiksno; do 15 let", "en": "€25,000–2,000,000; from 0.5 % fixed; up to 15 years" },
+      "delez": { "sl": "do 85 % priznanih stroškov", "en": "up to 85 % of recognised costs" },
+      "upravicenci": { "sl": "pravne osebe brez omejitve velikosti", "en": "legal entities of any size" },
+      "upraviceni_stroski": { "sl": "ogrevanje iz OVE in biomase, soproizvodnja (ne na plin), elektrika iz OVE, čistejši zrak, odpadki, okoljske tehnologije", "en": "renewable and biomass heating, CHP (not gas), renewable power, cleaner air, waste, environmental technology" },
+      "ustreznost": { "sl": "Posodobitev kotlovnice na lesno biomaso ali soproizvodnja toplote in elektrike, filtri za dimne pline. Kombinira se z nepovratnimi sredstvi.", "en": "Upgrading the wood-biomass boiler house or adding combined heat and power, flue-gas filters. Can be combined with grants." },
+      "predlog": { "sl": "Soproizvodnja toplote in elektrike iz lesnih ostankov v kotlovnici", "en": "Combined heat and power from wood residues in the boiler house" },
+      "ujemanje": 65,
+      "pogoji": [
+        { "sl": "Naložba ob vlogi ni zaključena; zaključek v 2 letih", "en": "Not completed at application; finished within 2 years" },
+        { "sl": "De minimis (300.000 € v treh letih)", "en": "De minimis (€300,000 in three years)" },
+        { "sl": "Kreditna sposobnost in zavarovanje", "en": "Creditworthiness and collateral" }
+      ],
+      "dokumentacija": [
+        { "sl": "Vloga 83PO25 in obrazci A–E (vlagatelj, okoljski učinki, finance, zavarovanje, kreditna sposobnost)", "en": "Application 83PO25 and forms A–E (applicant, environmental effects, finances, collateral, creditworthiness)" },
+        { "sl": "Upravno dovoljenje in projektna ali okoljska dokumentacija", "en": "Permit and project or environmental documents" }
+      ],
+      "url": "https://www.ekosklad.si/gospodarstvo/pridobite-spodbudo/objava/javni-poziv-83po25-kreditiranje-okoljskih-nalozb-pravnih-oseb",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "mgds-razogljicenje",
+      "naziv": { "sl": "Spodbujanje naložb, ki prispevajo k razogljičenju industrije", "en": "Investments that decarbonise industry" },
+      "izvajalec": { "sl": "Ministrstvo za gospodarstvo, delo in šport", "en": "Ministry of the Economy, Labour and Sport" },
+      "vir": "national", "status": "napovedan", "odprtje": null, "roki": [],
+      "roki_opis": { "sl": "načrtovan v 4. četrtletju 2026", "en": "planned for Q4 2026" },
+      "oblika": { "sl": "nepovratna sredstva", "en": "grant" },
+      "znesek": { "sl": "skupaj 10 mio €; do 1.000.000 € na projekt", "en": "€10 M in total; up to €1,000,000 per project" },
+      "delez": null,
+      "upravicenci": { "sl": "podjetja", "en": "companies" },
+      "upraviceni_stroski": { "sl": "naložbe, ki zmanjšajo emisije ali porabo energije v industriji, tudi snovna učinkovitost in krožnost", "en": "investments that cut emissions or energy use in industry, incl. material efficiency and circularity" },
+      "ustreznost": { "sl": "Večja energetska naložba: rekuperacija ali elektrifikacija v sušilnicah in nadgradnja kotlovnice.", "en": "A larger energy investment: heat recovery or electrification in the kilns and a boiler-house upgrade." },
+      "predlog": { "sl": "Nizkoogljično sušenje lesa z rekuperacijo toplote", "en": "Low-carbon kiln drying with heat recovery" },
+      "ujemanje": 65,
+      "pogoji": [
+        { "sl": "Naložba znatno zmanjša emisije TGP ali porabo energije", "en": "The investment significantly cuts GHG emissions or energy use" },
+        { "sl": "Podrobni pogoji ob objavi", "en": "Details when published" }
+      ],
+      "dokumentacija": [],
+      "url": "https://www.gov.si/assets/ministrstva/MGTS/Dokumenti/DRS/Nacrt-razvojnih-spodbud/2026/Nacrt-razvojnih-spodbud-2026.pdf",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "sps-v8-lca",
+      "naziv": { "sl": "V8 – Vavčer za celostno vrednotenje okoljskih vplivov (LCA)", "en": "V8 – Life-cycle assessment (LCA) voucher" },
+      "izvajalec": { "sl": "Slovenski podjetniški sklad (ESRR)", "en": "Slovene Enterprise Fund (ERDF)" },
+      "vir": "national", "status": "odprt", "odprtje": "2026-04-17", "roki": ["2028-03-31"],
+      "oblika": { "sl": "vavčer (pavšal)", "en": "voucher (lump sum)" },
+      "znesek": { "sl": "pavšal 6.665 € na podjetje", "en": "lump sum €6,665 per company" },
+      "delez": { "sl": "60 %", "en": "60 %" },
+      "upravicenci": { "sl": "MSP s sedežem v RS, vsaj 3 zaposleni", "en": "Slovenian SMEs with at least 3 employees" },
+      "upraviceni_stroski": { "sl": "LCA analiza zunanjega strokovnjaka po ISO 14040/14044", "en": "LCA by an external expert per ISO 14040/14044" },
+      "ustreznost": { "sl": "LCA za KVH ali lepljeni les je podlaga za okoljsko deklaracijo (EPD), ki jo zahtevajo tuji kupci in javna naročila lesene gradnje.", "en": "An LCA for KVH or glulam is the basis for an EPD that foreign buyers and public timber-construction tenders ask for." },
+      "predlog": { "sl": "LCA za KVH kot podlaga za EPD", "en": "LCA for KVH as the basis for an EPD" },
+      "ujemanje": 60,
+      "pogoji": [
+        { "sl": "Izvajalec iz evidence strokovnjakov SPS; predhodni posvet pred vlogo", "en": "Expert from the SPS register; prior consultation before applying" },
+        { "sl": "Ena LCA na podjetje; od 2021 brez javnih sredstev za to", "en": "One LCA per company; no public funds for it since 2021" }
+      ],
+      "dokumentacija": [
+        { "sl": "Vloga na ePortalu SPS", "en": "SPS ePortal application" },
+        { "sl": "Obrazec 1: predhodni posvet; Obrazec 2: kritični pregled; poročilo LCA", "en": "Form 1: prior consultation; Form 2: critical review; LCA report" }
+      ],
+      "url": "https://www.podjetniskisklad.si/v8-vavcer-za-celostno-vrednotenje-okoljskih-vplivov-lca/",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "eurostars-call12",
+      "naziv": { "sl": "Eurostars – 12. skupni transnacionalni razpis za inovativna MSP", "en": "Eurostars – Call 12 for innovative SMEs" },
+      "izvajalec": { "sl": "Eureka / partnerstvo Innovative SMEs; v Sloveniji ARIS", "en": "Eureka / Innovative SMEs partnership; ARIS in Slovenia" },
+      "vir": "eu", "status": "napovedan", "odprtje": "2026-12-17", "roki": ["2027-03-04"],
+      "oblika": { "sl": "nepovratna sredstva (nacionalno financiranje)", "en": "grant (national funding)" },
+      "znesek": { "sl": "znesek na partnerja določi ARIS; za klic 12 še ni objavljen", "en": "amount per partner set by ARIS; not yet published for call 12" },
+      "delez": null,
+      "upravicenci": { "sl": "konzorcij, ki ga vodi inovativno MSP; vsaj dve državi Eurostars", "en": "consortium led by an innovative SME; at least two Eurostars countries" },
+      "upraviceni_stroski": { "sl": "industrijske raziskave in eksperimentalni razvoj po pravilih ARIS", "en": "industrial research and experimental development per ARIS rules" },
+      "ustreznost": { "sl": "Mednarodni razvojni projekt, npr. z avstrijskim ali hrvaškim razvijalcem strojnega vida za AI-skeniranje hlodovine in optimizacijo razreza.", "en": "An international R&D project, e.g. with an Austrian or Croatian machine-vision developer on AI log scanning and cutting optimisation." },
+      "predlog": { "sl": "Strojni vid za razvrščanje desk po napakah in optimizacijo razreza", "en": "Machine vision to grade boards by defects and optimise cutting" },
+      "ujemanje": 55,
+      "pogoji": [
+        { "sl": "Vodja konzorcija je inovativno MSP", "en": "Lead is an innovative SME" },
+        { "sl": "MSP nosijo vsaj 50 % proračuna; nobena država ne več kot 70 %", "en": "SMEs carry at least 50 % of the budget; no country more than 70 %" },
+        { "sl": "Trajanje do 36 mesecev; posvet z ARIS pred prijavo", "en": "Up to 36 months; consult ARIS before applying" }
+      ],
+      "dokumentacija": [
+        { "sl": "Spletni obrazec v angleščini na myeurekaproject.org", "en": "Online form in English on myeurekaproject.org" },
+        { "sl": "Obrazec o zavezi in podpisih, izjava MSP, finančna priloga", "en": "Commitment and signature form, SME declaration, financial annex" },
+        { "sl": "Morebitni nacionalni dokumenti za ARIS", "en": "Any national documents for ARIS" }
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44087099",
+      "jezik": "en", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "sps-vesg",
+      "naziv": { "sl": "VESG – Vavčer za pripravo prostovoljnega poročila o trajnostnosti", "en": "VESG – Voluntary sustainability report voucher" },
+      "izvajalec": { "sl": "Slovenski podjetniški sklad (Podnebni sklad)", "en": "Slovene Enterprise Fund (Climate Fund)" },
+      "vir": "national", "status": "odprt", "odprtje": "2026-06-05", "roki": ["2028-03-31"],
+      "oblika": { "sl": "vavčer", "en": "voucher" },
+      "znesek": { "sl": "1.000–9.999,99 €", "en": "€1,000–9,999.99" },
+      "delez": { "sl": "60 %", "en": "60 %" },
+      "upravicenci": { "sl": "MSP s sedežem v RS", "en": "Slovenian SMEs" },
+      "upraviceni_stroski": { "sl": "priprava poročila ESG po VSME, revizorjev pregled in objava na AJPES", "en": "preparing a VSME ESG report, auditor review and publication on AJPES" },
+      "ustreznost": { "sl": "Pri 87 % izvoza tuji kupci in banke vse pogosteje zahtevajo podatke ESG.", "en": "With 87 % exports, foreign buyers and banks increasingly ask for ESG data." },
+      "predlog": { "sl": "Prvo prostovoljno poročilo o trajnostnosti po VSME", "en": "A first voluntary VSME sustainability report" },
+      "ujemanje": 55,
+      "pogoji": [
+        { "sl": "Poročilo objavljeno na AJPES pred zahtevkom za izplačilo", "en": "Report published on AJPES before the payment claim" },
+        { "sl": "Pogodbo podpisati v 8 dneh", "en": "Contract signed within 8 days" }
+      ],
+      "dokumentacija": [
+        { "sl": "Vloga na ePortalu SPS s ponudbo izvajalca in finančnim načrtom", "en": "SPS ePortal application with the provider's quote and a budget" }
+      ],
+      "url": "https://www.podjetniskisklad.si/vesg-vavcer-za-pripravo-prostovoljnega-porocila-o-trajnostnosti/",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "eko-113sub-eppo24",
+      "naziv": { "sl": "113SUB-EPPO24 Spodbude za energetski pregled ali sistem upravljanja z energijo", "en": "113SUB-EPPO24 Grants for an energy audit or energy management system" },
+      "izvajalec": { "sl": "Eko sklad", "en": "Eco Fund" },
+      "vir": "national", "status": "odprt", "odprtje": "2024-05-31", "roki": [],
+      "oblika": { "sl": "nepovratna sredstva (de minimis)", "en": "grant (de minimis)" },
+      "znesek": { "sl": "za ISO 50001 do 15.000 €", "en": "up to €15,000 for ISO 50001" },
+      "delez": { "sl": "do 50 % brez DDV", "en": "up to 50 % excl. VAT" },
+      "upravicenci": { "sl": "podjetja s sedežem v RS", "en": "companies based in Slovenia" },
+      "upraviceni_stroski": { "sl": "energetski pregled stavb in procesov ali uvedba ISO 50001", "en": "energy audit of buildings and processes, or ISO 50001" },
+      "ustreznost": { "sl": "Energetski pregled sušilnic, kotlovnice in pogonov je pogoj za višjo spodbudo pri pozivu 118FS-PO24. Projekta se dopolnjujeta.", "en": "An energy audit of the kilns, boiler house and drives unlocks the higher grant under 118FS-PO24; the two go together." },
+      "predlog": { "sl": "Energetski pregled sušenja in pogonov", "en": "Energy audit of drying and drives" },
+      "ujemanje": 55,
+      "pogoji": [
+        { "sl": "Izvedeno od 1. 1. 2024; vloga po izvedbi", "en": "Done since 1 Jan 2024; apply afterwards" },
+        { "sl": "De minimis", "en": "De minimis" }
+      ],
+      "dokumentacija": [
+        { "sl": "Obrazec Vloga 113SUB-EPPO24, izjava o zaključku, računi in končno poročilo", "en": "Form 113SUB-EPPO24, completion statement, invoices and final report" }
+      ],
+      "url": "https://www.ekosklad.si/gospodarstvo/pridobite-spodbudo/objava/javni-poziv-113sub-eppo24-nepovratne-financne-spodbude-podjetjem-za-izvedbo-energetskega-pregleda-ali-za-uvedbo-sistema-upravljanja-z-energijo",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "life-ccm",
+      "naziv": { "sl": "LIFE – blažitev podnebnih sprememb, standardni projekti", "en": "LIFE-SAP-CLIMA-CCM – Climate Change Mitigation" },
+      "izvajalec": { "sl": "CINEA (program LIFE)", "en": "CINEA (LIFE programme)" },
+      "vir": "eu", "status": "zaprt-ponovno", "odprtje": null, "roki": [],
+      "roki_opis": { "sl": "rok 2026 je bil 22. 9.; razpis 2027 še ni objavljen", "en": "the 2026 deadline was 22 Sep; the 2027 call is not yet published" },
+      "oblika": { "sl": "nepovratna sredstva", "en": "grant" },
+      "znesek": { "sl": "projekti okvirno 1–5 mio €", "en": "projects about €1–5 M" },
+      "delez": { "sl": "do 60 %; MOPE je za LIFE 2025 dodala do 20 %", "en": "up to 60 %; the ministry added up to 20 % for LIFE 2025" },
+      "upravicenci": { "sl": "pravne osebe, tudi podjetja; konzorcij ni obvezen", "en": "legal entities incl. companies; no consortium required" },
+      "upraviceni_stroski": { "sl": "dejanski stroški (osebje, oprema, storitve, posredni)", "en": "actual costs (staff, equipment, services, indirect)" },
+      "ustreznost": { "sl": "Področje izrecno vključuje shranjevanje ogljika v lesnih izdelkih in manjšo rabo energije v industriji.", "en": "The topic explicitly covers carbon storage in wood products and lower industrial energy use." },
+      "predlog": { "sl": "Demonstracija merljivega shranjevanja ogljika v KVH in nizkoogljičnega sušenja", "en": "Demonstrating measurable carbon storage in KVH and low-carbon drying" },
+      "ujemanje": 50,
+      "pogoji": [
+        { "sl": "Akronim vsebuje besedo LIFE; del B do 120 strani", "en": "Acronym includes LIFE; Part B up to 120 pages" },
+        { "sl": "Grant ne sme ustvariti dobička", "en": "The grant may not generate profit" }
+      ],
+      "dokumentacija": [
+        { "sl": "Prijavni obrazec del A, B in C; tabela proračuna; Participant information", "en": "Application Parts A, B and C; budget table; participant information" }
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/LIFE-2026-SAP-CLIMA-CCM",
+      "jezik": "en", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "forest-jc2026",
+      "naziv": { "sl": "FOREST Joint Call 2026 – FORESTPathways (skupni razpis partnerstva FOREST)", "en": "FOREST Joint Call 2026 – FORESTPathways" },
+      "izvajalec": { "sl": "Partnerstvo FOREST (Horizon Europe); v Sloveniji MVZI", "en": "FOREST Partnership (Horizon Europe); MVZI in Slovenia" },
+      "vir": "eu", "status": "odprt", "odprtje": "2026-09-15", "roki": ["2026-12-02", "2027-06-02"],
+      "oblika": { "sl": "nepovratna sredstva (raziskovalni projekti)", "en": "grant (research projects)" },
+      "znesek": { "sl": "za vse slovenske partnerje v projektu skupaj do 300.000 €", "en": "up to €300,000 for all Slovenian partners in a project" },
+      "delez": { "sl": "srednja podjetja do 75 % (financirajo se le raziskovalne organizacije iz SICRIS)", "en": "medium firms up to 75 % (only research organisations in SICRIS are funded)" },
+      "upravicenci": { "sl": "konzorcij vsaj 3 partnerjev iz 3 držav; v Sloveniji financirane le raziskovalne organizacije", "en": "consortium of at least 3 partners from 3 countries; in Slovenia only research organisations are funded" },
+      "upraviceni_stroski": { "sl": "osebje, material, amortizacija, posredni do 25 %", "en": "staff, materials, depreciation, indirect up to 25 %" },
+      "ustreznost": { "sl": "Tema 3 pokriva inženirski les in lesene gradbene sisteme. Solis bi sodeloval kot industrijski partner z InnoRenew ali Biotehniško fakulteto.", "en": "Topic 3 covers engineered wood and timber building systems. Solis would join as an industry partner with InnoRenew or the Biotechnical Faculty." },
+      "predlog": { "sl": "Industrijski partner v projektu o novem lepljenem izdelku iz smreke in jelke", "en": "Industry partner in a project on a new glued spruce/fir product" },
+      "ujemanje": 45,
+      "pogoji": [
+        { "sl": "Predpredlog do 2. 12. 2026, polni predlog na povabilo do 2. 6. 2027", "en": "Pre-proposal by 2 Dec 2026, full proposal on invitation by 2 Jun 2027" },
+        { "sl": "Financerja (MVZI) kontaktirati do 17. 11. 2026", "en": "Contact the funder (MVZI) by 17 Nov 2026" },
+        { "sl": "Podjetje brez vpisa v SICRIS je lahko le samofinancirani pridruženi partner", "en": "A company not in SICRIS can only be a self-funded associated partner" }
+      ],
+      "dokumentacija": [
+        { "sl": "Predpredlog v sistemu ESES; pismo o nameri pridruženega partnerja", "en": "Pre-proposal in ESES; letter of intent for associated partners" }
+      ],
+      "url": "https://forest-partnership.eu/jointcall2026",
+      "jezik": "en", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "zrsz-usposabljam-se",
+      "naziv": { "sl": "Usposabljam.se 2026–2027 (usposabljanje na delovnem mestu)", "en": "Usposabljam.se 2026–2027 (on-the-job training)" },
+      "izvajalec": { "sl": "Zavod RS za zaposlovanje", "en": "Employment Service of Slovenia" },
+      "vir": "national", "status": "odprt", "odprtje": "2026-05-11", "roki": ["2027-03-31"],
+      "oblika": { "sl": "povračilo stroškov usposabljanja", "en": "training cost refund" },
+      "znesek": { "sl": "955 € na udeleženca (3 mesece) ali 1.230 € (4 mesece, deficitarni poklic)", "en": "€955 per trainee (3 months) or €1,230 (4 months, shortage occupation)" },
+      "delez": null,
+      "upravicenci": { "sl": "delodajalci, vpisani v register vsaj 12 mesecev", "en": "employers registered for at least 12 months" },
+      "upraviceni_stroski": { "sl": "usposabljanje brezposelne osebe z mentorjem", "en": "training an unemployed person with a mentor" },
+      "ustreznost": { "sl": "Uvajanje novih delavcev za linijo KVH in sortiranje. Nizek znesek, a hitra pot do kadra.", "en": "Onboarding new staff for the KVH line and sorting. A small amount, but a fast route to people." },
+      "predlog": { "sl": "Usposabljanje dveh novih operaterjev za linijo KVH", "en": "Training two new KVH line operators" },
+      "ujemanje": 45,
+      "pogoji": [
+        { "sl": "Mentor vsaj 90 oziroma 120 ur", "en": "Mentor for at least 90 or 120 hours" },
+        { "sl": "Udeleženec v zadnjih 12 mesecih ni bil zaposlen pri delodajalcu", "en": "Trainee not employed by the employer in the last 12 months" }
+      ],
+      "dokumentacija": [
+        { "sl": "Ponudba na portalu zadelodajalce.si", "en": "Offer on the zadelodajalce.si portal" }
+      ],
+      "url": "https://www.ess.gov.si/delodajalci/financne-spodbude/predstavitev-spodbud-za-zaposlitev/usposabljamse-2026-2027/",
+      "jezik": "sl", "preverjeno": "2026-10-28"
+    },
+    {
+      "id": "if26-sme",
+      "naziv": { "sl": "Inovacijski sklad – razpis IF26 za MSP", "en": "Innovation Fund – IF26 SME Call" },
+      "izvajalec": { "sl": "Evropska komisija (DG CLIMA) in CINEA", "en": "European Commission (DG CLIMA) and CINEA" },
+      "vir": "eu", "status": "napovedan", "odprtje": "2026-12-03", "roki": [],
+      "roki_opis": { "sl": "objava okvirno 3. 12. 2026, prvi rok okvirno konec marca 2027", "en": "opens around 3 Dec 2026, first deadline around end of March 2027" },
+      "oblika": { "sl": "nepovratna sredstva", "en": "grant" },
+      "znesek": { "sl": "proračun 200 mio €; naložbe (CAPEX) 2,5–20 mio €", "en": "€200 M budget; investments (CAPEX) €2.5–20 M" },
+      "delez": null,
+      "upravicenci": { "sl": "samo MSP; v konzorciju morajo biti MSP vsi", "en": "SMEs only; every consortium member must be an SME" },
+      "upraviceni_stroski": null,
+      "ustreznost": { "sl": "Lahko pokrije inovativni nizkoogljični del širitve, če izkaže merljivo zmanjšanje emisij. Ali je dovolj inovativen, bo jasno šele z objavo razpisa.", "en": "Could cover an innovative low-carbon part of the expansion if it shows measurable emission cuts; whether it is innovative enough will only be clear once the call is out." },
+      "predlog": { "sl": "Inovativna nizkoogljična linija za lepljene izdelke na novi lokaciji", "en": "An innovative low-carbon glued-products line on the new site" },
+      "ujemanje": 35,
+      "pogoji": [
+        { "sl": "Naložbe 2,5–20 mio €", "en": "CAPEX €2.5–20 M" },
+        { "sl": "Stopnja, upravičeni sektorji in stroški še niso objavljeni", "en": "Rate, eligible sectors and costs not yet published" }
+      ],
+      "dokumentacija": [],
+      "url": "https://climate.ec.europa.eu/areas-action/eu-funding-climate-action/innovation-fund/calls-proposals/if26-sme-call_en",
+      "jezik": "en", "preverjeno": "2026-10-28"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="sl" data-lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Razpisni radar · Solis DIY</title>
+<meta name="title-sl" content="Razpisni radar · Solis DIY">
+<meta name="title-en" content="Funding radar · Solis DIY">
+<meta name="description" content="Agent, ki vsak teden pregleda razpise in predlaga tiste, ki ustrezajo žagi; izbrani razpis postane projekt prijave, ki ga AI izpolni iz baze znanja podjetja.">
+<meta property="og:title" content="Funding radar · Solis DIY">
+<meta property="og:description" content="A weekly agent that scans funding calls for the sawmill, and an AI that drafts the chosen application from the company's knowledge base.">
+<meta property="og:image" content="https://rokskrinjar.si/img/covers/solis-diy.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/common.js"></script>
+<script src="assets/gate.js"></script>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head>
+<body class="grants">
+<div class="concept"><span class="sl">Koncept Roka Skrinjarja. Ni povezano s Solis Timber d.o.o.; razpisi so resnični, prijave so le osnutki in se ne oddajo. <a href="business.html">Zakaj ta koncept →</a> · <a href="economics.html">Ekonomika →</a></span><span class="en">A concept by Rok Skrinjar. Not affiliated with Solis Timber d.o.o.; the calls are real, the applications are drafts and are never submitted. <a href="business.html">Why this concept →</a> · <a href="economics.html">Economics →</a></span></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><svg viewBox="0 0 100 100" aria-hidden="true" id="logo"></svg>Solis DIY <small class="sl">koncept</small><small class="en">concept</small></a>
+    <nav class="nav" aria-label="Glavni meni">
+      <a href="./"><span class="sl">Vodič</span><span class="en">Guide</span></a>
+      <a href="planner.html"><span class="sl">Načrtovalnik</span><span class="en">Planner</span></a>
+      <a href="business.html"><span class="sl">Poslovni primer</span><span class="en">Business case</span></a>
+      <a href="razpisi.html" aria-current="page"><span class="sl">Razpisni radar</span><span class="en">Funding radar</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Jezik / Language"><button type="button" data-set="sl">SL</button><button type="button" data-set="en">EN</button></div>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding-bottom:16px">
+  <div class="wrap">
+    <p class="eyebrow"><span class="sl">Razpisni radar · AI za podjetje</span><span class="en">Funding radar · AI for the company</span></p>
+    <h1><span class="sl">Vsak ponedeljek: razpisi, ki ustrezajo žagi.</span><span class="en">Every Monday: the calls that fit the mill.</span></h1>
+    <p class="lede"><span class="sl">Agent vsak teden pregleda razpise domačih in evropskih virov, prebere pogoje in jih primerja s profilom podjetja. Ko nekdo razpis izbere, nastane projekt prijave: Skobi iz baze znanja podjetja napiše osnutke poglavij, kar manjka, pa vpraša.</span><span class="en">Every week an agent scans Slovenian and EU funding calls, reads the conditions and compares them with the company profile. When someone picks a call, it becomes an application project: Skobi drafts the sections from the company's knowledge base and asks for whatever is missing.</span></p>
+  </div>
+</section>
+
+<section class="block" style="padding-top:8px">
+  <div class="wrap">
+    <div class="radar-head">
+      <div class="radar-run">
+        <b><span class="sl">Zadnji pregled</span><span class="en">Last scan</span>: <span id="r-date">–</span></b>
+        <span class="muted"><span class="sl">Naslednji: ponedeljek ob 7.00</span><span class="en">Next: Monday 7:00</span></span>
+      </div>
+      <div class="k4">
+        <div><b id="r-src">–</b><span class="sl">pregledanih virov</span><span class="en">sources scanned</span></div>
+        <div><b id="r-fit">–</b><span class="sl">razpisov ustreza profilu</span><span class="en">calls fit the profile</span></div>
+        <div><b id="r-open">–</b><span class="sl">odprtih zdaj</span><span class="en">open now</span></div>
+        <div><b id="r-soon">–</b><span class="sl">rokov v 45 dneh</span><span class="en">deadlines in 45 days</span></div>
+      </div>
+    </div>
+    <p class="fine"><span class="sl">V konceptu je pregled narejen enkrat (AI agenti, z branjem uradnih strani) in ni samodejen. Podatke pred prijavo vedno preverite v uradni razpisni dokumentaciji.</span><span class="en">In the concept the scan was run once (AI agents reading the official pages) and is not automatic. Always check the official call documents before applying.</span></p>
+  </div>
+</section>
+
+<section class="block alt" id="digest">
+  <div class="wrap">
+    <div class="section-head"><h2><span class="sl">Poročilo tedna</span><span class="en">This week's report</span></h2>
+      <div class="chips" role="group" aria-label="Filter">
+        <button class="chip" type="button" data-f="all" aria-pressed="true"><span class="sl">Vsi</span><span class="en">All</span></button>
+        <button class="chip" type="button" data-f="odprt"><span class="sl">Odprti</span><span class="en">Open</span></button>
+        <button class="chip" type="button" data-f="napovedan"><span class="sl">Napovedani</span><span class="en">Announced</span></button>
+        <button class="chip" type="button" data-f="eu"><span class="sl">EU</span><span class="en">EU</span></button>
+      </div>
+    </div>
+    <div class="glist" id="calls"><p class="empty"><span class="sl">Nalagam razpise …</span><span class="en">Loading calls …</span></p></div>
+    <details class="more excl"><summary><span class="sl">Kaj je agent izločil in zakaj</span><span class="en">What the agent left out, and why</span></summary><ul id="excl"></ul></details>
+  </div>
+</section>
+
+<section class="block" id="prijava" hidden>
+  <div class="wrap" id="proj"></div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="section-head"><h2><span class="sl">Kako bi to delovalo na žagi</span><span class="en">How it would work at the mill</span></h2></div>
+    <ol class="steps3 four">
+      <li><h3><span class="sl">Pregled</span><span class="en">Scan</span></h3><p class="muted"><span class="sl">Vsak ponedeljek zjutraj agent prebere nove objave na straneh skladov, ministrstev in EU. Vsakemu razpisu prebere pogoje in upravičene stroške.</span><span class="en">Every Monday morning the agent reads new postings from funds, ministries and the EU, and reads each call's conditions and eligible costs.</span></p></li>
+      <li><h3><span class="sl">Ujemanje</span><span class="en">Match</span></h3><p class="muted"><span class="sl">Razpis primerja s profilom: velikost podjetja, regija, dejavnost, načrtovane naložbe. Pove, zakaj ustreza in kaj bi lahko financiral.</span><span class="en">It compares the call with the profile: company size, region, activity, planned investments. It says why it fits and what it could fund.</span></p></li>
+      <li><h3><span class="sl">Odločitev</span><span class="en">Decision</span></h3><p class="muted"><span class="sl">Povzetek pride po e-pošti ali v Teams. Vodstvo izbere razpis; agent nikoli ne odloča in nikoli ne odda prijave sam.</span><span class="en">The summary arrives by email or in Teams. Management picks the call; the agent never decides and never submits.</span></p></li>
+      <li><h3><span class="sl">Prijava</span><span class="en">Application</span></h3><p class="muted"><span class="sl">Skobi napiše osnutke iz baze znanja (podatki podjetja, pretekle prijave, letna poročila, ponudbe), odpre vprašanja za manjkajoče in vodi seznam pogojev, prilog in rokov.</span><span class="en">Skobi drafts from the knowledge base (company data, past applications, annual reports, quotes), opens questions for what is missing and tracks conditions, attachments and deadlines.</span></p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap cols2">
+    <div>
+      <div class="section-head"><h2><span class="sl">Profil, s katerim agent primerja</span><span class="en">The profile the agent matches</span></h2></div>
+      <table class="profile">
+        <tr><th><span class="sl">Velikost</span><span class="en">Size</span></th><td><span class="sl">srednje podjetje: 30–40 zaposlenih, 17,1 mio € prihodkov (2025), 87 % izvoza</span><span class="en">medium-sized: 30–40 employees, €17.1 M revenue (2025), 87 % exports</span></td></tr>
+        <tr><th><span class="sl">Kraj</span><span class="en">Location</span></th><td><span class="sl">Straža, Jugovzhodna Slovenija; kohezijska regija Vzhodna Slovenija</span><span class="en">Straža, South-East Slovenia; cohesion region Eastern Slovenia</span></td></tr>
+        <tr><th><span class="sl">Dejavnost</span><span class="en">Activity</span></th><td><span class="sl">C16.10 žaganje in skobljanje lesa; BSH, peleti, biomasa</span><span class="en">C16.10 sawmilling and planing; glulam, pellets, biomass</span></td></tr>
+        <tr><th><span class="sl">Načrti</span><span class="en">Plans</span></th><td><span class="sl">širitev na 3,5 ha v industrijski coni, KVH, energija iz lesnih ostankov in sonca, digitalizacija in AI v proizvodnji, nova prodajna pot (DIY)</span><span class="en">expansion on 3.5 ha in the industrial zone, KVH, energy from wood residues and solar, digitalisation and AI in production, a new sales channel (DIY)</span></td></tr>
+        <tr><th><span class="sl">Prednosti</span><span class="en">Strengths</span></th><td><span class="sl">FSC 100 %, CE, proizvodnja brez odpadkov, izkušnje z EU sofinanciranjem (Strong&amp;Solid, 2023)</span><span class="en">FSC 100 %, CE, zero-waste production, experience with EU co-funding (Strong&amp;Solid, 2023)</span></td></tr>
+      </table>
+      <p class="fine"><span class="sl">Iz javnih virov. V pravi uporabi profil ureja podjetje.</span><span class="en">From public sources. In real use the company maintains the profile.</span></p>
+    </div>
+    <div>
+      <div class="section-head"><h2><span class="sl">Viri, ki jih pregleda</span><span class="en">Sources it scans</span></h2></div>
+      <ul class="srclist" id="srcs"></ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><span class="sl">Solis DIY je koncept Roka Skrinjarja in ni povezan s Solis Timber d.o.o. Razpisi so povzeti po uradnih straneh na dan pregleda; osnutki prijav so primer in jih mora pregledati človek.</span><span class="en">Solis DIY is a concept by Rok Skrinjar, not affiliated with Solis Timber d.o.o. The calls are summarised from official pages on the scan date; application drafts are an example and must be checked by a person.</span></p>
+    <p><a href="/projects/">← Rok Skrinjar</a></p>
+  </div>
+</footer>
+<script src="assets/razpisi.js"></script>
+<script src="assets/chat.js"></script>
+</body>
+</html>

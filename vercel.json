@@ -8,7 +8,7 @@
       "maxDuration": 30
     },
     "api/solis.js": {
-      "maxDuration": 60
+      "maxDuration": 120
     },
     "api/aktiva.js": {
       "maxDuration": 60
