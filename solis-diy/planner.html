@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="sl" data-lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Načrtovalnik · Solis DIY</title>
+<meta name="title-sl" content="Načrtovalnik · Solis DIY">
+<meta name="title-en" content="Planner · Solis DIY">
+<meta name="description" content="Koncept: izberite projekt ali vnesite kosovnik, načrtovalnik razporedi kose na deske, izračuna m³, težo in oceno cene lesa z žage.">
+<meta property="og:title" content="Planner · Solis DIY">
+<meta property="og:description" content="Pick a project or enter a cut list; the planner nests the parts onto boards and estimates volume, weight and price of sawmill-direct timber.">
+<meta property="og:image" content="https://rokskrinjar.si/img/covers/solis-diy.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/common.js"></script>
+<script src="assets/engine.js"></script>
+</head>
+<body>
+<div class="concept"><span class="sl">Koncept Roka Skrinjarja. Ni povezano s Solis Timber d.o.o.; cene so ocene, naročila se ne pošiljajo. <a href="business.html">Zakaj ta koncept →</a></span><span class="en">A concept by Rok Skrinjar. Not affiliated with Solis Timber d.o.o.; prices are estimates, no orders are sent. <a href="business.html">Why this concept →</a></span></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><svg viewBox="0 0 100 100" aria-hidden="true" id="logo"></svg>Solis DIY <small class="sl">koncept</small><small class="en">concept</small></a>
+    <nav class="nav" aria-label="Glavni meni">
+      <a href="./"><span class="sl">Vodič</span><span class="en">Guide</span></a>
+      <a href="planner.html" aria-current="page"><span class="sl">Načrtovalnik</span><span class="en">Planner</span></a>
+      <a href="business.html"><span class="sl">Poslovni primer</span><span class="en">Business case</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Jezik / Language"><button type="button" data-set="sl">SL</button><button type="button" data-set="en">EN</button></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="planner">
+    <div>
+      <section class="panel" id="p-project"></section>
+      <section class="panel" id="p-params"></section>
+      <section class="panel" id="p-cut"></section>
+      <section class="panel" id="p-plan"></section>
+    </div>
+    <aside class="summary" id="summary" aria-live="polite"></aside>
+  </div>
+</main>
+
+<dialog id="order">
+  <div class="dlg-head"><h2 id="order-h"></h2><button class="dlg-x" type="button" data-close aria-label="Zapri">✕</button></div>
+  <div class="dlg-body" id="order-body"></div>
+</dialog>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><span class="sl">Solis DIY je koncept Roka Skrinjarja in ni povezan s Solis Timber d.o.o. Cene so ilustrativne ocene z DDV, prevzem v Straži; naročila se ne pošiljajo. Prerezi pri večjih gradnjah so tipični za oceno količin, ne statični izračun.</span><span class="en">Solis DIY is a concept by Rok Skrinjar, not affiliated with Solis Timber d.o.o. Prices are illustrative estimates incl. VAT, ex works Straža; no orders are sent. Sections for larger builds are typical sizes for estimating, not a structural calculation.</span></p>
+    <p><a href="/projects/">← Rok Skrinjar</a></p>
+  </div>
+</footer>
+<script src="assets/planner.js"></script>
+<script src="assets/chat.js"></script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+{
+  "planner": [
+    {
+      "id": "raised-bed", "icon": "bed", "level": 1, "where": "out",
+      "params": [
+        {"id": "L", "min": 1000, "max": 4000, "step": 100, "def": 2000, "sl": "Dolžina", "en": "Length"},
+        {"id": "W", "min": 600, "max": 1500, "step": 50, "def": 1000, "sl": "Širina", "en": "Width"},
+        {"id": "H", "min": 300, "max": 900, "step": 50, "def": 600, "sl": "Višina", "en": "Height"}
+      ],
+      "variants": [
+        {"id": "planed", "sl": "Skobljana smreka (lepa, 3–5 let)", "en": "Planed spruce (neat, 3–5 years)"},
+        {"id": "dry", "sl": "Suh žagan les (najceneje)", "en": "Dry sawn (cheapest)"},
+        {"id": "larch", "sl": "Macesen (zdrži najdlje)", "en": "Larch (lasts longest)"}
+      ],
+      "sl": {
+        "title": "Visoka greda", "teaser": "Klasika s Pinteresta: zelenjava v višini pasu, brez sklanjanja.",
+        "intro": "Deske, zložene v vrste okoli pokončnih stebričkov. Smreka v stiku z zemljo zdrži nekaj let, macesen bistveno dlje. Pri daljših gredah dodajte srednje stebričke, da se dolge stranice ne izbočijo.",
+        "steps": ["Pripravite ravno podlago in jo pokrijte z mrežo proti voluharjem.", "Privijte prvo vrsto desk na štiri vogalne stebričke, preverite pravokotnost (diagonali sta enaki).", "Dodajajte vrste; pri dolžini nad 1,2 m privijte srednje stebričke.", "Notranjost obložite z čepasto folijo, odprto zgoraj, da les lahko diha.", "Napolnite v plasteh: veje, listje, kompost, zemlja."],
+        "tools": "Krožna ali ročna žaga, akumulatorski vijačnik, kotnik, nerjaveči vijaki 5×60.",
+        "finish": "Znotraj nič (stik z zemljo). Zunaj lahko olje ali lazura.",
+        "mistakes": ["Deske tanjše od 25 mm se izbočijo.", "Stebrički, zakopani v zemljo, zgnijejo prvi.", "Les, namočen v zaščitno sredstvo, ni za zelenjavo."]
+      },
+      "en": {
+        "title": "Raised garden bed", "teaser": "The Pinterest classic: vegetables at waist height, no bending.",
+        "intro": "Boards stacked in rows around upright corner posts. Spruce in soil contact lasts a few years, larch much longer. Longer beds need middle posts so the long sides do not bow out.",
+        "steps": ["Level the ground and lay mesh against voles.", "Screw the first row of boards to four corner posts and check it is square (equal diagonals).", "Add the rows; above 1.2 m length screw in middle posts.", "Line the inside with dimpled membrane, open at the top so the wood can breathe.", "Fill in layers: branches, leaves, compost, soil."],
+        "tools": "Circular or hand saw, cordless driver, square, stainless screws 5×60.",
+        "finish": "Nothing inside (soil contact). Oil or glaze outside if you like.",
+        "mistakes": ["Boards thinner than 25 mm bow out.", "Posts dug into the soil rot first.", "Wood dipped in preservative is not for vegetables."]
+      }
+    },
+    {
+      "id": "planter", "icon": "planter", "level": 1, "where": "out",
+      "params": [
+        {"id": "L", "min": 400, "max": 1500, "step": 50, "def": 800, "sl": "Dolžina", "en": "Length"},
+        {"id": "W", "min": 300, "max": 600, "step": 50, "def": 400, "sl": "Širina", "en": "Width"},
+        {"id": "H", "min": 300, "max": 600, "step": 50, "def": 400, "sl": "Višina", "en": "Height"}
+      ],
+      "variants": [
+        {"id": "planed", "sl": "Skobljana smreka", "en": "Planed spruce"},
+        {"id": "larch", "sl": "Macesen", "en": "Larch"}
+      ],
+      "sl": {
+        "title": "Cvetlično korito", "teaser": "Za balkon ali teraso, narejeno v enem popoldnevu.",
+        "intro": "Manjši brat visoke grede, z dnom iz letvic in nogicami, da korito ne stoji v vodi.",
+        "steps": ["Odrežite stranice in jih privijte na štiri vogalne letve.", "Vogalne letve naj segajo 3 cm pod korito: to so nogice.", "Dno sestavite iz letvic z 5 mm režami za odtok.", "Robove pobrusite, zunanjost zaščitite."],
+        "tools": "Ročna ali čelilna žaga, vijačnik, brusilni papir.",
+        "finish": "Zunaj olje ali lazura, znotraj nič; korito obložite s folijo z luknjami.",
+        "mistakes": ["Brez rež v dnu voda zastaja.", "Korito, ki stoji na tleh, gnije od spodaj."]
+      },
+      "en": {
+        "title": "Planter box", "teaser": "For a balcony or terrace, built in one afternoon.",
+        "intro": "The raised bed's little sibling, with a slatted base and feet so it never stands in water.",
+        "steps": ["Cut the sides and screw them to four corner battens.", "Let the corner battens stick out 3 cm below: those are the feet.", "Build the base from slats with 5 mm drainage gaps.", "Sand the edges and protect the outside."],
+        "tools": "Hand or mitre saw, driver, sandpaper.",
+        "finish": "Oil or glaze outside, nothing inside; line it with perforated foil.",
+        "mistakes": ["No gaps in the base, so water pools.", "A box standing flat on the floor rots from below."]
+      }
+    },
+    {
+      "id": "compost", "icon": "compost", "level": 1, "where": "out",
+      "params": [
+        {"id": "W", "min": 800, "max": 1500, "step": 50, "def": 1000, "sl": "Širina predelka", "en": "Bay width"},
+        {"id": "D", "min": 800, "max": 1500, "step": 50, "def": 1000, "sl": "Globina", "en": "Depth"},
+        {"id": "H", "min": 600, "max": 1200, "step": 50, "def": 900, "sl": "Višina", "en": "Height"},
+        {"id": "n", "min": 1, "max": 3, "step": 1, "def": 2, "sl": "Predelki", "en": "Bays", "unit": ""}
+      ],
+      "variants": [
+        {"id": "fresh", "sl": "Svež žagan les (najceneje)", "en": "Fresh sawn (cheapest)"},
+        {"id": "dry", "sl": "Suh žagan les", "en": "Dry sawn"}
+      ],
+      "sl": {
+        "title": "Kompostnik", "teaser": "Idealna raba za svež les: poceni, zračno, praktično.",
+        "intro": "Letvice z 2 cm režami za zrak, sprednje letvice se snemajo, da kompost lažje premečete. Dva predelka: v enem zori, v drugega dodajate.",
+        "steps": ["Postavite stebre na kamne ali kovinske podstavke, ne v zemljo.", "Zadnjo in stranske stene privijte z 2 cm režami (odrezek letvice je dober distančnik).", "Na sprednje stebre privijte vodila, med katera vstavljate snemljive letvice.", "Pokrov iz ostankov ali stare plošče zadrži vlago."],
+        "tools": "Ročna ali krožna žaga, vijačnik, metrski meter.",
+        "finish": "Brez zaščite.",
+        "mistakes": ["Brez rež kompost ne diha.", "Prednja stran ni snemljiva.", "Stebri, zakopani v zemljo."]
+      },
+      "en": {
+        "title": "Compost bin", "teaser": "The ideal use for fresh sawn wood: cheap, airy, practical.",
+        "intro": "Slats with 2 cm air gaps and a removable front so turning the compost is easy. Two bays: one matures while you fill the other.",
+        "steps": ["Stand the posts on stones or metal post bases, not in the soil.", "Screw on the back and side walls with 2 cm gaps (a slat offcut makes a good spacer).", "Fix guide battens to the front posts and slide the removable slats between them.", "A lid from offcuts or an old board keeps moisture in."],
+        "tools": "Hand or circular saw, driver, tape measure.",
+        "finish": "None.",
+        "mistakes": ["No gaps, so the compost cannot breathe.", "A front that does not come off.", "Posts dug into the soil."]
+      }
+    },
+    {
+      "id": "firewood", "icon": "firewood", "level": 2, "where": "out",
+      "params": [
+        {"id": "L", "min": 1500, "max": 3600, "step": 100, "def": 2000, "sl": "Dolžina", "en": "Length"},
+        {"id": "D", "min": 600, "max": 1200, "step": 50, "def": 1000, "sl": "Globina", "en": "Depth"},
+        {"id": "H", "min": 1400, "max": 2000, "step": 50, "def": 1800, "sl": "Višina spredaj", "en": "Front height"}
+      ],
+      "variants": [
+        {"id": "dry", "sl": "Suh žagan les, smreka", "en": "Dry sawn spruce"},
+        {"id": "larch", "sl": "Stebri iz macesna", "en": "Larch posts"}
+      ],
+      "sl": {
+        "title": "Drvarnica", "teaser": "Odprta, s streho: drva se sušijo in ostanejo suha.",
+        "intro": "Enokapna streha, odprte stranice in dvignjeno dno. Les potrebuje zrak od vseh strani, zato stene niso zaprte. Kritina (valovite plošče ali lepenka) ni vključena v kosovnik.",
+        "steps": ["Postavite točkovne temelje ali betonske podstavke s kovinskimi nosilci stebrov.", "Postavite stebre (spredaj višji) in jih povežite z lego.", "Namestite špirovce s 40 cm previsa in jih pokrijte z deskami.", "Dno: tramiči na podložkah, nanje letve z režami.", "Kritina z napuščem, da dež ne pada na drva."],
+        "tools": "Krožna žaga, vijačnik, libela, nosilci stebrov, vrvica.",
+        "finish": "Pigmentirana lazura na vidnih delih.",
+        "mistakes": ["Zaprte stene: drva ne dihajo.", "Drva neposredno na tleh.", "Streha brez napušča.", "Noge stebrov v pršcu: 30 cm od tal."]
+      },
+      "en": {
+        "title": "Firewood store", "teaser": "Open sides, a roof: logs dry and stay dry.",
+        "intro": "A mono-pitch roof, open sides and a raised floor. Firewood needs air from every side, so the walls stay open. Roofing (corrugated sheets or felt) is not in the cut list.",
+        "steps": ["Set point footings or concrete pads with metal post bases.", "Stand the posts (taller at the front) and join them with the top plates.", "Fit the rafters with a 40 cm overhang and cover them with boards.", "Floor: joists on pads, slats on top with gaps.", "Roofing with an overhang so rain misses the logs."],
+        "tools": "Circular saw, driver, level, post bases, string line.",
+        "finish": "Pigmented glaze on visible parts.",
+        "mistakes": ["Closed walls: the wood cannot breathe.", "Logs straight on the ground.", "A roof without an overhang.", "Post feet in splash water: keep 30 cm clear."]
+      }
+    },
+    {
+      "id": "pergola", "icon": "pergola", "level": 3, "where": "out",
+      "params": [
+        {"id": "L", "min": 2500, "max": 4000, "step": 100, "def": 3000, "sl": "Dolžina (lege)", "en": "Length (beams)"},
+        {"id": "W", "min": 2500, "max": 3400, "step": 100, "def": 3000, "sl": "Globina (špirovci)", "en": "Depth (rafters)"},
+        {"id": "H", "min": 2200, "max": 2800, "step": 50, "def": 2500, "sl": "Višina stebrov", "en": "Post height"}
+      ],
+      "variants": [
+        {"id": "sf", "sl": "BSH + skobljani smrekovi špirovci", "en": "Glulam + planed spruce rafters"},
+        {"id": "larch", "sl": "BSH + macesnovi špirovci", "en": "Glulam + larch rafters"}
+      ],
+      "sl": {
+        "title": "Pergola", "teaser": "Senca nad teraso iz ravnih lepljenih nosilcev.",
+        "intro": "Stebri in lege iz lepljenega lesa BSH, ki se ne zvija in ne poka kot masiven moral. Prereze tukaj so tipični za oceno količin, ne statični izračun. Če dodate streho (polikarbonat), postane nadstrešek: potreben je izračun za sneg in preverba dovoljenj.",
+        "steps": ["Točkovni temelji s H-nosilci, stebri 5–10 cm nad betonom.", "Postavite stebre, začasno jih podprite in uravnajte.", "Na stebre položite lege, pritrdite z vijaki ali moznikom.", "Špirovce položite na 50 cm, z zarezo ali kotniki.", "Pritrdite poševne opore: brez njih se pergola maje."],
+        "tools": "Krožna žaga, vrtalnik, dolga libela, vijaki za les, H-nosilci, pomočnik.",
+        "finish": "Pigmentirana lazura ali barva; zaščitite čela tramov, zgornje ploskve nagnite ali prekrijte.",
+        "mistakes": ["Streha brez statičnega izračuna.", "Stebri, zabetonirani v tla, zgnijejo pri vratu.", "Brez poševnih opor."]
+      },
+      "en": {
+        "title": "Pergola", "teaser": "Shade over the terrace, from straight glulam.",
+        "intro": "Posts and beams in glulam (BSH), which does not twist or check like solid squared timber. The sections here are typical sizes for estimating quantities, not a structural calculation. If you add a roof (polycarbonate) it becomes a canopy: it needs a snow-load calculation and a permit check.",
+        "steps": ["Point footings with H-shaped post anchors, posts 5–10 cm above the concrete.", "Stand the posts, prop them temporarily and plumb them.", "Lay the beams on the posts and fix them with screws or a dowel.", "Lay rafters every 50 cm, notched or with angle brackets.", "Fit knee braces: without them a pergola racks."],
+        "tools": "Circular saw, drill, long level, timber screws, H anchors, a helper.",
+        "finish": "Pigmented glaze or paint; seal beam ends, slope or cap the top faces.",
+        "mistakes": ["A roof without a structural calculation.", "Posts concreted into the ground rot at the collar.", "No knee braces."]
+      }
+    },
+    {
+      "id": "bench", "icon": "bench", "level": 1, "where": "out",
+      "params": [
+        {"id": "L", "min": 1000, "max": 2000, "step": 50, "def": 1200, "sl": "Dolžina", "en": "Length"}
+      ],
+      "variants": [
+        {"id": "sf", "sl": "Skobljana smreka, zaobljeni robovi", "en": "Planed spruce, rounded edges"},
+        {"id": "larch", "sl": "Macesen", "en": "Larch"}
+      ],
+      "sl": {
+        "title": "Vrtna klop", "teaser": "Preprosta klop brez naslona, prvi resen projekt.",
+        "intro": "Sedišče iz treh debelih desk z režami, ogrodje iz letev 45×95. Višina sedišča 45 cm.",
+        "steps": ["Sestavite dva okvirja nog (dve nogi in prečka).", "Okvirja povežite z vzdolžnima vezema.", "Privijte deske sedišča od spodaj, z 6–8 mm režami.", "Robove zaoblite in pobrusite, čela zapečatite."],
+        "tools": "Krožna ali čelilna žaga, vijačnik, po želji šablona za poševne vijake.",
+        "finish": "Zunanje olje ali lazura, čela zapečatena.",
+        "mistakes": ["Brez rež med deskami voda zastaja.", "Noge stojijo v mokri travi: podložite kamne ali drsnike."]
+      },
+      "en": {
+        "title": "Garden bench", "teaser": "A simple backless bench, the first serious project.",
+        "intro": "A seat of three thick boards with gaps, a frame of 45×95 battens. Seat height 45 cm.",
+        "steps": ["Build two leg frames (two legs and a cross rail).", "Join them with two long stretchers.", "Screw the seat boards from below with 6–8 mm gaps.", "Round over and sand the edges, seal the end grain."],
+        "tools": "Circular or mitre saw, driver, optional pocket-hole jig.",
+        "finish": "Exterior oil or glaze, end grain sealed.",
+        "mistakes": ["No gaps between boards, so water pools.", "Legs standing in wet grass: add stones or glides."]
+      }
+    },
+    {
+      "id": "picnic", "icon": "picnic", "level": 2, "where": "out",
+      "params": [
+        {"id": "L", "min": 1500, "max": 2400, "step": 50, "def": 1800, "sl": "Dolžina", "en": "Length"}
+      ],
+      "variants": [
+        {"id": "sf", "sl": "Skobljana smreka", "en": "Planed spruce"},
+        {"id": "larch", "sl": "Macesen (težja, trajnejša)", "en": "Larch (heavier, lasts longer)"}
+      ],
+      "sl": {
+        "title": "Piknik miza s klopema", "teaser": "Miza in klopi v enem kosu, za šest ljudi.",
+        "intro": "Klasična miza z noge v obliki črke A. Kote nog odrežete na čelilni žagi, vse spoje pa zategnete z vijaki s kvadratnim vratom.",
+        "steps": ["Odrežite noge pod kotom in sestavite oba A-okvirja z nosilcema klopi.", "Na okvirja privijte prečke mize.", "Položite deske mize in klopi z režami.", "Dodajte poševni opori proti majanju.", "Po prvi sezoni ponovno zategnite vijake."],
+        "tools": "Čelilna žaga, vrtalnik, ključ, vijaki M10 s kvadratnim vratom, spone.",
+        "finish": "Zunanje olje ali lazura, čela zapečatena.",
+        "mistakes": ["Brez rež med deskami.", "Vijaki niso ponovno zategnjeni, ko se les posuši.", "Smrekova miza tehta okoli 90 kg: nosita jo dva."]
+      },
+      "en": {
+        "title": "Picnic table with benches", "teaser": "Table and benches in one piece, seats six.",
+        "intro": "The classic A-frame table. Cut the leg angles on a mitre saw and pull every joint tight with carriage bolts.",
+        "steps": ["Cut the angled legs and build both A-frames with the seat supports.", "Screw the top cleats to the frames.", "Lay the top and seat boards with gaps.", "Add two diagonal braces against racking.", "Re-tighten the bolts after the first season."],
+        "tools": "Mitre saw, drill, spanner, M10 carriage bolts, clamps.",
+        "finish": "Exterior oil or glaze, end grain sealed.",
+        "mistakes": ["No gaps between boards.", "Bolts not re-tightened once the wood dries.", "A spruce table weighs about 90 kg: it takes two to move."]
+      }
+    },
+    {
+      "id": "workbench", "icon": "workbench", "level": 2, "where": "in",
+      "params": [
+        {"id": "L", "min": 1200, "max": 2400, "step": 100, "def": 1600, "sl": "Dolžina", "en": "Length"},
+        {"id": "W", "min": 500, "max": 800, "step": 50, "def": 600, "sl": "Globina", "en": "Depth"},
+        {"id": "H", "min": 800, "max": 1000, "step": 10, "def": 900, "sl": "Višina", "en": "Height"},
+        {"id": "shelf", "type": "bool", "def": 1, "sl": "Spodnja polica", "en": "Lower shelf"}
+      ],
+      "variants": [
+        {"id": "sf", "sl": "Skobljana smreka 45×95", "en": "Planed spruce 45×95"}
+      ],
+      "sl": {
+        "title": "Delovna miza", "teaser": "Težka, ravna miza: temelj vsake delavnice.",
+        "intro": "Plošča iz letev 45×95, zlepljenih na rob (po zgledu priljubljene mize Paula Sellersa). Noge so podvojene, spodnja polica mizo dodatno ojača. Težka miza je dobra miza.",
+        "steps": ["Letve za ploščo zlepite na rob v 2–3 delih, vsak del stisnite ravno.", "Dele zlepite skupaj in ploščo izravnajte s skobljičem ali tračnim brusilnikom.", "Sestavite noge (po dve letvi skupaj) in jih povežite z vezmi.", "Pritrdite ploščo; dodajte polico.", "Višina: približno do zapestja, ko roke visijo ob telesu."],
+        "tools": "Vsaj 6–8 spon, lepilo PVA, krožna žaga, vijačnik, skobeljnik ali tračni brusilnik.",
+        "finish": "Tanko olje ali nič.",
+        "mistakes": ["Lepljenje vlažnih ali neravnih letev.", "Plošča, stisnjena zvito.", "Brez prečk ali police se miza maje."]
+      },
+      "en": {
+        "title": "Workbench", "teaser": "A heavy, flat bench: the foundation of any workshop.",
+        "intro": "A top of 45×95 battens glued on edge (after Paul Sellers' popular bench). Doubled legs and a lower shelf make it rigid. A heavy bench is a good bench.",
+        "steps": ["Glue the top battens on edge in 2–3 sections, clamping each one flat.", "Glue the sections together and flatten with a hand plane or belt sander.", "Build the legs (two battens each) and join them with rails.", "Fix the top; add the shelf.", "Height: about wrist height with your arms hanging."],
+        "tools": "At least 6–8 clamps, PVA glue, circular saw, driver, hand plane or belt sander.",
+        "finish": "A thin oil or nothing.",
+        "mistakes": ["Gluing damp or uneven battens.", "A top clamped up twisted.", "No rails or shelf, so it racks."]
+      }
+    },
+    {
+      "id": "wall-shelf", "icon": "shelf", "level": 1, "where": "in",
+      "params": [
+        {"id": "L", "min": 400, "max": 1500, "step": 50, "def": 800, "sl": "Dolžina police", "en": "Shelf length"},
+        {"id": "D", "min": 150, "max": 290, "step": 10, "def": 190, "sl": "Globina", "en": "Depth"},
+        {"id": "n", "min": 1, "max": 8, "step": 1, "def": 3, "sl": "Število polic", "en": "Number of shelves", "unit": ""}
+      ],
+      "variants": [
+        {"id": "planed", "sl": "Skobljana smreka", "en": "Planed spruce"},
+        {"id": "radial", "sl": "Radialen les (ostane raven)", "en": "Quarter-sawn (stays flat)"}
+      ],
+      "sl": {
+        "title": "Stenske police", "teaser": "Prvi projekt za notranjost: deska, nosilci, vložki.",
+        "intro": "Polica iz ene široke deske ali iz dveh, zlepljenih na rob. Široke navadne deske se rade izbočijo; radialne ostanejo ravne.",
+        "steps": ["Deske pustite teden ali dva v prostoru, kjer bodo police.", "Odrežite na mero, pobrusite do zrnatosti 180.", "Pri globini nad 19 cm zlepite dve deski na rob.", "Nosilce privijte v steno z vložki, primernimi za vašo steno."],
+        "tools": "Vrtalnik, libela, vložki za opeko, beton ali mavčne plošče.",
+        "finish": "Olje, trdi vosek ali vodni lak.",
+        "mistakes": ["Nosilci preveč narazen: za knjige največ 70–80 cm.", "Napačni vložki za steno.", "Široka navadna deska se izboči."]
+      },
+      "en": {
+        "title": "Wall shelves", "teaser": "The first indoor project: a board, brackets, plugs.",
+        "intro": "A shelf from one wide board or two glued on edge. Wide flat-sawn boards like to cup; quarter-sawn ones stay flat.",
+        "steps": ["Leave the boards for a week or two in the room where they will hang.", "Cut to length, sand to 180 grit.", "For depths over 19 cm glue two boards on edge.", "Fix the brackets with plugs suited to your wall."],
+        "tools": "Drill, level, plugs for brick, concrete or plasterboard.",
+        "finish": "Oil, hard-wax oil or water-based lacquer.",
+        "mistakes": ["Brackets too far apart: for books 70–80 cm at most.", "Wrong wall plugs.", "A wide flat-sawn board cups."]
+      }
+    },
+    {
+      "id": "bookshelf", "icon": "bookshelf", "level": 2, "where": "in",
+      "params": [
+        {"id": "H", "min": 1000, "max": 2200, "step": 50, "def": 1800, "sl": "Višina", "en": "Height"},
+        {"id": "W", "min": 500, "max": 1000, "step": 50, "def": 800, "sl": "Širina", "en": "Width"},
+        {"id": "D", "min": 140, "max": 290, "step": 10, "def": 290, "sl": "Globina", "en": "Depth"},
+        {"id": "n", "min": 3, "max": 8, "step": 1, "def": 5, "sl": "Police (z dnom in vrhom)", "en": "Shelves (incl. top and bottom)", "unit": ""},
+        {"id": "back", "type": "bool", "def": 1, "sl": "Hrbet iz letvic", "en": "Slatted back"}
+      ],
+      "variants": [
+        {"id": "planed", "sl": "Skobljana smreka 28×145", "en": "Planed spruce 28×145"},
+        {"id": "radial", "sl": "Radialen les 28×145", "en": "Quarter-sawn 28×145"}
+      ],
+      "sl": {
+        "title": "Knjižna omara", "teaser": "Odprte police do stropa, iz zlepljenih desk.",
+        "intro": "Stranice in police iz dveh desk 145 mm, zlepljenih na rob (290 mm). Police so vstavljene v utore ali na zatiče. Omaro vedno pritrdite v steno.",
+        "steps": ["Zlepite pare desk; letnice obračajte izmenično.", "Izrežite utore za police (rezkar) ali izvrtajte luknje za zatiče.", "Sestavite okvir in preverite diagonali.", "Pritrdite hrbet iz letvic, ki omaro tudi utrdi.", "Omaro pritrdite v steno."],
+        "tools": "Spone, rezkar ali šablona za zatiče, vijačnik, brusilnik.",
+        "finish": "Olje ali vodni lak.",
+        "mistakes": ["Omara ni pritrjena v steno (nevarnost prevrnitve).", "Vse letnice obrnjene v isto smer.", "Predolge police za težke knjige."]
+      },
+      "en": {
+        "title": "Bookshelf", "teaser": "Open shelves up to the ceiling, from glued boards.",
+        "intro": "Sides and shelves from two 145 mm boards glued on edge (290 mm). Shelves sit in dados or on pins. Always anchor it to the wall.",
+        "steps": ["Glue up the board pairs, alternating the growth rings.", "Rout dados for the shelves or drill shelf-pin holes.", "Assemble the case and check the diagonals.", "Fix the slatted back, which also stiffens the case.", "Anchor it to the wall."],
+        "tools": "Clamps, router or shelf-pin jig, driver, sander.",
+        "finish": "Oil or water-based lacquer.",
+        "mistakes": ["Not anchored to the wall (tip-over risk).", "All growth rings facing the same way.", "Shelves too long for heavy books."]
+      }
+    },
+    {
+      "id": "bed", "icon": "bedframe", "level": 2, "where": "in",
+      "params": [
+        {"id": "MW", "type": "select", "options": [900, 1200, 1400, 1600, 1800], "def": 1600, "sl": "Širina žimnice", "en": "Mattress width"},
+        {"id": "ML", "type": "select", "options": [1900, 2000, 2100], "def": 2000, "sl": "Dolžina žimnice", "en": "Mattress length"},
+        {"id": "LH", "min": 150, "max": 400, "step": 10, "def": 300, "sl": "Višina nog", "en": "Leg height"}
+      ],
+      "variants": [
+        {"id": "sf", "sl": "Skobljana smreka", "en": "Planed spruce"}
+      ],
+      "sl": {
+        "title": "Posteljni okvir", "teaser": "Masivna postelja iz debelih stranic in letvic.",
+        "intro": "Stranice 45×195, noge 95×95, letvice na nosilnih letvah. Pri širini nad 140 cm dodajte srednji nosilec z dvema nogama.",
+        "steps": ["Stranice spojite z nogami s kovinskimi spojkami za postelje (razstavljivo).", "Na notranjo stran stranic privijte nosilni letvi.", "Pri širših posteljah vstavite srednji nosilec z nogama.", "Položite letvice z razmikom, ki ga dovoljuje proizvajalec žimnice."],
+        "tools": "Krožna žaga, vijačnik, spojke za postelje, brusilnik.",
+        "finish": "Olje ali lak.",
+        "mistakes": ["Preveliki razmiki med letvicami (pogosto največ 6–7 cm).", "Brez srednje podpore pri postelji 160 cm.", "Škripanje: pod letvice dajte filc."]
+      },
+      "en": {
+        "title": "Bed frame", "teaser": "A solid bed from thick rails and slats.",
+        "intro": "Rails 45×195, legs 95×95, slats on ledger strips. Above 140 cm wide add a centre beam with two legs.",
+        "steps": ["Join rails and legs with metal bed-rail brackets (knock-down).", "Screw a ledger strip to the inside of each side rail.", "On wider beds fit the centre beam with its legs.", "Lay the slats at the spacing your mattress maker allows."],
+        "tools": "Circular saw, driver, bed-rail brackets, sander.",
+        "finish": "Oil or lacquer.",
+        "mistakes": ["Slat gaps too wide (often 6–7 cm at most).", "No centre support on a 160 cm bed.", "Squeaks: put felt under the slats."]
+      }
+    },
+    {
+      "id": "sauna", "icon": "sauna", "level": 2, "where": "in",
+      "params": [
+        {"id": "L", "min": 1000, "max": 3000, "step": 50, "def": 2000, "sl": "Dolžina klopi", "en": "Bench length"},
+        {"id": "n", "min": 1, "max": 3, "step": 1, "def": 2, "sl": "Nivoji", "en": "Tiers", "unit": ""}
+      ],
+      "variants": [
+        {"id": "radial", "sl": "Radialna smreka/jelka brez grč", "en": "Knot-free quarter-sawn spruce/fir"}
+      ],
+      "sl": {
+        "title": "Klopi za savno", "teaser": "Brez grč in smole, z vijaki od spodaj.",
+        "intro": "Sedišča iz radialnih desk brez grč na ogrodjih 45×70. Jelka nima smolnih kanalov, zato je primerna za savne. Vijaki se ne smejo videti na sedišču: v vročini pečejo.",
+        "steps": ["Ogrodja (noga, prečka) postavite na približno 60 cm.", "Deske privijte od spodaj, z 10 mm režami.", "Vse robove zaoblite in pobrusite.", "Klopi naj bodo snemljive, da jih lahko posušite in očistite."],
+        "tools": "Čelilna žaga, rezkar za zaobljanje robov, vijačnik, nerjaveči vijaki.",
+        "finish": "Nič ali parafinsko olje za savne. Brez laka.",
+        "mistakes": ["Vidni vijaki na sedišču.", "Grče in smola v sedišču.", "Brez rež klop ne more posušiti."]
+      },
+      "en": {
+        "title": "Sauna benches", "teaser": "No knots, no resin, screws from below.",
+        "intro": "Seats from knot-free quarter-sawn boards on 45×70 frames. Fir has no resin canals, so it suits saunas. No screw may show on the seat: in the heat they burn.",
+        "steps": ["Space the frames (leg and cross rail) about 60 cm apart.", "Screw the boards from below with 10 mm gaps.", "Round over and sand every edge.", "Make the benches removable so they can dry and be cleaned."],
+        "tools": "Mitre saw, round-over router bit, driver, stainless screws.",
+        "finish": "None, or paraffin sauna oil. No lacquer.",
+        "mistakes": ["Visible screws on the seat.", "Knots and resin in the seat.", "No gaps, so the bench cannot dry."]
+      }
+    },
+    {
+      "id": "slat-wall", "icon": "slats", "level": 1, "where": "in",
+      "params": [
+        {"id": "W", "min": 1000, "max": 5000, "step": 100, "def": 3000, "sl": "Širina stene", "en": "Wall width"},
+        {"id": "H", "min": 2000, "max": 3000, "step": 50, "def": 2600, "sl": "Višina", "en": "Height"},
+        {"id": "G", "min": 10, "max": 40, "step": 5, "def": 20, "sl": "Reža med letvicami", "en": "Gap between slats"}
+      ],
+      "variants": [
+        {"id": "radial", "sl": "Radialne letvice (bolj ravne)", "en": "Quarter-sawn slats (straighter)"},
+        {"id": "planed", "sl": "Skobljane letvice", "en": "Planed slats"}
+      ],
+      "sl": {
+        "title": "Stena z letvicami", "teaser": "Trend z Instagrama: topla, akustično mehkejša stena.",
+        "intro": "Pokončne letvice 20×45 z enakimi režami na vodoravnih podkonstrukcijskih letvah. Za pravo zvočno izolacijo dodajte za letvice akustično filcano ploščo.",
+        "steps": ["Les naj se privadi prostora vsaj teden dni.", "Vodoravne letve privijte v steno na približno 55 cm, preverite ravnino.", "Letvice nabijte z distančnikom za enakomerne reže.", "Načrtujte vtičnice in stikala, preden začnete."],
+        "tools": "Čelilna žaga, žebljalnik ali lepilo in vijaki, laser ali libela.",
+        "finish": "Vodni lak ali belo olje (smreka na svetlobi porumeni).",
+        "mistakes": ["Les ni aklimatiziran: pozimi se reže odprejo.", "Podkonstrukcija ni v ravnini.", "Pozabljena elektrika."]
+      },
+      "en": {
+        "title": "Slat wall", "teaser": "The Instagram trend: a warm, acoustically softer wall.",
+        "intro": "Vertical 20×45 slats with even gaps on horizontal battens. For real acoustic absorption add felt panels behind the slats.",
+        "steps": ["Let the wood acclimatise in the room for at least a week.", "Screw the horizontal battens to the wall about 55 cm apart and check they are flush.", "Nail the slats using a spacer for even gaps.", "Plan sockets and switches before you start."],
+        "tools": "Mitre saw, brad nailer or adhesive and screws, laser or level.",
+        "finish": "Water-based lacquer or white oil (spruce yellows in light).",
+        "mistakes": ["Wood not acclimatised: gaps open in winter.", "Battens not flush.", "Electrics forgotten."]
+      }
+    }
+  ],
+  "ideas": [
+    {"id": "carport", "level": 3, "where": "out", "sl": {"title": "Nadstrešek za avto", "teaser": "Lepljeni nosilci BSH, statični izračun za sneg.", "q": "Rad bi naredil nadstrešek za en avto, približno 3 × 5 m. Kateri les potrebujem in koliko?"}, "en": {"title": "Carport", "teaser": "Glulam posts and beams, snow load calculated.", "q": "I want to build a single carport, about 3 × 5 m. Which timber do I need and how much?"}},
+    {"id": "adirondack", "level": 2, "where": "out", "sl": {"title": "Stol Adirondack", "teaser": "Ameriški načrt, pretvorjen v evropske mere.", "q": "Imam ameriški načrt za stol Adirondack: 3 × 2x4 @ 8 ft in 1 × 1x6 @ 12 ft. Kaj to pomeni v vaših merah?"}, "en": {"title": "Adirondack chair", "teaser": "A US plan, converted to European sizes.", "q": "I have a US Adirondack chair plan: 3 × 2x4 @ 8 ft and 1 × 1x6 @ 12 ft. What is that in your sizes?"}},
+    {"id": "screen", "level": 2, "where": "out", "sl": {"title": "Zasebna ograja iz letvic", "teaser": "Vodoravne letvice, ki zadržijo poglede, ne vetra.", "q": "Rad bi naredil vodoravno ograjo iz letvic za zasebnost, 3 polja po 1,8 × 1,8 m."}, "en": {"title": "Slatted privacy screen", "teaser": "Horizontal slats that stop eyes, not the wind.", "q": "I want a horizontal slatted privacy screen, 3 panels of 1.8 × 1.8 m."}},
+    {"id": "deck", "level": 3, "where": "out", "sl": {"title": "Lesena terasa", "teaser": "Zakaj macesen in kako preprečiti gnitje.", "q": "Razmišljam o leseni terasi 3 × 3 m. Ali je smreka v redu ali potrebujem macesen?"}, "en": {"title": "Small deck", "teaser": "Why larch, and how to keep it from rotting.", "q": "I'm thinking about a 3 × 3 m deck. Is spruce OK or do I need larch?"}},
+    {"id": "doghouse", "level": 2, "where": "out", "sl": {"title": "Pasja uta", "teaser": "Dvignjeno dno, vrata stran od vetra.", "q": "Kako naredim pasjo uto za srednje velikega psa in koliko lesa potrebujem?"}, "en": {"title": "Dog house", "teaser": "Raised floor, door away from the wind.", "q": "How do I build a dog house for a medium dog and how much wood do I need?"}},
+    {"id": "coop", "level": 2, "where": "out", "sl": {"title": "Kokošnjak", "teaser": "Za 4–6 kokoši, zračen in lahek za čiščenje.", "q": "Rad bi naredil kokošnjak za 5 kokoši. Kakšen les in koliko?"}, "en": {"title": "Chicken coop", "teaser": "For 4–6 hens, airy and easy to clean.", "q": "I want to build a coop for 5 hens. Which wood and how much?"}},
+    {"id": "beehive", "level": 2, "where": "out", "sl": {"title": "Satniki za AŽ panj", "teaser": "Natančne letvice iz radialnega lesa.", "q": "Čebelarim z AŽ panji. Kakšen les je najboljši za satnike in koliko letvic potrebujem za 10 panjev?"}, "en": {"title": "AŽ beehive frames", "teaser": "Precise laths from quarter-sawn wood.", "q": "I keep bees in AŽ hives. Which wood is best for frames and how many laths do I need for 10 hives?"}},
+    {"id": "nestbox", "level": 1, "where": "out", "sl": {"title": "Ptičja hišica", "teaser": "Prava odprtina za sinico, brez palčke.", "q": "Kako naredim ptičjo hišico za sinice? Kako velika naj bo odprtina?"}, "en": {"title": "Nest box", "teaser": "The right hole for tits, and no perch.", "q": "How do I build a nest box for tits? How big should the hole be?"}},
+    {"id": "shed", "level": 3, "where": "out", "sl": {"title": "Vrtna uta za orodje", "teaser": "2 × 2 m, ogrodje, obloga, streha.", "q": "Rad bi naredil vrtno uto 2 × 2 m za orodje. Kaj vse potrebujem?"}, "en": {"title": "Tool shed", "teaser": "2 × 2 m: frame, cladding, roof.", "q": "I want to build a 2 × 2 m garden tool shed. What do I need?"}},
+    {"id": "greenhouse", "level": 3, "where": "out", "sl": {"title": "Rastlinjak", "teaser": "Ogrodje za polikarbonatne plošče.", "q": "Načrtujem rastlinjak 2 × 3 m iz polikarbonata. Kakšno leseno ogrodje potrebujem?"}, "en": {"title": "Greenhouse", "teaser": "A frame for polycarbonate sheets.", "q": "I'm planning a 2 × 3 m polycarbonate greenhouse. What timber frame do I need?"}},
+    {"id": "kitchen", "level": 3, "where": "out", "sl": {"title": "Zunanja kuhinja", "teaser": "Ogrodje, obloga in varna razdalja od žara.", "q": "Rad bi naredil zunanjo kuhinjo z žarom, 2 m dolgo. Kako uporabim les in česa ne smem?"}, "en": {"title": "Outdoor kitchen", "teaser": "Frame, cladding and a safe distance from the grill.", "q": "I want a 2 m outdoor kitchen with a grill. How should I use wood, and what should I avoid?"}},
+    {"id": "loft-stair", "level": 3, "where": "in", "sl": {"title": "Strme stopnice na podstrešje", "teaser": "Lica in stopnice brez grč na robovih.", "q": "Potrebujem strme stopnice na podstrešje, višina 2,6 m. Kakšen les in koliko?"}, "en": {"title": "Loft stair", "teaser": "Stringers and treads with clean edges.", "q": "I need a steep loft stair, 2.6 m floor to floor. Which wood and how much?"}},
+    {"id": "floating-shelf", "level": 2, "where": "in", "sl": {"title": "Lebdeča polica", "teaser": "Debela deska na skritih jeklenih palicah.", "q": "Kako naredim lebdečo polico 80 cm in kakšno desko potrebujem?"}, "en": {"title": "Floating shelf", "teaser": "A thick board on hidden steel rods.", "q": "How do I make an 80 cm floating shelf and which board do I need?"}},
+    {"id": "platform-bed", "level": 2, "where": "in", "sl": {"title": "Nizka postelja na podestu", "teaser": "Lebdeč videz, zračno dno.", "q": "Rad bi naredil nizko posteljo na podestu za žimnico 160 × 200."}, "en": {"title": "Low platform bed", "teaser": "A floating look and a ventilated deck.", "q": "I want a low platform bed for a 160 × 200 mattress."}},
+    {"id": "frames", "level": 2, "where": "in", "sl": {"title": "Okvirji za slike", "teaser": "Natančni zajeri iz letvic brez grč.", "q": "Kako naredim okvir za sliko 30 × 40 cm in kakšne letvice potrebujem?"}, "en": {"title": "Picture frames", "teaser": "Clean mitres from knot-free mouldings.", "q": "How do I make a 30 × 40 cm picture frame and which mouldings do I need?"}},
+    {"id": "acoustic", "level": 2, "where": "in", "sl": {"title": "Akustični panel", "teaser": "Letvice na filcu: kaj zares duši zvok.", "q": "Ali lahko naredim akustične panele z letvicami sam? Kakšne letvice?"}, "en": {"title": "Acoustic slat panel", "teaser": "Slats on felt: what really absorbs sound.", "q": "Can I make my own acoustic slat panels? Which slats?"}},
+    {"id": "cat-tree", "level": 1, "where": "in", "sl": {"title": "Mačje drevo", "teaser": "Stabilen steber s sisalom in ploščadmi.", "q": "Rad bi naredil mačje drevo s tremi ploščadmi. Kakšen les?"}, "en": {"title": "Cat tree", "teaser": "A stable sisal post with platforms.", "q": "I want to build a cat tree with three platforms. Which wood?"}},
+    {"id": "kids-table", "level": 1, "where": "in", "sl": {"title": "Otroška mizica s stolčkoma", "teaser": "Zaobljeni robovi, varen premaz.", "q": "Kako naredim otroško mizico 60 × 60 cm in dva stolčka?"}, "en": {"title": "Kids' table and stools", "teaser": "Rounded edges, a toy-safe finish.", "q": "How do I make a 60 × 60 cm kids' table and two stools?"}},
+    {"id": "pallet-sofa", "level": 1, "where": "out", "sl": {"title": "Kavč v slogu palet", "teaser": "Iz svežega lesa, ki se mora najprej posušiti.", "q": "Rad bi naredil kavč iz palet za teraso. Ali lahko uporabim svež les?"}, "en": {"title": "Pallet-style sofa", "teaser": "From fresh wood that must dry first.", "q": "I want to build a pallet-style sofa for the terrace. Can I use fresh sawn wood?"}},
+    {"id": "coat-rack", "level": 1, "where": "in", "sl": {"title": "Obešalnik za predsobo", "teaser": "Deska, kljuke, polica: v eni uri.", "q": "Kako naredim stenski obešalnik s polico za predsobo?"}, "en": {"title": "Entryway coat rack", "teaser": "A board, hooks, a shelf: in an hour.", "q": "How do I make a wall coat rack with a shelf for the entryway?"}},
+    {"id": "board", "level": 1, "where": "in", "sl": {"title": "Servirna deska", "teaser": "Zakaj smreka ni za rezanje, jelka pa za serviranje.", "q": "Ali lahko iz smreke naredim desko za rezanje?"}, "en": {"title": "Serving board", "teaser": "Why spruce is no chopping board, but fir can serve.", "q": "Can I make a cutting board from spruce?"}}
+  ]
+}

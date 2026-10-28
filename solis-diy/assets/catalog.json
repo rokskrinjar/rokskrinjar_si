@@ -1,0 +1,85 @@
+{
+  "version": "2026-10-28",
+  "note": "Concept data. Prices are illustrative estimates incl. 22 % VAT, ex works Straža, not an official Solis Timber price list.",
+  "vat": 0.22,
+  "kerf": 4,
+  "trim": 20,
+  "species": {
+    "sf": {"sl": "smreka/jelka", "en": "spruce/fir", "factor": 1, "density": 470},
+    "pine": {"sl": "bor", "en": "pine", "factor": 1, "density": 520},
+    "larch": {"sl": "macesen (po naročilu)", "en": "larch (to order)", "factor": 1.45, "density": 600}
+  },
+  "products": [
+    {
+      "id": "planed", "code": "SKB",
+      "sl": {"name": "Skobljan les", "short": "Gladke, ravne deske in letve, pripravljene za delo.", "use": "Notranje pohištvo, police, vrtno pohištvo, obloge, otroški izdelki (zaobljeni robovi)."},
+      "en": {"name": "Planed timber", "short": "Smooth, square boards and battens, ready to use.", "use": "Indoor furniture, shelves, garden furniture, cladding, kids' items (rounded edges)."},
+      "species": ["sf", "larch"], "price": 1190, "benchmark": 1900,
+      "stock": [3000, 4000], "maxLen": 4000, "minLen": 150, "moisture": "KD 8–12 %",
+      "sections": ["20x45", "20x95", "20x145", "28x95", "28x145", "28x195", "45x45", "45x70", "45x95", "45x145", "45x195", "70x70", "95x95"],
+      "edges": true
+    },
+    {
+      "id": "radial", "code": "RAD",
+      "sl": {"name": "Radialen les", "short": "Radialno žagan, brez stržena: deske ostanejo ravne.", "use": "Mizne plošče, vrata, okvirji, klopi za savno, obloge, panjski okvirji."},
+      "en": {"name": "Quarter-sawn timber", "short": "Radially sawn, no pith: boards stay flat.", "use": "Tabletops, doors, frames, sauna benches, cladding, beehive frames."},
+      "species": ["sf"], "price": 1450, "benchmark": null,
+      "stock": [3000, 4000], "maxLen": 4000, "minLen": 150, "moisture": "KD 8–12 %",
+      "sections": ["20x45", "20x95", "28x95", "28x145", "42x95"],
+      "knotfree": 0.2
+    },
+    {
+      "id": "dry", "code": "SUH",
+      "sl": {"name": "Suh žagan les", "short": "Tehnično sušen, površina naravnost z žage.", "use": "Konstrukcije, vrtne gradnje, rustikalen videz, les, ki ga boste skobljali sami."},
+      "en": {"name": "Dry sawn timber", "short": "Kiln dried, surface straight from the saw.", "use": "Frames, garden builds, rustic looks, stock you will plane yourself."},
+      "species": ["sf", "pine", "larch"], "price": 640, "benchmark": null,
+      "stock": [3000, 4000], "maxLen": 4000, "minLen": 300, "moisture": "KD 12–20 %",
+      "sections": ["24x100", "24x150", "30x50", "50x100", "50x150", "80x80", "100x100"]
+    },
+    {
+      "id": "fresh", "code": "SVZ",
+      "sl": {"name": "Svež žagan les", "short": "Najcenejši, a moker: se bo krčil in zvijal.", "use": "Kompostniki, grobe vrtne gradnje, opaž, palete, les za lastno sušenje."},
+      "en": {"name": "Fresh sawn timber", "short": "The cheapest, but wet: it will shrink and move.", "use": "Compost bins, rough garden builds, formwork, pallets, stock to air-dry yourself."},
+      "species": ["sf", "pine"], "price": 390, "benchmark": 430,
+      "stock": [3000, 4000], "maxLen": 4000, "minLen": 300, "moisture": "svež / fresh > 30 %", "density": 800,
+      "sections": ["24x100", "24x150", "50x100", "80x80", "100x100"],
+      "ht": 25
+    },
+    {
+      "id": "bsh", "code": "BSH",
+      "sl": {"name": "Lepljen nosilec BSH GL24h", "short": "Raven, stabilen, nosilen, do 13,5 m. Odrezan na mero.", "use": "Stebri in tramovi za pergole, nadstreške, preklade; pod streho."},
+      "en": {"name": "Glulam BSH GL24h", "short": "Straight, stable, strong, up to 13.5 m. Cut to length.", "use": "Posts and beams for pergolas, carports, lintels; under a roof."},
+      "species": ["sf"], "price": 1050, "benchmark": 1300,
+      "stock": null, "maxLen": 13500, "minLen": 1000, "moisture": "KD 10–12 %",
+      "sections": ["80x80", "100x100", "120x120", "80x160", "100x200", "120x200", "120x240"]
+    },
+    {
+      "id": "kvh", "code": "KVH", "soon": true,
+      "sl": {"name": "Konstrukcijski les KVH", "short": "Novo: vzdolžno spojen C24, skobljan. V pripravi.", "use": "Ogrodja lop, špirovci, stebri, vidni tramovi v notranjosti."},
+      "en": {"name": "Structural timber KVH", "short": "New: finger-jointed C24, planed. Coming soon.", "use": "Shed frames, rafters, studs, visible indoor beams."},
+      "species": ["sf"], "price": 890, "benchmark": 1450,
+      "stock": null, "maxLen": 13000, "minLen": 1000, "moisture": "15 ± 3 %",
+      "sections": ["60x120", "60x160", "80x120", "100x100", "120x120"]
+    }
+  ],
+  "extras": [
+    {"id": "pellets", "sl": "Peleti A1, vreča 15 kg", "en": "A1 pellets, 15 kg bag", "price": 6.49, "bulk": {"from": 66, "price": 5.99}, "kg": 15},
+    {"id": "kindling", "sl": "Pričeljki za podžig, vreča 25 l", "en": "Offcut kindling, 25 l bag", "price": 4.5, "kg": 8},
+    {"id": "sawdust", "sl": "Suha žagovina za steljo, vreča 50 l", "en": "Dry sawdust for bedding, 50 l bag", "price": 3.9, "kg": 7},
+    {"id": "bark", "sl": "Mleto lubje za zastirko, 1 m³", "en": "Ground bark mulch, 1 m³", "price": 34, "kg": 300, "noParcel": true}
+  ],
+  "fees": {"cut": 0.3, "smallOrder": {"below": 100, "fee": 8}},
+  "delivery": {
+    "pickup": {"sl": "Prevzem na žagi v Straži", "en": "Pickup at the sawmill in Straža", "price": 0},
+    "parcel": {"sl": "Paket (kosi do 2 m)", "en": "Parcel (pieces up to 2 m)", "maxLen": 2000, "tiers": [[25, 5.99], [70, 16.99], [200, 29.99]]},
+    "van": {"sl": "Kombi (do 4 m, do 1 t)", "en": "Van (up to 4 m, up to 1 t)", "maxLen": 4000, "maxKg": 1000, "base": 25, "baseKm": 20, "perKm": 0.7},
+    "truck": {"sl": "Tovornjak (dolgi nosilci)", "en": "Truck (long beams)", "base": 60, "baseKm": 20, "perKm": 1.2}
+  },
+  "places": [
+    ["Straža", 0], ["Novo mesto", 9], ["Dolenjske Toplice", 8], ["Žužemberk", 20], ["Trebnje", 28], ["Metlika", 35],
+    ["Črnomelj", 40], ["Kočevje", 45], ["Krško", 45], ["Sevnica", 50], ["Brežice", 55], ["Grosuplje", 55],
+    ["Ljubljana", 75], ["Domžale", 90], ["Celje", 95], ["Vrhnika", 95], ["Kamnik", 100], ["Kranj", 100],
+    ["Škofja Loka", 100], ["Velenje", 115], ["Postojna", 125], ["Jesenice", 140], ["Maribor", 150],
+    ["Ptuj", 165], ["Nova Gorica", 175], ["Koper", 180], ["Murska Sobota", 200]
+  ]
+}
