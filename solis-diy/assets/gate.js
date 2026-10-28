@@ -11,6 +11,23 @@
     });
   }
   window.SolisKey = function () { return unlocked() ? PASS_SHA256 : ""; };
+
+  // Past the countdown deadline the concept is closed for everyone, password or not.
+  if (window.SD && SD.expired && SD.expired()) {
+    document.documentElement.classList.add("locked", "expired");
+    document.addEventListener("DOMContentLoaded", function () {
+      var box = document.createElement("div");
+      box.className = "gate";
+      box.innerHTML =
+        '<div class="gate-card">' +
+        '<p class="eyebrow">Solis DIY · <span class="sl">koncept</span><span class="en">concept</span></p>' +
+        '<h1><span class="sl">Ponudba je potekla</span><span class="en">The offer has expired</span></h1>' +
+        '<p class="muted"><span class="sl">Koncept Solis DIY je bil na voljo do 2. 11. 2026 ob 14.00.</span><span class="en">The Solis DIY concept was available until 2 Nov 2026, 14:00.</span></p>' +
+        '<p class="fine"><a href="/projects/">← Rok Skrinjar</a></p></div>';
+      document.body.appendChild(box);
+    });
+    return;
+  }
   if (unlocked()) return;
 
   // Hide the page before it paints; the form is the only thing shown until the password is right.

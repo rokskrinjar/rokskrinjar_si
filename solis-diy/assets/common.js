@@ -93,7 +93,9 @@
   }
 
   // Countdown in the concept strip (and on the password card): the concept is on offer for five days.
+  // After the deadline gate.js locks every page and /api/solis stops answering (same date in api/solis.js).
   var DEADLINE = Date.parse("2026-11-02T14:00:00+01:00");
+  function expired() { return Date.now() >= DEADLINE; }
   function countdownText() {
     var s = Math.max(0, Math.floor((DEADLINE - Date.now()) / 1000));
     if (!s) return lang() === "en" ? "The concept offer has expired." : "Ponudba koncepta je potekla.";
@@ -102,6 +104,8 @@
     return (lang() === "en" ? "Concept available for " : "Koncept na voljo še ") + d + " d " + p(h) + " h " + p(m) + " min " + p(sec) + " s";
   }
   function tick() {
+    // A page left open past the deadline reloads once, so the lock in gate.js takes over.
+    if (expired() && !document.documentElement.classList.contains("expired")) { location.reload(); return; }
     var t = countdownText();
     document.querySelectorAll(".countdown").forEach(function (el) { el.textContent = t; });
   }
@@ -113,5 +117,5 @@
   });
   document.addEventListener("langchange", tick);
 
-  window.SD = { tick: tick, lang: lang, setLang: setLang, tr: tr, load: load, eur: eur, num: num, sec: sec, esc: esc, icon: icon, rings: rings };
+  window.SD = { tick: tick, expired: expired, lang: lang, setLang: setLang, tr: tr, load: load, eur: eur, num: num, sec: sec, esc: esc, icon: icon, rings: rings };
 })();
