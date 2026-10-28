@@ -194,7 +194,7 @@ def author_md(exclude=("aktiva-ai",), made=SOLIS_MADE):
     for p in sorted(projects, key=lambda p: p["date"], reverse=True):
         if p["slug"] in exclude:
             continue
-        out.append(f"- {p['title']} ({p['date']}): {p['description']} Link: /{p['slug']}/")
+        out.append(f"- {p['title']}: {p['description']} Link: /{p['slug']}/")  # no dates, as on /projects/
     out += ["", "## How this concept was made", made]
     # From Rok's CV, published at his request (2026-10-28). The home address stays out.
     out += ["", "## Contact Rok Skrinjar (write them exactly as these markdown links)",

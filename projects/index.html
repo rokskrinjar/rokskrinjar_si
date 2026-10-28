@@ -43,9 +43,7 @@
     .cover img { width:calc(100% + 36px); height:calc(100% + 36px); margin:-18px; object-fit:cover; }
     .card:hover .cover { transform:translateY(-2px); }
     .card:hover h3 { color:var(--accent); }
-    .title-row { display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
     .card h3 { margin:0; font-size:1.25rem; font-weight:600; }
-    .date { color:var(--muted); font-size:.8rem; white-space:nowrap; }
     .card p { margin:0; color:var(--sub); font-size:.95rem; }
     .tags { color:var(--muted); font-size:.8rem; }
 
@@ -109,7 +107,6 @@
     const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     const color = c => /^#[0-9a-f]{3,8}$/i.test(c || '') ? c : '';
     const path = p => /^\/?[\w\-./]+$/.test(p || '') && !p.includes('..') ? p : '';
-    const month = d => { const t = new Date(String(d) + 'T12:00:00'); return isNaN(t) ? esc(d) : t.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }); };
     const cap = s => (s = String(s)).length <= 3 ? s.toUpperCase() : s.charAt(0).toUpperCase() + s.slice(1); // short tags are acronyms (si → SI)
 
     // Theme: follows the system until the visitor picks one; the choice is remembered.
@@ -135,7 +132,7 @@
     fetch('/projects.json', { cache: 'no-store' })
       .then(r => r.json())
       .then(items => {
-        items.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+        items.sort((a, b) => (b.date || '').localeCompare(a.date || '')); // dates only order the list; they are not shown
         const href = p => esc(p.href || `/${p.slug}/`);
         const cover = p => {
           const c = p.cover || {}, img = path(p.image);
@@ -146,7 +143,7 @@
         document.getElementById('recent').innerHTML = recent.length ? recent.map(p => `
           <a class="card" href="${href(p)}">
             ${cover(p)}
-            <div class="title-row"><h3>${esc(p.title)}</h3>${p.date ? `<span class="date">${month(p.date)}</span>` : ''}</div>
+            <h3>${esc(p.title)}</h3>
             <p>${esc(p.description)}</p>
             ${(p.tags || []).length ? `<span class="tags">${p.tags.map(t => esc(cap(t))).join(' · ')}</span>` : ''}
           </a>`).join('') : '<p class="state">More soon.</p>';
@@ -155,7 +152,6 @@
           document.getElementById('more-count').textContent = more.length + (more.length === 1 ? ' project' : ' projects');
           document.getElementById('more').innerHTML = more.map(p => `
             <li><a class="row" href="${href(p)}">
-              <span class="when">${p.date ? esc(String(p.date).slice(0, 4)) : ''}</span>
               <span class="what"><b>${esc(p.title)}</b></span>
               <span class="why">${esc(p.description)}</span>
             </a></li>`).join('');
