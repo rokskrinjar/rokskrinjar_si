@@ -92,5 +92,26 @@
     return out.reverse().join("");
   }
 
-  window.SD = { lang: lang, setLang: setLang, tr: tr, load: load, eur: eur, num: num, sec: sec, esc: esc, icon: icon, rings: rings };
+  // Countdown in the concept strip (and on the password card): the concept is on offer for five days.
+  var DEADLINE = Date.parse("2026-11-02T14:00:00+01:00");
+  function countdownText() {
+    var s = Math.max(0, Math.floor((DEADLINE - Date.now()) / 1000));
+    if (!s) return lang() === "en" ? "The concept offer has expired." : "Ponudba koncepta je potekla.";
+    var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+    var p = function (n) { return String(n).padStart(2, "0"); };
+    return (lang() === "en" ? "Concept available for " : "Koncept na voljo še ") + d + " d " + p(h) + " h " + p(m) + " min " + p(sec) + " s";
+  }
+  function tick() {
+    var t = countdownText();
+    document.querySelectorAll(".countdown").forEach(function (el) { el.textContent = t; });
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    var strip = document.querySelector(".concept");
+    if (strip) { var c = document.createElement("div"); c.className = "countdown"; c.setAttribute("role", "timer"); strip.appendChild(c); }
+    tick();
+    setInterval(tick, 1000);
+  });
+  document.addEventListener("langchange", tick);
+
+  window.SD = { tick: tick, lang: lang, setLang: setLang, tr: tr, load: load, eur: eur, num: num, sec: sec, esc: esc, icon: icon, rings: rings };
 })();

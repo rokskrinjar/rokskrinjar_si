@@ -20,6 +20,7 @@
     box.className = "gate";
     box.innerHTML =
       '<form class="gate-card" id="gate">' +
+      '<div class="countdown" role="timer"></div>' +
       '<p class="eyebrow">Solis DIY · <span class="sl">koncept</span><span class="en">concept</span></p>' +
       '<h1><span class="sl">Zasebno</span><span class="en">Private</span></h1>' +
       '<p class="muted"><span class="sl">Za ogled vnesite geslo.</span><span class="en">Enter the password to view.</span></p>' +
@@ -28,6 +29,7 @@
       '<p class="gate-err" id="gate-err" role="alert"></p>' +
       '<p class="fine"><a href="/projects/">← Rok Skrinjar</a></p></form>';
     document.body.appendChild(box);
+    if (window.SD && SD.tick) SD.tick();
     var pw = box.querySelector("#gate-pw");
     pw.focus();
     box.querySelector("#gate").addEventListener("submit", function (e) {
