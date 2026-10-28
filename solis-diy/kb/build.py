@@ -173,8 +173,14 @@ def economics_md():
     return "\n".join(out)
 
 
-def author_md():
-    """The author's public CV, the same data /projects/ shows. Nothing private."""
+SOLIS_MADE = ("Rok researched the company, market prices and wood uses from public sources, wrote the guide and 13 projects in Slovenian and English, "
+              "built the AI adviser (Skobi) on a knowledge base and the planner that turns a cut list into a production cutting plan, and the business "
+              "case and economics model. He used AI throughout, as the business case's section \"What AI did here\" describes.")
+
+
+def author_md(exclude=("aktiva-ai",), made=SOLIS_MADE):
+    """The author's public CV, the same data /projects/ shows. Nothing private.
+    Concepts made for other companies are left out of each other's list (exclude)."""
     exp = json.loads((ROOT / "projects" / "experience.json").read_text(encoding="utf-8"))
     projects = json.loads((ROOT / "projects.json").read_text(encoding="utf-8"))
     out = ["# THE AUTHOR: Rok Skrinjar (public profile, as on rokskrinjar.si/projects/)", "",
@@ -186,11 +192,10 @@ def author_md():
     out += ["", "## Education"] + [f"- {e['year']}: {e['title']}, {e['school']}" for e in exp["education"]]
     out += ["", "## Other projects on rokskrinjar.si/projects/"]
     for p in sorted(projects, key=lambda p: p["date"], reverse=True):
+        if p["slug"] in exclude:
+            continue
         out.append(f"- {p['title']} ({p['date']}): {p['description']} Link: /{p['slug']}/")
-    out += ["", "## How this concept was made",
-            "Rok researched the company, market prices and wood uses from public sources, wrote the guide and 13 projects in Slovenian and English, "
-            "built the AI adviser (Skobi) on a knowledge base and the planner that turns a cut list into a production cutting plan, and the business "
-            "case and economics model. He used AI throughout, as the business case's section \"What AI did here\" describes."]
+    out += ["", "## How this concept was made", made]
     # From Rok's CV, published at his request (2026-10-28). The home address stays out.
     out += ["", "## Contact Rok Skrinjar (write them exactly as these markdown links)",
             "- E-mail: [rok.skrinjar@gmail.com](mailto:rok.skrinjar@gmail.com)",

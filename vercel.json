@@ -9,6 +9,9 @@
     },
     "api/solis.js": {
       "maxDuration": 60
+    },
+    "api/aktiva.js": {
+      "maxDuration": 60
     }
   },
   "redirects": [

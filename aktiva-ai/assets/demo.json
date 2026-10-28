@@ -1,0 +1,75 @@
+{
+  "note": "Izmišljeni podatki za demo. Stavba, lastnik in zneski ne obstajajo.",
+  "building": {
+    "name": "Stavba Lipa",
+    "address": "Lipova ulica 7, Ljubljana (izmišljeno)",
+    "units": 24,
+    "floors": 6,
+    "area": 1642,
+    "built": 1978,
+    "features": ["dvigalo", "daljinsko ogrevanje z delilniki", "kolesarnica", "skupna pralnica"],
+    "fund": { "balance": 41850, "asOf": "30. 9. 2026", "plan": "Zamenjava strešne kritine, predvidoma 2027 (ocena 62.000 €); obnova jaška dvigala 2028." }
+  },
+  "unit": { "label": "Stanovanje 12, 3. nadstropje", "area": 68.4, "persons": 2, "share": "4,17 %", "payer": "Šifra plačnika: 0012-LIPA (demo)" },
+  "rsRate": 0.5,
+  "months": [
+    {
+      "id": "2026-09", "label": "September 2026",
+      "lines": [
+        { "k": "upravljanje", "t": "Upravljanje stavbe (pogodba z upravnikom)", "key": "na enoto", "v": 9.8 },
+        { "k": "rs", "t": "Rezervni sklad", "key": "68,4 m² × 0,50 €", "v": 34.2 },
+        { "k": "elektrika", "t": "Elektrika skupnih prostorov", "key": "po osebah", "v": 3.12 },
+        { "k": "ciscenje", "t": "Čiščenje skupnih prostorov", "key": "na enoto", "v": 6.4 },
+        { "k": "dvigalo", "t": "Vzdrževanje dvigala", "key": "po osebah", "v": 4.1 },
+        { "k": "hisnik", "t": "Hišniška služba", "key": "na enoto", "v": 3.2 },
+        { "k": "zavarovanje", "t": "Zavarovanje skupnih delov", "key": "po solastniškem deležu", "v": 2.85 },
+        { "k": "ogrevanje-stalni", "t": "Ogrevanje, stalni del", "key": "po ogrevani površini", "v": 0 },
+        { "k": "ogrevanje-delilniki", "t": "Ogrevanje, po delilnikih", "key": "po odčitkih delilnikov", "v": 0 },
+        { "k": "tsv", "t": "Topla sanitarna voda", "key": "po vodomeru", "v": 11.2 },
+        { "k": "voda", "t": "Hladna voda in odvajanje", "key": "po vodomeru", "v": 14.3 }
+      ]
+    },
+    {
+      "id": "2026-10", "label": "Oktober 2026",
+      "lines": [
+        { "k": "upravljanje", "t": "Upravljanje stavbe (pogodba z upravnikom)", "key": "na enoto", "v": 9.8 },
+        { "k": "rs", "t": "Rezervni sklad", "key": "68,4 m² × 0,50 €", "v": 34.2 },
+        { "k": "elektrika", "t": "Elektrika skupnih prostorov", "key": "po osebah", "v": 3.45 },
+        { "k": "ciscenje", "t": "Čiščenje skupnih prostorov", "key": "na enoto", "v": 6.4 },
+        { "k": "dvigalo", "t": "Vzdrževanje dvigala", "key": "po osebah", "v": 4.1 },
+        { "k": "hisnik", "t": "Hišniška služba", "key": "na enoto", "v": 3.2 },
+        { "k": "zavarovanje", "t": "Zavarovanje skupnih delov", "key": "po solastniškem deležu", "v": 2.85 },
+        { "k": "ogrevanje-stalni", "t": "Ogrevanje, stalni del", "key": "po ogrevani površini", "v": 19.6 },
+        { "k": "ogrevanje-delilniki", "t": "Ogrevanje, po delilnikih", "key": "po odčitkih delilnikov", "v": 29.4 },
+        { "k": "tsv", "t": "Topla sanitarna voda", "key": "po vodomeru", "v": 12.1 },
+        { "k": "voda", "t": "Hladna voda in odvajanje", "key": "po vodomeru", "v": 14.8 }
+      ],
+      "notes": ["Ogrevalna sezona se je začela 1. 10. 2026.", "Ogrevanje se deli 60 % po delilnikih in 40 % po ogrevani površini.", "Elektrika skupnih prostorov: daljši večeri, razsvetljava na stopnišču gori dlje.", "Rezervni sklad 0,50 €/m² je sklep lastnikov; zakonski minimum za stavbo, staro 30–60 let, je 0,25 €/m²."]
+    }
+  ],
+  "seedOrders": [
+    { "id": "N-2637", "cas": "2026-10-27T21:14:00+01:00", "kanal": "Hiško (klepet)", "status": "v delu", "naslov": "Na stopnišču v 4. nadstropju ne gori luč", "kategorija": "razsvetljava", "nujnost": "24 ur", "lokacija": "Stopnišče, 4. nadstropje", "opis": "Luč na stopnišču ne gori od nedelje zvečer; stopnišče je ponoči temno.", "izvajalec": "hišnik", "lastniku": "Do popravila uporabljajte luč na telefonu; hišnik pride v 24 urah." },
+    { "id": "N-2636", "cas": "2026-10-27T08:02:00+01:00", "kanal": "Hiško (klepet)", "status": "nov", "naslov": "Dvigalo se ustavlja med nadstropji", "kategorija": "dvigalo", "nujnost": "24 ur", "lokacija": "Dvigalo, vhod A", "opis": "Dvigalo se je dvakrat ustavilo med 2. in 3. nadstropjem, nato je nadaljevalo vožnjo.", "izvajalec": "pogodbeni izvajalec", "lastniku": "Če obstanete v dvigalu, pritisnite alarmni gumb v kabini." },
+    { "id": "N-2635", "cas": "2026-10-26T16:40:00+01:00", "kanal": "telefon", "status": "zaključen", "naslov": "Zamašen odtok v skupni pralnici", "kategorija": "kanalizacija", "nujnost": "ta teden", "lokacija": "Klet, skupna pralnica", "opis": "Voda počasi odteka iz talnega odtoka.", "izvajalec": "hišnik", "lastniku": "" },
+    { "id": "N-2634", "cas": "2026-10-25T10:21:00+01:00", "kanal": "Hiško (klepet)", "status": "za zbor lastnikov", "naslov": "Odstopa strešna kritina nad vhodom B", "kategorija": "streha-fasada", "nujnost": "načrtovano", "lokacija": "Streha nad vhodom B", "opis": "Po vetru se vidi odstopljena pločevina na robu strehe.", "izvajalec": "pogodbeni izvajalec", "lastniku": "Ogled organizira upravnik; zamenjava kritine je že v načrtu investicij.", "podlaga": "" },
+    { "id": "N-2633", "cas": "2026-10-24T19:55:00+01:00", "kanal": "e-pošta", "status": "zaključen", "naslov": "Domofon ne odpira vrat vhoda A", "kategorija": "domofon-zvonci", "nujnost": "24 ur", "lokacija": "Vhod A", "opis": "Tipka za odpiranje vrat iz stanovanj ne deluje.", "izvajalec": "pogodbeni izvajalec", "lastniku": "" }
+  ],
+  "sim": {
+    "period": "30 dni, 350 stavb (simulacija)",
+    "questions": 3120,
+    "selfServed": 0.71,
+    "orders": 214,
+    "escalated": 0.18,
+    "firstResponse": "9 s",
+    "before": "1,8 delovnega dne po e-pošti; telefon obračuna 2 uri na dan",
+    "hoursSaved": 390,
+    "accuracy": 0.94,
+    "csat": 4.4,
+    "topics": [
+      ["Razdelilnik in obračun", 0.27], ["Ogrevanje in delilniki", 0.16], ["Okvare in delovni nalogi", 0.15],
+      ["Rezervni sklad", 0.11], ["Zbor lastnikov in odločanje", 0.08], ["iiPortal in e-računi", 0.08],
+      ["Hišni red in hrup", 0.07], ["Prodaja ali najem stanovanja", 0.05], ["Drugo", 0.03]
+    ],
+    "languages": [["slovenščina", 0.82], ["hrvaščina, srbščina, bosanščina", 0.09], ["angleščina", 0.05], ["ukrajinščina", 0.02], ["drugo", 0.02]]
+  }
+}

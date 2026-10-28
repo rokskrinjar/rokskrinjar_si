@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hiško · AI asistent za etažne lastnike (koncept)</title>
+<meta name="description" content="Koncept: AI asistent, ki etažnim lastnikom ob vsaki uri razloži razdelilnik, rezervni sklad in pravila v stavbi, okvaro pa pretvori v delovni nalog za upravnika.">
+<meta property="og:title" content="Hiško · AI asistent za etažne lastnike">
+<meta property="og:description" content="Koncept Roka Skrinjarja: 24/7 odgovori lastnikom, delovni nalogi za upravnika, merjenje učinka in odgovorna uporaba AI.">
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/common.js"></script>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head>
+<body>
+<div class="concept">Koncept Roka Skrinjarja. Ni povezano s skupino Aktiva; stavba, lastnik in zneski so izmišljeni. <a href="priloznosti.html">Zakaj ta koncept →</a><span class="sep">·</span><a href="odgovorno.html">Odgovorna uporaba AI →</a></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="mark" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></span>Hiško <small>koncept za etažne lastnike</small></a>
+    <nav class="nav" aria-label="Glavni meni">
+      <a href="./" aria-current="page">Asistent</a>
+      <a href="upravnik.html">Pogled upravnika</a>
+      <a href="priloznosti.html">Priložnosti</a>
+      <a href="odgovorno.html">Odgovorna uporaba</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Koncept za Aktiva upravljanje · AI asistent za etažne lastnike</p>
+    <h1>Lastniki sprašujejo kadarkoli. Hiško odgovori takoj.</h1>
+    <p class="lede">Hiško lastnikom ob vsaki uri in v njihovem jeziku razloži razdelilnik, rezervni sklad, zbor lastnikov in pravila v stavbi, z navedbo člena zakona. Okvaro pretvori v delovni nalog, ki ga upravnik samo potrdi. Na desni ga preizkusite na izmišljenem stanovanju v izmišljeni stavbi Lipa.</p>
+  </div>
+</section>
+
+<section class="wrap app">
+  <div>
+    <div class="card statement" id="statement">
+      <div class="head">
+        <div><b id="st-unit">…</b><span class="fine" id="st-building"></span></div>
+        <div class="months" role="group" aria-label="Mesec" id="st-months"></div>
+      </div>
+      <div class="tw"><table id="st-table"></table></div>
+      <div class="fund" id="st-fund"></div>
+      <p class="fine" id="st-notes" style="margin:10px 0 0"></p>
+      <div class="ask-row">
+        <button type="button" data-ask="Razloži mi ta razdelilnik po vrsticah.">Razloži razdelilnik</button>
+        <button type="button" data-ask="Zakaj je oktober dražji od septembra?">Zakaj je oktober dražji?</button>
+        <button type="button" data-ask="Ali je moj prispevek v rezervni sklad v skladu z zakonom?">Je rezervni sklad prav?</button>
+      </div>
+    </div>
+
+    <div class="cols2" style="margin-top:18px;gap:14px">
+      <div class="card">
+        <h3>Prijava okvare</h3>
+        <p class="muted" style="font-size:.92rem">Opišite težavo s svojimi besedami. Hiško oceni nujnost, predlaga izvajalca in pripravi nalog za upravnika.</p>
+        <div class="ask-row" style="margin-top:0">
+          <button type="button" data-ask="V kleti pušča cev, tla so mokra.">Pušča cev v kleti</button>
+          <button type="button" data-ask="Na stopnišču v 2. nadstropju že tri dni ne gori luč.">Ne gori luč</button>
+          <button type="button" data-ask="Sosed vsak večer po 23. uri vrta in tolče.">Hrup ponoči</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>V vašem jeziku</h3>
+        <p class="muted" style="font-size:.92rem">Lastniki in najemniki niso vsi Slovenci. Hiško odgovori v jeziku vprašanja, pravne izraze pa pusti tudi v slovenščini.</p>
+        <div class="ask-row" style="margin-top:0">
+          <button type="button" data-ask="Koliko plaćam pričuvu i za što se koristi?">Hrvaško</button>
+          <button type="button" data-ask="Can I put an air conditioner on the facade?">English</button>
+          <button type="button" data-ask="Хто вирішує, коли міняти дах?">Українська</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="chat" aria-label="Hiško, AI asistent"></div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="section-head"><h2>Zakaj ravno tu</h2><p>Javni podatki Aktiva upravljanje in tipičen dan upravnika.</p></div>
+    <div class="facts">
+      <div><b>350+</b><span>stavb v upravljanju</span></div>
+      <div><b>8.000+</b><span>strank, ki imajo vprašanja</span></div>
+      <div><b>2 uri</b><span>na dan je dosegljiva obračunska služba po telefonu</span></div>
+      <div><b>24/7</b><span>bi odgovarjal Hiško, v jeziku stranke</span></div>
+    </div>
+    <div class="cols3" style="margin-top:22px">
+      <div class="card"><h3>1. Lastnik vpraša</h3><p class="muted">Kadarkoli, s telefona ali iz portala. Hiško odgovori iz zakona, pogodbe z upravnikom in podatkov o njegovi enoti ter navede vir.</p></div>
+      <div class="card"><h3>2. Okvara postane nalog</h3><p class="muted">Kategorija, nujnost, lokacija, predlog izvajalca in navodilo lastniku. Upravnik ne prepisuje e-pošte, ampak potrdi ali popravi.</p></div>
+      <div class="card"><h3>3. Upravnik ostane glavni</h3><p class="muted">Spore, izterjave in odločitve vedno preda človeku. Vsak pogovor se meri: kaj je rešeno, kaj ne, kje Hiško greši.</p></div>
+    </div>
+    <p style="margin-top:18px"><a class="btn" href="upravnik.html">Pogled upravnika →</a> <a class="btn" href="priloznosti.html">Zemljevid AI priložnosti v skupini →</a></p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Hiško je koncept Roka Skrinjarja in ni povezan s skupino Aktiva ali Aktiva upravljanje d.o.o. Stavba Lipa, stanovanje in zneski so izmišljeni. Odgovori asistenta so splošne informacije, ne pravni nasvet.</p>
+    <p><a href="/projects/">← Rok Skrinjar</a></p>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+<script src="assets/chat.js"></script>
+</body>
+</html>
