@@ -12,6 +12,9 @@
     },
     "api/aktiva.js": {
       "maxDuration": 60
+    },
+    "api/wuerth.js": {
+      "maxDuration": 60
     }
   },
   "redirects": [

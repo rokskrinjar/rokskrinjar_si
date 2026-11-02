@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sestavi predale · Račko (koncept)</title>
+<meta name="description" content="Konfigurator predalov: izberite voziček, dodajte sete v peni in sproti vidite, kaj gre noter in koliko prostora ostane.">
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/common.js"></script>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head>
+<body>
+<div class="concept">Koncept Roka Skrinjarja. Ni povezano s podjetjem Würth; podatki so iz javnega PDF kataloga, cen ni. <a href="priloznosti.html">Zakaj ta koncept →</a></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16.5" cy="7.5" r="4.5"/><path d="M13.3 10.7 4 20"/></svg></span>Račko <small>koncept pametnega kataloga</small></a>
+    <nav class="nav" aria-label="Glavni meni">
+      <a href="./">Katalog</a>
+      <a href="predali.html" aria-current="page">Sestavi predale</a>
+      <a href="prodaja.html">Pogled prodaje</a>
+      <a href="priloznosti.html">Možnosti</a>
+      <a href="podatki.html">Od PDF-ja do podatkov</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" style="padding-top:26px">
+  <h1 style="font-size:clamp(2.1rem,5vw,3.4rem)">Sestavi predale</h1>
+  <p class="lede muted">Stran 25 kataloga kot orodje: pene so moduli, predal je mreža. Izberite voziček in dodajajte sete, računanje naredi stran.</p>
+
+  <div class="builder">
+    <div>
+      <div class="card vhead">
+        <div class="foam" id="pic" style="padding:8px 10px 2px"></div>
+        <div>
+          <label class="fine" for="vsel">Voziček</label><br>
+          <select id="vsel"></select>
+          <select id="asel" aria-label="Sestav iz kataloga" style="margin-top:6px"></select>
+          <p id="vinfo" style="margin:8px 0 0"></p>
+        </div>
+      </div>
+      <div id="drawers" class="drawers" aria-label="Predali"></div>
+      <p class="fine" style="margin-top:8px">Klik na peno jo odstrani. Razporeditev naredi stran sama, večje pene gredo prve. Število pen je pravilo iz strani 25, ne preizkus v delavnici.</p>
+
+      <div class="section-head" style="margin-top:26px"><h3>Seti v peni</h3>
+        <span><input id="libq" type="search" placeholder="Filtriraj po imenu" aria-label="Filtriraj po imenu"> <select id="grp" aria-label="Skupina"></select></span></div>
+      <div id="lib" class="lib"></div>
+    </div>
+
+    <aside>
+      <div class="card">
+        <div id="sum"></div>
+        <div id="list" class="sum-list"></div>
+        <div id="tips"></div>
+        <div class="buy" style="margin-bottom:0">
+          <button class="btn primary" type="button" id="tolead">Pošlji komercialistu</button>
+          <button class="btn" type="button" id="export">Izvozi šifre (CSV)</button>
+          <button class="btn" type="button" id="copy">Kopiraj povezavo</button>
+          <button class="btn" type="button" id="clear">Počisti</button>
+        </div>
+        <p class="fine" style="margin:10px 0 0"><button class="btn small" type="button" id="askr">Vprašaj Račka, kaj še manjka</button></p>
+      </div>
+      <div style="margin-top:14px"><div id="chat" aria-label="Račko, AI svetovalec" style="position:static;height:520px;min-height:0"></div></div>
+    </aside>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Račko je koncept Roka Skrinjarja in ni povezan s podjetjem Würth d.o.o. ali skupino Würth. Podatki so povzeti po javnem PDF katalogu iz leta 2021. Povpraševanje ostane v vašem brskalniku in se nikamor ne pošlje.</p>
+    <p><a href="/projects/">← Rok Skrinjar</a></p>
+  </div>
+</footer>
+<script src="assets/predali.js"></script>
+<script src="assets/chat.js"></script>
+</body>
+</html>

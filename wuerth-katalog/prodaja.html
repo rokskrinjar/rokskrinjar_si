@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pogled prodaje · Račko (koncept)</title>
+<meta name="description" content="Kaj pametni katalog da prodaji: povpraševanja s šiframi, analiza sestavov iz kataloga in iskanja kot signal.">
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/common.js"></script>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head>
+<body>
+<div class="concept">Koncept Roka Skrinjarja. Ni povezano s podjetjem Würth. Analiza kataloga je resnična, vzorčna povpraševanja so izmišljena. <a href="priloznosti.html">Zakaj ta koncept →</a></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16.5" cy="7.5" r="4.5"/><path d="M13.3 10.7 4 20"/></svg></span>Račko <small>koncept pametnega kataloga</small></a>
+    <nav class="nav" aria-label="Glavni meni">
+      <a href="./">Katalog</a>
+      <a href="predali.html">Sestavi predale</a>
+      <a href="prodaja.html" aria-current="page">Pogled prodaje</a>
+      <a href="priloznosti.html">Možnosti</a>
+      <a href="podatki.html">Od PDF-ja do podatkov</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="wrap" style="padding-top:26px">
+  <h1 style="font-size:clamp(2.1rem,5vw,3.4rem)">Kaj dobi prodaja</h1>
+  <p class="lede muted">Katalog ni samo izložba. Vsako vprašanje je signal in vsaka izbira je začetek pogovora s kupcem.</p>
+</section>
+
+<section class="block" id="inbox" style="padding-top:18px">
+  <div class="wrap">
+    <div class="section-head"><h2>Povpraševanja iz kataloga</h2><p>Komercialist dobi potrebo in šifre, ne samo »prosim, pokličite«.</p></div>
+    <div id="leads" class="cols2" style="gap:12px"></div>
+    <p class="fine" style="margin-top:8px">Povpraševanja iz klepeta in konfiguratorja ostanejo v tem brskalniku. <button class="btn small" type="button" id="clrleads">Počisti moja</button></p>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="section-head"><h2>Kaj pove že sam katalog</h2><p>Dvanajst sestavov je dvanajst odločitev prodaje. Spodnje številke so izračunane iz kataloga, ta hip, v vašem brskalniku.</p></div>
+    <div class="facts" id="kpis"></div>
+    <div class="cols2" style="margin-top:22px">
+      <div>
+        <h3>Seti, ki jih sestavi najpogosteje uporabijo</h3>
+        <p class="muted" style="font-size:.94rem">Hrbtenica ponudbe: kdor kupi voziček, običajno začne s temi.</p>
+        <div class="bars" id="top"></div>
+      </div>
+      <div>
+        <h3>Koliko prostora ostane za dopolnitev</h3>
+        <p class="muted" style="font-size:.94rem">Vsak prazen predal je vprašanje za naslednji obisk.</p>
+        <div class="tw"><table id="fill"></table></div>
+      </div>
+    </div>
+    <div style="margin-top:22px">
+      <h3>Kaj predlagati kupcu sestava</h3>
+      <p class="muted" style="font-size:.94rem">Preprosto pravilo: set, ki ga imajo sorodni sestavi, ta pa ne, in gre v prazne predale. Tako začne priporočilni sistem, še preden vidi en sam račun.</p>
+      <div class="tw"><table id="reco"></table></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap cols2">
+    <div>
+      <h2>Vaš obisk kot podatek</h2>
+      <p class="muted">Ni simulacije: spodaj je to, kar ste ravnokar počeli v katalogu. Podatki so samo v vašem brskalniku.</p>
+      <div class="facts" style="grid-template-columns:repeat(3,1fr)" id="mine"></div>
+      <div id="mylist" style="margin-top:12px"></div>
+      <p class="fine" style="margin-top:8px"><button class="btn small" type="button" id="clrsig">Počisti</button></p>
+    </div>
+    <div>
+      <h2>Kaj bi merili</h2>
+      <div class="tw"><table>
+        <thead><tr><th>Kazalnik</th><th>Pove</th><th>Kdo ukrepa</th></tr></thead>
+        <tbody>
+          <tr><td>Iskanja brez zadetka</td><td>Kaj manjka v slovarju ali ponudbi</td><td>Upravljanje izdelkov</td></tr>
+          <tr><td>Delež povpraševanj s šiframi</td><td>Ali katalog pripravi kupca</td><td>Prodaja</td></tr>
+          <tr><td>Od povpraševanja do ponudbe</td><td>Hitrost odziva</td><td>Komercialist</td></tr>
+          <tr><td>Povprečna vrednost sestava</td><td>Ali izbirnik dviguje košarico</td><td>Prodaja</td></tr>
+          <tr><td>Vprašanja, ki gredo k človeku</td><td>Kje bot neha znati</td><td>Skrbnik vsebine</td></tr>
+          <tr><td>Pravilnost odgovorov na testnem naboru</td><td>Ali smemo razširiti</td><td>Analitik</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Račko je koncept Roka Skrinjarja in ni povezan s podjetjem Würth d.o.o. ali skupino Würth. Vzorčna povpraševanja so izmišljena. Analiza uporablja samo javni PDF katalog, ne prodajnih podatkov: pokaže, kateri seti so v sestavih, ne kateri se prodajajo.</p>
+    <p><a href="/projects/">← Rok Skrinjar</a></p>
+  </div>
+</footer>
+<script src="assets/prodaja.js"></script>
+</body>
+</html>

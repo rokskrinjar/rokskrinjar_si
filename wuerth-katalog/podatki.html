@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Od PDF-ja do podatkov · Račko (koncept)</title>
+<meta name="description" content="Kako je 60 strani PDF kataloga postalo preverjena baza izdelkov in kaj je pri tem pokazalo strojno usklajevanje.">
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/common.js"></script>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head>
+<body>
+<div class="concept">Koncept Roka Skrinjarja. Ni povezano s podjetjem Würth; podatki so iz javnega PDF kataloga iz leta 2021. <a href="priloznosti.html">Zakaj ta koncept →</a></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16.5" cy="7.5" r="4.5"/><path d="M13.3 10.7 4 20"/></svg></span>Račko <small>koncept pametnega kataloga</small></a>
+    <nav class="nav" aria-label="Glavni meni">
+      <a href="./">Katalog</a>
+      <a href="predali.html">Sestavi predale</a>
+      <a href="prodaja.html">Pogled prodaje</a>
+      <a href="priloznosti.html">Možnosti</a>
+      <a href="podatki.html" aria-current="page">Od PDF-ja do podatkov</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero foam">
+  <div class="wrap">
+    <p class="eyebrow">Vsak podatek ima zgodbo</p>
+    <h1 style="max-width:900px">Lep katalog za ljudi. <em>Zdaj ga berejo tudi stroji.</em></h1>
+    <p class="lede">PDF je narejen za oči. Pameten katalog potrebuje podatke, zato je bilo prvo delo isto kot pri vsaki analizi: razumeti, kaj piše, in preveriti, ali se izide.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="flow">
+      <div><b>1. Branje</b><span>60 strani: tekstovna plast in slika vsake strani, ker se pomen pogosto skriva v postavitvi.</span></div>
+      <div><b>2. Struktura</b><span>Vozički, sestavi, seti, vsebine, mere in velikosti pene v eni datoteki JSON. Vsak zapis ima stran vira.</span></div>
+      <div><b>3. Preverjanje</b><span>Skript primerja vsako šifro in mero s PDF-jem ter sešteje kose v vsakem sestavu.</span></div>
+      <div><b>4. Uporaba</b><span>Iz istih podatkov nastanejo iskanje, primerjava, predali in baza znanja za bota.</span></div>
+    </div>
+    <div class="facts" id="kpis" style="margin-top:18px"></div>
+    <div class="cols2" style="margin-top:26px">
+      <div>
+        <h2>Kaj je dodal AI</h2>
+        <ul class="check">
+          <li><b>Branje postavitve.</b> Velikost pene ni nikjer napisana, vidi se samo iz razporeditve slike in belih polj. Izmerjena je iz geometrije PDF-ja.</li>
+          <li><b>Slovar.</b> Ragla je račna, seger so varovalni obročki, šraufenciger je izvijač. Tudi hrvaški in nemški izrazi.</li>
+          <li><b>Svetovanje.</b> Račko poveže delo kupca z lastnostmi izdelka in pove, česa katalog ne pove.</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Česa AI ne sme</h2>
+        <ul class="check">
+          <li><b>Izmišljati si šifer.</b> Kartica izdelka se pokaže samo, če šifra obstaja v podatkih.</li>
+          <li><b>Odločati o številkah.</b> Vsote in primerjave dela skript, ne model, zato so ponovljive.</li>
+          <li><b>Navajati cen in zaloge.</b> Tega v katalogu ni, zato Račko pošlje h komercialistu ali v e-trgovino.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt" id="vsote">
+  <div class="wrap">
+    <div class="section-head"><h2>Se kosi izidejo?</h2><p>Vsak sestav ima v naslovu število kosov in na strani sete s svojimi oznakami. Tabela se izračuna ta hip iz podatkov.</p></div>
+    <div class="tw"><table id="sums"></table></div>
+  </div>
+</section>
+
+<section class="block" id="usklajevanje">
+  <div class="wrap">
+    <div class="section-head"><h2>Mesta za uskladitev</h2><p>Kar je pokazalo preverjanje. V 60 straneh s stotinami šifer je to odličen rezultat, a vsaka vrstica je enaka tistim, ki v živih sistemih tiho kvarijo poročila.</p></div>
+    <div class="filters" id="filters" role="group" aria-label="Vrsta"></div>
+    <div class="tw"><table id="list"></table></div>
+    <p class="muted" style="margin-top:14px;max-width:760px">Enaka logika velja za CRM in ERP: pravilo, številka, lastnik, tedenski pregled. Razlika je le v tem, da tam podatkov ni 60 strani, ampak 13.000 kupcev in 150.000 izdelkov.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Račko je koncept Roka Skrinjarja in ni povezan s podjetjem Würth d.o.o. ali skupino Würth. Vir je javni PDF katalog iz leta 2021; nekatere ugotovitve so morda že urejene v živih sistemih podjetja.</p>
+    <p><a href="/projects/">← Rok Skrinjar</a></p>
+  </div>
+</footer>
+<script src="assets/podatki.js"></script>
+</body>
+</html>

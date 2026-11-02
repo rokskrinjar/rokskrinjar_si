@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Možnosti za prodajno analitiko in AI · Račko (koncept)</title>
+<meta name="description" content="Dvanajst možnosti za prodajno analitiko in AI pri prodaji potrošnega materiala in orodja obrtnikom in industriji, razvrščenih po vrednosti in izvedljivosti.">
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/common.js"></script>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head>
+<body>
+<div class="concept">Koncept Roka Skrinjarja. Ni povezano s podjetjem Würth; ocene so avtorjeve, številke so javni podatki. <a href="./">Odpri katalog →</a></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16.5" cy="7.5" r="4.5"/><path d="M13.3 10.7 4 20"/></svg></span>Račko <small>koncept pametnega kataloga</small></a>
+    <nav class="nav" aria-label="Glavni meni">
+      <a href="./">Katalog</a>
+      <a href="predali.html">Sestavi predale</a>
+      <a href="prodaja.html">Pogled prodaje</a>
+      <a href="priloznosti.html" aria-current="page">Možnosti</a>
+      <a href="podatki.html">Od PDF-ja do podatkov</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero foam">
+  <div class="wrap">
+    <p class="eyebrow">Zakaj ta koncept · prodajna analitika in AI</p>
+    <h1 style="max-width:900px">Podatkov ne bo zmanjkalo. <em>Začnimo pri vprašanjih.</em></h1>
+    <p class="lede">Dvanajst možnosti, razvrščenih po vrednosti in izvedljivosti. Vsaka se začne z vprašanjem prodaje in konča z dejanjem, ki ga lahko nekdo izvede v ponedeljek.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="facts">
+      <div><b>13.000+</b><span>kupcev</span></div>
+      <div><b>~150.000</b><span>izdelkov</span></div>
+      <div><b>~17 mio €</b><span>prihodkov v letu 2025 (javni podatki, AJPES prek CompanyWall)</span></div>
+      <div><b>~1.300 €</b><span>povprečno na kupca na leto, naš izračun</span></div>
+    </div>
+    <div class="cols2" style="margin-top:22px">
+      <div>
+        <h2>Kaj pove ta izračun</h2>
+        <p>Pri povprečju okoli 1.300 € na kupca nima vsak kupec enake poti. Nekateri potrebujejo svetovalca na terenu, mnogi bi z veseljem naročali sami, če bi hitro našli pravo šifro. Zato se seznam začne pri tem, kdo je kdo, in ne pri modelih.</p>
+        <p>Druga ugotovitev: skupina Würth že razvija veliko orodij. V Sloveniji je vzvod drugje: čisti podatki, lokalna vprašanja in to, da orodja pridejo do komercialista.</p>
+      </div>
+      <div class="card">
+        <h3>Koliko je vredna ena točka</h3>
+        <p class="muted" style="margin-bottom:8px">Čista aritmetika iz javnih številk, brez obljub.</p>
+        <table>
+          <tbody>
+            <tr><td>1 % prihodkov</td><td class="r"><b>~172.000 €</b> na leto</td></tr>
+            <tr><td>25 € več na kupca na leto</td><td class="r"><b>~325.000 €</b> na leto</td></tr>
+            <tr><td>1 % kupcev, ki ostane aktivnih, po povprečju</td><td class="r"><b>~170.000 €</b> na leto</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="section-head"><h2>Seznam možnosti</h2><p>Oceni 1 do 5 sta avtorjeva presoja pred pogledom v podatke. Prava slika nastane v prvih dveh tednih.</p></div>
+    <div class="filters" id="filters" role="group" aria-label="Filter">
+      <button type="button" data-f="" aria-pressed="true">Vse</button>
+      <button type="button" data-f="prvi" aria-pressed="false">Začel bi tukaj</button>
+      <button type="button" data-f="analitika" aria-pressed="false">Analitika</button>
+      <button type="button" data-f="ai" aria-pressed="false">AI</button>
+      <button type="button" data-f="skupina" aria-pressed="false">Najprej vprašati skupino</button>
+    </div>
+    <div class="opp-layout">
+      <div class="opp" id="opp">
+
+        <article id="o1" class="first" data-v="5" data-i="5" data-t="prvi analitika">
+          <div class="hd"><span class="n">1</span><h3>Tedenski seznam kupcev, ki tiho drsijo</h3><span class="pill red">Začel bi tukaj</span></div>
+          <p class="ask">Kateri kupci kupujejo redkeje kot običajno, še preden se izgubijo?</p>
+          <p>Vsak kupec ima svoj ritem. Ko interval naročil preseže dvakratnik običajnega ali izpade skupina izdelkov, gre kupec na seznam komercialista s pripisom, kaj je prenehal kupovati. Na začetku pravilo v SQL-u, ne model.</p>
+          <dl><dt>Podatki</dt><dd>Računi iz ERP-ja po kupcu, skupini izdelkov in kanalu</dd><dt>Dejanje</dt><dd>Klic ali obisk v istem tednu</dd><dt>Merimo</dt><dd>Delež povrnjenih kupcev v primerjavi s kontrolno skupino</dd></dl>
+        </article>
+
+        <article id="o2" class="first" data-v="5" data-i="4" data-t="prvi analitika">
+          <div class="hd"><span class="n">2</span><h3>Zemljevid kupcev: kdo potrebuje koga</h3><span class="pill red">Začel bi tukaj</span></div>
+          <p class="ask">Kateri kupci upravičijo obisk in kateri raje naročajo sami?</p>
+          <p>Segmentacija po prometu, potencialu, panogi, kanalu in stroških obiska. Rezultat ni zmanjšanje stikov, ampak več časa za kupce, kjer svetovanje prinese razliko, in lažja pot v e-trgovino za vse druge.</p>
+          <dl><dt>Podatki</dt><dd>ERP, CRM obiski, e-trgovina, trgovine, klicni center</dd><dt>Dejanje</dt><dd>Nov model pokritosti po komercialistih in območjih</dd><dt>Merimo</dt><dd>Prodaja na obisk, delež aktivnih kupcev, delež e-prodaje</dd></dl>
+        </article>
+
+        <article id="o3" data-v="5" data-i="4" data-t="analitika skupina">
+          <div class="hd"><span class="n">3</span><h3>Bele lise: kaj kupec kupuje drugje</h3></div>
+          <p class="ask">Katere skupine izdelkov podobni kupci kupujejo, ta pa ne?</p>
+          <p>Avtoserviser z vijaki in kemijo, brez orodja, je tiha priložnost. Primerjava s podobnimi kupci iz iste panoge da vsakemu komercialistu kratek seznam z enim stavkom, zakaj. Skupina ima sisteme priporočil, zato najprej preverimo, kaj je že na voljo.</p>
+          <dl><dt>Podatki</dt><dd>Računi, panoga kupca, hierarhija izdelkov</dd><dt>Dejanje</dt><dd>Trije predlogi za naslednji obisk</dd><dt>Merimo</dt><dd>Število kupljenih skupin na kupca, prodaja proti kontrolni skupini</dd></dl>
+        </article>
+
+        <article id="o4" class="first" data-v="4" data-i="5" data-t="prvi analitika">
+          <div class="hd"><span class="n">4</span><h3>Semafor kakovosti podatkov</h3><span class="pill red">Začel bi tukaj</span></div>
+          <p class="ask">Koliko kupcev ima pravo panogo, živ kontakt in enega samega zapisa?</p>
+          <p>Vse druge možnosti stojijo na tem. Dvojniki, prazne panoge, stari kontakti, izdelki brez atributov: vsako pravilo dobi lastnika in tedensko številko v Power BI. V tem konceptu je enako preverjanje narejeno na katalogu.</p>
+          <dl><dt>Podatki</dt><dd>CRM, ERP, poslovni register</dd><dt>Dejanje</dt><dd>Tedensko čiščenje z lastnikom pravila</dd><dt>Merimo</dt><dd>Delež popolnih zapisov po področjih</dd></dl>
+        </article>
+
+        <article id="o5" data-v="4" data-i="4" data-t="ai">
+          <div class="hd"><span class="n">5</span><h3>Pametno iskanje in svetovalec v e-trgovini</h3></div>
+          <p class="ask">Kaj kupci iščejo in česa ne najdejo?</p>
+          <p>Ta koncept v malem. Prvi korak je poceni in brez modela: seznam iskanj brez zadetkov in slovar izrazov obrtnikov. Potem izbirnik po delu in svetovalec, omejen na podatke o izdelkih, za kategorije, kjer kupci največ sprašujejo.</p>
+          <dl><dt>Podatki</dt><dd>Dnevnik iskanj, podatki o izdelkih, vprašanja klicnega centra</dd><dt>Dejanje</dt><dd>Mesečno krpanje slovarja in manjkajočih atributov</dd><dt>Merimo</dt><dd>Delež iskanj brez zadetka, konverzija, klici na temo izbire</dd></dl>
+        </article>
+
+        <article id="o6" data-v="4" data-i="4" data-t="ai">
+          <div class="hd"><span class="n">6</span><h3>Kupčev seznam v šifre</h3></div>
+          <p class="ask">Koliko časa gre za prepisovanje povpraševanj industrijskih kupcev?</p>
+          <p>Kupec pošlje Excel z dvesto vrsticami v svojih izrazih. AI predlaga šifre z oceno zanesljivosti, človek preveri negotove. Ponudba je pripravljena v urah, ne dneh, in vsaka potrjena povezava ostane za naslednjič.</p>
+          <dl><dt>Podatki</dt><dd>Podatki o izdelkih, pretekle ponudbe, kupčeve šifre</dd><dt>Dejanje</dt><dd>Hitrejša ponudba, kupčeve šifre v sistemu</dd><dt>Merimo</dt><dd>Čas do ponudbe, delež pravilnih predlogov, dobljene ponudbe</dd></dl>
+        </article>
+
+        <article id="o7" data-v="3" data-i="5" data-t="analitika">
+          <div class="hd"><span class="n">7</span><h3>Pravi učinek mesečnih akcij</h3></div>
+          <p class="ask">Ali akcija proda več ali samo prej?</p>
+          <p>Primerjava s kupci brez akcije in pogled na tedne po njej. Pokaže, katere akcije prinesejo nove kupce in nove skupine izdelkov, in katere le prestavijo nakup z marže na popust.</p>
+          <dl><dt>Podatki</dt><dd>Računi, koledar akcij, kanal</dd><dt>Dejanje</dt><dd>Boljši izbor in ciljanje akcij</dd><dt>Merimo</dt><dd>Dodatna marža na akcijo</dd></dl>
+        </article>
+
+        <article id="o8" data-v="5" data-i="3" data-t="analitika">
+          <div class="hd"><span class="n">8</span><h3>Kam odteka marža</h3></div>
+          <p class="ask">Kje se popusti seštejejo v več, kot je kupec za to dobil?</p>
+          <p>Od cenika do neto cene po kupcu, skupini in komercialistu. Velika vrednost, a zahteva zanesljive podatke o strošku in zaupanje prodaje, zato pride na vrsto za prvimi rezultati. Rezultat je pogovor o pravilih, ne lestvica ljudi.</p>
+          <dl><dt>Podatki</dt><dd>Ceniki, popusti, nabavne cene, računi</dd><dt>Dejanje</dt><dd>Jasnejša pravila popustov</dd><dt>Merimo</dt><dd>Razlika med ceniki in doseženo ceno, marža po segmentih</dd></dl>
+        </article>
+
+        <article id="o9" data-v="4" data-i="3" data-t="ai skupina">
+          <div class="hd"><span class="n">9</span><h3>Priprava na obisk na eni strani</h3></div>
+          <p class="ask">Kaj mora komercialist vedeti, preden vstopi?</p>
+          <p>Kaj je kupec kupil, kaj je nehal kupovati, odprte ponudbe in reklamacije, naslednji predlog. V skupini obstaja glasovni in klepetalni asistent PICO, zato je prvo vprašanje, ali in kdaj je dosegljiv tudi tukaj. Lokalno delo je potem povezava s podatki.</p>
+          <dl><dt>Podatki</dt><dd>CRM, ERP, rezultati možnosti 1 in 3</dd><dt>Dejanje</dt><dd>Boljši obisk v istem času</dd><dt>Merimo</dt><dd>Čas priprave, uporaba, sklenjeni posli po obisku</dd></dl>
+        </article>
+
+        <article id="o10" data-v="4" data-i="3" data-t="analitika skupina">
+          <div class="hd"><span class="n">10</span><h3>Opomnik za ponovno naročilo</h3></div>
+          <p class="ask">Kdaj bo kupcu zmanjkalo potrošnega materiala?</p>
+          <p>Iz ritma nakupov izhaja, kdaj kupec običajno spet naroča rokavice, vijake ali kemijo. Predlog pride po e-pošti ali k komercialistu. Pri sistemih ORSY je podatek še boljši, ker se poraba meri.</p>
+          <dl><dt>Podatki</dt><dd>Računi, ORSY sistemi, kjer so</dd><dt>Dejanje</dt><dd>Pravočasen predlog, manj izgubljenih nakupov</dd><dt>Merimo</dt><dd>Delež ponovnih nakupov, prodaja na kupca</dd></dl>
+        </article>
+
+        <article id="o11" data-v="3" data-i="4" data-t="ai">
+          <div class="hd"><span class="n">11</span><h3>PDF-ji v podatke o izdelkih</h3></div>
+          <p class="ask">Koliko izdelkov nima atributov, po katerih bi jih kupci našli?</p>
+          <p>Pri 150.000 izdelkih je ročno dopolnjevanje predrago. AI izlušči mere, velikosti in lastnosti iz brošur, skript pa jih preveri in človek potrdi negotove. Ta katalog je preizkus: 60 strani v en dan, z vsako številko povezano na stran vira.</p>
+          <dl><dt>Podatki</dt><dd>Brošure, podatki skupine, e-trgovina</dd><dt>Dejanje</dt><dd>Boljši filtri in iskanje</dd><dt>Merimo</dt><dd>Popolnost atributov po kategorijah</dd></dl>
+        </article>
+
+        <article id="o12" data-v="3" data-i="2" data-t="ai skupina">
+          <div class="hd"><span class="n">12</span><h3>Zapis obiska z glasom</h3></div>
+          <p class="ask">Koliko dobrega znanja o kupcih ostane v avtu in nikoli v CRM-ju?</p>
+          <p>Komercialist po obisku pove, kaj je bilo, AI pripravi zapis. Koristno, ker CRM dobi podatke, a odvisno od sprejetja in od orodij skupine. Zato pride za tem, ko ljudje vidijo, kaj dobijo nazaj.</p>
+          <dl><dt>Podatki</dt><dd>Govor, CRM</dd><dt>Dejanje</dt><dd>Boljši zapisi z manj tipkanja</dd><dt>Merimo</dt><dd>Popolnost zapisov o obiskih, uporaba</dd></dl>
+        </article>
+      </div>
+      <div>
+        <div class="matrix" id="matrix" aria-label="Zemljevid možnosti po vrednosti in izvedljivosti"></div>
+        <p class="fine" style="margin-top:8px">Rdeče so možnosti, pri katerih bi začel. Klik na številko pokaže možnost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap cols2">
+    <div>
+      <h2>Prvih 90 dni</h2>
+      <ol class="steps">
+        <li><b>Dnevi 1–30: razumeti.</b> Dan na terenu s komercialisti, v trgovini in klicnem centru. Skupne definicije kazalnikov. Semafor kakovosti podatkov. Pogovor s skupino, kaj je že na voljo.</li>
+        <li><b>Dnevi 31–60: prvi seznam.</b> Tedenski seznam drsečih kupcev pri dveh ali treh komercialistih, druga skupina je kontrola. Nadzorna plošča v Power BI, ki jo prodaja res odpre v ponedeljek.</li>
+        <li><b>Dnevi 61–90: odločitev.</b> Primerjava s kontrolno skupino in jasno priporočilo vodstvu: razširiti, popraviti ali opustiti. Prvi predlog zemljevida kupcev.</li>
+      </ol>
+      <p class="muted">Javnih neodvisnih raziskav s kontrolno skupino o AI pri takih distributerjih nismo našli; objavljene številke so večinoma modeli ali trditve ponudnikov. Zato tukaj štejejo samo lastne meritve.</p>
+    </div>
+    <div>
+      <h2>Kar že obstaja v skupini</h2>
+      <div class="tw"><table>
+        <tbody>
+          <tr><td><b>PICO</b></td><td>Glasovni in klepetalni asistent za komercialiste, Adolf Würth in Würth IT. Javno ni podatka o uvedbi v Sloveniji.</td></tr>
+          <tr><td><b>Data &amp; AI</b></td><td>Več kot 50 strokovnjakov za priporočila, načrtovanje aktivnosti in napoved odhoda kupcev.</td></tr>
+          <tr><td><b>Big Data Team</b></td><td>Cene, načrtovanje dela in izbor izdelkov za več kot 50 podjetij (po javnem opisu dela v Nemčiji).</td></tr>
+          <tr><td><b>E-poslovanje</b></td><td>25,3 % prodaje skupine v prvem polletju 2026.</td></tr>
+          <tr><td><b>Komercialisti</b></td><td>Stališče skupine: ostajajo osrednji stik, digitalna orodja in AI jim pomagajo.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted" style="margin-top:12px">Lokalna vloga je zato most: vprašanja iz Slovenije navzgor, orodja iz skupine navzdol, vmes pa podatki, ki morajo biti pripravljeni.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap cols2">
+    <div>
+      <h2>Česa ne bi delal</h2>
+      <ul class="check">
+        <li><b>Lestvic komercialistov iz AI.</b> Vrednotenje dela in razporejanje nalog po vedenju ljudi je po Aktu o UI visoko tvegano od 2. 12. 2027. Predlogi na ravni kupca, ki jih komercialist lahko prezre, so druga zgodba.</li>
+        <li><b>Prepoznavanja čustev v klicih.</b> Na delovnem mestu je prepovedano že od februarja 2025.</li>
+        <li><b>Lastnih modelov tam, kjer skupina že ima orodje.</b> Čas je boljše porabljen za podatke, ki jih orodje potrebuje.</li>
+        <li><b>Modela pred pravilom.</b> Če preprosto pravilo prinese 80 %, se začne s pravilom.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Odgovorna uporaba</h2>
+      <ul class="check">
+        <li>Bot pove, da je AI, od prvega sporočila dalje; ta dolžnost velja od 2. 8. 2026 in tudi obrtnik je fizična oseba.</li>
+        <li>Odgovori samo iz podatkov o izdelkih, šifre se preverijo proti katalogu, preden jih stran pokaže.</li>
+        <li>Samostojni podjetniki in kontaktne osebe so osebni podatki, tudi v B2B.</li>
+        <li>Spremljanje dela: zaposleni izvedo vnaprej, kaj se meri in zakaj, smernice Informacijskega pooblaščenca so jasne.</li>
+      </ul>
+      <p class="fine">Viri: Uredba (EU) 2026/1744, Akt o UI (5., 50. člen, Priloga III), smernice Komisije o 50. členu z dne 20. 7. 2026. To je povzetek, ne pravni nasvet.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap cols2">
+    <div>
+      <h2>Vprašajte Račka</h2>
+      <p class="muted">Račko pozna ta seznam, katalog in avtorja.</p>
+      <h3 style="margin-top:20px">Viri</h3>
+      <ul class="sources">
+        <li>Würth Slovenija: <a href="https://www.wuerth.si/sl-SI/Page/podjetje" rel="noopener">o podjetju</a>, <a href="https://www.wuerth.si/sl-SI/Page/trgovine" rel="noopener">trgovine</a>; 2025: <a href="https://www.companywall.si/podjetje/wuerth-doo-trzin-slovenija/MMEob9WY" rel="noopener">CompanyWall po AJPES</a></li>
+        <li>PICO: <a href="https://www.wuerth-it.com/one-IT/newsroom/reta-award-2.php" rel="noopener">Würth IT</a>; Data &amp; AI: <a href="https://www.chatbotsummit.com/berlin-2026-partners/wurth-groupe" rel="noopener">Chatbot Summit</a></li>
+        <li>Skupina: <a href="https://distributionstrategy.com/2026/07/wurth-sales-rise-4-3-in-first-half-as-international-growth-offsets-weak-german-market/" rel="noopener">polletje 2026</a>, <a href="https://www.emr-online.com/?p=13698" rel="noopener">komercialisti in AI</a></li>
+        <li>Dokazi iz panoge: <a href="https://www.deloitte.com/content/dam/assets-zone3/us/en/docs/services/consulting/2025/us-gen-ai-in-wholesale-distribution.pdf" rel="noopener">Deloitte</a>, <a href="https://distributionstrategy.com/2026/09/ai-top-25-reveals-a-wide-execution-gap-across-wholesale-distribution/" rel="noopener">DSG raziskava</a></li>
+        <li>Pravo: <a href="https://artificialintelligenceact.eu/article/50/" rel="noopener">50. člen</a>, <a href="https://artificialintelligenceact.eu/annex/3/" rel="noopener">Priloga III</a>, <a href="https://www.akos-rs.si/en/umetna-inteligenca/explore/frequently-asked-questions-and-answers/digital-omnibus-on-artificial-intelligence" rel="noopener">AKOS o omnibusu</a></li>
+      </ul>
+    </div>
+    <div id="chat" data-biz aria-label="Račko, AI svetovalec" style="position:static;height:560px"></div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Račko je koncept Roka Skrinjarja in ni povezan s podjetjem Würth d.o.o. ali skupino Würth. Ocene vrednosti in izvedljivosti so avtorjeve; podatki o podjetju so javni in preverjeni 2. 11. 2026.</p>
+    <p><a href="/projects/">← Rok Skrinjar</a></p>
+  </div>
+</footer>
+<script src="assets/priloznosti.js"></script>
+<script src="assets/chat.js"></script>
+</body>
+</html>

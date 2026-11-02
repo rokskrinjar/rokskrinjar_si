@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Račko · pametni katalog vozičkov in orodja (koncept)</title>
+<meta name="description" content="Koncept: PDF katalog vozičkov in orodja kot pameten spletni katalog z iskanjem v naravnem jeziku, primerjavo, konfiguratorjem predalov in AI svetovalcem.">
+<meta property="og:title" content="Račko · pametni katalog vozičkov in orodja">
+<meta property="og:description" content="Koncept Roka Skrinjarja: iskanje, kot govorijo mojstri, primerjava v merilu, predali iz modulov in AI svetovalec, ki ne ugiba.">
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/common.js"></script>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head>
+<body>
+<div class="concept">Koncept Roka Skrinjarja. Ni povezano s podjetjem Würth; podatki so iz javnega PDF kataloga, cen ni. <a href="priloznosti.html">Zakaj ta koncept →</a></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16.5" cy="7.5" r="4.5"/><path d="M13.3 10.7 4 20"/></svg></span>Račko <small>koncept pametnega kataloga</small></a>
+    <nav class="nav" aria-label="Glavni meni">
+      <a href="./" aria-current="page">Katalog</a>
+      <a href="predali.html">Sestavi predale</a>
+      <a href="prodaja.html">Pogled prodaje</a>
+      <a href="priloznosti.html">Možnosti</a>
+      <a href="podatki.html">Od PDF-ja do podatkov</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero foam">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">60 strani PDF-ja · 7 vozičkov · 12 sestavov · 78 setov v peni</p>
+      <h1>Povejte, kaj delate. <em>Katalog najde voziček.</em></h1>
+      <p class="lede">Tudi če rečete šraufenciger, ragla ali kolica. Iščite po delu, meri, šifri ali ključu SW 19.</p>
+      <form class="searchbar" id="sform" role="search">
+        <label class="vh" for="q">Iskanje po katalogu</label>
+        <input id="q" type="search" autocomplete="off" placeholder="Npr. voziček za kombi do 750 mm">
+        <button type="submit">Išči</button>
+      </form>
+      <div class="chips" aria-label="Primeri iskanj">
+        <button type="button" data-q="ključ SW 19">ključ SW 19</button>
+        <button type="button" data-q="TX40">TX40</button>
+        <button type="button" data-q="seger klešče">seger klešče</button>
+        <button type="button" data-q="šraufenciger za elektro">šraufenciger za elektro</button>
+        <button type="button" data-q="voziček do 700 mm">voziček do 700 mm</button>
+        <button type="button" data-q="500 kg">500 kg</button>
+        <button type="button" data-q="0965 905 922">0965 905 922</button>
+      </div>
+    </div>
+    <div id="lineup"></div>
+  </div>
+</section>
+
+<section class="wrap app">
+  <div>
+    <div class="card picker">
+      <h3>Pomagaj mi izbrati</h3>
+      <div class="q"><span>Delo</span><div class="chips light">
+        <button type="button" data-pick="delo" data-val="servis" aria-pressed="false">Servis vozil</button>
+        <button type="button" data-pick="delo" data-val="kmetijstvo" aria-pressed="false">Kmetijska mehanizacija</button>
+        <button type="button" data-pick="delo" data-val="delavnica" aria-pressed="false">Delavnica, vzdrževanje</button>
+        <button type="button" data-pick="delo" data-val="tezko" aria-pressed="false">Težje delo, industrija</button>
+      </div></div>
+      <div class="q"><span>Prostor</span><div class="chips light">
+        <button type="button" data-pick="prostor" data-val="700" aria-pressed="false">Ozko, do 700 mm</button>
+        <button type="button" data-pick="prostor" data-val="900" aria-pressed="false">Do 900 mm</button>
+        <button type="button" data-pick="prostor" data-val="1200" aria-pressed="false">Prostora je dovolj</button>
+      </div></div>
+      <div class="q"><span>Začetek</span><div class="chips light">
+        <button type="button" data-pick="zacetek" data-val="prazen" aria-pressed="false">Prazen voziček</button>
+        <button type="button" data-pick="zacetek" data-val="orodje" aria-pressed="false">Že z orodjem</button>
+      </div></div>
+      <div class="q"><span>Poudarek</span><div class="chips light">
+        <button type="button" data-pick="poudarek" data-val="varnost" aria-pressed="false">Varnost</button>
+        <button type="button" data-pick="poudarek" data-val="kolicina" aria-pressed="false">Največ orodja</button>
+        <button type="button" data-pick="poudarek" data-val="gibanje" aria-pressed="false">Lahko premikanje</button>
+      </div></div>
+    </div>
+    <div id="rez"></div>
+  </div>
+  <div id="chat" aria-label="Račko, AI svetovalec"></div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="section-head"><h2>Kaj je tu več kot v PDF-ju</h2><p>Isti podatki, več odgovorov. Vsaka vrstica je v tem katalogu že narejena.</p></div>
+    <div class="tw"><table>
+      <thead><tr><th>Kupec želi</th><th>V PDF-ju</th><th>Tukaj</th><th>Kdo to naredi</th></tr></thead>
+      <tbody>
+        <tr><td>Najti »seger klešče«</td><td>Listanje do strani 53, izraz je »klešče za varovalne obročke«</td><td>Zadetek takoj, slovar pozna izraze obrtnikov</td><td>Slovar, ki ga pripravi AI in pregleda človek</td></tr>
+        <tr><td>Vedeti, kje je SW 19 ali TX40</td><td>Tabele so samo pri 11 setih, razpršene po strani</td><td>Velikosti so podatek, iskanje pove, v katerem setu so</td><td>Strukturiran podatek</td></tr>
+        <tr><td>Primerjati dva vozička</td><td>Skakanje med stranmi</td><td>Tabela z razlikami in shema v istem merilu</td><td>Strukturiran podatek</td></tr>
+        <tr><td>Vedeti, ali gre skozi vrata</td><td>Mere so na fotografiji</td><td>»Voziček do 750 mm« izloči, kar ne gre</td><td>Razčlenitev vprašanja</td></tr>
+        <tr><td>Sestaviti svoj voziček</td><td>Sam računaš module s strani 25</td><td>Konfigurator predalov, sproti vidiš prosti prostor</td><td>Pravilo iz kataloga</td></tr>
+        <tr><td>Povedati, kaj dela, in dobiti predlog</td><td>Ni mogoče</td><td>Račko predlaga in pojasni zakaj</td><td>AI, omejen na katalog</td></tr>
+        <tr><td>Biti povezan s komercialistom</td><td>Telefon</td><td>Povpraševanje s šiframi in potrebo pride v prodajo</td><td>AI pripravi, človek potrdi</td></tr>
+      </tbody>
+    </table></div>
+    <p style="margin-top:16px"><a class="btn" href="podatki.html">Kako je PDF postal podatki →</a> <a class="btn" href="priloznosti.html">Možnosti za analitiko in AI →</a></p>
+  </div>
+</section>
+</main>
+
+<dialog class="sheet" id="sheet" aria-label="Podrobnosti izdelka"></dialog>
+<dialog class="full" id="cmpdlg" aria-label="Primerjava vozičkov"></dialog>
+<div class="tray" id="tray" hidden></div>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Račko je koncept Roka Skrinjarja in ni povezan s podjetjem Würth d.o.o. ali skupino Würth. Podatki o izdelkih so povzeti po javnem PDF katalogu »Izberite si voziček z orodjem, katerega si zaslužite« (2021), šifre in razpoložljivost lahko danes odstopajo. Sheme vozičkov so narisane iz mer v katalogu. Naročanja ni.</p>
+    <p><a href="/projects/">← Rok Skrinjar</a></p>
+  </div>
+</footer>
+<script src="assets/search.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/chat.js"></script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+{
+  "vir": {
+    "naslov": "Izberite si voziček z orodjem, katerega si zaslužite",
+    "leto": "2021",
+    "strani": 60,
+    "pdf": "https://www.wuerth.si/UploadedFiles/638162879398342063Izberite%20si%20vozic%CC%8Cek%20katerega%20si%20zasluz%CC%8Cite%202021_brez%20cen.pdf",
+    "prebrano": "2026-11-02"
+  },
+  "moduli": [
+    { "id": 2, "oznaka": "2.4.1", "mere": "115 × 335 mm", "opis": "četrtina predala" },
+    { "id": 4, "oznaka": "4.4.1", "mere": "231 × 335 mm", "opis": "polovica predala" },
+    { "id": 6, "oznaka": "6.4.1", "mere": "346 × 335 mm", "opis": "tri četrtine predala" },
+    { "id": 8, "oznaka": "8.4.1", "mere": "462 × 335 mm", "opis": "cel modul" }
+  ],
+  "skupine": [
+    { "id": "izvijaci", "naziv": "Izvijači" },
+    { "id": "kljuci", "naziv": "Viličasti, obročasti in S-ključi" },
+    { "id": "racne", "naziv": "Račna ključi" },
+    { "id": "n14", "naziv": "Natični ključi 1/4″" },
+    { "id": "n1438", "naziv": "Natični ključi 1/4″ in 3/8″" },
+    { "id": "n38", "naziv": "Natični ključi 3/8″" },
+    { "id": "n12", "naziv": "Natični ključi 1/2″" },
+    { "id": "n1412", "naziv": "Natični ključi 1/4″ in 1/2″" },
+    { "id": "strojni", "naziv": "Strojni natični ključi 1/2″" },
+    { "id": "klesce", "naziv": "Klešče" },
+    { "id": "mesano", "naziv": "Mešano orodje" },
+    { "id": "sekaci", "naziv": "Pile, sekači, prebijači in kladiva" }
+  ],
+  "vozicki": [
+    {
+      "id": "s7", "naziv": "Standard S7", "linija": "Standard", "stran": 2,
+      "predali": 7, "izvlek": "odstranljivi predali", "predal": [469, 337], "visine": [65, 140],
+      "visina": 905, "sirina": 695, "globina": 412, "polja": 1,
+      "nosilnost_predala": 30, "nosilnost_skupaj": null,
+      "kolesa": "2 kolesa, z eno zavoro", "zapiranje": "centralno zaklepanje", "odpiranje": "več predalov hkrati",
+      "lastnosti": ["7 odstranljivih predalov", "možnost odpiranja več predalov hkrati", "zgornja polica z ABS oblogo", "centralno zaklepanje", "možnost dodatnih perforiranih plošč na straneh (za pospravljanje orodja na kavlje)", "uležajena vodila", "stabilen in kompakten ročaj", "enoročno zapiranje", "predali za TOOL sistem"],
+      "barve": [{ "ral": "3020", "art": "0962 613 700" }],
+      "dodatki": [{ "art": "0962 616 009", "naziv": "Dodatni element (stranski koš)" }, { "art": "0962 616 057", "naziv": "Perforirana plošča" }]
+    },
+    {
+      "id": "c7", "naziv": "Compact 7", "linija": "Compact", "stran": 3,
+      "predali": 7, "izvlek": "poln izvlek", "predal": [468, 335], "visine": [65, 140],
+      "visina": 940, "sirina": 710, "globina": 430, "polja": 1,
+      "nosilnost_predala": 40, "nosilnost_skupaj": null,
+      "kolesa": "gumijasta kolesa z zavoro", "zapiranje": "centralno zaklepanje, pregibni ključ", "odpiranje": "samo posamično (varnostni sistem)",
+      "lastnosti": ["gumijasta zaščita na robovih preprečuje morebitne poškodbe na vozilih", "7 predalov s polnim izvlekom", "varnostni sistem: predali se odpirajo samo posamično", "centralno zaklepanje", "pregibni ključ", "uležajena vodila", "enoročno odpiranje", "gumijasta kolesa z zavoro", "stabilen in kompakten ročaj", "predali za TOOL sistem"],
+      "barve": [
+        { "ral": "3020", "art": "0962 615 700" },
+        { "ral": "5012", "art": "0962 615 701" },
+        { "ral": "5010", "art": "0962 615 702" },
+        { "ral": "9017", "art": "0962 615 001" },
+        { "ral": "7035", "art": "0962 615 703" },
+        { "ral": "FENDT", "art": "0962 615 008", "opomba": "Fendt Edition" }
+      ],
+      "dodatki": []
+    },
+    {
+      "id": "c8", "naziv": "Compact C8", "linija": "Compact", "stran": 18,
+      "predali": 8, "izvlek": null, "predal": null, "visine": null,
+      "visina": null, "sirina": null, "globina": null, "polja": 1,
+      "nosilnost_predala": null, "nosilnost_skupaj": null,
+      "kolesa": null, "zapiranje": null, "odpiranje": null,
+      "lastnosti": ["katalog ga kaže le kot sestav orodja za vozila Mercedes", "mere in nosilnosti v katalogu niso navedene"],
+      "barve": [{ "ral": "3020", "art": "0962 615 800" }],
+      "dodatki": []
+    },
+    {
+      "id": "b84", "naziv": "Sistem Basic 7 8.4", "linija": "Basic", "stran": 6,
+      "predali": 7, "izvlek": "poln izvlek", "predal": [466, 336], "visine": [69, 149],
+      "visina": 964, "sirina": 665, "globina": 393, "polja": 1,
+      "nosilnost_predala": null, "nosilnost_skupaj": 250,
+      "kolesa": "2 fiksni in 2 vrtljivi kolesi, ena zavora", "zapiranje": "centralno zaklepanje", "odpiranje": "enoročno",
+      "lastnosti": ["7 predalov s polnim izvlekom", "zgornja polica z ABS oblogo", "centralno zaklepanje", "enoročno odpiranje", "kompaktna kolesa, vrtljiva z zavoro", "kompakten ročaj", "predali za TOOL sistem"],
+      "barve": [
+        { "ral": "3020", "art": "0962 641 070" },
+        { "ral": "5010", "art": "0962 641 071" },
+        { "ral": "7047", "art": "0962 641 072" },
+        { "ral": "9017", "art": "0962 641 073" }
+      ],
+      "dodatki": [{ "art": "5581 035 001", "naziv": "Dodatni element (stranska posoda)" }],
+      "rezervni_deli": { "stran": 7, "serija": "0962641", "deli": [
+        { "art": "0962641905", "risba": "ročaj" }, { "art": "0962641906", "risba": "zgornja polica" }, { "art": "0962641907", "risba": "plitvi predal" }, { "art": "0962641908", "risba": "globoki predal" },
+        { "art": "0962641904", "risba": "droben pritrdilni del na boku" }, { "art": "0962641903", "risba": "vodilo predala" }, { "art": "0962641900", "risba": "kolo" }, { "art": "0962641901", "risba": "kolo" }, { "art": "0962641902", "risba": "kolo" }
+      ] }
+    },
+    {
+      "id": "b88", "naziv": "Sistem Basic 7 8.8", "linija": "Basic", "stran": 8,
+      "predali": 7, "izvlek": "poln izvlek", "predal": [674, 463], "visine": [71, 156],
+      "visina": 985, "sirina": 880, "globina": 520, "polja": 2,
+      "nosilnost_predala": 35, "nosilnost_skupaj": 300,
+      "kolesa": "2 fiksni in 2 vrtljivi kolesi, ena zavora", "zapiranje": "dvojno: centralna cilindrična ključavnica in mehanska zapora na vsakem predalu", "odpiranje": "enoročno",
+      "lastnosti": ["7 predalov s polnim izvlekom", "zgornja polica z ABS oblogo", "dvojno zaklepanje: centralno prek cilindrične ključavnice in mehanska zapora na vsakem predalu", "stabilen in kompakten stranski ročaj z gumijastimi zaščitami", "uležajena vodila", "številni dodatki", "možno opremiti z vsemi penastimi vložki ter s sistemskimi kovčki in škatlami", "Made in EU", "predali za TOOL sistem"],
+      "barve": [
+        { "ral": "3020", "art": "0962 642 070" },
+        { "ral": "5010", "art": "0962 642 071" },
+        { "ral": "7047", "art": "0962 642 072" },
+        { "ral": "9017", "art": "0962 642 073" }
+      ],
+      "dodatki": [{ "art": "5581 035 001", "naziv": "Dodatni element (stranska posoda)" }],
+      "rezervni_deli": { "stran": 9, "serija": "0962642", "deli": [
+        { "art": "0962642905", "risba": "ročaj" }, { "art": "0962642906", "risba": "zgornja polica" }, { "art": "0962642907", "risba": "plitvi predal" }, { "art": "0962642908", "risba": "globoki predal" },
+        { "art": "0962642904", "risba": "droben pritrdilni del na boku" }, { "art": "0962642903", "risba": "vodilo predala" }, { "art": "0962642900", "risba": "kolo" }, { "art": "0962642901", "risba": "kolo" }, { "art": "0962642902", "risba": "kolo" }
+      ] }
+    },
+    {
+      "id": "we", "naziv": "Sistem WE 7 8.8", "linija": "WE", "stran": 10,
+      "predali": 7, "izvlek": "poln izvlek", "predal": [674, 463], "visine": [71, 156],
+      "visina": 1055, "sirina": 850, "globina": 545, "polja": 2,
+      "nosilnost_predala": 35, "nosilnost_skupaj": 500,
+      "kolesa": "2 fiksni in 2 vrtljivi kolesi, z zavoro", "zapiranje": "centralno zaklepanje", "odpiranje": "enoročno",
+      "lastnosti": ["7 predalov s polnim izvlekom", "zgornja polica z ABS oblogo", "centralno zaklepanje", "enoročno odpiranje", "kompakten ročaj", "predali z uležajenimi vodili", "kompaktna kolesa, vrtljiva z zavoro"],
+      "barve": [
+        { "ral": "3020", "art": "0962 639 070" },
+        { "ral": "5010", "art": "0962 639 071" },
+        { "ral": "7047", "art": "0962 639 072" },
+        { "ral": "9017", "art": "0962 639 073" }
+      ],
+      "dodatki": []
+    },
+    {
+      "id": "xxl", "naziv": "Sistem WE XXL 8.8", "linija": "WE", "stran": 11,
+      "predali": 7, "izvlek": "poln izvlek", "predal": [1005, 463], "visine": [65, 131],
+      "visina": 1030, "sirina": 1200, "globina": 510, "polja": 3,
+      "nosilnost_predala": 35, "nosilnost_skupaj": 1000,
+      "kolesa": "2 fiksni in 2 vrtljivi kolesi, z zavoro", "zapiranje": "centralno zaklepanje", "odpiranje": "enoročno",
+      "lastnosti": ["7 predalov s polnim izvlekom", "zgornja polica z ABS oblogo", "različica z leseno ploščo", "centralno zaklepanje", "enoročno odpiranje", "kompakten ročaj", "predali z uležajenimi vodili", "kompaktna kolesa, vrtljiva z zavoro"],
+      "barve": [
+        { "ral": "3020", "art": "0962 639 087" },
+        { "ral": "3020", "art": "0962 639 086", "opomba": "z leseno ploščo" }
+      ],
+      "dodatki": []
+    }
+  ],
+  "sestavi": [
+    { "id": "s7-101", "naziv": "S7 Standard s 101 kosom orodja", "voz": "s7", "art": "0962 613 700", "kosov": 101, "stran": 12,
+      "seti": [["0965 905 600", 4], ["0965 905 407", 8], ["0965 905 501", 8], ["0965 905 502", 7], ["0965 905 945", 24], ["0965 905 943", 37], ["0965 905 703", 13]] },
+    { "id": "s7-106", "naziv": "S7 Standard s 106 kosi orodja", "voz": "s7", "art": "0962 613 700", "kosov": 106, "stran": 13,
+      "seti": [["0965 905 927", 27], ["0965 905 501", 8], ["0965 905 502", 7], ["0965 905 603", 4], ["0965 905 600", 4], ["0965 905 901", 56]] },
+    { "id": "c7-98", "naziv": "C7 Compact z 98 kosi orodja", "voz": "c7", "art": "0962 615 700", "kosov": 98, "stran": 14,
+      "seti": [["0965 905 916", 21], ["0965 905 401", 17], ["0965 905 600", 4], ["0965 905 901", 56]] },
+    { "id": "c7-101", "naziv": "C7 Compact s 101 kosom orodja", "voz": "c7", "art": "0962 615 700", "kosov": 101, "stran": 15,
+      "seti": [["0965 905 901", 56], ["0965 905 600", 4], ["0965 905 603", 4], ["0965 905 919", 22], ["0965 905 501", 8], ["0965 905 502", 7]] },
+    { "id": "c7-97", "naziv": "C7 Compact z 97 kosi orodja", "voz": "c7", "art": "0962 615 700", "kosov": 97, "stran": 16,
+      "seti": [["0965 905 208", 23], ["0965 905 207", 12], ["0965 905 401", 17], ["0955 900 201", 11], ["0955 900 204", 11], ["0965 905 600", 4], ["0965 905 602", 4], ["0965 905 501", 8], ["0965 905 502", 7]] },
+    { "id": "c7-217", "naziv": "C7 Compact z 217 kosi orodja", "voz": "c7", "art": "0962 615 700", "kosov": 217, "stran": 17,
+      "seti": [["0965 905 922", 109], ["0965 905 510", 6], ["0965 905 511", 6], ["0965 905 926", 29], ["0965 905 600", 4], ["0965 905 602", 4], ["0965 905 207", 12], ["0965 905 906", 47]] },
+    { "id": "c8-237", "naziv": "C8 z 237 kosi orodja za vozila Mercedes", "voz": "c8", "art": "0962 615 800", "kosov": 237, "stran": 18,
+      "seti": [["0965 905 927", 29], ["0965 905 923", 18], ["0965 905 925", 10], ["0965 905 929", 24], ["0965 905 926", 29], ["0965 905 924", 35], ["0965 905 928", 92]] },
+    { "id": "b84-151", "naziv": "Basic 8.4/7 s 151 kosi orodja", "voz": "b84", "art": "0962 641 070", "kosov": 151, "stran": 20,
+      "seti": [["0965 905 901", 109], ["0965 905 929", 24], ["0965 905 401", 17], ["0965 905 501", 8], ["0965 905 917", 25], ["0965 905 205", 13], ["0965 905 502", 7]] },
+    { "id": "b84-169", "naziv": "Basic 8.4/7 s 169 kosi orodja", "voz": "b84", "art": "0962 641 070", "kosov": 169, "stran": 21,
+      "seti": [["0965 905 922", 109], ["0965 905 916", 21], ["0965 905 959", 14], ["0965 905 405", 12], ["0965 905 407", 8], ["0965 905 702", 5]] },
+    { "id": "b88-256", "naziv": "Basic 8.8/8 s 256 kosi orodja", "voz": "b88", "art": "0962 641 083", "barva": "9017", "kosov": 256, "stran": 22,
+      "seti": [["0965 905 929", 24], ["0965 905 916", 21], ["0965 905 208", 23], ["0965 905 903", 91], ["0965 905 401", 17], ["0965 905 917", 25], ["0965 905 906", 47], ["0965 905 407", 8]] },
+    { "id": "we-184", "naziv": "WE System 8.8/7 s 184 kosi orodja", "voz": "we", "art": "0962 639 070", "kosov": 184, "stran": 23,
+      "seti": [["0965 905 602", 4], ["0965 905 502", 7], ["0965 905 600", 4], ["0965 905 501", 8], ["0965 905 207", 12], ["0965 905 901", 56], ["0965 905 402", 10], ["0965 905 912", 36], ["0965 905 906", 47]] },
+    { "id": "xxl-250", "naziv": "WE System XXL 8.8/8 z 250 kosi orodja", "voz": "xxl", "art": "0962 639 087", "kosov": 250, "stran": 24,
+      "seti": [["0965 905 407", 8], ["0965 905 402", 10], ["0965 905 912", 36], ["0965 905 702", 5], ["0965 905 802", 9], ["0965 905 603", 4], ["0965 905 502", 7], ["0965 905 210", 16], ["0965 905 207", 12], ["0965 905 901", 56], ["0965 905 906", 47], ["0965 905 201", 17], ["0965 905 600", 4], ["0965 905 501", 8], ["0965 905 204", 11]] }
+  ],
+  "seti": [
+    { "art": "0965 905 923", "naziv": "Set izvijačev z okroglim steblom", "kosov": 18, "skupina": "izvijaci", "modul": 8, "stran": 26, "vsebina": [
+      { "a": "0613 232 01", "n": "izvijač PH1 × 80 mm" }, { "a": "0613 232 02", "n": "izvijač PH2 × 100 mm" }, { "a": "0613 251 05", "n": "kratki izvijač 1 × 5,5 × 25 mm" }, { "a": "0613 252 2", "n": "kratki izvijač PH2 × 25 mm" },
+      { "a": "0613 286 06", "n": "gibljivi izvijač SW6 × 150 mm", "sw": [6] }, { "a": "0613 286 07", "n": "gibljivi izvijač SW7 × 150 mm", "sw": [7] },
+      { "a": "0613 434 06", "n": "izvijač TX6 × 60 mm", "tx": [6] }, { "a": "0613 434 07", "n": "izvijač TX7 × 60 mm", "tx": [7] }, { "a": "0613 434 08", "n": "izvijač TX8 × 60 mm", "tx": [8] }, { "a": "0613 434 09", "n": "izvijač TX9 × 60 mm", "tx": [9] },
+      { "a": "0613 434 10", "n": "izvijač TX10 × 80 mm", "tx": [10] }, { "a": "0613 434 15", "n": "izvijač TX15 × 80 mm", "tx": [15] }, { "a": "0613 434 20", "n": "izvijač TX20 × 100 mm", "tx": [20] }, { "a": "0613 434 25", "n": "izvijač TX25 × 100 mm", "tx": [25] },
+      { "a": "0613 434 27", "n": "izvijač TX27 × 115 mm", "tx": [27] }, { "a": "0613 434 30", "n": "izvijač TX30 × 115 mm", "tx": [30] }, { "a": "0613 434 40", "n": "izvijač TX40 × 130 mm", "tx": [40] }, { "a": "0613 434 45", "n": "izvijač TX45 × 130 mm", "tx": [45] }
+    ] },
+    { "art": "0965 905 500", "naziv": "Set VDE izvijačev", "kosov": 6, "skupina": "izvijaci", "modul": 4, "stran": 27 },
+    { "art": "0965 905 501", "naziv": "Set ravnih in PH udarnih izvijačev", "kosov": 8, "skupina": "izvijaci", "modul": 4, "stran": 27 },
+    { "art": "0965 905 502", "naziv": "Set TX izvijačev", "kosov": 7, "skupina": "izvijaci", "modul": 4, "stran": 27 },
+    { "art": "0965 905 505", "naziv": "Set ravnih in križnih izvijačev", "kosov": 8, "skupina": "izvijaci", "modul": 4, "stran": 27 },
+    { "art": "0965 905 510", "naziv": "Set T-izvijačev imbus", "kosov": 6, "skupina": "izvijaci", "modul": 4, "stran": 28 },
+    { "art": "0965 905 511", "naziv": "Set T-izvijačev TX", "kosov": 6, "skupina": "izvijaci", "modul": 4, "stran": 28 },
+    { "art": "0965 905 916", "naziv": "Set izvijačev s 6-kt steblom", "kosov": 21, "skupina": "izvijaci", "modul": 8, "stran": 28 },
+    { "art": "0965 905 915", "naziv": "Set izvijačev", "kosov": 25, "skupina": "izvijaci", "modul": 8, "stran": 28 },
+    { "art": "0965 905 924", "naziv": "Set izvijačev, svedrov in meril", "kosov": 35, "skupina": "izvijaci", "modul": 8, "stran": 29 },
+    { "art": "0965 905 402", "naziv": "Set viličasto obročastih ključev", "kosov": 10, "skupina": "kljuci", "modul": 8, "stran": 30, "vsebina": [
+      { "a": "0713 301 23", "n": "ključ SW 23 mm", "sw": [23] }, { "a": "0713 301 24", "n": "ključ SW 24 mm", "sw": [24] }, { "a": "0713 301 25", "n": "ključ SW 25 mm", "sw": [25] }, { "a": "0713 301 26", "n": "ključ SW 26 mm", "sw": [26] }, { "a": "0713 301 27", "n": "ključ SW 27 mm", "sw": [27] },
+      { "a": "0713 301 28", "n": "ključ SW 28 mm", "sw": [28] }, { "a": "0713 301 29", "n": "ključ SW 29 mm", "sw": [29] }, { "a": "0713 301 30", "n": "ključ SW 30 mm", "sw": [30] }, { "a": "0713 301 32", "n": "ključ SW 32 mm", "sw": [32] }, { "a": "0713 301 34", "n": "ključ SW 34 mm", "sw": [34] }
+    ] },
+    { "art": "0965 905 401", "naziv": "Set viličasto obročastih ključev", "kosov": 17, "skupina": "kljuci", "modul": 4, "stran": 31 },
+    { "art": "0965 905 403", "naziv": "Set viličasto obročastih ključev", "kosov": 11, "skupina": "kljuci", "modul": 4, "stran": 31 },
+    { "art": "0965 905 404", "naziv": "Set viličastih ključev", "kosov": 8, "skupina": "kljuci", "modul": 4, "stran": 31 },
+    { "art": "0965 905 408", "naziv": "Set natičnih gibljivih ključev", "kosov": 6, "skupina": "kljuci", "modul": 4, "stran": 31 },
+    { "art": "0965 905 406", "naziv": "Set račna ključev MULTI", "kosov": 8, "skupina": "racne", "modul": 4, "stran": 32 },
+    { "art": "0965 905 410", "naziv": "Set račna ključev", "kosov": 6, "skupina": "racne", "modul": 4, "stran": 32 },
+    { "art": "0965 905 407", "naziv": "Set račna ključev z gibljivo glavo", "kosov": 8, "skupina": "racne", "modul": 4, "stran": 32 },
+    { "art": "0965 905 412", "naziv": "Set račna ključev z gibljivo glavo", "kosov": 12, "skupina": "racne", "modul": 4, "stran": 32 },
+    { "art": "0965 905 405", "naziv": "Set dvojnih S-ključev", "kosov": 12, "skupina": "kljuci", "modul": 8, "stran": 33, "vsebina": [
+      { "a": "0713 305 067", "n": "ključ SW 6 × 7 mm", "sw": [6, 7] }, { "a": "0713 305 089", "n": "ključ SW 8 × 9 mm", "sw": [8, 9] }, { "a": "0713 305 101", "n": "ključ SW 10 × 11 mm", "sw": [10, 11] }, { "a": "0713 305 123", "n": "ključ SW 12 × 13 mm", "sw": [12, 13] },
+      { "a": "0713 305 145", "n": "ključ SW 14 × 15 mm", "sw": [14, 15] }, { "a": "0713 305 167", "n": "ključ SW 16 × 17 mm", "sw": [16, 17] }, { "a": "0713 305 189", "n": "ključ SW 18 × 19 mm", "sw": [18, 19] }, { "a": "0713 305 202", "n": "ključ SW 20 × 22 mm", "sw": [20, 22] },
+      { "a": "0713 305 213", "n": "ključ SW 21 × 23 mm", "sw": [21, 23] }, { "a": "0713 305 247", "n": "ključ SW 24 × 27 mm", "sw": [24, 27] }, { "a": "0713 305 258", "n": "ključ SW 25 × 28 mm", "sw": [25, 28] }, { "a": "0713 305 302", "n": "ključ SW 30 × 32 mm", "sw": [30, 32] }
+    ] },
+    { "art": "0965 905 927", "naziv": "Set obročastih in S-ključev", "kosov": 29, "skupina": "kljuci", "modul": 8, "stran": 34 },
+    { "art": "0965 905 912", "naziv": "Set viličastih in S-ključev", "kosov": 36, "skupina": "kljuci", "modul": 8, "stran": 34 },
+    { "art": "0965 905 919", "naziv": "Set viličastih in S-ključev", "kosov": 22, "skupina": "kljuci", "modul": 8, "stran": 34 },
+    { "art": "0965 905 920", "naziv": "Set viličasto obročastih ključev", "kosov": 27, "skupina": "kljuci", "modul": 8, "stran": 35 },
+    { "art": "0965 905 926", "naziv": "Set obročastih in viličastih ključev", "kosov": 29, "skupina": "kljuci", "modul": 8, "stran": 35 },
+    { "art": "0965 905 001", "naziv": "Set 1/4″ natičnih ključev", "kosov": 33, "skupina": "n14", "modul": 4, "stran": 36, "vsebina": [
+      { "a": "0613 430 310", "n": "1/4″ izvijač" }, { "a": "0614 175 653", "n": "1/4″ bit nastavek ravni 0,8 × 5,5 mm" }, { "a": "0614 176 274", "n": "1/4″ bit nastavek PH1" }, { "a": "0614 176 461", "n": "1/4″ bit nastavek PH2" }, { "a": "0614 176 653", "n": "1/4″ bit nastavek PZ3" },
+      { "a": "0614 176 93 – 96", "n": "1/4″ bit nastavek imbus SW3, 4, 5, 6", "imb": [3, 4, 5, 6] }, { "a": "0614 311 0 – 0614 314 0", "n": "1/4″ bit nastavek TX10, 15, 20, 25, 27, 30, 40", "tx": [10, 15, 20, 25, 27, 30, 40] },
+      { "a": "0712 014 0", "n": "1/4″ račna" }, { "a": "0713 111 104 – 114", "n": "1/4″ natični ključ 6-kt SW4 – SW14", "swr": [4, 14] }, { "a": "0713 118 104", "n": "1/4″ podaljšek 100 mm" }, { "a": "0713 118 106", "n": "1/4″ podaljšek 152 mm" }, { "a": "0713 118 301", "n": "1/4″ gibljiv podaljšek" }, { "a": "0715 11 01", "n": "adapter za 1/4″ bite" }, { "a": "0955 905 001", "n": "prazna vložna karbonska pena" }
+    ] },
+    { "art": "0965 905 943", "naziv": "Set nastavkov 1/4″ z račna izvijačem", "kosov": 37, "skupina": "n14", "modul": 4, "stran": 37 },
+    { "art": "0965 905 052", "naziv": "Set dolgih natičnih ključev 1/4″", "kosov": 12, "skupina": "n14", "modul": 2, "stran": 37 },
+    { "art": "0965 905 903", "naziv": "Set 1/4″ in 3/8″ natičnih ključev", "kosov": 91, "skupina": "n1438", "modul": 8, "stran": 38, "vsebina": [
+      { "a": "0712 014 0", "n": "račna 1/4″" }, { "a": "0712 038 0", "n": "račna 3/8″" }, { "a": "0713 111 105 – 114", "n": "natični ključ 1/4″, l 22 mm, SW5 – SW14", "swr": [5, 14] }, { "a": "0713 112 106 – 114", "n": "natični ključ, l 50 mm, SW6 – SW14", "swr": [6, 14] },
+      { "a": "0713 118 104", "n": "1/4″ podaljšek 100 mm" }, { "a": "0713 118 110", "n": "1/4″ podaljšek 250 mm" }, { "a": "0713 118 301", "n": "1/4″ gibljiv podaljšek" }, { "a": "0713 118 401", "n": "adapter 1/4″ – 3/8″" },
+      { "a": "0713 121 108 – 112", "n": "3/8″ natični ključ, l 27 mm, SW5 – SW12", "swr": [5, 12] }, { "a": "0713 121 113 – 117", "n": "3/8″ natični ključ, l 30 mm, SW13 – SW17", "swr": [13, 17] }, { "a": "0713 121 118 – 122", "n": "3/8″ natični ključ, l 33 mm, SW18 – SW22", "swr": [18, 22] }, { "a": "0713 122 108 – 122", "n": "3/8″ natični ključ, l 64 mm, SW8 – SW22", "swr": [8, 22] },
+      { "a": "0713 128 103", "n": "3/8″ podaljšek 75 mm" }, { "a": "0713 128 105", "n": "3/8″ podaljšek 125 mm" }, { "a": "0713 128 110", "n": "3/8″ podaljšek 250 mm" }, { "a": "0713 128 301", "n": "3/8″ gibljiv podaljšek" }, { "a": "0713 128 401", "n": "adapter 3/8″ – 1/4″" },
+      { "a": "0715 112 04 – 11", "n": "1/4″ natični ključ E4 – E11, dolžine 22 mm" }, { "a": "0715 11 40", "n": "1/4″ kotni podaljšek 75 mm" }, { "a": "0715 113 08 – 40", "n": "1/4″ natični ključ TX8 – TX40, dolžine 32 mm", "txr": [8, 40] }, { "a": "0715 122 05 – 14", "n": "3/8″ natični ključ E5 – E14, l 26 mm" }, { "a": "0715 123 15 – 50", "n": "3/8″ natični ključ TX15 – TX50, l 50 mm", "txr": [15, 50] }
+    ] },
+    { "art": "0965 905 913", "naziv": "Set natičnih ključev 1/4″ in 3/8″", "kosov": 62, "skupina": "n1438", "modul": 8, "stran": 39 },
+    { "art": "0965 905 904", "naziv": "Set natičnih ključev 1/4″ in 3/8″", "kosov": 22, "skupina": "n1438", "modul": 2, "stran": 39 },
+    { "art": "0965 905 921", "naziv": "Set 3/8″ natičnih ključev", "kosov": 102, "skupina": "n38", "modul": 8, "stran": 40, "vsebina": [
+      { "a": "0614 175 650 – 656", "n": "bit nastavek ravni 3; 4,5; 5; 6; 6,5; 8 mm" }, { "a": "0614 176 274 – 648", "n": "bit nastavek 6 kom PH1, PH2, PH3" }, { "a": "0614 176 93 – 96", "n": "bit nastavek 2 kom imbus 3, 4, 5, 6 mm", "imb": [3, 4, 5, 6] }, { "a": "0614 311 0 – 0614 314 0", "n": "bit nastavek TX10, 15, 20, 25, 30, 40", "tx": [10, 15, 20, 25, 30, 40] },
+      { "a": "0712 038 0", "n": "3/8″ račna" }, { "a": "0713 121 10 – 15", "n": "3/8″ gibljiv natični ključ SW 10, 11, 12, 13, 14, 15", "sw": [10, 11, 12, 13, 14, 15] }, { "a": "0713 121 108 – 122", "n": "3/8″ natični ključ 6-kt SW8 – SW22", "swr": [8, 22] }, { "a": "0713 122 108 – 121", "n": "3/8″ natični ključ dolgi SW8 – SW21", "swr": [8, 21] },
+      { "a": "0713 128 103", "n": "3/8″ podaljšek 75 mm" }, { "a": "0713 128 105", "n": "3/8″ podaljšek 125 mm" }, { "a": "0713 128 110", "n": "3/8″ podaljšek 250 mm" }, { "a": "0713 128 301", "n": "3/8″ gibljiv podaljšek" }, { "a": "0713 128 401", "n": "adapter 3/8″ – 1/4″" }, { "a": "0713 128 402", "n": "adapter 3/8″ – 1/2″" }, { "a": "0715 12 01", "n": "3/8″ adapter za bite" },
+      { "a": "0715 122 05 – 14", "n": "3/8″ natični ključi E5, 6, 7, 8, 10, 11, 12" }, { "a": "0715 123 15 – 50", "n": "3/8″ natični ključ TX 15, 20, 25, 27, 30, 45, 50", "tx": [15, 20, 25, 27, 30, 45, 50] }, { "a": "0715 127 03 – 10", "n": "3/8″ natični ključ imbus SW3, 4, 5, 6, 7, 8, 9, 10", "imb": [3, 4, 5, 6, 7, 8, 9, 10] }, { "a": "0955 905 921", "n": "prazna vložna pena" }
+    ] },
+    { "art": "0965 905 102", "naziv": "Set natičnih ključev 3/8″", "kosov": 16, "skupina": "n38", "modul": 4, "stran": 41 },
+    { "art": "0965 905 944", "naziv": "Set natičnih ključev 3/8″", "kosov": 19, "skupina": "n38", "modul": 4, "stran": 41 },
+    { "art": "0965 905 101", "naziv": "Set natičnih ključev 3/8″", "kosov": 42, "skupina": "n38", "modul": 8, "stran": 41 },
+    { "art": "0965 905 909", "naziv": "Set dolgih natičnih ključev 3/8″", "kosov": 12, "skupina": "n38", "modul": 2, "stran": 41 },
+    { "art": "0965 905 202", "naziv": "Set 1/2″ natičnih ključev", "kosov": 23, "skupina": "n12", "modul": 8, "stran": 42, "vsebina": [
+      { "a": "0712 012 01", "n": "1/2″ račna" }, { "a": "0712 131 110 – 132", "n": "1/2″ natični ključ 6-kt SW10 – SW32", "swr": [10, 32] }, { "a": "0712 138 105", "n": "podaljšek 1/2″ 125 mm" }, { "a": "0712 138 110", "n": "podaljšek 1/2″ 250 mm" }, { "a": "0712 138 301", "n": "1/2″ adapter gibljivi" }, { "a": "0955 905 202", "n": "prazna vložna pena karbon" }
+    ] },
+    { "art": "0965 905 914", "naziv": "Set natičnih ključev 1/2″", "kosov": 43, "skupina": "n12", "modul": 8, "stran": 43 },
+    { "art": "0965 905 208", "naziv": "Set natičnih ključev 1/2″", "kosov": 23, "skupina": "n12", "modul": 4, "stran": 43 },
+    { "art": "0965 905 945", "naziv": "Set natičnih ključev 1/2″", "kosov": 24, "skupina": "n12", "modul": 4, "stran": 43 },
+    { "art": "0965 905 210", "naziv": "Set dolgih natičnih ključev 1/2″", "kosov": 16, "skupina": "n12", "modul": 4, "stran": 44 },
+    { "art": "0965 905 907", "naziv": "Set nastavkov 10 mm in 1/2″", "kosov": 38, "skupina": "n12", "modul": 4, "stran": 44 },
+    { "art": "0965 905 207", "naziv": "Set dolgih natičnih ključev 1/2″", "kosov": 12, "skupina": "n12", "modul": 4, "stran": 44 },
+    { "art": "0965 905 205", "naziv": "Set dolgih natičnih ključev 1/2″", "kosov": 13, "skupina": "n12", "modul": 4, "stran": 44 },
+    { "art": "0965 905 204", "naziv": "Set natičnih ključev 1/2″", "kosov": 11, "skupina": "n12", "modul": 2, "stran": 45 },
+    { "art": "0965 905 906", "naziv": "Set nastavkov 10 mm", "kosov": 47, "skupina": "n12", "modul": 4, "stran": 45 },
+    { "art": "0965 905 213", "naziv": "Set natičnih ključev 1/2″", "kosov": 4, "skupina": "n12", "modul": 2, "stran": 45 },
+    { "art": "0965 905 201", "naziv": "Set natičnih ključev 1/2″", "kosov": 17, "skupina": "n12", "modul": 2, "stran": 45 },
+    { "art": "0955 900 201", "naziv": "Set natičnih ključev 1/2″", "kosov": 11, "skupina": "n12", "modul": 2, "stran": 16 },
+    { "art": "0955 900 204", "naziv": "Set imbus natičnih ključev 1/2″", "kosov": 11, "skupina": "n12", "modul": 2, "stran": 16 },
+    { "art": "0965 905 901", "naziv": "Set 1/4″ in 1/2″ natičnih ključev", "kosov": 56, "skupina": "n1412", "modul": 8, "stran": 46, "vsebina": [
+      { "a": "0613 430 310", "n": "1/4″ izvijač za natične ključe, l 110 mm" }, { "a": "0614 175 653", "n": "bit nastavek ravni 0,8 × 5,5 mm, l 25 mm" }, { "a": "0614 176 274", "n": "bit nastavek PH1, l 25 mm" }, { "a": "0614 176 461", "n": "bit nastavek PH2, l 25 mm" }, { "a": "0614 176 648", "n": "bit nastavek PH3, l 25 mm" },
+      { "a": "0614 176 93 – 96", "n": "bit nastavek 3, 4, 5, 6 mm, l 25 mm", "imb": [3, 4, 5, 6] }, { "a": "0614 311 0 – 0614 314 0", "n": "bit nastavek TX 10, 15, 20, 25, 27, 30, 40, l 25 mm", "tx": [10, 15, 20, 25, 27, 30, 40] }, { "a": "0712 012 0", "n": "račna 1/2″" }, { "a": "0712 014 0", "n": "račna 1/4″" },
+      { "a": "0712 131 110 – 132", "n": "1/2″ natični ključ 6-kt SW10 – SW32", "swr": [10, 32] }, { "a": "0712 138 105", "n": "1/2″ podaljšek 125 mm" }, { "a": "0712 138 110", "n": "1/2″ podaljšek 250 mm" }, { "a": "0712 138 301", "n": "1/2″ gibljivi podaljšek" },
+      { "a": "0713 111 104 – 114", "n": "1/4″ natični ključ 6-kt SW4 – SW14", "swr": [4, 14] }, { "a": "0713 118 104", "n": "1/4″ podaljšek 100 mm" }, { "a": "0713 118 106", "n": "1/4″ podaljšek 152 mm" }, { "a": "0713 118 301", "n": "1/4″ gibljivi adapter" }, { "a": "0715 11 01", "n": "1/4″ adapter za bite, dolžine 30 mm" }
+    ] },
+    { "art": "0965 905 922", "naziv": "Set natičnih ključev 1/4″ in 1/2″", "kosov": 109, "skupina": "n1412", "modul": 8, "stran": 47 },
+    { "art": "0965 905 928", "naziv": "Set natičnih ključev 1/4″ in 1/2″", "kosov": 92, "skupina": "n1412", "modul": 8, "stran": 47 },
+    { "art": "0965 905 946", "naziv": "Set natičnih ključev 1/4″ in 1/2″", "kosov": 59, "skupina": "n1412", "modul": 6, "stran": 47 },
+    { "art": "0965 905 218", "naziv": "Set 1/2″ strojnih natičnih ključev", "kosov": 12, "skupina": "strojni", "modul": 4, "stran": 48, "vsebina": [
+      { "a": "0714 13 127", "n": "1/2″ strojni natični ključ SW 10", "sw": [10] }, { "a": "0714 13 128", "n": "1/2″ strojni natični ključ SW 11", "sw": [11] }, { "a": "0714 13 13", "n": "1/2″ strojni natični ključ SW 13", "sw": [13] }, { "a": "0714 13 130", "n": "1/2″ strojni natični ključ SW 14", "sw": [14] }, { "a": "0714 13 131", "n": "1/2″ strojni natični ključ SW 16", "sw": [16] }, { "a": "0714 13 14", "n": "1/2″ strojni natični ključ SW 17", "sw": [17] },
+      { "a": "0714 13 142", "n": "1/2″ strojni natični ključ SW 18", "sw": [18] }, { "a": "0714 13 15", "n": "1/2″ strojni natični ključ SW 19", "sw": [19] }, { "a": "0714 13 151", "n": "1/2″ strojni natični ključ SW 21", "sw": [21] }, { "a": "0714 13 16", "n": "1/2″ strojni natični ključ SW 22", "sw": [22] }, { "a": "0714 13 17", "n": "1/2″ strojni natični ključ SW 24", "sw": [24] }, { "a": "0714 13 18", "n": "1/2″ strojni natični ključ SW 27", "sw": [27] }
+    ] },
+    { "art": "0965 905 212", "naziv": "Set dolgih natičnih ključev 1/2″", "kosov": 6, "skupina": "strojni", "modul": 2, "stran": 49 },
+    { "art": "0965 905 217", "naziv": "Set strojnih natičnih ključev 1/2″", "kosov": 13, "skupina": "strojni", "modul": 2, "stran": 49 },
+    { "art": "0965 905 214", "naziv": "Set strojnih natičnih ključev 1/2″", "kosov": 16, "skupina": "strojni", "modul": 2, "stran": 49 },
+    { "art": "0965 905 216", "naziv": "Set strojnih nastavkov 1/2″", "kosov": 6, "skupina": "strojni", "modul": 2, "stran": 50 },
+    { "art": "0965 905 215", "naziv": "Set dolgih natičnih ključev 1/2″", "kosov": 11, "skupina": "strojni", "modul": 2, "stran": 50 },
+    { "art": "0965 905 925", "naziv": "Set klešč v peni", "kosov": 10, "skupina": "klesce", "modul": 8, "stran": 51, "vsebina": [
+      { "a": "0714 01 552", "n": "ščipalne klešče DIN ISO 5749, 160 mm" }, { "a": "0714 01 553", "n": "ščipalne klešče DIN ISO 5749, 180 mm" }, { "a": "0714 01 555", "n": "kombinirane klešče DIN ISO 5746" }, { "a": "0714 01 557", "n": "špičaste klešče DIN ISO 5745, 3 mm" }, { "a": "0714 01 558", "n": "špičaste klešče DIN ISO 5745, 3 mm, zavite" },
+      { "a": "0714 02 13", "n": "klešče za varovalne obročke oblika A, 19–60 mm" }, { "a": "0714 02 18", "n": "klešče za varovalne obročke oblika B, 19–60 mm" }, { "a": "0714 02 03", "n": "klešče za varovalne obročke oblika C, 19–60 mm" }, { "a": "0714 02 08", "n": "klešče za varovalne obročke oblika D, 19–60 mm" }, { "a": "0715 02 23", "n": "klešče za vodovodarje DIN ISO 8976" }
+    ] },
+    { "art": "0965 905 911", "naziv": "Set klešč, sekačev in strgal", "kosov": 18, "skupina": "klesce", "modul": 8, "stran": 52 },
+    { "art": "0965 905 917", "naziv": "Set klešč in imbus nastavkov", "kosov": 25, "skupina": "klesce", "modul": 8, "stran": 52 },
+    { "art": "0965 905 600", "naziv": "Set klešč", "kosov": 4, "skupina": "klesce", "modul": 4, "stran": 52 },
+    { "art": "0965 905 607", "naziv": "Set klešč VDE", "kosov": 4, "skupina": "klesce", "modul": 4, "stran": 52 },
+    { "art": "0965 905 602", "naziv": "Set klešč za varovalne obročke", "kosov": 4, "skupina": "klesce", "modul": 4, "stran": 53 },
+    { "art": "0965 905 603", "naziv": "Set klešč za varovalne obročke", "kosov": 4, "skupina": "klesce", "modul": 4, "stran": 53 },
+    { "art": "0965 905 604", "naziv": "Set klešč za varovalne obročke", "kosov": 4, "skupina": "klesce", "modul": 4, "stran": 53 },
+    { "art": "0965 905 959", "naziv": "Set klešč, nožev in meril", "kosov": 14, "skupina": "klesce", "modul": 8, "stran": 54 },
+    { "art": "0965 905 951", "naziv": "Pena s kleščami za DTM in MCP končnike", "kosov": null, "skupina": "klesce", "modul": 4, "stran": 54 },
+    { "art": "0965 905 950", "naziv": "Pena s kleščami za DTM in MCP končnike", "kosov": null, "skupina": "klesce", "modul": 4, "stran": 54 },
+    { "art": "0965 905 918", "naziv": "Set mešanega orodja v peni", "kosov": 19, "skupina": "mesano", "modul": 8, "stran": 55, "vsebina": [
+      { "a": "0713 09 26", "n": "patent klešče" }, { "a": "0714 130 17", "n": "natični ključ dolgi izoliran SW 17", "sw": [17] }, { "a": "0714 130 19", "n": "natični ključ dolgi izoliran SW 19", "sw": [19] }, { "a": "0714 34 51", "n": "strgalo" }, { "a": "0714 63 02", "n": "sekač ploščati DIN 6453, 18 mm" }, { "a": "0714 63 03", "n": "sekač ploščati DIN 6453, 22 mm" }, { "a": "0715 55 26", "n": "žična krtača za zavore" }, { "a": "0715 731 40", "n": "ključavničarsko kladivo 400 g" },
+      { "a": "0714 63 25 – 31", "n": "prebijači Ø 2, 3, 4, 5, 6, 8 mm" }, { "a": "0714 64 511", "n": "žepni tračni meter 3 m" }, { "a": "0715 34 96", "n": "teleskopski magnet" }, { "a": "0715 35 35", "n": "gibljivo držalo z magnetom" }, { "a": "0715 53 07", "n": "preizkuševalec toka Car-Tester 6–48 V" }, { "a": "0715 72 10", "n": "orodjarsko kladivo guma-plastika" }, { "a": "0955 905 918", "n": "karbonski penasti vložek" }
+    ] },
+    { "art": "0965 905 929", "naziv": "Set pil, sekačev, strgal in kladiv", "kosov": 24, "skupina": "sekaci", "modul": 8, "stran": 56 },
+    { "art": "0965 905 802", "naziv": "Set pil in strgal", "kosov": 9, "skupina": "sekaci", "modul": 8, "stran": 56 },
+    { "art": "0965 905 703", "naziv": "Set sekačev, prebijačev in kladiv", "kosov": 13, "skupina": "sekaci", "modul": 8, "stran": 56 },
+    { "art": "0965 905 704", "naziv": "Set prebijačev", "kosov": 5, "skupina": "sekaci", "modul": 4, "stran": 56 },
+    { "art": "0965 905 701", "naziv": "Set izbijačev in sekačev", "kosov": 14, "skupina": "sekaci", "modul": 4, "stran": 57 },
+    { "art": "0965 905 702", "naziv": "Set sekačev s kladivom", "kosov": 5, "skupina": "sekaci", "modul": 4, "stran": 57 }
+  ],
+  "usklajevanje": [
+    { "tip": "kosi", "kaj": "Sestav Basic 8.4/7 (151 kosov)", "stran": 20, "opis": "Naslov pravi 151 kosov, vsota setov z oznakami na strani je 203.", "predlog": "Set 0965 905 901 ima tu oznako 109-delni, na vseh drugih straneh in v tabeli pa 56 kosov. S 56 je vsota 150, torej še en kos razlike.", "druga": [46, 47] },
+    { "tip": "kosi", "kaj": "Set 0965 905 922", "stran": 47, "opis": "Stran 47: 108 delni. Strani 17 in 21: 109-delni.", "predlog": "Vsoti sestavov na straneh 17 in 21 se izideta s 109.", "druga": [17, 21] },
+    { "tip": "kosi", "kaj": "Set 0965 905 927", "stran": 13, "opis": "Stran 13: 27-delni. Strani 18 in 34: 29 delni.", "predlog": "27-delni je po strani 35 set 0965 905 920. Sestav s 106 kosi se izide s 27, zato je morda mišljena ta šifra.", "druga": [18, 34, 35] },
+    { "tip": "kosi", "kaj": "Seta 0965 905 501 in 502", "stran": 27, "opis": "Stran 27: 501 je 7 delni, 502 je 8 delni. Vsi sestavi: 501 je 8-delni, 502 je 7-delni.", "predlog": "Vsote sestavov se izidejo z 8 in 7, zato sta števili na strani 27 najbrž zamenjani.", "druga": [12, 13, 15, 16, 20, 23, 24] },
+    { "tip": "sifra", "kaj": "Seta 0955 900 201 in 204", "stran": 16, "opis": "Na strani 16 stojita šifri s predpono 0955 900 in po 11 kosov. Drugje so seti 0965 905, 201 ima 17 kosov.", "predlog": "Set 0965 905 204 ima 11 kosov. Pri 201 je treba preveriti, za kateri set gre.", "druga": [24, 45] },
+    { "tip": "sifra", "kaj": "Voziček 0962 641 083", "stran": 22, "opis": "Sestav »Basic 8.8/8« uporablja šifro iz serije 641, ki je na strani 6 serija 8.4. Serija 8.8 ima šifre 642.", "predlog": "V katalogu ni opisa različice z 8 predali. Treba je potrditi šifro in število predalov.", "druga": [6, 8] },
+    { "tip": "sifra", "kaj": "RAL 9017 pri Basic 8.4", "stran": 6, "opis": "Šifra je črna na črni podlagi, zato je na strani ni videti.", "predlog": "V tekstovni plasti PDF-ja je 0962 641 073. Stroj jo prebere, človek ne.", "druga": [] },
+    { "tip": "opis", "kaj": "Sestav WE System XXL 8.8/8", "stran": 24, "opis": "Ime govori o 8, opis vozička 0962 639 087 na strani 11 pa o 7 predalih.", "predlog": "Vsi seti gredo v 3 predale, zato izbira ne trpi. Treba je potrditi število predalov.", "druga": [11] },
+    { "tip": "opis", "kaj": "Voziček 0962 641 070", "stran": 21, "opis": "Na strani 21 piše »voziček z orodjem«, drugje ista šifra pomeni »brez orodja«.", "predlog": "Šifra sestava z orodjem bi bila koristna: 12 sestavov ima v katalogu samo šifro praznega vozička.", "druga": [6, 20] },
+    { "tip": "opis", "kaj": "Kolesa pri S7", "stran": 2, "opis": "Opis pravi »2 kolesa, z eno zavoro«, fotografija kaže štiri.", "predlog": "Pri drugih vozičkih piše »2 fiksna in 2 vrtljiva«, zato je tu najbrž mišljeno enako.", "druga": [6, 8] },
+    { "tip": "opis", "kaj": "Moduli za 8.8", "stran": 25, "opis": "Polje 335 × 115 mm nosi oznako 8.4.1, ki je drugje polje 462 × 335 mm.", "predlog": "Po logiki mreže je to modul 2.4.1.", "druga": [] },
+    { "tip": "ime", "kaj": "Set 0965 905 959", "stran": 54, "opis": "Stran 54: »Set klešč, sekačev in strgal«. Stran 21: »Set klešč, nožev in meril«.", "predlog": "Fotografija kaže klešče, nož in merilo, zato tukaj velja drugo ime.", "druga": [21] },
+    { "tip": "ime", "kaj": "Enaka imena, različni seti", "stran": 43, "opis": "Seta 0965 905 202 in 208 sta oba »Set natičnih ključev 1/2″, 23 delni«, razlikujeta se v velikosti pene. Podobno 602, 603 in 604 ter 950 in 951.", "predlog": "Za iskanje in naročanje bi pomagal en razlikovalni atribut.", "druga": [53, 54] },
+    { "tip": "ime", "kaj": "Sklop strani 56–57", "stran": 56, "opis": "Naslov strani je »Klešče v karbonskih penah«, vsebina pa pile, sekači, prebijači in kladiva.", "predlog": "V podatkih imajo svojo skupino.", "druga": [57] }
+  ]
+}
