@@ -1,18 +1,18 @@
-// Ogledalo chat: a floating panel on every page. Streams answers from /api/freespirit; keeps the conversation for this tab only.
+// Vprašaj Anjo chat: a floating panel on every page. Streams answers from /api/freespirit; keeps the conversation for this tab only.
 (function () {
   "use strict";
   var API = "/api/freespirit";
   var KEY = "free-spirit-chat";
   var BIZ = document.body.hasAttribute("data-biz");
   var T = {
-    hello: "Pozdravljen(a). Sem Ogledalo, AI pomočnik na tej strani. Povem ti, kako Anja dela in kaj ponuja, poiščem članek za tvojo situacijo ali ti zastavim vprašanje, ki ti pomaga slišati sebe. Odločitve ostanejo tvoje.",
-    helloBiz: "Pozdravljeni. Sem Ogledalo. Vprašajte me, kako sem narejeno, kaj znam in česa ne, kaj je v tem konceptu drugače ali kdo je avtor, Rok Skrinjar.",
+    hello: "Živjo. Tukaj ne piše Anja, ampak AI asistent, ki pozna njen pristop, ponudbo in članke. Povem ti, kako Anja dela, poiščem članek za tvojo situacijo ali ti pomagam razmisliti. Odločitve ostanejo tvoje.",
+    helloBiz: "Pozdravljeni. Sem AI asistent Vprašaj Anjo. Vprašajte me, kako sem narejen, kaj znam in česa ne, kaj je v tem konceptu drugače ali kdo je avtor, Rok Skrinjar.",
     ex: ["Kaj sploh je karierno opolnomočenje?", "Sem izgorel(a) ali samo utrujen(a)?", "Kako ločim strah od resničnega notranjega NE?", "Kateri paket je zame, če ne vem, kaj hočem?", "Kako poteka prvo srečanje?"],
-    exBiz: ["Kako si narejeno in iz česa je tvoja baza znanja?", "Česa namenoma ne delaš?", "Kaj je v tem konceptu drugače od zdajšnje strani?", "Kdo je Rok Skrinjar?"],
+    exBiz: ["Kako si narejen in iz česa je tvoja baza znanja?", "Česa namenoma ne delaš?", "Kaj je v tem konceptu drugače od zdajšnje strani?", "Kdo je Rok Skrinjar?"],
     ph: "Napiši, kaj te zanima …",
-    err: "Ogledalo se ta trenutek ne oglaša. Poskusi znova čez minuto.",
-    offline: "Ogledalo deluje samo na objavljeni strani (rokskrinjar.si). Lokalno je na voljo le preostali del strani.",
-    note: 'Ogledalo je umetna inteligenca, ne Anja, in se lahko zmoti. Vprašanja gredo v Anthropicov API, zato ne vpisuj občutljivih podatkov. V hudi stiski pokliči <a href="tel:116123">116 123</a> ali <a href="tel:112">112</a>.'
+    err: "Asistent se ta trenutek ne oglaša. Poskusi znova čez minuto.",
+    offline: "Asistent deluje samo na objavljeni strani (rokskrinjar.si). Lokalno je na voljo le preostali del strani.",
+    note: 'Asistent je umetna inteligenca, ne Anja, in se lahko zmoti. Vprašanja gredo v Anthropicov API, zato ne vpisuj občutljivih podatkov. V hudi stiski pokliči <a href="tel:116123">116 123</a> ali <a href="tel:112">112</a>.'
   };
 
   function esc(s) {
@@ -48,15 +48,15 @@
 
   var fab = document.createElement("button");
   fab.type = "button"; fab.className = "fab";
-  fab.innerHTML = '<i aria-hidden="true"></i>Vprašaj Ogledalo';
+  fab.innerHTML = '<i aria-hidden="true"></i>Vprašaj Anjo';
   var root = document.createElement("aside");
   root.className = "chat"; root.hidden = true;
-  root.setAttribute("aria-label", "Pogovor z Ogledalom");
+  root.setAttribute("aria-label", "Vprašaj Anjo, pogovor z AI asistentom");
   root.innerHTML =
-    '<div class="chat-head"><i aria-hidden="true"></i><div><b>Ogledalo</b><small>AI pomočnik, ne Anja</small></div>' +
+    '<div class="chat-head"><i aria-hidden="true"></i><div><b>Vprašaj Anjo</b><small>AI asistent po Anjinih zapisih, ne Anja</small></div>' +
     '<div class="sp"><button type="button" data-a="clear">Nov pogovor</button><button type="button" data-a="close" aria-label="Zapri">✕</button></div></div>' +
     '<div class="chat-log" aria-live="polite"></div>' +
-    '<form class="chat-form"><label class="vh" for="og-q">Vprašanje za Ogledalo</label><textarea id="og-q" rows="1" maxlength="1500" placeholder="' + esc(T.ph) + '"></textarea>' +
+    '<form class="chat-form"><label class="vh" for="og-q">Tvoje vprašanje</label><textarea id="og-q" rows="1" maxlength="1500" placeholder="' + esc(T.ph) + '"></textarea>' +
     '<button class="btn solid small" type="submit">Pošlji</button></form>' +
     '<p class="chat-note">' + T.note + "</p>";
   document.body.appendChild(fab);
@@ -154,4 +154,5 @@
     var el = e.target.closest && e.target.closest("[data-ask]");
     if (el) { open(); ask(el.getAttribute("data-ask")); }
   });
+  window.FSChat = { open: open, ask: ask };
 })();

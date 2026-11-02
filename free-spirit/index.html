@@ -1,15 +1,14 @@
 <!doctype html>
-<html lang="sl" class="no-js">
+<html lang="sl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Free Spirit · koncept</title>
-<meta name="description" content="Koncept prenove strani Karierno opolnomočenje Anje Žibert z AI pomočnikom Ogledalo.">
-<script>document.documentElement.classList.remove("no-js")</script>
+<meta name="description" content="Koncept prenove strani Karierno opolnomočenje Anje Žibert z AI asistentom.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 <script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
 </head>
@@ -22,7 +21,7 @@
     <nav class="nav" aria-label="Glavni meni">
       <a href="#zate">Zate</a>
       <a href="#pristop">Pristop</a>
-      <a href="#sodelovanje">Sodelovanje</a>
+      <a href="#sodelovanje">Paketi</a>
       <a href="#anja">Anja</a>
       <a href="clanki.html">Članki</a>
     </nav>
@@ -31,159 +30,132 @@
 </header>
 
 <main>
-<section class="hero">
+<div class="hero">
   <div class="wrap">
-    <div>
-      <p class="eyebrow">Karierno opolnomočenje z Anjo Žibert</p>
-      <h1>Ko veš, da tako ne gre več, ampak še ne veš, <em>kaj sledi…</em></h1>
-      <p class="lead">Prostor, kjer združiva strategijo, intuicijo in aktivacijo, da odkriješ, kaj je tvoj naslednji korak, in ga začneš tudi živeti.</p>
-      <div class="row-btns">
-        <a class="btn solid" href="#kje-si">Kje sem zdaj?</a>
-        <button class="btn" type="button" data-open-chat>Vprašaj Ogledalo</button>
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Karierno opolnomočenje z Anjo Žibert</p>
+        <h1>Ko veš, da tako ne gre več, ampak še ne veš, <b>kaj sledi.</b></h1>
+        <p class="lead">Strategija, intuicija in aktivacija, da odkriješ svoj naslednji korak in ga začneš tudi živeti. Brez univerzalnih formul in brez siljenja v odločitev.</p>
+        <div class="row-btns">
+          <a class="btn teal" href="https://kariera.freespirithc.com/karierno-opolnomocenje-rezervacija-termina/rezerviraj-termin-placilo/">Rezerviraj termin</a>
+          <a class="btn ghost" href="#sodelovanje">Poglej pakete</a>
+        </div>
       </div>
+      <div class="picker" id="picker" aria-live="polite"></div>
     </div>
-    <div class="arch" aria-hidden="true"><p id="mirror-q">Kdo sem danes?</p></div>
+    <ul class="facts">
+      <li><b>3×</b><span>je Anja dobila odpoved iz poslovnih razlogov</span></li>
+      <li><b>2×</b><span>je sama rekla: »Dovolj je.«</span></li>
+      <li><b>120</b><span>člankov o karieri in delu</span></li>
+      <li><b>1</b><span>srečanje je dovolj za začetek</span></li>
+    </ul>
   </div>
-</section>
+</div>
 
-<section class="line" id="zate">
-  <div class="wrap split">
-    <div class="reveal">
-      <p class="eyebrow">Morda na papirju ni nič narobe</p>
+<section id="zate">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Zate</p>
       <h2>Ljudje, ki pridejo do Anje, niso izgubljeni.</h2>
-      <p class="lead" style="margin-top:22px">Imaš službo, kariero, izkušnje. Morda celo velik finančni uspeh. Ampak nekje globoko v sebi veš: to nisi več ti.</p>
     </div>
-    <div class="reveal">
-      <ul class="echo">
-        <li>Dajali so več, kot so prejemali.</li>
-        <li>Se prilagajali.</li>
-        <li>Vztrajali.</li>
-        <li>Bili »pridni«.</li>
-        <li>In nekje vmes začeli izgubljati stik s sabo.</li>
-      </ul>
-      <p class="muted" style="margin-top:20px">Ni ti treba poznati cele poti. Dovolj je, da si pripravljen(a) odkriti, kaj je tvoj naslednji korak.</p>
+    <div class="bento">
+      <div class="tile s2"><h3>Na papirju ni nič narobe.</h3><p>Imaš službo, kariero, izkušnje, morda celo velik finančni uspeh. Ampak veš: to nisi več ti.</p></div>
+      <div class="tile s2"><h3>Dajal(a) si več, kot si prejemal(a).</h3><p>Prilagajanje, vztrajanje, biti »priden«. Nekje vmes se izgubi stik s sabo.</p></div>
+      <div class="tile s2 mint"><h3>Ne veš še, kaj želiš.</h3><p>Veš pa, da ne želiš več nadaljevati na isti način. In to je dovolj za začetek.</p></div>
     </div>
   </div>
 </section>
 
-<section class="tint line" id="kje-si">
+<section class="white" id="pristop">
   <div class="wrap">
-    <div class="narrow reveal">
-      <p class="eyebrow">Kje si zdaj?</p>
-      <h2>Izberi stavek, ki je najbolj tvoj.</h2>
-      <p class="lead" style="margin-top:18px">Brez testa in brez točk. Samo vprašanje zate, nekaj branja in možnost, da nadaljuješ.</p>
+    <div class="head">
+      <p class="eyebrow">Pristop</p>
+      <h2>To ni klasično karierno svetovanje.</h2>
     </div>
-    <div class="paths" id="paths"></div>
-    <div class="answer" id="answer" hidden aria-live="polite"></div>
-  </div>
-</section>
-
-<section class="line" id="pristop">
-  <div class="wrap split">
-    <div class="reveal">
-      <p class="eyebrow">Karierna kriza pogosto sploh ni karierna kriza</p>
-      <h2>Kariera je največje ogledalo osebne rasti.</h2>
-      <div class="stack" style="margin-top:24px">
-        <p class="lead">Včasih služba ni problem. Problem je, da si jo prerastel(a).</p>
-        <p>Spremenil(a) si se ti, spremenile so se tvoje vrednote, kariera pa je ostala zgrajena okoli stare verzije tebe. Zato naslednjega koraka pogosto ne najdeš tako, da še bolj intenzivno iščeš oglase za delo.</p>
-        <p>Kariera je prostor, kjer se hitro pokaže tvoj odnos do sebe: koliko se ceniš, kje se prilagajaš, kje ne postaviš meje in kje ostajaš, čeprav veš, da je čas za premik.</p>
+    <div class="bento">
+      <div class="tile s4 dark">
+        <h3>Karierna kriza pogosto sploh ni karierna kriza.</h3>
+        <p>Včasih služba ni problem. Problem je, da si jo prerastel(a). Spremenile so se tvoje vrednote, kariera pa je ostala zgrajena okoli stare verzije tebe. Zato naslednjega koraka pogosto ne najdeš tako, da še bolj intenzivno iščeš oglase za delo.</p>
       </div>
-    </div>
-    <div class="reveal">
-      <ul class="echo">
-        <li>»Kaj naj delam?«</li>
-        <li>»Kdo postajam skozi način, kako delam?«</li>
-      </ul>
-      <p class="muted" style="margin-top:20px">Zato karierno opolnomočenje ni samo prvo vprašanje. Veliko bolj gre za drugo. Ko se spremeni odnos do sebe, se začnejo spreminjati tudi odločitve, priložnosti in smer.</p>
-    </div>
-  </div>
-</section>
-
-<section class="tint line">
-  <div class="wrap split">
-    <div class="worlds reveal" aria-hidden="true">
-      <span class="a">strategija</span><span class="b">intuicija</span><span class="c">energija</span><b>ti</b>
-    </div>
-    <div class="reveal">
-      <p class="eyebrow">To ni klasično karierno svetovanje</p>
-      <h2>Tvoji odgovori niso pri Anji. Tvoji odgovori so pri tebi.</h2>
-      <p class="lead" style="margin:20px 0 24px">Ne bo ti povedala, katera služba je prava zate. Ne bo ti dala univerzalne formule. In ne bo sprejemala odločitev namesto tebe.</p>
-      <ul class="world-list">
-        <li><b>Strategija</b>Realne možnosti, CV, LinkedIn, razgovori, pogajanja: leta dela v prodaji, marketingu, kadrovskih agencijah in headhuntingu.</li>
-        <li><b>Intuicija</b>Razlika med strahom in resničnim notranjim NE. Med tem, kar si želiš ti, in tem, kar pričakujejo drugi.</li>
-        <li><b>Energija</b>Kaj te polni, kaj te izčrpava in kako želiš svojo energijo uporabljati v svetu dela.</li>
-      </ul>
+      <div class="tile s2">
+        <h3>Česa Anja ne bo naredila</h3>
+        <ul>
+          <li>Povedala, katera služba je prava zate</li>
+          <li>Dala univerzalne formule</li>
+          <li>Odločala namesto tebe</li>
+        </ul>
+      </div>
+      <div class="tile s2"><h3>Strategija</h3><p>Realne možnosti, CV, LinkedIn, razgovori in pogajanja, iz let dela v prodaji, marketingu, agencijah in headhuntingu.</p></div>
+      <div class="tile s2"><h3>Intuicija</h3><p>Razlika med strahom in resničnim notranjim NE, med tvojimi željami in pričakovanji drugih.</p></div>
+      <div class="tile s2"><h3>Energija</h3><p>Kaj te polni, kaj te izčrpava in kako želiš svojo energijo uporabljati v svetu dela.</p></div>
     </div>
   </div>
 </section>
 
-<section class="dark">
+<section>
   <div class="wrap">
-    <div class="narrow reveal">
-      <p class="eyebrow">Uvid je začetek, cilj je integracija</p>
-      <h2>Ne gre za hitrost. Gre za premik. Majhen. Resničen. Tvoj.</h2>
-      <p class="lead" style="margin-top:20px">Začneta tam, kjer si, ne tam, kjer misliš, da bi moral(a) biti. Ni ti treba vedeti, kaj želiš. To je lahko točno razlog, zakaj prideš.</p>
+    <div class="head">
+      <p class="eyebrow">Kako poteka</p>
+      <h2>Uvid je začetek. Cilj je integracija.</h2>
+      <p class="lead gap">Začneta tam, kjer si. Ne iščeta popolnega odgovora, ampak dovolj jasnosti za naslednji korak, ki je res tvoj.</p>
     </div>
-    <ol class="steps reveal">
-      <li><b>Uvid</b>Kje si, kaj te drži na mestu in kateri vzorci vplivajo na tvoje odločitve.</li>
-      <li><b>Odločitev</b>Kaj je res tvoje, kaj si prerasel(a) in kaj so le pričakovanja okolice.</li>
-      <li><b>Akcija</b>Pogovor, prijava, CV, LinkedIn, razgovor, odpoved, meja, ki jo že dolgo odlagaš.</li>
-      <li><b>Integracija</b>Novo verzijo sebe začneš preizkušati v resničnem življenju.</li>
+    <ol class="steps">
+      <li><span>01</span><b>Uvid</b>Kje si, kaj te drži na mestu in kateri vzorci vplivajo na tvoje odločitve.</li>
+      <li><span>02</span><b>Odločitev</b>Kaj je res tvoje, kaj si prerasel(a) in kaj so le pričakovanja okolice.</li>
+      <li><span>03</span><b>Akcija</b>Pogovor, prijava, CV, LinkedIn, razgovor, odpoved, meja, ki jo že dolgo odlagaš.</li>
+      <li><span>04</span><b>Integracija</b>Novo verzijo sebe začneš preizkušati v resničnem življenju.</li>
     </ol>
   </div>
 </section>
 
-<section id="sodelovanje">
+<section class="white" id="sodelovanje">
   <div class="wrap">
-    <div class="narrow reveal">
-      <p class="eyebrow">Sodelovanje</p>
+    <div class="head">
+      <p class="eyebrow">Paketi</p>
       <h2>Izberi toliko podpore, kot jo trenutno potrebuješ.</h2>
     </div>
-    <div class="packs reveal">
+    <div class="packs">
       <article class="pack">
         <p class="n">Jasnost</p><p class="p">250 €</p><p class="s">1 srečanje</p>
         <p class="for">Ko potrebuješ jasnost, nov pogled ali podporo pri konkretni odločitvi.</p>
-        <ul><li>posnetek srečanja</li><li>ključni uvidi in naslednji koraki</li><li>po potrebi kratka intuitivna ali energijska aktivacija</li></ul>
+        <ul><li>Posnetek srečanja</li><li>Ključni uvidi in naslednji koraki</li><li>Po potrebi kratka intuitivna ali energijska aktivacija</li></ul>
         <a class="btn" href="https://kariera.freespirithc.com/karierno-opolnomocenje-rezervacija-termina/rezerviraj-termin-placilo/">Rezerviraj</a>
       </article>
       <article class="pack">
         <p class="n">Premik</p><p class="p">650 €</p><p class="s">3 srečanja</p>
         <p class="for">Ko jasnost ni dovolj in želiš narediti tudi prve konkretne korake.</p>
-        <ul><li>posnetki vseh srečanj</li><li>podpora med srečanji prek WhatsAppa</li><li>konkretni koraki po vsakem srečanju</li><li>podpora pri pomembni odločitvi ali pogovoru</li></ul>
+        <ul><li>Posnetki vseh srečanj</li><li>Podpora med srečanji prek WhatsAppa</li><li>Konkretni koraki po vsakem srečanju</li><li>Podpora pri pomembni odločitvi ali pogovoru</li></ul>
         <a class="btn" href="https://kariera.freespirithc.com/karierno-opolnomocenje-rezervacija-termina/rezerviraj-termin-placilo/">Rezerviraj</a>
       </article>
       <article class="pack">
         <p class="n">Transformacija</p><p class="p">999 €</p><p class="s">5 srečanj</p>
         <p class="for">Globlji proces, v katerem spreminjata tudi način, iz katerega ustvarjaš kariero.</p>
-        <ul><li>vse iz paketa Premik</li><li>kontinuirana podpora prek WhatsAppa</li><li>pregled CV-ja ali LinkedIna</li><li>profesionalna zgodba in pozicioniranje</li><li>priprava na razgovor ali pomemben sestanek</li></ul>
+        <ul><li>Vse iz paketa Premik</li><li>Kontinuirana podpora prek WhatsAppa</li><li>Pregled CV-ja ali LinkedIna</li><li>Profesionalna zgodba in pozicioniranje</li><li>Priprava na razgovor ali pomemben sestanek</li></ul>
         <a class="btn" href="https://kariera.freespirithc.com/karierno-opolnomocenje-rezervacija-termina/rezerviraj-termin-placilo/">Rezerviraj</a>
       </article>
       <article class="pack">
         <p class="n">Novo poglavje</p><p class="p">1.999 €</p><p class="s">10 srečanj</p>
         <p class="for">Ko želiš zavestno ustvariti novo poglavje svojega profesionalnega življenja.</p>
-        <ul><li>vse iz paketa Transformacija</li><li>strateško in intuitivno spremljanje premika</li><li>komunikacija, vidnost, priložnosti</li><li>priprava na pogajanja in predstavitve</li><li>energijske aktivacije in integracija</li></ul>
+        <ul><li>Vse iz paketa Transformacija</li><li>Strateško in intuitivno spremljanje premika</li><li>Komunikacija, vidnost, priložnosti</li><li>Priprava na pogajanja in predstavitve</li><li>Energijske aktivacije in integracija</li></ul>
         <a class="btn" href="https://kariera.freespirithc.com/karierno-opolnomocenje-rezervacija-termina/rezerviraj-termin-placilo/">Rezerviraj</a>
       </article>
     </div>
-    <div class="note-card reveal">
-      <div>
-        <p class="display" style="font-size:clamp(28px,3vw,38px)">Ni treba izbrati največjega paketa.</p>
-        <p class="muted">Izberi najmanjšo količino podpore, za katero čutiš, da jo trenutno potrebuješ. Če začneš z enim srečanjem, ti danes ni treba vedeti, ali boš želel(a) nadaljevati. Najprej se srečata. Potem vidiš, kaj potrebuješ.</p>
-      </div>
-      <div class="row-btns"><button class="btn" type="button" data-ask="Ne vem, koliko podpore potrebujem. Pomagaj mi izbrati med paketi.">Ne vem, kaj izbrati</button></div>
+    <div class="note">
+      <p><b>Ni treba izbrati največjega paketa.</b>Izberi najmanjšo količino podpore, ki jo trenutno potrebuješ. Če začneš z enim srečanjem, ti danes ni treba vedeti, ali boš nadaljeval(a).</p>
+      <button class="btn teal" type="button" data-ask="Ne vem, koliko podpore potrebujem. Pomagaj mi izbrati med paketi.">Pomagaj mi izbrati</button>
     </div>
-    <p class="muted reveal" style="margin-top:22px;font-size:15.5px;max-width:48em">Anja ne obljublja nove službe, višje plače ali tega, da bo vedela, kaj je prava odločitev zate. Obljubi prostor, v katerem iskreno pogledata, kje si, kaj je res tvoje in kaj je tvoj naslednji korak.</p>
+    <p class="muted gap" style="font-size:15.5px;max-width:52em">Anja ne obljublja nove službe, višje plače ali tega, da bo vedela, kaj je prava odločitev zate. Obljubi prostor, v katerem iskreno pogledata, kje si, kaj je res tvoje in kaj je tvoj naslednji korak.</p>
   </div>
 </section>
 
-<section class="tint line">
+<section>
   <div class="wrap">
-    <div class="narrow reveal">
+    <div class="head">
       <p class="eyebrow">Kaj se lahko spremeni</p>
-      <h2>Rezultat ni, da imaš vse odgovore.</h2>
-      <p class="lead" style="margin-top:16px">Rezultat je, da vedno bolj veš, kako jih najti pri sebi.</p>
+      <h2>Rezultat ni, da imaš vse odgovore. Rezultat je, da vedno bolj veš, kako jih najti.</h2>
     </div>
-    <ul class="changes reveal">
+    <ul class="grid3">
       <li><b>Jasnost</b>Vidiš, kaj si želiš, kaj ti ne ustreza več in kam usmeriti energijo.</li>
       <li><b>Samozaupanje</b>Odločaš se manj iz strahu in ugajanja, bolj iz zaupanja vase.</li>
       <li><b>Meje</b>Prepoznaš, kje se razdajaš ali zmanjšuješ na svoj račun, in ravnaš drugače.</li>
@@ -194,44 +166,42 @@
   </div>
 </section>
 
-<section class="line" id="anja">
+<section class="white" id="anja">
   <div class="wrap split">
-    <div class="reveal">
-      <p class="eyebrow">Anja (Free Spirit) Žibert</p>
-      <h2>Trikrat sem dobila odpoved iz poslovnih razlogov. Dvakrat sem sama rekla: <em>»Dovolj je.«</em></h2>
+    <div>
+      <p class="eyebrow">Anja Žibert</p>
+      <h2>Igrala je igro, ki ni bila njena. Danes pomaga drugim, da to prepoznajo.</h2>
     </div>
-    <div class="reveal stack">
-      <p class="lead">Ne zato, ker bi obupala. Ampak ker je vedno bolj jasno videla, da igra igro, ki ni njena.</p>
-      <p>Delala je v prodaji, marketingu, kadrovskih agencijah in headhuntingu ter spoznala ogromno ljudi, podjetij, kariernih zgodb in sistemov. Skozi vse to je ugotovila, da kariera ni samo vprašanje kompetenc, CV-ja in naslednje zaposlitve. Je vprašanje odnosa do sebe.</p>
-      <p>Zato je ustvarila Free Spirit Karierno Opolnomočenje: prostor, kjer leta dela z ljudmi in podjetji združuje s tem, kako ljudi zaznava danes. Strategija, intuicija, energija.</p>
-      <p>Cilj je, da začneš sebe slišati dovolj jasno, da je za svoje naslednje odločitve ne potrebuješ več. To je zanjo opolnomočenje.</p>
-      <div class="row-btns" style="margin-top:24px">
-        <a class="btn" href="https://www.youtube.com/watch?v=Oz-zV86UwvY">Poglej Anjin video</a>
-      </div>
+    <div class="stack">
+      <p class="lead">Trikrat je dobila odpoved iz poslovnih razlogov. Dvakrat je sama rekla: »Dovolj je.«</p>
+      <p>Delala je v prodaji, marketingu, kadrovskih agencijah in headhuntingu ter spoznala ogromno ljudi, podjetij, kariernih zgodb in sistemov. Skozi vse to je ugotovila, da kariera ni samo vprašanje kompetenc, CV-ja in naslednje zaposlitve, ampak tudi odnosa do sebe.</p>
+      <p>Cilj njenega dela je, da začneš sebe slišati dovolj jasno, da je za svoje naslednje odločitve ne potrebuješ več.</p>
+      <div class="row-btns" style="padding-top:8px"><a class="btn" href="https://www.youtube.com/watch?v=Oz-zV86UwvY">Poglej video</a></div>
     </div>
   </div>
 </section>
 
-<section class="tint line">
+<section>
   <div class="wrap">
-    <div class="split" style="align-items:end;margin-bottom:36px">
-      <div class="reveal">
-        <p class="eyebrow">Sveže karierne perspektive</p>
-        <h2>120 člankov za tvojo kariero in življenje po svoje.</h2>
+    <div class="head-row">
+      <div>
+        <p class="eyebrow">Članki</p>
+        <h2>Najnovejše</h2>
       </div>
-      <div class="reveal"><a class="btn" href="clanki.html">Vsi članki</a></div>
+      <a class="btn" href="clanki.html">Vseh 120 člankov</a>
     </div>
-    <div class="cards" id="latest"></div>
+    <div class="arts" id="latest"></div>
   </div>
 </section>
 
 <section class="close">
-  <div class="wrap reveal">
-    <h2>Tvoja kariera je tvoja. Naj bo tudi odločitev, kaj sledi, <em>zares tvoja.</em></h2>
-    <p class="lead">Pridi takšna ali takšen, kot si. Tudi če trenutno nimaš pojma, kaj sledi. Mogoče se vse začne z enim pogovorom.</p>
+  <div class="wrap">
+    <div>
+      <h2>Tvoja kariera je tvoja. Naj bo tudi odločitev, kaj sledi.</h2>
+      <p>Pridi takšna ali takšen, kot si. Tudi če trenutno nimaš pojma, kaj sledi.</p>
+    </div>
     <div class="row-btns">
       <a class="btn solid" href="https://kariera.freespirithc.com/karierno-opolnomocenje-rezervacija-termina/rezerviraj-termin-placilo/">Rezerviraj svoj termin</a>
-      <button class="btn" type="button" data-open-chat>Najprej vprašaj Ogledalo</button>
     </div>
   </div>
 </section>
@@ -240,12 +210,12 @@
 <footer class="foot">
   <div class="wrap">
     <div>
-      <p><b style="color:#fff">Anja Žibert, Free Spirit Karierno Opolnomočenje</b></p>
+      <p><b>Anja Žibert, Free Spirit Karierno Opolnomočenje</b></p>
       <p><a href="mailto:anja@freespirithc.com">anja@freespirithc.com</a> · <a href="tel:+38670369999">070 369 999</a></p>
       <p><a href="https://www.linkedin.com/in/anjazibert/">LinkedIn</a> · <a href="https://www.facebook.com/freespirithc">Facebook</a></p>
     </div>
     <div>
-      <p>Koncept, zasnova in Ogledalo: <a href="/projects/">Rok Skrinjar</a>. Besedila in ponudba so z Anjine javne strani, povzeta brez njenega pregleda. Rezervacije in plačila tečejo samo prek <a href="https://kariera.freespirithc.com/karierno-opolnomocenje/">uradne strani</a>.</p>
+      <p>Koncept, zasnova in AI asistent: <a href="/projects/">Rok Skrinjar</a>. Besedila in ponudba so z Anjine javne strani, povzeta brez njenega pregleda. Rezervacije in plačila tečejo samo prek <a href="https://kariera.freespirithc.com/karierno-opolnomocenje/">uradne strani</a>.</p>
     </div>
   </div>
 </footer>

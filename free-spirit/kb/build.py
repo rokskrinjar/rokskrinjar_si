@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build Ogledalo's knowledge base for /api/freespirit.
+"""Build the Free Spirit assistant's knowledge base for /api/freespirit.
 
 Sources (free-spirit/kb/ and the pages):
   anja.md, koncept.md   who Anja is, her offer, this concept
@@ -27,7 +27,7 @@ solis = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(solis)
 
 MADE = ("Rok went through Anja's public site and her 121 articles with the help of AI, summarised them by topic in new words, "
-        "redesigned the page around the person who arrives rather than the newest post, and built Ogledalo so that it asks more than it tells, "
+        "redesigned the page around the person who arrives rather than the newest post, and built the assistant so that it asks more than it tells, "
         "as Anja does. He used AI throughout, for research, code and the assistant itself.")
 
 THEMES = {"sebe": "Kdo sem danes", "izgorelost": "Izgorelost in energija", "strah": "Strah in kriza", "prehod": "Sprememba in prehod",
