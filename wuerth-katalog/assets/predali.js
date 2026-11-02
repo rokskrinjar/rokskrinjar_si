@@ -136,7 +136,7 @@
       WK.addLead({ naslov: "Voziček " + v.naziv + " po meri", dejavnost: "konfigurator", izdelki: [b.art].concat(st.s.map(function (id) { return C.setBy[id].art; })), potreba: "Kupec je sam sestavil predale: " + p.used + " od " + v.predali + " predalov s peno.", korak: "Komercialist preveri šifre in pripravi ponudbo." });
       this.outerHTML = '<a class="btn" href="prodaja.html#inbox">Poslano ✓ Odpri pogled prodaje →</a>';
     });
-    $("askr").addEventListener("click", function () { window.Racko.ask("Kaj bi še dodal ali zamenjal v tej postavitvi predalov in zakaj?"); });
+    $("askr").addEventListener("click", function () { window.Mojster.ask("Kaj bi še dodal ali zamenjal v tej postavitvi predalov in zakaj?"); });
     all();
   });
 })();

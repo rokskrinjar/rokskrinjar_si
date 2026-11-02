@@ -84,7 +84,7 @@
       if (r.p.maxW) bits.push("širina do " + r.p.maxW + " mm"); if (r.p.minKg) bits.push("nosilnost od " + r.p.minKg + " kg"); if (r.p.code) bits.push("šifra");
       out += '<div class="rez-head"><h2>' + total + (total === 1 ? " zadetek" : total === 2 ? " zadetka" : total < 5 ? " zadetki" : " zadetkov") + '</h2><span class="fine">' +
         (bits.length ? "Razumljeno: " + esc(bits.join(", ")) + " · " : "") + '<button class="btn small" type="button" id="clearq">Počisti</button></span></div>';
-      if (!total) out += '<div class="empty"><b>Te besede katalog ne pozna.</b><p class="muted" style="margin:.3em 0 .6em">Vsako tako iskanje je podatek za prodajo: kaj ljudje iščejo in česa ne najdejo.</p><button class="btn primary small" type="button" data-ask-q>Vprašaj Račka</button></div>';
+      if (!total) out += '<div class="empty"><b>Te besede katalog ne pozna.</b><p class="muted" style="margin:.3em 0 .6em">Vsako tako iskanje je podatek za prodajo: kaj ljudje iščejo in česa ne najdejo.</p><button class="btn primary small" type="button" data-ask-q>Vprašaj Mojstra</button></div>';
       if (r.vozicki.length) out += '<div class="grid">' + r.vozicki.slice(0, 6).map(function (x) { return tile(x.item, x.why); }).join("") + "</div>";
       if (r.sestavi.length) out += '<div class="rez-head"><h2>Sestavi z orodjem</h2></div><div class="rows">' + r.sestavi.slice(0, 5).map(function (x) { return asmRow(x.item, x.why); }).join("") + "</div>";
       if (r.seti.length) out += '<div class="rez-head"><h2>Seti v peni</h2>' + (r.p.sw || r.p.tx || r.p.imb ? '<span class="fine">Samo seti s tabelo vsebine: katalog jih ima 11, pri drugih velikosti niso naštete.</span>' : "") + '</div><div class="rows">' + r.seti.slice(0, 10).map(function (x) { return setRow(x.item, x.why); }).join("") + "</div>";
@@ -117,7 +117,7 @@
     if (!sheet.open) sheet.showModal();
     sheet.scrollTop = 0;
   }
-  function askBtn(text) { return '<button class="btn" type="button" data-ask="' + esc(text) + '">Vprašaj Račka</button>'; }
+  function askBtn(text) { return '<button class="btn" type="button" data-ask="' + esc(text) + '">Vprašaj Mojstra</button>'; }
 
   function openV(id, ral) {
     var v = C.vozBy[id]; if (!v) return;
@@ -216,7 +216,7 @@
   function ask(text) {
     if (sheet.open) sheet.close();
     if ($("cmpdlg").open) $("cmpdlg").close();
-    window.Racko.ask(text);
+    window.Mojster.ask(text);
     if (window.innerWidth <= 1040) $("chat").scrollIntoView({ behavior: "smooth" });
   }
   document.addEventListener("click", function (e) {

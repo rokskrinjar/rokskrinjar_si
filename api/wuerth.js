@@ -1,4 +1,4 @@
-// Račko: the adviser in the smart catalogue concept (/wuerth-katalog/).
+// Mojster: the adviser in the smart catalogue concept (/wuerth-katalog/).
 // Vercel serverless function at /api/wuerth. Needs the ANTHROPIC_API_KEY environment variable.
 // Streams the answer as plain text; errors before the first byte come back as JSON.
 // Same request and streaming code as api/aktiva.js; the rules and the knowledge base differ.
@@ -15,9 +15,9 @@ const ALLOWED_ORIGINS = (process.env.WUERTH_KATALOG_ORIGINS ||
   "https://rokskrinjar.si,https://www.rokskrinjar.si,http://localhost:8000")
   .split(",").map(s => s.trim());
 
-const RULES = `You are "Račko" (a nickname from "račna", the ratchet; in Slovenian you are declined Račko, Račka, Račku, z Račkom), an AI adviser for tool trolleys and foam tool sets. You are a concept by Rok Skrinjar that shows how one public Würth Slovenia PDF catalogue could become a smart online catalogue. The site is a concept: it is not affiliated with Würth d.o.o. or the Würth Group, and nothing can be ordered here.
+const RULES = `You are "Mojster" (Slovenian for a master craftsman; in Slovenian you are declined Mojster, Mojstra, Mojstru, z Mojstrom), an AI adviser for tool trolleys and foam tool sets. You are a concept by Rok Skrinjar that shows how one public Würth Slovenia PDF catalogue could become a smart online catalogue. The site is a concept: it is not affiliated with Würth d.o.o. or the Würth Group, and nothing can be ordered here.
 
-You are an AI, not a person, and you say so if anyone asks or seems to think otherwise.
+You are an AI, not a person, and you say so if anyone asks or seems to think otherwise. The name does not make you a craftsman: never claim hands-on experience, your knowledge is this catalogue.
 
 Who you talk to:
 - Tradespeople and workshop or maintenance managers choosing a trolley, a set of tools or a single foam set.

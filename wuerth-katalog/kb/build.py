@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build Račko's knowledge base for /api/wuerth.
+"""Build Mojster's knowledge base for /api/wuerth.
 
 Sources (wuerth-katalog/):
   assets/catalog.json   trolleys, assortments, sets, modules, spots to reconcile (all from the PDF)
   kb/concept.md         what the concept is
   kb/wuerth.md          public facts about the company, the Group, evidence, law
-  priloznosti.html, podatki.html, prodaja.html   the text of the pages, so Račko can talk about them
+  priloznosti.html, podatki.html, prodaja.html   the text of the pages, so Mojster can talk about them
   /projects/experience.json, /projects.json      the author's public CV and projects (shared with Solis DIY's builder)
 
 Output: repo-root/api/_wuerth_kb.js (export default "<markdown>").
@@ -26,7 +26,7 @@ solis = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(solis)
 
 MADE = ("Rok read the 60-page PDF in text and image form, turned it into structured data with a source page on every record and a script that checks every code, "
-        "measure and sum against the PDF, measured the foam sizes from the page geometry, and built on that the search, comparison, drawer configurator and Račko. "
+        "measure and sum against the PDF, measured the foam sizes from the page geometry, and built on that the search, comparison, drawer configurator and Mojster. "
         "He then ran the catalogue itself as an analysis (which sets the assortments reuse, how many drawers stay empty) and wrote the ranked list of options for sales analytics and AI. "
         "He used AI throughout, for reading, research, code and the assistant itself.")
 

@@ -1,8 +1,8 @@
-# THE CONCEPT: Račko (what this site is)
+# THE CONCEPT: Mojster (what this site is)
 
-- "Račko" is a concept by Rok Skrinjar. It turns one public Würth Slovenia PDF catalogue of tool trolleys and foam tool sets ("Izberite si voziček z orodjem, katerega si zaslužite", 2021, 60 pages, without prices) into a smart online catalogue, and shows what that gives the sales team. The concept is not affiliated with Würth d.o.o. or the Würth Group. Nothing can be ordered here, and inquiries sent from the page stay in the visitor's own browser.
+- "Mojster" is a concept by Rok Skrinjar. It turns one public Würth Slovenia PDF catalogue of tool trolleys and foam tool sets ("Izberite si voziček z orodjem, katerega si zaslužite", 2021, 60 pages, without prices) into a smart online catalogue, and shows what that gives the sales team. The concept is not affiliated with Würth d.o.o. or the Würth Group. Nothing can be ordered here, and inquiries sent from the page stay in the visitor's own browser.
 - Pages:
-  - index.html (Katalog): search that understands how the trade talks, sizes (SW, TX, imbus), limits (width, load) and article codes; a picker by type of work; trolley cards with drawings to scale; assortments; foam sets; details; side-by-side comparison; the chat with Račko.
+  - index.html (Katalog): search that understands how the trade talks, sizes (SW, TX, imbus), limits (width, load) and article codes; a picker by type of work; trolley cards with drawings to scale; assortments; foam sets; details; side-by-side comparison; the chat with Mojster.
   - predali.html (Sestavi predale): a drawer configurator built on the module rule on page 25 of the catalogue. Pick a trolley, add foam sets, see what fits and what stays free; export the codes, send an inquiry.
   - prodaja.html (Pogled prodaje): the inquiry inbox; a real analysis of the 12 assortments (which sets they reuse most, how many drawers stay empty, a simple rule that suggests what to add); the visitor's own searches as a live signal; the measures a pilot would track.
   - priloznosti.html (Možnosti, "Zakaj ta koncept"): 12 options for sales analytics and AI, ranked by value and feasibility, a 90-day plan, what already exists in the Würth Group, what the author would not do, responsible use.

@@ -1,4 +1,4 @@
-// Račko concept: shared helpers (escaping, markdown, catalogue data, trolley drawing, drawer packing, stores).
+// Mojster concept: shared helpers (escaping, markdown, catalogue data, trolley drawing, drawer packing, stores).
 (function () {
   "use strict";
   function esc(s) {

@@ -1,4 +1,4 @@
-// Račko chat, embedded in the page (#chat). Streams answers from /api/wuerth; keeps the conversation for this tab only.
+// Mojster chat, embedded in the page (#chat). Streams answers from /api/wuerth; keeps the conversation for this tab only.
 // An ```izbor``` block becomes product cards, checked against catalog.json: a code the catalogue does not know is dropped.
 // A ```povprasevanje``` block becomes an inquiry that can be sent to the sales inbox (demo, localStorage).
 (function () {
@@ -9,14 +9,14 @@
   if (!root) return;
   var BIZ = root.hasAttribute("data-biz");
   var T = {
-    hello: "Živjo! Sem Račko, AI svetovalec za ta katalog. Povejte, kaj delate in koliko prostora imate, pa predlagam voziček in orodje. Vem vse, kar piše v katalogu, in povem, ko česa ne piše. Pišete lahko v kateremkoli jeziku.",
-    helloBiz: "Pozdravljeni! Sem Račko. Vprašajte me o možnostih za prodajno analitiko in AI, o tem konceptu ali o avtorju, Roku Skrinjarju.",
+    hello: "Živjo! Sem Mojster, AI svetovalec za ta katalog. Povejte, kaj delate in koliko prostora imate, pa predlagam voziček in orodje. Vem vse, kar piše v katalogu, in povem, ko česa ne piše. Pišete lahko v kateremkoli jeziku.",
+    helloBiz: "Pozdravljeni! Sem Mojster. Vprašajte me o možnostih za prodajno analitiko in AI, o tem konceptu ali o avtorju, Roku Skrinjarju.",
     ex: ["Imam avtoservis, dva mehanika in ozek prehod. Kaj priporočate?", "V katerem setu je ključ SW 19 za udarni vijačnik?", "Katera pena ima TX40 in TX45?", "Kakšna je razlika med Basic 8.4 in Basic 8.8?", "Trebam kolica za servis kamiona, što preporučuješ?"],
     exBiz: ["Kje bi začel pri 13.000 kupcih?", "Kako bi merili, ali pametni katalog res poveča prodajo?", "Kaj od tega že obstaja v skupini Würth?", "Kdo je Rok Skrinjar in kaj je naredil v analitiki?"],
-    ph: "Vprašajte Račka …",
-    err: "Račko se ta trenutek ne oglaša. Poskusite znova čez minuto.",
+    ph: "Vprašajte Mojstra …",
+    err: "Mojster se ta trenutek ne oglaša. Poskusite znova čez minuto.",
     offline: "Svetovalec deluje samo na objavljeni strani. Lokalno je na voljo preostali del kataloga.",
-    note: "Račko je umetna inteligenca in se lahko zmoti. Koncept, ni povezano s podjetjem Würth; podatki so iz kataloga iz leta 2021, cen ni. Vprašanja gredo v Anthropicov API, zato ne vpisujte osebnih podatkov.",
+    note: "Mojster je umetna inteligenca in se lahko zmoti. Koncept, ni povezano s podjetjem Würth; podatki so iz kataloga iz leta 2021, cen ni. Vprašanja gredo v Anthropicov API, zato ne vpisujte osebnih podatkov.",
     send: "Pošlji komercialistu",
     sent: "Poslano v nabiralnik prodaje ✓",
     see: "Odpri pogled prodaje"
@@ -31,10 +31,10 @@
   root.className = "chat";
   root.innerHTML =
     '<div class="chat-head"><div class="av" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16.5" cy="7.5" r="4.5"/><path d="M13.3 10.7 4 20"/><path d="M16.5 7.5h.01"/></svg></div>' +
-    '<div><b>Račko</b><small>AI svetovalec za vozičke in orodje</small></div>' +
+    '<div><b>Mojster</b><small>AI svetovalec za vozičke in orodje</small></div>' +
     '<div class="sp"><button type="button" data-a="clear">Nov pogovor</button></div></div>' +
     '<div class="chat-log" aria-live="polite"></div>' +
-    '<form class="chat-form"><label class="vh" for="rk-q">Vprašanje za Račka</label><textarea id="rk-q" rows="1" maxlength="1500" placeholder="' + WK.esc(T.ph) + '"></textarea>' +
+    '<form class="chat-form"><label class="vh" for="mj-q">Vprašanje za Mojstra</label><textarea id="mj-q" rows="1" maxlength="1500" placeholder="' + WK.esc(T.ph) + '"></textarea>' +
     '<button class="btn primary" type="submit">Pošlji</button></form>' +
     '<p class="chat-note">' + T.note + "</p>";
   var log = root.querySelector(".chat-log"), q = root.querySelector("textarea"), form = root.querySelector("form"), busy = false;
@@ -176,5 +176,5 @@
     log.scrollTop = log.scrollHeight;
   }
 
-  window.Racko = { ask: ask };
+  window.Mojster = { ask: ask };
 })();
