@@ -80,7 +80,7 @@ def catalogue_md(C):
            "- System carbon foam inserts fit all the catalogue's work trolleys and the system cases (page 25).",
            "- Foam sizes: " + "; ".join(f"{m['oznaka']} = {m['mere']} ({m['opis']})" for m in C["moduli"]) + ".",
            "- A 8.4.1 module fills one bay. Standard, Compact and Basic 8.4 drawers have one bay. Basic 8.8 and WE have two. WE XXL has three (layout seen on pages 11 and 24).",
-           "- A bay takes four quarters: for example two 4.4.1 sets, or one 4.4.1 and two 2.4.1. Foam size per set was measured from the catalogue's layout, it is not printed as text.",
+           "- A bay holds exactly one of: one 8.4.1; two 4.4.1; one 4.4.1 and two 2.4.1; one 6.4.1 and one 2.4.1; four 2.4.1. Foam size per set was measured from the catalogue's layout, it is not printed as text.",
            "- The catalogue does not say how many drawers have which height, whether foam behaves differently in deep drawers, or what a set weighs.",
            "- Measures are as printed; the catalogue does not say whether the width includes the handle.", "",
            "## Trolleys", ]

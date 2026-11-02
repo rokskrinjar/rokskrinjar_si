@@ -19,7 +19,7 @@
 ## AI and data in the Group (public, not necessarily available in Slovenia)
 - PICO: voice and chat assistant on a large language model, by Adolf Würth GmbH & Co. KG with Würth IT. Reps send invoices and delivery notes by voice. No public user numbers or list of countries.
 - A "Data & AI Organization" of more than 50 engineers, product owners, data scientists and analysts works on recommender systems, voice assistants, sales activity planning and churn prediction (from a conference page, not a company statement).
-- An International Big Data Team serves more than 50 Würth Line Craft companies with pricing intelligence, sales rep activity planning and shop assortment optimisation (from a job ad).
+- An International Big Data Team serves more than 50 Würth Line Craft companies with pricing intelligence, sales rep activity planning and shop assortment optimisation (from a public role description in Germany).
 - No public source says which of these reach Slovenia. Say so if asked.
 
 ## Competitors seen in Slovenia
