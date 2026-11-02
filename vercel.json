@@ -12,9 +12,6 @@
     },
     "api/aktiva.js": {
       "maxDuration": 60
-    },
-    "api/freespirit.js": {
-      "maxDuration": 60
     }
   },
   "redirects": [

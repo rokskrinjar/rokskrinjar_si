@@ -179,7 +179,7 @@ SOLIS_MADE = ("Rok researched the company, market prices and wood uses from publ
               "case and economics model. He used AI throughout, as the business case's section \"What AI did here\" describes.")
 
 
-def author_md(exclude=("aktiva-ai", "free-spirit"), made=SOLIS_MADE):
+def author_md(exclude=("aktiva-ai",), made=SOLIS_MADE):
     """The author's public CV, the same data /projects/ shows. Nothing private.
     Concepts made for other companies are left out of each other's list (exclude)."""
     exp = json.loads((ROOT / "projects" / "experience.json").read_text(encoding="utf-8"))

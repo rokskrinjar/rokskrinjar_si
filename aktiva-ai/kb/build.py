@@ -58,7 +58,7 @@ def main():
         page_md("priloznosti.html", "Opportunity map (\"Zakaj ta koncept\")"),
         page_md("odgovorno.html", "Responsible use of AI"),
         page_md("upravnik.html", "The upravnik's view"),
-        solis.author_md(exclude=("solis-diy", "free-spirit"), made=MADE),
+        solis.author_md(exclude=("solis-diy",), made=MADE),
         "# LAW\n\n" + (KB / "zakonodaja.md").read_text(encoding="utf-8"),
         "# AKTIVA\n\n" + (KB / "aktiva.md").read_text(encoding="utf-8"),
         "# GOVERNANCE\n\n" + (KB / "governance.md").read_text(encoding="utf-8"),
