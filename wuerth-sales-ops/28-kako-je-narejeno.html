@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="sl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kako deluje analiza · Würth Slovenija</title><meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#f6f6f6;font:15px/1.5 Roboto,Helvetica,Arial,sans-serif;color:#222;min-height:100vh;display:grid;place-items:center;padding:16px;box-sizing:border-box}
+.c{background:#fff;border:1px solid #ddd;border-top:4px solid #cc0000;border-radius:6px;padding:26px 26px 22px;max-width:420px;width:100%;box-sizing:border-box}
+.k{font:700 11.5px Roboto,Arial;letter-spacing:.12em;text-transform:uppercase;color:#cc0000}h1{font:800 26px/1.05 'Roboto Condensed','Arial Narrow',Arial;text-transform:uppercase;margin:6px 0 8px}
+p{color:#555;margin:0 0 16px;font-size:14px}form{display:flex;gap:8px}input{flex:1;min-width:0;border:1px solid #ccc;border-radius:4px;padding:10px 12px;font:inherit}
+button{border:0;background:#222;color:#fff;border-radius:4px;padding:10px 16px;font:700 14px Roboto,Arial;cursor:pointer}.e{color:#cc0000;font-size:13px;min-height:1.4em;margin-top:8px}a{color:#cc0000;font-size:13px}</style>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head><body><main class="c" id="gate" hidden><span class="k">Würth Slovenija · zaščiteno</span><h1>Kako deluje analiza</h1>
+<p>Stran uporablja zaupne prodajne podatke in je zaščitena z geslom. Geslo velja za vse zaščitene strani do zaprtja zavihka.</p>
+<form id="f"><input id="pw" type="password" autocomplete="current-password" aria-label="Geslo" placeholder="Geslo" required><button>Odkleni</button></form><div class="e" id="e"></div><a href="index.html">← Vse analize</a></main>
+<script>
+(async()=>{const SALT=Uint8Array.from(atob('0PS/rTPIxGObz7oYsNrSzg=='),c=>c.charCodeAt(0)),ITER=310000,BIN='secure/'+location.pathname.split('/').pop().replace(/\.html$/,'')+'.bin';
+const g=document.getElementById('gate');
+async function open(raw){const key=await crypto.subtle.importKey('raw',raw,'AES-GCM',false,['decrypt']);const b=new Uint8Array(await (await fetch(BIN,{cache:'no-cache'})).arrayBuffer());
+ const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b.slice(0,12)},key,b.slice(12));const html=new TextDecoder().decode(pt);document.open();document.write(html);document.close()}
+async function derive(pw){const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);return new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',salt:SALT,iterations:ITER,hash:'SHA-256'},base,256))}
+let saved=null;try{saved=sessionStorage.getItem('wso-k')}catch(e){}
+if(saved){try{await open(Uint8Array.from(atob(saved),c=>c.charCodeAt(0)));return}catch(e){try{sessionStorage.removeItem('wso-k')}catch(_){}}}
+g.hidden=false;document.getElementById('pw').focus();
+document.getElementById('f').addEventListener('submit',async ev=>{ev.preventDefault();const e=document.getElementById('e');e.textContent='Preverjam …';
+ try{const raw=await derive(document.getElementById('pw').value);await open(raw);try{sessionStorage.setItem('wso-k',btoa(String.fromCharCode(...raw)))}catch(_){}}
+ catch(x){e.textContent='Napačno geslo.'}})})();
+</script></body></html>

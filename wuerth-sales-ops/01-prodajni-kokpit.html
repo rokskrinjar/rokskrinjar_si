@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="sl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prodajni kokpit — Würth Slovenija (demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700;800&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brand.css">
+<style>.w-top .sp{margin-left:auto}
+.w-head .w-demo{margin-left:6px}
+.lnk{border:0;background:none;padding:0;color:inherit;font:inherit;cursor:pointer;text-align:left;text-decoration:underline;text-decoration-color:#c8c8c8;text-underline-offset:3px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lnk:hover{color:var(--red);text-decoration-color:var(--red)}
+.bl{font:700 11px var(--fb);text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-right:2px}
+.bgrp{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.w-band .w-seg{background:#fff}
+.ctitle{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.ctitle h3{font-size:17px}.ctitle .w-sub{margin:3px 0 0}
+svg.mb{width:100%;height:auto;display:block;overflow:visible}
+svg text{font-family:var(--fb)}
+.foot-note{font-size:12px;color:var(--ink3);margin:8px 0 0}
+/* drawer content */
+.w-drawer header .dsub{display:block;font:400 12px var(--fb);text-transform:none;opacity:.75;margin-top:4px;letter-spacing:0}
+.w-drawer[aria-hidden=true]{visibility:hidden;transition:transform .25s ease,visibility 0s .25s}
+.d-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.d-kpis>div{border-top:3px solid var(--red);background:var(--bg);padding:8px 10px;min-width:0}
+.d-kpis small{display:block;font:700 10.5px var(--fb);text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)}
+.d-kpis b{display:block;font:800 21px/1.15 var(--fc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d-kpis i{font-style:normal;font-size:12px;font-weight:700}
+.d-sec h4{font:800 14px var(--fc);text-transform:uppercase;margin:0 0 8px;letter-spacing:.02em}
+.hb{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(40px,1fr) auto;gap:10px;align-items:center;font-size:13px;padding:3px 0}
+.hb>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hb .w-bar{min-width:0}.hb .v{font-variant-numeric:tabular-nums;text-align:right;min-width:70px}
+.hb.no{color:var(--ink3)}
+.d-list{display:grid}
+.d-list>div{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line2);font-size:13px;min-width:0}
+.d-list>div>:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.d-list .r{font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.d-list small{color:var(--ink3)}
+.d-back{justify-self:start}
+.d-tags{display:flex;gap:6px;flex-wrap:wrap}
+@media(max-width:520px){.d-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+[hidden]{display:none!important}
+@media(max-width:720px){.w-top span:nth-child(2){display:none}}
+@media(max-width:560px){.w-app{border-left:0;padding-left:0}.w-head{gap:10px 16px}}
+@media(max-width:560px){.w-band{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}.w-band>:not(.sel){grid-column:1/-1}.w-band>.w-btn{justify-self:start}.bgrp.sel{flex-direction:column;align-items:stretch;gap:3px}.bgrp.sel .w-sel{width:100%}}
+
+.ck{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:18px;margin-top:18px;align-items:start}
+.ck-main{display:grid;gap:18px;min-width:0}
+.ck-side{display:grid;gap:18px;position:sticky;top:12px;min-width:0}
+@media(max-width:1100px){.ck{grid-template-columns:1fr}.ck-side{position:static}}
+.w-kpi .d span{font-weight:400;color:var(--ink3)}
+.w-kpi .s{font-size:12px;color:var(--ink3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.w-kpi svg{display:block;width:100%;height:24px;margin-top:8px}
+.legend{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:12px;color:var(--ink2);margin-bottom:6px}
+.legend i{display:inline-block;width:12px;height:10px;margin-right:5px;vertical-align:-1px;border-radius:1px}
+.legend i.ln{height:2px;vertical-align:3px}.legend i.dsh{height:0;border-top:2px dashed #222;vertical-align:3px}
+.legend i.hat{background:repeating-linear-gradient(135deg,#404040 0 2px,#fff 2px 5px);outline:1px solid #404040}
+#trend{position:relative;min-height:230px}#trend svg{display:block}
+.evl{list-style:none;margin:10px 0 0;padding:10px 0 0;border-top:1px solid var(--line2);display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:5px 18px;font-size:12.5px;color:var(--ink2)}
+.evl b{display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:9px;background:var(--ink);color:#fff;font-size:10.5px;margin-right:6px;padding:0 4px}
+.evl em{font-style:normal;color:var(--ink3)}
+.br-list{display:grid}
+.br-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(40px,90px) 76px 66px;gap:10px;align-items:center;width:100%;border:0;border-left:3px solid transparent;border-bottom:1px solid var(--line2);background:none;padding:6px 6px 6px 8px;text-align:left;cursor:pointer;font-size:13px;color:var(--ink)}
+.br-row:hover{background:var(--bg)}
+.br-row[aria-pressed=true]{border-left-color:var(--hl);background:var(--hl-l)}
+.br-list.has .br-row[aria-pressed=false]{opacity:.5}
+.br-row .n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.br-row .n small{display:block;color:var(--ink3);font-size:11px;font-weight:400}
+.br-row .val,.br-row .dl{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.br-row .dl{font-weight:700;font-size:12.5px}
+.br-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(40px,90px) 76px 66px;gap:10px;padding:0 6px 4px 11px;font:700 10.5px var(--fb);text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);border-bottom:2px solid var(--ink)}
+.br-head span:nth-child(n+3){text-align:right}
+.ins{border-top:4px solid var(--red)}
+.ins ol{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.ins li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:8px}
+.ins .no{font:800 30px/1 var(--fc);color:var(--red)}
+.ins h4{font:800 15.5px/1.15 var(--fc);text-transform:uppercase;margin:2px 0 5px}
+.ins p{margin:0 0 7px;font-size:13.5px;color:var(--ink2)}
+.ins p b{color:var(--ink)}
+.fcn{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0 10px}
+.fcn div{background:var(--bg);padding:8px 10px;border-radius:var(--r)}
+.fcn small{display:block;font:700 10.5px var(--fb);text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)}
+.fcn b{font:800 22px/1.15 var(--fc);white-space:nowrap}
+.fcn .wide{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;gap:8px;background:#fff;border:1px solid var(--line2)}
+.fcp{font-size:13px;color:var(--ink2);margin:8px 0 0}
+.cu2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.cu-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;padding:7px 0;border-bottom:1px solid var(--line2);font-size:13px;align-items:center}
+.cu-row small{display:block;color:var(--ink3);font-size:11px}
+.cu-row .r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cu-stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.cu-stats div{flex:1;min-width:150px;background:var(--bg);padding:8px 12px;border-radius:var(--r);font-size:12.5px;color:var(--ink2)}
+.cu-stats b{display:block;font:800 20px var(--fc);color:var(--ink)}
+.cu2 h4{font:800 14px var(--fc);text-transform:uppercase;margin:0 0 4px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips .w-chip.on::after{content:'×';margin-left:2px;font-weight:700}
+.estn{font-size:11.5px;color:var(--ink3)}
+@media(max-width:720px){.cu2{grid-template-columns:1fr}.w-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.w-kpi .v{font-size:23px}}
+@media(max-width:520px){.br-row,.br-head{grid-template-columns:minmax(0,1fr) 72px 60px}.br-row .w-bar,.br-head span:nth-child(2){display:none}}
+</style><script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head><body>
+<div class="w-top"><span>Würth Slovenija · analize prodaje</span><span>Stanje podatkov: 31. 10. 2026</span><span class="sp">Demo podatki — izmišljeno</span></div>
+<header class="w-head"><div class="w-logo" data-logo></div><div class="w-app">Prodajni kokpit<small>Uprava · letos glede na lani in plan</small></div><span class="w-demo">Demo podatki</span>
+<nav class="w-nav" aria-label="Razdelki"><a href="#secTrend">Potek</a><a href="#secBreak">Razčlenitev</a><a href="#secCust">Kupci</a><a href="#fc">Napoved</a></nav></header>
+<div class="w-band" role="toolbar" aria-label="Obdobje in primerjava">
+ <div class="bgrp"><span class="bl" id="lPer">Obdobje</span><div class="w-seg" id="segPer" aria-labelledby="lPer"><button type="button" data-v="mtd">MTD okt</button><button type="button" data-v="ytd">YTD</button><button type="button" data-v="l12">12 mes.</button><button type="button" data-v="y25">Leto 2025</button></div></div>
+ <div class="bgrp"><span class="bl" id="lCmp">Primerjava</span><div class="w-seg" id="segCmp" aria-labelledby="lCmp"><button type="button" data-v="ly">Lani</button><button type="button" data-v="plan">Plan</button></div></div>
+ <div class="chips" id="chips" aria-live="polite"></div>
+ <button type="button" class="w-btn sm ghost" id="reset">Ponastavi filtre</button>
+</div>
+<main class="w-wrap">
+ <div class="w-title"><div><div class="w-kicker" id="kick"></div><h1>Prodajni kokpit</h1><p id="lead"></p></div></div>
+ <section class="w-kpis" id="kpis" aria-label="Ključni kazalniki"></section>
+ <div class="ck">
+  <div class="ck-main">
+   <section class="w-card" id="secTrend"><div class="ctitle"><div><h3>Prodaja po mesecih</h3><p class="w-sub" id="trSub">36 mesecev z lansko črto, planom, napovedjo do konca leta in dogodki</p></div></div>
+    <div class="legend"><span><i style="background:var(--ac)"></i>Prodaja v izbranem obdobju</span><span><i style="background:#d0d0d0"></i>Ostali meseci</span><span><i class="hat"></i>Napoved nov–dec 2026</span><span><i class="ln" style="background:#9a9a9a;height:3px"></i>Lani (isti mesec)</span><span><i class="dsh"></i>Plan</span></div>
+    <div id="trend"></div><ol class="evl" id="evl"></ol></section>
+   <section id="secBreak" class="w-g2"></section>
+   <section class="w-card" id="secCust"><div class="ctitle"><div><h3>Kupci, ki premikajo številke</h3><p class="w-sub" id="cuSub"></p></div></div><div class="cu-stats" id="cuStats"></div><div class="cu2"><div><h4>Največja rast</h4><div id="cuUp"></div></div><div><h4>Največji padec</h4><div id="cuDn"></div></div></div></section>
+  </div>
+  <aside class="ck-side">
+   <section class="w-card ins" id="ins" aria-labelledby="insH"><div class="w-kicker">Ugotovitve</div><h3 id="insH" style="margin:4px 0 14px">3 stvari, ki jih mora uprava vedeti</h3><ol id="insL"></ol></section>
+   <section class="w-card" id="fc"><div class="w-kicker">Napoved</div><h3 style="margin:4px 0 2px">Zaključek leta 2026</h3><p class="w-sub">Linearni trend × sezonski faktor iz 36 mesecev</p><div id="fcBody"></div></section>
+  </aside>
+ </div>
+</main>
+<footer class="w-foot"><span><span class="w-demo">Demo</span> <b>Demo podatki — izmišljeno, ni povezano z dejanskim poslovanjem Würth d.o.o.</b> Simulacija prodaje 1. 11. 2023 – 31. 10. 2026.</span><span>Würth Slovenija · analize prodaje</span></footer>
+<div class="w-loading" id="loading">Nalagam podatke …</div>
+<div class="w-scrim" id="scrim"></div>
+<aside class="w-drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" aria-hidden="true" inert><header><h3 id="dTitle"></h3><button class="x" id="dX" type="button" aria-label="Zapri podrobnosti">×</button></header><div class="body" id="dBody"></div></aside>
+<script src="wdata.js"></script><script src="kit.js"></script>
+<script>
+// ---------- skupni pomočniki (profil kupca / svetovalca / artikla, mini grafi) ----------
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let S,F,L;const U=W.util;
+const cls=v=>v>0.0005?'up':v<-0.0005?'dn':'flat';
+const gr=(a,b)=>b?a/b-1:0;
+const SIZEN=['S — mali','M — srednji','L — veliki','KA — ključni'];
+const stPill=s=>`<span class="w-pill ${s==='Izgubljen'?'bad':s==='V upadu'?'warn':s==='Nov'?'':'ok'}">${esc(s)}</span>`;
+const cLink=id=>{const c=S.cust(id);return`<button type="button" class="lnk" data-cust="${id}">${esc(c.name)}</button>`};
+const pLink=id=>`<button type="button" class="lnk" data-prod="${id}">${esc(S.prod(id).name)}</button>`;
+const rLink=id=>{const r=S.rep(id);return r?`<button type="button" class="lnk" data-rep="${id}">${esc(r.name)}</button>`:'<span class="flat">nezaseden teritorij</span>'};
+function boot(fn){$$('[data-logo]').forEach(e=>e.innerHTML=W.logo(30));
+ let done=false;const go=()=>{if(done)return;done=true;S=W.load();F=S.fmt;L=S.L;try{fn()}finally{$('#loading').hidden=true}};requestAnimationFrame(()=>setTimeout(go,30));setTimeout(go,300)}
+function niceMax(v){if(v<=0)return 1;const p=Math.pow(10,Math.floor(Math.log10(v)));const f=v/p;return(f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*p}
+let rzT;function onResize(fn){let w=innerWidth;addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(()=>{if(Math.abs(innerWidth-w)>20){w=innerWidth;fn()}},180)})}
+// mesečni stolpci (36 mes.) za predale
+function mBars(vals,{h=120,cmp=null,cmpName='plan',fmt=null,hi=[24,35],marks=null,name='Prodaja'}={}){fmt=fmt||F.eurK;
+ const w=520,x0=46,x1=w-4,y0=8,y1=h-20,n=vals.length,mx=niceMax(Math.max(1,...vals,...(cmp||[]).filter(v=>v!=null)));const bw=(x1-x0)/n;const y=v=>y1-v/mx*(y1-y0);
+ let s=`<svg viewBox="0 0 ${w} ${h}" class="mb" role="img" aria-label="${esc(name)} po mesecih">`;
+ for(const t of [0,.5,1]){s+=`<line x1="${x0}" x2="${x1}" y1="${y(mx*t)}" y2="${y(mx*t)}" stroke="#ececec"/><text x="${x0-6}" y="${y(mx*t)+4}" text-anchor="end" font-size="10.5" fill="#767676">${esc(fmt(mx*t))}</text>`}
+ vals.forEach((v,i)=>{const on=i>=hi[0]&&i<=hi[1];const mk=marks&&marks.includes(i);s+=`<rect x="${(x0+i*bw+1).toFixed(1)}" y="${y(Math.max(0,v)).toFixed(1)}" width="${(bw-2).toFixed(1)}" height="${(y1-y(Math.max(0,v))).toFixed(1)}" fill="${mk?'#1f5f99':on?'#404040':'#cfcfcf'}" rx="1.5"><title>${esc(S.months[i]?S.months[i].long:'')}: ${esc(fmt(v))}${cmp&&cmp[i]!=null?' · '+cmpName+' '+esc(fmt(cmp[i])):''}${mk?' · akcija':''}</title></rect>`;
+  const mo=S.months[i];if(mo&&mo.m===0)s+=`<text x="${x0+i*bw+1}" y="${h-5}" font-size="10.5" fill="#767676">${mo.m===0?mo.y:mo.label}</text>`});
+ if(cmp){const pts=cmp.map((v,i)=>v==null?null:`${(x0+(i+.5)*bw).toFixed(1)},${y(v).toFixed(1)}`).filter(Boolean);s+=`<polyline points="${pts.join(' ')}" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round" opacity=".85"/><polyline points="${pts.join(' ')}" fill="none" stroke="#222" stroke-width="1.5" stroke-dasharray="4 3"/>`}
+ return s+'</svg>'}
+function hbars(items,{fmt=null,max=null,attr=''}={}){fmt=fmt||F.eurK;const mx=max||Math.max(1e-9,...items.map(x=>x.v));
+ return items.map(x=>`<div class="hb${x.v<=0?' no':''}"><span title="${esc(x.n)}">${x.html||esc(x.n)}</span><span class="w-bar"><i style="width:${Math.max(0,x.v/mx*100).toFixed(1)}%;${x.c?'background:'+x.c:''}"></i></span><span class="v">${x.t??esc(fmt(x.v))}</span></div>`).join('')}
+// ---------- predal ----------
+const DR={stack:[],cur:null,focus:null};
+function dShow(kind,id,push=true){if(push&&DR.cur)DR.stack.push(DR.cur);if(!DR.cur&&!DR.focus)DR.focus=document.activeElement;DR.cur={kind,id};
+ const r=PROF[kind](id);$('#dTitle').innerHTML=r.title;$('#dBody').innerHTML=(DR.stack.length?'<button type="button" class="w-btn ghost sm d-back">← Nazaj</button>':'')+r.html;
+ const d=$('#drawer');d.classList.add('on');d.setAttribute('aria-hidden','false');d.removeAttribute('inert');$('#scrim').classList.add('on');$('#dBody').scrollTop=0;$('#dX').focus({preventScroll:true})}
+function dClose(){const d=$('#drawer');if(!d.classList.contains('on'))return;d.classList.remove('on');d.setAttribute('aria-hidden','true');d.setAttribute('inert','');$('#scrim').classList.remove('on');DR.stack=[];DR.cur=null;if(DR.focus&&DR.focus.isConnected)DR.focus.focus({preventScroll:true});DR.focus=null}
+function dBack(){const p=DR.stack.pop();if(p){DR.cur=null;dShow(p.kind,p.id,false)}}
+document.addEventListener('click',e=>{if(!S)return;const t=e.target.closest('[data-cust],[data-prod],[data-rep]');
+ if(e.target.closest('.d-back')){dBack();return}if(e.target.closest('#dX')||e.target.id==='scrim'){dClose();return}
+ if(t){const k=t.dataset.cust!=null?'cust':t.dataset.prod!=null?'prod':'rep';const v=+t.dataset[k];if(k==='rep'&&(isNaN(v)||v===255))return;dShow(k,v)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')dClose();if((e.key==='Enter'||e.key===' ')&&e.target.matches('tr[data-cust],tr[data-prod],tr[data-rep],div[data-cust][tabindex],div[data-prod][tabindex]')){e.preventDefault();e.target.click()}});
+const PROF={
+ cust(id){const c=S.cust(id),ser=S.custSeries(id,'net'),gm=S.custSeries(id,'gm');const r12=U.sum(ser.slice(24)),p12=U.sum(ser.slice(12,24)),g12=U.sum(gm.slice(24));
+  const lines=S.custLines(id);const ch=new Float64Array(6);const ords=new Map();let lst=0,nt=0;
+  for(const i of lines){ch[L.chan[i]]+=L.net[i];lst+=L.list[i];nt+=L.net[i];let o=ords.get(L.ord[i]);if(!o){o={d:L.day[i],ch:L.chan[i],n:0,v:0};ords.set(L.ord[i],o)}o.n++;o.v+=L.net[i]}
+  const last=[...ords.values()].sort((a,b)=>b.d-a.d).slice(0,8);const tot=U.sum(ch)||1;
+  const cats=S.cats.map(k=>({n:k.name,v:S.cube.custCat[id*10+k.idx]})).sort((a,b)=>b.v-a.v);
+  const qs=S.quotes.filter(q=>q.cust===id).sort((a,b)=>b.createdDay-a.createdDay).slice(0,6);
+  const rets=S.returns.filter(r=>r.cust===id);let vis=0;for(let m=24;m<36;m++)vis+=S.visitCM[m][id]||0;
+  const rp=S.rep(c.rep);const g=gr(r12,p12);
+  return{title:esc(c.name)+`<span class="dsub">${esc(c.code)} · ${esc(c.branza)} · ${esc(c.town)}</span>`,html:`
+  <div class="d-tags">${stPill(c.status)}<span class="w-pill">Velikost ${esc(c.size)}</span>${c.eshop?'<span class="w-pill ok">E-shop</span>':''}${c.orsy?`<span class="w-pill">${esc(c.orsy)}</span>`:''}${c.contract?'<span class="w-pill">Okvirna pogodba</span>':''}</div>
+  <div class="d-kpis"><div><small>Prodaja 12 mes.</small><b>${F.eurK(r12)}</b><i class="${cls(g)}">${p12?F.delta(g):'nov'}</i></div><div><small>Bruto marža</small><b>${F.pct(r12?g12/r12:0)}</b><i class="flat">${F.eurK(g12)}</i></div><div><small>Dejanski popust</small><b>${F.pct(lst?1-nt/lst:0)}</b><i class="flat">osnovni ${F.pct(c.disc)}</i></div></div>
+  <div class="w-facts"><div><small>Panoga · velikost</small><b>${esc(c.branza)} · ${SIZEN[c.si]}</b></div><div><small>Kraj · regija</small><b>${esc(c.town)} · ${esc(S.regionName(c.region))}</b></div>
+  <div><small>Svetovalec</small><b>${rp?rLink(c.rep):'—'}</b></div><div><small>Najbližja trgovina</small><b>${esc(S.branch(c.branch).town)} · ${c.branchKm} km</b></div>
+  <div><small>Kupec od</small><b>${F.date(c.acquired)}</b></div><div><small>Zadnje naročilo</small><b>${c.lastOrder?F.date(c.lastOrder):'—'}</b></div>
+  <div><small>E-shop</small><b>${c.eshop?'da, od '+F.date(c.eshopSince):'ne'}</b></div><div><small>Potencial (letno)</small><b>${F.eurK(c.potential)} · ${F.pct(c.potential?r12/c.potential:0,0)} izkoriščen</b></div>
+  <div><small>Obiski (12 mes.)</small><b>${vis}</b></div><div><small>Vračila</small><b>${rets.length} · ${F.eur(U.sum(rets.map(r=>r.value)))}</b></div></div>
+  <div class="d-sec"><h4>Prodaja po mesecih</h4>${mBars(ser,{cmp:ser.map((v,i)=>i>=12?ser[i-12]:null),cmpName:'lani'})}<p class="foot-note">Temno sivo: zadnjih 12 mesecev · črtkano: isti mesec lani.</p></div>
+  <div class="d-sec"><h4>Kategorije (36 mes.)</h4>${hbars(cats.map(x=>({n:x.n,v:x.v,t:x.v>0?F.eurK(x.v):'ne kupuje'})))}</div>
+  <div class="d-sec"><h4>Kanali</h4>${hbars(S.channels.map((n,k)=>({n,v:ch[k],t:F.pct(ch[k]/tot,0)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v))}</div>
+  <div class="d-sec"><h4>Zadnja naročila</h4><div class="d-list">${last.map(o=>`<div><span>${F.date(o.d)} · ${esc(S.chShort[o.ch])} <small>· ${o.n} vrst.</small></span><span class="r">${F.eur(o.v)}</span></div>`).join('')||'<div><span>Ni naročil.</span></div>'}</div></div>
+  <div class="d-sec"><h4>Ponudbe</h4><div class="d-list">${qs.map(q=>`<div><span>${esc(q.id)} · ${esc(q.type)} <small>· ${F.date(q.created)}</small></span><span class="r">${F.eur(q.value)} · <span class="w-pill ${q.status==='Dobljena'?'ok':q.status==='Izgubljena'?'bad':'warn'}">${esc(q.status)}</span></span></div>`).join('')||'<div><span>Ni ponudb.</span></div>'}</div></div>`}},
+ rep(id){const r=S.rep(id);const act=Array.from({length:36},(_,m)=>S.cube.repMonth[id*36+m]),pl=Array.from({length:36},(_,m)=>S.budget.rep[id*36+m]);
+  const port=S.customers.filter(c=>c.rep===id&&c.status!=='Izgubljen');const top=[...port].sort((a,b)=>b.rev12-a.rev12).slice(0,8);const dec=port.filter(c=>c.revPrev12>2000&&c.rev12<c.revPrev12*.7).sort((a,b)=>(a.rev12-a.revPrev12)-(b.rev12-b.revPrev12)).slice(0,5);
+  const[i0,i1]=S.dayRange(S.periods.l12[0],S.periods.l12[1]);let ls=0,nt=0;for(let i=i0;i<i1;i++)if(L.rep[i]===id){ls+=L.list[i];nt+=L.net[i]}
+  const y=U.sum(act.slice(26)),yp=U.sum(pl.slice(26));const vis=(()=>{let v=0;for(let d=S.periods.l12[0];d<S.ND;d++)v+=S.visitRepDay(id,d);return v})();
+  return{title:esc(r.name)+`<span class="dsub">${esc(r.role)} · ${esc(r.division)}</span>`,html:`
+  <div class="d-kpis"><div><small>Prodaja YTD</small><b>${F.eurK(y)}</b><i class="${cls(gr(y,yp))}">${yp?F.delta(gr(y,yp))+' vs plan':'brez plana'}</i></div><div><small>Popust 12 mes.</small><b>${F.pct(ls?1-nt/ls:0)}</b><i class="flat">povprečje vrstic</i></div><div><small>Obiski 12 mes.</small><b>${F.num(vis)}</b><i class="flat">${port.length} kupcev</i></div></div>
+  <div class="w-facts"><div><small>Vloga</small><b>${esc(r.role)}</b></div><div><small>Divizija</small><b>${esc(r.division)}</b></div><div><small>Panoga · regija</small><b>${esc(r.branza||'—')} · ${r.region?esc(S.regionName(r.region)):'—'}</b></div><div><small>Zaposlen od</small><b>${F.date(r.hired)}${r.left?' · odšel '+F.date(r.left):''}</b></div></div>
+  <div class="d-sec"><h4>Prodaja po mesecih vs plan</h4>${mBars(act,{cmp:pl,cmpName:'plan',hi:[26,35]})}<p class="foot-note">Temno sivo: 2026 · črtkano: plan.</p></div>
+  <div class="d-sec"><h4>Največji kupci (12 mes.)</h4><div class="d-list">${top.map(c=>`<div>${cLink(c.id)}<span class="r">${F.eurK(c.rev12)} <small class="${cls(gr(c.rev12,c.revPrev12))}">${c.revPrev12?F.delta(gr(c.rev12,c.revPrev12)):'nov'}</small></span></div>`).join('')||'<div><span>Ni portfelja.</span></div>'}</div></div>
+  <div class="d-sec"><h4>Kupci v upadu (−30 % ali več)</h4><div class="d-list">${dec.map(c=>`<div>${cLink(c.id)}<span class="r">${F.eurK(c.rev12)} <small class="dn">${F.delta(gr(c.rev12,c.revPrev12))}</small></span></div>`).join('')||'<div><span>Ni večjih upadov.</span></div>'}</div></div>`}},
+ prod(id){const p=S.prod(id);const net=new Float64Array(36),qty=new Float64Array(36),lst=new Float64Array(36),cst=new Float64Array(36),ch=new Float64Array(6);const cu=new Map();
+  for(let i=0;i<S.n;i++){if(L.prod[i]!==id)continue;const m=L.month[i];net[m]+=L.net[i];qty[m]+=L.qty[i];lst[m]+=L.list[i];cst[m]+=L.cost[i];ch[L.chan[i]]+=L.net[i];if(m>=24)cu.set(L.cust[i],(cu.get(L.cust[i])||0)+L.net[i])}
+  const r12=U.sum(net.slice(24)),p12=U.sum(net.slice(12,24)),q12=U.sum(qty.slice(24)),l12=U.sum(lst.slice(24)),c12=U.sum(cst.slice(24));let lm=35;while(lm>0&&!qty[lm])lm--;
+  const top=[...cu].sort((a,b)=>b[1]-a[1]).slice(0,8);const tot=U.sum(ch)||1;const sub=S.subs[p.sub];
+  return{title:esc(p.name)+`<span class="dsub">${esc(p.sku)} · ${esc(sub.name)}</span>`,html:`
+  <div class="d-tags"><span class="w-pill">${esc(S.catName(p.cat))}</span>${p.launch!=null?`<span class="w-pill red">Novo od ${esc(S.months[p.launch].label)}</span>`:''}${p.promoMonths.length?`<span class="w-pill warn">V akciji ${p.promoMonths.length}× </span>`:''}</div>
+  <div class="d-kpis"><div><small>Prodaja 12 mes.</small><b>${F.eurK(r12)}</b><i class="${cls(gr(r12,p12))}">${p12?F.delta(gr(r12,p12)):'nov'}</i></div><div><small>Bruto marža</small><b>${F.pct(r12?(r12-c12)/r12:0)}</b><i class="flat">${F.eurK(r12-c12)}</i></div><div><small>Povp. popust</small><b>${F.pct(l12?1-r12/l12:0)}</b><i class="flat">${F.num(q12)} ${esc(p.unit)}</i></div></div>
+  <div class="w-facts"><div><small>Ceniška cena (zadnja)</small><b>${qty[lm]?F.eur2(lst[lm]/qty[lm]):'—'} / ${esc(p.unit)}</b></div><div><small>Povp. neto cena 12 mes.</small><b>${q12?F.eur2(r12/q12):'—'}</b></div><div><small>Nabavna cena (2023)</small><b>${F.eur2(p.cost)}</b></div><div><small>Kupcev 12 mes.</small><b>${F.num(cu.size)}</b></div></div>
+  <div class="d-sec"><h4>Prodaja po mesecih</h4>${mBars([...net],{marks:p.promoMonths,cmp:[...net].map((v,i)=>i>=12?net[i-12]:null),cmpName:'lani'})}<p class="foot-note">Modro: meseci z akcijo · temno sivo: zadnjih 12 mesecev · črtkano: lani.</p></div>
+  <div class="d-sec"><h4>Kanali</h4>${hbars(S.channels.map((n,k)=>({n,v:ch[k],t:F.pct(ch[k]/tot,0)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v))}</div>
+  <div class="d-sec"><h4>Največji kupci (12 mes.)</h4><div class="d-list">${top.map(([c,v])=>`<div>${cLink(c)}<span class="r">${F.eur(v)}</span></div>`).join('')||'<div><span>V zadnjih 12 mesecih ni prodaje.</span></div>'}</div></div>`}}};
+const nT=mx=>{const f=Math.round(mx/Math.pow(10,Math.floor(Math.log10(mx||1)))*10)/10;return f===2?4:5};
+
+const ST={per:'ytd',cmp:'ly',f:{chan:new Set(),cat:new Set(),br:new Set(),div:new Set()}};
+const PER={mtd:{m:[35,35],p:[23,23],lab:'MTD oktober 2026',pl:'oktober 2025'},ytd:{m:[26,35],p:[14,23],lab:'YTD 2026 (jan–okt)',pl:'jan–okt 2025'},l12:{m:[24,35],p:[12,23],lab:'Zadnjih 12 mesecev (nov 25 – okt 26)',pl:'nov 24 – okt 25'},y25:{m:[14,25],p:[2,13],lab:'Leto 2025',pl:'leto 2024'}};
+let DIVS,DIMS,custBr,repDiv,nC,C={};
+const z=k=>({n:new Float64Array(k),g:new Float64Array(k),l:new Float64Array(k)});
+const lr=(m0,m1)=>[S.dayStart[S.months[m0].d0],S.dayStart[S.months[m1].d1+1]];
+const moOf=m=>(10+m)%12;
+function init(){nC=S.customers.length;custBr=new Uint8Array(nC);S.customers.forEach(c=>custBr[c.id]=S.branze.indexOf(c.branza));
+ DIVS=[...new Set(S.reps.map(r=>r.division))];DIVS.push('Brez svetovalca');repDiv=new Uint8Array(256).fill(DIVS.length-1);S.reps.forEach(r=>repDiv[r.id]=DIVS.indexOf(r.division));
+ DIMS=[{k:'chan',t:'Kanali',sg:'Kanal',names:S.channels},{k:'cat',t:'Kategorije',sg:'Kategorija',names:S.cats.map(c=>c.name)},{k:'br',t:'Panoge',sg:'Panoga',names:S.branze},{k:'div',t:'Divizije',sg:'Divizija',names:DIVS}];
+ $('#secBreak').innerHTML=DIMS.map(d=>`<div class="w-card"><div class="ctitle"><div><h3>${d.t}</h3><p class="w-sub">Klik filtrira ves kokpit</p></div><button type="button" class="w-btn sm ghost" data-clr="${d.k}" hidden>Počisti</button></div><div class="br-head"><span>${d.sg}</span><span>Delež</span><span>Prodaja</span><span id="bh_${d.k}">Δ</span></div><div class="br-list" id="b_${d.k}"></div></div>`).join('');
+ $('#secBreak').addEventListener('click',e=>{const b=e.target.closest('[data-dim]');if(b){tog(b.dataset.dim,+b.dataset.i);return}const c=e.target.closest('[data-clr]');if(c){ST.f[c.dataset.clr].clear();update()}});
+ $('#segPer').addEventListener('click',e=>{const b=e.target.closest('button');if(b){ST.per=b.dataset.v;update()}});
+ $('#segCmp').addEventListener('click',e=>{const b=e.target.closest('button');if(b){ST.cmp=b.dataset.v;update()}});
+ $('#chips').addEventListener('click',e=>{const b=e.target.closest('[data-dim]');if(b)tog(b.dataset.dim,+b.dataset.i)});
+ $('#reset').addEventListener('click',()=>{Object.values(ST.f).forEach(s=>s.clear());update()});
+ $('#insL').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;if(b.dataset.go==='cust'){$('#secCust').scrollIntoView({behavior:'smooth'});return}const[k,i]=b.dataset.go.split(':');ST.f[k].clear();ST.f[k].add(+i);update();scrollTo({top:0,behavior:'smooth'})});
+ const ev=[...S.events].sort((a,b)=>a.month-b.month);C.ev=ev;
+ $('#evl').innerHTML=ev.map((e,i)=>`<li><b>${i+1}</b><em>${esc(S.months[e.month].label)}</em> · ${esc(e.label)}</li>`).join('');
+ onResize(()=>{drawTrend();drawFc()});update()}
+function tog(k,i){const s=ST.f[k];s.has(i)?s.delete(i):s.add(i);update()}
+function masks(){const m=(k,n)=>{const s=ST.f[k];const a=new Uint8Array(n);for(let i=0;i<n;i++)a[i]=!s.size||s.has(i)?1:0;return a};return[m('chan',6),m('cat',10),m('br',7),m('div',DIVS.length)]}
+function compute(){const[okC,okK,okB,okD]=masks();const n=S.n;
+ const mN=new Float64Array(36),mG=new Float64Array(36),mD=new Float64Array(36),mO=new Float64Array(36),mCu=new Float64Array(36);const stamp=new Int8Array(nC).fill(-1);let lo=-1;
+ for(let i=0;i<n;i++){const ch=L.chan[i],c=L.cust[i];if(!(okC[ch]&&okK[L.cat[i]]&&okB[custBr[c]]&&okD[repDiv[L.rep[i]]]))continue;const m=L.month[i],v=L.net[i];mN[m]+=v;mG[m]+=v-L.cost[i];if(ch===2||ch===3)mD[m]+=v;if(L.ord[i]!==lo){lo=L.ord[i];mO[m]++}if(stamp[c]!==m){stamp[c]=m;mCu[m]++}}
+ const scan=(m0,m1)=>{const[i0,i1]=lr(m0,m1);const R={net:0,gm:0,list:0,dig:0,orders:0,cust:0,d:{chan:z(6),cat:z(10),br:z(7),div:z(DIVS.length)},cn:new Float64Array(nC)};const seen=new Uint8Array(nC);let lo=-1;
+  const add=(o,j,v,g,l)=>{o.n[j]+=v;o.g[j]+=g;o.l[j]+=l};
+  for(let i=i0;i<i1;i++){const ch=L.chan[i],ca=L.cat[i],c=L.cust[i],b=custBr[c],dv=repDiv[L.rep[i]];const a=okC[ch],k=okK[ca],bb=okB[b],dd=okD[dv];const v=L.net[i],g=v-L.cost[i],li=L.list[i];
+   if(k&&bb&&dd)add(R.d.chan,ch,v,g,li);if(a&&bb&&dd)add(R.d.cat,ca,v,g,li);if(a&&k&&dd)add(R.d.br,b,v,g,li);if(a&&k&&bb)add(R.d.div,dv,v,g,li);
+   if(!(a&&k&&bb&&dd))continue;R.net+=v;R.gm+=g;R.list+=li;if(ch===2||ch===3)R.dig+=v;if(L.ord[i]!==lo){lo=L.ord[i];R.orders++}if(!seen[c]){seen[c]=1;R.cust++}R.cn[c]+=v}return R};
+ const P=PER[ST.per];const cur=scan(...P.m),prev=scan(...P.p);
+ // plan
+ const act=DIMS.filter(d=>ST.f[d.k].size).map(d=>d.k);const B=S.budget,T=S.cube.total;const planM=new Float64Array(38);let exact=true;
+ for(let m=0;m<36;m++){if(!act.length)planM[m]=B.total[m];else if(act.length===1&&(act[0]==='cat'||act[0]==='chan')){const arr=act[0]==='cat'?B.cat:B.chan;let s=0;ST.f[act[0]].forEach(j=>s+=arr[j*36+m]);planM[m]=s}else{exact=false;const r=m>=12?mN[m-12]/T[m-12]:mN[m]/T[m];planM[m]=B.total[m]*r}}
+ const g26=U.sum(B.total.slice(26,36))/U.sum(T.slice(14,24));planM[36]=mN[24]*g26;planM[37]=mN[25]*g26;
+ const planP=U.sum(planM.slice(P.m[0],P.m[1]+1));const coP=U.sum(B.total.slice(P.m[0],P.m[1]+1)),coPrev=U.sum(T.slice(P.p[0],P.p[1]+1));
+ const rowPlan=(k,j,prevRow)=>{const others=act.filter(x=>x!==k);if(!others.length&&(k==='cat'||k==='chan')){const arr=k==='cat'?B.cat:B.chan;let s=0;for(let m=P.m[0];m<=P.m[1];m++)s+=arr[j*36+m];return s}return prevRow*coP/coPrev};
+ // napoved
+ const fc=fcst([...mN],35,[36,37]);const bt=fcst([...mN],33,[34,35]);const mape=(Math.abs(bt[0]/mN[34]-1)+Math.abs(bt[1]/mN[35]-1))/2;
+ C={...C,mN,mG,mD,mO,mCu,cur,prev,planM,planP,exact,rowPlan,fc,mape,act}}
+function fcst(v,upto,ahead){const blocks=Math.floor((upto+1)/12);const s=new Array(12).fill(0),cnt=new Array(12).fill(0);
+ for(let b=0;b<blocks;b++){const seg=v.slice(b*12,b*12+12);const mean=U.avg(seg)||1;seg.forEach((x,j)=>{const mo=moOf(b*12+j);s[mo]+=x/mean;cnt[mo]++})}
+ for(let k=0;k<12;k++)s[k]=cnt[k]?s[k]/cnt[k]:1;const sm=U.avg(s);for(let k=0;k<12;k++)s[k]/=sm;
+ let sx=0,sy=0,sxx=0,sxy=0,N=upto+1;for(let m=0;m<N;m++){const d=v[m]/s[moOf(m)];sx+=m;sy+=d;sxx+=m*m;sxy+=m*d}const b=(N*sxy-sx*sy)/(N*sxx-sx*sx),a=(sy-b*sx)/N;
+ return ahead.map(m=>(a+b*m)*s[moOf(m)])}
+function update(){compute();
+ $$('#segPer button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===ST.per));$$('#segCmp button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===ST.cmp));
+ const chips=[];DIMS.forEach(d=>ST.f[d.k].forEach(i=>chips.push(`<button type="button" class="w-chip on" data-dim="${d.k}" data-i="${i}" aria-label="Odstrani filter ${esc(d.names[i])}">${esc(d.names[i])}</button>`)));
+ $('#chips').innerHTML=chips.length?chips.join(''):'<span class="estn" style="color:var(--ink2)">Brez filtrov — klik na vrstico v razčlenitvi filtrira kokpit.</span>';$('#reset').hidden=!chips.length;
+ renderHead();renderKpis();drawTrend();renderBreak();renderCust();renderIns();drawFc()}
+const filtTxt=()=>{const p=[];DIMS.forEach(d=>{if(ST.f[d.k].size)p.push([...ST.f[d.k]].map(i=>d.names[i]).join(' + '))});return p.join(' · ')};
+function renderHead(){const P=PER[ST.per],c=C.cur,p=C.prev;const g=gr(c.net,p.net),gp=gr(c.net,C.planP);const ft=filtTxt();
+ $('#kick').textContent=P.lab+' · primerjava: '+(ST.cmp==='ly'?P.pl:'plan')+(ft?' · filter: '+ft:'');
+ $('#lead').innerHTML=`Prodaja${ft?' ('+esc(ft)+')':''} v obdobju <b>${esc(P.lab)}</b> znaša <b>${F.eurK(c.net)}</b>, kar je <b class="${cls(g)}">${F.delta(g)}</b> glede na ${esc(P.pl)} in <b class="${cls(gp)}">${F.delta(gp)}</b> glede na plan${C.exact?'':'*'}. Bruto marža ${F.pct(c.gm/c.net)} (${F.pp(c.gm/c.net-p.gm/p.net)}).${C.exact?'':' <span class="estn">*Za panoge, divizije in kombinacije filtrov plan ni določen ločeno — prikazan je sorazmerni delež skupnega plana.</span>'}`}
+function spark(v,hi){const w=160,h=24,a=[...v],mx=Math.max(...a),mn=Math.min(...a);const X=i=>i/(a.length-1)*w,Y=x=>h-2-(x-mn)/((mx-mn)||1)*(h-4);
+ return`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><rect x="${X(hi[0])-2}" width="${X(hi[1])-X(hi[0])+4}" y="0" height="${h}" fill="#ececec"/><polyline points="${a.map((x,i)=>X(i).toFixed(1)+','+Y(x).toFixed(1)).join(' ')}" fill="none" stroke="#767676" stroke-width="1.3" vector-effect="non-scaling-stroke"/></svg>`}
+function renderKpis(){const c=C.cur,p=C.prev,P=PER[ST.per],pl=ST.cmp==='plan';const gm=c.gm/c.net,gmp=p.gm/p.net;const hi=P.m;
+ const dd=(v,t,txt)=>`<div class="d ${cls(v)}">${t} <span>${txt}</span></div>`;
+ const gmPlan=C.planP*gmp;const ratio=(a,b)=>a.map((x,i)=>b[i]?x/b[i]:0);
+ const items=[
+  {l:'Prodaja',v:F.eurK(c.net),d:pl?dd(gr(c.net,C.planP),F.delta(gr(c.net,C.planP)),'vs plan'+(C.exact?'':'*')):dd(gr(c.net,p.net),F.delta(gr(c.net,p.net)),'vs lani'),s:pl?'plan '+F.eurK(C.planP)+' · lani '+F.eurK(p.net):'lani '+F.eurK(p.net)+' · plan '+F.eurK(C.planP),sp:C.mN},
+  {l:'Bruto marža',v:F.eurK(c.gm),d:pl?dd(gr(c.gm,gmPlan),F.delta(gr(c.gm,gmPlan)),'vs plan pri lanski marži'):dd(gr(c.gm,p.gm),F.delta(gr(c.gm,p.gm)),'vs lani'),s:'lani '+F.eurK(p.gm),sp:C.mG},
+  {l:'Marža %',v:F.pct(gm),d:dd(gm-gmp,F.pp(gm-gmp),'vs lani'),s:'lani '+F.pct(gmp),sp:ratio(C.mG,C.mN)},
+  {l:'Kupci',v:F.num(c.cust),d:dd(gr(c.cust,p.cust),F.delta(gr(c.cust,p.cust)),'vs lani'),s:'lani '+F.num(p.cust)+' kupcev z nakupom',sp:C.mCu},
+  {l:'Naročila',v:F.num(c.orders),d:dd(gr(c.orders,p.orders),F.delta(gr(c.orders,p.orders)),'vs lani'),s:'lani '+F.num(p.orders),sp:C.mO},
+  {l:'Povprečno naročilo',v:F.eur(c.net/c.orders),d:dd(gr(c.net/c.orders,p.net/p.orders),F.delta(gr(c.net/c.orders,p.net/p.orders)),'vs lani'),s:'lani '+F.eur(p.net/p.orders),sp:ratio(C.mN,C.mO)},
+  {l:'Digitalni delež',v:F.pct(c.dig/c.net),d:dd(c.dig/c.net-p.dig/p.net,F.pp(c.dig/c.net-p.dig/p.net),'vs lani'),s:'e-shop + aplikacija · '+F.eurK(c.dig),sp:ratio(C.mD,C.mN)}];
+ $('#kpis').innerHTML=items.map(k=>`<div class="w-kpi"><div class="l">${k.l}</div><div class="v">${k.v}</div>${k.d}<div class="s" title="${esc(k.s)}">${esc(k.s)}</div>${spark(k.sp,hi)}</div>`).join('')}
+function drawTrend(){const box=$('#trend');const Wd=Math.max(290,box.clientWidth);const nar=Wd<640;const H=nar?240:300;const n=38;const x0=nar?54:62,x1=Wd-4,y0=30,y1=H-24;const bw=(x1-x0)/n;const P=PER[ST.per];
+ const val=i=>i<36?C.mN[i]:C.fc[i-36];const ly=i=>i>=12?C.mN[i-12]:null;
+ let mx=0;for(let i=0;i<n;i++)mx=Math.max(mx,val(i),ly(i)||0,C.planM[i]||0);mx=niceMax(mx*1.02);const y=v=>y1-v/mx*(y1-y0);const xc=i=>x0+(i+.5)*bw;
+ let s=`<svg viewBox="0 0 ${Wd} ${H}" width="${Wd}" height="${H}" role="img" aria-label="Mesečna prodaja 36 mesecev z lansko primerjavo, planom in napovedjo">`;
+ for(let k=0;k<=nT(mx);k++){const v=mx*k/nT(mx);s+=`<line x1="${x0}" x2="${x1}" y1="${y(v)}" y2="${y(v)}" stroke="#ececec"/><text x="${x0-6}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="#767676">${esc(F.eurK(v))}</text>`}
+ // obdobje
+ s+=`<rect x="${x0+P.m[0]*bw}" y="${y0-4}" width="${(P.m[1]-P.m[0]+1)*bw}" height="${y1-y0+4}" fill="#f1f1f1"/>`;
+ for(let i=0;i<n;i++){const v=val(i),on=i>=P.m[0]&&i<=P.m[1],f=i>=36;const bx=x0+i*bw+bw*.14,ww=bw*.72;
+  s+=`<rect x="${bx.toFixed(1)}" y="${y(v).toFixed(1)}" width="${ww.toFixed(1)}" height="${(y1-y(v)).toFixed(1)}" rx="1.5" fill="${f?'url(#w-fc)':on?'#404040':'#d0d0d0'}" ${f?'stroke="#404040" stroke-width="1"':''}/>`}
+ const line=(fn,a,b)=>{const pts=[];for(let i=a;i<=b;i++){const v=fn(i);if(v!=null)pts.push(xc(i).toFixed(1)+','+y(v).toFixed(1))}return pts.join(' ')};
+ const halo=p=>`<polyline points="${p}" fill="none" stroke="#fff" stroke-width="4.5" stroke-linejoin="round" opacity=".9"/>`;const pP=line(i=>C.planM[i],0,37),pL=line(ly,12,37);
+ s+=halo(pL)+`<polyline points="${pL}" fill="none" stroke="#9a9a9a" stroke-width="2.2" stroke-linejoin="round"/>`;
+ s+=halo(pP)+`<polyline points="${pP}" fill="none" stroke="#222" stroke-width="1.6" stroke-dasharray="5 4"/>`;
+ // dogodki
+ const byM=new Map();C.ev.forEach((e,k)=>{if(!byM.has(e.month))byM.set(e.month,[]);byM.get(e.month).push(k+1)});
+ const bw2=k=>Math.max(18,k.join(',').length*6.4+8);const grp=[];[...byM].sort((a,b)=>a[0]-b[0]).forEach(([m,ks])=>{const g=grp[grp.length-1];if(g&&xc(m)-g.x<(bw2(g.ks)+bw2(ks))/2+2){g.ks.push(...ks);g.ms.push(m)}else grp.push({x:xc(m),ks:[...ks],ms:[m]})});
+ grp.forEach(g=>g.ms.forEach(m=>s+=`<line x1="${xc(m)}" x2="${xc(m)}" y1="${y0-6}" y2="${y1}" stroke="#222" stroke-dasharray="2 3" opacity=".45"/>`));
+ grp.forEach(g=>{const ks=g.ks;const t=ks.join(','),w=bw2(ks),x=g.x;s+=`<rect x="${x-w/2}" y="${y0-24}" width="${w}" height="18" rx="9" fill="#222"/><text x="${x}" y="${y0-11}" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">${t}</text>`});
+ for(let i=0;i<n;i++){const mo=i<36?S.months[i]:{m:i===36?10:11,y:2026,label:i===36?'nov 26':'dec 26'};const show=nar?mo.m===0:mo.m%3===0;if(show)s+=`<text x="${xc(i)}" y="${H-6}" text-anchor="middle" font-size="11" fill="#767676">${mo.m===0?mo.y:esc(mo.label)}</text>`}
+ for(let i=0;i<n;i++)s+=`<rect class="hit" data-m="${i}" x="${x0+i*bw}" y="${y0-26}" width="${bw}" height="${y1-y0+26}" fill="transparent"/>`;
+ box.innerHTML=s+'</svg>';
+ box.querySelectorAll('.hit').forEach(r=>{const i=+r.dataset.m;r.addEventListener('pointermove',e=>{const lab=i<36?S.months[i].long:(i===36?'november 2026':'december 2026');const rows=[[i>=36?'#8c8c8c':'#404040',F.eurK(val(i)),i>=36?'napoved':'prodaja']];if(ly(i)!=null)rows.push(['#9a9a9a',F.eurK(ly(i)),'lani · '+F.delta(gr(val(i),ly(i)))]);rows.push(['#222',F.eurK(C.planM[i]),'plan'+(i>=36||!C.exact?' (ocena)':'')+' · '+F.delta(gr(val(i),C.planM[i]))]);C.ev.filter(e=>e.month===i).forEach(e=>rows.push([null,'●',e.label]));K.tipShow(e,lab,rows)});r.addEventListener('pointerleave',K.tipHide)})}
+function renderBreak(){const c=C.cur,p=C.prev,pl=ST.cmp==='plan';
+ DIMS.forEach(d=>{const R=c.d[d.k],Q=p.d[d.k];const tot=U.sum(R.n)||1;const sel=ST.f[d.k];
+  const rows=d.names.map((nm,j)=>({j,nm,v:R.n[j],g:R.g[j],q:Q.n[j],cmp:pl?C.rowPlan(d.k,j,Q.n[j]):Q.n[j]})).filter(r=>r.v>0||r.q>0).sort((a,b)=>b.v-a.v);
+  const mx=Math.max(...rows.map(r=>r.v),1);
+  $('#b_'+d.k).classList.toggle('has',sel.size>0);$(`[data-clr="${d.k}"]`).hidden=!sel.size;$('#bh_'+d.k).textContent=pl?'vs plan':'vs lani';
+  $('#b_'+d.k).innerHTML=rows.map(r=>{const g=gr(r.v,r.cmp);return`<button type="button" class="br-row" data-dim="${d.k}" data-i="${r.j}" aria-pressed="${sel.has(r.j)}"><span class="n">${esc(r.nm)}<small>${F.pct(r.v/tot)} · marža ${F.pct(r.v?r.g/r.v:0)}</small></span><span class="w-bar"><i style="width:${(r.v/mx*100).toFixed(1)}%"></i></span><span class="val">${F.eurK(r.v)}</span><span class="dl ${cls(g)}">${r.cmp?F.delta(g):'nov'}</span></button>`}).join('')})}
+function renderCust(){const c=C.cur.cn,p=C.prev.cn;const P=PER[ST.per];let nNew=0,vNew=0,nLost=0,vLost=0;const ch=[];
+ for(let i=0;i<nC;i++){const a=c[i],b=p[i];if(!a&&!b)continue;if(a>0&&b<=0){nNew++;vNew+=a}else if(b>0&&a<=0){nLost++;vLost+=b}ch.push([i,a-b,a,b])}
+ ch.sort((x,y)=>y[1]-x[1]);C.custStats={nNew,vNew,nLost,vLost,biggestLost:ch.filter(x=>x[2]<=0).sort((x,y)=>x[1]-y[1])[0]};
+ $('#cuSub').textContent=`${P.lab} glede na ${P.pl}${filtTxt()?' · '+filtTxt():''}`;
+ $('#cuStats').innerHTML=`<div><b class="up">${F.num(nNew)}</b>novih ali vrnjenih kupcev · ${F.eurK(vNew)}</div><div><b class="dn">${F.num(nLost)}</b>kupcev brez nakupa (lani ${F.eurK(vLost)})</div><div><b class="${cls(vNew-vLost)}">${F.eurK(vNew-vLost)}</b>neto učinek pridobljenih in izgubljenih</div>`;
+ const row=x=>{const cu=S.cust(x[0]);return`<div class="cu-row"><span style="min-width:0">${cLink(x[0])}<small>${esc(cu.branza)} · ${esc(cu.size)} · ${esc(cu.town)}</small></span><span class="r">${F.eurK(x[2])}</span><span class="r ${cls(x[1])}" style="min-width:70px;font-weight:700">${x[1]>0?'+':''}${F.eurK(x[1])}</span></div>`};
+ $('#cuUp').innerHTML=ch.slice(0,7).map(row).join('');$('#cuDn').innerHTML=ch.slice(-7).reverse().map(row).join('')}
+function renderIns(){const c=C.cur,p=C.prev,pl=ST.cmp==='plan',P=PER[ST.per];const cmpT=pl?'plan':P.pl;const items=[];
+ const cand=[];DIMS.filter(d=>d.k!=='div'&&!ST.f[d.k].size).forEach(d=>{const R=c.d[d.k],Q=p.d[d.k];d.names.forEach((nm,j)=>{const cv=pl?C.rowPlan(d.k,j,Q.n[j]):Q.n[j];if(R.n[j]<=0&&Q.n[j]<=0)return;cand.push({d,j,nm,v:R.n[j],cv,delta:R.n[j]-cv,gm:R.n[j]?R.g[j]/R.n[j]:0,gm0:Q.n[j]?Q.g[j]/Q.n[j]:0,dc:R.l[j]?1-R.n[j]/R.l[j]:0,dc0:Q.l[j]?1-Q.n[j]/Q.l[j]:0,share:R.n[j]/(c.net||1)})})});
+ const dimN={chan:'kanal',cat:'kategorija',br:'panoga'};
+ if(cand.length){const up=[...cand].sort((a,b)=>b.delta-a.delta)[0];
+  items.push({h:`${up.nm}: ${up.delta>=0?'največji prispevek k rasti':'najmanjši upad'}`,p:`${dimN[up.d.k][0].toUpperCase()+dimN[up.d.k].slice(1)} <b>${esc(up.nm)}</b> ustvari <b>${F.eurK(up.v)}</b>, kar je <b class="${cls(up.delta)}">${up.delta>=0?'+':''}${F.eurK(up.delta)}</b> (${F.delta(gr(up.v,up.cv))}) glede na ${esc(cmpT)}. Marža ${F.pct(up.gm)} (${F.pp(up.gm-up.gm0)} vs lani), delež prodaje ${F.pct(up.share)}.`,go:`${up.d.k}:${up.j}`,gl:up.nm});
+  const big=cand.filter(x=>x.share>.03&&x!==up);const dn=[...big].sort((a,b)=>a.delta-b.delta)[0];
+  if(dn){const dpp=dn.gm-dn.gm0,ddc=dn.dc-dn.dc0;const why=dpp<-.002&&ddc>.002?` Marža je ${F.pp(dpp)}, ker je povprečni popust višji (${F.pct(dn.dc)} vs ${F.pct(dn.dc0)}).`:dpp<-.002?` Marža je nižja za ${F.pp(dpp).slice(1)} ob nespremenjenih popustih — razlog je mešanica in nabavne cene.`:` Marža ${F.pct(dn.gm)} (${F.pp(dpp)}).`;
+   items.push({h:`${dn.nm}: ${dn.delta<0?'zaostaja':'najšibkejša rast'}`,p:`${dimN[dn.d.k][0].toUpperCase()+dimN[dn.d.k].slice(1)} <b>${esc(dn.nm)}</b> je <b class="${cls(dn.delta)}">${F.delta(gr(dn.v,dn.cv))}</b> (${dn.delta>=0?'+':''}${F.eurK(dn.delta)}) glede na ${esc(cmpT)}.${why}`,go:`${dn.d.k}:${dn.j}`,gl:dn.nm})}}
+ const cs=C.custStats;const bl=cs.biggestLost;
+ items.push({h:cs.vNew>=cs.vLost?'Pridobivanje pokriva izgube kupcev':'Izgubljeni kupci odnesejo več, kot prinesejo novi',p:`<b>${F.num(cs.nLost)}</b> kupcev, ki so v obdobju ${esc(P.pl)} kupili za ${F.eurK(cs.vLost)}, v izbranem obdobju ni naročilo; <b>${F.num(cs.nNew)}</b> novih ali vrnjenih kupcev je prineslo ${F.eurK(cs.vNew)}.${bl?` Največji izpad: ${cLink(bl[0])} (${F.eurK(bl[3])} lani).`:''}`,go:'cust',gl:'kupce'});
+ if(items.length<3){const g=gr(c.net,ST.cmp==='plan'?C.planP:p.net);items.unshift({h:'Prodaja '+(g>=0?'nad':'pod')+' primerjavo',p:`Prodaja ${F.eurK(c.net)} je ${F.delta(g)} glede na ${esc(cmpT)}.`,go:'cust',gl:'kupce'})}
+ $('#insL').innerHTML=items.slice(0,3).map((x,k)=>`<li><span class="no">${k+1}</span><div><h4>${esc(x.h)}</h4><p>${x.p}</p><button type="button" class="w-btn sm ghost" data-go="${x.go}">${x.go==='cust'?'Pokaži kupce':'Filtriraj: '+esc(x.gl)}</button></div></li>`).join('')}
+function drawFc(){const mN=C.mN,pm=C.planM;const act=U.sum(mN.slice(26,36)),fc=C.fc[0]+C.fc[1],tot=act+fc;const plan=U.sum(pm.slice(26,38));const gap=tot-plan;const need=(plan-act)/2;const lo=act+fc*(1-C.mape),hi=act+fc*(1+C.mape);
+ const box=$('#fcBody');const w=Math.max(260,box.clientWidth||300),h=150,x0=8,x1=w-8,y0=10,y1=h-22;
+ const vals=[],pls=[];for(let k=0;k<12;k++){const m=26+k;vals.push(m<36?mN[m]:C.fc[m-36]);pls.push(pm[m])}
+ const mx=niceMax(Math.max(...vals,...pls)*1.04);const bw=(x1-x0)/12,Y=v=>y1-v/mx*(y1-y0);const ML=['jan','feb','mar','apr','maj','jun','jul','avg','sep','okt','nov','dec'];
+ let s=`<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" role="img" aria-label="Mesečna prodaja 2026 proti planu, z napovedjo za november in december">`;
+ vals.forEach((v,k)=>{const f=k>=10,x=x0+k*bw+bw*.15,ww=bw*.7;s+=`<rect x="${x.toFixed(1)}" y="${Y(v).toFixed(1)}" width="${ww.toFixed(1)}" height="${(y1-Y(v)).toFixed(1)}" rx="1.5" fill="${f?'url(#w-fc)':'#404040'}" ${f?'stroke="#404040"':''}><title>${ML[k]} 2026: ${esc(F.eurK(v))}${f?' (napoved)':''} · plan ${esc(F.eurK(pls[k]))} · ${esc(F.delta(gr(v,pls[k])))}</title></rect>${f?'':`<rect x="${x.toFixed(1)}" y="${Y(Math.max(v,pls[k])).toFixed(1)}" width="${ww.toFixed(1)}" height="${Math.abs(Y(pls[k])-Y(v)).toFixed(1)}" style="fill:var(${v>=pls[k]?'--pos':'--neg'})" pointer-events="none"/>`}<line x1="${(x-2).toFixed(1)}" x2="${(x+ww+2).toFixed(1)}" y1="${Y(pls[k]).toFixed(1)}" y2="${Y(pls[k]).toFixed(1)}" stroke="#222" stroke-width="2"/><text x="${(x+ww/2).toFixed(1)}" y="${h-6}" text-anchor="middle" font-size="10" fill="#767676">${ML[k][0].toUpperCase()}</text>`});
+ box.innerHTML=`<div class="fcn"><div><small>Napoved 2026</small><b>${F.eurK(tot)}</b></div><div><small>Plan 2026</small><b>${F.eurK(plan)}</b></div><div class="wide"><small>Razlika do plana</small><b class="${cls(gap)}">${gap>=0?'+':''}${F.eurK(gap)} · ${F.delta(gr(tot,plan))}</b></div></div>${s}</svg>
+ <div class="legend" style="margin-top:4px"><span><i style="background:var(--ac)"></i>Realizacija</span><span><i style="background:var(--pos)"></i>Nad planom</span><span><i style="background:var(--neg)"></i>Pod planom</span><span><i class="hat"></i>Napoved</span><span><i class="ln" style="background:#222"></i>Plan</span></div>
+ <p class="fcp">Jan–okt realizirano <b>${F.eurK(act)}</b>. Napoved nov–dec: <b>${F.eurK(fc)}</b> (${F.eurK(C.fc[0])} + ${F.eurK(C.fc[1])}); za plan bi potrebovali <b>${F.eurK(need)}</b> na mesec. Razpon napovedi ${F.eurK(lo)} – ${F.eurK(hi)}.</p>
+ <p class="estn" style="margin:6px 0 0">Natančnost modela na zadnjih dveh mesecih (napoved sep–okt iz podatkov do avg): MAPE ${F.pct(C.mape)}. Plan za nov–dec 2026 v podatkih še ni vnesen — ocenjen kot lanski nov–dec × rast plana 2026 (${F.delta(U.sum(S.budget.total.slice(26,36))/U.sum(S.cube.total.slice(14,24))-1)}).</p>`}
+boot(init);
+</script>
+</body></html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Opozorila odliva · Würth Slovenija (demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700;800&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brand.css">
+<style>
+/* skupno: predal, mini grafi, povezave */
+.w-drawer header h3 small{display:block;font:400 12.5px/1.35 var(--fb);text-transform:none;opacity:.78;margin-top:5px;letter-spacing:0}
+.dr-sec h4{font:800 13.5px/1.1 var(--fc);text-transform:uppercase;letter-spacing:.03em;margin:0 0 8px;color:var(--ink)}
+.dr-sec p{margin:0 0 6px;font-size:13px;color:var(--ink2)}
+.dr-k{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.dr-k div{border-top:3px solid var(--red);background:var(--bg);padding:8px 9px;min-width:0}
+.dr-k small{display:block;font:700 10.5px var(--fb);color:var(--ink3);text-transform:uppercase;letter-spacing:.04em}
+.dr-k b{font:800 19px/1.2 var(--fc);font-variant-numeric:tabular-nums;white-space:nowrap}
+.dr-k em{display:block;font-style:normal;font-size:11.5px;font-weight:700}
+.lnk{border:0;background:none;padding:0;color:var(--ink);font:inherit;font-weight:700;cursor:pointer;text-align:left;text-decoration:underline;text-decoration-color:#c9c9c9;text-underline-offset:3px}
+.lnk:hover{color:var(--red);text-decoration-color:var(--red)}
+.hb{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(40px,2fr) auto;gap:10px;align-items:center;font-size:12.5px;padding:3px 0}
+.hb>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hb .w-bar{height:10px}.hb b{font-variant-numeric:tabular-nums;font-weight:700;min-width:64px;text-align:right}
+.svgc{display:block;max-width:100%;overflow:visible}.svgc text{font:11px var(--fb);fill:#767676}
+.mini-t{width:100%;border-collapse:collapse;font-size:12.5px}.mini-t td,.mini-t th{padding:5px 6px;border-bottom:1px solid var(--line2);text-align:left;white-space:nowrap}
+.mini-t th{font:700 10.5px var(--fb);text-transform:uppercase;letter-spacing:.04em;color:var(--ink3)}.mini-t .r{text-align:right;font-variant-numeric:tabular-nums}
+.leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:11.5px;color:var(--ink2);margin:0 0 6px}.leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}.leg i.ln{height:2px;width:14px;vertical-align:3px}.leg i.ds{height:0;width:14px;border-top:2px dashed #222;vertical-align:3px;background:none!important}
+.empty{padding:22px;text-align:center;color:var(--ink3);font-size:13px;background:var(--bg);border-radius:var(--r)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.w-top .sp{margin-left:auto}
+.w-head .w-logo{cursor:default}
+@media(max-width:520px){.dr-k{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media print{.w-band,.w-drawer,.w-scrim,.w-loading{display:none!important}}
+
+.sumrow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.sumrow .w-kpi .v{font-size:27px}.sumrow .w-kpi .s{font-size:12px;color:var(--ink3)}
+.inbox{display:grid;grid-template-columns:minmax(320px,410px) minmax(0,1fr);background:#fff;border:1px solid var(--line2);border-radius:var(--r);min-height:640px}
+.ib-list{border-right:1px solid var(--line2);display:flex;flex-direction:column;min-width:0}
+.ib-lh{padding:10px 12px;border-bottom:2px solid var(--ink);display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.ib-lh b{font:800 15px var(--fc);text-transform:uppercase}
+.ib-items{overflow:auto;max-height:820px;flex:1}
+.ib-it{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px 10px 8px;border:0;border-bottom:1px solid var(--line2);border-left:4px solid transparent;background:#fff;width:100%;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.ib-it:hover{background:var(--bg)}.ib-it.sel{background:var(--hl-l);border-left-color:var(--hl)}
+.ib-it .nm{font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}.ib-it.new .nm{font-weight:700}
+.ib-it .mt{font-size:11.5px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.ib-it .rs{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}.ib-it .rs span{font-size:10.5px;font-weight:700;padding:1px 6px;border-radius:999px;background:var(--bg);color:var(--ink2)}
+.ib-it .eu{text-align:right;font:700 13px var(--fb);font-variant-numeric:tabular-nums;white-space:nowrap}.ib-it .eu small{display:block;font-weight:500;font-size:10.5px;color:var(--ink3)}
+.ib-it .st{display:inline-block;margin-top:3px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ok)}
+.sc{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:800 16px var(--fc);font-variant-numeric:tabular-nums}
+.sc.hi{background:var(--neg);color:#fff}.sc.mid{background:#f5c0c3;color:#8a0a12}.sc.lo{background:#e6e6e6;color:#444}
+.ib-more{padding:12px;text-align:center}
+.ib-det{padding:20px 24px 26px;min-width:0}
+.dh{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;border-bottom:1px solid var(--line2);padding-bottom:14px;margin-bottom:16px}
+.dh h2{font-size:26px}.dh .meta{color:var(--ink2);font-size:13px;margin-top:6px}
+.dgrid{display:grid;grid-template-columns:230px minmax(0,1fr);gap:24px}
+.gauge{text-align:center}.gauge .lv{font:800 14px var(--fc);text-transform:uppercase;letter-spacing:.04em;margin-top:-6px}
+.gfacts{display:grid;gap:6px;margin-top:12px;font-size:12.5px;text-align:left}.gfacts div{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted var(--line);padding-bottom:4px}.gfacts b{font-variant-numeric:tabular-nums}
+.fx{display:grid;grid-template-columns:minmax(0,170px) minmax(60px,1fr) 34px;gap:10px;align-items:center;padding:7px 0 0}
+.fx .n{font-weight:700;font-size:13px}.fx .p{font:700 12.5px var(--fm);text-align:right}
+.fx-t{grid-column:1/-1;font-size:12.5px;color:var(--ink2);padding-bottom:7px;border-bottom:1px solid var(--line2)}
+.fx.off .n,.fx.off .p{color:#aaa}.fx.off+.fx-t{color:#aaa}
+.h4{font:800 13.5px var(--fc);text-transform:uppercase;letter-spacing:.03em;margin:18px 0 8px}
+.acts{display:flex;gap:8px;flex-wrap:wrap}.acts .w-btn[aria-pressed=true]{background:var(--red);border-color:var(--red);color:#fff}
+.note{width:100%;min-height:64px;border:1px solid var(--line);border-radius:var(--r);padding:8px 10px;font-size:13.5px;resize:vertical;margin-top:10px}
+.log{list-style:none;margin:8px 0 0;padding:0;font-size:12px;color:var(--ink2)}.log li{padding:3px 0;border-bottom:1px dotted var(--line)}.log time{color:var(--ink3);margin-right:6px;font-variant-numeric:tabular-nums}
+.below{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;margin-top:22px}
+.rsn{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(50px,1.6fr) 54px 74px;gap:10px;align-items:center;width:100%;border:0;background:none;padding:6px 4px;font:inherit;font-size:13px;cursor:pointer;text-align:left;border-bottom:1px solid var(--line2)}
+.rsn:hover{background:var(--bg)}.rsn.on{background:var(--hl-l)}.rsn b{text-align:right;font-variant-numeric:tabular-nums}
+.retro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
+.big{font:800 40px/1 var(--fc);color:var(--ink)}
+.how{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.how div{background:var(--bg);border-radius:var(--r);padding:10px 12px;font-size:12.5px;color:var(--ink2)}.how b{display:block;color:var(--ink);font-size:13px}.how em{font-style:normal;color:var(--red);font-weight:700}
+.fchip{display:none}.fchip.on{display:inline-flex}
+@media(max-width:1100px){.sumrow{grid-template-columns:repeat(3,minmax(0,1fr))}.dgrid{grid-template-columns:minmax(0,1fr)}.how{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){.inbox{grid-template-columns:1fr}.ib-list{border-right:0;border-bottom:4px solid var(--ink)}.ib-items{max-height:440px}.below,.retro{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){.sumrow{grid-template-columns:repeat(2,minmax(0,1fr))}.ib-det{padding:16px}.how{grid-template-columns:1fr}.rsn{grid-template-columns:minmax(0,1.4fr) minmax(40px,1fr) 40px 64px;font-size:12px}.w-band .w-sel{flex:1 1 140px}}
+</style>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head>
+<body>
+<div class="w-top"><span><b>Würth Slovenija</b> · analize prodaje</span><span>Stanje: 31. 10. 2026</span><span class="sp w-demo" style="background:#fff;color:#cc0000">Demo podatki — izmišljeno</span></div>
+<header class="w-head"><span class="w-logo" data-logo></span><div class="w-app">Opozorila odliva<small>Zgodnje opozarjanje za terenske svetovalce in vodje</small></div>
+<nav class="w-nav" aria-label="Razdelki"><a href="#seznam" class="on">Delovni seznam</a><a href="#razlogi">Razlogi in svetovalci</a><a href="#validacija">Validacija modela</a><a href="#tockovanje">Točkovanje</a></nav></header>
+<div class="w-band" role="search">
+ <label class="sr" for="q">Iskanje kupca</label><input id="q" type="search" placeholder="Išči kupca, šifro ali kraj …" autocomplete="off">
+ <label class="sr" for="fRep">Svetovalec</label><select id="fRep" class="w-sel"></select>
+ <label class="sr" for="fBr">Panoga</label><select id="fBr" class="w-sel"></select>
+ <label class="sr" for="fReg">Regija</label><select id="fReg" class="w-sel"></select>
+ <label class="sr" for="fAct">Stanje obdelave</label><select id="fAct" class="w-sel"><option value="">Vsa stanja</option><option value="new">Neobdelani</option><option value="klican">Poklican</option><option value="obisk">Obisk dogovorjen</option><option value="reseno">Rešeno</option></select>
+ <div class="w-seg" role="group" aria-label="Raven tveganja" id="fLvl"><button type="button" data-v="hm" class="on">Visoko + srednje</button><button type="button" data-v="hi">Visoko</button><button type="button" data-v="all">Vsi</button></div>
+ <button type="button" class="w-chip on fchip" id="fRsn" title="Odstrani filter razloga"></button>
+</div>
+<main class="w-wrap">
+ <div class="w-title"><div><div class="w-kicker">Tveganje odliva · aktivni kupci</div><h1>Opozorila odliva</h1><p id="lead">…</p></div>
+  <button type="button" class="w-btn ghost sm" id="reset">Ponastavi filtre</button></div>
+ <div class="sumrow" id="kpis"></div>
+ <section id="seznam" class="inbox" aria-label="Delovni seznam">
+  <div class="ib-list"><div class="ib-lh"><b id="cnt">Kupci</b><label class="sr" for="sort">Razvrsti</label><select id="sort" class="w-sel"><option value="eur">Po ogroženi prodaji €</option><option value="sc">Po točkah tveganja</option><option value="rev">Po letni prodaji</option><option value="since">Najdlje brez nakupa</option><option value="name">Po imenu</option></select></div>
+   <div class="ib-items" id="items" role="listbox" aria-label="Kupci s tveganjem"></div></div>
+  <div class="ib-det" id="det" aria-live="polite"></div>
+ </section>
+ <section id="razlogi" class="below">
+  <div class="w-card"><h3>Razlogi za opozorila</h3><p class="w-sub">Število kupcev v izboru, pri katerih razlog prispeva točke. Klik filtrira seznam.</p><div id="reasons"></div></div>
+  <div class="w-card"><h3>Po svetovalcih</h3><p class="w-sub">Kupci z visokim in srednjim tveganjem v izboru · klik na število filtrira seznam.</p><div class="w-tw" id="reps"></div></div>
+ </section>
+ <section id="validacija" class="w-section"><div class="w-rule"></div><h2>Validacija modela: ali so opozorjeni res odšli?</h2>
+  <p class="w-sub" id="retroSub" style="font-size:13.5px;max-width:90ch"></p>
+  <div class="w-card retro"><div id="retroChart"></div><div id="retroTxt"></div></div>
+ </section>
+ <section id="tockovanje" class="w-section"><div class="w-rule"></div><h2>Kako točkujemo</h2><p class="w-sub" style="font-size:13.5px">Vsak dejavnik prispeva točke do svoje meje; seštevek (največ 100) je ocena tveganja. Visoko ≥ 55, srednje 30–54. Ogrožena prodaja = letna prodaja × ocena / 100.</p><div class="how" id="how"></div></section>
+</main>
+<footer class="w-foot"><span><span class="w-demo">Demo</span> <b>Demo podatki — izmišljeno, ni povezano z dejanskim poslovanjem Würth d.o.o.</b></span><span>Opozorila odliva · akcije in opombe so shranjene samo v tem brskalniku</span></footer>
+<div class="w-scrim" id="scrim"></div>
+<aside class="w-drawer" id="drawer" aria-hidden="true" aria-labelledby="drTitle" role="dialog"><header><h3 id="drTitle"></h3><button type="button" class="x" id="drClose" aria-label="Zapri">×</button></header><div class="body" id="drBody"></div></aside>
+<div class="w-loading">Nalagam podatke o kupcih …</div>
+<script src="wdata.js"></script>
+<script src="kit.js"></script>
+<script>
+/* ---------- skupno: nalaganje, predal kupca/svetovalca, nasveti, mini grafi ---------- */
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const RED='#d0101b',INK='#222',INK2='#444',INK3='#767676',GREY='#d0d0d0',GRID='#ececec',OK='#2e7d32',AC='#404040',PY='#9a9a9a',AC2='#a6a6a6';
+let S,F;
+const sumA=(a,i0=0,i1=a.length)=>{let s=0;for(let i=i0;i<i1;i++)s+=a[i];return s};
+const pl=(n,f)=>{n=Math.abs(Math.round(n))%100;return n===1?f[0]:n===2?f[1]:n===3||n===4?f[2]:f[3]};
+const kup=n=>F.num(n)+' '+pl(n,['kupec','kupca','kupci','kupcev']);
+const cl01=v=>v<0?0:v>1?1:v;
+const niceMax=v=>{if(!(v>0))return 1;const p=Math.pow(10,Math.floor(Math.log10(v)));const f=v/p;return(f<=1?1:f<=1.5?1.5:f<=2?2:f<=2.5?2.5:f<=3?3:f<=4?4:f<=5?5:f<=6?6:f<=8?8:10)*p};
+const dCls=v=>v>0.0005?'up':v<-0.0005?'dn':'flat';
+const pillSt=s=>`<span class="w-pill ${s==='Aktiven'?'ok':s==='Nov'?'':s==='V upadu'?'warn':'bad'}">${esc(s)}</span>`;
+const custBtn=(id,txt)=>`<button type="button" class="lnk" data-cust="${id}">${esc(txt??S.cust(id).name)}</button>`;
+const repBtn=(id,txt)=>{const r=S.rep(id);return r?`<button type="button" class="lnk" data-rep="${id}">${esc(txt??r.name)}</button>`:'<span class="flat">nezasedeno</span>'};
+function boot(build){const lg=$('[data-logo]');if(lg)lg.innerHTML=W.logo(30);
+ let done=false;const go=()=>{if(done)return;done=true;S=W.load();F=S.fmt;try{build()}finally{$('.w-loading').hidden=true}};
+ requestAnimationFrame(()=>setTimeout(go,40));setTimeout(go,400)}
+/* nasveti: data-tip="Glava¦vrednost|ime|#barva¦…" */
+let tipOn=false;
+document.addEventListener('pointermove',e=>{const t=e.target&&e.target.closest?e.target.closest('[data-tip]'):null;if(!t){if(tipOn){K.tipHide();tipOn=false}return}
+ const p=t.getAttribute('data-tip').split('¦');K.tipShow(e,p[0],p.slice(1).map(r=>{const[v,n,c]=r.split('|');return[c||null,v,n||'']}));tipOn=true});
+document.addEventListener('pointerleave',()=>{K.tipHide();tipOn=false});
+/* predal */
+let lastFocus=null;
+function drawer(title,sub,html){const d=$('#drawer');lastFocus=document.activeElement;$('#drTitle').innerHTML=esc(title)+(sub?`<small>${esc(sub)}</small>`:'');const b=$('#drBody');b.innerHTML=html;b.scrollTop=0;
+ d.classList.add('on');d.setAttribute('aria-hidden','false');$('#scrim').classList.add('on');setTimeout(()=>$('#drClose').focus(),30)}
+function closeDrawer(){const d=$('#drawer');if(!d.classList.contains('on'))return;d.classList.remove('on');d.setAttribute('aria-hidden','true');$('#scrim').classList.remove('on');K.tipHide();if(lastFocus&&lastFocus.isConnected)lastFocus.focus()}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-cust],[data-rep]');if(!t||!S)return;e.preventDefault();e.stopPropagation();
+ if(t.hasAttribute('data-cust'))custDrawer(+t.getAttribute('data-cust'));else repDrawer(+t.getAttribute('data-rep'))},true);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
+document.addEventListener('DOMContentLoaded',()=>{$('#scrim').addEventListener('click',closeDrawer);$('#drClose').addEventListener('click',closeDrawer)});
+const drW=()=>Math.min(560,innerWidth)-38;
+/* vodoravni stolpci (HTML) */
+function hbars(rows,{fmt,max,color}={}){fmt=fmt||F.eurK;const mx=max||Math.max(1e-9,...rows.map(r=>r.v));
+ return rows.map(r=>`<div class="hb"${r.tip?` data-tip="${esc(r.tip)}"`:''}><span title="${esc(r.l)}">${r.html||esc(r.l)}</span><span class="w-bar"><i style="width:${(cl01(r.v/mx)*100).toFixed(1)}%;background:${r.c||color||AC}"></i></span><b>${r.vt??fmt(r.v)}</b></div>`).join('')}
+/* mesečni stolpci + primerjalna črta + plan (SVG niz) */
+function mChart(w,{vals,labels,cmp,plan,h=170,fmt,hiFrom=0,names=['Prodaja','Lani','Plan'],every=3,marks}){fmt=fmt||F.eurK;w=Math.max(260,Math.round(w));
+ const n=vals.length,pl=52,pr=6,pt=10,pb=22,iw=w-pl-pr,ih=h-pt-pb;const all=[...vals,...(cmp||[]),...(plan||[])].filter(v=>v!=null&&isFinite(v));const mx=niceMax(Math.max(1,...all)*1.04);
+ const bw=iw/n,y=v=>pt+ih-ih*Math.max(0,v)/mx;let s=`<svg class="svgc" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="Mesečni potek">`;
+ for(let k=0;k<=4;k++){const v=mx*k/4,yy=y(v);s+=`<line x1="${pl}" x2="${w-pr}" y1="${yy}" y2="${yy}" stroke="${GRID}"/><text x="${pl-6}" y="${yy+4}" text-anchor="end">${esc(fmt(v))}</text>`}
+ if(marks)marks.forEach(m=>{if(m.i<0||m.i>=n)return;const x=pl+m.i*bw+bw/2;s+=`<line x1="${x}" x2="${x}" y1="${pt}" y2="${pt+ih}" stroke="${INK3}" stroke-dasharray="2 3"/><circle cx="${x}" cy="${pt+3}" r="3.5" fill="${INK}" data-tip="${esc(labels[m.i]+'¦'+m.label+'|')}"/>`});
+ vals.forEach((v,i)=>{const x=pl+i*bw;const tip=[labels[i],fmt(v)+'|'+names[0]+'|'+(i>=hiFrom?AC:GREY)];if(cmp&&cmp[i]!=null)tip.push(fmt(cmp[i])+'|'+names[1]+'|'+PY);if(plan&&plan[i]!=null)tip.push(fmt(plan[i])+'|'+names[2]+'|'+INK);
+  if(cmp&&cmp[i]&&v!=null)tip.push(F.delta(v/cmp[i]-1)+'|vs '+names[1].toLowerCase());
+  s+=`<rect x="${(x+bw*.14).toFixed(1)}" y="${y(v||0).toFixed(1)}" width="${(bw*.72).toFixed(1)}" height="${Math.max(0,pt+ih-y(v||0)).toFixed(1)}" rx="1.5" fill="${i>=hiFrom?AC:GREY}"/><rect x="${x.toFixed(1)}" y="${pt}" width="${bw.toFixed(1)}" height="${ih}" fill="transparent" data-tip="${esc(tip.join('¦'))}"/>`;
+  if(i%every===0||i===n-1)s+=`<text x="${(x+bw/2).toFixed(1)}" y="${h-6}" text-anchor="middle">${esc(labels[i])}</text>`});
+ const line=(arr,st)=>{let d='';arr.forEach((v,i)=>{if(v==null)return;d+=(d?'L':'M')+(pl+i*bw+bw/2).toFixed(1)+' '+y(v).toFixed(1)});return d?`<path d="${d}" fill="none" stroke="#fff" stroke-width="4.5" stroke-linejoin="round" opacity=".9" pointer-events="none"/><path d="${d}" fill="none" ${st} pointer-events="none"/>`:''};
+ if(cmp)s+=line(cmp,`stroke="${PY}" stroke-width="2.2" stroke-linejoin="round"`);
+ if(plan)s+=line(plan,`stroke="${INK}" stroke-width="1.6" stroke-dasharray="4 3"`);
+ return s+'</svg>'}
+const legend=items=>`<div class="leg">${items.map(([n,c,k])=>`<span><i class="${k||''}" style="background:${c}"></i>${esc(n)}</span>`).join('')}</div>`;
+/* ---------- profil kupca ---------- */
+function custDrawer(id){const c=S.cust(id);if(!c)return;const L=S.L;
+ const ser=S.custSeries(id),gm=S.custSeries(id,'gm'),oc=S.custSeries(id,'orders');
+ const r12=sumA(ser,24,36),p12=sumA(ser,12,24),g12=sumA(gm,24,36),o12=sumA(oc,24,36);
+ const idx=S.custLines(id),d12=S.periods.l12[0];const ch=new Float64Array(6),cat=new Float64Array(10),catP=new Float64Array(10);let li=0,ne=0;const om=new Map();
+ for(const i of idx){const d=L.day[i];if(d>=d12){ch[L.chan[i]]+=L.net[i];cat[L.cat[i]]+=L.net[i];li+=L.list[i];ne+=L.net[i]}else if(d>=d12-365)catP[L.cat[i]]+=L.net[i];
+  let o=om.get(L.ord[i]);if(!o)om.set(L.ord[i],o={d,ch:L.chan[i],n:0,v:0,br:L.branch[i]});o.n++;o.v+=L.net[i]}
+ const last=[...om.values()].sort((a,b)=>b.d-a.d).slice(0,8);const qs=S.quotes.filter(q=>q.cust===id).sort((a,b)=>b.createdDay-a.createdDay);
+ const rets=S.returns.filter(r=>r.cust===id&&r.day>=d12);const retV=sumA(rets.map(r=>r.value));
+ const vis=[];for(let m=24;m<36;m++)vis.push(S.visitCM[m][id]);const vT=sumA(vis);
+ const br=S.branch(c.branch),rep=S.rep(c.rep);const g=p12?r12/p12-1:null;const w=drW();
+ const catRows=S.cats.map(k=>({l:k.name,v:cat[k.idx],p:catP[k.idx]})).filter(r=>r.v>0||r.p>0).sort((a,b)=>b.v-a.v).map(r=>({...r,vt:F.eurK(r.v),tip:r.l+'¦'+F.eur(r.v)+'|zadnjih 12 mes.¦'+F.eur(r.p)+'|predhodnih 12 mes.',c:r.v===0?GREY:AC}));
+ const lost=catRows.filter(r=>r.v===0&&r.p>0).map(r=>r.l);
+ const chT=sumA(ch);const chRows=S.channels.map((n,i)=>({l:n,v:ch[i],vt:chT?F.pct(ch[i]/chT,0):'—'})).filter(r=>r.v>0).sort((a,b)=>b.v-a.v);
+ let h=`<div class="dr-k"><div><small>Prodaja 12 m</small><b>${F.eurK(r12)}</b><em class="${g==null?'flat':dCls(g)}">${g==null?'nov kupec':F.delta(g)+' vs prej'}</em></div><div><small>Marža 12 m</small><b>${r12?F.pct(g12/r12):'—'}</b><em class="flat">${F.eurK(g12)}</em></div><div><small>Naročila 12 m</small><b>${F.num(o12)}</b><em class="flat">povp. ${o12?F.eur(r12/o12):'—'}</em></div><div><small>Dejanski popust</small><b>${li?F.pct((li-ne)/li):'—'}</b><em class="flat">osnovni ${F.pct(c.disc)}</em></div></div>
+ <div class="w-facts"><div><small>Status</small>${pillSt(c.status)}</div><div><small>Svetovalec</small>${rep?repBtn(c.rep):'—'}<br><span class="flat" style="font-size:11.5px">${esc(rep?rep.role:'')}</span></div>
+ <div><small>Kraj in regija</small><b>${esc(c.town)}</b>, ${esc(S.regionName(c.region))}</div><div><small>Najbližja trgovina</small><b>${esc(br?br.town:'—')}</b> · ${c.branchKm} km</div>
+ <div><small>Kupec od</small><b>${F.date(c.acquired)}</b></div><div><small>Zadnje naročilo</small><b>${F.date(c.lastOrder)}</b></div>
+ <div><small>Vezava</small>${[c.contract?'okvirna pogodba':'',c.orsy||'',c.eshop?'e-shop od '+F.date(c.eshopSince):''].filter(Boolean).map(x=>`<span class="w-pill">${esc(x)}</span>`).join(' ')||'<span class="flat">brez</span>'}</div>
+ <div><small>Potencial / delež denarnice</small><b>${F.eurK(c.potential)}</b> · ${F.pct(c.potential?Math.min(1,r12/c.potential):0,0)}</div></div>
+ <section class="dr-sec"><h4>Prodaja po mesecih (36 mes.)</h4>${legend([['Zadnjih 12 mes.',AC],['Prej',GREY],['Isti mesec lani',PY,'ln']])}${mChart(w,{vals:ser,labels:S.months.map(m=>m.label),cmp:ser.map((v,i)=>i>=12?ser[i-12]:null),hiFrom:24,every:6,h:160,names:['Prodaja','Lani']})}</section>
+ <section class="dr-sec"><h4>Kategorije (12 mes.)</h4>${catRows.length?hbars(catRows):'<div class="empty">Ni nakupov.</div>'}${lost.length?`<p style="margin-top:6px"><b class="dn">Ne kupuje več:</b> ${esc(lost.join(', '))}</p>`:''}</section>
+ <section class="dr-sec"><h4>Kanali (12 mes.)</h4>${chRows.length?hbars(chRows,{color:INK}):'<div class="empty">Ni nakupov v zadnjih 12 mesecih.</div>'}</section>
+ <section class="dr-sec"><h4>Zadnja naročila</h4>${last.length?`<div class="w-tw"><table class="mini-t"><thead><tr><th>Datum</th><th>Kanal</th><th class="r">Vrstic</th><th class="r">Vrednost</th></tr></thead><tbody>${last.map(o=>`<tr><td>${F.date(o.d)}</td><td>${esc(S.chShort[o.ch])}${o.br!==255?' · '+esc(S.branch(o.br).town):''}</td><td class="r">${o.n}</td><td class="r">${F.eur(o.v)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Ni naročil.</div>'}</section>
+ <section class="dr-sec"><h4>Obiski svetovalca (12 mes.) · ${vT}</h4><div style="display:flex;gap:3px;align-items:flex-end;height:46px">${vis.map((v,i)=>`<div data-tip="${esc(S.months[24+i].label+'¦'+v+'|obiskov')}" style="flex:1;background:${v?INK:'#e6e6e6'};height:${v?12+v*8:4}px;border-radius:2px"></div>`).join('')}</div><div style="display:flex;justify-content:space-between;font-size:11px;color:${INK3}"><span>${S.months[24].label}</span><span>${S.months[35].label}</span></div></section>
+ <section class="dr-sec"><h4>Ponudbe · ${qs.length}</h4>${qs.length?`<div class="w-tw"><table class="mini-t"><thead><tr><th>Ponudba</th><th>Tip</th><th class="r">Vrednost</th><th>Stanje</th></tr></thead><tbody>${qs.slice(0,8).map(q=>`<tr><td>${esc(q.id)}<br><small class="flat">${F.date(q.created)}</small></td><td>${esc(q.type)}</td><td class="r">${F.eur(q.value)}</td><td><span class="w-pill ${q.status==='Dobljena'?'ok':q.status==='Izgubljena'?'bad':'warn'}">${esc(q.status==='Odprta'?q.stage:q.status)}</span></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Kupec nima ponudb.</div>'}</section>
+ <section class="dr-sec"><h4>Vračila (12 mes.)</h4><p>${rets.length?`${rets.length} vračil v vrednosti ${F.eur(retV)} (${F.pct(r12?retV/r12:0)} prodaje). Najpogostejši razlog: ${esc([...W.util.group(rets,r=>r.reason)].sort((a,b)=>b[1].length-a[1].length)[0][0])}.`:'Brez vračil v zadnjih 12 mesecih.'}</p></section>`;
+ drawer(c.name,`${c.code} · ${c.branza} · velikost ${c.size} · ${c.town}`,h)}
+/* ---------- profil svetovalca ---------- */
+function repDrawer(id){const r=S.rep(id);if(!r)return;const NM=36;
+ const rm=Array.from({length:NM},(_,m)=>S.cube.repMonth[id*NM+m]),pl=Array.from({length:NM},(_,m)=>S.budget.rep[id*NM+m]);
+ const ytd=sumA(rm,26,36),pytd=sumA(rm,14,24),pln=sumA(pl,26,36);
+ const port=S.customers.filter(c=>c.rep===id&&c.status!=='Izgubljen');const top=[...port].sort((a,b)=>b.rev12-a.rev12).slice(0,8);
+ const dec=port.filter(c=>c.revPrev12>2000&&c.rev12<c.revPrev12*.75).sort((a,b)=>(a.rev12-a.revPrev12)-(b.rev12-b.revPrev12)).slice(0,6);
+ let vis=0;for(let d=S.periods.l12[0];d<S.ND;d++)vis+=S.visitRepDay(id,d);const w=drW();
+ const h=`<div class="dr-k"><div><small>Prodaja YTD</small><b>${F.eurK(ytd)}</b><em class="${dCls(pytd?ytd/pytd-1:0)}">${pytd?F.delta(ytd/pytd-1)+' vs lani':'—'}</em></div><div><small>Plan YTD</small><b>${pln?F.pct(ytd/pln,0):'—'}</b><em class="flat">${F.eurK(pln)}</em></div><div><small>Aktivni kupci</small><b>${F.num(port.length)}</b><em class="flat">v portfelju</em></div><div><small>Obiski 12 m</small><b>${F.num(vis)}</b><em class="flat">${port.length?F.dec(vis/port.length,1)+' / kupca':''}</em></div></div>
+ <div class="w-facts"><div><small>Vloga</small><b>${esc(r.role)}</b></div><div><small>Divizija</small><b>${esc(r.division)}</b></div><div><small>Panoga / regija</small><b>${esc(r.branza||'—')}</b> · ${esc(r.region?S.regionName(r.region):'vse')}</div><div><small>Zaposlen</small><b>${F.date(r.hired)}</b>${r.left?` · odšel ${F.date(r.left)}`:''}</div>
+ ${r.replaces!=null?`<div><small>Prevzel teritorij od</small>${repBtn(r.replaces)}</div>`:''}${r.replacedBy!=null?`<div><small>Nasledil ga je</small>${repBtn(r.replacedBy)}</div>`:''}</div>
+ <section class="dr-sec"><h4>Prodaja in plan po mesecih</h4>${legend([['Prodaja',AC],['Plan',INK,'ds']])}${mChart(w,{vals:rm.slice(12),labels:S.months.slice(12).map(m=>m.label),plan:pl.slice(12),every:4,names:['Prodaja','Lani','Plan']})}</section>
+ <section class="dr-sec"><h4>Največji kupci (12 mes.)</h4>${top.length?hbars(top.map(c=>({l:c.name,html:custBtn(c.id),v:c.rev12}))):'<div class="empty">Ni kupcev.</div>'}</section>
+ <section class="dr-sec"><h4>Kupci v upadu</h4>${dec.length?hbars(dec.map(c=>({l:c.name,html:custBtn(c.id),v:c.revPrev12-c.rev12,vt:F.delta(c.rev12/c.revPrev12-1),c:INK}))):'<p>Ni kupcev z upadom nad 25 %.</p>'}</section>`;
+ drawer(r.name,`${r.role} · ${r.division}`,h)}
+
+/* ---------- model tveganja ---------- */
+const FX={trend:{n:'Padec prodaje',max:30},rec:{n:'Dolgo brez nakupa',max:22},freq:{n:'Manj naročil',max:12},cats:{n:'Ožanje kategorij',max:8},visit:{n:'Brez obiskov',max:8},vacant:{n:'Nezaseden teritorij',max:14},otif:{n:'Slaba dostava (OTIF)',max:6},bond:{n:'Nizka vezanost',max:6}};
+const HI=55,MID=30;
+function riskModel(M){const NM=36,L=S.L,nC=S.customers.length,CM=S.cube.custMonth,CO=S.cube.custMonthOrders;const pop=x=>{let n=0;while(x){n+=x&1;x>>=1}return n};
+ const dS=S.months[M].d1;const last=new Int16Array(nC).fill(-1),rec=new Uint16Array(nC),pri=new Uint16Array(nC);const i1=S.dayStart[dS+1];
+ for(let i=0;i<i1;i++){const c=L.cust[i],m=L.month[i];last[c]=L.day[i];if(m>=M-5)rec[c]|=1<<L.cat[i];else if(m>=M-11)pri[c]|=1<<L.cat[i]}
+ const lowOtif=[];for(let m=Math.max(0,M-8);m<=M;m++)if(S.otif[m]<.95)lowOtif.push(m);
+ const out=[];
+ for(const c of S.customers){if(c.acqDay>dS-180)continue;if(c.churnDay!=null&&c.churnDay<=dS)continue;const b=c.id*NM;let r12=0,r3=0,o12=0,o3=0;
+  for(let m=M-11;m<=M;m++){r12+=CM[b+m];o12+=CO[b+m];if(m>M-3){r3+=CM[b+m];o3+=CO[b+m]}}
+  if(r12<=0||o12<2)continue;const conf=cl01(o12/8),t=r3/(r12/4),since=dS-last[c.id],expI=Math.max(20,365/o12),fd=o3/(o12/4);
+  const pc=pop(pri[c.id]),lostMask=pri[c.id]&~rec[c.id],lost=pop(lostMask);let v=0;for(let m=M-2;m<=M;m++)v+=S.visitCM[m][c.id];
+  const r0=S.reps[c.rep0];const vac=!!(r0.left&&r0.vacantFrom<=M&&M<=r0.vacantTo+4);let otifO=0,otifR=1;for(const m of lowOtif)otifO+=CO[b+m];if(otifO&&M>=S.move.m1+1){const lm=lowOtif[lowOtif.length-1],fm=lowOtif[0];let pre=0,np=0,post=0,nq=0;for(let m=M-11;m<fm;m++){pre+=CM[b+m];np++}for(let m=lm+1;m<=M;m++){post+=CM[b+m];nq++}otifR=np&&nq&&pre>0?(post/nq)/(pre/np):1}
+  const eshop=c.eshopDay!=null&&c.eshopDay<=dS;
+  const f={trend:cl01((0.8-t)/0.6)*30*(0.4+0.6*conf),rec:cl01((since/expI-1.3)/2.5)*22,freq:cl01((0.75-fd)/0.75)*12*conf,cats:pc>=2?Math.min(lost,3)/3*8:0,
+   visit:v===0?8:0,vacant:vac?14:0,otif:otifO>0&&otifR<0.8?6:0,bond:(!eshop&&!c.orsy&&!c.contract)?6:0};
+  let sc=0;for(const k in f)sc+=f[k];sc=Math.min(100,Math.round(sc));
+  out.push({id:c.id,c,sc,f,r12,r3,o12,o3,t,since,expI,fd,lostMask,pc,visits:v,vac,otifO,otifR,eshop,eur:r12*sc/100})}
+ return out}
+const lvl=sc=>sc>=HI?'hi':sc>=MID?'mid':'lo';const lvlName={hi:'Visoko',mid:'Srednje',lo:'Nizko'};
+const catList=mask=>S.cats.filter(k=>mask&(1<<k.idx)).map(k=>k.name);
+function explain(x,k){const c=x.c;
+ switch(k){case'trend':return x.t<1?`Prodaja zadnjih 3 mesecev ${F.eur(x.r3)} je ${F.pct(1-x.t,0)} pod četrtletnim povprečjem zadnjih 12 mesecev (${F.eur(x.r12/4)}).`:`Prodaja zadnjih 3 mesecev (${F.eur(x.r3)}) je na ravni povprečja ali nad njim.`;
+  case'rec':return`Zadnji nakup pred ${x.since} dnevi (${F.date(c.lastOrder)}); običajno naroči na vsakih ${Math.round(x.expI)} dni.`;
+  case'freq':return`V zadnjih 3 mesecih ${x.o3} naročil, pričakovano okoli ${F.dec(x.o12/4,1)} glede na zadnjih 12 mesecev (${x.o12}).`;
+  case'cats':{const l=catList(x.lostMask);return l.length?`Pred 6–12 meseci je kupoval, zadnjih 6 mesecev pa ne več: ${l.join(', ')}.`:'Nabor kategorij je stabilen.'}
+  case'visit':return x.visits?`${x.visits} obiskov svetovalca v zadnjih 3 mesecih.`:`Brez obiska svetovalca v zadnjih 3 mesecih (avg–okt 2026).`;
+  case'vacant':{const r0=S.reps[c.rep0];return x.vac?`Teritorij je bil po odhodu svetovalca nezaseden (${S.months[r0.vacantFrom].label} – ${S.months[r0.vacantTo-1].label}); kupca je prevzel ${S.rep(r0.replacedBy).name}.`:'Teritorij ni bil nezaseden.'}
+  case'otif':return x.otifO?`${x.otifO} naročil v obdobju slabše dostave (OTIF ${S.months[S.move.m0].label}–${S.months[S.move.m1].label}: ${F.pct(S.otif[S.move.m0],0)}–${F.pct(S.otif[S.move.m1],0)}); mesečna prodaja po tem je ${x.otifR<1?F.pct(1-x.otifR,0)+' nižja':F.pct(x.otifR-1,0)+' višja'} kot pred tem.`:'Ni naročal v obdobju slabše dostave.';
+  case'bond':return x.eshop||c.orsy||c.contract?`Vezava: ${[c.contract?'okvirna pogodba':'',c.orsy||'',x.eshop?'e-shop':''].filter(Boolean).join(', ')}.`:'Brez e-shopa, ORSY sistema in okvirne pogodbe — kupca na Würth veže le svetovalec.'}}
+/* ---------- akcije (localStorage) ---------- */
+const AK='wuerth04-akcije';let ACT={};try{ACT=JSON.parse(localStorage.getItem(AK)||'{}')}catch(e){ACT={}}
+const saveAct=()=>{try{localStorage.setItem(AK,JSON.stringify(ACT))}catch(e){}};
+const AST={klican:'Poklican',obisk:'Obisk dogovorjen',reseno:'Rešeno'};
+const actOf=id=>ACT[id]||{st:'',note:'',log:[]};
+function setAct(id,patch,logTxt){const a={...actOf(id),...patch};a.log=[...(a.log||[]),[Date.now(),logTxt]].slice(-20);ACT[id]=a;saveAct()}
+/* ---------- stanje ---------- */
+let MODEL=[],RETRO=null,view=[],sel=null,shown=60;
+const st={q:'',rep:'',br:'',reg:'',act:'',lvl:'hm',rsn:'',sort:'eur'};
+function build(){
+ MODEL=riskModel(35);
+ const reps=S.reps.filter(r=>!r.left&&(r.role==='Terenski svetovalec'||r.role==='Key account manager')).sort((a,b)=>a.name.localeCompare(b.name,'sl'));
+ $('#fRep').innerHTML='<option value="">Vsi svetovalci</option>'+reps.map(r=>`<option value="${r.id}">${esc(r.name)} · ${esc(r.branza||'KA')}${r.region?' · '+esc(S.regionName(r.region)):''}</option>`).join('');
+ $('#fBr').innerHTML='<option value="">Vse panoge</option>'+S.branze.map(b=>`<option>${esc(b)}</option>`).join('');
+ $('#fReg').innerHTML='<option value="">Vse regije</option>'+S.regions.map(r=>`<option value="${r.id}">${esc(r.name)}</option>`).join('');
+ $('#how').innerHTML=Object.entries(FX).map(([k,v])=>`<div><b>${esc(v.n)} <em>do ${v.max} t.</em></b>${esc(({trend:'Prodaja zadnjih 3 mesecev v primerjavi s četrtletnim povprečjem zadnjih 12 mesecev; utež se zmanjša pri kupcih z malo naročili.',rec:'Dnevi od zadnjega nakupa glede na kupčev običajni ritem naročanja (365 / št. naročil).',freq:'Število naročil v zadnjih 3 mesecih proti pričakovanemu.',cats:'Kategorije, ki jih je kupoval pred 6–12 meseci, zdaj pa ne več.',visit:'Ni bilo obiska svetovalca v zadnjih 3 mesecih.',vacant:'Kupčev teritorij je bil po odhodu svetovalca nezaseden ali ga je pravkar prevzel novinec.',otif:'Naročal je v mesecih z dostavo v roku pod 95 % in prodaja je od takrat nižja.',bond:'Brez e-shopa, ORSY in okvirne pogodbe.'})[k])}</div>`).join('');
+ retro();bind();apply();
+ const h=location.hash.match(/^#K(\d+)/);if(h){const x=MODEL.find(m=>m.c.code==='K'+h[1]);if(x)select(x.id)}}
+function filtered(skipLvl){const q=st.q.trim().toLowerCase();
+ return MODEL.filter(x=>{const c=x.c;if(!skipLvl){if(st.lvl==='hm'&&x.sc<MID)return false;if(st.lvl==='hi'&&x.sc<HI)return false}
+  if(st.rep!==''&&c.rep!==+st.rep)return false;if(st.br&&c.branza!==st.br)return false;if(st.reg&&c.region!==st.reg)return false;
+  if(st.rsn&&!(x.f[st.rsn]>0))return false;
+  if(st.act){const a=actOf(x.id).st||'';if(st.act==='new'?a!=='':a!==st.act)return false}
+  if(q&&!(c.name.toLowerCase().includes(q)||c.code.toLowerCase().includes(q)||c.town.toLowerCase().includes(q)))return false;return true})}
+const SORTS={eur:(a,b)=>b.eur-a.eur,sc:(a,b)=>b.sc-a.sc||b.eur-a.eur,rev:(a,b)=>b.r12-a.r12,since:(a,b)=>b.since-a.since,name:(a,b)=>a.c.name.localeCompare(b.c.name,'sl')};
+function apply(keepSel){view=filtered().sort(SORTS[st.sort]);if(!keepSel)shown=60;
+ if(!view.find(x=>x.id===sel))sel=view.length?view[0].id:null;
+ renderKpis();renderList();renderDet();renderBelow();
+ const r=$('#fRsn');r.classList.toggle('on',!!st.rsn);r.textContent=st.rsn?'Razlog: '+FX[st.rsn].n+' ×':''}
+function topReason(x){return Object.entries(x.f).filter(e=>e[1]>0).sort((a,b)=>b[1]-a[1])}
+function renderKpis(){const all=filtered(true);const hi=all.filter(x=>x.sc>=HI),mid=all.filter(x=>x.sc>=MID&&x.sc<HI);
+ const eur=sumA(all.map(x=>x.eur)),eurHi=sumA(hi.map(x=>x.r12)),rev=sumA(all.map(x=>x.r12));
+ const hm=[...hi,...mid];const done=hm.filter(x=>actOf(x.id).st).length,solved=hm.filter(x=>actOf(x.id).st==='reseno').length;
+ const rc={};hm.forEach(x=>{const t=topReason(x)[0];if(t)rc[t[0]]=(rc[t[0]]||0)+1});const tr=Object.entries(rc).sort((a,b)=>b[1]-a[1])[0];
+ $('#kpis').innerHTML=`<div class="w-kpi"><div class="l">Ogrožena prodaja</div><div class="v">${F.eurK(eur)}</div><div class="s">${F.pct(rev?eur/rev:0)} letne prodaje izbora (${F.eurK(rev)})</div></div>
+ <div class="w-kpi"><div class="l">Visoko tveganje</div><div class="v">${F.num(hi.length)}</div><div class="s">${pl(hi.length,['kupec','kupca','kupci','kupcev'])} · ${F.eurK(eurHi)} letne prodaje</div></div>
+ <div class="w-kpi"><div class="l">Srednje tveganje</div><div class="v">${F.num(mid.length)}</div><div class="s">${pl(mid.length,['kupec','kupca','kupci','kupcev'])} · ${F.eurK(sumA(mid.map(x=>x.r12)))} letne prodaje</div></div>
+ <div class="w-kpi"><div class="l">Obdelano</div><div class="v">${hm.length?F.pct(done/hm.length,0):'—'}</div><div class="s">${done} od ${hm.length} · rešenih ${solved}</div></div>
+ <div class="w-kpi"><div class="l">Glavni razlog</div><div class="v" style="font-size:21px;white-space:normal">${tr?esc(FX[tr[0]].n):'—'}</div><div class="s">${tr?`prvi razlog pri ${tr[1]} ${pl(tr[1],['kupcu','kupcih','kupcih','kupcih'])}`:''}</div></div>`;
+ const allM=MODEL,hiAll=allM.filter(x=>x.sc>=HI).length,midAll=allM.filter(x=>x.sc>=MID&&x.sc<HI).length,eurAll=sumA(allM.map(x=>x.eur));
+ const newHm=allM.filter(x=>x.sc>=MID&&!actOf(x.id).st).length;
+ const rcA={};allM.filter(x=>x.sc>=MID).forEach(x=>{const t=topReason(x)[0];if(t)rcA[t[0]]=(rcA[t[0]]||0)+1});const trA=Object.entries(rcA).sort((a,b)=>b[1]-a[1])[0];
+ $('#lead').innerHTML=`Model je ocenil <b>${F.num(allM.length)}</b> aktivnih kupcev z nakupi v zadnjih 12 mesecih: <b>${hiAll}</b> ima visoko in <b>${midAll}</b> srednje tveganje odliva. Ogroženih je <b>${F.eurK(eurAll)}</b> letne prodaje; najpogostejši prvi razlog je »${esc(FX[trA[0]].n.toLowerCase())}« (${kup(trA[1])}). Neobdelanih opozoril: <b>${newHm}</b>.`}
+function itemHtml(x){const c=x.c,a=actOf(x.id),l=lvl(x.sc);const rs=topReason(x).slice(0,3);
+ return`<button type="button" role="option" class="ib-it${x.id===sel?' sel':''}${a.st?'':' new'}" data-pick="${x.id}" aria-selected="${x.id===sel}"><span class="sc ${l}" aria-label="Ocena ${x.sc}">${x.sc}</span><span style="min-width:0"><span class="nm">${esc(c.name)}</span><span class="mt">${esc(c.town)} · ${esc(c.branza)} · ${c.size} · ${esc(c.repName)}</span><span class="rs">${rs.map(r=>`<span>${esc(FX[r[0]].n)}</span>`).join('')}</span></span><span class="eu">${F.eurK(x.eur)}<small>od ${F.eurK(x.r12)}</small>${a.st?`<span class="st">✓ ${esc(AST[a.st])}</span>`:''}</span></button>`}
+function renderList(){$('#cnt').textContent=kup(view.length);
+ $('#items').innerHTML=view.length?view.slice(0,shown).map(itemHtml).join('')+(view.length>shown?`<div class="ib-more"><button type="button" class="w-btn sm" id="more">Pokaži še ${Math.min(60,view.length-shown)} (od ${view.length-shown})</button></div>`:''):'<div class="empty" style="margin:12px">Ni kupcev za izbrane filtre.</div>';
+ const m=$('#more');if(m)m.onclick=()=>{shown+=60;renderList()}}
+function gauge(sc){const l=lvl(sc),a=Math.PI*(1-sc/100),R=80,cx=100,cy=92;const x=cx+R*Math.cos(a),y=cy-R*Math.sin(a);
+ const col=l==='hi'?RED:l==='mid'?'#e8787e':'#9a9a9a';const seg=(v0,v1,c)=>{const a0=Math.PI*(1-v0/100),a1=Math.PI*(1-v1/100);return`<path d="M${cx+R*Math.cos(a0)} ${cy-R*Math.sin(a0)}A${R} ${R} 0 0 1 ${cx+R*Math.cos(a1)} ${cy-R*Math.sin(a1)}" stroke="${c}" stroke-width="14" fill="none"/>`};
+ return`<svg viewBox="0 0 200 110" width="200" height="110" role="img" aria-label="Ocena tveganja ${sc} od 100">${seg(0,100,'#ececec')}${sc>0?`<path d="M${cx-R} ${cy}A${R} ${R} 0 0 1 ${x} ${y}" stroke="${col}" stroke-width="14" fill="none"/>`:''}${(()=>{const t=Math.PI*(1-MID/100);return`<line x1="${cx+(R-11)*Math.cos(t)}" y1="${cy-(R-11)*Math.sin(t)}" x2="${cx+(R+11)*Math.cos(t)}" y2="${cy-(R+11)*Math.sin(t)}" stroke="#fff" stroke-width="2"/>`})()}${(()=>{const t=Math.PI*(1-HI/100);return`<line x1="${cx+(R-11)*Math.cos(t)}" y1="${cy-(R-11)*Math.sin(t)}" x2="${cx+(R+11)*Math.cos(t)}" y2="${cy-(R+11)*Math.sin(t)}" stroke="#fff" stroke-width="2"/>`})()}<text x="100" y="88" text-anchor="middle" style="font:800 40px 'Roboto Condensed';fill:${INK}">${sc}</text><text x="20" y="108" text-anchor="middle" style="font:10px Roboto;fill:${INK3}">0</text><text x="180" y="108" text-anchor="middle" style="font:10px Roboto;fill:${INK3}">100</text></svg>`}
+function renderDet(){const el=$('#det');const x=MODEL.find(m=>m.id===sel);if(!x){el.innerHTML='<div class="empty" style="margin-top:40px">Izberi kupca na seznamu.</div>';return}
+ const c=x.c,a=actOf(x.id),l=lvl(x.sc);const ser=S.custSeries(c.id);const idx=view.findIndex(v=>v.id===x.id);
+ const w=Math.max(280,el.clientWidth-48);
+ el.innerHTML=`<div class="dh"><div style="min-width:0"><div class="w-kicker">${lvlName[l]} tveganje · ${idx+1}. na seznamu</div><h2>${esc(c.name)}</h2><div class="meta">${esc(c.code)} · ${esc(c.branza)} · velikost ${c.size} · ${esc(c.town)}, ${esc(S.regionName(c.region))} · svetovalec ${repBtn(c.rep)}</div></div>
+  <div class="acts"><button type="button" class="w-btn red sm" data-cust="${c.id}">Celoten profil kupca</button><button type="button" class="w-btn ghost sm" id="next" ${idx<0||idx>=view.length-1?'disabled':''}>Naslednji ›</button></div></div>
+ <div class="dgrid"><div class="gauge">${gauge(x.sc)}<div class="lv" style="color:${l==='hi'?RED:l==='mid'?'#8a0a12':INK3}">${lvlName[l]} tveganje</div>
+  <div class="gfacts"><div><span>Letna prodaja</span><b>${F.eur(x.r12)}</b></div><div><span>Ogrožena prodaja</span><b>${F.eur(x.eur)}</b></div><div><span>Prodaja zadnjih 3 m</span><b>${F.eur(x.r3)}</b></div><div><span>Zadnji nakup</span><b>${F.date(c.lastOrder)}</b></div><div><span>Naročila 12 m</span><b>${x.o12}</b></div><div><span>Obiski 3 m</span><b>${x.visits}</b></div><div><span>Status v CRM</span>${pillSt(c.status)}</div></div></div>
+  <div style="min-width:0"><div class="h4" style="margin-top:0">Zakaj? Prispevek dejavnikov</div>
+  ${Object.entries(FX).map(([k,v])=>{const p=x.f[k];return`<div class="fx${p>0?'':' off'}"><span class="n">${esc(v.n)}</span><span class="w-bar"><i style="width:${(p/v.max*100).toFixed(0)}%"></i></span><span class="p">${Math.round(p)}</span></div><div class="fx-t">${esc(explain(x,k))}</div>`}).join('')}</div></div>
+ <div class="h4">Prodaja zadnjih 24 mesecev</div>${legend([['Zadnji 3 meseci',AC],['Prej',GREY],['Isti mesec leto prej',PY,'ln']])}${mChart(w,{vals:ser.slice(12),labels:S.months.slice(12).map(m=>m.label),cmp:ser.slice(0,24),hiFrom:21,every:3,h:170,names:['Prodaja','Leto prej']})}
+ <div class="h4">Akcija svetovalca</div><div class="acts" role="group" aria-label="Stanje obdelave">${Object.entries(AST).map(([k,n])=>`<button type="button" class="w-btn sm" data-act="${k}" aria-pressed="${a.st===k}">${esc(n)}</button>`).join('')}${a.st?'<button type="button" class="w-btn ghost sm" data-act="">Ponastavi</button>':''}</div>
+ <label class="sr" for="note">Opomba</label><textarea id="note" class="note" placeholder="Opomba za kupca (npr. dogovor, razlog, naslednji korak) …">${esc(a.note||'')}</textarea>
+ <div style="display:flex;gap:8px;align-items:center;margin-top:6px"><button type="button" class="w-btn sm" id="saveNote">Shrani opombo</button><span id="saved" class="flat" style="font-size:12px"></span></div>
+ ${a.log&&a.log.length?`<ul class="log">${[...a.log].reverse().map(([t,s])=>`<li><time>${new Date(t).toLocaleString('sl-SI',{day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'})}</time>${esc(s)}</li>`).join('')}</ul>`:''}`;
+ $$('[data-act]',el).forEach(b=>b.onclick=()=>{const k=b.dataset.act;const cur=actOf(x.id).st;const nv=k===cur?'':k;setAct(x.id,{st:nv},nv?'Stanje: '+AST[nv]:'Stanje ponastavljeno');apply(true)});
+ $('#saveNote').onclick=()=>{const v=$('#note').value.trim();setAct(x.id,{note:v},v?'Opomba: '+v.slice(0,80):'Opomba izbrisana');renderDet();$('#saved').textContent='Shranjeno.'};
+ const nx=$('#next');if(nx)nx.onclick=()=>{const n=view[idx+1];if(n){if(idx+1>=shown){shown+=60}select(n.id,true)}}}
+function select(id,scroll){sel=id;renderList();renderDet();const it=$(`[data-pick="${id}"]`);if(it)it.scrollIntoView({block:'nearest'});
+ if(scroll!==false&&innerWidth<=900)$('#det').scrollIntoView({behavior:'smooth',block:'start'})}
+function renderBelow(){const all=filtered(true).filter(x=>x.sc>=MID);
+ const rows=Object.entries(FX).map(([k,v])=>{const s=all.filter(x=>x.f[k]>0);return{k,n:v.n,cnt:s.length,eur:sumA(s.map(x=>x.eur))}}).sort((a,b)=>b.cnt-a.cnt);const mx=Math.max(1,...rows.map(r=>r.cnt));
+ $('#reasons').innerHTML=`<div class="rsn" style="cursor:default;font-size:11px;font-weight:700;color:${INK3};text-transform:uppercase;letter-spacing:.04em;border-bottom:2px solid ${INK}"><span>Razlog</span><span></span><b>Kupci</b><b>Ogroženo</b></div>`+rows.map(r=>`<button type="button" class="rsn${st.rsn===r.k?' on':''}" data-rsn="${r.k}" aria-pressed="${st.rsn===r.k}"><span>${esc(r.n)}</span><span class="w-bar"><i style="width:${(r.cnt/mx*100).toFixed(0)}%"></i></span><b>${r.cnt}</b><b>${F.eurK(r.eur)}</b></button>`).join('');
+ $$('[data-rsn]').forEach(b=>b.onclick=()=>{st.rsn=st.rsn===b.dataset.rsn?'':b.dataset.rsn;apply()});
+ const g=W.util.group(all,x=>x.c.rep);const rr=[...g].map(([id,a])=>({id,hi:a.filter(x=>x.sc>=HI).length,mid:a.filter(x=>x.sc<HI).length,eur:sumA(a.map(x=>x.eur)),done:a.filter(x=>actOf(x.id).st).length,n:a.length})).sort((a,b)=>b.eur-a.eur).slice(0,12);
+ $('#reps').innerHTML=rr.length?`<table class="w-t"><thead><tr><th>Svetovalec</th><th class="r">Visoko</th><th class="r">Srednje</th><th class="r">Ogroženo</th><th class="r">Obdelano</th></tr></thead><tbody>${rr.map(r=>`<tr><td>${repBtn(r.id)}</td><td class="r"><button type="button" class="w-chip${String(r.id)===st.rep?' on':''}" data-frep="${r.id}" title="Filtriraj seznam">${r.hi}</button></td><td class="r">${r.mid}</td><td class="r">${F.eurK(r.eur)}</td><td class="r">${F.pct(r.done/r.n,0)}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Ni kupcev s tveganjem.</div>';
+ $$('[data-frep]').forEach(b=>b.onclick=()=>{st.rep=st.rep===b.dataset.frep?'':b.dataset.frep;$('#fRep').value=st.rep;apply();$('#seznam').scrollIntoView({behavior:'smooth'})})}
+/* ---------- retrospektiva: stanje okt 2025 → izid do okt 2026 ---------- */
+function retro(){const M=23,R=riskModel(M),dS=S.months[M].d1,end=S.ND-1;
+ R.forEach(x=>{const c=x.c;x.left=(c.churnDay!=null&&c.churnDay>dS&&c.churnDay<=end)||c.status==='V upadu';let n12=0;for(let m=24;m<36;m++)n12+=S.cube.custMonth[x.id*36+m];x.drop=x.left||n12<x.r12*.7});
+ const B=[['hi','Visoko',x=>x.sc>=HI],['mid','Srednje',x=>x.sc>=MID&&x.sc<HI],['lo','Nizko',x=>x.sc<MID]].map(([k,n,f])=>{const s=R.filter(f);return{k,n,cnt:s.length,left:s.filter(x=>x.left).length,drop:s.filter(x=>x.drop).length,rev:sumA(s.map(x=>x.r12)),lostRev:sumA(s.filter(x=>x.left).map(x=>x.r12))}});
+ const tot={cnt:R.length,left:R.filter(x=>x.left).length,drop:R.filter(x=>x.drop).length,lostRev:sumA(R.filter(x=>x.left).map(x=>x.r12))};
+ const rate=b=>b.cnt?b.left/b.cnt:0,base=tot.left/tot.cnt;const hi=B[0],mid=B[1],lo=B[2];const lift=rate(lo)?rate(hi)/rate(lo):0;
+ const capRev=tot.lostRev?(hi.lostRev+mid.lostRev)/tot.lostRev:0,capN=tot.left?(hi.left+mid.left)/tot.left:0;
+ $('#retroSub').textContent=`Isti model smo pognali na podatkih do 31. 10. 2025 (${F.num(R.length)} aktivnih kupcev) in preverili, kaj se je s kupci zgodilo do 31. 10. 2026. Odhod = kupec je prenehal kupovati ali je danes v upadu.`;
+ const w=Math.max(280,($('#retroChart').clientWidth||460));const h=230,pl=40,pb=40,pt=26,iw=w-pl-10,ih=h-pt-pb;const bars=[...B,{n:'Vsi',cnt:tot.cnt,left:tot.left,drop:tot.drop,k:'all'}];const mx=niceMax(Math.max(...bars.map(b=>b.drop/b.cnt))*1.1);const gw=iw/bars.length;
+ let s=`<div class="leg"><span><i style="background:${AC}"></i>Odšli v 12 mesecih</span><span><i style="background:${AC2}"></i>Odšli ali prodaja −30 % in več</span></div><svg class="svgc" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="Delež odhodov po ravni tveganja">`;
+ for(let k=0;k<=4;k++){const y=pt+ih-ih*k/4;s+=`<line x1="${pl}" x2="${w-10}" y1="${y}" y2="${y}" stroke="${GRID}"/><text x="${pl-6}" y="${y+4}" text-anchor="end">${F.pct(mx*k/4,0)}</text>`}
+ bars.forEach((b,i)=>{const x=pl+i*gw+gw*.15,bw=gw*.33;[[b.left/b.cnt,b.k==='all'?'#8c8c8c':AC],[b.drop/b.cnt,b.k==='all'?'#d6d6d6':AC2]].forEach(([v,c],j)=>{const bh=ih*v/mx;s+=`<rect x="${x+j*(bw+3)}" y="${pt+ih-bh}" width="${bw}" height="${bh}" fill="${c}" rx="1.5" data-tip="${esc(`${b.n} tveganje okt 2025¦${kup(b.cnt)}|¦${F.pct(b.left/b.cnt)}|odšlo (${b.left})|${AC}¦${F.pct(b.drop/b.cnt)}|odšlo ali −30 % (${b.drop})|${AC2}`)}"/><text x="${x+j*(bw+3)+bw/2}" y="${pt+ih-bh-5}" text-anchor="middle" style="font-weight:700;fill:${INK}">${F.pct(v,0)}</text>`});
+  s+=`<text x="${pl+i*gw+gw/2}" y="${h-22}" text-anchor="middle" style="font-weight:700;fill:${INK}">${esc(b.n)}</text><text x="${pl+i*gw+gw/2}" y="${h-8}" text-anchor="middle">${kup(b.cnt)}</text>`});
+ $('#retroChart').innerHTML=s+'</svg>';
+ const ex=R.filter(x=>x.sc>=HI&&x.left).sort((a,b)=>b.r12-a.r12).slice(0,6);
+ const verdict=lift>=1.3?`Kupci, ki jih je model oktobra 2025 uvrstil med <b>visoko tveganje</b>, so v naslednjih 12 mesecih odšli v <b>${F.pct(rate(hi))}</b> primerov — <b>${F.dec(lift,1)}-krat</b> pogosteje kot kupci z nizkim tveganjem (${F.pct(rate(lo))}).`:`Razlika med ravnmi je majhna (visoko ${F.pct(rate(hi))}, nizko ${F.pct(rate(lo))}); model je treba dopolniti.`;
+ $('#retroTxt').innerHTML=`<div class="big">${lift?F.dec(lift,1)+'×':'—'}</div><p style="margin:4px 0 12px;font-weight:700">večja verjetnost odhoda pri visokem tveganju</p><p style="font-size:13.5px">${verdict} Skupina visokega in srednjega tveganja je zajela <b>${F.pct(capN,0)}</b> vseh odhodov in <b>${F.pct(capRev,0)}</b> izgubljene letne prodaje (${F.eurK(hi.lostRev+mid.lostRev)} od ${F.eurK(tot.lostRev)}).</p>
+ <p style="font-size:13px;color:${INK2}">Model ne vidi vsega: ${F.pct(tot.left?lo.left/tot.left:0,0)} odhodov je prišlo iz skupine z nizkim tveganjem — ti kupci oktobra 2025 še niso kazali znakov pešanja, zato je mesečno ponavljanje točkovanja ključno.</p>
+ <div class="w-tw" style="margin-top:8px"><table class="mini-t"><thead><tr><th>Raven okt 2025</th><th class="r">Kupci</th><th class="r">Odšli</th><th class="r">Delež</th><th class="r">Izgubljena prodaja</th></tr></thead><tbody>${B.map(b=>`<tr><td><span class="sc ${b.k}" style="display:inline-grid;width:12px;height:12px;vertical-align:-1px;margin-right:6px"></span>${b.n}</td><td class="r">${F.num(b.cnt)}</td><td class="r">${b.left}</td><td class="r"><b>${F.pct(rate(b))}</b></td><td class="r">${F.eurK(b.lostRev)}</td></tr>`).join('')}<tr><td><b>Skupaj</b></td><td class="r">${F.num(tot.cnt)}</td><td class="r">${tot.left}</td><td class="r"><b>${F.pct(base)}</b></td><td class="r">${F.eurK(tot.lostRev)}</td></tr></tbody></table></div>
+ ${ex.length?`<p style="font-size:12.5px;margin:12px 0 4px;color:${INK3};font-weight:700;text-transform:uppercase;letter-spacing:.04em">Opozorjeni okt 2025, ki so res odšli</p><div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px">${ex.map(x=>custBtn(x.id)+` <span class="flat">(${x.sc} t.)</span>`).join('')}</div>`:''}`}
+function bind(){let tq;$('#q').addEventListener('input',e=>{clearTimeout(tq);tq=setTimeout(()=>{st.q=e.target.value;apply()},140)});
+ [['#fRep','rep'],['#fBr','br'],['#fReg','reg'],['#fAct','act'],['#sort','sort']].forEach(([s,k])=>$(s).addEventListener('change',e=>{st[k]=e.target.value;apply()}));
+ $$('#fLvl button').forEach(b=>b.onclick=()=>{st.lvl=b.dataset.v;$$('#fLvl button').forEach(x=>x.classList.toggle('on',x===b));apply()});
+ $('#fRsn').onclick=()=>{st.rsn='';apply()};
+ $('#reset').onclick=()=>{Object.assign(st,{q:'',rep:'',br:'',reg:'',act:'',lvl:'hm',rsn:'',sort:'eur'});$('#q').value='';['#fRep','#fBr','#fReg','#fAct'].forEach(s=>$(s).value='');$('#sort').value='eur';$$('#fLvl button').forEach(x=>x.classList.toggle('on',x.dataset.v==='hm'));apply()};
+ $('#items').addEventListener('click',e=>{const b=e.target.closest('[data-pick]');if(b)select(+b.dataset.pick)});
+ $('#items').addEventListener('keydown',e=>{if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;const i=view.findIndex(v=>v.id===sel);const n=view[i+(e.key==='ArrowDown'?1:-1)];if(n){e.preventDefault();if(view.indexOf(n)>=shown)shown+=60;select(n.id,false);const it=$(`[data-pick="${n.id}"]`);if(it)it.focus()}});
+ $$('.w-nav a').forEach(a=>a.addEventListener('click',()=>{$$('.w-nav a').forEach(x=>x.classList.toggle('on',x===a))}));
+ let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{renderDet();retro()},200)})}
+boot(build);
+</script>
+</body>
+</html>

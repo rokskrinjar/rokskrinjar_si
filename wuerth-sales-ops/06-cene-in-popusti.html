@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="sl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cenovni slap — cene in popusti · Würth Slovenija (demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700;800&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brand.css">
+<style>.w-top .sp{margin-left:auto}
+.w-head .w-demo{margin-left:6px}
+.lnk{border:0;background:none;padding:0;color:inherit;font:inherit;cursor:pointer;text-align:left;text-decoration:underline;text-decoration-color:#c8c8c8;text-underline-offset:3px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lnk:hover{color:var(--red);text-decoration-color:var(--red)}
+.bl{font:700 11px var(--fb);text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-right:2px}
+.bgrp{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.w-band .w-seg{background:#fff}
+.ctitle{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.ctitle h3{font-size:17px}.ctitle .w-sub{margin:3px 0 0}
+svg.mb{width:100%;height:auto;display:block;overflow:visible}
+svg text{font-family:var(--fb)}
+.foot-note{font-size:12px;color:var(--ink3);margin:8px 0 0}
+/* drawer content */
+.w-drawer header .dsub{display:block;font:400 12px var(--fb);text-transform:none;opacity:.75;margin-top:4px;letter-spacing:0}
+.w-drawer[aria-hidden=true]{visibility:hidden;transition:transform .25s ease,visibility 0s .25s}
+.d-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.d-kpis>div{border-top:3px solid var(--red);background:var(--bg);padding:8px 10px;min-width:0}
+.d-kpis small{display:block;font:700 10.5px var(--fb);text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)}
+.d-kpis b{display:block;font:800 21px/1.15 var(--fc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d-kpis i{font-style:normal;font-size:12px;font-weight:700}
+.d-sec h4{font:800 14px var(--fc);text-transform:uppercase;margin:0 0 8px;letter-spacing:.02em}
+.hb{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(40px,1fr) auto;gap:10px;align-items:center;font-size:13px;padding:3px 0}
+.hb>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hb .w-bar{min-width:0}.hb .v{font-variant-numeric:tabular-nums;text-align:right;min-width:70px}
+.hb.no{color:var(--ink3)}
+.d-list{display:grid}
+.d-list>div{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line2);font-size:13px;min-width:0}
+.d-list>div>:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.d-list .r{font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.d-list small{color:var(--ink3)}
+.d-back{justify-self:start}
+.d-tags{display:flex;gap:6px;flex-wrap:wrap}
+@media(max-width:520px){.d-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+[hidden]{display:none!important}
+@media(max-width:720px){.w-top span:nth-child(2){display:none}}
+@media(max-width:560px){.w-app{border-left:0;padding-left:0}.w-head{gap:10px 16px}}
+@media(max-width:560px){.w-band{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}.w-band>:not(.sel){grid-column:1/-1}.w-band>.w-btn{justify-self:start}.bgrp.sel{flex-direction:column;align-items:stretch;gap:3px}.bgrp.sel .w-sel{width:100%}}
+
+.wf-card{border-top:4px solid var(--red);padding:20px 22px}
+#wf{position:relative;min-height:300px}#wf svg{display:block}
+#wf .st{cursor:pointer}#wf .st:hover rect.b{opacity:.85}#wf .st:focus{outline:none}#wf .st:focus rect.b{stroke:#222;stroke-width:2}
+.legend{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:12px;color:var(--ink2)}
+.legend i{display:inline-block;width:12px;height:10px;margin-right:5px;vertical-align:-1px;border-radius:1px}
+.wf-det{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:22px;border-top:1px solid var(--line2);margin-top:12px;padding-top:14px}
+.wf-det h4{font:800 14px var(--fc);text-transform:uppercase;margin:0 0 8px}
+.wf-det .big{font:800 34px/1 var(--fc)}
+.wf-det p{font-size:13.5px;color:var(--ink2);margin:8px 0 0}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
+.grid2>.full{grid-column:1/-1}
+.box-head,.box-row{display:grid;grid-template-columns:150px minmax(0,1fr) 62px;gap:10px;align-items:center}
+.box-head{font:700 10.5px var(--fb);color:var(--ink3);text-transform:uppercase;letter-spacing:.04em;padding-bottom:4px;border-bottom:2px solid var(--ink)}
+.box-axis{position:relative;height:14px}.box-axis span{position:absolute;transform:translateX(-50%);font-size:10.5px;text-transform:none;letter-spacing:0;font-weight:400}
+.box-rows{max-height:470px;overflow:auto;overscroll-behavior:contain}
+.box-row{padding:3px 0;border-bottom:1px solid var(--line2);font-size:12.5px}
+.box-row>:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.box-row svg{display:block;width:100%;height:18px}
+.box-row .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.kp3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.kp3>div{background:var(--bg);padding:8px 10px;border-radius:var(--r);min-width:0}
+.kp3 small{display:block;font:700 10.5px var(--fb);text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)}
+.kp3 b{font:800 21px/1.2 var(--fc);white-space:nowrap}
+.w-t th button{border:0;background:none;font:inherit;color:inherit;text-transform:inherit;letter-spacing:inherit;cursor:pointer;padding:0}
+.w-t th button[aria-pressed=true]{color:var(--red)}
+.w-t td small{color:var(--ink3)}
+.hist{display:flex;align-items:flex-end;gap:6px;height:110px;margin:6px 0 4px}
+.hist div{flex:1;background:var(--ac);border-radius:2px 2px 0 0;position:relative;min-height:2px}
+.hist div.hi{background:var(--hl)}
+.hist div span{position:absolute;top:-17px;left:0;right:0;text-align:center;font-size:11px;font-weight:700}
+.hist-l{display:flex;gap:6px;font-size:11px;color:var(--ink3)}.hist-l span{flex:1;text-align:center}
+.pr-row{display:grid;grid-template-columns:minmax(0,1fr) 60px 74px;gap:8px;padding:6px 0;border-bottom:1px solid var(--line2);font-size:12.5px;align-items:center}
+.pr-row .r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pr-row small{display:block;color:var(--ink3);font-size:11px}
+.pi{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.pi>button{border:1px solid var(--line);background:#fff;border-radius:var(--r);padding:10px 12px;text-align:left;cursor:pointer;border-top:4px solid var(--line)}
+.pi>button[aria-pressed=true]{border-top-color:var(--red);background:var(--red-ll)}
+.pi small{display:block;font:700 10.5px var(--fb);text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)}
+.pi b{display:block;font:800 22px/1.2 var(--fc)}
+.pi span{font-size:12.5px;color:var(--ink2)}
+.dual{display:grid;grid-template-columns:120px minmax(0,1fr) 112px;gap:10px;align-items:center;font-size:12.5px;padding:4px 0}
+.dual .bars{display:grid;gap:2px}.dual .bars i{display:block;height:7px;border-radius:0 2px 2px 0}
+.dual .r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sim{border-top:4px solid var(--red)}
+.sim-g{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.sim label{display:block;font:700 11.5px var(--fb);text-transform:uppercase;letter-spacing:.05em;color:var(--ink2);margin-bottom:14px}
+.sim input[type=range]{width:100%;accent-color:var(--red);margin-top:6px}
+.sim label output{float:right;font:800 18px var(--fc);color:var(--ink);text-transform:none}
+.sim .res{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sim .res>div{background:var(--bg);padding:10px 12px;border-radius:var(--r)}
+.sim .res small{display:block;font:700 10.5px var(--fb);text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)}
+.sim .res b{font:800 24px/1.2 var(--fc);white-space:nowrap}
+.sim .res .hero{grid-column:1/-1;background:var(--ink);color:#fff}.sim .res .hero small{color:#bbb}.sim .res .hero b{font-size:32px}
+@media(max-width:1050px){.wf-det{grid-template-columns:1fr 1fr}.wf-det>:first-child{grid-column:1/-1}.sim-g{grid-template-columns:1fr 1fr}.sim-g>:first-child{grid-column:1/-1}}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+@media(max-width:600px){.wf-det,.sim-g{grid-template-columns:1fr}.box-head,.box-row{grid-template-columns:96px minmax(0,1fr) 52px}.kp3{grid-template-columns:1fr 1fr}.dual{grid-template-columns:86px minmax(0,1fr) 96px}.wf-card{padding:16px}.sim .res .hero b{font-size:26px}}
+</style><script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head><body>
+<div class="w-top"><span>Würth Slovenija · analize prodaje</span><span>Stanje podatkov: 31. 10. 2026</span><span class="sp">Demo podatki — izmišljeno</span></div>
+<header class="w-head"><div class="w-logo" data-logo></div><div class="w-app">Cenovni slap<small>Vodstvo, kontroling · kje izgubljamo ceno</small></div><span class="w-demo">Demo podatki</span>
+<nav class="w-nav" aria-label="Razdelki"><a href="#secWf">Slap</a><a href="#secBox">Razpršenost</a><a href="#secLeak">Uhajanje</a><a href="#secPromo">Akcije</a><a href="#secPi">Dvig cen</a><a href="#secSim">Simulator</a></nav></header>
+<div class="w-band" role="toolbar" aria-label="Obdobje in filtri">
+ <div class="bgrp"><span class="bl" id="lPer">Obdobje</span><div class="w-seg" id="segPer" aria-labelledby="lPer"><button type="button" data-v="ytd">YTD 2026</button><button type="button" data-v="l12">12 mes.</button><button type="button" data-v="y25">2025</button><button type="button" data-v="y24">2024</button></div></div>
+ <div class="bgrp sel"><label class="bl" for="fBr">Panoga</label><select class="w-sel" id="fBr"></select></div>
+ <div class="bgrp sel"><label class="bl" for="fSize">Velikost</label><select class="w-sel" id="fSize"></select></div>
+ <div class="bgrp sel"><label class="bl" for="fChan">Kanal</label><select class="w-sel" id="fChan"></select></div>
+ <div class="bgrp sel"><label class="bl" for="fCat">Kategorija</label><select class="w-sel" id="fCat"></select></div>
+ <button type="button" class="w-btn sm ghost" id="reset">Ponastavi</button>
+</div>
+<main class="w-wrap">
+ <div class="w-title"><div><div class="w-kicker" id="kick"></div><h1>Cenovni slap</h1><p id="lead"></p></div></div>
+ <section class="w-card wf-card" id="secWf"><div class="ctitle"><div><h3>Od ceniške vrednosti do bruto marže</h3><p class="w-sub">Izračun iz vrstic računov: osnovni popust iz pogojev kupca, akcijski popust iz akcijskih vrstic, ostanek je dodatni popust svetovalca. Klik na stopnico pokaže razčlenitev.</p></div>
+  <div class="w-seg" id="segMode"><button type="button" data-v="eur">€</button><button type="button" data-v="pct">% ceniške vrednosti</button></div></div>
+  <div class="legend" style="margin-bottom:6px"><span><i style="background:#404040"></i>Ceniška vrednost, neto prodaja, bruto marža (vsote)</span><span><i style="background:#d0101b"></i>Popusti in nabavna vrednost (zmanjšanja)</span><span id="lgGhost"><i style="background:none;border-top:2px solid #222;height:0;vertical-align:3px"></i>Primerljivo obdobje lani (PY)</span></div>
+  <div id="wf"></div><div class="wf-det" id="wfDet"></div></section>
+ <div class="grid2">
+  <section class="w-card full" id="secBox"><div class="ctitle"><div><h3>Razpršenost popustov</h3><p class="w-sub">Odstopanje dejanskega popusta (brez akcij) od mediane za velikost kupca, v o.t. · škatla = srednjih 50 % kupcev, ročaji = 10.–90. percentil, črta = mediana</p></div>
+   <div class="w-seg" id="segGrp"><button type="button" data-v="rep">Svetovalci</button><button type="button" data-v="br">Panoge</button><button type="button" data-v="size">Velikost</button></div></div><div id="box"></div></section>
+  <section class="w-card full" id="secLeak"><div class="ctitle"><div><h3>Uhajanje popustov</h3><p class="w-sub" id="leakSub"></p></div></div><div class="kp3" id="leakK"></div><div class="w-tw"><table class="w-t" id="leakT"></table></div><div style="margin-top:10px"><button type="button" class="w-btn sm ghost" id="leakMore">Pokaži več</button></div></section>
+  <section class="w-card" id="secPromo"><div class="ctitle"><div><h3>Učinek akcij</h3><p class="w-sub">Količina v mesecu akcije proti povprečju meseca prej in potem (14 artiklov na mesec)</p></div></div><div id="promo"></div></section>
+  <section class="w-card" id="secPi"><div class="ctitle"><div><h3>Ali se je dvig cen prijel?</h3><p class="w-sub">Cena na enoto za iste artikle: 3 meseci pred dvigom proti 3 mesecem po dvigu (utež = količine po dvigu)</p></div></div><div id="pi"></div></section>
+  <section class="w-card full sim" id="secSim"><div class="ctitle"><div><div class="w-kicker">Simulator</div><h3>Kaj, če zmanjšamo odstopanje popustov?</h3><p class="w-sub" id="simSub"></p></div></div>
+   <div class="sim-g"><div><label for="simX">Znižanje odstopanja <output id="oX"></output><input type="range" id="simX" min="0" max="5" step="0.5" value="2"></label><label for="simL">Izguba prodaje pri prizadetih kupcih <output id="oL"></output><input type="range" id="simL" min="0" max="15" step="1" value="1"></label><p class="foot-note">Popust se zniža samo kupcem nad mediano svoje velikosti, največ do mediane. Akcijske vrstice ostanejo nespremenjene.</p></div>
+   <div class="res" id="simRes"></div><div id="simBr"></div></div></section>
+ </div>
+</main>
+<footer class="w-foot"><span><span class="w-demo">Demo</span> <b>Demo podatki — izmišljeno, ni povezano z dejanskim poslovanjem Würth d.o.o.</b> Simulacija prodaje 1. 11. 2023 – 31. 10. 2026.</span><span>Würth Slovenija · analize prodaje</span></footer>
+<div class="w-loading" id="loading">Nalagam podatke …</div>
+<div class="w-scrim" id="scrim"></div>
+<aside class="w-drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" aria-hidden="true" inert><header><h3 id="dTitle"></h3><button class="x" id="dX" type="button" aria-label="Zapri podrobnosti">×</button></header><div class="body" id="dBody"></div></aside>
+<script src="wdata.js"></script><script src="kit.js"></script>
+<script>
+// ---------- skupni pomočniki (profil kupca / svetovalca / artikla, mini grafi) ----------
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let S,F,L;const U=W.util;
+const cls=v=>v>0.0005?'up':v<-0.0005?'dn':'flat';
+const gr=(a,b)=>b?a/b-1:0;
+const SIZEN=['S — mali','M — srednji','L — veliki','KA — ključni'];
+const stPill=s=>`<span class="w-pill ${s==='Izgubljen'?'bad':s==='V upadu'?'warn':s==='Nov'?'':'ok'}">${esc(s)}</span>`;
+const cLink=id=>{const c=S.cust(id);return`<button type="button" class="lnk" data-cust="${id}">${esc(c.name)}</button>`};
+const pLink=id=>`<button type="button" class="lnk" data-prod="${id}">${esc(S.prod(id).name)}</button>`;
+const rLink=id=>{const r=S.rep(id);return r?`<button type="button" class="lnk" data-rep="${id}">${esc(r.name)}</button>`:'<span class="flat">nezaseden teritorij</span>'};
+function boot(fn){$$('[data-logo]').forEach(e=>e.innerHTML=W.logo(30));
+ let done=false;const go=()=>{if(done)return;done=true;S=W.load();F=S.fmt;L=S.L;try{fn()}finally{$('#loading').hidden=true}};requestAnimationFrame(()=>setTimeout(go,30));setTimeout(go,300)}
+function niceMax(v){if(v<=0)return 1;const p=Math.pow(10,Math.floor(Math.log10(v)));const f=v/p;return(f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*p}
+let rzT;function onResize(fn){let w=innerWidth;addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(()=>{if(Math.abs(innerWidth-w)>20){w=innerWidth;fn()}},180)})}
+// mesečni stolpci (36 mes.) za predale
+function mBars(vals,{h=120,cmp=null,cmpName='plan',fmt=null,hi=[24,35],marks=null,name='Prodaja'}={}){fmt=fmt||F.eurK;
+ const w=520,x0=46,x1=w-4,y0=8,y1=h-20,n=vals.length,mx=niceMax(Math.max(1,...vals,...(cmp||[]).filter(v=>v!=null)));const bw=(x1-x0)/n;const y=v=>y1-v/mx*(y1-y0);
+ let s=`<svg viewBox="0 0 ${w} ${h}" class="mb" role="img" aria-label="${esc(name)} po mesecih">`;
+ for(const t of [0,.5,1]){s+=`<line x1="${x0}" x2="${x1}" y1="${y(mx*t)}" y2="${y(mx*t)}" stroke="#ececec"/><text x="${x0-6}" y="${y(mx*t)+4}" text-anchor="end" font-size="10.5" fill="#767676">${esc(fmt(mx*t))}</text>`}
+ vals.forEach((v,i)=>{const on=i>=hi[0]&&i<=hi[1];const mk=marks&&marks.includes(i);s+=`<rect x="${(x0+i*bw+1).toFixed(1)}" y="${y(Math.max(0,v)).toFixed(1)}" width="${(bw-2).toFixed(1)}" height="${(y1-y(Math.max(0,v))).toFixed(1)}" fill="${mk?'#1f5f99':on?'#404040':'#b8b8b8'}" rx="1.5"><title>${esc(S.months[i]?S.months[i].long:'')}: ${esc(fmt(v))}${cmp&&cmp[i]!=null?' · '+cmpName+' '+esc(fmt(cmp[i])):''}${mk?' · akcija':''}</title></rect>`;
+  const mo=S.months[i];if(mo&&mo.m===0)s+=`<text x="${x0+i*bw+1}" y="${h-5}" font-size="10.5" fill="#767676">${mo.m===0?mo.y:mo.label}</text>`});
+ if(cmp){const pts=cmp.map((v,i)=>v==null?null:`${(x0+(i+.5)*bw).toFixed(1)},${y(v).toFixed(1)}`).filter(Boolean);s+=`<polyline points="${pts.join(' ')}" fill="none" stroke="#fff" stroke-width="3.5" opacity=".8"/><polyline points="${pts.join(' ')}" fill="none" stroke="${cmpName==='plan'?'#222':'#8c8c8c'}" stroke-width="1.5" stroke-dasharray="4 3"/>`}
+ return s+'</svg>'}
+function hbars(items,{fmt=null,max=null,attr=''}={}){fmt=fmt||F.eurK;const mx=max||Math.max(1e-9,...items.map(x=>x.v));
+ return items.map(x=>`<div class="hb${x.v<=0?' no':''}"><span title="${esc(x.n)}">${x.html||esc(x.n)}</span><span class="w-bar"><i style="width:${Math.max(0,x.v/mx*100).toFixed(1)}%;${x.c?'background:'+x.c:''}"></i></span><span class="v">${x.t??esc(fmt(x.v))}</span></div>`).join('')}
+// ---------- predal ----------
+const DR={stack:[],cur:null,focus:null};
+function dShow(kind,id,push=true){if(push&&DR.cur)DR.stack.push(DR.cur);if(!DR.cur&&!DR.focus)DR.focus=document.activeElement;DR.cur={kind,id};
+ const r=PROF[kind](id);$('#dTitle').innerHTML=r.title;$('#dBody').innerHTML=(DR.stack.length?'<button type="button" class="w-btn ghost sm d-back">← Nazaj</button>':'')+r.html;
+ const d=$('#drawer');d.classList.add('on');d.setAttribute('aria-hidden','false');d.removeAttribute('inert');$('#scrim').classList.add('on');$('#dBody').scrollTop=0;$('#dX').focus({preventScroll:true})}
+function dClose(){const d=$('#drawer');if(!d.classList.contains('on'))return;d.classList.remove('on');d.setAttribute('aria-hidden','true');d.setAttribute('inert','');$('#scrim').classList.remove('on');DR.stack=[];DR.cur=null;if(DR.focus&&DR.focus.isConnected)DR.focus.focus({preventScroll:true});DR.focus=null}
+function dBack(){const p=DR.stack.pop();if(p){DR.cur=null;dShow(p.kind,p.id,false)}}
+document.addEventListener('click',e=>{if(!S)return;const t=e.target.closest('[data-cust],[data-prod],[data-rep]');
+ if(e.target.closest('.d-back')){dBack();return}if(e.target.closest('#dX')||e.target.id==='scrim'){dClose();return}
+ if(t){const k=t.dataset.cust!=null?'cust':t.dataset.prod!=null?'prod':'rep';const v=+t.dataset[k];if(k==='rep'&&(isNaN(v)||v===255))return;dShow(k,v)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')dClose();if((e.key==='Enter'||e.key===' ')&&e.target.matches('tr[data-cust],tr[data-prod],tr[data-rep],div[data-cust][tabindex],div[data-prod][tabindex]')){e.preventDefault();e.target.click()}});
+const PROF={
+ cust(id){const c=S.cust(id),ser=S.custSeries(id,'net'),gm=S.custSeries(id,'gm');const r12=U.sum(ser.slice(24)),p12=U.sum(ser.slice(12,24)),g12=U.sum(gm.slice(24));
+  const lines=S.custLines(id);const ch=new Float64Array(6);const ords=new Map();let lst=0,nt=0;
+  for(const i of lines){ch[L.chan[i]]+=L.net[i];lst+=L.list[i];nt+=L.net[i];let o=ords.get(L.ord[i]);if(!o){o={d:L.day[i],ch:L.chan[i],n:0,v:0};ords.set(L.ord[i],o)}o.n++;o.v+=L.net[i]}
+  const last=[...ords.values()].sort((a,b)=>b.d-a.d).slice(0,8);const tot=U.sum(ch)||1;
+  const cats=S.cats.map(k=>({n:k.name,v:S.cube.custCat[id*10+k.idx]})).sort((a,b)=>b.v-a.v);
+  const qs=S.quotes.filter(q=>q.cust===id).sort((a,b)=>b.createdDay-a.createdDay).slice(0,6);
+  const rets=S.returns.filter(r=>r.cust===id);let vis=0;for(let m=24;m<36;m++)vis+=S.visitCM[m][id]||0;
+  const rp=S.rep(c.rep);const g=gr(r12,p12);
+  return{title:esc(c.name)+`<span class="dsub">${esc(c.code)} · ${esc(c.branza)} · ${esc(c.town)}</span>`,html:`
+  <div class="d-tags">${stPill(c.status)}<span class="w-pill">Velikost ${esc(c.size)}</span>${c.eshop?'<span class="w-pill ok">E-shop</span>':''}${c.orsy?`<span class="w-pill">${esc(c.orsy)}</span>`:''}${c.contract?'<span class="w-pill">Okvirna pogodba</span>':''}</div>
+  <div class="d-kpis"><div><small>Prodaja 12 mes.</small><b>${F.eurK(r12)}</b><i class="${cls(g)}">${p12?F.delta(g):'nov'}</i></div><div><small>Bruto marža</small><b>${F.pct(r12?g12/r12:0)}</b><i class="flat">${F.eurK(g12)}</i></div><div><small>Dejanski popust</small><b>${F.pct(lst?1-nt/lst:0)}</b><i class="flat">osnovni ${F.pct(c.disc)}</i></div></div>
+  <div class="w-facts"><div><small>Panoga · velikost</small><b>${esc(c.branza)} · ${SIZEN[c.si]}</b></div><div><small>Kraj · regija</small><b>${esc(c.town)} · ${esc(S.regionName(c.region))}</b></div>
+  <div><small>Svetovalec</small><b>${rp?rLink(c.rep):'—'}</b></div><div><small>Najbližja trgovina</small><b>${esc(S.branch(c.branch).town)} · ${c.branchKm} km</b></div>
+  <div><small>Kupec od</small><b>${F.date(c.acquired)}</b></div><div><small>Zadnje naročilo</small><b>${c.lastOrder?F.date(c.lastOrder):'—'}</b></div>
+  <div><small>E-shop</small><b>${c.eshop?'da, od '+F.date(c.eshopSince):'ne'}</b></div><div><small>Potencial (letno)</small><b>${F.eurK(c.potential)} · ${F.pct(c.potential?r12/c.potential:0,0)} izkoriščen</b></div>
+  <div><small>Obiski (12 mes.)</small><b>${vis}</b></div><div><small>Vračila</small><b>${rets.length} · ${F.eur(U.sum(rets.map(r=>r.value)))}</b></div></div>
+  <div class="d-sec"><h4>Prodaja po mesecih</h4>${mBars(ser,{cmp:ser.map((v,i)=>i>=12?ser[i-12]:null),cmpName:'lani'})}<p class="foot-note">Temno: zadnjih 12 mesecev · črtkano: isti mesec lani.</p></div>
+  <div class="d-sec"><h4>Kategorije (36 mes.)</h4>${hbars(cats.map(x=>({n:x.n,v:x.v,t:x.v>0?F.eurK(x.v):'ne kupuje'})))}</div>
+  <div class="d-sec"><h4>Kanali</h4>${hbars(S.channels.map((n,k)=>({n,v:ch[k],t:F.pct(ch[k]/tot,0)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v))}</div>
+  <div class="d-sec"><h4>Zadnja naročila</h4><div class="d-list">${last.map(o=>`<div><span>${F.date(o.d)} · ${esc(S.chShort[o.ch])} <small>· ${o.n} vrst.</small></span><span class="r">${F.eur(o.v)}</span></div>`).join('')||'<div><span>Ni naročil.</span></div>'}</div></div>
+  <div class="d-sec"><h4>Ponudbe</h4><div class="d-list">${qs.map(q=>`<div><span>${esc(q.id)} · ${esc(q.type)} <small>· ${F.date(q.created)}</small></span><span class="r">${F.eur(q.value)} · <span class="w-pill ${q.status==='Dobljena'?'ok':q.status==='Izgubljena'?'bad':'warn'}">${esc(q.status)}</span></span></div>`).join('')||'<div><span>Ni ponudb.</span></div>'}</div></div>`}},
+ rep(id){const r=S.rep(id);const act=Array.from({length:36},(_,m)=>S.cube.repMonth[id*36+m]),pl=Array.from({length:36},(_,m)=>S.budget.rep[id*36+m]);
+  const port=S.customers.filter(c=>c.rep===id&&c.status!=='Izgubljen');const top=[...port].sort((a,b)=>b.rev12-a.rev12).slice(0,8);const dec=port.filter(c=>c.revPrev12>2000&&c.rev12<c.revPrev12*.7).sort((a,b)=>(a.rev12-a.revPrev12)-(b.rev12-b.revPrev12)).slice(0,5);
+  const[i0,i1]=S.dayRange(S.periods.l12[0],S.periods.l12[1]);let ls=0,nt=0;for(let i=i0;i<i1;i++)if(L.rep[i]===id){ls+=L.list[i];nt+=L.net[i]}
+  const y=U.sum(act.slice(26)),yp=U.sum(pl.slice(26));const vis=(()=>{let v=0;for(let d=S.periods.l12[0];d<S.ND;d++)v+=S.visitRepDay(id,d);return v})();
+  return{title:esc(r.name)+`<span class="dsub">${esc(r.role)} · ${esc(r.division)}</span>`,html:`
+  <div class="d-kpis"><div><small>Prodaja YTD</small><b>${F.eurK(y)}</b><i class="${cls(gr(y,yp))}">${yp?F.delta(gr(y,yp))+' vs plan':'brez plana'}</i></div><div><small>Popust 12 mes.</small><b>${F.pct(ls?1-nt/ls:0)}</b><i class="flat">povprečje vrstic</i></div><div><small>Obiski 12 mes.</small><b>${F.num(vis)}</b><i class="flat">${port.length} kupcev</i></div></div>
+  <div class="w-facts"><div><small>Vloga</small><b>${esc(r.role)}</b></div><div><small>Divizija</small><b>${esc(r.division)}</b></div><div><small>Panoga · regija</small><b>${esc(r.branza||'—')} · ${r.region?esc(S.regionName(r.region)):'—'}</b></div><div><small>Zaposlen od</small><b>${F.date(r.hired)}${r.left?' · odšel '+F.date(r.left):''}</b></div></div>
+  <div class="d-sec"><h4>Prodaja po mesecih vs plan</h4>${mBars(act,{cmp:pl,cmpName:'plan',hi:[26,35]})}<p class="foot-note">Temno: 2026 · črtkano: plan.</p></div>
+  <div class="d-sec"><h4>Največji kupci (12 mes.)</h4><div class="d-list">${top.map(c=>`<div>${cLink(c.id)}<span class="r">${F.eurK(c.rev12)} <small class="${cls(gr(c.rev12,c.revPrev12))}">${c.revPrev12?F.delta(gr(c.rev12,c.revPrev12)):'nov'}</small></span></div>`).join('')||'<div><span>Ni portfelja.</span></div>'}</div></div>
+  <div class="d-sec"><h4>Kupci v upadu (−30 % ali več)</h4><div class="d-list">${dec.map(c=>`<div>${cLink(c.id)}<span class="r">${F.eurK(c.rev12)} <small class="dn">${F.delta(gr(c.rev12,c.revPrev12))}</small></span></div>`).join('')||'<div><span>Ni večjih upadov.</span></div>'}</div></div>`}},
+ prod(id){const p=S.prod(id);const net=new Float64Array(36),qty=new Float64Array(36),lst=new Float64Array(36),cst=new Float64Array(36),ch=new Float64Array(6);const cu=new Map();
+  for(let i=0;i<S.n;i++){if(L.prod[i]!==id)continue;const m=L.month[i];net[m]+=L.net[i];qty[m]+=L.qty[i];lst[m]+=L.list[i];cst[m]+=L.cost[i];ch[L.chan[i]]+=L.net[i];if(m>=24)cu.set(L.cust[i],(cu.get(L.cust[i])||0)+L.net[i])}
+  const r12=U.sum(net.slice(24)),p12=U.sum(net.slice(12,24)),q12=U.sum(qty.slice(24)),l12=U.sum(lst.slice(24)),c12=U.sum(cst.slice(24));let lm=35;while(lm>0&&!qty[lm])lm--;
+  const top=[...cu].sort((a,b)=>b[1]-a[1]).slice(0,8);const tot=U.sum(ch)||1;const sub=S.subs[p.sub];
+  return{title:esc(p.name)+`<span class="dsub">${esc(p.sku)} · ${esc(sub.name)}</span>`,html:`
+  <div class="d-tags"><span class="w-pill">${esc(S.catName(p.cat))}</span>${p.launch!=null?`<span class="w-pill red">Novo od ${esc(S.months[p.launch].label)}</span>`:''}${p.promoMonths.length?`<span class="w-pill warn">V akciji ${p.promoMonths.length}× </span>`:''}</div>
+  <div class="d-kpis"><div><small>Prodaja 12 mes.</small><b>${F.eurK(r12)}</b><i class="${cls(gr(r12,p12))}">${p12?F.delta(gr(r12,p12)):'nov'}</i></div><div><small>Bruto marža</small><b>${F.pct(r12?(r12-c12)/r12:0)}</b><i class="flat">${F.eurK(r12-c12)}</i></div><div><small>Povp. popust</small><b>${F.pct(l12?1-r12/l12:0)}</b><i class="flat">${F.num(q12)} ${esc(p.unit)}</i></div></div>
+  <div class="w-facts"><div><small>Ceniška cena (zadnja)</small><b>${qty[lm]?F.eur2(lst[lm]/qty[lm]):'—'} / ${esc(p.unit)}</b></div><div><small>Povp. neto cena 12 mes.</small><b>${q12?F.eur2(r12/q12):'—'}</b></div><div><small>Nabavna cena (2023)</small><b>${F.eur2(p.cost)}</b></div><div><small>Kupcev 12 mes.</small><b>${F.num(cu.size)}</b></div></div>
+  <div class="d-sec"><h4>Prodaja po mesecih</h4>${mBars([...net],{marks:p.promoMonths,cmp:[...net].map((v,i)=>i>=12?net[i-12]:null),cmpName:'lani'})}<p class="foot-note">Modro: meseci z akcijo · črtkano: lani.</p></div>
+  <div class="d-sec"><h4>Kanali</h4>${hbars(S.channels.map((n,k)=>({n,v:ch[k],t:F.pct(ch[k]/tot,0)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v))}</div>
+  <div class="d-sec"><h4>Največji kupci (12 mes.)</h4><div class="d-list">${top.map(([c,v])=>`<div>${cLink(c)}<span class="r">${F.eur(v)}</span></div>`).join('')||'<div><span>V zadnjih 12 mesecih ni prodaje.</span></div>'}</div></div>`}}};
+const nT=mx=>{const f=Math.round(mx/Math.pow(10,Math.floor(Math.log10(mx||1)))*10)/10;return f===2?4:5};
+
+const ST={per:'ytd',f:{br:'',size:'',chan:'',cat:''},mode:'eur',step:2,grp:'rep',sort:'leak',more:false};
+const PER={ytd:{m:[26,35],p:[14,23],lab:'YTD 2026 (jan–okt)',pl:'jan–okt 2025'},l12:{m:[24,35],p:[12,23],lab:'Zadnjih 12 mesecev',pl:'predhodnih 12 mesecev'},y25:{m:[14,25],p:[2,13],lab:'Leto 2025',pl:'leto 2024'},y24:{m:[2,13],p:null,lab:'Leto 2024',pl:null}};
+const STEPS=[{n:'Ceniška vrednost',k:'list',t:1,c:'#404040'},{n:'Osnovni popust kupca',k:'base',c:'#d0101b'},{n:'Dodatni popust svetovalca',k:'extra',c:'#d0101b'},{n:'Akcijski popust',k:'promo',c:'#d0101b'},{n:'Neto prodaja',k:'net',t:1,c:'#404040'},{n:'Nabavna vrednost',k:'cost',c:'#d0101b'},{n:'Bruto marža',k:'gm',t:1,c:'#404040'}];
+let nC,custBr,custSi,custDisc,C={};
+const lr=(m0,m1)=>[S.dayStart[S.months[m0].d0],S.dayStart[S.months[m1].d1+1]];
+const pp=v=>S.fmt.dec(v*100,1);
+function init(){nC=S.customers.length;custBr=new Uint8Array(nC);custSi=new Uint8Array(nC);custDisc=new Float32Array(nC);S.customers.forEach(c=>{custBr[c.id]=S.branze.indexOf(c.branza);custSi[c.id]=c.si;custDisc[c.id]=c.disc});
+ const opt=(sel,arr,all)=>{$(sel).innerHTML=`<option value="">${all}</option>`+arr.map((n,i)=>`<option value="${i}">${esc(n)}</option>`).join('')};
+ opt('#fBr',S.branze,'Vse panoge');opt('#fSize',SIZEN,'Vse velikosti');opt('#fChan',S.channels,'Vsi kanali');opt('#fCat',S.cats.map(c=>c.name),'Vse kategorije');
+ [['#fBr','br'],['#fSize','size'],['#fChan','chan'],['#fCat','cat']].forEach(([s,k])=>$(s).addEventListener('change',e=>{ST.f[k]=e.target.value;update(true)}));
+ $('#reset').onclick=()=>{ST.f={br:'',size:'',chan:'',cat:''};$$('.w-band select').forEach(s=>s.value='');update(true)};
+ $('#segPer').onclick=e=>{const b=e.target.closest('button');if(b){ST.per=b.dataset.v;update(false)}};
+ $('#segMode').onclick=e=>{const b=e.target.closest('button');if(b){ST.mode=b.dataset.v;segs();drawWf()}};
+ $('#segGrp').onclick=e=>{const b=e.target.closest('button');if(b){ST.grp=b.dataset.v;segs();drawBox()}};
+ $('#leakMore').onclick=()=>{ST.more=!ST.more;drawLeak()};
+ $('#leakT').addEventListener('click',e=>{const b=e.target.closest('[data-sort]');if(b){ST.sort=b.dataset.sort;drawLeak()}});
+ $('#pi').addEventListener('click',e=>{const b=e.target.closest('[data-ev]');if(b){C.piSel=+b.dataset.ev;drawPi()}});
+ $('#simX').oninput=$('#simL').oninput=drawSim;C.piSel=1;
+ onResize(drawWf);update(true)}
+function segs(){$$('#segPer button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===ST.per));$$('#segMode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===ST.mode));$$('#segGrp button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===ST.grp))}
+function okFn(skipBr){const f=ST.f;const br=f.br===''||skipBr?-1:+f.br,sz=f.size===''?-1:+f.size,ch=f.chan===''?-1:+f.chan,ca=f.cat===''?-1:+f.cat;
+ return i=>{const c=L.cust[i];return(br<0||custBr[c]===br)&&(sz<0||custSi[c]===sz)&&(ch<0||L.chan[i]===ch)&&(ca<0||L.cat[i]===ca)}}
+function decomp(m0,m1,full){const[i0,i1]=lr(m0,m1);const ok=okFn();const rl=new Float64Array(256),rx=new Float64Array(256);let gl=0,gx=0;
+ for(let i=i0;i<i1;i++){if(L.promo[i]||!ok(i))continue;const li=L.list[i];const x=li-L.net[i]-li*custDisc[L.cust[i]];rl[L.rep[i]]+=li;rx[L.rep[i]]+=x;gl+=li;gx+=x}
+ const rate=new Float64Array(256);for(let r=0;r<256;r++)rate[r]=rl[r]>200?rx[r]/rl[r]:(gl?gx/gl:0);
+ const z=()=>({list:0,base:0,extra:0,promo:0,net:0,cost:0});const T=z(),BR=Array.from({length:7},z),SZ=Array.from({length:4},z);
+ const cu=full?{l:new Float64Array(nC),n:new Float64Array(nC),c:new Float64Array(nC),lN:new Float64Array(nC),nN:new Float64Array(nC)}:null;
+ const add=(o,li,b,x,p,n,c)=>{o.list+=li;o.base+=b;o.extra+=x;o.promo+=p;o.net+=n;o.cost+=c};
+ for(let i=i0;i<i1;i++){if(!ok(i))continue;const c=L.cust[i],li=L.list[i],n=L.net[i],co=L.cost[i],b=li*custDisc[c];const tot=li-n-b;let x,p;if(L.promo[i]){x=li*rate[L.rep[i]];p=tot-x}else{x=tot;p=0}
+  add(T,li,b,x,p,n,co);add(BR[custBr[c]],li,b,x,p,n,co);add(SZ[custSi[c]],li,b,x,p,n,co);
+  if(full){cu.l[c]+=li;cu.n[c]+=n;cu.c[c]+=co;if(!L.promo[i]){cu.lN[c]+=li;cu.nN[c]+=n}}}
+ T.gm=T.net-T.cost;return{T,BR,SZ,cu}}
+function update(filtChanged){segs();const P=PER[ST.per];C.cur=decomp(...P.m,true);C.prev=P.p?decomp(...P.p,false):null;
+ // pričakovani popust po velikosti
+ const cu=C.cur.cu;const bySz=[[],[],[],[]];for(let c=0;c<nC;c++)if(cu.lN[c]>=500)bySz[custSi[c]].push(1-cu.nN[c]/cu.lN[c]);C.exp=bySz.map(a=>a.length?U.median(a):0);
+ C.dev=new Float32Array(nC).fill(NaN);for(let c=0;c<nC;c++)if(cu.lN[c]>=500)C.dev[c]=1-cu.nN[c]/cu.lN[c]-C.exp[custSi[c]];
+ if(filtChanged)prodPass();
+ head();drawWf();drawBox();drawLeak();drawPromo();drawPi();drawSim()}
+const fTxt=()=>{const f=ST.f,p=[];if(f.br!=='')p.push(S.branze[f.br]);if(f.size!=='')p.push('velikost '+S.sizes[f.size]);if(f.chan!=='')p.push(S.channels[f.chan]);if(f.cat!=='')p.push(S.cats[f.cat].name);return p.join(' · ')};
+function head(){const P=PER[ST.per],T=C.cur.T;const ft=fTxt();$('#kick').textContent=P.lab+(P.pl?' · primerjava: '+P.pl:'')+(ft?' · '+ft:'');
+ const big=[['osnovni popusti kupcev',T.base],['dodatni popusti svetovalcev',T.extra],['akcije',T.promo]].sort((a,b)=>b[1]-a[1]);
+ let s=`Od ceniške vrednosti <b>${F.eurK(T.list)}</b> ostane <b>${F.eurK(T.net)}</b> neto prodaje (${F.pct(T.net/T.list)}). Največ cene odnesejo ${big[0][0]} (${F.eurK(big[0][1])}, ${F.pct(big[0][1]/T.list)} cenika), sledijo ${big[1][0]} (${F.pct(big[1][1]/T.list)}) in ${big[2][0]} (${F.pct(big[2][1]/T.list)}).`;
+ if(C.prev){const Q=C.prev.T;const d=(T.list-T.net)/T.list-(Q.list-Q.net)/Q.list;const dx=T.extra/T.list-Q.extra/Q.list;s+=` Skupni popust je ${F.pp(d)} glede na ${P.pl}${Math.abs(dx)>.0015?`, od tega dodatni popust svetovalcev ${F.pp(dx)}`:''}; bruto marža ${F.pct(T.gm/T.net)} (${F.pp(T.gm/T.net-(Q.net-Q.cost)/Q.net)}).`}
+ $('#lead').innerHTML=s}
+function wfBars(T){let run=T.list;return STEPS.map(st=>{const v=st.k==='gm'?T.net-T.cost:T[st.k];let a,b;if(st.t){a=0;b=v}else if(st.k==='cost'){a=T.net-T.cost;b=T.net}else{a=run-v;b=run;run=a}return{st,v,a,b}})}
+function drawWf(){const box=$('#wf');const Wd=Math.max(280,box.clientWidth);const nar=Wd<640;const T=C.cur.T,Q=C.prev&&C.prev.T;const pct=ST.mode==='pct';
+ const bars=wfBars(T),qb=Q?wfBars(Q).map(x=>({a:x.a/Q.list*T.list,b:x.b/Q.list*T.list,r:x.v/Q.list})):null;const fmtV=v=>pct?F.pct(v/T.list):F.eurK(v);let s;
+ if(nar){const rh=46,H=rh*bars.length+6,x0=2,x1=Wd-2;const X=v=>x0+v/T.list*(x1-x0);
+  s=`<svg viewBox="0 0 ${Wd} ${H}" width="${Wd}" height="${H}" role="img" aria-label="Cenovni slap od ceniške vrednosti do bruto marže">`;
+  bars.forEach((r,i)=>{const y=i*rh,sel=ST.step===i;s+=`<g class="st" data-i="${i}" tabindex="0" role="button" aria-label="${esc(r.st.n)}: ${esc(F.eurK(r.v))}"><rect x="0" y="${y}" width="${Wd}" height="${rh}" fill="${sel?'#e3edf6':'transparent'}"/>`;
+   s+=`<text x="${x0+4}" y="${y+15}" font-size="12.5" font-weight="${r.st.t?700:400}" fill="#222">${esc(r.st.n)}</text><text x="${x1-4}" y="${y+15}" text-anchor="end" font-size="12.5" font-weight="700" fill="#222">${r.st.t?'':'−'}${esc(fmtV(r.v))} <tspan font-weight="400" fill="#767676">${pct?esc(F.eurK(r.v)):esc(F.pct(r.v/T.list))}</tspan></text>`;
+   s+=`<rect class="b" x="${X(r.a).toFixed(1)}" y="${y+22}" width="${Math.max(2,X(r.b)-X(r.a)).toFixed(1)}" height="16" rx="2" fill="${r.st.c}"/>`;
+   if(qb&&i>0){const q=r.st.t?qb[i].b:qb[i].a;s+=`<line x1="${X(q)}" x2="${X(q)}" y1="${y+19}" y2="${y+41}" stroke="#fff" stroke-width="4"/><line x1="${X(q)}" x2="${X(q)}" y1="${y+19}" y2="${y+41}" stroke="#222" stroke-width="2"/>`}s+='</g>'})}
+ else{const H=340,x0=10,x1=Wd-6,y0=46,y1=H-44;const n=bars.length,bw=(x1-x0)/n;const Y=v=>y1-v/T.list*(y1-y0);
+  s=`<svg viewBox="0 0 ${Wd} ${H}" width="${Wd}" height="${H}" role="img" aria-label="Cenovni slap od ceniške vrednosti do bruto marže">`;
+  for(let k=0;k<=4;k++){const yy=Y(T.list*k/4);s+=`<line x1="${x0}" x2="${x1}" y1="${yy}" y2="${yy}" stroke="#f0f0f0"/>`}
+  bars.forEach((r,i)=>{const x=x0+i*bw+bw*.16,w=bw*.68,yt=Y(r.b),yb=Y(r.a),sel=ST.step===i;
+   if(i>0)s+=`<line x1="${x0+(i-1)*bw+bw*.84}" x2="${x}" y1="${yt}" y2="${yt}" stroke="#999" stroke-dasharray="3 3"/>`;
+   s+=`<g class="st" data-i="${i}" tabindex="0" role="button" aria-label="${esc(r.st.n)}: ${esc(F.eurK(r.v))}"><rect x="${x0+i*bw}" y="${y0-40}" width="${bw}" height="${H-y0+40}" fill="${sel?'#e3edf6':'transparent'}"/><rect class="b" x="${x.toFixed(1)}" y="${yt.toFixed(1)}" width="${w.toFixed(1)}" height="${Math.max(1.5,yb-yt).toFixed(1)}" fill="${r.st.c}" rx="2"/>`;
+   s+=`<text x="${x+w/2}" y="${yt-22}" text-anchor="middle" font-size="15" font-weight="800" font-family="Roboto Condensed" fill="#222">${r.st.t?'':'−'}${esc(fmtV(r.v))}</text><text x="${x+w/2}" y="${yt-7}" text-anchor="middle" font-size="11.5" fill="#767676">${pct?esc(F.eurK(r.v)):esc(F.pct(r.v/T.list))}</text>`;
+   if(qb&&i>0){const q=Y(r.st.t?qb[i].b:qb[i].a);s+=`<line x1="${x-4}" x2="${x+w+4}" y1="${q.toFixed(1)}" y2="${q.toFixed(1)}" stroke="#fff" stroke-width="4"/><line x1="${x-4}" x2="${x+w+4}" y1="${q.toFixed(1)}" y2="${q.toFixed(1)}" stroke="#222" stroke-width="2"><title>Lani: ${esc(F.pct(qb[i].r))} ceniške vrednosti</title></line>`}
+   s+=`<text x="${x+w/2}" y="${y1+18}" text-anchor="middle" font-size="12" font-weight="${r.st.t?700:400}" fill="#444">${esc(r.st.n)}</text></g>`})}
+ box.innerHTML=s+'</svg>';
+ box.querySelectorAll('.st').forEach(g=>{const f=()=>{ST.step=+g.dataset.i;drawWf()};g.addEventListener('click',f);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();f()}})});
+ $('#lgGhost').hidden=!Q;drawDet()}
+function drawDet(){const st=STEPS[ST.step],k=st.k;const cur=C.cur,prv=C.prev;const val=o=>k==='gm'?o.net-o.cost:o[k];const T=cur.T;const P=PER[ST.per];
+ const rate=o=>o.list?val(o)/o.list:0;
+ const rows=(arr,parr,names)=>{const items=arr.map((o,j)=>({n:names[j],v:rate(o),q:parr?rate(parr[j]):null,w:o.list})).filter(x=>x.w>0);const mx=Math.max(...items.map(x=>Math.max(x.v,x.q||0)),1e-6);
+  return items.sort((a,b)=>b.v-a.v).map(x=>`<div class="dual"><span>${esc(x.n)}</span><span class="bars"><i style="width:${(x.v/mx*100).toFixed(1)}%;background:#404040"></i>${x.q!=null?`<i style="width:${(x.q/mx*100).toFixed(1)}%;background:#b8b8b8"></i>`:''}</span><span class="r"><b>${F.pct(x.v)}</b>${x.q!=null?` <small class="${cls((x.v-x.q)*(k==='gm'||k==='net'?1:-1))}">${F.pp(x.v-x.q)}</small>`:''}</span></div>`).join('')};
+ const q=prv?rate(prv.T):null;
+ const txt={list:'Ceniška vrednost je vrednost prodanih količin po veljavnem ceniku.',base:'Osnovni popust je dogovorjen pogoj kupca (odvisen predvsem od velikosti).',extra:'Dodatni popust je razlika nad osnovnim pogojem, ki ga odobri svetovalec ali nastane v pogajanjih.',promo:'Akcijski popust je dodatni popust na artikle v mesečni akciji.',net:'Neto prodaja je fakturirana vrednost po vseh popustih.',cost:'Nabavna vrednost prodanega blaga.',gm:'Bruto marža = neto prodaja − nabavna vrednost.'}[k];
+ $('#wfDet').innerHTML=`<div><h4>${esc(st.n)}</h4><div class="big">${F.eurK(val(T))}</div><p><b>${F.pct(rate(T))}</b> ceniške vrednosti${q!=null?` · ${P.pl}: ${F.pct(q)} (${F.pp(rate(T)-q)})`:''}. ${txt}</p></div>
+ <div><h4>Po panogah · % cenika</h4>${rows(cur.BR,prv&&prv.BR,S.branze)}</div><div><h4>Po velikosti · % cenika</h4>${rows(cur.SZ,prv&&prv.SZ,SIZEN)}${prv?'<p class="foot-note">Siva vrstica: '+esc(P.pl)+'</p>':''}</div>`}
+function drawBox(){const cu=C.cur.cu;const grp=ST.grp;const G=new Map();
+ for(let c=0;c<nC;c++){const d=C.dev[c];if(isNaN(d))continue;const k=grp==='rep'?S.customers[c].rep:grp==='br'?custBr[c]:custSi[c];if(!G.has(k))G.set(k,{d:[],l:0,x:0});const g=G.get(k);g.d.push(d);g.l+=cu.lN[c];g.x+=Math.max(0,d)*cu.lN[c]}
+ const rows=[...G].filter(([k,g])=>g.d.length>=5).map(([k,g])=>{const q=U.quantile;return{k,n:g.d.length,p10:q(g.d,.1),p25:q(g.d,.25),p50:q(g.d,.5),p75:q(g.d,.75),p90:q(g.d,.9),leak:g.x}}).sort((a,b)=>b.p50-a.p50);
+ const lo=-.12,hi=.16;const X=v=>((Math.min(hi,Math.max(lo,v))-lo)/(hi-lo)*100);
+ const ticks=[-.1,-.05,0,.05,.1,.15];
+ const name=r=>grp==='rep'?(S.rep(r.k)?`<button type="button" class="lnk" data-rep="${r.k}">${esc(S.rep(r.k).name)}</button>`:'—'):grp==='br'?esc(S.branze[r.k]):esc(SIZEN[r.k]);
+ const sub=r=>grp==='rep'&&S.rep(r.k)?esc(S.rep(r.k).branza||S.rep(r.k).division):r.n+' kupcev';
+ $('#box').innerHTML=`<div class="box-head"><span>${grp==='rep'?'Svetovalec':grp==='br'?'Panoga':'Velikost'}</span><div class="box-axis">${ticks.map(t=>`<span style="left:${X(t)}%">${t>0?'+':''}${pp(t)}</span>`).join('')}</div><span style="text-align:right">Mediana</span></div>
+ <div class="box-rows">${rows.map(r=>`<div class="box-row"><span title="${r.n} kupcev">${name(r)} <small style="color:var(--ink3)">· ${sub(r)}</small></span><svg viewBox="0 0 100 18" preserveAspectRatio="none" aria-label="p10 ${pp(r.p10)}, p25 ${pp(r.p25)}, mediana ${pp(r.p50)}, p75 ${pp(r.p75)}, p90 ${pp(r.p90)} o.t."><line x1="${X(0)}" x2="${X(0)}" y1="0" y2="18" stroke="#bbb" vector-effect="non-scaling-stroke" stroke-dasharray="2 2"/><line x1="${X(r.p10)}" x2="${X(r.p90)}" y1="9" y2="9" stroke="#767676" vector-effect="non-scaling-stroke"/><rect x="${X(r.p25)}" y="3" width="${Math.max(.4,X(r.p75)-X(r.p25))}" height="12" fill="${r.p50>0.01?'#f3c4c6':'#d9d9d9'}" stroke="${r.p50>0.01?'#d0101b':'#9a9a9a'}" vector-effect="non-scaling-stroke"/><line x1="${X(r.p50)}" x2="${X(r.p50)}" y1="1" y2="17" stroke="#222" stroke-width="2.5" vector-effect="non-scaling-stroke"/></svg><span class="v ${r.p50>0.01?'dn':r.p50<-0.01?'up':'flat'}">${r.p50>0?'+':''}${pp(r.p50)}</span></div>`).join('')}</div>
+ <p class="foot-note">Pričakovani popust (mediana po velikosti): ${S.sizes.map((s,i)=>s+' '+F.pct(C.exp[i])).join(' · ')}. Rdeča škatla: mediana več kot 1 o.t. nad pričakovanim${grp==='rep'?' · klik na ime odpre profil svetovalca':''}.</p>`}
+function drawLeak(){const cu=C.cur.cu;const P=PER[ST.per];const rows=[];let tot=0,n=0,lN=0;
+ for(let c=0;c<nC;c++){const d=C.dev[c];if(isNaN(d))continue;lN+=cu.lN[c];if(d<=0)continue;const lk=d*cu.lN[c];tot+=lk;n++;rows.push({c,d,lk,disc:d+C.exp[custSi[c]],net:cu.n[c],gm:cu.n[c]?(cu.n[c]-cu.c[c])/cu.n[c]:0})}
+ C.leakTot=tot;const T=C.cur.T;
+ $('#leakSub').textContent=`Popust brez akcij nad mediano za velikost kupca × ceniška vrednost · ${P.lab}${fTxt()?' · '+fTxt():''}`;
+ $('#leakK').innerHTML=`<div><small>Uhajanje skupaj</small><b class="dn">${F.eurK(tot)}</b></div><div><small>Kupcev nad pričakovanim</small><b>${F.num(n)}</b></div><div><small>Delež bruto marže</small><b>${F.pct(tot/(T.gm||1))}</b></div>`;
+ const key={leak:r=>r.lk,dev:r=>r.d,net:r=>r.net}[ST.sort];rows.sort((a,b)=>key(b)-key(a));C.leakRows=rows;
+ const sh=rows.slice(0,ST.more?60:15);const th=(k,t)=>`<th class="r"><button type="button" data-sort="${k}" aria-pressed="${ST.sort===k}">${t}${ST.sort===k?' ▼':''}</button></th>`;
+ $('#leakT').innerHTML=`<thead><tr><th>Kupec</th><th>Panoga</th><th>Vel.</th><th>Svetovalec</th>${th('net','Prodaja')}<th class="r">Popust</th><th class="r">Pričak.</th>${th('dev','Odstopanje')}${th('leak','Uhajanje')}<th class="r">Marža</th></tr></thead><tbody>${sh.map(r=>{const c=S.cust(r.c);return`<tr class="click" data-cust="${r.c}" tabindex="0"><td>${esc(c.name)} <small>${esc(c.code)}</small></td><td>${esc(c.branza)}</td><td>${c.size}</td><td>${esc(c.repName)}</td><td class="r">${F.eur(r.net)}</td><td class="r">${F.pct(r.disc)}</td><td class="r">${F.pct(C.exp[c.si])}</td><td class="r dn">+${pp(r.d)} o.t.</td><td class="r"><b>${F.eur(r.lk)}</b></td><td class="r">${F.pct(r.gm)}</td></tr>`}).join('')}</tbody>`;
+ $('#leakMore').textContent=ST.more?'Pokaži manj':`Pokaži več (${Math.min(60,rows.length)} od ${F.num(rows.length)})`}
+function prodPass(){const ok=okFn(),okNB=okFn(true);const NP=S.products.length;const q=new Float64Array(NP*36),n=new Float64Array(NP*36),g=new Float64Array(NP*36);
+ const ev=[14,26];const pi=ev.map(()=>[0,1].map(()=>Array.from({length:8},()=>({q:new Float64Array(NP),l:new Float64Array(NP),n:new Float64Array(NP)}))));
+ for(let i=0;i<S.n;i++){const m=L.month[i];const k=L.prod[i]*36+m;const a=ok(i);if(a){q[k]+=L.qty[i];n[k]+=L.net[i];g[k]+=L.net[i]-L.cost[i]}
+  for(let e=0;e<2;e++){const em=ev[e];if(m>=em-3&&m<=em+2&&okNB(i)){const w=m<em?0:1;const p=L.prod[i];const add=o=>{o.q[p]+=L.qty[i];o.l[p]+=L.list[i];o.n[p]+=L.net[i]};add(pi[e][w][custBr[L.cust[i]]]);if(a)add(pi[e][w][7])}}}
+ C.pm={q,n,g};C.pi=pi}
+function drawPromo(){const P=PER[ST.per];const{q,n,g}=C.pm;const pr=[];const set=m=>S.promo[m]?new Set(S.promo[m]):new Set();
+ for(let m=Math.max(1,P.m[0]);m<=Math.min(34,P.m[1]);m++){const sp=set(m-1),sn=set(m+1);for(const p of S.promo[m]){if(sp.has(p)||sn.has(p))continue;const k=p*36+m;const base=(q[k-1]+q[k+1])/2;if(base<2)continue;
+  pr.push({p,m,upl:q[k]/base-1,dn:n[k]-(n[k-1]+n[k+1])/2,dg:g[k]-(g[k-1]+g[k+1])/2})}}
+ if(!pr.length){$('#promo').innerHTML='<p class="w-sub">Za izbrane filtre ni dovolj akcijskih artiklov s prodajo pred in po akciji.</p>';return}
+ const bins=[[-9,0,'< 0 %'],[0,.5,'0–50 %'],[.5,1,'50–100 %'],[1,2,'100–200 %'],[2,99,'> 200 %']];const cnt=bins.map(b=>pr.filter(x=>x.upl>=b[0]&&x.upl<b[1]).length);const mx=Math.max(...cnt,1);
+ const med=U.median(pr.map(x=>x.upl)),sdn=U.sum(pr.map(x=>x.dn)),sdg=U.sum(pr.map(x=>x.dg)),pos=pr.filter(x=>x.dg>0).length;
+ const best=[...pr].sort((a,b)=>b.dg-a.dg).slice(0,5),worst=[...pr].sort((a,b)=>a.dg-b.dg).slice(0,4);
+ const row=x=>`<div class="pr-row"><span style="min-width:0">${pLink(x.p)}<small>${esc(S.months[x.m].label)} · ${esc(S.subs[S.prod(x.p).sub].name)}</small></span><span class="r ${cls(x.upl)}">${F.delta(x.upl,0)}</span><span class="r ${cls(x.dg)}"><b>${x.dg>0?'+':''}${F.eurK(x.dg)}</b></span></div>`;
+ $('#promo').innerHTML=`<div class="kp3"><div><small>Mediana dviga količine</small><b class="${cls(med)}">${F.delta(med,0)}</b></div><div><small>Dodatna prodaja</small><b>${F.eurK(sdn)}</b></div><div><small>Dodatna marža</small><b class="${cls(sdg)}">${F.eurK(sdg)}</b></div></div>
+ <div class="hist" aria-label="Porazdelitev dviga količine">${cnt.map((c,i)=>`<div class="${i>=3?'hi':''}" style="height:${(c/mx*100).toFixed(0)}%"><span>${c}</span></div>`).join('')}</div><div class="hist-l">${bins.map(b=>`<span>${b[2]}</span>`).join('')}</div>
+ <p class="foot-note">${pr.length} akcij v obdobju; marža se je povečala pri ${pos} (${F.pct(pos/pr.length,0)}). Stolpca: dvig količine · dodatna bruto marža v mesecu akcije.</p>
+ <h4 style="font:800 13px var(--fc);text-transform:uppercase;margin:14px 0 2px">Najbolje odreagirajo</h4>${best.map(row).join('')}
+ <h4 style="font:800 13px var(--fc);text-transform:uppercase;margin:14px 0 2px">Akcija se ni splačala</h4>${worst.map(row).join('')}`}
+function piIdx(o0,o1){let a=0,b=0,c=0,d=0;for(let p=0;p<o0.q.length;p++){const qB=o0.q[p],qA=o1.q[p];if(qB<=0||qA<=0)continue;a+=qA*o1.l[p]/qA;b+=qA*o0.l[p]/qB;c+=qA*o1.n[p]/qA;d+=qA*o0.n[p]/qB}return{l:b?a/b-1:0,n:d?c/d-1:0}}
+function drawPi(){const ev=[{lab:'Januar 2025',e:0},{lab:'Januar 2026',e:1}];const R=ev.map(x=>piIdx(C.pi[x.e][0][7],C.pi[x.e][1][7]));const sel=C.piSel;
+ const br=S.branze.map((nm,j)=>({nm,...piIdx(C.pi[sel][0][j],C.pi[sel][1][j])})).filter(x=>x.l>0).sort((a,b)=>b.n/b.l-a.n/a.l);
+ const mx=Math.max(...br.map(x=>Math.max(x.l,Math.abs(x.n))),.01);const r=R[sel];const real=r.l?r.n/r.l:0;const worst=br[br.length-1];
+ $('#pi').innerHTML=`<div class="pi">${ev.map((x,i)=>`<button type="button" data-ev="${i}" aria-pressed="${i===sel}"><small>${x.lab}</small><b class="${cls(R[i].n)}">${F.delta(R[i].n)}</b><span>neto cena ob ceniku ${F.delta(R[i].l)} · prijelo se je ${F.pct(R[i].l?Math.max(0,R[i].n/R[i].l):0,0)}</span></button>`).join('')}</div>
+ <p style="font-size:13.5px;color:var(--ink2);margin:0 0 10px">${ev[sel].lab}: ceniške cene so se dvignile za <b>${F.delta(r.l)}</b>, neto cene na enoto pa za <b>${F.delta(r.n)}</b> — v neto ceno se je preneslo <b>${F.pct(Math.max(0,real),0)}</b> dviga.${worst&&worst.n<r.n?` Najslabše se je dvig prijel v panogi <b>${esc(worst.nm)}</b> (${F.delta(worst.n)} neto).`:''}</p>
+ <div class="legend" style="margin-bottom:6px"><span><i style="background:#fff;box-shadow:inset 0 0 0 1.5px #404040"></i>Ceniška cena</span><span><i style="background:#404040"></i>Neto cena</span><span><i style="background:#d0101b"></i>Neto cena padla</span></div>
+ ${br.map(x=>`<div class="dual"><span>${esc(x.nm)}</span><span class="bars"><i style="width:${(x.l/mx*100).toFixed(1)}%;background:#fff;box-shadow:inset 0 0 0 1.5px #404040"></i><i style="width:${(x.n<0?Math.max(2,-x.n/mx*100):x.n/mx*100).toFixed(1)}%;background:${x.n<0?'#d0101b':'#404040'}"></i></span><span class="r">${F.delta(x.l)} → <b class="${cls(x.n)}">${F.delta(x.n)}</b></span></div>`).join('')}
+ <p class="foot-note">Razvrščeno po deležu prenosa. Filter panoge tu ni upoštevan, ostali filtri so.</p>`}
+function drawSim(){const X=+$('#simX').value/100,loss=+$('#simL').value/100;$('#oX').textContent=pp(X)+' o.t.';$('#oL').textContent=F.pct(loss,0);
+ const cu=C.cur.cu,T=C.cur.T,P=PER[ST.per];let rec=0,dG=0,aff=0,affNet=0;const byBr=new Float64Array(7);
+ for(let c=0;c<nC;c++){const d=C.dev[c];if(isNaN(d)||d<=0||X<=0)continue;const red=Math.min(X,d);const r=red*cu.lN[c];const nn=(cu.n[c]+r)*(1-loss),nc=cu.c[c]*(1-loss);const dg=(nn-nc)-(cu.n[c]-cu.c[c]);rec+=r;dG+=dg;aff++;affNet+=cu.n[c];byBr[custBr[c]]+=dg}
+ const months=P.m[1]-P.m[0]+1;const ann=dG*12/months;const gm0=T.gm/T.net;
+ let nNet=T.net,nGm=T.gm;{let dn=0,dc=0;for(let c=0;c<nC;c++){const d=C.dev[c];if(isNaN(d)||d<=0||X<=0)continue;const r=Math.min(X,d)*cu.lN[c];dn+=(cu.n[c]+r)*(1-loss)-cu.n[c];dc+=-cu.c[c]*loss}nNet=T.net+dn;nGm=T.gm+dn-dc}
+ $('#simSub').textContent=`${P.lab}${fTxt()?' · '+fTxt():''} · izhodišče: bruto marža ${F.eurK(T.gm)} (${F.pct(gm0)})`;
+ $('#simRes').innerHTML=`<div class="hero"><small>Dodatna bruto marža v obdobju</small><b>${dG>=0?'+':''}${F.eurK(dG)}</b></div><div><small>Na letni ravni</small><b class="${cls(ann)}">${ann>=0?'+':''}${F.eurK(ann)}</b></div><div><small>Marža %</small><b>${F.pct(nGm/nNet)}</b> <span class="${cls(nGm/nNet-gm0)}" style="font-weight:700;font-size:13px">${F.pp(nGm/nNet-gm0)}</span></div><div><small>Prizadeti kupci</small><b>${F.num(aff)}</b></div><div><small>Njihova prodaja</small><b>${F.eurK(affNet)}</b></div>`;
+ const items=S.branze.map((n,j)=>({n,v:byBr[j]})).filter(x=>x.v!==0).sort((a,b)=>b.v-a.v);const mx=Math.max(...items.map(x=>Math.abs(x.v)),1);
+ $('#simBr').innerHTML=`<h4 style="font:800 14px var(--fc);text-transform:uppercase;margin:0 0 8px">Učinek po panogah</h4>${items.map(x=>`<div class="hb"><span>${esc(x.n)}</span><span class="w-bar"><i style="width:${(Math.abs(x.v)/mx*100).toFixed(1)}%;background:${x.v<0?'#d0101b':'#2e8540'}"></i></span><span class="v ${cls(x.v)}">${x.v>0?'+':''}${F.eurK(x.v)}</span></div>`).join('')||'<p class="w-sub">Ni učinka pri izbranih nastavitvah.</p>'}
+ <p class="foot-note">${X>0?`Znižanje vrne ${F.eurK(rec)} cene; izguba ${F.pct(loss,0)} prodaje pri prizadetih kupcih ${loss>0?'zmanjša učinek':'ni upoštevana'}.`:'Premakni drsnik, da vidiš učinek.'}</p>`}
+boot(init);
+</script>
+</body></html>

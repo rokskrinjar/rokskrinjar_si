@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Würth Slovenija · koncepti</title>
+<meta name="description" content="Dva koncepta za Würth Slovenija: pametni katalog za kupce in analize prodaje (Sales Ops) za prodajno ekipo.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#cc0000;--ink:#222;--ink2:#555;--ink3:#767676;--line:#dddddd;--bg:#f6f6f6;--fc:'Roboto Condensed','Arial Narrow',Arial,sans-serif;--fb:Roboto,'Helvetica Neue',Helvetica,Arial,sans-serif;color-scheme:light}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--fb);-webkit-font-smoothing:antialiased}
+.top{height:6px;background:var(--red)}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 24px 64px}
+.logo{display:flex;align-items:center;gap:10px;font:800 26px var(--fc);letter-spacing:.06em;color:var(--ink)}
+.logo svg{height:30px;width:auto}
+h1{font:800 clamp(34px,5vw,58px)/1 var(--fc);text-transform:uppercase;margin:28px 0 12px;text-wrap:balance}
+.lead{font-size:18px;color:var(--ink2);max-width:62ch;margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:40px}
+.card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;text-decoration:none;color:inherit;transition:box-shadow .2s,transform .2s}
+.card:hover,.card:focus-visible{box-shadow:0 10px 28px rgba(0,0,0,.10);transform:translateY(-2px)}
+.card:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.thumb{aspect-ratio:16/10;background:#e9e9e9;overflow:hidden;border-bottom:1px solid var(--line)}
+.thumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.k{font:700 12px var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.card h2{font:800 28px/1.05 var(--fc);text-transform:uppercase;margin:0}
+.card p{margin:0;color:var(--ink2);font-size:15px}
+.go{margin-top:auto;padding-top:10px;font:700 14px var(--fb);color:var(--red)}
+.note{margin-top:34px;font-size:13px;color:var(--ink3);max-width:80ch}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.wrap{padding:32px 16px 48px}}
+</style>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head>
+<body>
+<div class="top"></div>
+<main class="wrap">
+ <div class="logo"><svg viewBox="0 0 30 30" aria-hidden="true"><path fill="#cc0000" d="M2 0.75H12.81V5.12H17.14V0.75H28V11.91H2ZM2 16.28H28A13 13 0 0 1 17.14 29.1V24.83H12.81V29.1A13 13 0 0 1 2 16.28Z"/></svg>WÜRTH SLOVENIJA</div>
+ <h1>Dva koncepta: za kupce in za prodajo</h1>
+ <p class="lead">Pametni katalog pomaga kupcu najti pravi izdelek. Sales Ops pomaga prodajni ekipi vedeti, komu kaj ponuditi — od analiz prodaje do seznamov kupcev in razporeda obiskov.</p>
+ <div class="grid">
+  <a class="card" href="../wuerth-katalog/">
+   <div class="thumb"><img src="img/katalog.jpg" alt="Pametni katalog — predogled" loading="lazy"></div>
+   <div class="body"><span class="k">Za kupce</span><h2>Pametni katalog</h2><p>Katalog vozičkov in orodja kot pametna spletna stran: iskanje v naravnem jeziku, primerjava, konfigurator predalov in AI svetovalec.</p><span class="go">Odpri pametni katalog →</span></div>
+  </a>
+  <a class="card" href="../wuerth-sales-ops/">
+   <div class="thumb"><img src="img/sales-ops.jpg" alt="Sales Ops — predogled" loading="lazy"></div>
+   <div class="body"><span class="k">Za prodajo</span><h2>Sales Ops</h2><p>Analize prodaje in orodja za prodajno ekipo: kokpiti, priložnosti, napovedi, komplementarni izdelki, terenski kokpit in razlage.</p><span class="go">Odpri Sales Ops →</span></div>
+  </a>
+ </div>
+ <p class="note">Koncepti. Strani z dejanskimi prodajnimi podatki so zaščitene z geslom; ostale uporabljajo izmišljene, simulirane podatke.</p>
+</main>
+</body>
+</html>

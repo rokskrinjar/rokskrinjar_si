@@ -1,0 +1,106 @@
+/* Würth Slovenija — skupna grafična podoba za demo analize prodaje.
+   Po wuerth.si: rdeča #CC0000, skoraj črna #222, sive ploskve, bela; naslovi v ozki, zelo krepki pisavi z velikimi črkami
+   (Würth Extra Bold Condensed → Roboto Condensed 800), besedilo v Helvetica-podobni pisavi (Würth Book → Roboto).
+   Načrtno ena (svetla) tema, kot spletna stran. Strani naložijo:
+   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700;800&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="brand.css"> */
+:root{
+ --red:#cc0000;--red-d:#a30000;--red-dd:#7a0000;--red-l:#f7d6d6;--red-ll:#fcefef;
+ --ink:#222;--ink2:#444;--ink3:#767676;--line:#dddddd;--line2:#e7e7e7;--bg:#f6f6f6;--panel:#fff;--band:#d6d6d6;
+ --ok:#2e7d32;--ok-l:#e5f2e6;--warn:#b26a00;--warn-l:#fbefdc;--bad:#cc0000;--bad-l:#fbe6e6;--info:#0b6e99;
+ --fc:'Roboto Condensed','Arial Narrow',Arial,sans-serif;--fb:Roboto,'Helvetica Neue',Helvetica,Arial,sans-serif;--fm:'Roboto Mono',ui-monospace,Menlo,monospace;
+ --r:4px;--r2:16px;
+ /* barve za kit.js */
+ --surface:#fff;--grid:#ececec;--s1:#404040;--s2:#a6a6a6;--s3:#737373;--s4:#cccccc;--s5:#1a1a1a;--s6:#8c8c8c;
+ --q1:#f4f4f4;--q2:#dedede;--q3:#c2c2c2;--q4:#959595;--q5:#5e5e5e;--q6:#2e2e2e;--qhi:#fff;--qlo:#222;--pos:#2e8540;--neg:#d0101b;--good:#2e7d32;--bad:#cc0000;--tipbg:#222;
+ /* IBCS (grafi): rdeča Würth je samo za podobo vmesnika, nikoli za podatke.
+    AC dejansko = temno siva polna, PY lani = svetlo siva, PL plan = obroba (bela s temnim robom), FC napoved = šrafura fill="url(#w-fc)" (vzorec doda wdata.js; ne kot spremenljivka, ker je --fc pisava),
+    odstopanja: zelena = dobro, rdeča = slabo; poudarek ene postavke = --hl; magnituda = siva lestvica --q1..--q6 */
+ --ac:#404040;--py:#b8b8b8;--pl:#ffffff;--pl-line:#404040;--hl:#1f5f99;--hl-l:#e3edf6;--tipfg:#fff;--cur:"€";
+ color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--fb);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--red)}
+.num,.mono{font-family:var(--fm);font-variant-numeric:tabular-nums}
+.tnum{font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+h1,h2,h3,.w-h{font-family:var(--fc);font-weight:800;text-transform:uppercase;letter-spacing:.005em;line-height:1.02;margin:0;text-wrap:balance}
+h1{font-size:clamp(28px,3.6vw,44px)}h2{font-size:clamp(22px,2.4vw,28px)}h3{font-size:18px}
+/* zgornji rdeči trak + glava kot na wuerth.si */
+.w-top{background:var(--red);color:#fff;font:700 12.5px/1 var(--fb);display:flex;align-items:center;gap:18px;padding:6px 24px;min-height:24px;flex-wrap:wrap}
+.w-top span{opacity:.92}.w-top b{font-weight:700}
+.w-head{background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:20px;padding:12px 24px;flex-wrap:wrap}
+.w-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);flex:none}
+.w-logo svg{height:30px;width:auto;display:block}
+.w-app{font:800 15px/1.1 var(--fc);text-transform:uppercase;color:var(--ink2);border-left:1px solid var(--line);padding-left:14px;letter-spacing:.01em}
+.w-app small{display:block;font:400 11.5px var(--fb);text-transform:none;color:var(--ink3);letter-spacing:0;margin-top:2px}
+.w-nav{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto}
+.w-nav button,.w-nav a{border:0;background:none;padding:8px 12px;font:700 13px var(--fb);color:var(--ink2);cursor:pointer;text-decoration:none;border-bottom:3px solid transparent}
+.w-nav .on,.w-nav [aria-selected=true]{color:var(--ink);border-bottom-color:var(--red)}
+.w-band{background:var(--band);padding:10px 24px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.w-band input[type=search],.w-search{flex:1;min-width:180px;border:0;background:#fff;padding:9px 12px;font-size:14px;border-radius:2px}
+.w-wrap{max-width:1360px;margin:0 auto;padding:22px 24px 70px}
+.w-title{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:6px 0 18px}
+.w-title p{margin:6px 0 0;color:var(--ink2);max-width:75ch}
+.w-kicker{font:700 12px var(--fb);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+/* gumbi, izbirniki */
+.w-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--ink);background:#fff;color:var(--ink);padding:8px 14px;border-radius:var(--r);font:700 13.5px var(--fb);cursor:pointer;white-space:nowrap;text-decoration:none}
+.w-btn:hover{background:var(--ink);color:#fff}
+.w-btn.red{background:var(--red);border-color:var(--red);color:#fff}.w-btn.red:hover{background:var(--red-d);border-color:var(--red-d)}
+.w-btn.ghost{border-color:var(--line);color:var(--ink2)}.w-btn.sm{padding:5px 10px;font-size:12.5px}
+.w-round{width:34px;height:34px;border-radius:50%;border:0;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.18);display:inline-grid;place-items:center;cursor:pointer;font-weight:700}
+.w-sel{border:1px solid var(--line);background:#fff;padding:7px 10px;border-radius:var(--r);font-size:13.5px;max-width:100%}
+.w-seg{display:inline-flex;border:1px solid var(--ink);border-radius:var(--r);overflow:hidden;max-width:100%;flex-wrap:wrap}
+.w-seg button{border:0;background:#fff;padding:7px 12px;font:700 13px var(--fb);cursor:pointer;color:var(--ink)}
+.w-seg button+button{border-left:1px solid var(--ink)}
+.w-seg button.on,.w-seg button[aria-pressed=true]{background:var(--ink);color:#fff}
+.w-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;padding:5px 11px;border-radius:999px;font:500 12.5px var(--fb);cursor:pointer;color:var(--ink2)}
+.w-chip.on{background:var(--red);border-color:var(--red);color:#fff}
+.w-filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.w-filters label{font:700 11px var(--fb);text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);display:flex;flex-direction:column;gap:4px}
+/* kartice in mreže */
+.w-card{background:var(--panel);border:1px solid var(--line2);border-radius:var(--r);padding:18px;min-width:0}
+.w-card.round{border-radius:var(--r2)}
+.w-card>h3,.w-card .w-ch{margin-bottom:4px}
+.w-sub{font-size:12.5px;color:var(--ink3);margin:0 0 12px}
+.w-g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.w-g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.w-g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.w-section{margin-top:26px}.w-section>h2{margin-bottom:12px}
+.w-rule{height:4px;width:44px;background:var(--red);margin:0 0 10px}
+/* KPI */
+.w-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.w-kpi{background:#fff;border:1px solid var(--line2);border-top:4px solid var(--red);border-radius:var(--r);padding:12px 14px;min-width:0}
+.w-kpi .l{font:700 11.5px var(--fb);text-transform:uppercase;letter-spacing:.05em;color:var(--ink3)}
+.w-kpi .v{font:800 30px/1.1 var(--fc);margin:6px 0 2px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.w-kpi .d{font-size:12.5px;font-weight:700}
+.up{color:var(--pos)}.dn{color:var(--neg)}.flat{color:var(--ink3)}
+/* tabele */
+.w-tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.w-t{width:100%;border-collapse:collapse;font-size:13.5px}
+.w-t th{text-align:left;font:700 11.5px var(--fb);text-transform:uppercase;letter-spacing:.04em;color:var(--ink3);padding:8px;border-bottom:2px solid var(--ink);white-space:nowrap;background:#fff}
+.w-t td{padding:8px;border-bottom:1px solid var(--line2);white-space:nowrap}
+.w-t .r{text-align:right}.w-t td.r{font-variant-numeric:tabular-nums}
+.w-t tr.click{cursor:pointer}.w-t tr.click:hover td{background:var(--bg)}
+.w-t tr.sel td{background:var(--hl-l)}
+.w-pill{display:inline-block;font:700 11px var(--fb);padding:2px 8px;border-radius:999px;background:var(--bg);color:var(--ink2)}
+.w-pill.ok{background:var(--ok-l);color:var(--ok)}.w-pill.warn{background:var(--warn-l);color:var(--warn)}.w-pill.bad{background:var(--bad-l);color:var(--bad)}.w-pill.red{background:var(--red);color:#fff}.w-pill.hl{background:var(--hl);color:#fff}.w-pill.hll{background:var(--hl-l);color:var(--hl)}
+.w-bar{height:8px;background:var(--line2);border-radius:2px;position:relative;overflow:hidden;min-width:50px}.w-bar i{position:absolute;inset:0 auto 0 0;background:var(--ac)}
+/* predal (drawer) za podrobnosti */
+.w-scrim{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:80;opacity:0;pointer-events:none;transition:opacity .2s}.w-scrim.on{opacity:1;pointer-events:auto}
+.w-drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:#fff;z-index:90;transform:translateX(102%);transition:transform .25s ease;display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(0,0,0,.2)}
+.w-drawer.on{transform:none}
+.w-drawer header{background:var(--ink);color:#fff;padding:14px 18px;display:flex;gap:12px;align-items:center;border-top:4px solid var(--red)}
+.w-drawer header h3{flex:1;font-size:20px;min-width:0}
+.w-drawer .x{border:0;background:rgba(255,255,255,.12);color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:18px}
+.w-drawer .body{padding:18px;overflow:auto;display:grid;gap:16px;align-content:start;padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
+.w-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.w-facts div{background:var(--bg);padding:8px 10px;border-radius:var(--r)}.w-facts small{display:block;color:var(--ink3);font-size:11.5px}.w-facts b{font-weight:700}
+/* noga z izjavo */
+.w-foot{border-top:4px solid var(--red);background:#fff;padding:18px 24px 60px;font-size:12.5px;color:var(--ink3);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.w-foot b{color:var(--ink)}
+.w-demo{display:inline-block;background:var(--ink);color:#fff;font:700 10.5px var(--fb);letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:2px}
+.w-loading{position:fixed;inset:0;background:var(--bg);z-index:200;display:grid;place-items:center;font:800 18px var(--fc);text-transform:uppercase;color:var(--ink2)}
+.w-loading[hidden]{display:none}
+@media(max-width:1000px){.w-g3,.w-g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.w-g2,.w-g3,.w-g4{grid-template-columns:1fr}.w-top,.w-head,.w-band{padding-left:16px;padding-right:16px}.w-wrap{padding:16px 16px 70px}.w-nav{margin-left:0;width:100%;overflow-x:auto;flex-wrap:nowrap}.w-nav button,.w-nav a{white-space:nowrap}.w-facts{grid-template-columns:1fr}.w-kpi .v{font-size:25px}}

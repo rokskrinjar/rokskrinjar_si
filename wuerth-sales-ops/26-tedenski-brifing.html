@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tedenski brifing · Würth Slovenija (demo)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#121212;--bg2:#1b1b1b;--line:#2c2c2c;--ink:#fff;--ink2:#c9c9c9;--ink3:#8c8c8c;--brand:#cc0000;--good:#3ccf6e;--good-l:rgba(60,207,110,.16);--bad:#ff4d4d;--bad-l:rgba(255,77,77,.16);--fc:'Roboto Condensed','Arial Narrow',Arial,sans-serif;--fb:Roboto,'Helvetica Neue',Arial,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--fb);-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit}a{color:inherit}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.top{height:4px;background:var(--brand)}
+.bar{display:flex;align-items:center;gap:16px;padding:12px 28px;flex-wrap:wrap}
+.logo{display:flex;align-items:center}.logo svg{height:26px;width:auto}
+.ttl{font:800 14px/1.1 var(--fc);text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);border-left:1px solid var(--line);padding-left:14px}
+.ttl small{display:block;font:400 11.5px var(--fb);text-transform:none;letter-spacing:0;color:var(--ink3)}
+.demo{font:700 10.5px var(--fb);letter-spacing:.08em;text-transform:uppercase;border:1px solid #555;color:var(--ink2);padding:3px 7px;border-radius:2px}
+.bar .sp{flex:1}.bar a.back{font:700 12.5px var(--fb);color:var(--ink2);text-decoration:none;border:1px solid var(--line);padding:6px 11px;border-radius:999px}.bar a.back:hover{color:#fff;border-color:#666}
+.segs{display:flex;gap:6px;padding:0 28px}
+.segs button{flex:1;height:18px;border:0;background:none;padding:7px 0;cursor:pointer;position:relative}
+.segs button i{position:absolute;left:0;right:0;top:7px;height:4px;background:#333;border-radius:2px;overflow:hidden;display:block}
+.segs button i b{position:absolute;inset:0 auto 0 0;width:0;background:#fff;display:block}
+.segs button.done i b{width:100%}
+.stage{position:relative;height:calc(100% - 4px - 56px - 18px - 70px);min-height:420px;padding:18px 28px 0;display:grid;grid-template-rows:auto auto 1fr;max-width:1320px;margin:0 auto}
+.kick{font:700 12.5px var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);display:flex;gap:10px;align-items:center}
+.kick b{color:#fff;background:#2a2a2a;border-radius:999px;padding:2px 9px}
+h1{font:800 clamp(30px,4.6vw,66px)/1.0 var(--fc);text-transform:uppercase;margin:10px 0 6px;letter-spacing:.005em;text-wrap:balance;max-width:24ch}
+h1 em{font-style:normal}h1 .g{color:var(--good)}h1 .r{color:var(--bad)}
+.cap{color:var(--ink2);font-size:clamp(15px,1.4vw,19px);max-width:70ch;margin:0;min-height:1.5em}
+.vis{position:relative;min-height:0;display:flex;align-items:center;justify-content:center;padding:10px 0}
+.vis svg{width:100%;height:100%;max-height:100%;display:block;overflow:visible}
+.vis svg{fill:#fff}svg text{font-family:var(--fb);paint-order:stroke;stroke:#121212;stroke-width:4px;stroke-linejoin:round}
+.fade{opacity:0;transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}.fade.in{opacity:1}
+.up{transform:translateY(14px)}.up.in{transform:none}
+.start{position:fixed;inset:0;z-index:40;background:radial-gradient(ellipse at 30% 20%,#2a0a0a 0,#121212 55%);display:grid;place-items:center;padding:24px}
+.start[hidden]{display:none}
+.start>div{max-width:760px}.start .k{font:700 13px var(--fb);letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+.start h2{font:800 clamp(44px,8vw,104px)/.95 var(--fc);text-transform:uppercase;margin:14px 0 12px}.start p{color:var(--ink2);font-size:18px;margin:0 0 26px;max-width:52ch}
+.start .sb{display:flex;gap:12px;flex-wrap:wrap}.start .go{background:#fff;color:#111;border:0;border-radius:999px;padding:16px 26px;font:800 18px var(--fc);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;display:inline-flex;gap:10px;align-items:center}
+.start .go:hover{background:#e8e8e8}.start .mute{background:transparent;color:#fff;border:1px solid #555;border-radius:999px;padding:16px 22px;font:700 15px var(--fb);cursor:pointer}.start .mute:hover{border-color:#bbb}
+.start small{display:block;margin-top:18px;color:var(--ink3);font-size:12.5px}
+.subs{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);max-width:min(900px,calc(100% - 32px));text-align:center;font:500 clamp(15px,1.6vw,20px)/1.4 var(--fb);color:#fff;background:rgba(0,0,0,.72);padding:8px 16px;border-radius:8px;z-index:30;pointer-events:none}
+.subs:empty{display:none}
+body.voiced .stage{height:calc(100% - 4px - 56px - 18px - 70px - 70px)}body.voiced .subs{bottom:78px}
+.cb.on{border-color:#fff}
+.ctrl{position:fixed;left:0;right:0;bottom:0;height:70px;display:flex;align-items:center;gap:10px;padding:0 28px calc(env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,rgba(0,0,0,.65) 40%)}
+.cb{width:44px;height:44px;border-radius:50%;border:1px solid #444;background:#1c1c1c;cursor:pointer;display:grid;place-items:center}.cb:hover{border-color:#888}.cb svg{width:18px;height:18px;fill:#fff}
+.cb.main{width:52px;height:52px;background:#fff;border-color:#fff}.cb.main svg{fill:#111}
+.ctrl .sp{flex:1}
+.why{font:700 13.5px var(--fb);text-decoration:none;border:1px solid #444;border-radius:999px;padding:9px 15px;background:#1c1c1c}.why:hover{border-color:#aaa}
+.hint{color:var(--ink3);font-size:12.5px}
+/* prizor: kartice odločitev */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;width:100%;align-self:start;margin-top:10px}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px;opacity:0;transform:translateY(30px);transition:opacity .6s,transform .7s cubic-bezier(.2,.8,.2,1)}
+.card.in{opacity:1;transform:none}
+.card .n{font:800 13px var(--fc);letter-spacing:.12em;color:var(--ink3)}
+.card h3{font:800 24px/1.05 var(--fc);text-transform:uppercase;margin:0}
+.card .eff{font:800 40px/1 var(--fc);color:var(--good);font-variant-numeric:tabular-nums}
+.card .eff small{display:block;font:500 13px var(--fb);color:var(--ink2);margin-top:4px}
+.card p{margin:0;color:var(--ink2);font-size:14px}
+.card .cost{font-size:13px;color:var(--ink3)}
+.card .bt{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+.btn{border:1px solid #555;background:transparent;border-radius:999px;padding:8px 14px;font:700 13px var(--fb);cursor:pointer;text-decoration:none}
+.btn:hover{border-color:#bbb}.btn.ok{background:var(--good);border-color:var(--good);color:#06210f}.btn.meet{background:#fff;color:#111;border-color:#fff}
+.card.ok{border-color:var(--good)}.card.meet{border-color:#fff}
+/* ekipa: kartice imen */
+.people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;width:100%;margin-top:6px}
+.pp{border-left:4px solid #555;padding:4px 0 4px 12px;opacity:0;transform:translateY(12px);transition:.6s}.pp.in{opacity:1;transform:none}
+.pp.bad{border-color:var(--bad)}.pp.good{border-color:var(--good)}.pp b{font:800 20px var(--fc);text-transform:uppercase;display:block}.pp span{color:var(--ink2);font-size:14px}
+.vcol{display:flex;flex-direction:column;width:100%;height:100%;min-height:0}
+.vcol>svg{flex:1;min-height:0}
+.outro{display:grid;gap:10px;width:min(720px,100%);align-self:start;margin-top:14px}
+.outro div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:10px 0;font-size:17px}
+.outro .st{font:800 14px var(--fc);text-transform:uppercase;letter-spacing:.06em}
+.st.ok{color:var(--good)}.st.meet{color:#fff}.st.open{color:var(--ink3)}
+.loading{position:fixed;inset:0;background:var(--bg);display:grid;place-items:center;z-index:50;font:800 18px var(--fc);text-transform:uppercase;letter-spacing:.08em;color:var(--ink2)}
+.loading[hidden]{display:none}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pl 1.8s ease-out infinite}
+@keyframes pl{0%{opacity:.85;transform:scale(1)}70%{opacity:0;transform:scale(2.6)}100%{opacity:0;transform:scale(2.6)}}
+.w-bk{display:none!important}
+@media(max-width:900px){.cards,.people{grid-template-columns:1fr}.card{padding:16px}.card .eff{font-size:32px}body{overflow:auto}.stage{height:auto;min-height:calc(100vh - 150px);padding:14px 16px 90px}.bar,.segs{padding-left:16px;padding-right:16px}.ctrl{padding:0 16px}.hint,.lw{display:none}.vis{min-height:300px}}
+@media(prefers-reduced-motion:reduce){.fade,.card,.pp{transition:none}.pulse{animation:none}}
+
+.vis{flex-direction:column;justify-content:safe center;align-items:stretch;overflow-y:auto;overflow-x:hidden}
+.stage{grid-template-rows:auto auto auto minmax(0,1fr)}
+.vis>*{flex:none}.vis>svg{max-height:100%}
+.mc{display:grid;gap:22px;width:100%;align-self:start;margin-top:8px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ctr{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:18px 20px}.ctr b{display:block;font:800 clamp(44px,6vw,84px)/1 var(--fc);font-variant-numeric:tabular-nums}.ctr span{color:var(--ink2);font-size:15px}
+.ctr.g b{color:var(--good)}.ctr.r b{color:var(--bad)}.ctr.w b{color:#fff}
+.lists{display:grid;grid-template-columns:1fr 1fr;gap:18px}.lists.one{grid-template-columns:1fr}
+.lists h4{font:700 12.5px var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:0 0 6px}
+.lr{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:9px 0;font-size:16px;opacity:0;transform:translateY(10px);transition:.5s}.lr.in{opacity:1;transform:none}.lr small{color:var(--ink3);display:block;font-size:12.5px}.lr.g b{color:var(--good)}.lr.r b{color:var(--bad)}
+.cal{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;width:100%;align-self:start}
+.cd h4{font:800 16px var(--fc);text-transform:uppercase;margin:0 0 8px;border-bottom:2px solid #fff;padding-bottom:4px}.cd h4 small{font:500 12px var(--fb);color:var(--ink3)}
+.it{border-radius:9px;padding:7px 9px;margin-bottom:7px;font-size:12.5px;line-height:1.3;display:grid;gap:1px;opacity:0;transform:translateY(10px);transition:.45s}.it.in{opacity:1;transform:none}
+.it b{font:700 10.5px var(--fb);letter-spacing:.06em;text-transform:uppercase;opacity:.75}.it small{opacity:.7;font-size:11.5px}
+.it.cust{background:#fff;color:#111}.it.int{background:#2a2a2a}.it.dl{border:1.5px dashed #9a9a9a}.it.ev{border:1.5px solid #fff}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--ink3)}.legend span::before{content:"";display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.legend .cust::before{background:#fff}.legend .int::before{background:#2a2a2a;border:1px solid #555}.legend .dl::before{border:1.5px dashed #9a9a9a}.legend .ev::before{border:1.5px solid #fff}.legend .ful::before{background:#5a5a5a}.legend .wt::before{background:#fff}
+.lst{display:grid;gap:10px;width:100%;align-self:start;margin-top:6px}
+.pr{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:16px;align-items:center;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 16px;opacity:0;transform:translateY(12px);transition:.5s}.pr.in{opacity:1;transform:none}
+.pr b{font:800 17px/1.1 var(--fc);text-transform:uppercase;display:block}.pr span{color:var(--ink2);font-size:13.5px}.pr .v{text-align:right}.pr .v b{font-size:22px}.pr .v small{display:block;color:var(--ink3);font-size:12px}
+.pr .bar{height:14px;background:#262626;border-radius:3px;position:relative;overflow:hidden}.pr .bar i,.pr .bar u{position:absolute;left:0;top:0;bottom:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}.pr .bar i{background:#5a5a5a}.pr .bar u{background:#fff}
+.pr.tp{grid-template-columns:auto minmax(0,1fr) auto}.pr .no{font:800 34px var(--fc);color:var(--ink3);width:40px;text-align:center}
+.tg{color:var(--good)}.tr{color:var(--bad)}
+@media(max-width:900px){.duo,.lists,.cal{grid-template-columns:1fr}.pr{grid-template-columns:1fr}.pr .v{text-align:left}.pr.tp{grid-template-columns:auto 1fr}.pr.tp .v{grid-column:2}}
+</style>
+<script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
+</head>
+<body>
+<div class="loading" id="loading">Pripravljam brifing …</div>
+<div class="top"></div>
+<div class="bar"><span class="logo" id="logo"></span><div class="ttl">Tedenski brifing<small id="sub">teden 2.–6. 11. 2026 · pogled naprej · 5 prizorov</small></div><span class="demo">Demo podatki — izmišljeno</span><span class="sp"></span><a class="back" href="index.html">← Vse analize</a></div>
+<div class="segs" id="segs" role="tablist" aria-label="Prizori"></div>
+<main class="stage" id="stage" aria-live="polite"></main>
+<div class="start" id="start" hidden><div><span class="k">Würth Slovenija · prodaja · ponedeljek, 2. 11. 2026</span><h2>Tedenski brifing</h2><p>Pogled naprej za ta teden, vsak prvi delovni dan v tednu: plan tedna, koledar sestankov in rokov, projekti, ki se odločajo, kupci, ki naj bi naročili, in pet prioritet.</p><div class="sb"><button class="go" id="goVoice"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M7 4.5v15L19.5 12z" fill="#111"/></svg>Predvajaj z glasom</button><button class="mute" id="goMute">Brez zvoka</button></div><small id="vNote">Glas: ElevenLabs eleven_v4 · podnapisi so vključeni</small></div></div>
+<div class="subs" id="subs" aria-hidden="true"></div>
+<div class="ctrl"><button class="cb" id="prev" aria-label="Prejšnji prizor"><svg viewBox="0 0 24 24"><path d="M15.5 5 8 12l7.5 7z"/></svg></button><button class="cb main" id="play" aria-label="Premor"><svg viewBox="0 0 24 24" id="playI"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></button><button class="cb" id="voice" aria-label="Glas" aria-pressed="false"><svg viewBox="0 0 24 24" id="voiceI"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 8.5a5 5 0 0 1 0 7" fill="none" stroke="#fff" stroke-width="2"/></svg></button><button class="cb" id="next" aria-label="Naslednji prizor"><svg viewBox="0 0 24 24"><path d="M8.5 5 16 12l-7.5 7z"/></svg></button><span class="hint">Preslednica = premor · ← → = prizori</span><span class="sp"></span><a class="why" id="why" href="#">Zakaj?<span class="lw"> Podrobna analiza</span> →</a></div>
+<script src="wdata.js"></script>
+<script src="growth.js"></script>
+<script src="brief.js"></script>
+<script src="audio/brief-week-cues.js" onerror="window.BRIEF_CUES_WEEK=null"></script>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+$('logo').innerHTML='<svg viewBox="0 0 150 30" role="img" aria-label="Würth"><path fill="#cc0000" d="M2 0.75H12.81V5.12H17.14V0.75H28V11.91H2ZM2 16.28H28A13 13 0 0 1 17.14 29.1V24.83H12.81V29.1A13 13 0 0 1 2 16.28Z"/><text x="34" y="24" font-family="Roboto Condensed,Arial Narrow,Arial,sans-serif" font-weight="800" font-size="25" letter-spacing="1.2" fill="#fff">WÜRTH</text></svg>';
+const STATIC=location.hash.startsWith('#t')||matchMedia('(prefers-reduced-motion: reduce)').matches;
+let S,F,U=W.util,D,M;
+const DEC_KEY='wu23-dec';let DEC={};try{DEC=JSON.parse(localStorage.getItem(DEC_KEY)||'{}')}catch(e){}const saveDec=()=>{try{localStorage.setItem(DEC_KEY,JSON.stringify(DEC))}catch(e){}};
+const mio=v=>F.dec(v/1e6,1)+' mio €';
+
+// ---------- izračuni za brifing ----------
+
+// ---------- animacijski pomočniki ----------
+let token=0,timers=[];
+const at=(ms,fn)=>{const t=token;if(STATIC){fn();return}timers.push(setTimeout(()=>{if(t===token)fn()},ms))};
+const ease=t=>1-Math.pow(1-t,3);
+function tween(ms,fn){const t0=performance.now(),tk=token;if(STATIC){fn(1);return}const step=now=>{if(tk!==token)return;const k=Math.min(1,(now-t0)/ms);fn(ease(k));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step);timers.push(setTimeout(()=>{if(tk===token)fn(1)},ms+400))}
+function count(el,to,ms,fmt){tween(ms,k=>el.textContent=fmt(to*k))}
+const NS='http://www.w3.org/2000/svg';
+function sv(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+const NARROW=innerWidth<640,FS=NARROW?1.75:1;
+function txt(parent,x,y,s,attrs={}){if(attrs['font-size'])attrs={...attrs,'font-size':attrs['font-size']*FS};const t=sv('text',{x,y,...attrs},parent);t.textContent=s;return t}
+function show(el,ms){at(ms,()=>el.classList.add('in'))}
+
+// ---------- prizori ----------
+const SCENES=[
+ {k:'Ta teden',why:'01-prodajni-kokpit.html',dur:11000,run:w1},
+ {k:'Koledar tedna',why:'14-ponudbe.html',dur:15000,run:w2},
+ {k:'Projekti, ki se odločajo',why:'14-ponudbe.html',dur:11000,run:w3},
+ {k:'Kupci ta teden',why:'04-opozorila-odliva.html',dur:11500,run:w4},
+ {k:'Prioritete tedna',why:'22-growth-engine.html',dur:0,run:w5}];
+function frame(i,head,cap){$('stage').innerHTML=`<div class="kick"><b>${i+1} / ${SCENES.length}</b>${esc(SCENES[i].k)}</div><h1 class="fade up" id="h">${head}</h1><p class="cap fade" id="cap">${cap}</p><div class="vis" id="vis"></div>`;show($('h'),150);show($('cap'),700);return $('vis')}
+const cName=o=>o.cust!=null?S.cust(o.cust).name:S.prospects[o.pros].name;
+function w1(i){const lv=M.last/M.lastPl-1;const vis=frame(i,`Plan tedna: <em>${F.eurK(M.pl)}</em> — <em>${F.eurK(M.perDay)}</em> na dan.`,`Pretekli teden (26.–30. 10.) smo prodali ${F.eurK(M.last)}, <span class="${lv<0?'tr':'tg'}">${F.delta(lv,0)}</span> glede na tedenski plan.`);
+ const W0=NARROW?560:1000,H=250,L0=NARROW?170:220,mx=Math.max(M.pl,M.last,M.lastPl)*(NARROW?1.45:1.18),x=v=>L0+(W0-L0-30)*v/mx;const g=sv('svg',{viewBox:`0 0 ${W0} ${H}`,role:'img','aria-label':'Ta teden proti preteklemu'},vis);
+ txt(g,L0-16,58,'Pretekli teden',{'text-anchor':'end','font-size':19,'font-weight':700,fill:'#9a9a9a'});const b0=sv('rect',{x:L0,y:30,height:42,width:0,fill:'#5a5a5a',rx:3},g);const l0=txt(g,0,58,'',{'font-size':19,'font-weight':800,fill:'#c9c9c9'});
+ const t0=sv('line',{x1:x(M.lastPl),x2:x(M.lastPl),y1:22,y2:80,stroke:'#fff','stroke-width':3,opacity:0},g);
+ txt(g,L0-16,158,'Ta teden',{'text-anchor':'end','font-size':21,'font-weight':800});const b1=sv('rect',{x:L0,y:128,height:48,width:0,fill:'none',stroke:'#fff','stroke-width':2.5,'stroke-dasharray':'7 4',rx:3},g);const l1=txt(g,0,159,'',{'font-size':21,'font-weight':800});
+ const dn=['pon','tor','sre','čet','pet'];const ticks=dn.map((d,j)=>{const xx=x(M.perDay*(j+1));const gg=sv('g',{opacity:0,style:'transition:opacity .4s'},g);sv('line',{x1:xx,x2:xx,y1:128,y2:176,stroke:'#fff','stroke-width':1,opacity:.6},gg);txt(gg,x(M.perDay*(j+.5)),200,d,{'text-anchor':'middle','font-size':14,fill:'#9a9a9a'});return gg});
+ at(400,()=>tween(900,k=>{b0.setAttribute('width',(x(M.last)-L0)*k);l0.setAttribute('x',x(Math.max(M.last,M.lastPl))*1+12);l0.textContent=F.eurK(M.last*k)}));at(1400,()=>t0.setAttribute('opacity',1));
+ at(2000,()=>tween(1000,k=>{b1.setAttribute('width',(x(M.pl)-L0)*k);l1.setAttribute('x',x(M.pl*k)+12);l1.textContent='cilj '+F.eurK(M.pl*k)}));
+ ticks.forEach((t,j)=>at(3200+j*250,()=>t.setAttribute('opacity',1)))}
+function w2(i){const vis=frame(i,`${M.meet} sestankov s kupci, ${M.dl} rokov za odločitve.`,'Koledar tedna od ponedeljka 2. do petka 6. novembra: sestanki s kupci, roki projektov in interni dogodki.');
+ const lab={cust:'Kupec',int:'Interno',dl:'Rok',ev:'Dogodek'};
+ vis.innerHTML=`<div class="cal">${M.days.map(d=>`<div class="cd"><h4>${esc(d.wd)} <small>${d.dt.getDate()}. ${d.dt.getMonth()+1}.</small></h4>${d.items.map(it=>`<div class="it ${it.k}"><b>${it.k==='dl'?'Rok odločitve':(esc(it.t)||'Ves dan')+' · '+lab[it.k]}</b><span>${esc(it.txt)}</span><small>${esc(it.sub)}${it.v?' · '+F.eurK(it.v):''}</small></div>`).join('')}</div>`).join('')}</div><div class="legend"><span class="cust">sestanek s kupcem</span><span class="dl">rok odločitve</span><span class="int">interno</span><span class="ev">dogodek</span></div>`;
+ document.querySelectorAll('.cal .cd').forEach((c,j)=>c.querySelectorAll('.it').forEach((e,k)=>show(e,600+j*700+k*180)))}
+function w3(i){const P=M.proj.slice(0,5);const vis=frame(i,`Ta teden se odloča <em class="g">${F.eurK(M.projV)}</em> tehtanih projektov.`,`${M.proj.length} odprtih ponudb ima pričakovani rok odločitve ta teden. Tehtano = vrednost × verjetnost faze.`);
+ const mx=Math.max(1,...P.map(x=>x.q.value));
+ vis.innerHTML=`<div class="lst">${P.map(({q,w})=>{const c=S.cust(q.cust),r=S.rep(q.rep);return`<div class="pr"><div><b>${esc(q.type)}</b><span>${esc(c.name)} · ${esc(r?r.name:'—')} · ${esc(q.stage||'')}</span></div><div class="bar"><i style="width:0" data-w="${100*q.value/mx}"></i><u style="width:0" data-w="${100*w/mx}"></u></div><div class="v"><b>${F.eurK(q.value)}</b><small>${F.pct(q.prob||.35,0)} · tehtano ${F.eurK(w)}</small></div></div>`}).join('')}</div><div class="legend"><span class="ful">vrednost ponudbe</span><span class="wt">tehtana vrednost</span></div>`;
+ document.querySelectorAll('.pr').forEach((e,j)=>{show(e,500+j*400);at(700+j*400,()=>e.querySelectorAll('[data-w]').forEach(b=>b.style.width=b.dataset.w+'%'))})}
+function w4(i){const vis=frame(i,`${F.num(M.due.length)} kupcev naj bi ta teden naročilo. <em class="r">${M.crit.length}</em> kritično zamuja.`,`Po svojem običajnem ritmu naročanja; skupaj okoli ${F.eurK(M.dueV)}. Kritični so kupci, ki naročajo bistveno redkeje kot običajno.`);
+ vis.innerHTML=`<div class="mc"><div class="duo"><div class="ctr w"><b id="cd">0</b><span>kupcev naj bi naročilo · ~${F.eurK(M.dueV)}</span></div><div class="ctr r"><b id="cc">0</b><span>kritično zamuja</span></div></div><div class="lists one"><div><h4>Kritični kupci — klic ali obisk še ta teden</h4>${M.crit.map(o=>{const c=S.cust(o.cust);return`<div class="lr r"><span>${esc(c.name)} <small>${esc(c.town)} · ${esc(S.rep(o.rep).name)}</small></span><b>${F.eurK(c.rev12)} / leto</b></div>`}).join('')}</div></div></div>`;
+ at(400,()=>count($('cd'),M.due.length,1500,v=>F.num(v)));at(800,()=>count($('cc'),M.crit.length,1200,v=>Math.round(v)));document.querySelectorAll('.lr').forEach((e,j)=>show(e,2400+j*400))}
+function w5(i){const vis=frame(i,'Pet prioritet tedna.','Razvrščene po pričakovani vrednosti in nujnosti iz vseh desetih strategij rasti. Vsaka je že dodeljena svetovalcu.');
+ vis.innerHTML=`<div class="lst">${M.top.map((o,j)=>{const r=S.rep(o.rep);return`<div class="pr tp"><div class="no">${j+1}</div><div><b>${esc(o.title)}</b><span>${esc(cName(o))} · ${esc(r?r.name:'—')} · strategija ${o.s}: ${esc(G.SI(o.s).name.toLowerCase())}</span></div><div class="v"><b class="tg">${F.eurK(o.ev)}</b><small>pričakovano v 12 mes.</small></div></div>`}).join('')}</div><div class="outro" style="margin-top:6px"><div style="border:0;gap:10px;justify-content:flex-start;flex-wrap:wrap"><button class="btn" id="again">↺ Ponovi brifing</button><a class="btn" href="22-growth-engine.html">Moj dan za svetovalce →</a><a class="btn" href="25-mesecni-brifing.html">Mesečni brifing →</a></div></div>`;
+ document.querySelectorAll('.pr').forEach((e,j)=>show(e,500+j*350));$('again').onclick=()=>go(0)}
+
+// ---------- predvajanje ----------
+let cur=0,playing=!STATIC,t0=0,elapsed=0,raf=0;
+const CUES=window.BRIEF_CUES_WEEK;let cuesOk=false,voice=false;const au=new Audio();au.preload='auto';
+const sceneDur=j=>{const d=SCENES[j].dur;if(!d)return 0;return voice&&cuesOk?Math.max(d,CUES.scenes[j].dur*1000+700):d};
+function startAudio(){if(!(voice&&cuesOk))return;au.src='audio/brief-week-'+(cur+1)+'.mp3';try{au.currentTime=0}catch(e){}if(playing)au.play().catch(()=>{})}
+function setVoice(v){voice=v&&cuesOk;document.body.classList.toggle('voiced',voice);$('voice').setAttribute('aria-pressed',voice);$('voice').classList.toggle('on',voice);$('voiceI').innerHTML=voice?'<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 8.5a5 5 0 0 1 0 7" fill="none" stroke="#fff" stroke-width="2"/>':'<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="m16 9 5 6m0-6-5 6" stroke="#fff" stroke-width="2"/>';if(!voice){au.pause();$('subs').textContent=''}else{au.src='audio/brief-week-'+(cur+1)+'.mp3';const t=Math.max(0,elapsed/1000);au.addEventListener('loadedmetadata',()=>{try{au.currentTime=Math.min(t,au.duration-.1)}catch(e){}},{once:true});if(playing)au.play().catch(()=>{})}}
+function segs(){$('segs').innerHTML=SCENES.map((s,j)=>`<button role="tab" aria-selected="${j===cur}" aria-label="Prizor ${j+1}: ${esc(s.k)}" data-j="${j}" class="${j<cur?'done':''}"><i><b id="sb${j}"></b></i></button>`).join('')}
+function go(j){token++;timers.forEach(clearTimeout);timers=[];cur=Math.max(0,Math.min(SCENES.length-1,j));elapsed=0;t0=performance.now();segs();SCENES[cur].run(cur);au.pause();$('subs').textContent='';startAudio();$('why').href=SCENES[cur].why;$('sub').textContent=`teden 2.–6. 11. 2026 · prizor ${cur+1} od ${SCENES.length}`;if(!SCENES[cur].dur){const b=$('sb'+cur);if(b)b.style.width='100%'}}
+function tick(now){raf=requestAnimationFrame(tick);if(voice&&cuesOk){const t=au.paused&&!au.currentTime?elapsed/1000:au.currentTime,L=CUES.scenes[cur].lines.find(l=>t>=l[0]-.05&&t<=l[1]+.5);const tx=L?L[2]:'';if($('subs').textContent!==tx)$('subs').textContent=tx}const d=sceneDur(cur);if(playing){elapsed+=now-t0}t0=now;if(!d)return;const b=$('sb'+cur);if(b)b.style.width=Math.min(100,100*elapsed/d)+'%';if(playing&&elapsed>=d)go(cur+1)}
+function setPlay(p){playing=p;if(voice&&cuesOk){if(p&&!au.ended)au.play().catch(()=>{});else au.pause()}$('play').setAttribute('aria-label',p?'Premor':'Predvajaj');$('playI').innerHTML=p?'<path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/>':'<path d="M7 4.5v15L19.5 12z"/>'}
+$('play').onclick=()=>setPlay(!playing);$('voice').onclick=()=>setVoice(!voice);$('next').onclick=()=>go(cur+1);$('prev').onclick=()=>go(cur-1);
+$('segs').onclick=e=>{const b=e.target.closest('[data-j]');if(b)go(+b.dataset.j)};
+addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('a,button')&&e.key===' ')return;if(e.key===' '){e.preventDefault();setPlay(!playing)}else if(e.key==='ArrowRight')go(cur+1);else if(e.key==='ArrowLeft')go(cur-1)});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-dec]');if(!b)return;const id=b.dataset.dec,v=b.dataset.v;DEC[id]=DEC[id]===v?undefined:v;if(!DEC[id])delete DEC[id];saveDec();const st=DEC[id];const card=b.closest('.card');card.className='card in '+(st||'');card.querySelectorAll('[data-dec]').forEach(x=>{const on=x.dataset.v===st;x.className='btn '+(on?x.dataset.v:'');x.textContent=x.dataset.v==='ok'?(on?'✓ Potrjeno':'Potrdi'):(on?'Na seji':'Na sejo')})});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)setPlay(false)});
+
+function init(){S=W.load();F=S.fmt;D=G.compute(S);M=B.week(S,D);
+ cuesOk=!!(CUES&&CUES.hash===W.util.hash(B.narrWeek(S,M).flat().map(x=>x.say).join(' ')).toString(36));
+ if(!cuesOk){$('voice').disabled=true;$('voice').title='Posnetek pripovedi ne ustreza trenutnim podatkom — znova poženi tools/brief-voice.js --brief week';$('goVoice').hidden=true;$('vNote').textContent='Pripoved ni na voljo za te podatke.'}
+ const hp=/p(\d)/.exec(location.hash);const first=hp?+hp[1]-1:0;$('loading').hidden=true;
+ if(STATIC){setPlay(false);go(first);return}
+ setPlay(false);$('start').hidden=false;$('goVoice').focus();
+ const begin=v=>{$('start').hidden=true;setVoice(v);setPlay(true);go(first);t0=performance.now();raf=requestAnimationFrame(tick)};
+ $('goVoice').onclick=()=>begin(true);$('goMute').onclick=()=>begin(false)}
+let started=false;const start=()=>{if(started)return;started=true;init()};requestAnimationFrame(()=>setTimeout(start,30));setTimeout(start,400);
+</script>
+</body>
+</html>
