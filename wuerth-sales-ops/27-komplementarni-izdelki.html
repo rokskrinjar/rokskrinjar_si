@@ -10,17 +10,22 @@ button{border:0;background:#222;color:#fff;border-radius:4px;padding:10px 16px;f
 <script>if(window===window.top)document.head.appendChild(Object.assign(document.createElement("script"),{defer:true,src:"/_vercel/insights/script.js"}))</script>
 </head><body><main class="c" id="gate" hidden><span class="k">Würth Slovenija · zaščiteno</span><h1>Komplementarni izdelki</h1>
 <p>Stran uporablja zaupne prodajne podatke in je zaščitena z geslom. Geslo velja za vse zaščitene strani do zaprtja zavihka.</p>
-<form id="f"><input id="pw" type="password" autocomplete="current-password" aria-label="Geslo" placeholder="Geslo" required><button>Odkleni</button></form><div class="e" id="e"></div><a href="index.html">← Vse analize</a></main>
+<form id="f"><input id="pw" type="password" autocomplete="off" data-1p-ignore data-lpignore="true" spellcheck="false" autocapitalize="off" aria-label="Geslo" placeholder="Geslo" required><button>Odkleni</button></form><div class="e" id="e"></div><a href="index.html">← Vse analize</a></main>
 <script>
-(async()=>{const SALT=Uint8Array.from(atob('0PS/rTPIxGObz7oYsNrSzg=='),c=>c.charCodeAt(0)),ITER=310000,BIN='secure/'+location.pathname.split('/').pop().replace(/\.html$/,'')+'.bin';
+(async()=>{const SALT=Uint8Array.from(atob('C4aQxOnYpGjLrduL/FfH8Q=='),c=>c.charCodeAt(0)),ITER=310000,BIN='secure/'+location.pathname.split('/').pop().replace(/\.html$/,'')+'.bin';
 const g=document.getElementById('gate');
-async function open(raw){const key=await crypto.subtle.importKey('raw',raw,'AES-GCM',false,['decrypt']);const b=new Uint8Array(await (await fetch(BIN,{cache:'no-cache'})).arrayBuffer());
- const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b.slice(0,12)},key,b.slice(12));const html=new TextDecoder().decode(pt);document.open();document.write(html);document.close()}
+let BUF=null;async function bin(){if(BUF)return BUF;const r=await fetch(BIN,{cache:'no-cache'});if(!r.ok)throw Object.assign(new Error('Datoteke ni mogoče naložiti ('+r.status+').'),{load:1});return BUF=new Uint8Array(await r.arrayBuffer())}
+async function tryKey(raw){const key=await crypto.subtle.importKey('raw',raw,'AES-GCM',false,['decrypt']);const b=await bin();try{return new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b.slice(0,12)},key,b.slice(12)))}catch(e){return null}}
+function show(html){document.open();document.write(html);document.close()}
+async function open(raw){const html=await tryKey(raw);if(html==null)return false;show(html);return true}
 async function derive(pw){const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);return new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',salt:SALT,iterations:ITER,hash:'SHA-256'},base,256))}
 let saved=null;try{saved=sessionStorage.getItem('wso-k')}catch(e){}
-if(saved){try{await open(Uint8Array.from(atob(saved),c=>c.charCodeAt(0)));return}catch(e){try{sessionStorage.removeItem('wso-k')}catch(_){}}}
+if(saved){try{if(await open(Uint8Array.from(atob(saved),c=>c.charCodeAt(0))))return}catch(e){}try{sessionStorage.removeItem('wso-k')}catch(_){}}
 g.hidden=false;document.getElementById('pw').focus();
 document.getElementById('f').addEventListener('submit',async ev=>{ev.preventDefault();const e=document.getElementById('e');e.textContent='Preverjam …';
- try{const raw=await derive(document.getElementById('pw').value);await open(raw);try{sessionStorage.setItem('wso-k',btoa(String.fromCharCode(...raw)))}catch(_){}}
- catch(x){e.textContent='Napačno geslo.'}})})();
+ const v=document.getElementById('pw').value,t=v.trim(),q=t.replace(/[“”„«»″]/g,'"').replace(/[‘’‚]/g,"'");
+ const cands=[...new Set([v,t,q])];
+ try{for(const c of cands){const raw=await derive(c);const html=await tryKey(raw);if(html!=null){try{sessionStorage.setItem('wso-k',btoa(String.fromCharCode(...raw)))}catch(_){}show(html);return}}
+  e.textContent='Napačno geslo ('+v.length+' znakov). Preverite velike in male črke; samodejno izpolnjevanje gesla lahko vstavi drugo geslo.'}
+ catch(x){e.textContent=x&&x.load?x.message:'Napaka: '+(x&&x.message||x)}})})();
 </script></body></html>
